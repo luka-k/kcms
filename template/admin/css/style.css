@@ -1,0 +1,103 @@
+html, body {
+height: 100%;
+width: 100%;
+margin: 0px;
+padding: 0px;
+background:#efefef url(../img/gray_jean.png);
+}
+
+#left-menu ul{
+margin-bottom:0px;
+
+}
+
+#left-menu li{
+margin-top:5px;
+margin-bottom:5px;
+padding-top:0px;
+padding-bottom:0px;
+}
+
+#left-menu ul ul.noactive{
+display:none;
+}
+
+#left-menu ul ul.active{
+display:block;
+}
+  
+#left-menu ul a {
+text-decoration:none;
+}
+
+#left-menu .icon-sort-down{
+position:relative;
+top:-2px;
+}
+
+#menu{
+padding:0 0.83333333333333%;
+}
+
+
+header{
+background:#fff;
+}
+
+.header{
+border:1px solid red;
+margin:0;
+padding:0;
+}
+
+#page {
+position:relative;
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 0 -100px 0;
+z-index:1;
+}
+
+.back{
+background:#fff;
+border-radius:5px;
+padding-left:  0.83333333333333%;
+padding-right:  0.83333333333333%;
+padding-top:0.2em;
+padding-bottom:0.2em;
+}
+
+#wrap {
+position:relative;
+padding-bottom: 100px;
+z-index:1;
+}
+
+#left_col, #right_col{
+padding-bottom:1em;
+}
+
+#left_col h5{
+margin-bottom:0;
+}
+
+#right_col td{
+border-bottom:1px dotted #e5e5e5;
+}
+
+footer {
+position:relative;
+height: 100px;
+margin-top: -100px;
+background:#4598ef url(../img/gplaypattern.png) repeat;
+z-index:2;
+}
+
+#footer{
+padding:0 0.83333333333333%;
+}
+
+.border{
+border:1px solid red;
+}
