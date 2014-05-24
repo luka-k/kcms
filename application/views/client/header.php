@@ -7,4 +7,4 @@
 	</head>
 <body>
 
-<?=$this->menu_model->view_menu("top_menu")?>
+<?=$this->menu->view("top_menu")?>

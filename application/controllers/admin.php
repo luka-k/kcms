@@ -7,13 +7,10 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
-		//$this->load->model('upload_model');
-		//$this->load->model('pages_model');
-		$this->load->model('menu_model');
 
+		$this->load->model('menu_model');
 		$this->load->model('reg_model');
-		$this->load->model('admin_model');
+
 	}
 		
 	public function index()
@@ -22,13 +19,12 @@ class Admin extends CI_Controller {
 		$data['error'] = " ";
 		if (!$this->session->userdata('logged_in'))
 		{
-			$temp[] = 'enter.php';	
+			$this->load->view('admin/enter.php', $data);	
 		} 
 		else
 		{
 			redirect(base_url().'admin/admin_main');
 		}
-		$this->temp_model->view_temp($temp, $data, "admin");
 	}
 	
 	/*Авторизация пользователя*/	
@@ -41,13 +37,12 @@ class Admin extends CI_Controller {
 		if (!$authdata['logged_in'])
 		{
 			$data['error'] = "Данные не верны. Повторите ввод";		
-			$temp[] = 'enter.php';		
+			$this->load->view('admin/main.php', $data);	
 		} 
 		else 
 		{
 			redirect(base_url().'admin/admin_main');		
-		}
-		$this->temp_model->view_temp($temp, $data, "admin");	
+		}	
 	}
 	
 	//Выход
@@ -66,9 +61,7 @@ class Admin extends CI_Controller {
 	public function forgot_pass()
 	{
 		$data['meta_title'] = "Востановление пароля";
-		
-		$temp[] = 'forgot_form.php';
-		$this->temp_model->view_temp($temp, $data, 'admin');			
+		$this->load->view('admin/forgot_form.php', $data);			
 	}
 	
 	/*Вывод формы сброса пароля*/
@@ -77,8 +70,9 @@ class Admin extends CI_Controller {
 		$data['meta_title'] = "Сброс пароля";
 		$data['email'] = $this->input->get('email');
 		$data['secret'] = $this->input->get('secret');
-		$temp[] = 'new_pass.php';
-		$this->temp_model->view_temp($temp, $data, 'admin');		
+		$this->load->view('admin/new_pass.php', $data);
+		//$temp[] = 'new_pass.php';
+		//$this->temp_model->view_temp($temp, $data, 'admin');		
 	}
 	
 	/*Востановление пароля*/	
@@ -89,7 +83,7 @@ class Admin extends CI_Controller {
 		{
             $data['meta_title']="Востановление пароля";
 			$data['error']='Не правильно введен e-mail';
-			$temp[] = 'forgot_form.php';
+			$this->load->view('admin/forgot_form.php', $data);	
         } 
 		else 
 		{
@@ -110,23 +104,22 @@ class Admin extends CI_Controller {
 				{
 					$data['meta_title']="Востановление пароля";
 					$data['error']='Не удалось отправить письмо для востановления пароля';
-					$temp[] = 'forgot_form.php';
+					$this->load->view('admin/forgot_form.php', $data);	
 				}
 				else
 				{
 					$data['meta_title'] = "Вход";
 					$data['error'] = "";	
-					$temp[] = 'enter.php';
+					$this->load->view('admin/enter.php', $data);
 				}
 			} 
 			else 
 			{
 				$data['title']="Востановление пароля";
 				$data['error']='The email is not exists in system. Please, try again';
-				$temp[] = 'forgot_form.php';
+				$this->load->view('admin/forgot_form.php', $data);	
 			}
 		}
-		$this->temp_model->view_temp($temp, $data, 'admin');	
 	}
 		
 	/*Смена пароля*/
@@ -158,7 +151,7 @@ class Admin extends CI_Controller {
 			$data['meta_title'] = "Вход";
 			$data['error'] = "";
 		}
-		$this->temp_model->view_temp($temp, $data, 'admin');	
+		$this->load->view('admin/main.php', $data);	
 	}
 	
 	//вывод всех страниц в админке
@@ -169,9 +162,7 @@ class Admin extends CI_Controller {
 			'error' => " ",
 			'name' => $this->session->userdata('user_name')
 		);
-		$temp[] = 'top-menu.php';
-		$temp[] = 'admin.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");
+		$this->load->view('admin/main.php', $data);
 	}
 	
 	public function categories()
@@ -182,9 +173,8 @@ class Admin extends CI_Controller {
 			'error' => " ",
 			'name' => $this->session->userdata('user_name')
 		);
-		$temp[] = 'top-menu.php';
-		$temp[] = 'categories.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");		
+
+		$this->load->view('admin/categories.php', $data);
 	}
 	
 	public function category($cat_id=false)
@@ -192,28 +182,26 @@ class Admin extends CI_Controller {
 		$data = array(
 			'meta_title' => "Редактировать категорию",
 			'error' => "",
-			'name' => $_COOKIE['auth']['name'],
-			'cat' => $this->admin_model->get_cat()
+			'name' => $this->session->userdata('user_name'),
+			'cat' => $this->categories->get_list(FALSE)
 		);
 		
 		if ($cat_id===false)
 		{
-			$data['cat_info'] = array (
-				'id' => "",
-				'title' => "",
-				'cat_desc' => '',
-				'root' => ""
-			);
+			$cat = new admin();
+			$cat->id = "";
+			$cat->title = "";
+			$cat->cat_desc = "";
+			$cat->root = ""; 
+			$data['cat_info'] = $cat;
 		}
 		else
 		{
 			$data['cat_info'] = $this->categories->get_item_by(array('id' => $cat_id));
-		}
-		$temp[] = 'top-menu.php';
-		$temp[] = 'edit_cat.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");	
+		}	
+
+		$this->load->view('admin/edit-category.php', $data);
 	}
-	
 	
 	//вывод всех страниц в админке
 	public function pages($cat_id = false)
@@ -233,10 +221,7 @@ class Admin extends CI_Controller {
 		{
 			$data['pages'] = $this->pages->get_list(array('cat_id' => $cat_id));
 		}
-		
-		$temp[] = 'top-menu.php';
-		$temp[] = 'pages.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");
+		$this->load->view('admin/pages.php', $data);
 	}
 	
 	//Вывод страниц редактирования отдельной страницы	
@@ -251,31 +236,28 @@ class Admin extends CI_Controller {
 		if ($id===false)
 		//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 		{
-			$data['page'] = array (
-				'id' => "",
-				'autor' => "",
-				'publish_date' => "",
-				'status' => "1",
-				'cat_id' => "",
-				'title' => "",
-				'meta_title' => '',
-				'keywords' => "",
-				'description' => "",
-				'url' => "",
-				'full_text' => "",
-				'image' => ""
-			);
+			$page = new admin();
+			$page->id = "";
+			$page->autor = "";
+			$page->publish_date = "";
+			$page->status = "";
+			$page->cat_id = "";
+			$page->title = "";
+			$page->meta_title = "";
+			$page->keywords = "";
+			$page->description = "";
+			$page->url = "";
+			$page->full_text = "";
+			$page->image = "";
+			$data['page'] = $page;
 		}
 		else
 		//Если id не пуст выводим инфу страницы из базы
 		{
-			
-			//$data['page'] = $this->admin_model->get_page($id);
 			$data['page'] = $this->pages->get_item_by(array('id' => $id));
 		}
-		$temp[] = 'top-menu.php';
-		$temp[] = 'edit_page.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");		
+
+		$this->load->view('admin/edit-page.php', $data);		
 	}
 	
 	//Удаление страницы
@@ -325,9 +307,7 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$temp[] = 'top-menu.php';
-			$temp[] = 'edit_page.php';	
-			$this->temp_model->view_temp($temp, $data, "admin");				
+			$this->load->view('admin/edit-page.php', $data);			
 		}
 		else
 		{
@@ -347,9 +327,7 @@ class Admin extends CI_Controller {
 				else
 				{
 					$data['error'] = "Страница с таким именем в этой категории уже ссуществует.";
-					$temp[] = 'top-menu.php';
-					$temp[] = 'edit_page.php';	
-					$this->temp_model->view_temp($temp, $data, "admin");					
+					$this->load->view('admin/edit-page.php', $data);
 				}
 			}
 			else
@@ -368,7 +346,7 @@ class Admin extends CI_Controller {
 			'meta_title' => "Редактировать страницу",
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
-			'cat' => $this->admin_model->get_cat(),
+			'cat' => $this->categories->get_list(FALSE),
 			'cat_info' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'title' => $this->input->post('title'),
@@ -384,9 +362,7 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$temp[] = 'top-menu.php';
-			$temp[] = 'edit_cat.php';	
-			$this->temp_model->view_temp($temp, $data, "admin");				
+			$this->load->view('admin/edit-category.php', $data);			
 		}
 		else
 		{
@@ -415,9 +391,7 @@ class Admin extends CI_Controller {
 			'cat' => $this->categories->get_list(FALSE),
 			'settings' => $this->settings->get_item_by(array('id' => 1))
 		);
-		$temp[] = 'top-menu.php';
-		$temp[] = 'settings.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");			
+		$this->load->view('admin/settings.php', $data);		
 	}
 	
 	public function edit_settings()
@@ -446,15 +420,12 @@ class Admin extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке
-				$temp[] = 'top-menu.php';
-				$temp[] = 'settings.php';	
-				$this->temp_model->view_temp($temp, $data, "admin");				
+				$this->load->view('admin/settings.php', $data);						
 			}
 			else
 			{
 				//var_dump($data['settings']);
 				$this->settings->update(1, $data['settings']);
-				//$this->admin_model->edit_settings($data['settings']);
 			}
 		redirect(base_url().'admin/settings');
 		}
@@ -468,9 +439,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'menus' => $this->menus->get_list(FALSE)
 		);
-		$temp[] = 'top-menu.php';
-		$temp[] = 'menus.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");		
+		$this->load->view('admin/menus.php', $data);				
 	}
 	
 	public function menu($id=false)
@@ -478,17 +447,17 @@ class Admin extends CI_Controller {
 		if ($id===false)
 		//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 		{
+			$menu = new admin();
+			$menu->id = "";
+			$menu->name = "";
+			$menu->title = "";
+			$menu->status = "1";
 			$data = array(
 				'meta_title' => "Редактировать меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
-				'menu' => array (
-					'id' => "",
-					'name' => "",
-					'title' => "",
-					'status' => "1"
-				),
+				'menu' => $menu,
 				'links' => NULL
 			);
 		}
@@ -503,10 +472,8 @@ class Admin extends CI_Controller {
 				'menu' => $this->menus->get_item_by(array('id' => $id)),
 				'links' => $this->menus_data->get_list(array('menu_id' => $id))
 			);
-		}
-		$temp[] = 'top-menu.php';
-		$temp[] = 'edit_menu.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");		
+		}	
+		$this->load->view('admin/edit-menu.php', $data);
 	}
 	
 	public function edit_menu()
@@ -530,13 +497,18 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$temp[] = 'top-menu.php';
-			$temp[] = 'edit_menu.php';	
-			$this->temp_model->view_temp($temp, $data, "admin");	
+			$this->load->view('admin/edit-menu.php', $data);	
 		}
 		else
-		{
-			$this->menu_model->edit_menu($data['menu']);	
+		{	
+			if($data['menu']['id'])
+			{
+				$this->menus->update($data['menu']['id'], $data['menu']);
+			}
+			else
+			{
+				$this->menus->insert($data['menu']);
+			}
 			redirect(base_url().'admin/menus');			
 		}
 				
@@ -553,20 +525,20 @@ class Admin extends CI_Controller {
 		if ($link_id==0)
 		//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 		{
+			$link = new admin();
+			$link->id = "";
+			$link->menu_id = $menu_id;
+			$link->title = "";
+			$link->url = "";
+			$link->item_type = "";
+			$link->hidden = "";
 			$data = array(
 				'meta_title' => "Редактировать меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
 				'pages' => $this->pages->get_list(FALSE),
-				'link' => array (
-					'id' => "",
-					'menu_id' => $menu_id,
-					'title' => "",
-					'url' => "",
-					'item_type' => "2",
-					'hidden' => "0",
-				)
+				'link' => $link
 			);
 		}
 		else
@@ -578,12 +550,10 @@ class Admin extends CI_Controller {
 				'error' => "",
 				'cat' => $this->categories->get_list(FALSE),
 				'pages' => $this->pages->get_list(FALSE),
-				'link' => $this->menu_model->get_link($link_id)
+				'link' => $this->menus_data->get_item_by(array('id' => $link_id))
 			);
 		}
-		$temp[] = 'top-menu.php';
-		$temp[] = 'edit_link.php';	
-		$this->temp_model->view_temp($temp, $data, "admin");			
+		$this->load->view('admin/edit-link.php', $data);
 	}
 	
 	public function edit_link()
@@ -599,7 +569,7 @@ class Admin extends CI_Controller {
 		//var_dump($link);
 		$data = array(
 			'meta_title' => "Редактировать меню",
-			'name' => $_COOKIE['auth']['name'],
+			'name' => $this->session->userdata('user_name'),
 			'error' => "",
 			'cat' => $this->categories->get_list(FALSE),
 			'pages' => $this->pages->get_list(FALSE),
@@ -621,9 +591,7 @@ class Admin extends CI_Controller {
 				'item_type' => "2",
 				'hidden' => "0",
 			);
-			$temp[] = 'top-menu.php';
-			$temp[] = 'edit_link.php';	
-			$this->temp_model->view_temp($temp, $data, "admin");	
+			$this->load->view('admin/edit-link.php', $data);	
 		}
 		else
 		{
@@ -637,6 +605,7 @@ class Admin extends CI_Controller {
 			}
 			$link['url'] = $url;
 			//var_dump($link);
+			
 			$this->menu_model->edit_link($link);
 			//echo $link['id'];
 			redirect(base_url()."admin/menu/".$link['menu_id']."#tabr2");		
@@ -648,5 +617,5 @@ class Admin extends CI_Controller {
 		$this->menus_data->delete($id);
 		redirect(base_url()."admin/menu/".$menu_id."#tabr2");	
 	}
-	
+		
 }

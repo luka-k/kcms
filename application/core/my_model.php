@@ -43,7 +43,7 @@ class MY_Model extends CI_Model
 		{
 			return FALSE;
 		}
-		return $this->db->where($factors)->get($this->_table)->row_array();
+		return $this->db->where($factors)->get($this->_table)->row();
 	}
 	
 	//Возращает список страниц по параметррам
@@ -88,11 +88,11 @@ class MY_Model extends CI_Model
 		}
 		if ($limit == FALSE)
 		{
-			return $this->db->get($this->_table)->result_array();
+			return $this->db->get($this->_table)->result();
 		}
 		else
 		{
-			return $this->db->get($this->_table, $limit, $from)->result_array();
+			return $this->db->get($this->_table, $limit, $from)->result();
 		}
 	}
 	

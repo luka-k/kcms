@@ -10,46 +10,6 @@ class Menu_model extends CI_Model{
 		$this->load->database();
 	}
 	
-	function get_cat()
-	{
-		//Выбираем данные из БД
-		$result=mysql_query("SELECT * FROM  categories");
-
-		//Если в базе данных есть записи, формируем массив
-		if   (mysql_num_rows($result) > 0)
-		{
-			$cats = array();
-			//В цикле формируем массив разделов, ключом будет id родительской категории, а также массив разделов, ключом будет id категории
-			while($cat =  mysql_fetch_assoc($result))
-			{
-
-				$cats[$cat['root']][$cat['id']] =  $cat;
-			}
-			
-		}
-		return $cats;
-	}
-	
-	function build_tree($cats, $parent_id)
-	{
-    if(is_array($cats) and isset($cats[$parent_id]))
-	{
-        $tree = '<ul>';
-        foreach($cats[$parent_id] as $cat)
-		{
-            $tree .= '<li><a href="'.base_url().'admin/pages/'.$cat['id'].'">'.$cat['title'].'</a>';
-			//if ($this->build_tree($cats,$cat['id'])<>NULL)
-			//{
-				//$tree .= '<span class="up"><i class="icon-sort-down"></i></span>';
-			//}
-            $tree .=  $this->build_tree($cats, $cat['id']);
-            $tree .= '</li>';
-        }
-		$tree .= '</ul>';
-    }
-    else return null;
-    return $tree;
-	}
 	
 	/*Получение всех меню которые есть на сайте*/
 	public function get_menus()
@@ -65,7 +25,7 @@ class Menu_model extends CI_Model{
 		return $query->row_array();	
 	}
 	
-	/*ПОлучить ссылки определенного меню*/
+	/*Получить ссылки определенного меню*/
 	public function get_links($id)
 	{
 		$query = $this->db->get_where('menus_data', array('menu_id' => $id));
@@ -132,36 +92,47 @@ class Menu_model extends CI_Model{
 		$url =  $query->row_array();
 		return $url['url'];
 	}
-	
-	public function view_menu($menu_name)
-	{
-		$this->db->select('id');
-		$query = $this->db->get_where('menus', array('name' => $menu_name));
-		$id = $query->row_array();
-		$menu_id = $id['id'];
-		$query = $this->db->get_where('menus_data', array('menu_id' => $menu_id));
-		$menu = $query->result_array();
-		
-		foreach ($menu as $menu_item)
-		{
-			if ($menu_item['item_type'] == 1)
-			{
-				$url = base_url()."page/".$menu_item['url'];
 
-			}
-			else if ($menu_item['item_type'] == 2)
+	function get_cat()
+	{
+		//Выбираем данные из БД
+		$result=mysql_query("SELECT * FROM  categories");
+
+		//Если в базе данных есть записи, формируем массив
+		if   (mysql_num_rows($result) > 0)
+		{
+			$cats = array();
+			//В цикле формируем массив разделов, ключом будет id родительской категории, а также массив разделов, ключом будет id категории
+			while($cat =  mysql_fetch_assoc($result))
 			{
-				$url = base_url()."category/".$menu_item['url'];
+
+				$cats[$cat['root']][$cat['id']] =  $cat;
 			}
-			$menu_info[$menu_item['id']] = array(
-				'title' => $menu_item['title'],
-				'url' => $url
-			);
+			
 		}
-		$data['menu'] = $menu_info;
-		$this->load->view('client/menu', $data);
+		return $cats;
 	}
 	
+	function build_tree($cats, $parent_id)
+	{
+    if(is_array($cats) and isset($cats[$parent_id]))
+	{
+        $tree = '<ul>';
+        foreach($cats[$parent_id] as $cat)
+		{
+            $tree .= '<li><a href="'.base_url().'admin/pages/'.$cat['id'].'">'.$cat['title'].'</a>';
+			//if ($this->build_tree($cats,$cat['id'])<>NULL)
+			//{
+				//$tree .= '<span class="up"><i class="icon-sort-down"></i></span>';
+			//}
+            $tree .=  $this->build_tree($cats, $cat['id']);
+            $tree .= '</li>';
+        }
+		$tree .= '</ul>';
+    }
+    else return null;
+    return $tree;
+	}
 	
 	function menu($parent_id)
 	{
