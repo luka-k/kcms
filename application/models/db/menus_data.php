@@ -7,4 +7,6 @@ class Menus_data extends MY_Model
         parent::__construct();
 		$this->load->database();
 	}
+	
+
 }

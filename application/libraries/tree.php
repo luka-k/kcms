@@ -1,18 +1,16 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-// Menu model class
+class Tree{
 
-class Menu_model extends CI_Model{
-
-    function __construct()
+	public function __construct()
 	{
-        parent::__construct();
-		$this->load->database();
-	}	
+		$this->CI =& get_instance();
+	}
+	
 
 	function get_cat()
 	{
-		//Выбираем данные из БД
+		/*//Выбираем данные из БД
 		$result=mysql_query("SELECT * FROM  categories");
 
 		//Если в базе данных есть записи, формируем массив
@@ -25,32 +23,45 @@ class Menu_model extends CI_Model{
 				$cats[$cat['root']][$cat['id']] =  $cat;
 			}
 			
-		}
+		}*/
 		return $cats;
 	}
 	
-	function build_tree($cats, $parent_id)
+	function build_tree($parent_id)
 	{
-    if(is_array($cats) and isset($cats[$parent_id]))
+	$cat = $this->CI->categories->get_list(FALSE);
+	foreach ($cat as $item)
+	{
+		$cats[$item->root][$item->id]['id'] = $item->id;
+		$cats[$item->root][$item->id]['title'] = $item->title;
+	}
+	/*var_dump($cats);*/
+	$data['cats'] = $cats;
+	$data['pid'] = $parent_id;
+	
+	$this->CI->load->view('admin/tree.php', $data);
+	
+    /*if(is_array($cats) and isset($cats[$parent_id]))
 	{
         $tree = '<ul>';
         foreach($cats[$parent_id] as $cat)
 		{
-            $tree .= '<li><a href="'.base_url().'admin/pages/'.$cat['id'].'">'.$cat['title'].'</a>';
+            $tree .= '<li><a href="'.base_url().'admin/pages/'.$cat->id.'">'.$cat->title.'</a>';
+			
 			//if ($this->build_tree($cats,$cat['id'])<>NULL)
 			//{
 				//$tree .= '<span class="up"><i class="icon-sort-down"></i></span>';
 			//}
-            $tree .=  $this->build_tree($cats, $cat['id']);
-            $tree .= '</li>';
+            $tree .=  $this->build_tree($cat->id);
+           $tree .= '</li>';
         }
 		$tree .= '</ul>';
     }
     else return null;
-    return $tree;
+    return $tree;*/
 	}
 	
-	function menu($parent_id)
+	/*function menu($parent_id)
 	{
 		$cats = $this->get_cat();
 		$tree = '<ul>';
@@ -58,8 +69,5 @@ class Menu_model extends CI_Model{
 		$tree .= '</ul>';
 		$tree .= $this->build_tree($cats, $parent_id);
 		return $tree;
-	}
+	}	*/
 }
-
-/* End of file admin_model.php */
-/* Location: ./application/model/task_4/admin*/

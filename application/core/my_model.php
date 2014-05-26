@@ -158,7 +158,7 @@ class MY_Model extends CI_Model
 			$this->db->set($field['field'],$this->input->post($field['field']));
 		}
 		$this->accordion('edit');
-		$this->update($id,$data);
+		$this->update($id, $data);
     }
 	
 	//Обновляет поле страницы

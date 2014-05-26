@@ -33,6 +33,7 @@ class Menu{
 		$this->CI->load->view('client/menu', $data);
 	}
 	
+
 	
 }
 

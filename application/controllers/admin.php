@@ -9,8 +9,6 @@ class Admin extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('menu_model');
-		$this->load->model('reg_model');
-
 	}
 		
 	public function index()
@@ -32,7 +30,7 @@ class Admin extends CI_Controller {
 	{
 		$email = $this->input->post('email');
 		$pass = md5($this->input->post('pass'));			
-		$authdata = $this->reg_model->login($email, $pass);
+		$authdata = $this->users->login($email, $pass);
 		$data['meta_title'] = "Вход";
 		if (!$authdata['logged_in'])
 		{
@@ -61,6 +59,7 @@ class Admin extends CI_Controller {
 	public function forgot_pass()
 	{
 		$data['meta_title'] = "Востановление пароля";
+		$data['error'] = "";
 		$this->load->view('admin/forgot_form.php', $data);			
 	}
 	
@@ -71,8 +70,6 @@ class Admin extends CI_Controller {
 		$data['email'] = $this->input->get('email');
 		$data['secret'] = $this->input->get('secret');
 		$this->load->view('admin/new_pass.php', $data);
-		//$temp[] = 'new_pass.php';
-		//$this->temp_model->view_temp($temp, $data, 'admin');		
 	}
 	
 	/*Востановление пароля*/	
@@ -88,7 +85,8 @@ class Admin extends CI_Controller {
 		else 
 		{
 			$email = $this->input->post('email');
-			$user_email = $this->reg_model->get_user_email($email);
+			$user_email = $this->users->get_user_email($email);
+
 			if($user_email) 
 			{
 				$from = 'admin@admin.com';
@@ -113,9 +111,9 @@ class Admin extends CI_Controller {
 					$this->load->view('admin/enter.php', $data);
 				}
 			} 
-			else 
+			else
 			{
-				$data['title']="Востановление пароля";
+				$data['meta_title']="Востановление пароля";
 				$data['error']='The email is not exists in system. Please, try again';
 				$this->load->view('admin/forgot_form.php', $data);	
 			}
@@ -131,7 +129,6 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			$data['meta_title'] = "Востановление пароля";	
-			$temp[] = 'new_pass.php';
 		} 
 		else 
 		{
@@ -139,7 +136,7 @@ class Admin extends CI_Controller {
 			$secret = $this->input->post('secret');
 			$password = $this->input->post('password');
 			$new_password=md5($password);
-			$this->reg_model->insert_new_pass($email, $new_password, $secret); 
+			$this->users->insert_new_pass($email, $new_password, $secret); 
 			
 			$from = 'admin@admin.com';
 			$who = 'Admin';
@@ -147,11 +144,12 @@ class Admin extends CI_Controller {
 			$subject = 'Your new password';
 			$message = 'You new password to access to your account is  '. $password;
 			$this->email_model->send_mail($from, $who, $to, $subject, $message);
-			$temp[] = 'enter.php';
-			$data['meta_title'] = "Вход";
-			$data['error'] = "";
+			$data = array(
+				'meta_title' => "Вход",
+				'error' => " ",
+			);
 		}
-		$this->load->view('admin/main.php', $data);	
+		$this->load->view('admin/enter.php', $data);	
 	}
 	
 	//вывод всех страниц в админке
@@ -566,7 +564,6 @@ class Admin extends CI_Controller {
 			'hidden' => $this->input->post('hidden'),
 			'item_type' => $this->input->post('type')
 		);
-		//var_dump($link);
 		$data = array(
 			'meta_title' => "Редактировать меню",
 			'name' => $this->session->userdata('user_name'),
@@ -583,31 +580,35 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$data['links'] = array (
-				'id' => "",
-				'menu_id' => "",
-				'title' => "",
-				'url' => "",
-				'item_type' => "2",
-				'hidden' => "0",
-			);
+			$link = new Admin();
+			$link->id = "";
+			$link->menu_id = "";
+			$link->title = "";
+			$link->url = "";
+			$link->item_type = "2";
+			$link->hidden = "0";
+			$data['links'] = $link;
 			$this->load->view('admin/edit-link.php', $data);	
 		}
 		else
 		{
 			if ($link['item_type'] == 1)
 			{
-				$url = $this->menu_model->get_url($this->input->post('page_id'), $link['item_type']);
+				$url_info = $this->pages->get_item_by(array('id' => $this->input->post('page_id')));
 			}
 			elseif ($link['item_type'] == 2)
 			{
-				$url = $this->menu_model->get_url($this->input->post('cat_id'), $link['item_type']);
+				$url_info = $this->categories->get_item_by(array('id' => $this->input->post('cat_id')));
 			}
-			$link['url'] = $url;
-			//var_dump($link);
-			
-			$this->menu_model->edit_link($link);
-			//echo $link['id'];
+			$link['url'] = $url_info->url;
+			if($link['id'] == NULL)
+			{
+				$this->menus_data->insert($link);
+			}
+			else
+			{
+				$this->menus_data->update($link['id'], $link);
+			}
 			redirect(base_url()."admin/menu/".$link['menu_id']."#tabr2");		
 		}
 	}

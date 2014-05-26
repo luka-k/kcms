@@ -5,7 +5,7 @@
 		<div id="page" class="grid flex">
 			<div class="col_12 center">
 				<div class="clearfix" style="width:40%; margin:0 auto">
-
+					<?=$error;?>
 					<?php echo validation_errors(); ?>
 					<p>Введите email для востановления пароля:</p>
 					<form method="post" accept-charset="utf-8" action="<?=base_url()?>admin/forgot_password"/>
