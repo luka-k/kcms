@@ -151,7 +151,7 @@ class MY_Model extends CI_Model
 		return $this->db->delete($this->_table, array('id' => $id)); 
 	}
 	
-	function edit($id,$fields,$data = FALSE)
+	function edit($id, $fields, $data = FALSE)
 	{
 		foreach ($fields as $field)
 		{
@@ -373,5 +373,20 @@ class MY_Model extends CI_Model
 			$this->db->set($sortorder,$prev->$sortorder)->where($primary_key,$item->$primary_key)->update($this->_table);
 			$this->db->set($sortorder,$item->$sortorder)->where($primary_key,$prev->$primary_key)->update($this->_table);
 		}
+	}
+	
+	public function get_sub_tree($parent_id)
+	{
+		$branches = $this->get_list(array('root' => $parent_id));
+		if ($branches) foreach ($branches as $i => $b)
+		{
+			$branches[$i]->childs = $this->get_sub_tree($b->id);
+		}
+		return $branches;
+	}
+
+	public function get_tree()
+	{
+		return $this->get_sub_tree(0);
 	}
 } 
