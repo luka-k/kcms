@@ -7,8 +7,6 @@ class Admin extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->load->model('menu_model');
 	}
 		
 	public function index()
@@ -185,11 +183,11 @@ class Admin extends CI_Controller {
 		{
 			$data = array(
 				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
 				'meta_title' => "CMS",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name')
 			);
-
 			$this->load->view('admin/categories.php', $data);
 		}
 	}

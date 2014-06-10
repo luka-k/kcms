@@ -375,18 +375,18 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	public function get_sub_tree($parent_id)
+	public function get_sub_tree($parent_id, $parent_id_field)
 	{
-		$branches = $this->get_list(array('root' => $parent_id));
+		$branches = $this->get_list(array($parent_id_field => $parent_id));
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id);
+			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
 		}
 		return $branches;
 	}
 
 	public function get_tree()
 	{
-		return $this->get_sub_tree(0);
+		return $this->get_sub_tree(0, 'root');
 	}
 } 

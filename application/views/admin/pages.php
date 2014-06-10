@@ -9,7 +9,6 @@
 					<div id="left_col" class="col_3 back">
 						<h5>Категории</h5>
 						<div id="left-menu">
-							<?/*=$this->tree->build_tree(0)*/?>
 							<? require 'tree.php' ?>
 						</div>
 					</div>
