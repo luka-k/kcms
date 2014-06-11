@@ -208,7 +208,8 @@ class Admin extends CI_Controller {
 				'meta_title' => "Редактировать категорию",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'cat' => $this->categories->get_list(FALSE)
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root")
 			);
 		
 			if ($cat_id===false)
@@ -244,6 +245,7 @@ class Admin extends CI_Controller {
 		{
 			$data = array(
 				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
 				'meta_title' => "Страницы",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name')
@@ -278,7 +280,8 @@ class Admin extends CI_Controller {
 				'meta_title' => "Редактировать страницу",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'cat' => $this->categories->get_list(FALSE)			
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root")			
 			);
 			if ($id===false)
 			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
@@ -334,6 +337,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
+			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'page' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'autor' => $this->input->post('autor'),
@@ -395,6 +399,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
+			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'cat_info' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'title' => $this->input->post('title'),
@@ -447,6 +452,7 @@ class Admin extends CI_Controller {
 				'name' => $this->session->userdata('user_name'),
 				'error' => "",
 				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
 				'settings' => $this->settings->get_item_by(array('id' => 1))
 			);
 			$this->load->view('admin/settings.php', $data);	
@@ -460,6 +466,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
+			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'settings' => array (
 				'id' => $this->input->post('id'),
 				'site_title' => $this->input->post('site_title'),
@@ -503,6 +510,7 @@ class Admin extends CI_Controller {
 		{
 			$data = array(
 				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
 				'meta_title' => "Меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
@@ -549,6 +557,7 @@ class Admin extends CI_Controller {
 					'name' => $this->session->userdata('user_name'),
 					'error' => "",
 					'cat' => $this->categories->get_list(FALSE),
+					'tree' => $this->categories->get_sub_tree(0, "root"),
 					'menu' => $this->menus->get_item_by(array('id' => $id)),
 					'links' => $this->menus_data->get_list(array('menu_id' => $id))
 				);
@@ -564,6 +573,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
+			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'menu' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'title' => $this->input->post('title'),
@@ -628,6 +638,7 @@ class Admin extends CI_Controller {
 					'error' => " ",
 					'name' => $this->session->userdata('user_name'),
 					'cat' => $this->categories->get_list(FALSE),
+					'tree' => $this->categories->get_sub_tree(0, "root"),
 					'pages' => $this->pages->get_list(FALSE),
 					'link' => $link
 				);
@@ -640,6 +651,7 @@ class Admin extends CI_Controller {
 					'name' => $this->session->userdata('user_name'),
 					'error' => "",
 					'cat' => $this->categories->get_list(FALSE),
+					'tree' => $this->categories->get_sub_tree(0, "root"),
 					'pages' => $this->pages->get_list(FALSE),
 					'link' => $this->menus_data->get_item_by(array('id' => $link_id))
 				);
@@ -663,6 +675,7 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => "",
 			'cat' => $this->categories->get_list(FALSE),
+			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'pages' => $this->pages->get_list(FALSE),
 			'links' => 0,
 			'link' => $link

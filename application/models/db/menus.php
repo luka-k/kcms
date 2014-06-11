@@ -8,3 +8,4 @@ class Menus extends MY_Model
 		$this->load->database();
 	}
 }
+

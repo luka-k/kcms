@@ -12,7 +12,8 @@ class Client extends CI_Controller {
 	
 	public function index($url = false)
 	{
-		$data = $this->pages->get_item_by(array('url'=>$url));
+		$data['page'] = $this->pages->get_item_by(array('url'=>$url));
+		$data['menu'] = $this->menu_model->menu('top_menu');
 		$this->load->view('client/template.php', $data);
 	}
 	
