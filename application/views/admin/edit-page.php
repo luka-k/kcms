@@ -14,7 +14,59 @@
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">
-						<ul class="tabs left">
+					<?$count = 1?>
+					<ul class="tabs left">
+						<?foreach ($editors as $key => $edit):?>
+							<li><a href="#tabr<?=$count?>"><?=$key?></a></li>
+							<?$count++?>
+						<?endforeach?>
+					</ul>
+					
+					<?php $count = 1?>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
+					<?php foreach ($editors as $key => $edits):?>
+						<div id="tabr<?=$count?>" class="clearfix tab-content">
+							<?=$error;?>
+							<?php echo validation_errors(); ?>
+								<div  class="col_12">
+									<button type="submit">Сохранить</button>
+								</div>
+								
+								<?php $coun = 1?>
+								
+								<?php foreach($edits as $name => $edit):?>
+									<?php if ($edit['1'] == 'hidden'):?>
+										<input type="<?=$edit['1']?>" name="<?=$name?>"/>
+									<?php else:?>
+									<div  class="col_12">
+										<div class="col_2"><label for="lbl_<?=$coun?>"><?=$edit['0']?></label></div>
+										<?php if ($edit['1'] == 'text'):?>
+											<input type="text" id="lbl_<?=$coun?>" class="col_9" name="<?=$name?>" value="<?=$page->$name?>"/><br/>
+										<?php elseif ($edit['1'] == 'checkbox'):?>
+											<div class="col_9" ><input type="checkbox" id="lbl_<?=$coun?>" name="<?=$name?>" <?php if ($page->$name== 1):?> checked <?php endif; ?>/></div>
+										<?php elseif ($edit['1'] == 'select'):?>
+											<div class="col_9">
+												<select id="lbl_<?=$coun?>" class="col_12"  name="<?=$name?>">
+													<option value="0">Без категории</option>
+													<?php foreach ($cat as $cat_item): ?>
+														<option value="<?=$cat_item->id?>" <?php if ($cat_item->id == $page->$name):?>selected="selected"<?php endif; ?>><?=$cat_item->title?></option>
+													<?php endforeach ?>										
+												</select>									
+											</div>
+										<?php elseif ($edit['1'] == 'tiny'):?>
+											<div  class="col_9">
+												<textarea  name="<?=$name?>" class="textarea col_12" rows="20" cols="50" placeholder="<?=$edit['0']?>"><?=$page->$name?></textarea>
+											</div>
+										<?php endif;?>
+									</div>
+									<?php endif;?>
+								<?php endforeach?>
+						</div>
+						<?$count++?>
+					<?endforeach?>
+					</form>
+					
+						<!--<ul class="tabs left">
 							<li><a href="#tabr1">Основное</a></li>
 						</ul>
 
@@ -80,7 +132,7 @@
 								</div>
 								<button type="submit">Сохранить</button>
 							</form>
-						</div>
+						</div>-->
 					
 					</div>
 				</div>

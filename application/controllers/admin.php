@@ -250,7 +250,7 @@ class Admin extends CI_Controller {
 				'error' => " ",
 				'name' => $this->session->userdata('user_name')
 			);
-		
+					
 			if ($cat_id === false)
 			{
 				$data['pages'] = $this->pages->get_list(FALSE);
@@ -281,7 +281,8 @@ class Admin extends CI_Controller {
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root")			
+				'tree' => $this->categories->get_sub_tree(0, "root"),	
+				'editors' => $this->pages->editors				
 			);
 			if ($id===false)
 			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
