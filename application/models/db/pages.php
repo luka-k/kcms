@@ -2,7 +2,7 @@
 
 class Pages extends MY_Model
 {
-	var $editors = array(
+	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'cat_id' => array('Категория', 'select'),
@@ -20,6 +20,7 @@ class Pages extends MY_Model
 			'url' => array('url страницы', 'hidden')		
 		)
 	);
+	
 	function __construct()
 	{
         parent::__construct();

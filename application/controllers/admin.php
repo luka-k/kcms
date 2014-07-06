@@ -209,7 +209,8 @@ class Admin extends CI_Controller {
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root")
+				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'editors' => $this->categories->editors
 			);
 		
 			if ($cat_id===false)
@@ -288,18 +289,13 @@ class Admin extends CI_Controller {
 			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 			{
 				$page = new stdClass();
-				$page->id = "";
-				$page->autor = "";
-				$page->publish_date = "";
-				$page->status = "";
-				$page->cat_id = "";
-				$page->title = "";
-				$page->meta_title = "";
-				$page->keywords = "";
-				$page->description = "";
-				$page->url = "";
-				$page->full_text = "";
-				$page->image = "";
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$page->$item = "";
+					}
+				}
 				$data['page'] = $page;
 			}
 			else
@@ -334,8 +330,8 @@ class Admin extends CI_Controller {
 	public function edit_page()
 	{
 		$data = array(
-			'meta_title' => "Редактировать страницу",
 			'name' => $this->session->userdata('user_name'),
+			'meta_title' => "Редактировать страницу",
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "root"),
@@ -364,6 +360,7 @@ class Admin extends CI_Controller {
 		}
 		else
 		{
+			
 			//Если валидация прошла успешно проверяем переменную id
 			if($data['page']["id"]==NULL)
 			{

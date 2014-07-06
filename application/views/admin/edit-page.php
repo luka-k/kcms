@@ -36,7 +36,7 @@
 								
 								<?php foreach($edits as $name => $edit):?>
 									<?php if ($edit['1'] == 'hidden'):?>
-										<input type="<?=$edit['1']?>" name="<?=$name?>"/>
+										<input type="<?=$edit['1']?>" name="<?=$name?>" value="<?=$page->$name?>"/>
 									<?php else:?>
 									<div  class="col_12">
 										<div class="col_2"><label for="lbl_<?=$coun?>"><?=$edit['0']?></label></div>
