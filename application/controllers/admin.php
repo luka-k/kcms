@@ -216,10 +216,13 @@ class Admin extends CI_Controller {
 			if ($cat_id===false)
 			{
 				$cat = new stdClass();
-				$cat->id = "";
-				$cat->title = "";
-				$cat->cat_desc = "";
-				$cat->root = ""; 
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$cat->$item = "";
+					}
+				}
 				$data['cat_info'] = $cat;
 			}
 			else
@@ -334,8 +337,8 @@ class Admin extends CI_Controller {
 			'meta_title' => "Редактировать страницу",
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root"),
-			'page' => array (
+			'tree' => $this->categories->get_sub_tree(0, "root")
+			/*'page' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'autor' => $this->input->post('autor'),
 				'publish_date' => $this->input->post('publish_date'),
@@ -347,8 +350,25 @@ class Admin extends CI_Controller {
 				'description' => htmlspecialchars($this->input->post('description')),
 				'url' => translit_url($this->input->post('title')),
 				'full_text' => $this->input->post('full_text')
-			)				
+			)*/				
 		);
+		
+		$editors = $this->pages->editors;
+		
+		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
+			{
+				if ($value[1] == 'tiny')
+				{
+					$data['page'][$key] = $this->input->post($key);				
+				}
+				else
+				{
+					$data['page'][$key] = htmlspecialchars($this->input->post($key));	
+				}
+			}
+		}
 			
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -393,19 +413,36 @@ class Admin extends CI_Controller {
 	public function edit_cat()
 	{
 		$data = array(
-			'meta_title' => "Редактировать страницу",
+			'meta_title' => "Редактировать категорию",
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root"),
-			'cat_info' => array (
+			'tree' => $this->categories->get_sub_tree(0, "root")
+			/*'cat_info' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'title' => $this->input->post('title'),
 				'url' => translit_url($this->input->post('title')),
 				'root' => $this->input->post('root'),
 				'cat_desc' => $this->input->post('cat_desc')
-				)				
+				)	*/			
 		);
+		
+		$editors = $this->categories->editors;
+		
+		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
+			{
+				if ($value[1] == 'tiny')
+				{
+					$data['cat_info'][$key] = $this->input->post($key);				
+				}
+				else
+				{
+					$data['cat_info'][$key] = htmlspecialchars($this->input->post($key));	
+				}
+			}
+		}
 
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -451,7 +488,8 @@ class Admin extends CI_Controller {
 				'error' => "",
 				'cat' => $this->categories->get_list(FALSE),
 				'tree' => $this->categories->get_sub_tree(0, "root"),
-				'settings' => $this->settings->get_item_by(array('id' => 1))
+				'settings' => $this->settings->get_item_by(array('id' => 1)),
+				'editors' => $this->settings->editors
 			);
 			$this->load->view('admin/settings.php', $data);	
 		}
@@ -464,8 +502,8 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root"),
-			'settings' => array (
+			'tree' => $this->categories->get_sub_tree(0, "root")
+			/*'settings' => array (*
 				'id' => $this->input->post('id'),
 				'site_title' => $this->input->post('site_title'),
 				'site_description' => $this->input->post('site_description'),
@@ -475,11 +513,28 @@ class Admin extends CI_Controller {
 				'main_page_id' => htmlspecialchars($this->input->post('main_page_id')),
 				'site_offline' => $this->input->post('site_offline'),
 				'offline_text' => $this->input->post('offline_text')
-			)				
+			)*/				
 		);
+		
+		$editors = $this->settings->editors;
+		
+		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
+			{
+				if ($value[1] == 'tiny')
+				{
+					$data['settings'][$key] = $this->input->post($key);				
+				}
+				else
+				{
+					$data['settings'][$key] = htmlspecialchars($this->input->post($key));	
+				}
+			}
+		}
 
 		//Валидация формы
-		$this->form_validation->set_rules('main_page_id', 'Main_page_id', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('trim|xss_clean|required');
 		
 		if($this->form_validation->run() == FALSE)
 		{
@@ -530,35 +585,33 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$data = array(
+				'meta_title' => "Редактировать меню",
+				'error' => " ",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'editors' => $this->menus->editors
+			);
 			if ($id===false)
 			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 			{
 				$menu = new stdClass();
-				$menu->id = "";
-				$menu->name = "";
-				$menu->title = "";
-				$menu->status = "1";
-				$data = array(
-					'meta_title' => "Редактировать меню",
-					'error' => " ",
-					'name' => $this->session->userdata('user_name'),
-					'cat' => $this->categories->get_list(FALSE),
-					'menu' => $menu,
-					'links' => NULL
-				);
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$menu->$item = "";
+					}
+				}
+				$data['menu'] = $menu;
+				$data['links'] = NULL;
 			}
 			else
 			//Если id не пуст выводим инфу страницы из базы
 			{
-				$data = array(
-					'meta_title' => "Редактировать меню",
-					'name' => $this->session->userdata('user_name'),
-					'error' => "",
-					'cat' => $this->categories->get_list(FALSE),
-					'tree' => $this->categories->get_sub_tree(0, "root"),
-					'menu' => $this->menus->get_item_by(array('id' => $id)),
-					'links' => $this->menus_data->get_list(array('menu_id' => $id))
-				);
+				$data['menu'] = $this->menus->get_item_by(array('id' => $id));
+				$data['links'] = $this->menus_data->get_list(array('menu_id' => $id));
 			}	
 			$this->load->view('admin/edit-menu.php', $data);
 		}
@@ -571,14 +624,32 @@ class Admin extends CI_Controller {
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root"),
-			'menu' => array (
+			'tree' => $this->categories->get_sub_tree(0, "root")
+			/*'menu' => array (
 				'id' => htmlspecialchars($this->input->post('id')),
 				'title' => $this->input->post('title'),
 				'name' => $this->input->post('name'),
 				'status' => $this->input->post('status')
-				)				
+				)	*/			
 		);
+		
+		$editors = $this->menus->editors;
+		
+		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
+			{
+				if ($value[1] == 'tiny')
+				{
+					$data['menu'][$key] = $this->input->post($key);				
+				}
+				else
+				{
+					$data['menu'][$key] = htmlspecialchars($this->input->post($key));	
+				}
+			}
+		}		
+		
 
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -621,38 +692,35 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$data = array(
+				'meta_title' => "Редактировать меню",
+				'error' => " ",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'pages' => $this->pages->get_list(FALSE),
+				'links' => $this->menus_data->get_list(array('menu_id' => $menu_id)),
+				'editors' => $this->menus_data->editors
+			);
 			if ($link_id==0)
 			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 			{
 				$link = new stdClass();
-				$link->id = "";
-				$link->menu_id = $menu_id;
-				$link->title = "";
-				$link->url = "";
-				$link->item_type = "";
-				$link->hidden = "";
-				$data = array(
-					'meta_title' => "Редактировать меню",
-					'error' => " ",
-					'name' => $this->session->userdata('user_name'),
-					'cat' => $this->categories->get_list(FALSE),
-					'tree' => $this->categories->get_sub_tree(0, "root"),
-					'pages' => $this->pages->get_list(FALSE),
-					'link' => $link
-				);
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$link->$item = "";
+					}
+				}
+				$link->item_type = "1";
+				$link->hidden = "0";
+				$data['link'] = $link; 
 			}
 			else
 			//Если id не пуст выводим инфу страницы из базы
 			{
-				$data = array(
-					'meta_title' => "Редактировать меню",
-					'name' => $this->session->userdata('user_name'),
-					'error' => "",
-					'cat' => $this->categories->get_list(FALSE),
-					'tree' => $this->categories->get_sub_tree(0, "root"),
-					'pages' => $this->pages->get_list(FALSE),
-					'link' => $this->menus_data->get_item_by(array('id' => $link_id))
-				);
+				$data['link'] = $this->menus_data->get_item_by(array('id' => $link_id));
 			}
 			$this->load->view('admin/edit-link.php', $data);
 		}
@@ -660,14 +728,25 @@ class Admin extends CI_Controller {
 	
 	public function edit_link()
 	{
-		$link = array(
-			'id' => $this->input->post('id'),
-			'menu_id' => $this->input->post('menu_id'),
-			'title' => $this->input->post('title'),
-			'url' => $this->input->post('url'),
-			'hidden' => $this->input->post('hidden'),
-			'item_type' => $this->input->post('type')
-		);
+	
+		$editors = $this->menus_data->editors;
+		
+		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
+			{
+				if ($value[1] == 'tiny')
+				{
+					$link[$key] = $this->input->post($key);				
+				}
+				else
+				{
+					$link[$key] = htmlspecialchars($this->input->post($key));	
+				}
+			}
+		}		
+		$link['item_type'] = $this->input->post('type');
+		
 		$data = array(
 			'meta_title' => "Редактировать меню",
 			'name' => $this->session->userdata('user_name'),
@@ -675,6 +754,7 @@ class Admin extends CI_Controller {
 			'cat' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "root"),
 			'pages' => $this->pages->get_list(FALSE),
+			'editors' => $this->menus_data->editors,
 			'links' => 0,
 			'link' => $link
 			);		
@@ -685,18 +765,22 @@ class Admin extends CI_Controller {
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$link = stdClass();
-			$link->id = "";
-			$link->menu_id = "";
-			$link->title = "";
-			$link->url = "";
-			$link->item_type = "2";
+			$link = new stdClass();
+			foreach ($data['editors'] as $tabs)
+			{
+				foreach ($tabs as $item => $value)
+				{
+					$link->$item = "";
+				}
+			}
+			$link->item_type = "1";
 			$link->hidden = "0";
-			$data['links'] = $link;
+			$data['link'] = $link;
 			$this->load->view('admin/edit-link.php', $data);	
 		}
 		else
 		{
+		
 			if ($link['item_type'] == 1)
 			{
 				$url_info = $this->pages->get_item_by(array('id' => $this->input->post('page_id')));
