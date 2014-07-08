@@ -19,13 +19,18 @@ class Client extends CI_Controller {
 	
 	public function category($url = false)
 	{
-		$page = $this->categories->get_item_by(array('url'=>$url));
-		var_dump ($page);
+		$cat_info = $this->categories->get_item_by(array('url'=>$url));
+		$pages = $this->pages->get_list(array('cat_id'=>$cat_info->id));
 		$data = array(
-			'page' => $page
+			'cat_info' => $cat_info,
+			'pages' => $pages,
+			'menu' => $this->menu_model->menu('top_menu')
 		);
+		$this->load->view('client/category.php', $data);
 	}
 	
+	
+		
 }
 
 /* End of file pages.php */
