@@ -1,0 +1,1 @@
+<input type="<?=$edit['1']?>" name="<?=$name?>" value="<?=$content->$name?>"/>

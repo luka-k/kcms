@@ -2,7 +2,7 @@
 			<div class="grid flex">
 			
 				<div class="col_12">
-					KCMS-lite
+					KCMS
 				</div>
 			
 			</div>

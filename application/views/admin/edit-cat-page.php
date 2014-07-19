@@ -8,9 +8,9 @@
 			<? require 'include/top-menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
-						<h5>Каталог</h5>
+						<h6>Страницы по категориям</h6>
 						<div id="left-menu">
-							<? require 'include/categories-tree.php' ?>
+							<? require 'include/cat-pages.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_8 back">
@@ -23,14 +23,14 @@
 						</ul>
 					
 					<?php $count = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_category"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_cat_page"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tabr<?=$count?>" class="clearfix tab-content">
 							<?=$error;?>
 							<?php echo validation_errors(); ?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_category/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="<?=base_url()?>admin/delete_cat_page/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>
 								
 							<?php $coun = 1?>
@@ -41,7 +41,7 @@
 							
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_category/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="<?=base_url()?>admin/delete_cat_page/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>						
 						</div>
 						<?$count++?>

@@ -3,7 +3,7 @@
 		<div id="wrap" class="clearfix">	
 	<div id="menu" class="col_12">
 				<ul class="menu">
-					<li class="current"><a href="<?=base_url()?>admin/admin_main">Главная</a></li>
+					<li class="current"><a href="<?=base_url()?>admin/admin_main">Главная страница</a></li>
 					<li><a href="">Пользователи</a></li>
 					<li><a href="">Страницы</a>
 						<ul>

@@ -6,9 +6,13 @@ padding: 0px;
 background:#efefef url(../img/gray_jean.png);
 }
 
-#left-menu ul{
-margin-bottom:0px;
+#left-menu{
+padding:0;
+}
 
+#left-menu ul{
+margin-bottom:0;
+padding:0;
 }
 
 #left-menu li{
@@ -100,4 +104,13 @@ padding:0 0.83333333333333%;
 
 .border{
 border:1px solid red;
+}
+
+#new-page{
+display:none;
+
+}
+
+.pop-up{
+width:500px;
 }

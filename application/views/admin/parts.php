@@ -1,20 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<? require 'head.php' ?>
 	<body>
-
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top-menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
-						<h5>Каталог</h5>
+						<h5>Разделы</h5>
 						<div id="left-menu">
-							<? require 'include/categories-tree.php' ?>
+							<? require 'include/parts-tree.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_8 back">
-						<h5 class="col_8">Редактировать каталог</h5> <div class="col_4 right"><a class="button small" href="<?=base_url()?>admin/category/">Создать новый</a></div>
+						<div class="col_12">
+							<h5 class="col_8">Редактировать разделы</h5>			
+						</div>
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
@@ -24,11 +25,11 @@
 								</tr>
 							</thead>
 							<tbody id="sortable">
-								<?php foreach ($cat as $cat_item): ?>
+								<?php foreach ($parts as $part): ?>
 								<tr>
-									<td class="tb_1"><?=$cat_item->id?></td>
-									<td class="tb_9"><a href="<?=base_url()?>admin/category/<?=$cat_item->id?>"><?=$cat_item->title?></a></td>
-									<td class="tb_2"><!--<a href="#"><i class="icon-save icon-2x"></i></a>--> <a href="<?=base_url()?>admin/delete_cat/<?=$cat_item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+									<td class="tb_1"><?=$part->id?></td>
+									<td class="tb_9"><a href="<?=base_url()?>admin/parts/<?=$part->id?>"><?=$part->title?></a></td>
+									<td class="tb_2"><!--<a href="#"><i class="icon-save icon-2x"></i></a>--> <a href="<?=base_url()?>admin/delete_cat/<?=$part->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 								</tr>
 								<?php endforeach ?>
 							</tbody>

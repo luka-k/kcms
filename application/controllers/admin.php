@@ -11,8 +11,12 @@ class Admin extends CI_Controller {
 		
 	public function index()
 	{
-		$data['meta_title'] = "Вход";
-		$data['error'] = " ";
+		$data = array(
+			'title' => "Вход",
+			'meta_title' => "Вход",
+			'error' => " "
+		);
+		
 		if (!$this->session->userdata('logged_in'))
 		{
 			$this->load->view('admin/enter.php', $data);	
@@ -56,17 +60,25 @@ class Admin extends CI_Controller {
 	/*Вывод формы востановления пароля*/
 	public function forgot_pass()
 	{
-		$data['meta_title'] = "Востановление пароля";
-		$data['error'] = "";
+		$data = array(
+			'title' => "Востановление пароля",
+			'meta_title' => "Востановление пароля",
+			'error' => " "
+		);
 		$this->load->view('admin/forgot_form.php', $data);			
 	}
 	
 	/*Вывод формы сброса пароля*/
 	public function reset_password()
 	{
-		$data['meta_title'] = "Сброс пароля";
-		$data['email'] = $this->input->get('email');
-		$data['secret'] = $this->input->get('secret');
+		$data = array(
+			'title' => "Сброс пароля",
+			'meta_title' => "Сброс пароля",
+			'error' => " ",
+			'email' => $this->input->get('email'),
+			'secret' => $this->input->get('secret')
+		);
+
 		$this->load->view('admin/new_pass.php', $data);
 	}
 	
@@ -76,8 +88,12 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
 		if($this->form_validation->run() == FALSE)
 		{
-            $data['meta_title']="Востановление пароля";
-			$data['error']='Не правильно введен e-mail';
+			$data = array(
+				'title' => "Востановление пароля",
+				'meta_title' => "Востановление пароля",
+				'error' => "Не правильно введен e-mail"
+			);
+
 			$this->load->view('admin/forgot_form.php', $data);	
         } 
 		else 
@@ -94,21 +110,34 @@ class Admin extends CI_Controller {
 				
 				if (!$this->mail->send_mail($user_email, $subject, $message))
 				{
-					$data['meta_title']="Востановление пароля";
-					$data['error']='Не удалось отправить письмо для востановления пароля';
+				
+					$data = array(
+						'title' => 'Востановление пароля',
+						'meta_title' => "Востановление пароля",
+						'error' => "Не удалось отправить письмо для востановления пароля"
+					);
+
 					$this->load->view('admin/forgot_form.php', $data);	
 				}
 				else
-				{
-					$data['meta_title'] = "Вход";
-					$data['error'] = "";	
+				{					
+					$data = array(
+						'title' => "Вход",
+						'meta_title' => "Вход",
+						'error' => ""
+					);	
+					
 					$this->load->view('admin/enter.php', $data);				
 				}
 			} 
 			else
 			{
-				$data['meta_title']="Востановление пароля";
-				$data['error']='The email is not exists in system. Please, try again';
+				$data = array(
+					'title' => "Востановление пароля",
+					'meta_title' => "Востановление пароля",
+					'error' => "E-mail не зарегистрирован в системе. Введите правильный e-mail и повторите попытку."
+				);
+
 				$this->load->view('admin/forgot_form.php', $data);	
 			}
 		}
@@ -122,7 +151,15 @@ class Admin extends CI_Controller {
 			
 		if($this->form_validation->run() == FALSE)
 		{
-			$data['meta_title'] = "Востановление пароля";	
+			$data = array(
+				'title' => "Востановление пароля",
+				'meta_title' => "Востановление пароля",
+				'error' => "",
+				'email' => $this->input->get('email'),
+				'secret' => $this->input->get('secret')
+			);	
+			
+			$this->load->view('admin/new_pass.php', $data);
 		} 
 		else 
 		{
@@ -153,50 +190,369 @@ class Admin extends CI_Controller {
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
-				'error' => " "
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "CMS",
+				'meta_title' => "CMS",
+				'error' => "",
+				'name' => $this->session->userdata('user_name')
+			);
+
+			$this->load->view('admin/admin.php', $data);
+		}
+	}
+	
+	//Вывод разделов. 
+	public function parts($id = false)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Разделы",
+				'meta_title' => "Разделы",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'parts' => $this->parts->get_list(FALSE),
+				'tree' => $this->parts->get_sub_tree(0, "parent")
+			);
+			if ($id == false)
+			{
+				//Если id не указан выводим все разделы
+				$this->load->view('admin/parts.php', $data);
+			}
+			else
+			{
+				//Если есть id выводим редактирование раздела.
+				$data['editors'] = $this->parts->editors;
+				$data['content'] = $this->parts->get_item_by(array('id' => $id));
+				$this->load->view('admin/edit-part.php', $data);
+			}
+		}		
+	}
+	
+	//Внесение изменений в раздел
+	public function edit_part()
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Разделы",
+				'meta_title' => "Разделы",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'parts' => $this->parts->get_list(FALSE)
+			);
+		
+			$editors = $this->parts->editors;
+		
+			foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($value[1] == 'tiny')
+					{
+						$data['part'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['part'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}
+			
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/edit-part.php', $data);			
+			}
+			else
+			{
+				if ($data['part']['id'] == NULL)
+				{
+					//Если id нет то оставлена место добавить код для добавления раздела
+					redirect(base_url().'admin/parts');
+				}
+				else
+				{
+					//Редактируем раздел по id
+					$this->parts->update($data['part']['id'], $data['part']);
+					redirect(base_url().'admin/parts');
+				}	
+			}		
+		}		
+	}
+	
+	/*------------Редактирование страниц разделов------------*/
+
+	//Вывод страниц раздела
+	public function pages($part_id = false)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
 			);
 			$this->load->view('admin/enter.php', $data);	
 		} 
 		else
 		{
 			$data = array(
-				'meta_title' => "CMS",
-				'error' => " ",
-				'name' => $this->session->userdata('user_name')
+				'title' => "Страницы",
+				'meta_title' => "Страницы",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->parts->get_sub_tree(0, "parent"),
+				'parts' => $this->parts->get_list(FALSE)
 			);
-			$this->load->view('admin/main.php', $data);
+			
+			$parts = $data['parts'];
+			foreach ($parts as $part)
+			{
+				$base = $part->url;
+				$part_pages[$base] = $this->$base->get_list(FALSE);
+			}
+			
+			
+			if ($part_id == NULL)
+			{
+				//Если id раздела не задан получаем все страницы
+				foreach($part_pages as $part_url => $pages)
+				{
+					foreach ($pages as $page)
+					{
+						$page->part_url = $part_url;
+						$data['pages'][] = $page;
+					}
+				}
+			}
+			else
+			{
+				//Если id указан выводим страницы данного раздела
+				foreach ($parts as $part)
+				{
+					if ($part_id == $part->id)
+					{
+						$part_url = $part->url;
+					}
+				}
+				
+				foreach ($part_pages[$part_url] as $page)
+				{
+					$page->part_url = $part_url;
+					$data['pages'][] = $page;
+				}
+				
+			}
+			$this->load->view('admin/pages.php', $data);
 		}
 	}
 	
+	//Вывод информации о странице
+	public function page($part_url = FALSE, $id = FALSE)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Редактировать страницу",
+				'meta_title' => "Редактировать страницу",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				//'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->parts->get_sub_tree(0, "parent")				
+			);
+			
+			//Если url раздела и id страниццы не существуют то выводим всплывающее окно для выбора в какой раздел добавить страницу
+			if ($part_url == FALSE and $id == FALSE)
+			{
+				$part_url = $this->input->post('url');
+				$data['editors'] = $this->$part_url->editors;
+				$page = new stdClass();
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$page->$item = "";
+					}
+				}
+				$data['content'] = $page;
+				
+			}
+			else
+			//Если url категории и id страницы не пуст выводим инфу страницы из базы
+			{
+				$data['editors'] = $this->$part_url->editors;
+				$data['content'] = $this->$part_url->get_item_by(array('id' => $id));
+			}
+			$data['content']->part_url = $part_url;
+			$this->load->view('admin/edit-page.php', $data);
+		}
+	}
+
+	//Редактирование страницы разделов
+	public function edit_page($cat_url)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{	
+			$data = array(
+			'meta_title' => "Редактировать страницу",
+			'error' => " ",
+			'name' => $this->session->userdata('user_name'),
+			'tree' => $this->parts->get_sub_tree(0, "parent")			
+			);
+					
+			$editors = $this->$cat_url->editors;
+		
+			foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($value[1] == 'tiny')
+					{
+						$data['page'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['page'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}
+			
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/edit-page.php', $data);			
+			}
+			else
+			{
+			
+				//Если валидация прошла успешно проверяем переменную id
+				if($data['page']["id"]==NULL)
+				{
+					//Если id пустая создаем новую страницу в базе
+					$fields = array(
+						'title' => $data['page']["title"],
+					);
+					
+					if($this->$cat_url->non_requrrent($fields))
+					{
+						$this->$cat_url->insert($data['page']);
+						redirect(base_url().'admin/pages');
+					}
+					else
+					{
+						$data['error'] = "Страница с таким именем в этой категории уже ссуществует.";
+						$this->load->view('admin/edit-page.php', $data);
+					}
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->$cat_url->update($data['page']['id'], $data['page']);
+					redirect(base_url().'admin/pages');
+				}
+			}
+		}
+	}
+
+	//Удаление страницы
+	public function delete_page($part_url, $id)
+	{
+		if($this->$part_url->delete($id))
+		{
+			redirect(base_url().'admin/pages');
+		}
+	}	
+	
+	/*------------Редактирование каталога------------*/
+	
+	//Вывод списка категорий
 	public function categories()
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход'",
 				'meta_title' => "Вход",
-				'error' => " "
+				'error' => ""
 			);
 			$this->load->view('admin/enter.php', $data);	
 		} 
 		else
 		{
 			$data = array(
-				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'title' => "CMS",
 				'meta_title' => "CMS",
-				'error' => " ",
-				'name' => $this->session->userdata('user_name')
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
 			);
+
 			$this->load->view('admin/categories.php', $data);
 		}
 	}
 	
-	public function category($cat_id=false)
+	//Вывод информации категории по id
+	public function category($cat_id = false)
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
 				'error' => " "
 			);
@@ -205,11 +561,13 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data = array(
-				'meta_title' => "Редактировать категорию",
+				'title' => "Редактировать категорию",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'selects' => array(
+					'parent' =>$this->categories->get_list(FALSE)
+				),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
 				'editors' => $this->categories->editors
 			);
 		
@@ -223,56 +581,138 @@ class Admin extends CI_Controller {
 						$cat->$item = "";
 					}
 				}
-				$data['cat_info'] = $cat;
+				$cat->is_active = "1";
+				$data['content'] = $cat;
 			}
 			else
 			{
-				$data['cat_info'] = $this->categories->get_item_by(array('id' => $cat_id));
+				$data['content'] = $this->categories->get_item_by(array('id' => $cat_id));
 			}	
 
 			$this->load->view('admin/edit-category.php', $data);
 		}
 	}
-	
-	//вывод всех страниц в админке
-	public function pages($cat_id = false)
+
+	//Редактирование категории
+	public function edit_category()
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
-				'error' => " "
+				'error' => ""
 			);
 			$this->load->view('admin/enter.php', $data);	
 		} 
 		else
 		{
 			$data = array(
-				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),
-				'meta_title' => "Страницы",
+				'meta_title' => "Редактировать категорию",
+				'name' => $this->session->userdata('user_name'),
 				'error' => " ",
-				'name' => $this->session->userdata('user_name')
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "parent")				
 			);
-					
-			if ($cat_id === false)
+		
+			$editors = $this->categories->editors;
+		
+			foreach ($editors as $edit)
 			{
-				$data['pages'] = $this->pages->get_list(FALSE);
+				foreach ($edit as $key => $value)
+				{
+					if ($value[1] == 'tiny')
+					{
+						$data['cat_info'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['cat_info'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}
+
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/edit-category.php', $data);			
 			}
 			else
 			{
-				$data['pages'] = $this->pages->get_list(array('cat_id' => $cat_id));
+				//Если валидация прошла успешно проверяем переменную id
+				if($data['cat_info']["id"]==NULL)
+				{
+					//Если id пустая создаем новую страницу в базе
+					$this->categories->insert($data['cat_info']);
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->categories->update($data['cat_info']['id'], $data['cat_info']);
+				}			
 			}
-			$this->load->view('admin/pages.php', $data);
+			redirect(base_url().'admin/categories');
+		}
+	}	
+		
+	//Удаление категории
+	public function delete_cat($cat_id)
+	{
+		if($this->categories->delete($cat_id))
+		{
+			redirect(base_url().'admin/categories');
 		}
 	}
-	
-	//Вывод страниц редактирования отдельной страницы	
-	public function page($id=false)
+
+	/*------------Редактирование страниц каталога------------*/
+
+	//Вывод страниц категорий
+	public function cat_pages($cat_id = false)
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Страницы",
+				'meta_title' => "Страницы",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'cats' => $this->categories->get_list(FALSE)
+			);
+			
+			if ($cat_id == NULL)
+			{
+				//Если id категории не задан получаем все страницы
+				$data['pages'] = $this->cat_pages->get_list(FALSE);
+			}
+			else
+			{
+				//Если id указан выводим страницы данного раздела
+				$data['pages'] = $this->cat_pages->get_list(array('cat_id' => $cat_id));
+			}
+			$this->load->view('admin/cat-pages.php', $data);
+		}
+	}
+	
+	//Вывод информации о странице каталога
+	public function cat_page($id = FALSE)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
 				'error' => " "
 			);
@@ -281,15 +721,17 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data = array(
-				'meta_title' => "Редактировать страницу",
+				'title' => "Редактировать страницу каталога",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),	
-				'editors' => $this->pages->editors				
+				'selects' => array(
+					'cat_id' =>$this->categories->get_list(FALSE)
+				),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'editors' => $this->cat_pages->editors
 			);
+		
 			if ($id===false)
-			//Если id пуст то выводим пустую форму редактирования страницы для ее создания
 			{
 				$page = new stdClass();
 				foreach ($data['editors'] as $tabs)
@@ -299,261 +741,201 @@ class Admin extends CI_Controller {
 						$page->$item = "";
 					}
 				}
-				$data['page'] = $page;
+				$page->is_active = "1";
+				$data['content'] = $page;
 			}
 			else
-			//Если id не пуст выводим инфу страницы из базы
 			{
-				$data['page'] = $this->pages->get_item_by(array('id' => $id));
-			}
+				$data['content'] = $this->cat_pages->get_item_by(array('id' => $id));
+			}	
 
-			$this->load->view('admin/edit-page.php', $data);	
+			$this->load->view('admin/edit-cat-page.php', $data);
+		}
+	}
+	
+	//Редактирование страницы разделов
+	public function edit_cat_page()
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{	
+			$data = array(
+				'title' => "Редактировать страницу каталога",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'selects' => array(
+					'cat_id' =>$this->categories->get_list(FALSE)
+				),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'editors' => $this->cat_pages->editors		
+			);
+					
+			$editors = $this->cat_pages->editors;
+		
+			foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($value[1] == 'tiny')
+					{
+						$data['page'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['page'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}
+			
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/edit-cat-page.php', $data);			
+			}
+			else
+			{
+			
+				//Если валидация прошла успешно проверяем переменную id
+				if($data['page']["id"]==NULL)
+				{
+					//Если id пустая создаем новую страницу в базе
+					$fields = array(
+						'title' => $data['page']["title"],
+					);
+					
+					if($this->cat_pages->non_requrrent($fields))
+					{
+						$this->cat_pages->insert($data['page']);
+						redirect(base_url().'admin/cat_pages');
+					}
+					else
+					{
+						$data['error'] = "Страница с таким именем в каталоге уже ссуществует.";
+						$this->load->view('admin/edit-cat-page.php', $data);
+					}
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->cat_pages->update($data['page']['id'], $data['page']);
+					redirect(base_url().'admin/cat_pages');
+				}
+			}
 		}
 	}
 	
 	//Удаление страницы
-	public function delete_page($id)
+	public function delete_cat_page($id)
 	{
-		if($this->pages->delete($id))
+		if($this->cat_pages->delete($id))
 		{
-			redirect(base_url().'admin/pages');
+			redirect(base_url().'admin/cat_pages');
 		}
-	}
-	
-	//Удаление категории
-	public function delete_cat($cat_id)
-	{
-		if($this->categories->delete($cat_id))
-		{
-			redirect(base_url().'admin/categories');
-		}
-	}
-	
-	//Редактирование страницы
-	public function edit_page()
-	{
-		$data = array(
-			'name' => $this->session->userdata('user_name'),
-			'meta_title' => "Редактировать страницу",
-			'error' => " ",
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root")
-			/*'page' => array (
-				'id' => htmlspecialchars($this->input->post('id')),
-				'autor' => $this->input->post('autor'),
-				'publish_date' => $this->input->post('publish_date'),
-				'status' => $this->input->post('status'),
-				'cat_id' => $this->input->post('cat_id'),
-				'title' => htmlspecialchars($this->input->post('title')),
-				'meta_title' => htmlspecialchars($this->input->post('meta_title')),
-				'keywords' => htmlspecialchars($this->input->post('keywords')),
-				'description' => htmlspecialchars($this->input->post('description')),
-				'url' => translit_url($this->input->post('title')),
-				'full_text' => $this->input->post('full_text')
-			)*/				
-		);
+	}	
 		
-		$editors = $this->pages->editors;
-		
-		foreach ($editors as $edit)
-		{
-			foreach ($edit as $key => $value)
-			{
-				if ($value[1] == 'tiny')
-				{
-					$data['page'][$key] = $this->input->post($key);				
-				}
-				else
-				{
-					$data['page'][$key] = htmlspecialchars($this->input->post($key));	
-				}
-			}
-		}
-			
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-page.php', $data);			
-		}
-		else
-		{
-			
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['page']["id"]==NULL)
-			{
-				//Если id пустая создаем новую страницу в базе
-				$fields = array(
-					'title' => $data['page']["title"],
-					'cat_id' => $data['page']["cat_id"]
-				);
-				if($this->pages->non_requrrent($fields))
-				{
-					$this->pages->insert($data['page']);
-					redirect(base_url().'admin/pages');
-				}
-				else
-				{
-					$data['error'] = "Страница с таким именем в этой категории уже ссуществует.";
-					$this->load->view('admin/edit-page.php', $data);
-				}
-			}
-			else
-			{
-				//Если id не пустая вносим изменения.
-				$this->pages->update($data['page']['id'], $data['page']);
-				redirect(base_url().'admin/pages');
-			}
-		}
-	}
-	
-	//Редактирование категории
-	public function edit_cat()
-	{
-		$data = array(
-			'meta_title' => "Редактировать категорию",
-			'name' => $this->session->userdata('user_name'),
-			'error' => " ",
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root")
-			/*'cat_info' => array (
-				'id' => htmlspecialchars($this->input->post('id')),
-				'title' => $this->input->post('title'),
-				'url' => translit_url($this->input->post('title')),
-				'root' => $this->input->post('root'),
-				'cat_desc' => $this->input->post('cat_desc')
-				)	*/			
-		);
-		
-		$editors = $this->categories->editors;
-		
-		foreach ($editors as $edit)
-		{
-			foreach ($edit as $key => $value)
-			{
-				if ($value[1] == 'tiny')
-				{
-					$data['cat_info'][$key] = $this->input->post($key);				
-				}
-				else
-				{
-					$data['cat_info'][$key] = htmlspecialchars($this->input->post($key));	
-				}
-			}
-		}
-
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-category.php', $data);			
-		}
-		else
-		{
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['cat_info']["id"]==NULL)
-			{
-				//Если id пустая создаем новую страницу в базе
-				$this->categories->insert($data['cat_info']);
-			}
-			else
-			{
-
-				//Если id не пустая вносим изменения.
-				$this->categories->update($data['cat_info']['id'], $data['cat_info']);
-			}			
-		}
-		redirect(base_url().'admin/categories');
-	}
-	
+	/*------------Редактирование настроек------------*/
 	public function settings()
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
-				'error' => " "
+				'error' => ""
 			);
 			$this->load->view('admin/enter.php', $data);	
 		} 
 		else
 		{
 			$data = array(
+				'title' => "Настройки сайта",
 				'meta_title' => "Настройки сайта",
-				'name' => $this->session->userdata('user_name'),
 				'error' => "",
+				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'tree' => $this->categories->get_sub_tree(0, "parent"),
 				'settings' => $this->settings->get_item_by(array('id' => 1)),
 				'editors' => $this->settings->editors
 			);
+
 			$this->load->view('admin/settings.php', $data);	
 		}
 	}
 	
 	public function edit_settings()
 	{
-		$data = array(
-			'meta_title' => "Редактировать страницу",
-			'name' => $this->session->userdata('user_name'),
-			'error' => " ",
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root")
-			/*'settings' => array (*
-				'id' => $this->input->post('id'),
-				'site_title' => $this->input->post('site_title'),
-				'site_description' => $this->input->post('site_description'),
-				'site_keywords' => $this->input->post('site_keywords'),
-				'main_page_type' => $this->input->post('main_page_type'),
-				'main_page_cat' => $this->input->post('main_page_cat'),
-				'main_page_id' => htmlspecialchars($this->input->post('main_page_id')),
-				'site_offline' => $this->input->post('site_offline'),
-				'offline_text' => $this->input->post('offline_text')
-			)*/				
-		);
-		
-		$editors = $this->settings->editors;
-		
-		foreach ($editors as $edit)
+		if (!$this->session->userdata('logged_in'))
 		{
-			foreach ($edit as $key => $value)
-			{
-				if ($value[1] == 'tiny')
-				{
-					$data['settings'][$key] = $this->input->post($key);				
-				}
-				else
-				{
-					$data['settings'][$key] = htmlspecialchars($this->input->post($key));	
-				}
-			}
-		}
-
-		//Валидация формы
-		$this->form_validation->set_rules('trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/settings.php', $data);						
-		}
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
 		else
 		{
-			//var_dump($data['settings']);
-			$this->settings->update(1, $data['settings']);
+			$data = array(
+				'title' => "Редактировать настройки",
+				'meta_title' => "Редактировать настройки",
+				'error' => " ",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "parent")	
+			);
+		
+			$editors = $this->settings->editors;
+		
+			foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($value[1] == 'tiny')
+					{
+						$data['settings'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['settings'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}
+
+			//Валидация формы
+			$this->form_validation->set_rules('trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/settings.php', $data);						
+			}
+			else
+			{
+				$this->settings->update(1, $data['settings']);
+			}
+			redirect(base_url().'admin/settings');
 		}
-		redirect(base_url().'admin/settings');
 	}
+	
+	/*------------Редактирование меню------------*/
 	
 	public function menus()
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
 				'error' => " "
 			);
@@ -562,11 +944,12 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data = array(
-				'cat' => $this->categories->get_list(FALSE),
-				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'title' => "Меню",
 				'meta_title' => "Меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
 				'menus' => $this->menus->get_list(FALSE)
 			);
 			$this->load->view('admin/menus.php', $data);	
@@ -578,6 +961,7 @@ class Admin extends CI_Controller {
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
 				'error' => " "
 			);
@@ -586,6 +970,7 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data = array(
+				'title' => "Редактировать меню",
 				'meta_title' => "Редактировать меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
@@ -619,59 +1004,64 @@ class Admin extends CI_Controller {
 	
 	public function edit_menu()
 	{
-		$data = array(
-			'meta_title' => "Редактировать меню",
-			'name' => $this->session->userdata('user_name'),
-			'error' => " ",
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root")
-			/*'menu' => array (
-				'id' => htmlspecialchars($this->input->post('id')),
-				'title' => $this->input->post('title'),
-				'name' => $this->input->post('name'),
-				'status' => $this->input->post('status')
-				)	*/			
-		);
-		
-		$editors = $this->menus->editors;
-		
-		foreach ($editors as $edit)
+		if (!$this->session->userdata('logged_in'))
 		{
-			foreach ($edit as $key => $value)
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => " "
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Редактировать меню",
+				'meta_title' => "Редактировать меню",
+				'error' => " ",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root")	
+			);
+		
+			$editors = $this->menus->editors;
+		
+			foreach ($editors as $edit)
 			{
-				if ($value[1] == 'tiny')
+				foreach ($edit as $key => $value)
 				{
-					$data['menu'][$key] = $this->input->post($key);				
+					if ($value[1] == 'tiny')
+					{
+						$data['menu'][$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$data['menu'][$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+			}		
+
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/edit-menu.php', $data);	
+			}
+			else
+			{	
+				if($data['menu']['id'])
+				{
+					$this->menus->update($data['menu']['id'], $data['menu']);
 				}
 				else
 				{
-					$data['menu'][$key] = htmlspecialchars($this->input->post($key));	
+					$this->menus->insert($data['menu']);
 				}
+				redirect(base_url().'admin/menus');			
 			}
 		}		
-		
-
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-menu.php', $data);	
-		}
-		else
-		{	
-			if($data['menu']['id'])
-			{
-				$this->menus->update($data['menu']['id'], $data['menu']);
-			}
-			else
-			{
-				$this->menus->insert($data['menu']);
-			}
-			redirect(base_url().'admin/menus');			
-		}
-				
 	}
 	
 	public function delete_menu()
@@ -685,6 +1075,7 @@ class Admin extends CI_Controller {
 		if (!$this->session->userdata('logged_in'))
 		{
 			$data = array(
+				'title' => "Вход",
 				'meta_title' => "Вход",
 				'error' => " "
 			);
@@ -693,6 +1084,7 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data = array(
+				'title' => "Редактировать меню",
 				'meta_title' => "Редактировать меню",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
@@ -728,78 +1120,89 @@ class Admin extends CI_Controller {
 	
 	public function edit_link()
 	{
-	
-		$editors = $this->menus_data->editors;
-		
-		foreach ($editors as $edit)
+		if (!$this->session->userdata('logged_in'))
 		{
-			foreach ($edit as $key => $value)
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => " "
+			);
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Редактировать меню",
+				'meta_title' => "Редактировать меню",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'cat' => $this->categories->get_list(FALSE),
+				'tree' => $this->categories->get_sub_tree(0, "root"),
+				'pages' => $this->pages->get_list(FALSE),
+				'editors' => $this->menus_data->editors
+			);		
+			$editors = $this->menus_data->editors;
+		
+			foreach ($editors as $edit)
 			{
-				if ($value[1] == 'tiny')
+				foreach ($edit as $key => $value)
 				{
-					$link[$key] = $this->input->post($key);				
+					if ($value[1] == 'tiny')
+					{
+						$link[$key] = $this->input->post($key);				
+					}
+					else
+					{
+						$link[$key] = htmlspecialchars($this->input->post($key));	
+					}
+				}
+
+			}	
+			$data['links'] = 0;
+			$data['link'] > $link;
+			$link['item_type'] = $this->input->post('type');
+		
+			//Валидация формы
+			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$link = new stdClass();
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$link->$item = "";
+					}
+				}
+				$link->item_type = "1";
+				$link->hidden = "0";
+				$data['link'] = $link;
+				$this->load->view('admin/edit-link.php', $data);	
+			}
+			else
+			{	
+				if ($link['item_type'] == 1)
+				{
+					$url_info = $this->pages->get_item_by(array('id' => $this->input->post('page_id')));
+				}
+				elseif ($link['item_type'] == 2)
+				{
+					$url_info = $this->categories->get_item_by(array('id' => $this->input->post('cat_id')));
+				}
+				$link['url'] = $url_info->url;
+				if($link['id'] == NULL)
+				{
+					$this->menus_data->insert($link);
 				}
 				else
 				{
-					$link[$key] = htmlspecialchars($this->input->post($key));	
+					$this->menus_data->update($link['id'], $link);
 				}
+				redirect(base_url()."admin/menu/".$link['menu_id']."#tabr2");		
 			}
-		}		
-		$link['item_type'] = $this->input->post('type');
-		
-		$data = array(
-			'meta_title' => "Редактировать меню",
-			'name' => $this->session->userdata('user_name'),
-			'error' => "",
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "root"),
-			'pages' => $this->pages->get_list(FALSE),
-			'editors' => $this->menus_data->editors,
-			'links' => 0,
-			'link' => $link
-			);		
-		
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$link = new stdClass();
-			foreach ($data['editors'] as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$link->$item = "";
-				}
-			}
-			$link->item_type = "1";
-			$link->hidden = "0";
-			$data['link'] = $link;
-			$this->load->view('admin/edit-link.php', $data);	
-		}
-		else
-		{
-		
-			if ($link['item_type'] == 1)
-			{
-				$url_info = $this->pages->get_item_by(array('id' => $this->input->post('page_id')));
-			}
-			elseif ($link['item_type'] == 2)
-			{
-				$url_info = $this->categories->get_item_by(array('id' => $this->input->post('cat_id')));
-			}
-			$link['url'] = $url_info->url;
-			if($link['id'] == NULL)
-			{
-				$this->menus_data->insert($link);
-			}
-			else
-			{
-				$this->menus_data->update($link['id'], $link);
-			}
-			redirect(base_url()."admin/menu/".$link['menu_id']."#tabr2");		
-		}
+		}	
 	}
 	
 	public function delete_link($menu_id, $id)

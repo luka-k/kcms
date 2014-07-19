@@ -70,7 +70,7 @@ $autoload['helper'] = array('url', 'translit', 'upload');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
-| -------------------------------------------------------------------
+| 11-------------------------------------------------------------------
 | Prototype:
 |
 |	$autoload['config'] = array('config1', 'config2');
@@ -81,7 +81,6 @@ $autoload['helper'] = array('url', 'translit', 'upload');
 */
 
 $autoload['config'] = array();
-
 
 /*
 | -------------------------------------------------------------------
@@ -109,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('db/pages',  'db/menus_data', 'db/categories', 'db/settings', 'db/menus', 'db/users', 'menu_model');
+$autoload['model'] = array('db/cat_pages',  'db/menus_data', 'db/categories', 'db/settings', 'db/menus', 'db/users', 'db/parts', 'db/news', 'db/blog', 'menu_model');
 
 
 /* End of file autoload.php */

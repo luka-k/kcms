@@ -7,27 +7,15 @@
 			<? require 'include/top-menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
-						<h6>Страницы по разделам</h6>
+						<h6>Страницы по категориям</h6>
 						<div id="left-menu">
-							<? require 'include/part-pages.php' ?>
+							<? require 'include/cat-pages.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_8 back">
 						<h6 class="col_8 left">Редактировать страницы</h6> 
 						<div class="col_4 right">
-							<a href="#new-page" class="button small lightbox">Создать новую</a>
-							<div id="new-page">
-								<div class="pop-up">	
-									<form method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form2" action="<?=base_url()?>admin/page/"/>
-										<select id="select1" size="" name="url" class="col_12">
-											<?php foreach ($parts as $part): ?>
-												<option value="<?=$part->url?>"><?=$part->title?></option>
-											<?php endforeach ?>
-										</select>
-										<a class="button small" href="#" onClick="document.forms['form2'].submit()">Создать новую</a>
-									</form>
-								</div>
-							</div>
+							<a href="<?=base_url()?>admin/cat_page/" class="button small lightbox">Создать новую</a>
 						</div>
 												
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
@@ -46,9 +34,9 @@
 									<?php foreach ($pages as $page): ?>
 									<tr>
 										<td class="tb_1"><?=$page->id?></td>
-										<td class="tb_9"><a href="<?=base_url()?>admin/page/<?=$page->part_url?>/<?=$page->id?>"><?=$page->title?></a></td>
+										<td class="tb_9"><a href="<?=base_url()?>admin/cat_page/<?=$page->id?>"><?=$page->title?></a></td>
 										<!--<td><input type="checkbox" id="check_<?=$page->id?>" name="status_<?=$page->id?>" value="1" <?php if ($page->status== 1):?> checked <?php endif;?>/></td>-->
-										<td class="tb_2"><!--<a href="<?=base_url()?>admin/edit_page.html?id=<?=$page->id?>&fast_edit=true&status="><i class="icon-save icon-2x"></i></a>--> <a href="<?=base_url()?>admin/delete_page/<?=$page->part_url?>/<?=$page->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_2"><!--<a href="<?=base_url()?>admin/edit_page.html?id=<?=$page->id?>&fast_edit=true&status="><i class="icon-save icon-2x"></i></a>--> <a href="<?=base_url()?>admin/delete_cat_page/<?=$page->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?php endforeach ?>
 								</form>

@@ -1,20 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Categories extends MY_Model
+class News extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'title' => array('Заголовок', 'text'),
-			'parent' => array('Родительская категория', 'select'),
-			'is_active' => array('Активен', 'checkbox'),
-			'cat_desc' => array('Описание', 'tiny')
+			'date' => array('date', 'hidden'),
+			'is_active' => array('Активна', 'checkbox'),
+			'title' => array('Название', 'text'),
+			'prev_text' => array('Предварительный текст', 'tiny'),
+			'full_text' => array('Полный  текст', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),
 			'keywords' => array('Ключевые слова страницы', 'text'),
 			'description' => array('Описание страницы', 'text'),
-			'url' => array('url', 'hidden')
+			'url' => array('url страницы', 'hidden')		
 		)
 	);
 	
@@ -24,3 +25,6 @@ class Categories extends MY_Model
 		$this->load->database();
 	}
 }
+
+/* End of file news.php */
+/* Location: ./application/models/db/news.php */
