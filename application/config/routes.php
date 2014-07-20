@@ -40,12 +40,10 @@
 
 $route['admin'] = 'admin';
 $route['admin/(:any)'] = 'admin/$1';
-$route['page'] = 'client/index';
-$route['page/(:any)'] = 'client/index/$1';
-$route['category'] = 'client/category';
-$route['category/(:any)'] = 'client/category/$1';
-$route['(:any)'] = 'client/index/';
-$route['default_controller'] = "client/index";
+$route['catalog'] = 'catalog/index';
+$route['catalog/(:any)'] = 'catalog/index';
+$route['(:any)'] = 'pages/index/$1';
+$route['default_controller'] = "main/index";
 $route['404_override'] = '';
 
 

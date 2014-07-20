@@ -467,7 +467,8 @@ class Admin extends CI_Controller {
 					}
 				}
 			}
-			
+			$data['page']['url'] = translit_url($data['page']['title']);
+			$data['page']['date'] = date("d.m.Y");
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
@@ -631,6 +632,8 @@ class Admin extends CI_Controller {
 					}
 				}
 			}
+			
+			$data['cat_info']['url'] = translit_url($data['cat_info']['title']);
 
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -646,6 +649,7 @@ class Admin extends CI_Controller {
 				if($data['cat_info']["id"]==NULL)
 				{
 					//Если id пустая создаем новую страницу в базе
+					$data['cat_info']['url'] = translit_url($data['cat_info']['title']);
 					$this->categories->insert($data['cat_info']);
 				}
 				else

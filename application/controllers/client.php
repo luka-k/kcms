@@ -2,7 +2,7 @@
 
 // Client class
 
-class Client extends CI_Controller {
+/*class Client extends CI_Controller {
 
 	public function __construct()
 	{

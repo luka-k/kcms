@@ -97,7 +97,7 @@ class MY_Model extends CI_Model
 	}
 	
 	//Возращает активные страницы
-	function get_active($from = FALSE, $limit = FALSE,$order = FALSE,$direction = 'asc')
+	function get_active($from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
 		return $this->get_list(TRUE,$from,$limit,$order,$direction);
 	}

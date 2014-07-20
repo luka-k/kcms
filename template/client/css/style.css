@@ -1,0 +1,36 @@
+#menu{
+width:900px;
+height:50px;
+margin:0 auto;
+}
+
+#menu ul li{
+float:left;
+margin:0 25px;
+list-style:none;
+}
+
+.wrap{
+width:900px;
+margin:0 auto;
+}
+
+.wrap .head{
+height:20px;
+}
+
+.wrap .title{
+height:20px;
+float:left;
+color:green;
+}
+
+.wrap .date{
+height:20px;
+float:right;
+color:pink;
+}
+
+.wrap .text{
+border:1px solid blue;
+}
