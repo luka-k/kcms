@@ -12,8 +12,8 @@
 						<ul>
 							<li><a href="<?=base_url()?>admin/categories"><i class="icon-edit"></i> Категории</a></li>
 							<li><a href="<?=base_url()?>admin/category"><i class="icon-pencil"></i> Создать категорию</a></li>
-							<li><a href="<?=base_url()?>admin/cat_pages"><i class="icon-edit"></i> Страницы</a></li>
-							<li><a href="<?=base_url()?>admin/category"><i class="icon-pencil"></i> Создать страницу</a></li>
+							<li><a href="<?=base_url()?>admin/cat_pages"><i class="icon-edit"></i> Товары</a></li>
+							<li><a href="<?=base_url()?>admin/cat_page"><i class="icon-pencil"></i> Создать товар</a></li>
 														
 						</ul>
 					</li>

@@ -1,4 +1,4 @@
-<ul>
+<ul class="menu col_12">
 	<li>
 		<a href="<?=base_url()?>">Главная</a>
 	</li>

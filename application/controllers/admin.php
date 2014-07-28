@@ -105,7 +105,7 @@ class Admin extends CI_Controller {
 				$secret = md5($this->config->item('allowed_types'));
 				$email = $this->users->get_item_by(array('email' => $user_email));
 				$this->users->update($email->id, array('secret' => $secret));
-				$subject = 'Forgot password';
+				$subject = 'Востановление пароля';
 				$message = 'Перейдите по ссылке для изменения пароля '.base_url()."admin/reset_password.html?email=$user_email&secret=$secret";
 				
 				if (!$this->mail->send_mail($user_email, $subject, $message))
@@ -173,8 +173,8 @@ class Admin extends CI_Controller {
 			$email = $this->users->get_item_by(array('email' => $user_email));
 			$this->users->update($email->id, array('secret' => ""));			
 
-			$subject = 'Your new password';
-			$message = 'You new password to access to your account is  '. $password;
+			$subject = 'Ваш новый пароль от сайта';
+			$message = 'Ваш новый пароль от сайта -'. $password;
 			$this->mail->send_mail($user_email, $subject, $message);
 			$data = array(
 				'meta_title' => "Вход",
@@ -184,7 +184,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/enter.php', $data);	
 	}
 	
-	//вывод всех страниц в админке
+	//главная
 	public function admin_main()
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -199,11 +199,24 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$from_news = $this->news->get_count(array('is_active' => 1))-5;
+			$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
+			if ($from_news < 0)
+			{
+				$from_news = 0;
+			}
+			
+			if ($from_blog < 0)
+			{
+				$from_blog = 0;
+			}			
 			$data = array(
 				'title' => "CMS",
 				'meta_title' => "CMS",
 				'error' => "",
-				'name' => $this->session->userdata('user_name')
+				'name' => $this->session->userdata('user_name'),
+				'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
+				'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5))
 			);
 
 			$this->load->view('admin/admin.php', $data);
@@ -798,6 +811,8 @@ class Admin extends CI_Controller {
 					}
 				}
 			}
+			
+			$data['page']['url'] = translit_url($data['page']['title']);
 			
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');

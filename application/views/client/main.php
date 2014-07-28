@@ -1,10 +1,10 @@
 <? require 'include/head.php' ?>
-	<body>
-		<div id="menu">
+	<div class="grid flex">
+		<div id="menu col_12">
 			<? require 'include/top-menu.php'?>
 		</div>
 		<div>
-			<h1><?/*=$page->title*/?></h1>
-			<?/*=$page->full_text*/?>
+
 		</div>
+	</div>
 <? require 'include/footer.php' ?>

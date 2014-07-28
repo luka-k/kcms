@@ -338,9 +338,9 @@ class MY_Model extends CI_Model
 	}
     
 	// counter increment
-	function increment($id,$field)
+	function increment($id, $field)
 	{
-		$this->db->set($field,$field.' + 1',FALSE)->where($this->_primary_key,$id)->update($this->_table);
+		$this->db->set($field, $field.' + 1',FALSE)->where($this->_primary_key,$id)->update($this->_table);
 	}
     
 	// counter decrement

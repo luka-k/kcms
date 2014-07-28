@@ -1,36 +1,156 @@
+html, body {
+height: 100%;
+width: 100%;
+margin: 0px;
+padding: 0px;
+background:#efefef url(../img/gray_jean.png);
+}
+
+#main_content{
+background:#fff;
+}
+
+.news-item{
+border-top:1px dotted #ccc;
+}
+
+.blog-item{
+border-top:1px dotted #ccc;
+}
+
+.cat-item{
+height:110px;
+}
+
+.date{
+font-size:14px;
+font-style:italic;
+}
+
+.tree{
+margin-top:0;
+margin-bottom:0;
+}
+
+.tree ul{
+margin-top:0;
+margin-bottom:0;
+}
+
+.tree li{
+margin-top:0;
+margin-bottom:0;
+}
+
+.more a{
+font-size:12px;
+}
+
+#left-menu{
+padding:0;
+}
+
+#left-menu ul{
+margin-bottom:0;
+padding:0;
+}
+
+#left-menu li{
+margin-top:5px;
+margin-bottom:5px;
+padding-top:0px;
+padding-bottom:0px;
+}
+
+#left-menu ul ul.noactive{
+display:none;
+}
+
+#left-menu ul ul.active{
+display:block;
+}
+  
+#left-menu ul a {
+text-decoration:none;
+}
+
+#left-menu .icon-sort-down{
+position:relative;
+top:-2px;
+}
+
 #menu{
-width:900px;
-height:50px;
-margin:0 auto;
+padding:0 0.83333333333333%;
 }
 
-#menu ul li{
-float:left;
-margin:0 25px;
-list-style:none;
+
+header{
+background:#fff;
 }
 
-.wrap{
-width:900px;
-margin:0 auto;
+.header{
+border:1px solid red;
+margin:0;
+padding:0;
 }
 
-.wrap .head{
-height:20px;
+#page {
+position:relative;
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 0 -100px 0;
+z-index:1;
 }
 
-.wrap .title{
-height:20px;
-float:left;
-color:green;
+.back{
+background:#fff;
+border-radius:5px;
+padding-left:  0.83333333333333%;
+padding-right:  0.83333333333333%;
+padding-top:0.2em;
+padding-bottom:0.2em;
 }
 
-.wrap .date{
-height:20px;
-float:right;
-color:pink;
+#wrap {
+position:relative;
+padding-bottom: 100px;
+z-index:1;
 }
 
-.wrap .text{
-border:1px solid blue;
+#left_col, #right_col{
+padding-bottom:1em;
+}
+
+#left_col h5{
+margin-bottom:0;
+}
+
+#right_col td{
+border-bottom:1px dotted #e5e5e5;
+}
+
+footer {
+position:relative;
+height: 100px;
+margin-top: -100px;
+background:#4598ef url(../img/gplaypattern.png) repeat;
+z-index:2;
+}
+
+#footer{
+padding:0 0.83333333333333%;
+}
+
+.border{
+border:1px solid red;
+}
+
+#new-page{
+display:none;
+
+}
+
+.pop-up{
+width:500px;
 }

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Client class
+// Главная страница
 
 class Main extends CI_Controller {
 

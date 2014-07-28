@@ -1,20 +1,28 @@
 <? require 'include/head.php' ?>
-	<body>
-		<div id="menu">
+	<div class="grid flex">
+		<div id="menu col_12">
 			<? require 'include/top-menu.php'?>
 		</div>
-		<div class="wrap">
-			<? foreach ($content as $news):?>
-				<div class="head">
-					<div class="title"><?=$news->title?></div>
-					<div class="date"><?=$news->date?></div>
-				</div>
-				<div class="text">
-					<?=$news->prev_text?>
-				</div>
-				<div>
-					<a href="<?=base_url()?>blog/<?=$news->url?>">Подробнее</a>
-				</div>
-			<? endforeach?>
+		<div class="wrap col_12">
+			<div id="main_content" class="col_8">
+				<? require 'include/breadcrumbs.php'?> 
+				<? foreach ($content as $blog):?>
+					<div class="blog-item col_12">
+						<h6><?=$blog->title?></h6>
+						<div class="date"><?=$blog->date?></div>
+						<div class="text">
+							<?=$blog->prev_text?>
+						</div>
+						<div class="more">
+							<a href="<?=base_url()?>blog/<?=$blog->url?>">Подробнее...</a>
+						</div>
+					</div>
+				<? endforeach?>
+			</div>
+			<div class="col_4">
+				<h5>Каталог продукции</h5>
+				<? require 'include/tree.php' ?>
+			</div>
 		</div>
+	</div>
 <? require 'include/footer.php' ?>
