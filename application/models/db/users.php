@@ -2,13 +2,24 @@
 
 class Users extends MY_Model
 {
+	public $editors = array(
+		'ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ' => array(
+			'id' => array('id', 'hidden'),
+			'secret' => array('secret', 'hidden'),
+			//'status' => array('Ð¡Ñ‚Ð°Ñ‚ÑƒÑ', 'select'),
+			'name' => array('Ð˜Ð¼Ñ', 'text'),
+			'email' => array('ÐŸÐ¾Ñ‡Ñ‚Ð°', 'text'),
+			'password' => array('ÐŸÐ°Ñ€Ð¾Ð»ÑŒ', 'pass')
+		)
+	);
+	
 	function __construct()
 	{
         parent::__construct();
 		$this->load->database();
 	}
 	
-	/*Àâòîðèçàöèÿ*/
+	/*ÐÐ²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ*/
 	public function login($e_email, $e_pass)
 	{	
 		$authdata = array(
@@ -30,7 +41,7 @@ class Users extends MY_Model
 		return $authdata;	
 	}
 	
-	/*Ïðîâåðêà íà ñóùåñòâîâàíèå ðåãèñòðàöèè íà òàêîé email*/		
+	/*ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° ÑÑƒÑ‰ÐµÑÑ‚Ð²Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ Ð½Ð° Ñ‚Ð°ÐºÐ¾Ð¹ email*/		
 	public function get_user_email($email) 
 	{
 		//$sql = "SELECT email FROM users WHERE  email=?"; 
@@ -46,7 +57,7 @@ class Users extends MY_Model
 		}
 	}
 	
-	/*Èçìåíåíèå ïàðîëÿ*/	
+	/*Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð¾Ð»Ñ*/	
 	public function insert_new_pass($email, $new_password, $secret)
 	{
 		$query = $this->db->query("UPDATE users SET password = ".$this->db->escape($new_password)." WHERE email=".$this->db->escape($email)." AND secret=".$this->db->escape($secret)."");	

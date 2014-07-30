@@ -7,7 +7,6 @@
 							<li><a href="<?=base_url()?>admin/pages">Страницы</a></li>
 						</ul>
 					</li>					
-					<!--<li><a href="">Пользователи</a></li>-->
 					<li><a href="">Каталог</a>
 						<ul>
 							<li><a href="<?=base_url()?>admin/categories"><i class="icon-edit"></i> Категории</a></li>
@@ -24,7 +23,7 @@
 						</ul>
 					</li>-->
 					<li><a href="<?=base_url()?>admin/settings">Настройки</a></li>
-					
+					<li><a href="<?=base_url()?>admin/users">Пользователи</a></li>
 					<li class="right"><a href="<?=base_url()?>admin/do_exit"><i class="icon-remove"></i> Выйти</a></li>
 					<li class="right"><a href="#"><i class="icon-user"></i><?=$name?></a></li>
 					<li class="right"><a href="<?=base_url()?>" target = "_blanc"><i class="icon-signout"></i> Перейти на сайт</a></li>

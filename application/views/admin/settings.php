@@ -10,7 +10,7 @@
 					<div id="left_col" class="col_3 back">
 						<h5>Категории</h5>
 						<div id="left-menu">
-							<? require 'tree.php' ?>
+							<? require 'include/tree.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">

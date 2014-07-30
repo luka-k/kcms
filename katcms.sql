@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 28 2014 г., 15:22
+-- Время создания: Июл 30 2014 г., 17:08
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -40,15 +40,16 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `autor` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `date` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `blog`
 --
 
 INSERT INTO `blog` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `keywords`, `description`, `url`, `prev_text`, `full_text`, `autor`, `date`) VALUES
-(2, 0, 1, 'Первая запись в блоге', 'Первая запись в блоге', '', '', 'pervaja-zapis-v-bloge', '<p>Текст первой записи в блоге</p>', '', '', '20.07.2014'),
-(3, 0, 1, 'Вторая запись в блоге', '', '', '', 'vtoraja-zapis-v-bloge', '<p>Текст второй записи</p>', '', '', '20.07.2014');
+(2, 0, 1, 'Первая запись в блоге', 'Первая запись в блоге', '', '', 'pervaja-zapis-v-bloge', '<p>Текст первой записи в блоге</p>', '', '', '30.07.2014'),
+(3, 0, 1, 'Вторая запись в блоге', '', '', '', 'vtoraja-zapis-v-bloge', '<p>Текст второй записи</p>', '', '', '20.07.2014'),
+(4, 0, 1, 'Третья запись в блоге', '', '', '', 'tretja-zapis-v-bloge', '<p>Текст третьей записи в блоге</p>', '', '', '30.07.2014');
 
 -- --------------------------------------------------------
 
@@ -143,8 +144,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3f7b9e444818738278ddd39f6c365b61', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406546331, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:4:"stas";s:9:"logged_in";b:1;}'),
-('a6abbf5a272f1c7e3b0b81a8fd291b58', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406497203, 'a:3:{s:7:"user_id";s:2:"26";s:9:"user_name";s:4:"stas";s:9:"logged_in";b:1;}');
+('52a14a25efc7a754e2c15596dbf5b96b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406721212, 'a:3:{s:7:"user_id";s:2:"26";s:9:"user_name";s:4:"stas";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -294,16 +294,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `secret`) VALUES
-(26, 'stas', 'bcbe3365e6ac95ea2c0343a2395834dd', 'luka_bass_king@inbox.ru', '8d88b7257024d1d26fc50ea6b134e9e9'),
-(27, 'pavel', 'bcbe3365e6ac95ea2c0343a2395834dd', 'luka-rabota@inbox.ru', ''),
-(29, 'vasja', '698d51a19d8a121ce581499d7b701668', 'l@mail.ru', '');
+(26, 'pavel', 'd41d8cd98f00b204e9800998ecf8427e', 'luka_bass_king@inbox.ru', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

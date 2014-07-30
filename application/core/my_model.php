@@ -155,7 +155,7 @@ class MY_Model extends CI_Model
 	{
 		foreach ($fields as $field)
 		{
-			$this->db->set($field['field'],$this->input->post($field['field']));
+			$this->db->set($field['field'], $this->input->post($field['field']));
 		}
 		$this->accordion('edit');
 		$this->update($id, $data);
@@ -317,7 +317,8 @@ class MY_Model extends CI_Model
 			{
 				if ($this->user)
 				{
-					$this->db->set('uid',$this->user->profile['id']);
+		
+		$this->db->set('uid',$this->user->profile['id']);
 				}
 			}
 		}

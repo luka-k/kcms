@@ -8,7 +8,7 @@
 			<? require 'include/top-menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_3 back">
-						<h5>Категории</h5>
+						<h5>Страницы разделов</h5>
 						<div id="left-menu">
 							<? require 'include/part-pages.php' ?>
 						</div>
@@ -23,25 +23,30 @@
 					</ul>
 					
 					<?php $count = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_page/<?=$content->part_url?>"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_user/<?=$content->id?>"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tabr<?=$count?>" class="clearfix tab-content">
 							<?=$error;?>
-							<?php echo validation_errors(); ?>
+							<?=validation_errors(); ?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_page/<?=$content->part_url?>/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>
 								
 							<?php $coun = 1?>
-							<input type="hidden" name="part_url" value="<?=$content->part_url?>">	
 							<?php foreach($edits as $name => $edit):?>
 								<?require "include/editors/{$edit[1]}.php"?>
+								<?php $coun++?>
 							<?php endforeach?>
 							
 							<div  class="col_12">
+								<div class="col_3"><label for="lbl_<?=$coun?>">Повторите пароль</label></div>
+								<div class="col_9"><input type="password" id="lbl_" class="col_12" name="conf_password" placeholder="Повторите пароль"/></div>
+							</div>
+							
+							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_page/<?=$content->part_url?>/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>						
 						</div>
 						<?$count++?>

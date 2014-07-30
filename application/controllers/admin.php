@@ -30,10 +30,16 @@ class Admin extends CI_Controller {
 	/*Авторизация пользователя*/	
 	public function do_enter($field="email", $field="pass")
 	{
+		$data = array(
+			'title' => "Вход",
+			'meta_title' => "Вход",
+			'error' => " "
+		);
+		
 		$email = $this->input->post('email');
 		$pass = md5($this->input->post('pass'));			
 		$authdata = $this->users->login($email, $pass);
-		$data['meta_title'] = "Вход";
+
 		if (!$authdata['logged_in'])
 		{
 			$data['error'] = "Данные не верны. Повторите ввод";		
@@ -78,7 +84,7 @@ class Admin extends CI_Controller {
 			'email' => $this->input->get('email'),
 			'secret' => $this->input->get('secret')
 		);
-
+		
 		$this->load->view('admin/new_pass.php', $data);
 	}
 	
@@ -184,7 +190,191 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/enter.php', $data);	
 	}
 	
-	//главная
+	
+	//Регистрация
+	public function register()
+	{
+		$data = array(
+			'title' => "Регистрация",
+			'meta-title' => "Регистрация",
+			'error' => ""
+		);
+		$this->load->view('admin/register.php', $data);	
+	}
+	
+	//Пользователи
+	
+	public function users()
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Пользователи",
+				'meta_title' => "Пользователи",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->parts->get_list(FALSE),
+				'users' => $this->users->get_list(FALSE)
+			);
+			
+			$this->load->view('admin/users.php', $data);	
+		}
+	}
+	
+	//Информация о пользователе
+	public function user($id = FALSE)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Редактировать пользователя",
+				'meta_title' => "Редактировать пользователя",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->parts->get_sub_tree(0, "parent")				
+			);
+			
+			if ($id == FALSE)
+			{
+				//Если id нет выводи пустую форму для долбавления пользователя
+				$data['editors'] = $this->users->editors;
+				$user = new stdClass();
+				foreach ($data['editors'] as $tabs)
+				{
+					foreach ($tabs as $item => $value)
+					{
+						$user->$item = "";
+					}
+				}
+				$data['content'] = $user;
+				
+			}
+			else
+			//Если id не пустой выводим инфу о пользователе
+			{
+				$data['editors'] = $this->users->editors;
+				$data['content'] = $this->users->get_item_by(array('id' => $id));
+				$data['content']->password = NULL;
+			}
+			$this->load->view('admin/user.php', $data);
+		}
+	}
+	
+	/*Регистрация нового пользователя или изменение данных пользователя*/
+	public function edit_user($id = FALSE)
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$data = array(
+				'title' => "Вход",
+				'meta_title' => "Вход",
+				'error' => ""
+			);
+			
+			$this->load->view('admin/enter.php', $data);	
+		} 
+		else
+		{
+			$data = array(
+				'title' => "Редактировать пользователя",
+				'meta_title' => "Редактировать пользователя",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->parts->get_sub_tree(0, "parent")			
+			);
+
+			$editors = $this->users->editors;
+			$post = $this->input->post();
+			
+			$data['content'] = editors_post($editors, $post);			
+			$data['editors'] = $editors;
+
+			//Валидация формы
+			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');
+			
+			//Если пароль не не пустой добавляем в валидацию данные пароля
+			if ($data['content']->password<>NULL)
+			{
+				$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[3]');
+				$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');	
+			}	
+			
+			//Валидация формы
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/user.php', $data);			
+			}
+			else
+			{	
+				$data['content']->password = md5($data['content']->password);
+				if ($data['content']->id == NULL)
+				{
+					//Если id пустой то добавляем нового пользователя
+					if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+					{
+						$data['error'] ="Пользователь с таким именем уже зарегистрирован";
+						$this->load->view('admin/user.php', $data);
+					} 
+					elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+					{
+						$data['error'] ="Такой email уже зарегистрирован";
+						$this->load->view('admin/user.php', $data);					
+					} 
+					else 
+					{	
+						$this->users->insert($data['content']);
+						redirect(base_url().'admin/users');
+					}				
+				}
+				else
+				{
+					//Если id не пустой обновляем не пустые поля
+					foreach($data['content'] as $field=>$value)
+					{
+						if ($value <> NULL)
+						{
+							$this->db->set($field, $value);
+						}
+					}
+					$this->users->update($data['content']->id);
+					redirect(base_url().'admin/users');
+				}	
+			}	
+		}
+	}
+	
+	//Удаление пользователя
+	public function delete_user($id)
+	{
+		if($this->users->delete($id))
+		{
+			redirect(base_url().'admin/users');
+		}	
+	}
+
+	//Главная страница
 	public function admin_main()
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -199,6 +389,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			//Отбираем для главной последние три записи в блоге и в новостях
 			$from_news = $this->news->get_count(array('is_active' => 1))-5;
 			$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
 			if ($from_news < 0)
@@ -223,7 +414,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	//Вывод разделов. 
+	//Вывод разделов в админке. 
 	public function parts($id = false)
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -285,21 +476,9 @@ class Admin extends CI_Controller {
 			);
 		
 			$editors = $this->parts->editors;
+			$post = $this->input->post();
 		
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data['part'][$key] = $this->input->post($key);				
-					}
-					else
-					{
-						$data['part'][$key] = htmlspecialchars($this->input->post($key));	
-					}
-				}
-			}
+			$data['part'] = editors_post($editors, $post);
 			
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -311,7 +490,7 @@ class Admin extends CI_Controller {
 			}
 			else
 			{
-				if ($data['part']['id'] == NULL)
+				if ($data['part']->id == NULL)
 				{
 					//Если id нет то оставлена место добавить код для добавления раздела
 					redirect(base_url().'admin/parts');
@@ -319,7 +498,7 @@ class Admin extends CI_Controller {
 				else
 				{
 					//Редактируем раздел по id
-					$this->parts->update($data['part']['id'], $data['part']);
+					$this->parts->update($data['part']->id, $data['part']);
 					redirect(base_url().'admin/parts');
 				}	
 			}		
@@ -412,7 +591,6 @@ class Admin extends CI_Controller {
 				'meta_title' => "Редактировать страницу",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				//'cat' => $this->categories->get_list(FALSE),
 				'tree' => $this->parts->get_sub_tree(0, "parent")				
 			);
 			
@@ -429,6 +607,7 @@ class Admin extends CI_Controller {
 						$page->$item = "";
 					}
 				}
+				$page->is_active = "1";
 				$data['content'] = $page;
 				
 			}
@@ -458,30 +637,19 @@ class Admin extends CI_Controller {
 		else
 		{	
 			$data = array(
-			'meta_title' => "Редактировать страницу",
-			'error' => " ",
-			'name' => $this->session->userdata('user_name'),
-			'tree' => $this->parts->get_sub_tree(0, "parent")			
+				'meta_title' => "Редактировать страницу",
+				'error' => " ",
+				'name' => $this->session->userdata('user_name'),
+				'tree' => $this->parts->get_sub_tree(0, "parent")			
 			);
 					
 			$editors = $this->$cat_url->editors;
+			$post = $this->input->post();
 		
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data['page'][$key] = $this->input->post($key);				
-					}
-					else
-					{
-						$data['page'][$key] = htmlspecialchars($this->input->post($key));	
-					}
-				}
-			}
-			$data['page']['url'] = translit_url($data['page']['title']);
-			$data['page']['date'] = date("d.m.Y");
+			$data['page'] = editors_post($editors, $post);
+			
+			$data['page']->url = translit_url($data['page']->title);
+			$data['page']->date = date("d.m.Y");
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
@@ -494,11 +662,11 @@ class Admin extends CI_Controller {
 			{
 			
 				//Если валидация прошла успешно проверяем переменную id
-				if($data['page']["id"]==NULL)
+				if($data['page']->id==NULL)
 				{
 					//Если id пустая создаем новую страницу в базе
 					$fields = array(
-						'title' => $data['page']["title"],
+						'title' => $data['page']->title
 					);
 					
 					if($this->$cat_url->non_requrrent($fields))
@@ -515,7 +683,7 @@ class Admin extends CI_Controller {
 				else
 				{
 					//Если id не пустая вносим изменения.
-					$this->$cat_url->update($data['page']['id'], $data['page']);
+					$this->$cat_url->update($data['page']->id, $data['page']);
 					redirect(base_url().'admin/pages');
 				}
 			}
@@ -630,23 +798,11 @@ class Admin extends CI_Controller {
 			);
 		
 			$editors = $this->categories->editors;
+			$post = $this->input->post();
 		
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data['cat_info'][$key] = $this->input->post($key);				
-					}
-					else
-					{
-						$data['cat_info'][$key] = htmlspecialchars($this->input->post($key));	
-					}
-				}
-			}
+			$data['cat_info'] = editors_post($editors, $post);
 			
-			$data['cat_info']['url'] = translit_url($data['cat_info']['title']);
+			$data['cat_info']->url = translit_url($data['cat_info']->title);
 
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -659,16 +815,15 @@ class Admin extends CI_Controller {
 			else
 			{
 				//Если валидация прошла успешно проверяем переменную id
-				if($data['cat_info']["id"]==NULL)
+				if($data['cat_info']->id==NULL)
 				{
 					//Если id пустая создаем новую страницу в базе
-					$data['cat_info']['url'] = translit_url($data['cat_info']['title']);
 					$this->categories->insert($data['cat_info']);
 				}
 				else
 				{
 					//Если id не пустая вносим изменения.
-					$this->categories->update($data['cat_info']['id'], $data['cat_info']);
+					$this->categories->update($data['cat_info']->id, $data['cat_info']);
 				}			
 			}
 			redirect(base_url().'admin/categories');
@@ -796,23 +951,11 @@ class Admin extends CI_Controller {
 			);
 					
 			$editors = $this->cat_pages->editors;
+			$post = $this->input->post();
 		
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data['page'][$key] = $this->input->post($key);				
-					}
-					else
-					{
-						$data['page'][$key] = htmlspecialchars($this->input->post($key));	
-					}
-				}
-			}
+			$data['page'] = editors_post($editors, $post);
 			
-			$data['page']['url'] = translit_url($data['page']['title']);
+			$data['page']->url = translit_url($data['page']->title);
 			
 			//Валидация формы
 			$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -826,11 +969,11 @@ class Admin extends CI_Controller {
 			{
 			
 				//Если валидация прошла успешно проверяем переменную id
-				if($data['page']["id"]==NULL)
+				if($data['page']->id==NULL)
 				{
 					//Если id пустая создаем новую страницу в базе
 					$fields = array(
-						'title' => $data['page']["title"],
+						'title' => $data['page']->title,
 					);
 					
 					if($this->cat_pages->non_requrrent($fields))
@@ -847,7 +990,7 @@ class Admin extends CI_Controller {
 				else
 				{
 					//Если id не пустая вносим изменения.
-					$this->cat_pages->update($data['page']['id'], $data['page']);
+					$this->cat_pages->update($data['page']->id, $data['page']);
 					redirect(base_url().'admin/cat_pages');
 				}
 			}
@@ -915,21 +1058,9 @@ class Admin extends CI_Controller {
 			);
 		
 			$editors = $this->settings->editors;
+			$post = $this->input->post();
 		
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data['settings'][$key] = $this->input->post($key);				
-					}
-					else
-					{
-						$data['settings'][$key] = htmlspecialchars($this->input->post($key));	
-					}
-				}
-			}
+			$data['settings'] = editors_post($editors, $post);
 
 			//Валидация формы
 			$this->form_validation->set_rules('trim|xss_clean|required');
