@@ -30,8 +30,6 @@
 							<?=validation_errors(); ?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
-								<a href="<?=base_url()?>admin/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
 							</div>
 								
 							<?php $coun = 1?>
@@ -40,14 +38,13 @@
 								<?php $coun++?>
 							<?php endforeach?>
 							
-							<!--<div  class="col_12">
+							<div  class="col_12">
 								<div class="col_3"><label for="lbl_<?=$coun?>">Повторите пароль</label></div>
 								<div class="col_9"><input type="password" id="lbl_" class="col_12" name="conf_password" placeholder="Повторите пароль"/></div>
-							</div>-->
+							</div>
 							
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>						
 						</div>
 						<?$count++?>

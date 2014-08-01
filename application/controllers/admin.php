@@ -2,13 +2,30 @@
 
 // Admin class
 
-class Admin extends CI_Controller {
-
+class Admin extends CI_Controller 
+{	
+	public $menu = array();
 	public function __construct()
 	{
 		parent::__construct();
-	}
 		
+		$this->menu = array(
+			0 => array("Главная", base_url()."admin/admin_main", 0),
+			1 => array('Разделы', "#", 0, array(
+				0 => array('Редактировать', base_url()."admin/parts/0", 0),
+				1 => array('Создать', base_url()."admin/pages", 0)
+			)),
+			2 => array('Каталог', "#", 0, array(
+				0 => array('Категории', base_url()."admin/categories", 0),
+				1 => array('Создать категорию', base_url()."admin/category", 0),
+				2 => array('Товары', base_url()."admin/cat_pages", 0),
+				3 => array('Создать товар', base_url()."admin/cat_page", 0)				
+			)),
+			3 => array('Настройки', base_url()."admin/settings", 0),
+			4 => array('Пользователи', base_url()."admin/users", 0)
+		);
+	}
+	
 	public function index()
 	{
 		$data = array(
@@ -218,12 +235,14 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[4][2] = 1;
 			$data = array(
 				'title' => "Пользователи",
 				'meta_title' => "Пользователи",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'tree' => $this->parts->get_list(FALSE),
+				'menu' => $this->menu,
 				'users' => $this->users->get_list(FALSE)
 			);
 			
@@ -246,18 +265,20 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[3][2] = 1;
 			$data = array(
 				'title' => "Редактировать пользователя",
 				'meta_title' => "Редактировать пользователя",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
+				'menu' => $this->menu,
 				'tree' => $this->parts->get_sub_tree(0, "parent")				
 			);
 			
 			if ($id == FALSE)
 			{
 				//Если id нет выводи пустую форму для долбавления пользователя
-				$data['editors'] = $this->users->editors;
+				$data['editors'] = $this->users->new_editors;
 				$user = new stdClass();
 				foreach ($data['editors'] as $tabs)
 				{
@@ -267,20 +288,23 @@ class Admin extends CI_Controller {
 					}
 				}
 				$data['content'] = $user;
-				
+				$this->load->view('admin/new-user.php', $data);
 			}
 			else
 			//Если id не пустой выводим инфу о пользователе
 			{
 				$data['editors'] = $this->users->editors;
 				$data['content'] = $this->users->get_item_by(array('id' => $id));
+				$data['content']->secret = md5($this->config->item('allowed_types'));
+				$this->users->update($id, array('secret' => $data['content']->secret));
 				$data['content']->password = NULL;
+				$this->load->view('admin/user.php', $data);
 			}
-			$this->load->view('admin/user.php', $data);
+			
 		}
 	}
 	
-	/*Регистрация нового пользователя или изменение данных пользователя*/
+	/*Изменение данных пользователя*/
 	public function edit_user($id = FALSE)
 	{
 		if (!$this->session->userdata('logged_in'))
@@ -295,61 +319,77 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[4][2] = 1;
 			$data = array(
 				'title' => "Редактировать пользователя",
 				'meta_title' => "Редактировать пользователя",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
+				'menu' => $this->menu,
 				'tree' => $this->parts->get_sub_tree(0, "parent")			
 			);
-
-			$editors = $this->users->editors;
-			$post = $this->input->post();
 			
-			$data['content'] = editors_post($editors, $post);			
-			$data['editors'] = $editors;
-
-			//Валидация формы
-			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');
-			
-			//Если пароль не не пустой добавляем в валидацию данные пароля
-			if ($data['content']->password<>NULL)
-			{
-				$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[3]');
-				$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');	
-			}	
-			
-			//Валидация формы
-			if($this->form_validation->run() == FALSE)
-			{
-				//Если валидация не прошла выводим сообщение об ошибке
-				$this->load->view('admin/user.php', $data);			
-			}
-			else
-			{	
-				$data['content']->password = md5($data['content']->password);
-				if ($data['content']->id == NULL)
+				if ($id == NULL)
 				{
-					//Если id пустой то добавляем нового пользователя
-					if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+					$editors = $this->users->new_editors;
+					$post = $this->input->post();
+			
+					$data['content'] = editors_post($editors, $post);			
+					$data['editors'] = $editors;
+
+					$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+					$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+					
+					$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
+					$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+					
+					//Валидация формы
+					if($this->form_validation->run() == FALSE)
 					{
-						$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-						$this->load->view('admin/user.php', $data);
-					} 
-					elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
-					{
-						$data['error'] ="Такой email уже зарегистрирован";
-						$this->load->view('admin/user.php', $data);					
-					} 
-					else 
+						//Если валидация не прошла выводим сообщение об ошибке
+						$this->load->view('admin/new-user.php', $data);			
+					}
+					else
 					{	
-						$this->users->insert($data['content']);
-						redirect(base_url().'admin/users');
-					}				
+				
+						//Если id пустой то добавляем нового пользователя
+						if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+						{
+							$data['error'] ="Пользователь с таким именем уже зарегистрирован";
+							$this->load->view('admin/new-user.php', $data);
+						} 
+						elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+						{
+							$data['error'] ="Такой email уже зарегистрирован";
+							$this->load->view('admin/new-user.php', $data);					
+						} 
+						else 
+						{	
+							$this->users->insert($data['content']);
+							redirect(base_url().'admin/users');
+						}
+					}						
 				}
 				else
 				{
+					$editors = $this->users->editors;
+					$post = $this->input->post();
+			
+					$data['content'] = editors_post($editors, $post);			
+					$data['editors'] = $editors;
+
+					$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+					$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+					
+					//Валидация формы
+					if($this->form_validation->run() == FALSE)
+					{
+						//Если валидация не прошла выводим сообщение об ошибке
+						$this->load->view('admin/user.php', $data);			
+					}
+					else
+					{					
+				
 					//Если id не пустой обновляем не пустые поля
 					foreach($data['content'] as $field=>$value)
 					{
@@ -360,8 +400,9 @@ class Admin extends CI_Controller {
 					}
 					$this->users->update($data['content']->id);
 					redirect(base_url().'admin/users');
+					}
 				}	
-			}	
+	
 		}
 	}
 	
@@ -400,16 +441,17 @@ class Admin extends CI_Controller {
 			if ($from_blog < 0)
 			{
 				$from_blog = 0;
-			}			
+			}	
+			$this->menu[0][2] = 1;
 			$data = array(
 				'title' => "CMS",
 				'meta_title' => "CMS",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
-				'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5))
+				'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5)),
+				'menu' => $this->menu
 			);
-
 			$this->load->view('admin/admin.php', $data);
 		}
 	}
@@ -429,13 +471,15 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[1][2] = 1;
 			$data = array(
 				'title' => "Разделы",
 				'meta_title' => "Разделы",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'parts' => $this->parts->get_list(FALSE),
-				'tree' => $this->parts->get_sub_tree(0, "parent")
+				'tree' => $this->parts->get_sub_tree(0, "parent"),
+				'menu' => $this->menu
 			);
 			if ($id == false)
 			{
@@ -467,12 +511,14 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[1][2] = 1;
 			$data = array(
 				'title' => "Разделы",
 				'meta_title' => "Разделы",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'parts' => $this->parts->get_list(FALSE)
+				'parts' => $this->parts->get_list(FALSE),
+				'menu' => $this->menu
 			);
 		
 			$editors = $this->parts->editors;
@@ -493,7 +539,9 @@ class Admin extends CI_Controller {
 				if ($data['part']->id == NULL)
 				{
 					//Если id нет то оставлена место добавить код для добавления раздела
+					$this->parts->insert($data['part']);
 					redirect(base_url().'admin/parts');
+					
 				}
 				else
 				{
@@ -501,7 +549,7 @@ class Admin extends CI_Controller {
 					$this->parts->update($data['part']->id, $data['part']);
 					redirect(base_url().'admin/parts');
 				}	
-			}		
+			}			
 		}		
 	}
 	
@@ -521,13 +569,15 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[1][2] = 1;
 			$data = array(
 				'title' => "Страницы",
 				'meta_title' => "Страницы",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'tree' => $this->parts->get_sub_tree(0, "parent"),
-				'parts' => $this->parts->get_list(FALSE)
+				'parts' => $this->parts->get_list(FALSE),
+				'menu' => $this->menu
 			);
 			
 			$parts = $data['parts'];
@@ -586,12 +636,14 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[1][2] = 1;
 			$data = array(
 				'title' => "Редактировать страницу",
 				'meta_title' => "Редактировать страницу",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'tree' => $this->parts->get_sub_tree(0, "parent")				
+				'tree' => $this->parts->get_sub_tree(0, "parent"),
+				'menu' => $this->menu
 			);
 			
 			//Если url раздела и id страниццы не существуют то выводим всплывающее окно для выбора в какой раздел добавить страницу
@@ -636,11 +688,13 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{	
+			$this->menu[1][2] = 1;
 			$data = array(
 				'meta_title' => "Редактировать страницу",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
-				'tree' => $this->parts->get_sub_tree(0, "parent")			
+				'tree' => $this->parts->get_sub_tree(0, "parent"),	
+				'menu' => $this->menu
 			);
 					
 			$editors = $this->$cat_url->editors;
@@ -715,6 +769,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[2][2] = 1;
 			$data = array(
 				'title' => "CMS",
 				'meta_title' => "CMS",
@@ -722,6 +777,7 @@ class Admin extends CI_Controller {
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'menu' => $this->menu
 			);
 
 			$this->load->view('admin/categories.php', $data);
@@ -742,6 +798,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[2][2] = 1;
 			$data = array(
 				'title' => "Редактировать категорию",
 				'error' => "",
@@ -750,6 +807,7 @@ class Admin extends CI_Controller {
 					'parent' =>$this->categories->get_list(FALSE)
 				),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'menu' => $this->menu,
 				'editors' => $this->categories->editors
 			);
 		
@@ -789,11 +847,13 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[2][2] = 1;
 			$data = array(
 				'meta_title' => "Редактировать категорию",
 				'name' => $this->session->userdata('user_name'),
 				'error' => " ",
 				'cat' => $this->categories->get_list(FALSE),
+				'menu' => $this->menu,
 				'tree' => $this->categories->get_sub_tree(0, "parent")				
 			);
 		
@@ -855,12 +915,14 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[2][2] = 1;
 			$data = array(
 				'title' => "Страницы",
 				'meta_title' => "Страницы",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'menu' => $this->menu,
 				'cats' => $this->categories->get_list(FALSE)
 			);
 			
@@ -892,6 +954,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[2][2] = 1;
 			$data = array(
 				'title' => "Редактировать страницу каталога",
 				'error' => "",
@@ -900,6 +963,7 @@ class Admin extends CI_Controller {
 					'cat_id' =>$this->categories->get_list(FALSE)
 				),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'menu' => $this->menu,
 				'editors' => $this->cat_pages->editors
 			);
 		
@@ -939,6 +1003,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{	
+			$this->menu[2][2] = 1;
 			$data = array(
 				'title' => "Редактировать страницу каталога",
 				'error' => "",
@@ -947,6 +1012,7 @@ class Admin extends CI_Controller {
 					'cat_id' =>$this->categories->get_list(FALSE)
 				),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
+				'menu' => $this->menu,
 				'editors' => $this->cat_pages->editors		
 			);
 					
@@ -1020,6 +1086,7 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[3][2] = 1;
 			$data = array(
 				'title' => "Настройки сайта",
 				'meta_title' => "Настройки сайта",
@@ -1028,6 +1095,7 @@ class Admin extends CI_Controller {
 				'cat' => $this->categories->get_list(FALSE),
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
 				'settings' => $this->settings->get_item_by(array('id' => 1)),
+				'menu' => $this->menu,
 				'editors' => $this->settings->editors
 			);
 
@@ -1048,12 +1116,14 @@ class Admin extends CI_Controller {
 		} 
 		else
 		{
+			$this->menu[3][2] = 1;
 			$data = array(
 				'title' => "Редактировать настройки",
 				'meta_title' => "Редактировать настройки",
 				'error' => " ",
 				'name' => $this->session->userdata('user_name'),
 				'cat' => $this->categories->get_list(FALSE),
+				'menu' => $this->menu,
 				'tree' => $this->categories->get_sub_tree(0, "parent")	
 			);
 		

@@ -8,6 +8,17 @@ class Users extends MY_Model
 			'secret' => array('secret', 'hidden'),
 			//'status' => array('Статус', 'select'),
 			'name' => array('Имя', 'text'),
+			'email' => array('Почта', 'text')
+			//'password' => array('Пароль', 'pass')
+		)
+	);
+	
+	public $new_editors = array(
+		'Основное' => array(
+			'id' => array('id', 'hidden'),
+			'secret' => array('secret', 'hidden'),
+			//'status' => array('Статус', 'select'),
+			'name' => array('Имя', 'text'),
 			'email' => array('Почта', 'text'),
 			'password' => array('Пароль', 'pass')
 		)
