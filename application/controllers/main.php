@@ -10,9 +10,9 @@ class Main extends CI_Controller {
 		parent::__construct();
 		$this->menu = array(
 			"0" => array("Главная", base_url(), "1"),
-			"1" => array("Новости", base_url()."news", "0"),
+			"1" => array("Новости", base_url()."pages/news", "0"),
 			"2" => array("Каталог", base_url()."catalog", "0"),
-			"3" => array("Блог", base_url()."blog", "0"),
+			"3" => array("Блог", base_url()."pages/blog", "0"),
 		);
 	}
 	

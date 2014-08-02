@@ -9,9 +9,9 @@ class Catalog extends CI_Controller {
 		parent::__construct();
 		$this->menu = array(
 			"0" => array("Главная", base_url(), "0"),
-			"1" => array("Новости", base_url()."news", "0"),
+			"1" => array("Новости", base_url()."pages/news", "0"),
 			"2" => array("Каталог", base_url()."catalog", "0"),
-			"3" => array("Блог", base_url()."blog", "0"),
+			"3" => array("Блог", base_url()."pages/blog", "0"),
 		);
 	}
 	
@@ -74,6 +74,8 @@ class Catalog extends CI_Controller {
 					$config['base_url'] = base_url()."catalog/".$this->uri->segment(2);
 					$config['total_rows'] = count($this->cat_pages->get_list(array('cat_id' => $category->id)));
 					$config['per_page'] = 3;
+					$config['uri_segment'] = 2;
+					$config['num_links'] = 4;
 					$this->pagination->initialize($config);	
 					$pagination = $this->pagination->create_links();
 					if ($pagin == null)

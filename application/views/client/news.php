@@ -13,10 +13,11 @@
 							<?=$news->prev_text?>
 						</div>
 						<div class="more">
-							<a href="<?=base_url()?>news/<?=$news->url?>">Подробнее...</a>
+							<a href="<?=base_url()?>page/news/<?=$news->url?>">Подробнее...</a>
 						</div>
 					</div>
 				<? endforeach?>
+				<?=$pagination?>
 			</div>
 			<div class="col_4">
 				<h5>Каталог продукции</h5>
