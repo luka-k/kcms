@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('db/cat_pages',  'db/menus_data', 'db/categories', 'db/settings', 'db/menus', 'db/users', 'db/parts', 'db/news', 'db/blog', 'menu_model', 'breadcrumbs_model');
+$autoload['model'] = array('db/cat_pages', 'db/categories', 'db/settings', 'db/users', 'db/parts', 'db/news', 'db/blog', 'breadcrumbs_model');
 
 
 /* End of file autoload.php */
