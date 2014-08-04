@@ -657,6 +657,10 @@ class Admin extends CI_Controller
 		$editors = $this->cat_pages->editors;
 		$post = $this->input->post();
 		
+		$pic = $_FILES['pic'];
+		$this->images_model->upload_image($pic);
+		//var_dump($_FILES['pic']);
+		
 		$data['page'] = editors_post($editors, $post);
 		$data['page']->url = translit_url($data['page']->title);
 			

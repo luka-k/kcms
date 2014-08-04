@@ -20,6 +20,7 @@
 								<li><a href="#tabr<?=$count?>"><?=$key?></a></li>
 								<?$count++?>
 							<?endforeach?>
+							<li><a href="#tabr<?=$count?>">Фотографии</a></li>
 						</ul>
 					
 					<?php $count = 1?>
@@ -46,6 +47,16 @@
 						</div>
 						<?$count++?>
 					<?endforeach?>
+						<div id="tabr<?=$count?>" class="clearfix tab-content">
+							<div  class="col_12">
+								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
+								<a href="<?=base_url()?>admin/delete_cat_page/<?=$content->id?>" class="btn small">Удалить</a>
+							</div>	
+							<div class="col_12">
+								<div class="col_3"><label for="pic">Добавить</label></div>
+								<div class="col_9"><input type="file" id="pic[]" name="pic" /></div>
+							</div>
+						</div>
 					</form>							
 						
 						<!--<div id="tabr1" class="tab-content">

@@ -2,29 +2,16 @@
 
 //Вывод страниц разделов
 class Pages extends CI_Controller {
-
-	public $menu = array();
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->menu = array(
-			"0" => array("Главная", base_url(), "0"),
-			"1" => array("Новости", base_url()."pages/news", "0"),
-			"2" => array("Каталог", base_url()."catalog", "0"),
-			"3" => array("Блог", base_url()."pages/blog", "0"),
-		);
 	}
 	
 	public function index($url_part, /*$url_page = FALSE,*/ $pagin = FALSE)
 	{		
-		switch ($url_part) 
-		{
-			case "news": $this->menu[1][2] = 1;
-			break;
-			case "blog": $this->menu[3][2] = 1;
-			break;
-		}
+		$menu = $this->menus->top_menu;
+		$menu = $this->menus->set_active($menu, $url_part);
 		
 		$news_info = $this->parts->get_item_by(array('url' => $url_part));
 			
@@ -61,40 +48,35 @@ class Pages extends CI_Controller {
 			'content' => array_reverse($items),
 			'breadcrumbs' => $breadcrumbs,
 			'pagination' => $pagination,
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		$this->load->view('client/'.$url_part.'.php', $data);		
 	}
 	
 	public function page($url_part, $url_page)	
 	{
-		switch ($url_part) 
-		{
-			case "news": $this->menu[1][2] = 1;
-			break;
-			case "blog": $this->menu[3][2] = 1;
-			break;
-		}
-			$part = $this->parts->get_item_by(array('url' => $url_part));
-			$news_info = $this->$url_part->get_item_by(array('url' => $url_page));
+		$menu = $this->menus->top_menu;
+		$menu = $this->menus->set_active($menu, $url_part);
+		$part = $this->parts->get_item_by(array('url' => $url_part));
+		$news_info = $this->$url_part->get_item_by(array('url' => $url_page));
 			
-			$breadcrumbs = array(
-				'Главная' => base_url(),
-				$part->title => base_url()."/".$url_part,
-				$news_info->title => ""
-			);
-			
-			$data = array(
-				'title' => $news_info->title,
-				'meta_title' => $news_info->meta_title,
-				'keywords' => $news_info->keywords,
-				'description' => $news_info->description,
-				'tree' => $this->categories->get_sub_tree(0, "parent"),
-				'content' => $news_info,
-				'breadcrumbs' => $breadcrumbs,
-				'menu' => $this->menu
-			);
-			$this->load->view('client/news-page.php', $data);	
+		$breadcrumbs = array(
+			'Главная' => base_url(),
+			$part->title => base_url()."/".$url_part,
+			$news_info->title => ""
+		);
+		
+		$data = array(
+			'title' => $news_info->title,
+			'meta_title' => $news_info->meta_title,
+			'keywords' => $news_info->keywords,
+			'description' => $news_info->description,
+			'tree' => $this->categories->get_sub_tree(0, "parent"),
+			'content' => $news_info,
+			'breadcrumbs' => $breadcrumbs,
+			'menu' => $menu
+		);
+		$this->load->view('client/news-page.php', $data);	
 	}	
 }
 

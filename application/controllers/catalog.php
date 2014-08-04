@@ -2,22 +2,15 @@
 
 class Catalog extends CI_Controller {
 
-	public $menu = array();
-
 	public function __construct()
 	{
 		parent::__construct();
-		$this->menu = array(
-			"0" => array("Главная", base_url(), "0"),
-			"1" => array("Новости", base_url()."pages/news", "0"),
-			"2" => array("Каталог", base_url()."catalog", "0"),
-			"3" => array("Блог", base_url()."pages/blog", "0"),
-		);
 	}
 	
 	public function index($url = FALSE, $pagin = FALSE)
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->top_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		//var_dump($menu);
 		if ($url == FALSE)
 		{
@@ -38,7 +31,7 @@ class Catalog extends CI_Controller {
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
 				'content' => $cat,
 				'breadcrumbs' => $breadcrumbs,
-				'menu' => $this->menu
+				'menu' => $menu
 			);
 			$this->load->view('client/categories.php', $data);			
 		}
@@ -58,7 +51,7 @@ class Catalog extends CI_Controller {
 					'tree' => $this->categories->get_sub_tree(0, "parent"),
 					'content' => $page,
 					'breadcrumbs' => $breadcrumbs,
-					'menu' => $this->menu
+					'menu' => $menu
 				);
 		
 				$this->load->view('client/page.php', $data);				
@@ -93,7 +86,7 @@ class Catalog extends CI_Controller {
 						'content' => $pages,
 						'breadcrumbs' => $breadcrumbs,
 						'pagination' => $pagination,
-						'menu' => $this->menu
+						'menu' => $menu
 						
 					);							
 					
@@ -109,7 +102,7 @@ class Catalog extends CI_Controller {
 						'tree' => $this->categories->get_sub_tree(0, "parent"),
 						'content' => $cat,
 						'breadcrumbs' => $breadcrumbs,
-						'menu' =>$this->menu
+						'menu' =>$menu
 					);
 			
 					$this->load->view('client/categories.php', $data);
@@ -120,7 +113,8 @@ class Catalog extends CI_Controller {
 
 	public function product($url)
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->top_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		
 		$page = $this->cat_pages->get_item_by(array("url" => $url));
 		
@@ -134,7 +128,7 @@ class Catalog extends CI_Controller {
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'content' => $page,
 			'breadcrumbs' => $breadcrumbs,
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 			
 		$this->load->view('client/page.php', $data);	
