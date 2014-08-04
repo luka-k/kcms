@@ -5,27 +5,9 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Admin extends CI_Controller 
 {	
-	public $menu = array();
-	
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$this->menu = array(
-			0 => array("Главная", base_url()."admin/admin_main", 0),
-			1 => array('Разделы', "#", 0, array(
-				0 => array('Редактировать', base_url()."admin/parts/0", 0),
-				1 => array('Создать', base_url()."admin/pages", 0)
-			)),
-			2 => array('Каталог', "#", 0, array(
-				0 => array('Категории', base_url()."admin/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/category", 0),
-				2 => array('Товары', base_url()."admin/cat_pages", 0),
-				3 => array('Создать товар', base_url()."admin/cat_page", 0)				
-			)),
-			3 => array('Настройки', base_url()."admin/settings", 0),
-			4 => array('Пользователи', base_url()."registration/users", 0)
-		);
 
 		$data = array(
 			'title' => "Вход",
@@ -221,7 +203,8 @@ class Admin extends CI_Controller
 		{
 			$from_blog = 0;
 		}	
-		$this->menu[0][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'main');
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
@@ -229,7 +212,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
 			'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5)),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		$this->load->view('admin/admin.php', $data);
 	}
@@ -237,7 +220,8 @@ class Admin extends CI_Controller
 	//Вывод разделов в админке. 
 	public function parts($id = false)
 	{
-		$this->menu[1][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'title' => "Разделы",
 			'meta_title' => "Разделы",
@@ -245,7 +229,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'parts' => $this->parts->get_list(FALSE),
 			'tree' => $this->parts->get_sub_tree(0, "parent"),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		if ($id == false)
 		{
@@ -264,14 +248,15 @@ class Admin extends CI_Controller
 	//Внесение изменений в раздел
 	public function edit_part()
 	{
-		$this->menu[1][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'title' => "Разделы",
 			'meta_title' => "Разделы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'parts' => $this->parts->get_list(FALSE),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		
 		$editors = $this->parts->editors;
@@ -309,7 +294,8 @@ class Admin extends CI_Controller
 	//Вывод страниц раздела
 	public function pages($part_id = false)
 	{
-		$this->menu[1][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'title' => "Страницы",
 			'meta_title' => "Страницы",
@@ -317,7 +303,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->parts->get_sub_tree(0, "parent"),
 			'parts' => $this->parts->get_list(FALSE),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 			
 		$parts = $data['parts'];
@@ -362,14 +348,15 @@ class Admin extends CI_Controller
 	//Вывод информации о странице
 	public function page($part_url = FALSE, $id = FALSE)
 	{
-		$this->menu[1][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'title' => "Редактировать страницу",
 			'meta_title' => "Редактировать страницу",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->parts->get_sub_tree(0, "parent"),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		
 		//Если url раздела и id страниццы не существуют то выводим всплывающее окно для выбора в какой раздел добавить страницу
@@ -401,7 +388,8 @@ class Admin extends CI_Controller
 	//Редактирование страницы разделов
 	public function edit_page($cat_url)
 	{
-		$this->menu[1][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'meta_title' => "Редактировать страницу",
 			'error' => " ",
@@ -469,7 +457,8 @@ class Admin extends CI_Controller
 	//Вывод списка категорий
 	public function categories()
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
@@ -477,7 +466,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'cat' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 		$this->load->view('admin/categories.php', $data);
 	}
@@ -485,7 +474,8 @@ class Admin extends CI_Controller
 	//Вывод информации категории по id
 	public function category($cat_id = false)
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		$data = array(
 			'title' => "Редактировать категорию",
 			'error' => "",
@@ -494,7 +484,7 @@ class Admin extends CI_Controller
 				'parent' =>$this->categories->get_list(FALSE)
 			),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'editors' => $this->categories->editors
 		);
 		
@@ -521,13 +511,14 @@ class Admin extends CI_Controller
 	//Редактирование категории
 	public function edit_category()
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		$data = array(
 			'meta_title' => "Редактировать категорию",
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
 			'cat' => $this->categories->get_list(FALSE),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent")				
 		);
 		
@@ -577,14 +568,15 @@ class Admin extends CI_Controller
 	//Вывод страниц категорий
 	public function cat_pages($cat_id = false)
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		$data = array(
 			'title' => "Страницы",
 			'meta_title' => "Страницы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'cats' => $this->categories->get_list(FALSE)
 		);
 			
@@ -604,7 +596,8 @@ class Admin extends CI_Controller
 	//Вывод информации о странице каталога
 	public function cat_page($id = FALSE)
 	{
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'catalog');
 		$data = array(
 			'title' => "Редактировать страницу каталога",
 			'error' => "",
@@ -613,7 +606,7 @@ class Admin extends CI_Controller
 				'cat_id' =>$this->categories->get_list(FALSE)
 			),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'editors' => $this->cat_pages->editors
 		);
 		
@@ -641,7 +634,8 @@ class Admin extends CI_Controller
 	//Редактирование страницы разделов
 	public function edit_cat_page()
 	{	
-		$this->menu[2][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'parts');
 		$data = array(
 			'title' => "Редактировать страницу каталога",
 			'error' => "",
@@ -650,7 +644,7 @@ class Admin extends CI_Controller
 				'cat_id' =>$this->categories->get_list(FALSE)
 			),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'editors' => $this->cat_pages->editors		
 		);
 					
@@ -714,7 +708,8 @@ class Admin extends CI_Controller
 	/*------------Редактирование настроек------------*/
 	public function settings()
 	{
-		$this->menu[3][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'settings');
 		$data = array(
 			'title' => "Настройки сайта",
 			'meta_title' => "Настройки сайта",
@@ -723,7 +718,7 @@ class Admin extends CI_Controller
 			'cat' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'settings' => $this->settings->get_item_by(array('id' => 1)),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'editors' => $this->settings->editors
 		);
 		$this->load->view('admin/settings.php', $data);	
@@ -731,14 +726,15 @@ class Admin extends CI_Controller
 	
 	public function edit_settings()
 	{
-		$this->menu[3][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'settings');
 		$data = array(
 			'title' => "Редактировать настройки",
 			'meta_title' => "Редактировать настройки",
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'cat' => $this->categories->get_list(FALSE),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent")	
 		);
 		

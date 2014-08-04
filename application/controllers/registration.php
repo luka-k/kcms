@@ -5,28 +5,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Registration extends CI_Controller 
 {	
-	public $menu = array();
-	
 	public function __construct()
 	{
 		parent::__construct();
 		
-		$this->menu = array(
-			0 => array("Главная", base_url()."admin/admin_main", 0),
-			1 => array('Разделы', "#", 0, array(
-				0 => array('Редактировать', base_url()."admin/parts/0", 0),
-				1 => array('Создать', base_url()."admin/pages", 0)
-			)),
-			2 => array('Каталог', "#", 0, array(
-				0 => array('Категории', base_url()."admin/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/category", 0),
-				2 => array('Товары', base_url()."admin/cat_pages", 0),
-				3 => array('Создать товар', base_url()."admin/cat_page", 0)				
-			)),
-			3 => array('Настройки', base_url()."admin/settings", 0),
-			4 => array('Пользователи', base_url()."registration/users", 0)
-		);
-
 		$data = array(
 			'title' => "Вход",
 			'meta_title' => "Вход",
@@ -43,14 +25,15 @@ class Registration extends CI_Controller
 	//Пользователи
 	public function users()
 	{
-		$this->menu[4][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
 		$data = array(
 			'title' => "Пользователи",
 			'meta_title' => "Пользователи",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->parts->get_list(FALSE),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'users' => $this->users->get_list(FALSE)
 		);	
 		$this->load->view('admin/users.php', $data);	
@@ -59,13 +42,14 @@ class Registration extends CI_Controller
 	//Информация о пользователе
 	public function user($id = FALSE)
 	{
-		$this->menu[3][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
 		$data = array(
 			'title' => "Редактировать пользователя",
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'tree' => $this->parts->get_sub_tree(0, "parent")				
 		);
 			
@@ -99,13 +83,14 @@ class Registration extends CI_Controller
 	/*Изменение данных пользователя*/
 	public function edit_user($id = FALSE)
 	{
-		$this->menu[4][2] = 1;
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
 		$data = array(
 			'title' => "Редактировать пользователя",
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'menu' => $this->menu,
+			'menu' => $menu,
 			'tree' => $this->parts->get_sub_tree(0, "parent")			
 		);
 			
