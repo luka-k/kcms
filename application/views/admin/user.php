@@ -23,15 +23,15 @@
 					</ul>
 					
 					<?php $count = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_user/<?=$content->id?>"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>registration/edit_user/<?=$content->id?>"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tabr<?=$count?>" class="clearfix tab-content">
 							<?=$error;?>
 							<?=validation_errors(); ?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
-								<a href="<?=base_url()?>admin/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
+								<a href="<?=base_url()?>registration/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
 							</div>
 								
 							<?php $coun = 1?>

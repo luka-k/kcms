@@ -287,7 +287,7 @@ class Registration extends CI_Controller
 				else 
 				{	
 					$this->users->insert($data['content']);
-					redirect(base_url().'admin/users');
+					redirect(base_url().'registration/users');
 				}
 			}						
 		}
@@ -319,7 +319,7 @@ class Registration extends CI_Controller
 					}
 				}
 				$this->users->update($data['content']->id);
-				redirect(base_url().'admin/users');
+				redirect(base_url().'registration/users');
 			}
 		}	
 	}
@@ -329,7 +329,7 @@ class Registration extends CI_Controller
 	{
 		if($this->users->delete($id))
 		{
-			redirect(base_url().'admin/users');
+			redirect(base_url().'registration/users');
 		}	
 	}	
 }

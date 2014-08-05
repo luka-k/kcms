@@ -24,31 +24,23 @@
 					</ul>
 					
 					<?php $count = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_settings"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form" action="<?=base_url()?>admin/edit_settings"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tabr<?=$count?>" class="clearfix tab-content">
 							<?=$error;?>
 							<?php echo validation_errors(); ?>
-								<div  class="col_12">
-									<button type="submit">Сохранить</button>
-								</div>
+							<div  class="col_12">
+								<a href="#" class="btn small" onClick="document.forms['form'].submit()">Сохранить</a>
+							</div>
 								
-								<?php $coun = 1?>
+							<?php $coun = 1?>
 								
-								<?php foreach($edits as $name => $edit):?>
-									<?php if ($edit['1'] == 'hidden'):?>
-										<input type="<?=$edit['1']?>" name="<?=$name?>" value="<?=$settings->$name?>"/>
-									<?php else:?>
-									<div  class="col_12">
-										<div class="col_2"><label for="lbl_<?=$coun?>"><?=$edit['0']?></label></div>
-										<?php if ($edit['1'] == 'text'):?>
-											<input type="text" id="lbl_<?=$coun?>" class="col_9" name="<?=$name?>" value="<?=$settings->$name?>"/><br/>
-										<?php elseif ($edit['1'] == 'checkbox'):?>
-											<div class="col_9" ><input type="checkbox" id="lbl_<?=$coun?>" name="<?=$name?>" <?php if ($settings->$name== 1):?> checked <?php endif; ?>/></div>
-										<?php endif;?>
-									</div>
-									<?php endif;?>
-								<?php endforeach?>
+							<?php foreach($edits as $name => $edit):?>
+								<?require "include/editors/{$edit[1]}.php"?>
+							<?php endforeach?>
+							<div  class="col_12">
+								<a href="#" class="btn small" onClick="document.forms['form'].submit()">Сохранить</a>
+							</div>
 						</div>
 						<?$count++?>
 					<?endforeach?>

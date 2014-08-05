@@ -28,7 +28,7 @@ class Admin extends CI_Controller
 
 	//Главная страница
 	public function admin_main()
-	{
+	{		
 		//Отбираем для главной последние три записи в блоге и в новостях
 		$from_news = $this->news->get_count(array('is_active' => 1))-5;
 		$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
@@ -233,7 +233,7 @@ class Admin extends CI_Controller
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->parts->get_sub_tree(0, "parent"),	
-			'menu' => $this->menu
+			'menu' => $menu
 		);
 					
 		$editors = $this->$cat_url->editors;
@@ -241,7 +241,7 @@ class Admin extends CI_Controller
 		
 		$data['page'] = editors_post($editors, $post);
 			
-		$data['page']->url = translit_url($data['page']->title);
+		$data['page']->url = slug($data['page']->title);
 		$data['page']->date = date("d.m.Y");
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -365,7 +365,7 @@ class Admin extends CI_Controller
 		
 		$data['cat_info'] = editors_post($editors, $post);
 			
-		$data['cat_info']->url = translit_url($data['cat_info']->title);
+		$data['cat_info']->url = slug($data['cat_info']->title);
 
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -494,7 +494,7 @@ class Admin extends CI_Controller
 		//var_dump($_FILES['pic']);
 		
 		$data['page'] = editors_post($editors, $post);
-		$data['page']->url = translit_url($data['page']->title);
+		$data['page']->url = slug($data['page']->title);
 			
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -555,7 +555,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'cat' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'settings' => $this->settings->get_item_by(array('id' => 1)),
+			'content' => $this->settings->get_item_by(array('id' => 1)),
 			'menu' => $menu,
 			'editors' => $this->settings->editors
 		);

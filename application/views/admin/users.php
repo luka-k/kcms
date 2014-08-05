@@ -34,8 +34,8 @@
 									<?php foreach ($users as $user): ?>
 									<tr>
 										<td class="tb_1"><?=$user->id?></td>
-										<td class="tb_9"><a href="<?=base_url()?>admin/user/<?=$user->id?>"><?=$user->name?></a></td>
-										<td class="tb_2"><a href="<?=base_url()?>admin/delete_user/<?=$user->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_9"><a href="<?=base_url()?>registration/user/<?=$user->id?>"><?=$user->name?></a></td>
+										<td class="tb_2"><a href="<?=base_url()?>registration/delete_user/<?=$user->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?php endforeach ?>
 								</form>

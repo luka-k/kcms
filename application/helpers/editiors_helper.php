@@ -10,6 +10,10 @@ function editors_post($editors, $post)
 					{
 						$data->$key = $post[$key];				
 					}
+					elseif (($value[1] == 'checkbox') and (!array_key_exists($key, $post)))
+					{
+						$data->$key = 0;
+					}
 					else
 					{
 						$data->$key = htmlspecialchars($post[$key]);	
