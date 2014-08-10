@@ -9,6 +9,13 @@
 				<?foreach($content as $page):?>
 					<div class="cat-item col_4">
 					<h6><a href="<?=base_url()?>product/<?=$page->url?>"><?=$page->title?></a></h6>
+					<?if($page->img <> NULL):?>
+						<div>
+							<a href="<?=base_url()?>product/<?=$page->url?>">
+								<img src="<?=base_url()?>download/images/catalog_mid<?=$page->img->url?>" />
+							</a>
+						</div>
+					<?endif;?>
 					<div><?=$page->full_text?></div>
 					</div>
 				<?endforeach;?>

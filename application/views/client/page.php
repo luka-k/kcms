@@ -9,6 +9,13 @@
 				<div class="col_12">
 					<h6><?=$content->title?></h6>
 					<div><?=$content->full_text?></div>
+					<?if($content->img <> NULL):?>
+						<div>
+							<?foreach($content->img as $img_item):?>
+								<img src="<?=base_url()?>download/images/catalog_mid<?=$img_item->url?>" />
+							<?endforeach?>
+						</div>
+					<?endif;?>					
 				</div>
 			</div>
 			<div class="col_4">

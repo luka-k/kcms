@@ -9,6 +9,13 @@
 				<?foreach($content as $category):?>
 					<div class="cat-item col_4">
 						<h6><a href="<?=base_url()?>catalog/<?=$category->url?>"><?=$category->title?></a></h6>
+						<?if($category->img <> NULL):?>
+							<div>
+								<a href="<?=base_url()?>catalog/<?=$category->url?>">
+									<img src="<?=base_url()?>download/images/catalog_mid<?=$category->img->url?>" />
+								</a>
+							</div>
+						<?endif;?>
 						<div><?=$category->cat_desc?></div>
 					</div>
 				<?endforeach;?>

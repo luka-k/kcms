@@ -20,6 +20,7 @@
 								<li><a href="#tabr<?=$count?>"><?=$key?></a></li>
 								<?$count++?>
 							<?endforeach?>
+							<li><a href="#tabr<?=$count?>">Фотографии</a></li>
 						</ul>
 					
 					<?php $count = 1?>
@@ -46,6 +47,39 @@
 						</div>
 						<?$count++?>
 					<?endforeach?>
+						<div id="tabr<?=$count?>" class="clearfix tab-content">	
+							<div  class="col_12">
+								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
+								<a href="<?=base_url()?>admin/delete_cat_page/<?=$content->id?>" class="btn small">Удалить</a>
+							</div>	
+							<?if($content->img == NULL):?>
+								<div class="col_12">
+									<div class="col_3">Добавить фотографии</div>
+									<div class="col_4"><input type="file" id="pic[]" name="pic" /></div>
+								</div>
+							<?else:?>
+							<div class="col_12">
+								<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
+									<thead>
+										<tr>
+											<th class="tb_1">№</th>
+											<th class="tb_9">Изображение</th>
+											<th class="tb_2">Действие</th>
+										</tr>
+									</thead>
+									<?$count = 1?>
+									<?foreach($content->img as $img_item):?>
+										<tr>
+											<td class="tb_1"><?=$count?></td>
+											<td class="tb_9"><img src="<?=base_url()?>download/images/catalog_mid<?=$img_item->url?>"/></td>
+											<td class="tb_2"><a href="#">Удалить</a></td>
+										</tr>
+										<?$count++?>
+									<?endforeach?>
+								</table>
+							</div>
+							<?endif;?>
+						</div>					
 					</form>							
 						
 						<!--<div id="tabr1" class="tab-content">

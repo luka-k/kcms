@@ -306,6 +306,7 @@ class Admin extends CI_Controller
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu
 		);
+		$data['cat'] = $this->images_model->get_img_list($data['cat'], 'category');
 		$this->load->view('admin/categories.php', $data);
 	}
 	
@@ -338,10 +339,16 @@ class Admin extends CI_Controller
 			}
 			$cat->is_active = "1";
 			$data['content'] = $cat;
+			$data['content']->img = NULL;
 		}
 		else
 		{
 			$data['content'] = $this->categories->get_item_by(array('id' => $cat_id));
+			$object_info = array(
+				"object_type" => "category",
+				"object_id" => $data['content']->id
+			);
+			$data['content']->img = $this->images_model->get_images($object_info);
 		}	
 		$this->load->view('admin/edit-category.php', $data);
 	}
@@ -366,6 +373,21 @@ class Admin extends CI_Controller
 		$data['cat_info'] = editors_post($editors, $post);
 			
 		$data['cat_info']->url = slug($data['cat_info']->title);
+		
+		//Получение изображений
+		//Получаем файлы
+		if (isset($_FILES['pic']))
+		{
+			$pic = $_FILES['pic'];
+			$object_info = array(
+				"object_type" => "category",
+				"object_id" => $data['cat_info']->id
+			);
+		}
+		else
+		{
+			$pic['error'] = 4; 
+		}
 
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -388,6 +410,10 @@ class Admin extends CI_Controller
 				//Если id не пустая вносим изменения.
 				$this->categories->update($data['cat_info']->id, $data['cat_info']);
 			}			
+		}
+		if ($pic['error'] <> 4)
+		{
+			$this->images_model->upload_image($pic, $object_info);
 		}
 		redirect(base_url().'admin/categories');
 	}	
@@ -428,6 +454,7 @@ class Admin extends CI_Controller
 			//Если id указан выводим страницы данного раздела
 			$data['pages'] = $this->cat_pages->get_list(array('cat_id' => $cat_id));
 		}
+		$data['pages'] = $this->images_model->get_img_list($data['pages'], 'cat_page');
 		$this->load->view('admin/cat-pages.php', $data);
 	}
 	
@@ -448,7 +475,7 @@ class Admin extends CI_Controller
 			'editors' => $this->cat_pages->editors
 		);
 		
-		if ($id===false)
+		if ($id == FALSE)
 		{
 			$page = new stdClass();
 			foreach ($data['editors'] as $tabs)
@@ -460,12 +487,17 @@ class Admin extends CI_Controller
 			}
 			$page->is_active = "1";
 			$data['content'] = $page;
+			$data['content']->img = NULL;
 		}
 		else
 		{
 			$data['content'] = $this->cat_pages->get_item_by(array('id' => $id));
+			$object_info = array(
+				"object_type" => "cat_page",
+				"object_id" => $data['content']->id
+			);
+			$data['content']->img = $this->images_model->get_images($object_info);
 		}	
-
 		$this->load->view('admin/edit-cat-page.php', $data);
 	}
 	
@@ -489,13 +521,24 @@ class Admin extends CI_Controller
 		$editors = $this->cat_pages->editors;
 		$post = $this->input->post();
 		
-		$pic = $_FILES['pic'];
-		$this->images_model->upload_image($pic);
-		//var_dump($_FILES['pic']);
-		
 		$data['page'] = editors_post($editors, $post);
 		$data['page']->url = slug($data['page']->title);
-			
+		
+		//Получаем файлы
+		$pic = $_FILES['pic'];
+		$object_info = array(
+			"object_type" => "cat_page",
+			"object_id" => $data['page']->id
+		);
+		
+		//var_dump($object_info);
+		
+		$cover = $this->input->post("cover");
+		if ($cover <> NULL)
+		{
+			$this->images_model->set_cover($object_info, $cover);
+		}
+		
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
@@ -517,6 +560,10 @@ class Admin extends CI_Controller
 				if($this->cat_pages->non_requrrent($fields))
 				{
 					$this->cat_pages->insert($data['page']);
+					if ($pic['error'] <> 4)
+					{
+						$this->images_model->upload_image($pic, $object_info);
+					}
 					redirect(base_url().'admin/cat_pages');
 				}
 				else
@@ -529,6 +576,10 @@ class Admin extends CI_Controller
 			{
 				//Если id не пустая вносим изменения.
 				$this->cat_pages->update($data['page']->id, $data['page']);
+				if($pic['error'] <> 4)
+				{
+					$this->images_model->upload_image($pic, $object_info);
+				}
 				redirect(base_url().'admin/cat_pages');
 			}
 		}
@@ -542,6 +593,18 @@ class Admin extends CI_Controller
 			redirect(base_url().'admin/cat_pages');
 		}
 	}	
+	
+	/*--------------Удаление изображения-------------*/
+	
+	public function delete_img($object_type, $id)
+	{
+		$object_info = array(
+			"object_type" => $object_type,
+			"id" => $id
+		);
+		$cat_id = $this->images_model->delete_img($object_info);
+		redirect(base_url().'admin/cat_page/'.$cat_id);
+	}
 		
 	/*------------Редактирование настроек------------*/
 	public function settings()

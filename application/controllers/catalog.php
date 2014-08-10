@@ -33,13 +33,14 @@ class Catalog extends CI_Controller {
 				'breadcrumbs' => $breadcrumbs,
 				'menu' => $menu
 			);
+			$data['content'] = $this->images_model->get_img_list($data['content'], 'category'); 
 			$this->load->view('client/categories.php', $data);			
 		}
 		else
 		{				
 			$category = $this->categories->get_item_by(array("url" => $url));
 				
-			if ($category == NULL)
+			if ($category == NULL) //Выпилить к дребеням
 			{
 				$page = $this->cat_pages->get_item_by(array("url" => $url));
 				$breadcrumbs = $this->breadcrumbs_model->bread($url);
@@ -53,7 +54,6 @@ class Catalog extends CI_Controller {
 					'breadcrumbs' => $breadcrumbs,
 					'menu' => $menu
 				);
-		
 				$this->load->view('client/page.php', $data);				
 			}
 			else
@@ -89,7 +89,7 @@ class Catalog extends CI_Controller {
 						'menu' => $menu
 						
 					);							
-					
+					$data['content'] = $this->images_model->get_img_list($data['content'], 'cat_page'); 
 					$this->load->view('client/pages.php', $data);				
 				}
 				else
@@ -104,7 +104,7 @@ class Catalog extends CI_Controller {
 						'breadcrumbs' => $breadcrumbs,
 						'menu' =>$menu
 					);
-			
+					$data['content'] = $this->images_model->get_img_list($data['content'], 'category'); 
 					$this->load->view('client/categories.php', $data);
 				}
 			}
@@ -130,6 +130,8 @@ class Catalog extends CI_Controller {
 			'breadcrumbs' => $breadcrumbs,
 			'menu' => $menu
 		);
+
+		$data['content']->img = $this->images_model->get_images(array("object_type" => "cat_page", "object_id" => $data['content']->id)); 
 			
 		$this->load->view('client/page.php', $data);	
 	}

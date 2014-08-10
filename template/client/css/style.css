@@ -19,7 +19,11 @@ border-top:1px dotted #ccc;
 }
 
 .cat-item{
-height:110px;
+height:auto;
+}
+
+.cat-item img{
+width:100%;
 }
 
 .date{
