@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 30 2014 г., 17:08
+-- Время создания: Авг 11 2014 г., 00:05
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `cat_pages` (
 
 INSERT INTO `cat_pages` (`id`, `cat_id`, `is_active`, `title`, `meta_title`, `keywords`, `description`, `url`, `full_text`, `publish_date`) VALUES
 (14, 2, 1, 'Путинка', '', '', '', 'putinka', '<p>Патриотичная водка</p>', 0),
-(15, 2, 1, 'Пшеничная', '', '', '', 'pshenichnaja', '<p>Классика русской водки</p>', 0),
+(15, 2, 1, 'Пшеничная', '', '', '', 'pshenichnaya', '<p>Классика русской водки</p>', 0),
 (16, 2, 1, 'Смирнофф', '', '', '', 'smirnoff', '<p>Самая известная водка в мире</p>', 0),
 (17, 12, 1, 'Балтика №0', '', '', '', 'baltika-0', '<p>Безалкогольное пиво. Для тех кто любит хряпнуть за рулем.</p>', 0),
 (18, 12, 1, 'Балтика №1', '', '', '', 'baltika-1', '<p>Пиво какого не существует.</p>', 0),
@@ -144,7 +144,32 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('52a14a25efc7a754e2c15596dbf5b96b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0', 1406721212, 'a:3:{s:7:"user_id";s:2:"26";s:9:"user_name";s:4:"stas";s:9:"logged_in";b:1;}');
+('8738554bdbdbf01a368fe4e1daf43815', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1407700978, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `cover` int(1) NOT NULL DEFAULT '0',
+  `object_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `object_id` int(2) NOT NULL,
+  `url` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+
+--
+-- Дамп данных таблицы `images`
+--
+
+INSERT INTO `images` (`id`, `cover`, `object_type`, `object_id`, `url`) VALUES
+(10, 1, 'cat_page', 15, '/p/s/pshenichnaya.jpg'),
+(11, 1, 'category', 2, '/w/o/wodkaflaschen.JPG'),
+(15, 1, 'cat_page', 14, '/2/8/28442-m.jpg'),
+(16, 0, 'cat_page', 14, '/v/o/vodka-putinka-0-5l.jpg');
 
 -- --------------------------------------------------------
 
@@ -221,11 +246,11 @@ CREATE TABLE IF NOT EXISTS `news` (
 
 INSERT INTO `news` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `keywords`, `description`, `url`, `prev_text`, `full_text`, `date`) VALUES
 (1, 0, 1, 'Новость первая', '', ' ', ' ', 'novost-pervaja', '<p>Текст первой новости</p>', '', '20.07.2014'),
-(2, 0, 1, 'Новость вторая', '', '', '', 'novost-vtoraja', '<p>Текст второй новости</p>', '', '20.07.2014'),
+(2, 0, 1, 'Новость вторая', '', '', '', 'novost-vtoraya', '<p>Текст второй новости</p>', '', '05.08.2014'),
 (3, 0, 1, 'Новость третья', '', '', '', 'novost-tretja', '<p>Текст третьей новости</p>', '', '28.07.2014'),
 (4, 0, 1, 'Новость четвертая', '', '', '', 'novost-chetvertaja', '<p>Текст четвертой новости</p>', '', '28.07.2014'),
 (5, 0, 1, 'Новость пятая', '', '', '', 'novost-pjataja', '<p>Текст пятой новости</p>', '', '28.07.2014'),
-(6, 0, 1, 'Новость шестая', '', '', '', 'novost-shestaja', '<p>Текст шестой новости</p>', '', '28.07.2014');
+(6, 0, 1, 'Новость шестая', '', '', '', 'novost-shestaya', '<p>Текст шестой новости</p>', '', '05.08.2014');
 
 -- --------------------------------------------------------
 
@@ -294,14 +319,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `secret`) VALUES
-(26, 'pavel', 'd41d8cd98f00b204e9800998ecf8427e', 'luka_bass_king@inbox.ru', '');
+(26, 'pavel', 'fae0b27c451c728867a567e8c1bb4e53', 'luka_bass_king@inbox.ru', '8d88b7257024d1d26fc50ea6b134e9e9');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
