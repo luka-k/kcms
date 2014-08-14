@@ -24,7 +24,8 @@ class Images extends MY_Model
 	{
 		//Подключаем настройки
 		$upload_path = $this->config->item('upload_path');
-		$thumb_sizes = $this->config->item('thumb_size');
+		//$thumb_sizes = $this->config->item('thumb_size');
+		$thumb_config = $this->config->item('thumb_config');
 		
 		$pic_name = explode(".", $pic['name']);
 		//Чистим от лишних символов и транлитируем имя файла.
@@ -41,23 +42,17 @@ class Images extends MY_Model
 				
 		$thumb = new phpThumb();
 		//Создаем миниатюры
-		foreach ($thumb_sizes as $thumb_dir_name => $thumb_size) 
+		foreach ($thumb_config as $thumb_dir_name => $configs) 
 		{
 			$thumb->resetObject();
 			
 			//Задаем имя файла с которого делаем миниатюру.
 			$thumb->setSourceFilename($temp_path);
 		
-			//Заносим параметры в масив
-			$parameters = array(
-				'w' => $thumb_size[0], //максимальная ширина изображения
-				'h' => $thumb_size[1], //максимальная высота изображения
-				'config_output_format' => 'jpeg' //формат изображения
-			);
 			//Устанавливаем параметры
-			foreach($parameters as $key => $value)
+			foreach($configs as $parameter => $config)
 			{
-				$thumb->setParameter($key, $value);
+				$thumb->setParameter($parameter, $config);
 			}
 			
 			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
