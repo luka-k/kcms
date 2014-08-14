@@ -306,7 +306,7 @@ class Admin extends CI_Controller
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu
 		);
-		$data['categories'] = $this->images_model->get_img_list($data['categories'], 'categories');
+		$data['categories'] = $this->images->get_img_list($data['categories'], 'categories');
 		$this->load->view('admin/categories.php', $data);
 	}
 	
@@ -348,7 +348,7 @@ class Admin extends CI_Controller
 				"object_type" => "categories",
 				"object_id" => $data['content']->id
 			);
-			$data['content']->img = $this->images_model->get_images($object_info);
+			$data['content']->img = $this->images->get_images($object_info);
 		}	
 		$this->load->view('admin/edit_category.php', $data);
 	}
@@ -405,7 +405,7 @@ class Admin extends CI_Controller
 				"object_type" => "categories",
 				"object_id" => $data['category_info']->id
 			);
-			$this->images_model->upload_image($_FILES['pic'], $object_info);
+			$this->images->upload_image($_FILES['pic'], $object_info);
 		}
 		redirect(base_url().'admin/categories');
 	}	
@@ -446,7 +446,7 @@ class Admin extends CI_Controller
 			//Если id указан выводим страницы данного раздела
 			$data['pages'] = $this->products->get_list(array('category_id' => $category_id));
 		}
-		$data['pages'] = $this->images_model->get_img_list($data['pages'], 'products');
+		$data['pages'] = $this->images->get_img_list($data['pages'], 'products');
 		$this->load->view('admin/products.php', $data);
 	}
 	
@@ -488,7 +488,7 @@ class Admin extends CI_Controller
 				"object_type" => "products",
 				"object_id" => $data['content']->id
 			);
-			$data['content']->img = $this->images_model->get_images($object_info);
+			$data['content']->img = $this->images->get_images($object_info);
 		}	
 		$this->load->view('admin/edit_product.php', $data);
 	}
@@ -525,7 +525,7 @@ class Admin extends CI_Controller
 		$cover_id = $this->input->post("cover_id");
 		if ($cover_id <> NULL)
 		{
-			$this->images_model->set_cover($object_info, $cover_id);
+			$this->images->set_cover($object_info, $cover_id);
 		}
 		
 		//Валидация формы
@@ -551,7 +551,7 @@ class Admin extends CI_Controller
 					$this->products->insert($data['product']);
 					if ($_FILES['pic']['error'] <> 4)
 					{
-						$this->images_model->upload_image($_FILES['pic'], $object_info);
+						$this->images->upload_image($_FILES['pic'], $object_info);
 					}
 					redirect(base_url().'admin/products');
 				}
@@ -567,7 +567,7 @@ class Admin extends CI_Controller
 				$this->products->update($data['product']->id, $data['product']);
 				if($_FILES['pic']['error'] <> 4)
 				{
-					$this->images_model->upload_image($_FILES['pic'], $object_info);
+					$this->images->upload_image($_FILES['pic'], $object_info);
 				}
 				redirect(base_url().'admin/products');
 			}
@@ -591,7 +591,7 @@ class Admin extends CI_Controller
 			"object_type" => $object_type,
 			"id" => $id
 		);
-		$cat_id = $this->images_model->delete_img($object_info);
+		$cat_id = $this->images->delete_img($object_info);
 		redirect(base_url().'admin/product/'.$cat_id);
 	}
 		

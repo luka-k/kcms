@@ -33,7 +33,7 @@ class Catalog extends CI_Controller {
 				'breadcrumbs' => $breadcrumbs,
 				'menu' => $menu
 			);
-			$data['content'] = $this->images_model->get_img_list($data['content'], 'category'); 
+			$data['content'] = $this->images->get_img_list($data['content'], 'categories');
 			$this->load->view('client/categories.php', $data);			
 		}
 		else
@@ -89,7 +89,7 @@ class Catalog extends CI_Controller {
 						'menu' => $menu
 						
 					);							
-					$data['content'] = $this->images_model->get_img_list($data['content'], 'cat_page'); 
+					$data['content'] = $this->images->get_img_list($data['content'], 'product'); 
 					$this->load->view('client/pages.php', $data);				
 				}
 				else
@@ -104,7 +104,7 @@ class Catalog extends CI_Controller {
 						'breadcrumbs' => $breadcrumbs,
 						'menu' =>$menu
 					);
-					$data['content'] = $this->images_model->get_img_list($data['content'], 'category'); 
+					$data['content'] = $this->images->get_img_list($data['content'], 'category'); 
 					$this->load->view('client/categories.php', $data);
 				}
 			}
@@ -131,7 +131,7 @@ class Catalog extends CI_Controller {
 			'menu' => $menu
 		);
 
-		$data['content']->img = $this->images_model->get_images(array("object_type" => "products", "object_id" => $data['content']->id)); 
+		$data['content']->img = $this->images->get_images(array("object_type" => "products", "object_id" => $data['content']->id)); 
 			
 		$this->load->view('client/page.php', $data);	
 	}
