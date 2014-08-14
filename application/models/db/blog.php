@@ -15,7 +15,7 @@ class Blog extends MY_Model
 			'meta_title' => array('Meta title страницы', 'text'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text'),
 			'meta_description' => array('Описание страницы', 'text'),
-			'url' => array('url страницы', 'hidden')		
+			'url' => array('url страницы', 'text')		
 		)
 	);
 	

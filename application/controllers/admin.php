@@ -241,7 +241,6 @@ class Admin extends CI_Controller
 		
 		$data['page'] = editors_post($editors, $post);
 			
-		$data['page']->url = slug($data['page']->title);
 		$data['page']->date = date("d.m.Y");
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -263,6 +262,7 @@ class Admin extends CI_Controller
 					
 				if($this->$part_url->non_requrrent($fields))
 				{
+					$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
 					redirect(base_url().'admin/pages');
 				}
@@ -275,6 +275,7 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
+				$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
 				redirect(base_url().'admin/pages');
 			}
@@ -371,8 +372,6 @@ class Admin extends CI_Controller
 		$post = $this->input->post();
 		
 		$data['category_info'] = editors_post($editors, $post);
-			
-		$data['category_info']->url = slug($data['category_info']->title);
 		
 		//Получение изображений
 		//Получаем файлы
@@ -391,11 +390,13 @@ class Admin extends CI_Controller
 			if($data['category_info']->id==NULL)
 			{
 				//Если id пустая создаем новую страницу в базе
+				$data['category_info']->url = slug($data['category_info']->title);
 				$this->categories->insert($data['category_info']);
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
+				$data['category_info']->url = slug($data['category_info']->url);
 				$this->categories->update($data['category_info']->id, $data['category_info']);
 			}			
 		}
@@ -514,8 +515,6 @@ class Admin extends CI_Controller
 		$post = $this->input->post();
 		
 		$data['product'] = editors_post($editors, $post);
-		$data['product']->url = slug($data['product']->title);
-		
 
 		$object_info = array(
 			"object_type" => "products",
@@ -548,6 +547,7 @@ class Admin extends CI_Controller
 					
 				if($this->products->non_requrrent($fields))
 				{
+					$data['product']->url = slug($data['product']->title);
 					$this->products->insert($data['product']);
 					if ($_FILES['pic']['error'] <> 4)
 					{
@@ -564,6 +564,7 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
+				$data['product']->url = slug($data['product']->url);
 				$this->products->update($data['product']->id, $data['product']);
 				if($_FILES['pic']['error'] <> 4)
 				{
