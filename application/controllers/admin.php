@@ -414,7 +414,7 @@ class Admin extends CI_Controller
 	//Удаление категории
 	public function delete_category($category_id)
 	{
-		if($this->categories->delete($cat_id))
+		if($this->categories->delete($category_id))
 		{
 			redirect(base_url().'admin/categories');
 		}

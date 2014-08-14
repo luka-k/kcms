@@ -46,7 +46,16 @@
 									<tr>
 										<td class="tb_1"><?=$page->id?></td>
 										<td class="tb_9"><a href="<?=base_url()?>admin/page/<?=$page->part_url?>/<?=$page->id?>"><?=$page->title?></a></td>
-										<td class="tb_2"><a href="<?=base_url()?>admin/delete_page/<?=$page->part_url?>/<?=$page->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_2"><a href="#delete_<?=$page->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<div id="delete_<?=$page->id?>" style="display:none;">
+											<div class="pop-up">
+												<div>
+													Вы точно уверены что хотите удалалить страницу <strong><?=$page->title?></strong>?
+												</div><br/>
+												<a href="<?=base_url()?>admin/delete_page/<?=$page->id?>" class="button small">Удалить?</a>
+												<a href="#" class="button small" onclick="">Нет</a>
+											</div>
+										</div>
 									</tr>
 									<?php endforeach ?>
 								</form>

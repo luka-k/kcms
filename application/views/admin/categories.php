@@ -34,7 +34,16 @@
 										<?endif;?>
 									</td>
 									<td class="tb_6"><a href="<?=base_url()?>admin/category/<?=$category->id?>"><?=$category->title?></a></td>
-									<td class="tb_2"><a href="<?=base_url()?>admin/delete_category/<?=$category->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+									<td class="tb_2"><a href="#delete_<?=$category->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
+									<div id="delete_<?=$category->id?>" style="display:none;">
+										<div class="pop-up">
+											<div>
+												Вы точно уверены что хотите удалалить категорию <strong><?=$category->title?></strong>?
+											</div><br/>
+											<a href="<?=base_url()?>admin/delete_category/<?=$category->id?>" class="button small">Удалить?</a>
+											<a href="#" class="button small" onclick="">Нет</a>
+										</div>
+									</div>
 								</tr>
 								<?php endforeach ?>
 							</tbody>
