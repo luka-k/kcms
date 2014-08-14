@@ -11,10 +11,10 @@
 						<h6><?=$blog->title?></h6>
 						<div class="date"><?=$blog->date?></div>
 						<div class="text">
-							<?=$blog->prev_text?>
+							<?=$blog->short_description?>
 						</div>
 						<div class="more">
-							<a href="<?=base_url()?>blog/<?=$blog->url?>">Подробнее...</a>
+							<a href="<?=base_url()?>page/blog/<?=$blog->url?>">Подробнее...</a>
 						</div>
 					</div>
 				<? endforeach?>

@@ -4,12 +4,12 @@
 	<body>
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
-			<? require 'include/top-menu.php' ?>
+			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
 						<h6>Страницы по разделам</h6>
 						<div id="left-menu">
-							<? require 'include/part-pages.php' ?>
+							<? require 'include/part_pages_tree.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_8 back">
@@ -23,7 +23,6 @@
 								<tr>
 									<th class="tb_1">id</th>
 									<th class="tb_9">Имя</th>
-									<!--<th>Статус</th>-->
 									<th class="tb_2">Действие</th>
 								</tr>
 							</thead>
@@ -45,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'include/footer-scripth.php' ?>
+		<? require 'include/footer_scripth.php' ?>
 		<? require 'footer.php' ?>
 
 	</body>

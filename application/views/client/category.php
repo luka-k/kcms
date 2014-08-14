@@ -9,7 +9,7 @@
 		<? require 'menu.php' ?>
 		<div>
 			<h1><?=$cat_info->title?></h1>
-			<?=$cat_info->cat_desc?>
+			<?=$cat_info->description?>
 		</div>
 		<div>
 			<?foreach ($pages as $page):?>

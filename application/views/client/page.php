@@ -8,7 +8,7 @@
 				<? require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
 					<h6><?=$content->title?></h6>
-					<div><?=$content->full_text?></div>
+					<div><?=$content->description?></div>
 					<?if($content->img <> NULL):?>
 						<div>
 							<?foreach($content->img as $img_item):?>

@@ -5,12 +5,12 @@
 
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
-			<? require 'include/top-menu.php' ?>
+			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_3 back">
 						<h5>Категории</h5>
 						<div id="left-menu">
-							<? require 'include/part-pages.php' ?>
+							<? require 'include/part_pages_tree.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'include/footer-scripth.php' ?>
+		<? require 'include/footer_scripth.php' ?>
 		<? require 'footer.php' ?>
 	</body>
 </html>

@@ -25,8 +25,8 @@ class Menus extends MY_Model
 			'catalog' => array('Каталог', "#", 0, array(
 				0 => array('Категории', base_url()."admin/categories", 0),
 				1 => array('Создать категорию', base_url()."admin/category", 0),
-				2 => array('Товары', base_url()."admin/cat_pages", 0),
-				3 => array('Создать товар', base_url()."admin/cat_page", 0)				
+				2 => array('Товары', base_url()."admin/products", 0),
+				3 => array('Создать товар', base_url()."admin/product", 0)				
 			)),
 			'settings' => array('Настройки', base_url()."admin/settings", 0),
 			'users' => array('Пользователи', base_url()."registration/users", 0)

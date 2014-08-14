@@ -7,12 +7,12 @@ class Parts extends MY_Model
 			'id' => array('id', 'hidden'),
 			'title' => array('Заголовок', 'text'),
 			'is_active' => array('Активна', 'checkbox'),
-			'cat_desc' => array('Описание', 'tiny')
+			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),
-			'keywords' => array('Ключевые слова страницы', 'text'),
-			'description' => array('Описание страницы', 'text'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text'),
+			'meta_description' => array('Описание страницы', 'text'),
 			'url' => array('url', 'hidden')
 		)
 	);

@@ -16,7 +16,7 @@
 								</a>
 							</div>
 						<?endif;?>
-						<div><?=$category->cat_desc?></div>
+						<div><?=$category->description?></div>
 					</div>
 				<?endforeach;?>
 			</div>

@@ -13,9 +13,9 @@ class Breadcrumbs_model extends CI_Model
 		$info = $this->categories->get_item_by(array('url' => $url));
 		if ($info == NULL)
 		{
-			$info = $this->cat_pages->get_item_by(array('url' => $url));
+			$info = $this->products->get_item_by(array('url' => $url));
 			$breadcrumbs[$info->title] = base_url()."product/".$info->url;
-			$parent = $info->cat_id;
+			$parent = $info->category_id;
 		}
 		else
 		{

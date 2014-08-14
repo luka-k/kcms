@@ -8,12 +8,12 @@ class Categories extends MY_Model
 			'title' => array('Заголовок', 'text'),
 			'parent' => array('Родительская категория', 'select'),
 			'is_active' => array('Активен', 'checkbox'),
-			'cat_desc' => array('Описание', 'tiny')
+			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),
-			'keywords' => array('Ключевые слова страницы', 'text'),
-			'description' => array('Описание страницы', 'text'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text'),
+			'meta_description' => array('Описание страницы', 'text'),
 			'url' => array('url', 'hidden')
 		)
 	);

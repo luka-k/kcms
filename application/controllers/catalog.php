@@ -26,8 +26,8 @@ class Catalog extends CI_Controller {
 			$data = array(
 				'title' => $settings->site_title,
 				'meta_title' => $settings->site_title,
-				'keywords' => $settings->site_keywords,
-				'description' => $settings->site_description,
+				'meta_keywords' => $settings->site_keywords,
+				'meta_description' => $settings->site_description,
 				'tree' => $this->categories->get_sub_tree(0, "parent"),
 				'content' => $cat,
 				'breadcrumbs' => $breadcrumbs,
@@ -42,13 +42,13 @@ class Catalog extends CI_Controller {
 				
 			if ($category == NULL) //Выпилить к дребеням
 			{
-				$page = $this->cat_pages->get_item_by(array("url" => $url));
+				$page = $this->products->get_item_by(array("url" => $url));
 				$breadcrumbs = $this->breadcrumbs_model->bread($url);
 				$data = array(
 					'title' => $page->title,
 					'meta_title' => $page->meta_title,
-					'keywords' => $page->keywords,
-					'description' => $page->description,
+					'meta_keywords' => $page->keywords,
+					'meta_description' => $page->description,
 					'tree' => $this->categories->get_sub_tree(0, "parent"),
 					'content' => $page,
 					'breadcrumbs' => $breadcrumbs,
@@ -65,7 +65,7 @@ class Catalog extends CI_Controller {
 				if($cat==NULL)
 				{
 					$config['base_url'] = base_url()."catalog/".$this->uri->segment(2);
-					$config['total_rows'] = count($this->cat_pages->get_list(array('cat_id' => $category->id)));
+					$config['total_rows'] = count($this->products->get_list(array('category_id' => $category->id)));
 					$config['per_page'] = 3;
 					$config['uri_segment'] = 2;
 					$config['num_links'] = 4;
@@ -76,12 +76,12 @@ class Catalog extends CI_Controller {
 						$pagin = 0;
 					}
 
-					$pages = $this->cat_pages->get_list(array('cat_id' => $category->id), $pagin, $config['per_page']);
+					$pages = $this->products->get_list(array('category_id' => $category->id), $pagin, $config['per_page']);
 					$data = array(
 						'title' => $category->title,
 						'meta_title' => $category->meta_title,
-						'keywords' => $category->keywords,
-						'description' => $category->description,
+						'meta_keywords' => $category->meta_keywords,
+						'meta_description' => $category->meta_description,
 						'tree' => $this->categories->get_sub_tree(0, "parent"),
 						'content' => $pages,
 						'breadcrumbs' => $breadcrumbs,
@@ -97,8 +97,8 @@ class Catalog extends CI_Controller {
 					$data = array(
 						'title' => $category->title,
 						'meta_title' => $category->meta_title,
-						'keywords' => $category->keywords,
-						'description' => $category->description,
+						'meta_keywords' => $category->meta_keywords,
+						'meta_description' => $category->meta_description,
 						'tree' => $this->categories->get_sub_tree(0, "parent"),
 						'content' => $cat,
 						'breadcrumbs' => $breadcrumbs,
@@ -116,22 +116,22 @@ class Catalog extends CI_Controller {
 		$menu = $this->menus->top_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
 		
-		$page = $this->cat_pages->get_item_by(array("url" => $url));
+		$page = $this->products->get_item_by(array("url" => $url));
 		
 		$breadcrumbs = $this->breadcrumbs_model->bread($url);
 		
 		$data = array(
 			'title' => $page->title,
 			'meta_title' => $page->meta_title,
-			'keywords' => $page->keywords,
-			'description' => $page->description,
+			'meta_keywords' => $page->meta_keywords,
+			'meta_description' => $page->meta_description,
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'content' => $page,
 			'breadcrumbs' => $breadcrumbs,
 			'menu' => $menu
 		);
 
-		$data['content']->img = $this->images_model->get_images(array("object_type" => "cat_page", "object_id" => $data['content']->id)); 
+		$data['content']->img = $this->images_model->get_images(array("object_type" => "products", "object_id" => $data['content']->id)); 
 			
 		$this->load->view('client/page.php', $data);	
 	}

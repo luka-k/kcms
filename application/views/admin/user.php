@@ -5,12 +5,12 @@
 
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
-			<? require 'include/top-menu.php' ?>
+			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_3 back">
 						<h5>Страницы разделов</h5>
 						<div id="left-menu">
-							<? require 'include/part-pages.php' ?>
+							<? require 'include/part_pages_tree.php' ?>
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">
@@ -40,11 +40,6 @@
 								<?php $coun++?>
 							<?php endforeach?>
 							
-							<!--<div  class="col_12">
-								<div class="col_3"><label for="lbl_<?=$coun?>">Повторите пароль</label></div>
-								<div class="col_9"><input type="password" id="lbl_" class="col_12" name="conf_password" placeholder="Повторите пароль"/></div>
-							</div>-->
-							
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
 								<a href="<?=base_url()?>admin/delete_user/<?=$content->id?>" class="btn small">Удалить</a>
@@ -58,7 +53,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'include/footer-scripth.php' ?>
+		<? require 'include/footer_scripth.php' ?>
 		<? require 'footer.php' ?>
 	</body>
 </html>

@@ -29,6 +29,8 @@ class Admin extends CI_Controller
 	//Главная страница
 	public function admin_main()
 	{		
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'main');
 		//Отбираем для главной последние три записи в блоге и в новостях
 		$from_news = $this->news->get_count(array('is_active' => 1))-5;
 		$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
@@ -41,8 +43,6 @@ class Admin extends CI_Controller
 		{
 			$from_blog = 0;
 		}	
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'main');
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
@@ -79,7 +79,7 @@ class Admin extends CI_Controller
 			//Если есть id выводим редактирование раздела.
 			$data['editors'] = $this->parts->editors;
 			$data['content'] = $this->parts->get_item_by(array('id' => $id));
-			$this->load->view('admin/edit-part.php', $data);
+			$this->load->view('admin/edit_part.php', $data);
 		}		
 	}
 	
@@ -108,7 +108,7 @@ class Admin extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-part.php', $data);			
+			$this->load->view('admin/edit_part.php', $data);			
 		}
 		else
 		{
@@ -198,7 +198,7 @@ class Admin extends CI_Controller
 		);
 		
 		//Если url раздела и id страниццы не существуют то выводим всплывающее окно для выбора в какой раздел добавить страницу
-		if ($part_url == FALSE and $id == FALSE)
+		if ($part_url == FALSE && $id == FALSE)
 		{
 			$part_url = $this->input->post('url');
 			$data['editors'] = $this->$part_url->editors;
@@ -220,11 +220,11 @@ class Admin extends CI_Controller
 			$data['content'] = $this->$part_url->get_item_by(array('id' => $id));
 		}
 		$data['content']->part_url = $part_url;
-		$this->load->view('admin/edit-page.php', $data);
+		$this->load->view('admin/edit_page.php', $data);
 	}
 
 	//Редактирование страницы разделов
-	public function edit_page($cat_url)
+	public function edit_page($part_url)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'parts');
@@ -236,7 +236,7 @@ class Admin extends CI_Controller
 			'menu' => $menu
 		);
 					
-		$editors = $this->$cat_url->editors;
+		$editors = $this->$part_url->editors;
 		$post = $this->input->post();
 		
 		$data['page'] = editors_post($editors, $post);
@@ -249,7 +249,7 @@ class Admin extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-page.php', $data);			
+			$this->load->view('admin/edit_page.php', $data);			
 		}
 		else
 		{
@@ -261,21 +261,21 @@ class Admin extends CI_Controller
 					'title' => $data['page']->title
 				);
 					
-				if($this->$cat_url->non_requrrent($fields))
+				if($this->$part_url->non_requrrent($fields))
 				{
-					$this->$cat_url->insert($data['page']);
+					$this->$part_url->insert($data['page']);
 					redirect(base_url().'admin/pages');
 				}
 				else
 				{
 					$data['error'] = "Страница с таким именем в этой категории уже ссуществует.";
-					$this->load->view('admin/edit-page.php', $data);
+					$this->load->view('admin/edit_page.php', $data);
 				}
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$this->$cat_url->update($data['page']->id, $data['page']);
+				$this->$part_url->update($data['page']->id, $data['page']);
 				redirect(base_url().'admin/pages');
 			}
 		}
@@ -302,16 +302,16 @@ class Admin extends CI_Controller
 			'meta_title' => "CMS",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'cat' => $this->categories->get_list(FALSE),
+			'categories' => $this->categories->get_list(FALSE),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu
 		);
-		$data['cat'] = $this->images_model->get_img_list($data['cat'], 'category');
+		$data['categories'] = $this->images_model->get_img_list($data['categories'], 'categories');
 		$this->load->view('admin/categories.php', $data);
 	}
 	
 	//Вывод информации категории по id
-	public function category($cat_id = false)
+	public function category($category_id = false)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
@@ -327,30 +327,30 @@ class Admin extends CI_Controller
 			'editors' => $this->categories->editors
 		);
 		
-		if ($cat_id===false)
+		if ($category_id===false)
 		{
-			$cat = new stdClass();
+			$category = new stdClass();
 			foreach ($data['editors'] as $tabs)
 			{
 				foreach ($tabs as $item => $value)
 				{
-					$cat->$item = "";
+					$category->$item = "";
 				}
 			}
 			$cat->is_active = "1";
-			$data['content'] = $cat;
+			$data['content'] = $category;
 			$data['content']->img = NULL;
 		}
 		else
 		{
-			$data['content'] = $this->categories->get_item_by(array('id' => $cat_id));
+			$data['content'] = $this->categories->get_item_by(array('id' => $category_id));
 			$object_info = array(
-				"object_type" => "category",
+				"object_type" => "categories",
 				"object_id" => $data['content']->id
 			);
 			$data['content']->img = $this->images_model->get_images($object_info);
 		}	
-		$this->load->view('admin/edit-category.php', $data);
+		$this->load->view('admin/edit_category.php', $data);
 	}
 
 	//Редактирование категории
@@ -362,7 +362,7 @@ class Admin extends CI_Controller
 			'meta_title' => "Редактировать категорию",
 			'name' => $this->session->userdata('user_name'),
 			'error' => " ",
-			'cat' => $this->categories->get_list(FALSE),
+			'categories' => $this->categories->get_list(FALSE),
 			'menu' => $menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent")				
 		);
@@ -370,24 +370,12 @@ class Admin extends CI_Controller
 		$editors = $this->categories->editors;
 		$post = $this->input->post();
 		
-		$data['cat_info'] = editors_post($editors, $post);
+		$data['category_info'] = editors_post($editors, $post);
 			
-		$data['cat_info']->url = slug($data['cat_info']->title);
+		$data['category_info']->url = slug($data['category_info']->title);
 		
 		//Получение изображений
 		//Получаем файлы
-		if (isset($_FILES['pic']))
-		{
-			$pic = $_FILES['pic'];
-			$object_info = array(
-				"object_type" => "category",
-				"object_id" => $data['cat_info']->id
-			);
-		}
-		else
-		{
-			$pic['error'] = 4; 
-		}
 
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -395,31 +383,35 @@ class Admin extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-category.php', $data);			
+			$this->load->view('admin/edit_category.php', $data);			
 		}
 		else
 		{
 			//Если валидация прошла успешно проверяем переменную id
-			if($data['cat_info']->id==NULL)
+			if($data['category_info']->id==NULL)
 			{
 				//Если id пустая создаем новую страницу в базе
-				$this->categories->insert($data['cat_info']);
+				$this->categories->insert($data['category_info']);
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$this->categories->update($data['cat_info']->id, $data['cat_info']);
+				$this->categories->update($data['category_info']->id, $data['category_info']);
 			}			
 		}
-		if ($pic['error'] <> 4)
+		if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
 		{
-			$this->images_model->upload_image($pic, $object_info);
+			$object_info = array(
+				"object_type" => "categories",
+				"object_id" => $data['category_info']->id
+			);
+			$this->images_model->upload_image($_FILES['pic'], $object_info);
 		}
 		redirect(base_url().'admin/categories');
 	}	
 		
 	//Удаление категории
-	public function delete_cat($cat_id)
+	public function delete_category($category_id)
 	{
 		if($this->categories->delete($cat_id))
 		{
@@ -430,7 +422,7 @@ class Admin extends CI_Controller
 	/*------------Редактирование страниц каталога------------*/
 
 	//Вывод страниц категорий
-	public function cat_pages($cat_id = false)
+	public function products($category_id = false)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
@@ -441,25 +433,25 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu,
-			'cats' => $this->categories->get_list(FALSE)
+			'categories' => $this->categories->get_list(FALSE)
 		);
 			
-		if ($cat_id == NULL)
+		if ($category_id == NULL)
 		{
 			//Если id категории не задан получаем все страницы
-			$data['pages'] = $this->cat_pages->get_list(FALSE);
+			$data['pages'] = $this->products->get_list(FALSE);
 		}
 		else
 		{
 			//Если id указан выводим страницы данного раздела
-			$data['pages'] = $this->cat_pages->get_list(array('cat_id' => $cat_id));
+			$data['pages'] = $this->products->get_list(array('category_id' => $category_id));
 		}
-		$data['pages'] = $this->images_model->get_img_list($data['pages'], 'cat_page');
-		$this->load->view('admin/cat-pages.php', $data);
+		$data['pages'] = $this->images_model->get_img_list($data['pages'], 'products');
+		$this->load->view('admin/products.php', $data);
 	}
 	
 	//Вывод информации о странице каталога
-	public function cat_page($id = FALSE)
+	public function product($id = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
@@ -468,11 +460,11 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'selects' => array(
-				'cat_id' =>$this->categories->get_list(FALSE)
+				'category_id' =>$this->categories->get_list(FALSE)
 			),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu,
-			'editors' => $this->cat_pages->editors
+			'editors' => $this->products->editors
 		);
 		
 		if ($id == FALSE)
@@ -491,18 +483,18 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			$data['content'] = $this->cat_pages->get_item_by(array('id' => $id));
+			$data['content'] = $this->products->get_item_by(array('id' => $id));
 			$object_info = array(
-				"object_type" => "cat_page",
+				"object_type" => "products",
 				"object_id" => $data['content']->id
 			);
 			$data['content']->img = $this->images_model->get_images($object_info);
 		}	
-		$this->load->view('admin/edit-cat-page.php', $data);
+		$this->load->view('admin/edit_product.php', $data);
 	}
 	
 	//Редактирование страницы разделов
-	public function edit_cat_page()
+	public function edit_product()
 	{	
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'parts');
@@ -511,32 +503,29 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'selects' => array(
-				'cat_id' =>$this->categories->get_list(FALSE)
+				'category_id' =>$this->categories->get_list(FALSE)
 			),
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'menu' => $menu,
-			'editors' => $this->cat_pages->editors		
+			'editors' => $this->products->editors		
 		);
 					
-		$editors = $this->cat_pages->editors;
+		$editors = $this->products->editors;
 		$post = $this->input->post();
 		
-		$data['page'] = editors_post($editors, $post);
-		$data['page']->url = slug($data['page']->title);
+		$data['product'] = editors_post($editors, $post);
+		$data['product']->url = slug($data['product']->title);
 		
-		//Получаем файлы
-		$pic = $_FILES['pic'];
+
 		$object_info = array(
-			"object_type" => "cat_page",
-			"object_id" => $data['page']->id
+			"object_type" => "products",
+			"object_id" => $data['product']->id
 		);
 		
-		//var_dump($object_info);
-		
-		$cover = $this->input->post("cover");
-		if ($cover <> NULL)
+		$cover_id = $this->input->post("cover_id");
+		if ($cover_id <> NULL)
 		{
-			$this->images_model->set_cover($object_info, $cover);
+			$this->images_model->set_cover($object_info, $cover_id);
 		}
 		
 		//Валидация формы
@@ -545,52 +534,52 @@ class Admin extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit-cat-page.php', $data);			
+			$this->load->view('admin/edit_product.php', $data);			
 		}
 		else
 		{
 			//Если валидация прошла успешно проверяем переменную id
-			if($data['page']->id==NULL)
+			if($data['product']->id==NULL)
 			{
 				//Если id пустая создаем новую страницу в базе
 				$fields = array(
-					'title' => $data['page']->title,
+					'title' => $data['product']->title,
 				);
 					
-				if($this->cat_pages->non_requrrent($fields))
+				if($this->products->non_requrrent($fields))
 				{
-					$this->cat_pages->insert($data['page']);
-					if ($pic['error'] <> 4)
+					$this->products->insert($data['product']);
+					if ($_FILES['pic']['error'] <> 4)
 					{
-						$this->images_model->upload_image($pic, $object_info);
+						$this->images_model->upload_image($_FILES['pic'], $object_info);
 					}
-					redirect(base_url().'admin/cat_pages');
+					redirect(base_url().'admin/products');
 				}
 				else
 				{
 					$data['error'] = "Страница с таким именем в каталоге уже ссуществует.";
-					$this->load->view('admin/edit-cat-page.php', $data);
+					$this->load->view('admin/edit_product.php', $data);
 				}
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$this->cat_pages->update($data['page']->id, $data['page']);
-				if($pic['error'] <> 4)
+				$this->products->update($data['product']->id, $data['product']);
+				if($_FILES['pic']['error'] <> 4)
 				{
-					$this->images_model->upload_image($pic, $object_info);
+					$this->images_model->upload_image($_FILES['pic'], $object_info);
 				}
-				redirect(base_url().'admin/cat_pages');
+				redirect(base_url().'admin/products');
 			}
 		}
 	}
 	
 	//Удаление страницы
-	public function delete_cat_page($id)
+	public function delete_product($id)
 	{
-		if($this->cat_pages->delete($id))
+		if($this->products->delete($id))
 		{
-			redirect(base_url().'admin/cat_pages');
+			redirect(base_url().'admin/products');
 		}
 	}	
 	
@@ -603,7 +592,7 @@ class Admin extends CI_Controller
 			"id" => $id
 		);
 		$cat_id = $this->images_model->delete_img($object_info);
-		redirect(base_url().'admin/cat_page/'.$cat_id);
+		redirect(base_url().'admin/product/'.$cat_id);
 	}
 		
 	/*------------Редактирование настроек------------*/

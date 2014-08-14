@@ -16,7 +16,7 @@
 							</a>
 						</div>
 					<?endif;?>
-					<div><?=$page->full_text?></div>
+					<div><?=$page->description?></div>
 					</div>
 				<?endforeach;?>
 				<div class="col_12">

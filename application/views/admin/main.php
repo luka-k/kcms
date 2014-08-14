@@ -4,22 +4,10 @@
 	<body>
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
-			<? require 'include/top-menu.php' ?>
+			<? require 'include/top_menu.php' ?>
 		</div>
 	</div>
-	<script>
-		$('ul .up').click(function() {
-			$(this).next().slideToggle().toggleClass('noactive');
-			$(this).toggleClass('up');
-			$(this).toggleClass('down');
-		});
-
-		$('ul .down').click(function() {
-			$(this).next().slideToggle().toggleClass('noactive');
-			$(this).toggleClass('down');
-			$(this).toggleClass('up');
-		});
-	</script>
+	<? require 'include/footer_scripth.php' ?>
 	<? require 'footer.php' ?>
 	</body>
 </html>

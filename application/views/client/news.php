@@ -10,7 +10,7 @@
 					<div class="news-item col_12">
 						<h6><?=$news->title?></h6>
 						<div class="text">
-							<?=$news->prev_text?>
+							<?=$news->short_description?>
 						</div>
 						<div class="more">
 							<a href="<?=base_url()?>page/news/<?=$news->url?>">Подробнее...</a>

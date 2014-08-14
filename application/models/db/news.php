@@ -8,13 +8,13 @@ class News extends MY_Model
 			'date' => array('date', 'hidden'),
 			'is_active' => array('Активна', 'checkbox'),
 			'title' => array('Название', 'text'),
-			'prev_text' => array('Предварительный текст', 'tiny'),
-			'full_text' => array('Полный  текст', 'tiny')
+			'short_description' => array('Предварительный текст', 'tiny'),
+			'description' => array('Полный  текст', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),
-			'keywords' => array('Ключевые слова страницы', 'text'),
-			'description' => array('Описание страницы', 'text'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text'),
+			'meta_description' => array('Описание страницы', 'text'),
 			'url' => array('url страницы', 'hidden')		
 		)
 	);

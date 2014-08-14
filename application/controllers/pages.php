@@ -42,8 +42,8 @@ class Pages extends CI_Controller {
 		$data = array(
 			'title' => $news_info->title,
 			'meta_title' => $news_info->meta_title,
-			'keywords' => $news_info->keywords,
-			'description' => $news_info->description,
+			'meta_keywords' => $news_info->meta_keywords,
+			'meta_description' => $news_info->meta_description,
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'content' => array_reverse($items),
 			'breadcrumbs' => $breadcrumbs,
@@ -62,15 +62,15 @@ class Pages extends CI_Controller {
 			
 		$breadcrumbs = array(
 			'Главная' => base_url(),
-			$part->title => base_url()."/".$url_part,
+			$part->title => base_url()."/pages/".$url_part,
 			$news_info->title => ""
 		);
 		
 		$data = array(
 			'title' => $news_info->title,
 			'meta_title' => $news_info->meta_title,
-			'keywords' => $news_info->keywords,
-			'description' => $news_info->description,
+			'meta_keywords' => $news_info->meta_keywords,
+			'meta_description' => $news_info->meta_description,
 			'tree' => $this->categories->get_sub_tree(0, "parent"),
 			'content' => $news_info,
 			'breadcrumbs' => $breadcrumbs,

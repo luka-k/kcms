@@ -8,8 +8,8 @@
 				<? require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
 				<h6><?=$content->title?></h6>
-				<div><?=$content->prev_text?></div>
-				<div><?=$content->full_text?></div>
+				<div><?=$content->short_description?></div>
+				<div><?=$content->description?></div>
 				</div>
 			</div>
 			<div class="col_4">

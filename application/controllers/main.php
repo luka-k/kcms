@@ -17,12 +17,10 @@ class Main extends CI_Controller {
 		$data = array(
 			'title' => $settings->site_title,
 			'meta_title' => $settings->site_title,
-			'keywords' => $settings->site_keywords,
-			'description' => $settings->site_description,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
 			'menu' => $menu
 		);
-		//$data['page'] = $this->pages->get_item_by(array('url'=>$url));
-		//$data['menu'] = $this->menu_model->menu('top_menu');
 		$this->load->view('client/main.php', $data);
 	}	
 }

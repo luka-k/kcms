@@ -3,9 +3,9 @@
 $config['upload_path'] = FCPATH.'download/images';
 
 $config['thumb_size'] = array(
-	"catalog_big" => 640,
-	"catalog_mid" => 320,
-	"catalog_small" => 120,
+	"catalog_big" => array(640, 640),
+	"catalog_mid" => array(320, 320),
+	"catalog_small" => array(120,120),
 );
 
 
