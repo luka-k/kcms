@@ -20,22 +20,25 @@ class Images extends MY_Model
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 	}
 	
-	public function upload_image($pic, $object_info)
+	public function upload_image($img, $object_info)
 	{
 		//Подключаем настройки
 		$upload_path = $this->config->item('upload_path');
 		//$thumb_sizes = $this->config->item('thumb_size');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		$pic_name = explode(".", $pic['name']);
+		//$img_name = explode(".", $img['name']);
 		//Чистим от лишних символов и транлитируем имя файла.
-		$pic_name[0] = slug($pic_name[0]);
-		$pic_name = $pic_name[0].".".$pic_name[1];
+		//$img_name[0] = slug($img_name[0]);
+		
+		$img_info = $this->non_requrrent_info($img['name']);
+		
+		//$img_name = $img_name[0].".".$img_name[1];
 		//Формируем путь для загрузки оригинала изображения
-		$temp_path = make_upload_path($pic_name, $upload_path).$pic_name;
+		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
 	
 		//Загружаем оригинал
-		if(!move_uploaded_file($pic["tmp_name"], $temp_path))
+		if(!move_uploaded_file($img["tmp_name"], $temp_path))
 		{
 			return FALSE;
 		}
@@ -57,7 +60,7 @@ class Images extends MY_Model
 			
 			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
 			
-			$output_filename = make_upload_path($pic_name, $upload_thumb_path).$pic_name;
+			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
 
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
@@ -78,7 +81,8 @@ class Images extends MY_Model
 		{
 			$data[$field] = $info;
 		}
-		$data['url'] = make_upload_path($pic_name, null).$pic_name;
+		//$data['title'] = $img_name[0];
+		$data['url'] = $img_info->url;
 		if($this->get_images($object_info) == FALSE)
 		{
 			$data['is_cover'] = 1;
@@ -92,6 +96,28 @@ class Images extends MY_Model
 			return FALSE;
 		}
 		return TRUE;
+	}
+	
+	public function non_requrrent_info($img_name)
+	{
+		$image = explode(".", $img_name);
+		//Чистим от лишних символов и транлитируем имя файла.
+		$image[0] = slug($image[0]);
+		$img_name = $image[0].".".$image[1];
+		$url = make_upload_path($img_name, NULL).$img_name;
+		//var_dump($img_name);
+		$count = 1;
+		while(!($this->non_requrrent(array("url" => $url))))
+		{
+			$img_name = $image[0]."[".$count."]".".".$image[1];
+			$url = make_upload_path($img_name, NULL).$img_name;
+			$count++;
+			//var_dump($img_name);
+		};
+		$img_info = new stdClass();
+		$img_info->name = $img_name;
+		$img_info->url = $url;
+		return $img_info;
 	}
 	
 	public function get_images($object_info, $is_cover = FALSE)
@@ -115,7 +141,7 @@ class Images extends MY_Model
 				"object_type" => $object_type,
 				"object_id" => $info[$key]->id
 			);
-			$info[$key]->img = $this->images_model->get_images($object_info, '1');
+			$info[$key]->img = $this->images->get_images($object_info, '1');
 		}
 		return $info;
 	}
