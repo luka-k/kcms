@@ -44,7 +44,7 @@ class Pages extends CI_Controller {
 			'meta_title' => $news_info->meta_title,
 			'meta_keywords' => $news_info->meta_keywords,
 			'meta_description' => $news_info->meta_description,
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
+			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
 			'content' => array_reverse($items),
 			'breadcrumbs' => $breadcrumbs,
 			'pagination' => $pagination,
@@ -71,7 +71,7 @@ class Pages extends CI_Controller {
 			'meta_title' => $news_info->meta_title,
 			'meta_keywords' => $news_info->meta_keywords,
 			'meta_description' => $news_info->meta_description,
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
+			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
 			'content' => $news_info,
 			'breadcrumbs' => $breadcrumbs,
 			'menu' => $menu
