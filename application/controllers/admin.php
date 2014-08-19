@@ -55,76 +55,188 @@ class Admin extends CI_Controller
 		$this->load->view('admin/admin.php', $data);
 	}
 	
-	//Вывод разделов в админке. 
-	public function parts($id = false)
+	public function items($type, $id = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
+		$menu = $this->menus->set_active($menu, $type);
+
 		$data = array(
-			'title' => "Разделы",
-			'meta_title' => "Разделы",
+			'title' => "Страницы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'parts' => $this->parts->get_list(FALSE),
-			'tree' => $this->parts->get_sub_tree(0, "parent"),
+			'type' => $type,
 			'menu' => $menu
-		);
-		if ($id == false)
+		);		
+		
+		if($type == "products")
 		{
-			//Если id не указан выводим все разделы
-			$this->load->view('admin/parts.php', $data);
+			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
 		}
 		else
 		{
-			//Если есть id выводим редактирование раздела.
-			$data['editors'] = $this->parts->editors;
-			$data['content'] = $this->parts->get_item_by(array('id' => $id));
-			$this->load->view('admin/edit_part.php', $data);
-		}		
+			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+		}
+		
+		if($id == FALSE)
+		{
+			$data['content'] = $this->$type->get_list(FALSE);
+		}
+		else
+		{
+			$data['content'] = $this->$type->get_list(array("parent_id" => $id));
+		}
+		$data['content'] = $this->images->get_img_list($data['content'], $type);
+		$this->load->view('admin/items.php', $data);
 	}
 	
-	//Внесение изменений в раздел
-	public function edit_part()
+	public function item($type, $id = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
+		$menu = $this->menus->set_active($menu, $type);
 		$data = array(
-			'title' => "Разделы",
-			'meta_title' => "Разделы",
+			'title' => "Редактировать",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'parts' => $this->parts->get_list(FALSE),
-			'menu' => $menu
+			'selects' => array(
+				'parent_id' =>$this->categories->get_list(FALSE)
+			),
+			'menu' => $menu,
+			'type' => $type,
+			'editors' => $this->$type->editors
 		);
 		
-		$editors = $this->parts->editors;
+		if($type == "products")
+		{
+			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
+		}
+		else
+		{
+			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+		}
+		
+		if($id == FALSE)
+		{	
+			$content = new stdClass();
+			foreach ($data['editors'] as $tabs)
+			{
+				foreach ($tabs as $item => $value)
+				{
+					$category->$item = "";
+				}
+			}
+			$cat->is_active = "1";
+			$data['content'] = $category;
+			$data['content']->img = NULL;
+		}	
+		else
+		{			
+			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			$object_info = array(
+				"object_type" => $type,
+				"object_id" => $data['content']->id
+			);
+			$data['content']->img = $this->images->get_images($object_info);		
+		}
+		$this->load->view('admin/edit_item.php', $data);	
+	}
+	
+	public function edit_item($type)
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, $type);
+	
+		$data = array(
+			'title' => "Редактировать страницу каталога",
+			'error' => "",
+			'name' => $this->session->userdata('user_name'),
+			'selects' => array(
+				'parent_id' =>$this->categories->get_list(FALSE)
+			),
+			/*'tree' => $this->categories->get_sub_tree(0, "parent"),*/
+			'menu' => $menu,
+			'editors' => $this->products->editors		
+		);
+		
+		if($type == "products")
+		{
+			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
+		}
+		else
+		{
+			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+		}
+					
+		$editors = $this->$type->editors;
 		$post = $this->input->post();
 		
-		$data['part'] = editors_post($editors, $post);
-			
+		$data['content'] = editors_post($editors, $post);
+
+		$object_info = array(
+			"object_type" => $type,
+			"object_id" => $data['content']->id
+		);
+		
+		$cover_id = $this->input->post("cover_id");
+		if ($cover_id <> NULL)
+		{
+			$this->images->set_cover($object_info, $cover_id);
+		}
+		
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit_part.php', $data);			
+			$this->load->view('admin/edit_item.php', $data);			
 		}
 		else
 		{
-			if ($data['part']->id == NULL)
+			//Если валидация прошла успешно проверяем переменную id
+			if($data['content']->id==NULL)
 			{
-				//Если id нет то оставлена место добавить код для добавления раздела
-				$this->parts->insert($data['part']);
-				redirect(base_url().'admin/parts');			
+				//Если id пустая создаем новую страницу в базе
+				$fields = array(
+					'title' => $data['content']->title,
+				);
+					
+				if($this->$type->non_requrrent($fields))
+				{
+					$data['content']->url = slug($data['content']->title);
+					$this->$type->insert($data['content']);
+					if ($_FILES['pic']['error'] <> 4)
+					{
+						$this->images->upload_image($_FILES['pic'], $object_info);
+					}
+					redirect(base_url().'admin/items/'.$type);
+				}
+				else
+				{
+					$data['error'] = "Страница с таким именем в каталоге уже ссуществует.";
+					$this->load->view('admin/edit_item.php', $data);
+				}
 			}
 			else
 			{
-				//Редактируем раздел по id
-				$this->parts->update($data['part']->id, $data['part']);
-				redirect(base_url().'admin/parts');
-			}	
-		}					
+				//Если id не пустая вносим изменения.
+				$data['content']->url = slug($data['content']->url);
+				$this->$type->update($data['content']->id, $data['content']);
+				if($_FILES['pic']['error'] <> 4)
+				{
+					$this->images->upload_image($_FILES['pic'], $object_info);
+				}
+				redirect(base_url().'admin/items/'.$type);
+			}
+		}	
+	}
+	
+	//Удаление категории
+	public function delete_item($type, $category_id)
+	{
+		if($this->$type->delete($category_id))
+		{
+			redirect(base_url().'admin/items'.$type);
+		}
 	}
 	
 	/*------------Редактирование страниц разделов------------*/
@@ -139,7 +251,7 @@ class Admin extends CI_Controller
 			'meta_title' => "Страницы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'tree' => $this->parts->get_sub_tree(0, "parent"),
+			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
 			'parts' => $this->parts->get_list(FALSE),
 			'menu' => $menu
 		);
@@ -291,299 +403,6 @@ class Admin extends CI_Controller
 		}
 	}	
 	
-	/*------------Редактирование каталога------------*/
-	
-	//Вывод списка категорий
-	public function categories()
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
-		$data = array(
-			'title' => "CMS",
-			'meta_title' => "CMS",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'categories' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $menu
-		);
-		$data['categories'] = $this->images->get_img_list($data['categories'], 'categories');
-		$this->load->view('admin/categories.php', $data);
-	}
-	
-	//Вывод информации категории по id
-	public function category($category_id = false)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
-		$data = array(
-			'title' => "Редактировать категорию",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'selects' => array(
-				'parent' =>$this->categories->get_list(FALSE)
-			),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $menu,
-			'editors' => $this->categories->editors
-		);
-		
-		if ($category_id===false)
-		{
-			$category = new stdClass();
-			foreach ($data['editors'] as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$category->$item = "";
-				}
-			}
-			$cat->is_active = "1";
-			$data['content'] = $category;
-			$data['content']->img = NULL;
-		}
-		else
-		{
-			$data['content'] = $this->categories->get_item_by(array('id' => $category_id));
-			$object_info = array(
-				"object_type" => "categories",
-				"object_id" => $data['content']->id
-			);
-			$data['content']->img = $this->images->get_images($object_info);
-		}	
-		$this->load->view('admin/edit_category.php', $data);
-	}
-
-	//Редактирование категории
-	public function edit_category()
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
-		$data = array(
-			'meta_title' => "Редактировать категорию",
-			'name' => $this->session->userdata('user_name'),
-			'error' => " ",
-			'categories' => $this->categories->get_list(FALSE),
-			'menu' => $menu,
-			'tree' => $this->categories->get_sub_tree(0, "parent")				
-		);
-		
-		$editors = $this->categories->editors;
-		$post = $this->input->post();
-		
-		$data['category_info'] = editors_post($editors, $post);
-		
-		//Получение изображений
-		//Получаем файлы
-
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit_category.php', $data);			
-		}
-		else
-		{
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['category_info']->id==NULL)
-			{
-				//Если id пустая создаем новую страницу в базе
-				$data['category_info']->url = slug($data['category_info']->title);
-				$this->categories->insert($data['category_info']);
-			}
-			else
-			{
-				//Если id не пустая вносим изменения.
-				$data['category_info']->url = slug($data['category_info']->url);
-				$this->categories->update($data['category_info']->id, $data['category_info']);
-			}			
-		}
-		if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
-		{
-			$object_info = array(
-				"object_type" => "categories",
-				"object_id" => $data['category_info']->id
-			);
-			$this->images->upload_image($_FILES['pic'], $object_info);
-		}
-		redirect(base_url().'admin/categories');
-	}	
-		
-	//Удаление категории
-	public function delete_category($category_id)
-	{
-		if($this->categories->delete($category_id))
-		{
-			redirect(base_url().'admin/categories');
-		}
-	}
-
-	/*------------Редактирование страниц каталога------------*/
-
-	//Вывод страниц категорий
-	public function products($category_id = false)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
-		$data = array(
-			'title' => "Страницы",
-			'meta_title' => "Страницы",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $menu,
-			'categories' => $this->categories->get_list(FALSE)
-		);
-			
-		if ($category_id == NULL)
-		{
-			//Если id категории не задан получаем все страницы
-			$data['pages'] = $this->products->get_list(FALSE);
-		}
-		else
-		{
-			//Если id указан выводим страницы данного раздела
-			$data['pages'] = $this->products->get_list(array('category_id' => $category_id));
-		}
-		$data['pages'] = $this->images->get_img_list($data['pages'], 'products');
-		$this->load->view('admin/products.php', $data);
-	}
-	
-	//Вывод информации о странице каталога
-	public function product($id = FALSE)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
-		$data = array(
-			'title' => "Редактировать страницу каталога",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'selects' => array(
-				'category_id' =>$this->categories->get_list(FALSE)
-			),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $menu,
-			'editors' => $this->products->editors
-		);
-		
-		if ($id == FALSE)
-		{
-			$page = new stdClass();
-			foreach ($data['editors'] as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$page->$item = "";
-				}
-			}
-			$page->is_active = "1";
-			$data['content'] = $page;
-			$data['content']->img = NULL;
-		}
-		else
-		{
-			$data['content'] = $this->products->get_item_by(array('id' => $id));
-			$object_info = array(
-				"object_type" => "products",
-				"object_id" => $data['content']->id
-			);
-			$data['content']->img = $this->images->get_images($object_info);
-		}	
-		$this->load->view('admin/edit_product.php', $data);
-	}
-	
-	//Редактирование страницы разделов
-	public function edit_product()
-	{	
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
-		$data = array(
-			'title' => "Редактировать страницу каталога",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'selects' => array(
-				'category_id' =>$this->categories->get_list(FALSE)
-			),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
-			'menu' => $menu,
-			'editors' => $this->products->editors		
-		);
-					
-		$editors = $this->products->editors;
-		$post = $this->input->post();
-		
-		$data['product'] = editors_post($editors, $post);
-
-		$object_info = array(
-			"object_type" => "products",
-			"object_id" => $data['product']->id
-		);
-		
-		$cover_id = $this->input->post("cover_id");
-		if ($cover_id <> NULL)
-		{
-			$this->images->set_cover($object_info, $cover_id);
-		}
-		
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit_product.php', $data);			
-		}
-		else
-		{
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['product']->id==NULL)
-			{
-				//Если id пустая создаем новую страницу в базе
-				$fields = array(
-					'title' => $data['product']->title,
-				);
-					
-				if($this->products->non_requrrent($fields))
-				{
-					$data['product']->url = slug($data['product']->title);
-					$this->products->insert($data['product']);
-					if ($_FILES['pic']['error'] <> 4)
-					{
-						$this->images->upload_image($_FILES['pic'], $object_info);
-					}
-					redirect(base_url().'admin/products');
-				}
-				else
-				{
-					$data['error'] = "Страница с таким именем в каталоге уже ссуществует.";
-					$this->load->view('admin/edit_product.php', $data);
-				}
-			}
-			else
-			{
-				//Если id не пустая вносим изменения.
-				$data['product']->url = slug($data['product']->url);
-				$this->products->update($data['product']->id, $data['product']);
-				if($_FILES['pic']['error'] <> 4)
-				{
-					$this->images->upload_image($_FILES['pic'], $object_info);
-				}
-				redirect(base_url().'admin/products');
-			}
-		}
-	}
-	
-	//Удаление страницы
-	public function delete_product($id)
-	{
-		if($this->products->delete($id))
-		{
-			redirect(base_url().'admin/products');
-		}
-	}	
-	
 	/*--------------Удаление изображения-------------*/
 	
 	public function delete_img($object_type, $id)
@@ -593,7 +412,7 @@ class Admin extends CI_Controller
 			"id" => $id
 		);
 		$cat_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/product/'.$cat_id);
+		redirect(base_url().'admin/item/'.$object_type."/".$cat_id);
 	}
 		
 	/*------------Редактирование настроек------------*/

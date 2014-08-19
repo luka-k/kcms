@@ -25,11 +25,11 @@
 								</tr>
 							</thead>
 							<tbody id="sortable">
-								<?php foreach ($parts as $part): ?>
+								<?php foreach ($content as $item): ?>
 								<tr>
-									<td class="tb_1"><?=$part->id?></td>
-									<td class="tb_9"><a href="<?=base_url()?>admin/parts/<?=$part->id?>"><?=$part->title?></a></td>
-									<td class="tb_2"><a href="<?=base_url()?>admin/delete_cat/<?=$part->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+									<td class="tb_1"><?=$item->id?></td>
+									<td class="tb_9"><a href="<?=base_url()?>admin/parts/<?=$item->id?>"><?=$item->title?></a></td>
+									<td class="tb_2"><a href="<?=base_url()?>admin/delete_cat/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 								</tr>
 								<?php endforeach ?>
 							</tbody>

@@ -165,8 +165,8 @@ class Images extends MY_Model
 		$this->images->delete($object_info['id']);
 		
 		$upload_path = $this->config->item('upload_path');
-		$size_info = $this->config->item('thumb_size');
-		foreach ($size_info as $path => $item)
+		$thumb_info = $this->config->item('thumb_config');
+		foreach ($thumb_info as $path => $item)
 		{
 			unlink($upload_path."/".$path.$img->url);
 		}

@@ -5,7 +5,7 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'category_id' => array('Категория', 'select'),
+			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
 			'title' => array('Заголовок', 'text'),
 			'description' => array('Содержимое', 'tiny'),
