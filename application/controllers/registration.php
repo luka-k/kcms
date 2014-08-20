@@ -189,6 +189,7 @@ class Registration extends CI_Controller
 			'meta_title' => "Пользователи",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'tree' => $this->parts->get_list(FALSE),
 			'menu' => $menu,
 			'users' => $this->users->get_list(FALSE)
@@ -206,8 +207,9 @@ class Registration extends CI_Controller
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent")				
+			'tree' => $this->parts->get_sub_tree(0, "parent_id")				
 		);
 			
 		if ($id == FALSE)
@@ -247,8 +249,9 @@ class Registration extends CI_Controller
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent")			
+			'tree' => $this->parts->get_sub_tree(0, "parent_id")			
 		);
 			
 		if ($id == NULL)

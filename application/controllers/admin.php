@@ -48,6 +48,7 @@ class Admin extends CI_Controller
 			'meta_title' => "CMS",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
 			'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5)),
 			'menu' => $menu
@@ -64,6 +65,7 @@ class Admin extends CI_Controller
 			'title' => "Страницы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'type' => $type,
 			'menu' => $menu
 		);		
@@ -97,6 +99,7 @@ class Admin extends CI_Controller
 			'title' => "Редактировать",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
 				'parent_id' =>$this->categories->get_list(FALSE)
 			),
@@ -149,6 +152,7 @@ class Admin extends CI_Controller
 			'title' => "Редактировать страницу каталога",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
 				'parent_id' =>$this->categories->get_list(FALSE)
 			),
@@ -251,6 +255,7 @@ class Admin extends CI_Controller
 			'meta_title' => "Страницы",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
 			'parts' => $this->parts->get_list(FALSE),
 			'menu' => $menu
@@ -305,7 +310,8 @@ class Admin extends CI_Controller
 			'meta_title' => "Редактировать страницу",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
-			'tree' => $this->parts->get_sub_tree(0, "parent"),
+			'user_id' => $this->session->userdata('user_id'),
+			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
 			'menu' => $menu
 		);
 		
@@ -344,6 +350,7 @@ class Admin extends CI_Controller
 			'meta_title' => "Редактировать страницу",
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'tree' => $this->parts->get_sub_tree(0, "parent"),	
 			'menu' => $menu
 		);
@@ -425,8 +432,9 @@ class Admin extends CI_Controller
 			'meta_title' => "Настройки сайта",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "parent"),
+			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
 			'content' => $this->settings->get_item_by(array('id' => 1)),
 			'menu' => $menu,
 			'editors' => $this->settings->editors
@@ -443,6 +451,7 @@ class Admin extends CI_Controller
 			'meta_title' => "Редактировать настройки",
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
 			'cat' => $this->categories->get_list(FALSE),
 			'menu' => $menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent")	
