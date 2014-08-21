@@ -32,8 +32,8 @@ class Admin extends CI_Controller
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'main');
 		//Отбираем для главной последние три записи в блоге и в новостях
-		$from_news = $this->news->get_count(array('is_active' => 1))-5;
-		$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
+		$from_news = $this->reviews->get_count()-5;
+		$from_blog = $this->works->get_count()-5;
 		if ($from_news < 0)
 		{
 			$from_news = 0;
@@ -49,8 +49,8 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
-			'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5)),
+			'news' => array_reverse($this->reviews->get_list(FALSE, $from_news, 5)),
+			'blog' => array_reverse($this->works->get_list(FALSE, $from_blog, 5)),
 			'menu' => $menu
 		);
 		$this->load->view('admin/admin.php', $data);
@@ -100,9 +100,9 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'selects' => array(
+			/*'selects' => array(
 				'parent_id' =>$this->categories->get_list(FALSE)
-			),
+			),*/
 			'menu' => $menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
@@ -153,12 +153,11 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'selects' => array(
+			/*'selects' => array(
 				'parent_id' =>$this->categories->get_list(FALSE)
-			),
-			/*'tree' => $this->categories->get_sub_tree(0, "parent"),*/
+			),*/
 			'menu' => $menu,
-			'editors' => $this->products->editors		
+			'editors' => $this->$type->editors		
 		);
 		
 		if($type == "products")
@@ -208,11 +207,6 @@ class Admin extends CI_Controller
 				{
 					$data['content']->url = slug($data['content']->title);
 					$this->$type->insert($data['content']);
-					if ($_FILES['pic']['error'] <> 4)
-					{
-						$this->images->upload_image($_FILES['pic'], $object_info);
-					}
-					redirect(base_url().'admin/items/'.$type);
 				}
 				else
 				{
@@ -225,13 +219,17 @@ class Admin extends CI_Controller
 				//Если id не пустая вносим изменения.
 				$data['content']->url = slug($data['content']->url);
 				$this->$type->update($data['content']->id, $data['content']);
-				if($_FILES['pic']['error'] <> 4)
-				{
-					$this->images->upload_image($_FILES['pic'], $object_info);
-				}
-				redirect(base_url().'admin/items/'.$type);
 			}
-		}	
+		}
+		if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
+		{
+			$object_info = array(
+				"object_type" => "categories",
+				"object_id" => $data['category_info']->id
+			);
+			$this->images->upload_image($_FILES['pic'], $object_info);
+		}		
+		redirect(base_url().'admin/items/'.$type);
 	}
 	
 	//Удаление категории
@@ -268,6 +266,8 @@ class Admin extends CI_Controller
 			$part_pages[$base] = $this->$base->get_list(FALSE);
 		}
 			
+		$data['pages'] = array();
+		
 		if ($part_id == NULL)
 		{
 			//Если id раздела не задан получаем все страницы
@@ -295,8 +295,11 @@ class Admin extends CI_Controller
 			{
 				$page->part_url = $part_url;
 				$data['pages'][] = $page;
-			}				
+			}		
+			$data['part_url'] = $part_url;
 		}
+		$menu = $this->menus->set_active($menu, $part_url);
+		$data['menu'] = $menu;
 		$this->load->view('admin/pages.php', $data);
 	}
 	
@@ -304,7 +307,7 @@ class Admin extends CI_Controller
 	public function page($part_url = FALSE, $id = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
+		$menu = $this->menus->set_active($menu, $part_url);
 		$data = array(
 			'title' => "Редактировать страницу",
 			'meta_title' => "Редактировать страницу",
@@ -329,13 +332,19 @@ class Admin extends CI_Controller
 				}
 			}
 			$page->is_active = "1";
-			$data['content'] = $page;			
+			$data['content'] = $page;
+			$data['content']->img = NULL;
 		}
 		else
 		//Если url категории и id страницы не пуст выводим инфу страницы из базы
 		{
 			$data['editors'] = $this->$part_url->editors;
 			$data['content'] = $this->$part_url->get_item_by(array('id' => $id));
+			$object_info = array(
+				"object_type" => $part_url,
+				"object_id" => $data['content']->id
+			);
+			$data['content']->img = $this->images->get_images($object_info);
 		}
 		$data['content']->part_url = $part_url;
 		$this->load->view('admin/edit_page.php', $data);
@@ -345,13 +354,14 @@ class Admin extends CI_Controller
 	public function edit_page($part_url)
 	{
 		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
+		$menu = $this->menus->set_active($menu, $part_url);
 		$data = array(
 			'meta_title' => "Редактировать страницу",
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent"),	
+			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
+			'part_url' => $part_url,
 			'menu' => $menu
 		);
 					
@@ -360,7 +370,7 @@ class Admin extends CI_Controller
 		
 		$data['page'] = editors_post($editors, $post);
 			
-		$data['page']->date = date("d.m.Y");
+		//$data['page']->date = date("d.m.Y");
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
@@ -381,7 +391,7 @@ class Admin extends CI_Controller
 					
 				if($this->$part_url->non_requrrent($fields))
 				{
-					$data['page']->url = slug($data['page']->title);
+					//$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
 					redirect(base_url().'admin/pages');
 				}
@@ -394,9 +404,9 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$data['page']->url = slug($data['page']->url);
+				//$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
-				redirect(base_url().'admin/pages');
+				redirect(base_url().'admin/pages/'.$part_url);
 			}
 		}
 	}
@@ -433,8 +443,7 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
+			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
 			'content' => $this->settings->get_item_by(array('id' => 1)),
 			'menu' => $menu,
 			'editors' => $this->settings->editors
@@ -452,9 +461,8 @@ class Admin extends CI_Controller
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'cat' => $this->categories->get_list(FALSE),
 			'menu' => $menu,
-			'tree' => $this->categories->get_sub_tree(0, "parent")	
+			'tree' => $this->parts->get_sub_tree(0, "parent_id")	
 		);
 		
 		$editors = $this->settings->editors;

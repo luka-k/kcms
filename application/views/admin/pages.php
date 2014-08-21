@@ -15,19 +15,10 @@
 					<div id="right_col" class="col_8 back">
 						<h6 class="col_8 left">Редактировать страницы</h6> 
 						<div class="col_4 right">
-							<a href="#new-page" class="button small lightbox">Создать новую</a>
-							<div id="new-page">
-								<div class="pop-up">	
-									<form method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form2" action="<?=base_url()?>admin/page/"/>
-										<select id="select1" size="" name="url" class="col_12">
-											<?php foreach ($parts as $part): ?>
-												<option value="<?=$part->url?>"><?=$part->title?></option>
-											<?php endforeach ?>
-										</select>
-										<a class="button small" href="#" onClick="document.forms['form2'].submit()">Создать новую</a>
-									</form>
-								</div>
-							</div>
+							<form method="post" accept-charset="utf-8" enctype="multipart/form-data" id="form2" action="<?=base_url()?>admin/page/"/>
+								<a class="button small" href="#" onClick="document.forms['form2'].submit()">Добавить</a>
+								<input type="hidden" name="url" value="<?=$part_url?>"/>
+							</form>
 						</div>
 												
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >

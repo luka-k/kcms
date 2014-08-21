@@ -18,16 +18,13 @@ class Menus extends MY_Model
 
 		$this->admin_menu = array(
 			'main' => array("Главная", base_url()."admin/admin_main", 0),
-			'parts' => array('Разделы', "#", 0, array(
+			/*'parts' => array('Разделы', base_url()."admin/items/parts", 0, array(
 				0 => array('Редактировать', base_url()."admin/items/parts", 0),
 				1 => array('Страницы', base_url()."admin/pages", 0)
-			)),
-			'categories' => array('Каталог', "#", 0, array(
-				0 => array('Категории', base_url()."admin/items/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/item/categories", 0),
-				2 => array('Товары', base_url()."admin/items/products", 0),
-				3 => array('Создать товар', base_url()."admin/item/products", 0)				
-			)),
+			)),*/
+			'reviews' => array("Отзывы", base_url()."admin/pages/1", 0),
+			'works' => array("Работы", base_url()."admin/pages/2", 0),
+			'partners' => array("Партнеры", base_url()."admin/pages/5", 0),
 			'settings' => array('Настройки', base_url()."admin/settings", 0),
 			'users' => array('Пользователи', base_url()."registration/users", 0)
 		);		

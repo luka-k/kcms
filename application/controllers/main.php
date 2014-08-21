@@ -19,9 +19,13 @@ class Main extends CI_Controller {
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
-			'menu' => $menu
+			'menu' => $menu,
+			'reviews' => $this->reviews->get_list(FALSE),
+			'works' => $this->works->get_list(FALSE),
+			'partners' => $this->partners->get_list(FALSE)
 		);
-		$this->load->view('client/main.php', $data);
+		//var_dump($data['reviews']);
+		$this->load->view('client/index.php', $data);
 	}	
 }
 
