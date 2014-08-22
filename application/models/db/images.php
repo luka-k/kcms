@@ -172,7 +172,7 @@ class Images extends MY_Model
 		}
 		unlink($upload_path.$img->url);
 		
-		if(($this->images->get_count(array("object_id" => $img->object_id))>0) and ($img->is_cover == 1))
+		if(($this->images->get_count(array("object_type" => $object_info['object_type'], "object_id" => $img->object_id))>0) and ($img->is_cover == 1))
 		{
 			$object_info = array(
 				"object_type" => $object_info['object_type'],
