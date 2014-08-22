@@ -223,8 +223,8 @@
             <div class="wrap">
 				<div class="title">Отзывы наших клиентов</div>
 				<div class="slider">
-					<div name="prev" class="navy prev-slide">предыдущий проект</div>
-					<div name="next" class="navy next-slide">следующий проект </div>
+					<div name="prev" class="navy prev-slide">предыдущий отзыв</div>
+					<div name="next" class="navy next-slide">следующий отзыв</div>
 					<div class="slide-list">
 						<div class="slide-wrap">
 							<?$count = 1?>
@@ -241,51 +241,7 @@
 									</div>
 								</div>
 								<?$count++?>
-							<?endforeach;?>
-							<!--<div class="slide-item clearfix">
-								<div class="txt-wrap">
-									<div class="text">
-										Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!  
-									</div>
-									<img src="<?=base_url()?>template/client/images/otziv.png" class="img-left" alt=""/>
-								</div>
-								<div class="name" style="float:left;">
-									Адександр, <span style="color:#999">страница</span> <a href="" class="vk_link">&nbsp;</a>
-								</div>
-							</div>		 
-							<div class="slide-item clearfix">
-								<div class="txt-wrap">
-									<div class="text">
-										Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!  
-									</div>
-									<img src="<?=base_url()?>template/client/images/otziv.png" class="img-right" alt=""/>
-								</div>
-								<div class="name" style="float:right;">
-									Владимир, <span style="color:#999">страница</span> <a href="" class="vk_link">&nbsp;</a>
-								</div>
-							</div>	
-							<div class="slide-item clearfix">
-								<div class="txt-wrap">
-									<div class="text">
-										Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!  
-									</div>
-									<img src="<?=base_url()?>template/client/images/otziv.png" class="img-left" alt=""/>
-								</div>
-								<div class="name" style="float:left;">
-									Адександр, <span style="color:#999">страница</span> <a href="" class="vk_link">&nbsp;</a>
-								</div>
-							</div>		 
-							<div class="slide-item clearfix">
-								<div class="txt-wrap">
-									<div class="text">
-										Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!  
-									</div>
-									<img src="<?=base_url()?>template/client/images/otziv.png" class="img-right" alt=""/>
-								</div>
-								<div class="name" style="float:right;">
-									Владимир, <span style="color:#999">страница</span> <a href="" class="vk_link">&nbsp;</a>
-								</div>
-							</div>-->										
+							<?endforeach;?>									
 						</div>
 					</div>
 				</div>		
@@ -306,68 +262,39 @@
 								<div class="slide-item">
 									<div class="proekt clearfix">
 										<div class="title-3"><?=$work->title?></div>
-										<div class="raboti-item">
-											<div class="title">БЫЛО</div>
-											<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-										</div>
-										<div class="raboti-item">
-											<div class="title">В РАБОТЕ</div>
-											<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-										</div>
-										<div class="raboti-item">
-											<div class="title">СТАЛО</div>
-											<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-										</div>
+										<?if(isset($work->img)):?>
+											<div class="raboti-item">
+												<div class="title">БЫЛО</div>
+												<?if(isset($work->img['was'])):?>
+													<a href="<?=base_url()?>download/images/catalog_big/<?=$work->img['was']->url?>" class="lightbox">
+														<img src="<?=base_url()?>download/images/catalog_mid/<?=$work->img['was']->url?>" alt=""/>
+													</a>
+												<?endif;?>
+											</div>
+											<div class="raboti-item">
+												<div class="title">В РАБОТЕ</div>
+												<?if(isset($work->img['in_work'])):?>
+													<a href="<?=base_url()?>download/images/catalog_big/<?=$work->img['in_work']->url?>" class="lightbox">
+														<img src="<?=base_url()?>download/images/catalog_mid/<?=$work->img['in_work']->url?>" alt=""/>
+													</a>
+												<?endif;?>
+											</div>
+											<div class="raboti-item">
+												<div class="title">СТАЛО</div>
+												<?if(isset($work->img['result'])):?>
+													<a href="<?=base_url()?>download/images/catalog_big/<?=$work->img['result']->url?>" class="lightbox">
+														<img src="<?=base_url()?>download/images/catalog_mid/<?=$work->img['result']->url?>" alt=""/>
+													</a>
+												<?endif;?>
+											</div>
+										<?endif;?>
 										<div class="proekt-bottom">
 											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> месяца</div>
 											<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>
 								</div>
-							<?endforeach;?>
-												
-							<!--<div class="slide-item">
-								<div class="proekt clearfix">
-									<div class="title-3">Гараж на ул. Кораблестроителей  во дворе д. 25</div>
-									<div class="raboti-item">
-										<div class="title">БЫЛО</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="raboti-item">
-										<div class="title">В РАБОТЕ</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="raboti-item">
-										<div class="title">СТАЛО</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="proekt-bottom">
-										<div class="time">Срок: <span style="font-size:48px; font-weight:normal;">1,5</span> месяца</div>
-										<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;">20 000</span> рублей.</div>
-									</div>
-								</div>
-							</div>		 
-							<div class="slide-item">
-								<div class="proekt clearfix">
-									<div class="title-3">Гараж на ул. Кораблестроителей  во дворе д. 25</div>
-									<div class="raboti-item">
-										<div class="title">БЫЛО</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="raboti-item">
-										<div class="title">В РАБОТЕ</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="raboti-item">
-										<div class="title">СТАЛО</div>
-										<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-									</div>
-									<div class="proekt-bottom">
-										<div class="time">Срок: <span style="font-size:48px; font-weight:normal;">1,5</span> месяца</div>
-										<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;">150 000</span> рублей.</div>
-									</div>
-								</div>
-							</div>-->		
+							<?endforeach;?>	
 						</div>
 					</div>
 				</div>		
@@ -398,30 +325,9 @@
 								<div class="slide-wrap-3 clearfix">		
 									<?foreach ($partners as $partner):?>
 										<div class="slide-item">
-											<a href="<?=$partner->link?>"><img src="<?=base_url()?>template/client/images/partneri.png" alt="<?=$partner->title?>"/></a>
+											<a href="<?=$partner->link?>"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
 										</div>		 
 									<?endforeach;?>
-									<!--<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>		
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>		 
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>	
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>		 
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>	
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>		 
-									<div class="slide-item">
-										<a href=""><img src="<?=base_url()?>template/client/images/partneri.png" alt=""/></a>
-									</div>-->	
 								</div>
 							</div>
 						</div>		

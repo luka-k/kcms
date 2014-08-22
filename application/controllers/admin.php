@@ -156,18 +156,10 @@ class Admin extends CI_Controller
 			/*'selects' => array(
 				'parent_id' =>$this->categories->get_list(FALSE)
 			),*/
+			'tree' => $this->$type->get_sub_tree(0, "parent_id"),
 			'menu' => $menu,
 			'editors' => $this->$type->editors		
 		);
-		
-		if($type == "products")
-		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
-		}
-		else
-		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
-		}
 					
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
@@ -205,7 +197,7 @@ class Admin extends CI_Controller
 					
 				if($this->$type->non_requrrent($fields))
 				{
-					$data['content']->url = slug($data['content']->title);
+					//$data['content']->url = slug($data['content']->title);
 					$this->$type->insert($data['content']);
 				}
 				else
@@ -217,15 +209,16 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$data['content']->url = slug($data['content']->url);
+				//$data['content']->url = slug($data['content']->url);
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 		}
+		var_dump($_FILES['pic']);
 		if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
 		{
 			$object_info = array(
-				"object_type" => "categories",
-				"object_id" => $data['category_info']->id
+				"object_type" => $part_url,
+				"object_id" => $data['page']->id
 			);
 			$this->images->upload_image($_FILES['pic'], $object_info);
 		}		
@@ -244,7 +237,7 @@ class Admin extends CI_Controller
 	/*------------Редактирование страниц разделов------------*/
 
 	//Вывод страниц раздела
-	public function pages($part_id = false)
+	public function pages($part_url = false)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'parts');
@@ -268,7 +261,7 @@ class Admin extends CI_Controller
 			
 		$data['pages'] = array();
 		
-		if ($part_id == NULL)
+		if ($part_url == NULL)
 		{
 			//Если id раздела не задан получаем все страницы
 			foreach($part_pages as $part_url => $pages)
@@ -282,15 +275,7 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			//Если id указан выводим страницы данного раздела
-			foreach ($parts as $part)
-			{
-				if ($part_id == $part->id)
-				{
-					$part_url = $part->url;
-				}
-			}
-			
+			//Если id указан выводим страницы данного раздела			
 			foreach ($part_pages[$part_url] as $page)
 			{
 				$page->part_url = $part_url;
@@ -393,7 +378,6 @@ class Admin extends CI_Controller
 				{
 					//$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
-					redirect(base_url().'admin/pages');
 				}
 				else
 				{
@@ -406,8 +390,36 @@ class Admin extends CI_Controller
 				//Если id не пустая вносим изменения.
 				//$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
-				redirect(base_url().'admin/pages/'.$part_url);
 			}
+			if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
+			{
+				if(is_array($_FILES['pic']['name']))
+				{
+					foreach($_FILES['pic']['name'] as $key => $value)
+					{
+						$object_info = array(
+							"object_type" => $part_url,
+							"image_type" => $key,
+							"object_id" => $data['page']->id
+						);
+						$pic_info = array(
+							"name" => $_FILES['pic']['name'][$key],
+							"tmp_name" => $_FILES['pic']['tmp_name'][$key],
+						);
+						$this->images->upload_image($pic_info, $object_info);
+					}
+				}
+				else
+				{
+					$object_info = array(
+						"object_type" => $part_url,
+						"object_id" => $data['page']->id
+					);
+					$this->images->upload_image($_FILES['pic'], $object_info);				
+				}
+			}	
+			
+			redirect(base_url().'admin/pages/'.$part_url);
 		}
 	}
 
@@ -429,7 +441,7 @@ class Admin extends CI_Controller
 			"id" => $id
 		);
 		$cat_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/item/'.$object_type."/".$cat_id);
+		redirect(base_url().'admin/pages/'.$object_type);
 	}
 		
 	/*------------Редактирование настроек------------*/

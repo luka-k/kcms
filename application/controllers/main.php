@@ -24,6 +24,17 @@ class Main extends CI_Controller {
 			'works' => $this->works->get_list(FALSE),
 			'partners' => $this->partners->get_list(FALSE)
 		);
+		$data['partners'] = $this->images->get_img_list($data['partners'], 'partners');
+		//var_dump($data['works']);
+		foreach($data['works'] as $item)
+		{
+			$images = $this->images->get_images(array("object_id" => $item->id, "object_type" => "works"));
+			foreach($images as $img)
+			{
+				$item->img[$img->image_type] = $img;
+			}
+		}
+		//var_dump($data['works']);
 		//var_dump($data['reviews']);
 		$this->load->view('client/index.php', $data);
 	}	
