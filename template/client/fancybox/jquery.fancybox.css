@@ -14,11 +14,14 @@
 	margin: 0;
 	border: 0;
 	outline: none;
+	min-width:500px;
+	min-height:1000px;
 	vertical-align: top;
 }
 
 .fancybox-wrap {
 	position: absolute;
+	min-width:500px;
 	top: 0;
 	left: 0;
 	z-index: 8020;
@@ -26,9 +29,10 @@
 
 .fancybox-skin {
 	position: relative;
+	min-width:500px;
 	color: #444;
 	text-shadow: none;
-	background: url('../images/popup.png') no-repeat; 
+	/*background: url('../images/popup.png') no-repeat; */
 }
 
 .fancybox-opened {
@@ -87,8 +91,8 @@
 
 .fancybox-close {
 	position: absolute;
-	top: 160px;
-	right: 40px;
+	top: 190px;
+	right: 60px;
 	width: 36px;
 	height: 36px;
 	cursor: pointer;

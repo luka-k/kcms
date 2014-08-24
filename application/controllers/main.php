@@ -20,7 +20,6 @@ class Main extends CI_Controller {
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'menu' => $menu,
-			'reviews' => $this->reviews->get_list(FALSE),
 			'works' => $this->works->get_list(FALSE),
 			'partners' => $this->partners->get_list(FALSE)
 		);

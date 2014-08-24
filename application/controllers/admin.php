@@ -213,7 +213,7 @@ class Admin extends CI_Controller
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 		}
-		var_dump($_FILES['pic']);
+		//var_dump($_FILES['pic']);
 		if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
 		{
 			$object_info = array(
