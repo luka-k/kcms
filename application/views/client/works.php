@@ -44,21 +44,15 @@
 									<div class="slide-item">
 										<div class="proekt clearfix">
 											<div class="title-3"><?=$work->title?></div>
-											<?foreach($work->img as $key => $img):?>
-												<div class="works-item">
-													<div class="title"><?if($key == "was"):?>БЫЛО<?elseif($key == "in_work"):?>В РАБОТЕ<?else:?>СТАЛО<?endif;?></div>
-													<img src="<?=base_url()?>download/images/catalog_mid/<?=$img?>" alt=""/>
-												</div>
-											<?endforeach;?>
-											<!--<div class="works-item">
-												<div class="title">В РАБОТЕ</div>
-												<img src="<?=base_url()?>download/images/<?=$work->img['in_work']?>" alt=""/>
-											</div>
-											<div class="works-item">
-												<div class="title">СТАЛО</div>
-												<img src="<?=base_url()?>download/images/<?=$work->img['result']?>" alt=""/>
-											</div>-->
-											
+											<?if(isset($work->img)):?>
+												<?foreach($work->img as $key => $img):?>
+													<div class="works-item">
+														<div class="title"><?if($key == "was"):?>БЫЛО<?elseif($key == "in_work"):?>В РАБОТЕ<?else:?>СТАЛО<?endif;?></div>
+														<img src="<?=base_url()?>download/images/catalog_mid/<?=$img?>" alt=""/>
+													</div>
+												<?endforeach;?>
+											<?endif;?>
+	
 											<div class="works-bottom clearfix">
 												<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> месяца</div>
 												<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>

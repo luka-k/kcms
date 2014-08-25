@@ -43,7 +43,7 @@
 												<div>
 													Вы точно уверены что хотите удалалить страницу <strong><?=$page->title?></strong>?
 												</div><br/>
-												<a href="<?=base_url()?>admin/delete_page/<?=$page->id?>" class="button small">Удалить?</a>
+												<a href="<?=base_url()?>admin/delete_page/<?=$page->part_url?>/<?=$page->id?>" class="button small">Удалить?</a>
 												<a href="#" class="button small" onclick="">Нет</a>
 											</div>
 										</div>

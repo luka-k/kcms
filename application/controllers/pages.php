@@ -37,7 +37,12 @@ class Pages extends CI_Controller {
 			}
 			//var_dump($content);
 			$data['content'] = $content;
-		}		
+		}	
+		elseif($url == "price")
+		{
+			$data['calculator'] = $this->calculator->get_list(FALSE);
+			$data['calculator'] = $this->images->get_img_list($data['calculator'], 'calculator');
+		}
 		//var_dump($data['content']);
 		$this->load->view('client/'.$url.'.php', $data);		
 	}

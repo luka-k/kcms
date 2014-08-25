@@ -32,25 +32,18 @@ class Admin extends CI_Controller
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'main');
 		//Отбираем для главной последние три записи в блоге и в новостях
-		$from_news = $this->reviews->get_count()-5;
-		$from_blog = $this->works->get_count()-5;
+		$from_news = $this->works->get_count()-5;
 		if ($from_news < 0)
 		{
 			$from_news = 0;
 		}
-		
-		if ($from_blog < 0)
-		{
-			$from_blog = 0;
-		}	
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'news' => array_reverse($this->reviews->get_list(FALSE, $from_news, 5)),
-			'blog' => array_reverse($this->works->get_list(FALSE, $from_blog, 5)),
+			'news' => array_reverse($this->works->get_list(FALSE, $from_news, 5)),
 			'menu' => $menu
 		);
 		$this->load->view('admin/admin.php', $data);
@@ -332,6 +325,23 @@ class Admin extends CI_Controller
 			$data['content']->img = $this->images->get_images($object_info);
 		}
 		$data['content']->part_url = $part_url;
+				
+		if($part_url == "calculator")
+		{
+			$unit_1 = new stdClass();
+			$unit_1->id = 1;
+			$unit_1->title = "шт";
+			$unit_2	= new stdClass();
+			$unit_2->id = 2;
+			$unit_2->title = "м<sub>2</sub>";
+			$data['selects'] = array(
+				"unit" => array(
+					0 => $unit_1,
+					1 => $unit_2
+				)
+			);
+		}
+		
 		$this->load->view('admin/edit_page.php', $data);
 	}
 
@@ -378,6 +388,8 @@ class Admin extends CI_Controller
 				{
 					//$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
+					$page = $this->$part_url->get_item_by(array("title" => $data['page']->title));
+					$data['page']->id = $page->id;
 				}
 				else
 				{
@@ -428,7 +440,7 @@ class Admin extends CI_Controller
 	{
 		if($this->$part_url->delete($id))
 		{
-			redirect(base_url().'admin/pages');
+			redirect(base_url().'admin/pages/'.$part_url);
 		}
 	}	
 	
@@ -441,7 +453,7 @@ class Admin extends CI_Controller
 			"id" => $id
 		);
 		$cat_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/pages/'.$object_type);
+		redirect(base_url().'admin/page/'.$object_type."/".$cat_id);
 	}
 		
 	/*------------Редактирование настроек------------*/

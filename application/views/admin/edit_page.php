@@ -39,7 +39,7 @@
 								<?require "include/editors/{$edit[1]}.php"?>
 							<?php endforeach?>
 
-							<?if($content->part_url == "partners"):?>
+							<?if(($content->part_url == "partners")or($content->part_url == "calculator")):?>
 								<div class="col_12">
 									<div class="col_3">Добавить фотографии</div>
 									<div class="col_4"><input type="file" id="pic[]" name="pic" /></div>
@@ -61,7 +61,7 @@
 													<td class="tb_1"><?=$count?></td>
 													<td class="tb_5"><img src="<?=base_url()?>download/images/catalog_small<?=$img_item->url?>"/></td>
 													<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
-													<td class="tb_2"><a href="<?=base_url()?>admin/delete_img/products/<?=$img_item->id?>">Удалить</a></td>
+													<td class="tb_2"><a href="<?=base_url()?>admin/delete_img/partners/<?=$img_item->id?>">Удалить</a></td>
 												</tr>
 												<?$count++?>
 											<?endforeach?>

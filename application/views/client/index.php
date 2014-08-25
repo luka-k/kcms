@@ -264,7 +264,7 @@
 								<div class="slide-wrap-3 clearfix">		
 									<?foreach ($partners as $partner):?>
 										<div class="slide-item">
-											<a href="<?=$partner->link?>"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
+											<a href="<?=$partner->link?>" target="_blank"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
 										</div>		 
 									<?endforeach;?>
 								</div>

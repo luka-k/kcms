@@ -5,26 +5,26 @@ $config['upload_path'] = FCPATH.'download/images';
 $config['thumb_config'] = array(
 	"catalog_big" => array(
 		'w' => 640,
-		'h' => 640,
+		'h' => 320,
 		'wp' => 640,
-		'hp' => 640,
-		"zc" => "l",
+		'hp' => 320,
+		"zc" => "С",
 		"bg" => "ffffff"
 	),
 	"catalog_mid" => array(
-		'w' => 320,
-		'h' => 320,
-		'wp' => 320,
-		'hp' => 320,
-		"zc" => "l",
+		'w' => 308,
+		'h' => 155,
+		'wp' => 308,
+		'hp' => 155,
+		"zc" => "С",
 		"bg" => "ffffff"	
 	),
 	"catalog_small" => array(
-		'w' => 120,
-		'h' => 120,
-		'wp' => 120,
-		'hp' => 120,
-		"zc" => "l",
+		'w' => 163,
+		'h' => 82,
+		'wp' => 163,
+		'hp' => 82,
+		"zc" => "С",
 		"bg" => "ffffff"	
 	)
 );
