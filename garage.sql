@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 22 2014 г., 00:20
+-- Время создания: Авг 26 2014 г., 09:17
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -19,6 +19,30 @@ SET time_zone = "+00:00";
 --
 -- База данных: `garage`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `calculator`
+--
+
+CREATE TABLE IF NOT EXISTS `calculator` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `title` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `price` float NOT NULL,
+  `unit` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `calculator`
+--
+
+INSERT INTO `calculator` (`id`, `title`, `description`, `price`, `unit`) VALUES
+(1, 'СТЕКЛОИЗОЛ', '<p>Стеклоизол - рулонный кровельный и гидроизоляционный материал, состоящий из стекловолокнистой основы, на которую с двух сторон равномерно нанесено битумное вяжущее. В качестве защитных слоев используется крупнозернистая посыпка и полимерная пленка. Приклеивается путем под плавления нижнего слоя.</p>', 250, 2),
+(2, 'ЛИНОКРОМ', '<p>Линокром - представляет собой гидроизоляционное полотно, состоящее из прочной негниющей основы, на которую с двух сторон наносится битумное вяжущее. Имеет многолетний опыт применения. Линокром наплавляется с помощью горелки на подготовленное основание.</p>', 325, 0),
+(3, 'СВОЙ МАТЕРИАЛ', '', 150, 2);
 
 -- --------------------------------------------------------
 
@@ -41,7 +65,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('44b816e099c05613c704c14ca18eeb7b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1408652305, 'a:3:{s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}');
+('7ac2341e9bc6ca15579daa0c5f9a71f7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409030009, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}'),
+('b099c56d35d7d889c8252c0800babcca', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409029678, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -54,20 +79,32 @@ CREATE TABLE IF NOT EXISTS `images` (
   `is_cover` int(1) NOT NULL DEFAULT '0',
   `object_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(2) NOT NULL,
+  `image_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
-INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
-(10, 1, 'products', 15, '/p/s/pshenichnaya.jpg'),
-(11, 1, 'categories', 2, '/w/o/wodkaflaschen.JPG'),
-(18, 1, 'products', 18, '/b/e/beer-baltika-1.jpg'),
-(20, 1, 'products', 17, '/8/-/8-70-baltik-1000x769.gif'),
-(22, 1, 'products', 14, '/v/o/vodka-putinka-0-5l.jpg');
+INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
+(49, 1, 'partners', 0, '', '/t/e/tehnonikol.jpg'),
+(55, 1, 'calculator', 1, '', '/w/o/wodkaflaschen.JPG'),
+(70, 1, 'works', 1, 'was', '/r/a/raboti-1.png'),
+(71, 0, 'works', 1, 'in_work', '/r/a/raboti-2.png'),
+(72, 0, 'works', 1, 'result', '/r/a/raboti-3.png'),
+(73, 1, 'works', 2, 'was', '/r/a/raboti-1[1].png'),
+(74, 0, 'works', 2, 'in_work', '/r/a/raboti-2[1].png'),
+(75, 0, 'works', 2, 'result', '/r/a/raboti-3[1].png'),
+(79, 1, 'works', 3, 'was', '/r/a/raboti-1[2].png'),
+(80, 0, 'works', 3, 'in_work', '/r/a/raboti-2[2].png'),
+(81, 0, 'works', 3, 'result', '/r/a/raboti-3[2].png'),
+(82, 1, 'partners', 5, '', '/t/e/tehnonikol[1].jpg'),
+(83, 1, 'partners', 6, '', '/m/e/metrika.jpg'),
+(84, 1, 'partners', 7, '', '/o/b/obi.jpg'),
+(85, 1, 'partners', 8, '', '/m/a/maksidom.jpg'),
+(86, 1, 'partners', 9, '', '/l/o/logo-castorama.jpg');
 
 -- --------------------------------------------------------
 
@@ -81,14 +118,18 @@ CREATE TABLE IF NOT EXISTS `partners` (
   `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `link` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `partners`
 --
 
 INSERT INTO `partners` (`id`, `parent_id`, `title`, `link`) VALUES
-(1, 0, 'Агрорусь', 'vk.com');
+(5, 0, 'ТехноНИКОЛЬ', 'http://www.tn.ru/'),
+(6, 0, 'Метрика', 'http://spb.metrika.ru/'),
+(7, 0, 'Оби', 'http://www.obi.ru/decom/home.html'),
+(8, 0, 'Максидом', 'http://maxidom.ru/'),
+(9, 0, 'Castorama', 'http://castorama.ru/');
 
 -- --------------------------------------------------------
 
@@ -107,39 +148,16 @@ CREATE TABLE IF NOT EXISTS `parts` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `parts`
 --
 
 INSERT INTO `parts` (`id`, `is_active`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
-(1, 1, 'Отзывы', '', '', '', 'reviews', 0, '<p>Отзывы о работе</p>'),
 (2, 1, 'Работы', '', NULL, NULL, 'works', 0, 'Перечень наших работ'),
-(5, 0, 'Партнеры', '', NULL, NULL, 'partners', 0, 'Партнеры нашей компании');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `reviews`
---
-
-CREATE TABLE IF NOT EXISTS `reviews` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `text` text COLLATE utf8_unicode_ci NOT NULL,
-  `vk_link` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `reviews`
---
-
-INSERT INTO `reviews` (`id`, `parent_id`, `title`, `text`, `vk_link`) VALUES
-(1, 0, 'Петр', '<p>Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!</p>', 'vk.com'),
-(2, NULL, 'Василий', 'Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!', 'vk.com');
+(5, 0, 'Партнеры', '', NULL, NULL, 'partners', 0, 'Партнеры нашей компании'),
+(6, 1, 'Калькулятор', '', NULL, NULL, 'calculator', 0, 'Настройкии калькулятора');
 
 -- --------------------------------------------------------
 
@@ -202,6 +220,9 @@ CREATE TABLE IF NOT EXISTS `works` (
   `title` text COLLATE utf8_unicode_ci NOT NULL,
   `time` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `price` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `vk_link` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
@@ -209,10 +230,10 @@ CREATE TABLE IF NOT EXISTS `works` (
 -- Дамп данных таблицы `works`
 --
 
-INSERT INTO `works` (`id`, `parent_id`, `title`, `time`, `price`) VALUES
-(1, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 25', '1,5', '20000'),
-(2, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 26', '2', '25000'),
-(3, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 27', '1', '15000');
+INSERT INTO `works` (`id`, `parent_id`, `title`, `time`, `price`, `name`, `text`, `vk_link`) VALUES
+(1, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 25', '1,5', '20000', 'Вячеслав', '<p>Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!</p>', 'vk.com'),
+(2, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 26', '2', '25000', 'Иван', '<p>Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!</p>', 'vk.com'),
+(3, 0, 'Гараж на ул. Кораблестроителей  во дворе д. 27', '1', '15000', 'Игорь', '<p>Мой старенький ржавый гараж давно требовал ремонта, машина зимой замерзала, приходилось долго прогревать. Двери всевремя примерзали, было не открыть в мороз. А осенью - лужа посреди гаража. Обратился к специалистам по ремонту гаражей, и теперь у меня в гараже ремонт круче, чем дома!</p>', 'vk.com');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
