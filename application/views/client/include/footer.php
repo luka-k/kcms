@@ -8,13 +8,13 @@
 						<div class="content">
 							<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 							<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-							<a href="#callrequest" class="btn-2 js-callback callback-phone fancybox">Получить консультацию</a>
+							<a href="#" class="btn-2">Получить консультацию</a>
 						</div>
 
 					</form>
 					<div class="copyr">
 						&copy; 2014<br/>
-						<span style="color:#999">ремонт-гараж.рф</span>
+						<span style="color:#999">ремонт-гаража.рф</span>
 					</div>
 					<div class="riba">
 						Made in <a href="http://www.ribaweb.ru" target="_blanc">RIBA</a>

@@ -24,7 +24,7 @@
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
-									<th class="tb_1">id</th>
+									<th class="tb_1">№</th>
 									<th class="tb_9">Имя</th>
 									<th class="tb_2">Действие</th>
 								</tr>
@@ -32,10 +32,10 @@
 							<tbody id="sortable">
 							
 								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
-								
+									<?$count = 1?>
 									<?php foreach ($pages as $page): ?>
 									<tr>
-										<td class="tb_1"><?=$page->id?></td>
+										<td class="tb_1"><?=$count?></td>
 										<td class="tb_9"><a href="<?=base_url()?>admin/page/<?=$page->part_url?>/<?=$page->id?>"><?=$page->title?></a></td>
 										<td class="tb_2"><a href="#delete_<?=$page->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
 										<div id="delete_<?=$page->id?>" style="display:none;">
@@ -48,6 +48,7 @@
 											</div>
 										</div>
 									</tr>
+									<?$count++?>
 									<?php endforeach ?>
 								</form>
 							</tbody>

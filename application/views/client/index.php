@@ -151,7 +151,7 @@
                 <div class="content">
 					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-					<a href="#callrequest" class="btn-2 js-callback callback-phone fancybox">Бесплатная консультация</a>
+					<a href="#" class="btn-2">Бесплатная консультация</a>
 				</div>
 			</div>
 		</div>	
@@ -247,7 +247,7 @@
                 <div class="content">
 					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-					<a href="#callrequest" class="btn-2 js-callback callback-phone fancybox">Хочу так же</a>
+					<a href="#" class="btn-2">Хочу так же</a>
 				</div>
 			</div>
 		</div>	
