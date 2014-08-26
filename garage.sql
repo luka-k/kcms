@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 26 2014 г., 09:17
+-- Время создания: Авг 26 2014 г., 18:11
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('7ac2341e9bc6ca15579daa0c5f9a71f7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409030009, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}'),
-('b099c56d35d7d889c8252c0800babcca', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409029678, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}');
+('6027c2412d48829343ab820f64f660c4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409060996, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}'),
+('a0bc46a2ac023f638de705a0cd01dfc3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409062063, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"26";s:9:"user_name";s:5:"pavel";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `image_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=93 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
 (49, 1, 'partners', 0, '', '/t/e/tehnonikol.jpg'),
-(55, 1, 'calculator', 1, '', '/w/o/wodkaflaschen.JPG'),
 (70, 1, 'works', 1, 'was', '/r/a/raboti-1.png'),
 (71, 0, 'works', 1, 'in_work', '/r/a/raboti-2.png'),
 (72, 0, 'works', 1, 'result', '/r/a/raboti-3.png'),
@@ -100,11 +99,11 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `image_type`
 (79, 1, 'works', 3, 'was', '/r/a/raboti-1[2].png'),
 (80, 0, 'works', 3, 'in_work', '/r/a/raboti-2[2].png'),
 (81, 0, 'works', 3, 'result', '/r/a/raboti-3[2].png'),
-(82, 1, 'partners', 5, '', '/t/e/tehnonikol[1].jpg'),
-(83, 1, 'partners', 6, '', '/m/e/metrika.jpg'),
-(84, 1, 'partners', 7, '', '/o/b/obi.jpg'),
-(85, 1, 'partners', 8, '', '/m/a/maksidom.jpg'),
-(86, 1, 'partners', 9, '', '/l/o/logo-castorama.jpg');
+(87, 1, 'partners', 5, '', '/t/e/tehnonikol[1].jpg'),
+(88, 1, 'partners', 6, '', '/m/e/metrika.jpg'),
+(89, 1, 'partners', 7, '', '/o/b/obi.jpg'),
+(90, 1, 'partners', 8, '', '/m/a/maksidom.jpg'),
+(91, 1, 'partners', 9, '', '/l/o/logo-castorama.jpg');
 
 -- --------------------------------------------------------
 
