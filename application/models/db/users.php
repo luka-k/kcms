@@ -31,7 +31,7 @@ class Users extends MY_Model
 	}
 	
 	/*Авторизация*/
-	public function login($e_email, $e_pass)
+	public function login($email, $pass)
 	{	
 		$authdata = array(
 			'user_id' => " ",
@@ -39,9 +39,9 @@ class Users extends MY_Model
 			'logged_in' => 0
 			);
 	
-		if($this->get_count(array('email' => $e_email, 'password' => $e_pass)) == 1)
+		if($this->get_count(array('email' => $email, 'password' => $pass)) == 1)
 		{
-			$login = $this->get_item_by(array('email' => $e_email, 'password' => $e_pass));
+			$login = $this->get_item_by(array('email' => $email, 'password' => $pass));
 			$authdata = array(
 				'user_id' => $login->id,
 				'user_name' => $login->name,

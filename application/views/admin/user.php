@@ -7,13 +7,7 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<div id="left_col" class="col_3 back">
-						<h5>Страницы разделов</h5>
-						<div id="left-menu">
-							<? require 'include/part_pages_tree.php' ?>
-						</div>
-					</div>
-					<div id="right_col" class="col_9 back">
+					<div id="right_col" class="col_12 back">
 					<?$count = 1?>
 					<ul class="tabs left">
 						<?foreach ($editors as $key => $edit):?>

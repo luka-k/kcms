@@ -12,7 +12,7 @@ class Registration extends CI_Controller
 		$data = array(
 			'title' => "Вход",
 			'meta_title' => "Вход",
-			'error' => " "
+			'error' => ""
 		);
 	}
 	
@@ -23,7 +23,7 @@ class Registration extends CI_Controller
 		$data = array(
 			'title' => "Вход",
 			'meta_title' => "Вход",
-			'error' => " "
+			'error' => ""
 		);
 		
 		$email = $this->input->post('email');

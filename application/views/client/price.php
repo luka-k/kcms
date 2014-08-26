@@ -1,40 +1,11 @@
 <?require_once('include/head.php')?>    
 <body>
-
-<script>
-	function add_item(){
-		$(".add_item").before('<div class="calc-item clearfix"><select class="select-calc"><option>Пункт 1</option><option>Пункт 2</option></select><input type="text" class="input-calc" placeholder=""/><div class="txt-calc"> 20000 руб.</div></div>');
-	}
-</script>
-    <!-- HEADER & LOGO -->
-    <header>
-        <div class="header-top">
-            <div class="wrap">
-                <div class="content">
-                    <div class="logo">
-                        <a href="<?=base_url()?>main"><img src="<?=base_url()?>template/client/images/logo.png" alt="" /></a>
-                    </div>
-                    <div class="phone">
-                        <span class="ph"><span class="ph-style">+7(921)</span>123 45 67</span>
-                    </div>
-					<div class="search">
-						<input type="text" name="search" />
-					</div>
-                    <div class="order-phone">
-                        <a href="#callrequest" class="btn js-callback callback-phone fancybox">Заказать звонок</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-	
-        <div class="nav-bg"></div>
-        <div class="nav">
-            <div class="wrap-2">
-				<?require_once('include/top-menu.php')?>   
-            </div>
-        </div>
-	</header>
-	
+	<script>
+		function add_item(){
+			$(".add_item").before('<div class="calc-item clearfix"><select class="select-calc"><option>Пункт 1</option><option>Пункт 2</option></select><input type="text" class="input-calc" placeholder=""/><div class="txt-calc"> 20000 руб.</div></div>');
+		}
+	</script>
+	<?require_once('include/header.php')?> 
     <section>
         <div class="services clearfix">
             <div class="wrap">
