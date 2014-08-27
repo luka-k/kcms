@@ -115,7 +115,10 @@
 										<div class="text">
 											<?=$review->text?>  
 										</div>
-										<img src="<?=base_url()?>template/client/images/otziv.png" <?if($count == 1):?>class="img-left"<?else:?>class="img-right"<?endif;?> alt=""/>
+										<div <?if($count == 1):?>class="text-bottom-left"<?else:?>class="text-bottom-right"<?endif;?>>
+											&nbsp;
+										</div>
+										<!--<img src="<?=base_url()?>template/client/images/otziv.png" <?if($count == 1):?>class="img-left"<?else:?>class="img-right"<?endif;?> alt=""/>-->
 									</div>
 									<div class="name" style="float:<?if($count == 1):?>left<?else:?>right<?$count = 0?><?endif;?>;">
 										<?=$review->name?>, <span style="color:#999">страница</span> <a href="<?=$review->vk_link?>" class="vk_link">&nbsp;</a>

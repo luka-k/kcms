@@ -36,7 +36,9 @@
 											<div class="text">
 												<?=$work->text?>  
 											</div>
-											<img src="<?=base_url()?>template/client/images/otziv.png" class="img-left" alt=""/>
+											<div class="text-bottom-left">
+												&nbsp;
+											</div>
 										</div>
 										<div class="name" style="float:left;">
 											<?=$work->name?>, <span style="color:#999">страница</span> <a href="<?=$work->vk_link?>" class="vk_link">&nbsp;</a>
@@ -44,29 +46,6 @@
 										</div>
 									</div>	
 									<?endforeach;?>
-
-									
-									<!--<div class="slide-item">
-										<div class="proekt clearfix">
-											<div class="title-3">Гараж на ул. Кораблестроителей  во дворе д. 25</div>
-											<div class="works-item">
-												<div class="title">БЫЛО</div>
-												<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-											</div>
-											<div class="works-item">
-												<div class="title">В РАБОТЕ</div>
-												<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-											</div>
-											<div class="works-item">
-												<div class="title">СТАЛО</div>
-												<img src="<?=base_url()?>template/client/images/raboti-1.png" alt=""/>
-											</div>
-											<div class="works-bottom">
-												<div class="time">Срок: <span style="font-size:48px; font-weight:normal;">1,5</span> месяца</div>
-												<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;">150 000</span> рублей.</div>
-											</div>
-										</div>
-									</div>	-->	
 								</div>
 							</div>
 						</div>		
