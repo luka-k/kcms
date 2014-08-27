@@ -348,7 +348,6 @@ class Admin extends CI_Controller
 	//Редактирование страницы разделов
 	public function edit_page($part_url, $exit = FALSE)
 	{
-		echo $exit;
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $part_url);
 		$data = array(
