@@ -25,6 +25,7 @@
 							<div  class="col_12">
 								<a href="<?=base_url()?>admin/pages/<?=$content->part_url?>/" class="btn small">Назад</a>
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
+								<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_page/<?=$content->part_url?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
 								<a href="<?=base_url()?>admin/delete_page/<?=$content->part_url?>/<?=$content->id?>" class="btn small">Удалить</a>
 							</div>
 								

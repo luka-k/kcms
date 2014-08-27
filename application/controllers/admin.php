@@ -346,8 +346,9 @@ class Admin extends CI_Controller
 	}
 
 	//Редактирование страницы разделов
-	public function edit_page($part_url)
+	public function edit_page($part_url, $exit = FALSE)
 	{
+		echo $exit;
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $part_url);
 		$data = array(
@@ -430,8 +431,14 @@ class Admin extends CI_Controller
 					$this->images->upload_image($_FILES['pic'], $object_info);				
 				}
 			}	
-			
-			redirect(base_url().'admin/pages/'.$part_url);
+			if($exit == false)
+			{
+				redirect(base_url().'admin/page/'.$part_url."/".$data['page']->id);
+			}
+			else
+			{
+				redirect(base_url().'admin/pages/'.$part_url);
+			}	
 		}
 	}
 
