@@ -1420,7 +1420,7 @@ text-decoration:none;
 color:#00c0e9;
 }
 
-.popup{
+.popup, .result{
 display:none;
 width:500px;
 min-width:500px;
@@ -1493,6 +1493,10 @@ background: url('../images/upload.png') no-repeat;
 text-decoration:none;
 color:#00c0e9;
 text-align:left;
+}
+
+.result{
+background:#fff;
 }
 
 input{

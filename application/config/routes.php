@@ -40,6 +40,7 @@
 
 $route['admin'] = 'admin';
 $route['admin/(:any)'] = 'admin/$1';
+$route['ajax/(:any)'] = 'ajax/$1';
 //$route['admin/(:any)/(:num)'] = 'admin/$1/$2';
 $route['registration/(:any)'] = 'registration/$1';
 $route['catalog'] = 'catalog/index';

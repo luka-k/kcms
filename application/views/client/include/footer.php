@@ -4,13 +4,12 @@
                 <div class="content">
 				
 				<?require('top-menu.php')?>
-					<form action="#contacts" method="post" class="js-form" id="contactform">
+					<form method="post" class="js-form" id="contactform" action="/#send_mail">
 						<div class="content">
 							<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 							<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-							<a href="#" class="btn-2">Получить консультацию</a>
+							<a href="#" class="btn-2" onClick="$('#contactform').submit();return false;">Получить консультацию</a>
 						</div>
-
 					</form>
 					<div class="copyr">
 						&copy; 2014<br/>
