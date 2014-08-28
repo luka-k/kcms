@@ -1,7 +1,7 @@
     <section>
         <div class="contact clearfix" >
             <div class="wrap">
-                <div class="content">
+                <div class="content clearfix">
 				
 				<?require('top-menu.php')?>
 					<form method="post" class="js-form" id="contactform" action="/#send_mail">

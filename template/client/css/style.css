@@ -1,5 +1,5 @@
-html { min-width: 1080px; }
-body { font-family: 'Myriad Pro Regular'; font-size:18px;}
+html { min-width: 1080px; margin:0;}
+body { font-family: 'Myriad Pro Regular'; font-size:18px; margin:0;}
 
 .wrap { width: 980px; margin: 0 auto;}
 .wrap-2 { width: 990px; margin: 0 auto;}
@@ -26,7 +26,8 @@ margin:15px 0 15px 15px;
 float:right;
 display:inline-block;
 background:#00d2ff;
-width:247px;
+width:265px;
+height:19px;
 text-align:center;
 font-size: 16px;
 }
@@ -43,7 +44,6 @@ color:#999;
 }
 
 .popup .btn-3{
-float:right;
 display:inline-block;
 padding:10px 0;
 font-size: 16px;
@@ -86,7 +86,7 @@ width:225px;
 
 .header-top .phone {
 float:left;
-width:220px;
+width:235px;
 padding:35px 0 0 0;
 font-style:italic;
 color:#333333;
@@ -104,8 +104,8 @@ font-weight:bold;
 
 .header-top .search{
 float:left;
-width:240px;
-margin:30px 0 0 30px;
+width:230px;
+margin:30px 0 0 20px;
 }
 
 .header-top .search input{
@@ -122,7 +122,7 @@ text-align: right;
 }
 
 .header-top .order-phone a {
-padding:10px 0;
+padding:9px 0;
 border-radius:3px;
 text-transform: uppercase;
 font-size: 16px;
@@ -149,35 +149,33 @@ text-align:center;
 
 .naw ul{
 margin:0;
-padding:0;
 list-style:none;
 }
 
 .nav ul li {
 float: left;
 margin: 0;
-padding:0px 40px 0px 40px;
+padding:6px 40px 8px 40px;
 text-align:center;
 }
 
 .nav ul li.first{
-padding:0px 40px 0px 0px;
+padding:6px 40px 8px 0px;
 text-align:left;
 text-transform:none;
 }
 
 .nav ul li.last{
-padding:0px 0px 0px 40px;
+padding:6px 0px 8px 40px;
 text-align:right;
 text-transform:none;
 }
 
 .nav ul li a{
+
 color:#00c0e9;
 text-decoration: none;
 font-size: 18px;
-height: 38px;
-line-height: 38px;
 font-family: 'Myriad Pro Regular';
 }
 
@@ -206,13 +204,14 @@ text-align:center;
 .calc .calc-pict{
 margin:80px auto 20px auto;
 width:100px;
-height:100px;
+height:102px;
 background: url('../images/calc.png') no-repeat center  
 }
 
 .calc a{
 margin-top:10px;
 text-decoration:none;
+font-size:14px;
 color:#00c0e9;
 }
 
@@ -451,7 +450,7 @@ z-index:50;
 position: relative;
 width:980px;
 left:0px;
-margin:10px 0 0 0;
+margin:50px 0 0 0;
 padding:0;
 overflow:hidden;
 }
@@ -528,7 +527,7 @@ float:left;
 
 .otzovi .navy {
 position:absolute;
-width: 200px;
+width: 125px;
 height: 22px;
 top:0%;
 cursor:pointer;
@@ -544,7 +543,7 @@ z-index:100;
 }
 
 .otzovi .next-slide{
-margin-left:815px;
+margin-left:870px;
 margin-top:-21px;
 padding:0 20px 0 0; 
 background: url('../images/next.png') no-repeat 75%; 
@@ -624,7 +623,7 @@ z-index:50;
 position: relative;
 width:980x;
 left:0px;
-margin: 0;
+margin:15px 0 0 0;
 padding:0;
 overflow:hidden;
 }
@@ -646,7 +645,7 @@ float:left;
 
 .raboti .navy {
 position:absolute;
-width: 200px;
+width: 125px;
 height: 22px;
 top:0%;
 cursor:pointer;
@@ -662,7 +661,7 @@ z-index:100;
 }
 
 .raboti .next-slide-2{
-margin-left:815px;
+margin-left:860px;
 margin-top:-21px;
 padding:0 20px 0 0; 
 background: url('../images/next.png') no-repeat 75%; 
@@ -755,14 +754,21 @@ width: 10000000000000px;
 }
  
 .partneri .slide-item{
+display: table-cell;
 width: 180px;
+height:100px;
+line-height:100px;
 margin:0 10px 0 0;
 padding:0;
 text-align:center;
+vertical-align:middle;
 float:left;
 }
 
-.partneri .slide-item img{
+.partneri .slide-item a{
+display: inline-block;
+line-height: 1.2;
+vertical-align: middle;
 }
 
 .partneri .navy {
@@ -776,7 +782,7 @@ color:#999;
  
 .partneri .prev-slide-3{
 margin-left:40px;
-margin-top:30px;
+margin-top:35px;
 padding:0 0 0 20px; 
 background: url('../images/prev.png') no-repeat; 
 z-index:100;
@@ -784,7 +790,7 @@ z-index:100;
 
 .partneri .next-slide-3{
 margin-left:980px;
-margin-top:0px;
+margin-top:5px;
 padding:0 20px 0 0; 
 background: url('../images/next.png') no-repeat 75%; 
 z-index:3000;
@@ -818,6 +824,7 @@ text-align:center;
 
 section .contact{
 position:relative;
+margin:0 0 -30px 0;
 padding:20px 0 80px 0;
 background:#333333;
 color:#fff;
@@ -983,7 +990,7 @@ z-index:50;
 position: relative;
 width:960x;
 left:60px;
-margin: 0;
+margin:15px 0 0 0;
 padding:0;
 overflow:hidden;
 }
@@ -1005,7 +1012,7 @@ float:left;
 
 .works .navy {
 position:absolute;
-width: 200px;
+width: 120px;
 height: 22px;
 top:0%;
 cursor:pointer;
@@ -1021,10 +1028,11 @@ z-index:100;
 }
 
 .works .next-slide{
-margin-left:840px;
+margin-left:860px;
 margin-top:-21px;
 padding:0 20px 0 0; 
-background: url('../images/next.png') no-repeat 75%; 
+background: url('../images/next.png') no-repeat 100%; 
+text-align:right;
 z-index:3000;
 }
  
@@ -1420,7 +1428,7 @@ text-decoration:none;
 color:#00c0e9;
 }
 
-.popup, .result{
+.popup{
 display:none;
 width:500px;
 min-width:500px;
@@ -1495,9 +1503,7 @@ color:#00c0e9;
 text-align:left;
 }
 
-.result{
-background:#fff;
-}
+
 
 input{
 width:90%;

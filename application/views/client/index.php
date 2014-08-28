@@ -1,6 +1,40 @@
 <?require_once('include/head.php')?>    
 <body>
-	<?require_once('include/header-index.php')?>    
+	<?require_once('include/header.php')?> 
+
+	<section>
+		<div class="banner">
+			<div class="wrap">
+				<div class="content">
+					<div class="calc">
+						<div class="calc-pict">
+						</div>
+						<div style="width:150px; margin:0 auto 10px auto;">
+							КАЛЬКУЛЯТОР РЕМОНТА
+						</div>
+						<a href="<?base_url()?>/pages/price">&nbsp; Рассчитать &rarr;</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>	
+        <div class="header-bottom">
+            <div class="wrap">
+                <div class="content clearfix">
+					<div class="left_col">
+						<p>Компания «Ремонт Гаража» оказывает услуги по ремонту гаражей в Санкт-Петербурге для всех, кто хочет получить на совесть выполненную работу в кратчайшие сроки и по самым выгодным ценам.</p>
+						<p class="small">Так же, как квартира, дом или любое другое строение, гараж нуждается в качественном и своевременном ремонте. Для заядлых автомобилистов гараж является вторым домом, где можно посвятить время ремонту и тюнингу. Очевидно, что от качества проведенных ремонтных работ в гараже зависят те условия, в которых автомобиль будет содержаться – и именно поэтому </p>
+					</div>
+					<div class="right_col">
+						<img src="<?=base_url()?>template/client/images/garant.png" alt="" />
+					</div>
+                </div>
+            </div>
+        </div>
+	</section>
+	
 	<section>
 		<div class="info">
 			<div class="wrap">
@@ -102,10 +136,10 @@
     <section>
         <div class="otzovi clearfix">
             <div class="wrap">
-				<div class="title">Отзывы наших клиентов</div>
+				<div class="title" style="margin-bottom:-60px">Отзывы наших клиентов</div>
 				<div class="slider">
-					<div name="prev" class="navy prev-slide">предыдущий отзыв</div>
-					<div name="next" class="navy next-slide">следующий отзыв</div>
+					<div name="prev" class="navy prev-slide">Предыдущий</div>
+					<div name="next" class="navy next-slide">Следующий</div>
 					<div class="slide-list">
 						<div class="slide-wrap">
 							<?$count = 1?>
@@ -136,10 +170,10 @@
     <section>
         <div class="raboti clearfix">
             <div class="wrap">
-				<div class="title">Наши работы</div>
+				<div class="title" style="margin-bottom:-60px;">Наши работы</div>
 				<div class="slider">
-					<div name="prev" class="navy prev-slide-2">предыдущий проект</div>
-					<div name="next" class="navy next-slide-2">следующий проект</div>
+					<div name="prev" class="navy prev-slide-2">Предыдущий</div>
+					<div name="next" class="navy next-slide-2">Следующий</div>
 					<div class="slide-list">
 						<div class="slide-wrap-2">
 							<?foreach($works as $work):?>
@@ -174,7 +208,7 @@
 										<?endif;?>
 										<div class="proekt-bottom">
 											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> месяца</div>
-											<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
+											<div class="price">Стоимость работы: <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>
 								</div>

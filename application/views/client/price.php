@@ -25,14 +25,15 @@
 								<div class="txt-calc"> 20000 руб.</div>
 							</div>
 						
-							<!--<div class="clearfix">
+							<div class="clearfix">
 								<select class="select-calc">
+									<option class="grey">Выберите позицию</option>
 									<option>Пункт 1</option>
 									<option>Пункт 2</option>
 								</select>
-								<input type="text" class="input-calc" placeholder=""/>
+								<input type="text" class="input-calc" placeholder="введите метраж"/>
 								<a href="#" class="btn">Рассчитать</a>
-							</div>-->
+							</div>
 							<div>
 								<a href="#" class="add_item" onclick="add_item()">Добавить позицию</a>
 							</div>

@@ -7,10 +7,10 @@
                         <a href="<?=base_url()?>main"><img src="<?=base_url()?>template/client/images/logo.png" alt="" /></a>
                     </div>
                     <div class="phone">
-                        <span class="ph"><span class="ph-style">+7(921)</span>123 45 67</span>
+                        <span class="ph"><span class="ph-style">+7 (921)</span> 123-45-67</span>
                     </div>
 					<div class="search">
-						<input type="text" name="search" />
+						<input type="text" name="search" placeholder="поиск"/>
 					</div>
                     <div class="order-phone">
                         <a href="#callrequest" class="btn js-callback callback-phone fancybox">Заказать звонок</a>
@@ -21,7 +21,7 @@
 	
         <div class="nav-bg"></div>
         <div class="nav">
-            <div class="wrap-2">
+            <div class="wrap">
 				<?require('top-menu.php')?>
             </div>
         </div>

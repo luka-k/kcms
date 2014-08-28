@@ -33,7 +33,7 @@ $('body').on('submit', '.js-form', function (e) {
     data: data,
     complete: function (xhr, response) {
       if ('success') {
-          $.fancybox('<div class="result" style="padding: 0;padding-top: 0px;padding-bottom: 0px; background:#fff;"><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">Спасибо, что выбрали нас!</p><br><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">В течение дня <br>мы с вами свяжемся <br>для подтверждения!</p></div>', {
+          $.fancybox('<div class="resultat" style="padding: 0;padding-top: 0px;padding-bottom: 0px; background:#fff;"><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">Спасибо, что выбрали нас!</p><br><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">В течение дня <br>мы с вами свяжемся <br>для подтверждения!</p></div>', {
                autoSize: false,
                autoHeight: false,
                autoWidth: false,
@@ -47,7 +47,7 @@ $('body').on('submit', '.js-form', function (e) {
            }, 6000);
          
        } else {
-           $.fancybox('<div class="result err"><h3>Ошибка!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
+           $.fancybox('<div class="resultat err"><h3>Ошибка!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
                autoSize: false,
                autoHeight: false,
                autoWidth: false,

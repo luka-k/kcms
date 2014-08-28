@@ -4,10 +4,10 @@
     <section>
         <div class="works clearfix">
             <div class="wrap">
-				<div class="title">Наши работы</div>
+				<div class="title" style="margin-bottom:-60px;">Наши работы</div>
 						<div class="slider">
-							<div name="prev" class="navy prev-slide">предыдущий проект</div>
-							<div name="next" class="navy next-slide">следующий проект</div>
+							<div name="prev" class="navy prev-slide">Предыдущий</div>
+							<div name="next" class="navy next-slide">Следующий</div>
 							<div class="slide-list">
 								<div class="slide-wrap">	
 
@@ -26,7 +26,7 @@
 	
 											<div class="works-bottom clearfix">
 												<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> месяца</div>
-												<div class="price">Бюджет "под ключ": <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
+												<div class="price">Стоимость работы: <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 											</div>
 											
 											<p>Описание задачи, проблемы и решения. Компания «Ремонт Гаража» оказывает услуги по ремонту гаражей в Санкт-Петербурге для всех, кто хочет получить на совесть выполненную работу в кратчайшие сроки и по самым выгодным ценам. Описание задачи, проблемы и решения. Компания «Ремонт Гаража» оказывает услуги по ремонту гаражей в Санкт-Петербурге для всех, кто хочет получить на совесть выполненную работу в кратчайшие сроки и по самым выгодным ценам.</p>
