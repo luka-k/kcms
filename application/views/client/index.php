@@ -83,7 +83,7 @@
 							<div class="text">Для вас работают полностью укомплектованные бригады специалистов – что позволяет гарантировать высокую скорость работы.</br> Стаж каждого сотрудника составляет более десяти лет работы в сфере ремонта гаражей.<br/> Их опыт позволяет оказывать услуга на самом высоком уровне.</div>
 						</div>
 					</div>
-					<div style="font-size:22px;">
+					<div style="font-size:24px; font-weight:bold; margin:20px 0 15px 0;">
 						С нами вы можете быть спокойны за качество. Кроме того, вы получаете фирменную гарантию сроком на один год на любой заказ.
 					</div>
 				</div>
@@ -95,7 +95,7 @@
         <div class="itog">
             <div class="wrap">
                 <div class="content">
-					<div class="title-2" style="padding-bottom: 20px;">3 основных аргумента в пользу ремонта</div>
+					<div class="title-2">3 основных аргумента в пользу ремонта</div>
 					<div class="clearfix">
 						<div class="itog-item">
 							<div class="image"><img src="<?=base_url()?>template/client/images/itog-1.png" alt=""/></div>
@@ -113,7 +113,7 @@
 							<div class="text">Соответствующие условия хранения – сухое, теплое место – здесь можно даже жить!</div>
 						</div>
 					</div>
-					<div style="font-size:22px; color:#333">
+					<div style="font-size:24px; font-weight:bold; margin:20px 0 15px 0; color:#333">
 						Итог – теплый гараж, в котором можно не только держать автомобиль, но и с удобством хранить вещи и даже отдыхать вместе с друзьями.
 					</div>
 				</div>
@@ -207,8 +207,8 @@
 											</div>
 										<?endif;?>
 										<div class="proekt-bottom">
-											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time['0']?></span> <?=$work->time['1']?></div>
-											<div class="price">Стоимость работы: <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
+											<div class="time">Срок: <span style="font-size:72px; font-weight:normal;"><?=$work->time['0']?></span> <?=$work->time['1']?></div>
+											<div class="price">Стоимость работы: <span style="font-size:72px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>
 								</div>

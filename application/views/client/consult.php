@@ -6,7 +6,7 @@
             <div class="wrap">
 				<div class="content">
 					<div class="title">Консультации</div>
-					<div class="clearfix" style="margin-bottom:40px; ">
+					<div class="clearfix" style="margin-bottom:60px; ">
 						<div class="left_col">
 							<img src="<?=base_url()?>template/client/images/consult.png" alt="" />
 						</div>

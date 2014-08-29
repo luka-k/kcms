@@ -69,7 +69,7 @@ position: relative;
 
 header .header-top {
 background:#ffffff;
-height:51px;
+height:48px;
 }
 
 .header-top .logo{
@@ -154,7 +154,7 @@ list-style:none;
 .nav ul li {
 float: left;
 margin: 0;
-padding:6px 40px 8px 40px;
+padding:7px 40px 8px 40px;
 text-align:center;
 }
 
@@ -188,7 +188,7 @@ color:#fff;
 
 .banner{
 height:365px;
-background: url('../images/banner.png') no-repeat center #4e4a48;  
+background: url('../images/banner.jpg') no-repeat center #4e4a48;  
 }
 
 .banner .calc{
@@ -215,11 +215,11 @@ color:#00c0e9;
 }
 
 header .header-bottom {
-height: 240px;
+height:230px;
 }
 
 .header-bottom .content{
-padding:25px 0;
+padding:25px 0 10px 0;
 color:#333333;
 }
 
@@ -258,6 +258,7 @@ font-weight:bold;
 color:#00c0e9;
 text-align: center;
 padding: 40px 0;
+margin:10px 0;
 }
 
 section .title-2 {
@@ -265,14 +266,14 @@ font-size: 36px;
 font-weight:bold;
 color:#fff;
 text-align: center;
-padding: 40px 0;
+padding: 50px 0 40px 0;
 }
 
 section .title-3 {
-font-size: 28px;
+font-size: 23px;
 color: #333333;
 text-align: center;
-padding:0 0 20px 0;
+padding:10px 0 20px 0;
 }
 
 section .title-4 {
@@ -286,7 +287,7 @@ padding: 40px 0;
 section .info{
 position:relative;
 background: url('../images/info-back.png') repeat #333333; 
-padding:30px 0 30px 0;
+padding:39px 0 39px 0;
 position: relative;
 }
 
@@ -399,8 +400,8 @@ height:95px;
 
 .itog .itog-item .title{
 height:30px;
-font-size:22px;
-margin:10px;
+font-size:24px;
+margin:20px 0 15px 0;
 padding:0;
 color:#fff;
 }
@@ -413,7 +414,7 @@ color:#fff;
 section .consult{
 position:relative;
 background:#333;
-padding:20px 0 0 0;
+padding:19px 0 0 0;
 }
 
 .consult input{
@@ -422,7 +423,7 @@ margin-right:15px;
 }
 
 section .consult a {
-padding:10px 0;
+padding:9px 0 8px 0;
 border-radius:3px;
 text-transform: uppercase;
 font-size: 16px;
@@ -433,7 +434,7 @@ text-decoration: none;
 section .otzovi {
 position:relative;
 background:#fff;
-padding-bottom:30px;
+padding-bottom:55px;
 }
 
 .otzovi .slider {
@@ -512,6 +513,7 @@ z-index:9;
 display:inline-block;
 width:19px;
 height:19px;
+margin-top:10px;
 background: url('../images/vk-link.png') no-repeat; 
 text-decoration:none;
 }
@@ -612,7 +614,7 @@ padding-bottom:30px;
 .raboti .slider {
 width:980px;
 position: relative;
-margin: 10px 0 10px 0;
+margin: 15px 0 10px 0;
 float:left;
 background:transperent;
 z-index:50;
@@ -622,7 +624,7 @@ z-index:50;
 position: relative;
 width:980x;
 left:0px;
-margin:15px 0 0 0;
+margin:25px 0 0 0;
 padding:0;
 overflow:hidden;
 }
@@ -644,11 +646,12 @@ float:left;
 
 .raboti .navy {
 position:absolute;
-width: 125px;
+width: 115px;
 height: 22px;
-top:0%;
+top:0;
 cursor:pointer;
 color:#999;
+font-size:16px;
 }
  
 .raboti .prev-slide-2{
@@ -660,7 +663,7 @@ z-index:100;
 }
 
 .raboti .next-slide-2{
-margin-left:860px;
+margin-left:870px;
 margin-top:-21px;
 padding:0 20px 0 0; 
 background: url('../images/next.png') no-repeat 75%; 
@@ -696,7 +699,7 @@ text-align:center;
 .raboti-item .title{
 margin:10px 0;
 padding:0;
-font-size:16px;
+font-size:15px;
 font-weight:normal;
 color:#999;
 }
@@ -704,7 +707,8 @@ color:#999;
 .raboti .proekt .proekt-bottom{
 position:relative;
 color:#5aa3e8;
-font-size:28px;
+font-size:32px;
+font-weight:bold;
 }
 
 .raboti .proekt .time{
@@ -849,7 +853,7 @@ font-weight:bold;
 }
 
 .contact ul{
-margin:20px 0 15px 0;
+margin:25px 0 25px 0;
 padding:0;
 list-style:none;
 
@@ -887,18 +891,17 @@ font-family: 'Myriad Pro Regular';
 
 section .about{
 position:relative;
-padding-bottom:30px;
+padding-bottom:40px;
 background:#fff;
 }
 
 .about .proects{
 margin-bottom:25px;
-padding:20px 68px;
+padding:30px 68px;
 border-top:1px solid #e9e9e9;
 border-bottom:1px solid #e9e9e9;
 font-size:22px;
 }
-
 
 .proects .left-col{
 float:left;
@@ -939,13 +942,13 @@ font-size:15px;
 
 section .about-2{
 position:relative;
-padding:30px 0 40px 0;
+padding:30px 0 80px 0;
 background:#fff;
 }
 
 .about-2 .sotrud{
 margin-bottom:25px;
-padding:20px 0;
+padding:30px 0 50px 0;
 border-bottom:1px solid #e9e9e9;
 font-size:22px;
 }
@@ -1076,7 +1079,7 @@ color:#999;
 
 .works .proekt .works-bottom{
 position:relative;
-margin-bottom:10px;
+margin-bottom:40px;
 padding-bottom:10px;
 border-bottom:1px solid #e9e9e9;
 color:#5aa3e8;
@@ -1102,19 +1105,20 @@ margin:10px 0;
 text-align:justify;
 }
 
-.works .slide-wrap .txt-wrap{
+.works .slide-wrap-1 .txt-wrap{
 position:relative;
 }
 
-.works .slide-wrap .txt-wrap .img-left{
+.works .slide-wrap-1 .txt-wrap .img-left{
 position:relative;
 bottom:8px;
 left:-410px;
 z-index:10;
 }
 
-.works .slide-wrap .text{
+.works .slide-wrap-1 .text{
 position:relative;
+margin-top:40px;
 padding:15px;
 border:1px solid #ebebeb;
 text-align:justify;
@@ -1122,7 +1126,7 @@ color:#999;
 z-index:9;
 }
 
-.works .slide-wrap .vk_link{
+.works .slide-wrap-1 .vk_link{
 display:inline-block;
 width:19px;
 height:19px;
@@ -1238,6 +1242,7 @@ section .vacancy{
 position:relative;
 background:#fff;
 padding-bottom:30px;
+min-height:500px;
 }
 
 .vacancy p{
@@ -1417,15 +1422,15 @@ font-weight:bold;
 
 .copyr{
 float:left;
-margin-top:15px;
+margin-top:35px;
 font-size:16px;
 }
 
 .riba{
 float:right;
-margin-top:15px;
+margin-top:55px;
 color:#999;
-font-size:16px;
+font-size:14px;
 }
 
 .riba a{
@@ -1512,7 +1517,7 @@ text-align:left;
 
 input{
 width:90%;
-height:22px;
+height:20px;
 margin-bottom:20px;
 padding:8px 5px;
 border:none;

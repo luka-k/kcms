@@ -7,7 +7,7 @@
 				<div class="content">
 					<form action="#contacts" method="post" class="js-form" id="contactform">
 						<div class="title">Контакты</div>
-						<div class="clearfix" style="margin-bottom:20px;">
+						<div class="clearfix" style="margin-bottom:60px;">
 							<div class="cont-col email">mail@ремонт-гаража.рф</div>
 							<div class="cont-col phone"><span class="ph-style">+7 (921)</span> 123-45-67</div>
 							<div class="cont-col address">г. Город Улица</div>

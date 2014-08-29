@@ -5,7 +5,7 @@
         <div class="about">
             <div class="wrap">
                 <div class="content">
-					<div class="title" style="padding-bottom: 20px;">О компании</div>
+					<div class="title" style="margin-top:-10px; padding-bottom: 20px;">О компании</div>
 					<div class="proects clearfix">
 						<div class="left-col">
 							<div class="grey">КОМПАНИЯ</div>
@@ -28,7 +28,7 @@
         <div class="itog">
             <div class="wrap">
                 <div class="content">
-					<div class="title-2" style="padding-bottom: 20px;">У нас есть все необходимое:</div>
+					<div class="title-2" style="padding-bottom: 30px;">У нас есть все необходимое:</div>
 					<div class="clearfix">
 						<div class="itog-item">
 							<div class="image"><img src="<?=base_url()?>template/client/images/wehave-1.png" alt=""/></div>
