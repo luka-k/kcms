@@ -16,7 +16,7 @@ $config['thumb_config'] = array(
 	),
 	"catalog_small" => array(
 		'w' => 180,
-		'h' => 94,
+		//'h' => 94,
 		"bg" => "ffffff"	
 	)
 );

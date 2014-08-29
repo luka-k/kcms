@@ -6,8 +6,8 @@
             <div class="wrap">
 				<div class="title" style="margin-bottom:-60px;">Наши работы</div>
 						<div class="slider">
-							<div name="prev" class="navy prev-slide">Предыдущий</div>
-							<div name="next" class="navy next-slide">Следующий</div>
+							<div name="prev" class="navy prev-slide">Предыдущая</div>
+							<div name="next" class="navy next-slide">Следующая</div>
 							<div class="slide-list">
 								<div class="slide-wrap">	
 

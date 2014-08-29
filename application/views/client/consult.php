@@ -18,7 +18,7 @@
 						<div class="content">
 							<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 							<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-							<a href="#callrequest" class="btn-2 js-callback callback-phone fancybox">Получить консультацию</a>
+							<a href="#callrequest" class="btn-2 fancybox">Получить консультацию</a>
 						</div>
 
 					</form>					
