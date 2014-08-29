@@ -130,14 +130,14 @@ jQuery(document).ready(function(){
 		var prevLink = jQuery('.prev-slide-2');
 		var playLink = jQuery('.auto');
 		var is_animate = false;
-		var slideWidth = jQuery('.slide-item').outerWidth();
+		var slideWidth = jQuery('.slide-item-2').outerWidth();
 		var scrollSlider = slideWrap.position().left - slideWidth;
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 300, function(){
+				slideWrap.animate({left: scrollSlider}, 200, function(){
 					slideWrap
-					.find('.slide-item:first')
+					.find('.slide-item-2:first')
 					.appendTo(slideWrap)
 					.parent()
 					.css({'left': 0});
@@ -149,10 +149,10 @@ jQuery(document).ready(function(){
 			if(!slideWrap.is(':animated')) {
 				slideWrap
 				.css({'left': scrollSlider})
-				.find('.slide-item:last')
+				.find('.slide-item-2:last')
 				.prependTo(slideWrap)
 				.parent()
-				.animate({left: 0}, 300);
+				.animate({left: 0}, 200);
 			}
 		});
 	}
@@ -169,14 +169,14 @@ jQuery(document).ready(function(){
 		var prevLink = jQuery('.prev-slide-3');
 		var playLink = jQuery('.auto');
 		var is_animate = false;
-		var slideWidth = jQuery('.slide-item').outerWidth();
+		var slideWidth = jQuery('.slide-item-3').outerWidth();
 		var scrollSlider = slideWrap.position().left - slideWidth;
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 300, function(){
+				slideWrap.animate({left: scrollSlider}, 200, function(){
 					slideWrap
-					.find('.slide-item:first')
+					.find('.slide-item-3:first')
 					.appendTo(slideWrap)
 					.parent()
 					.css({'left': 0});
@@ -188,10 +188,10 @@ jQuery(document).ready(function(){
 			if(!slideWrap.is(':animated')) {
 				slideWrap
 				.css({'left': scrollSlider})
-				.find('.slide-item:last')
+				.find('.slide-item-3:last')
 				.prependTo(slideWrap)
 				.parent()
-				.animate({left: 0}, 300);
+				.animate({left: 0}, 200);
 			}
 		});
 	}

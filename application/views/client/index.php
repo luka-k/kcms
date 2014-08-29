@@ -177,7 +177,7 @@
 					<div class="slide-list">
 						<div class="slide-wrap-2">
 							<?foreach($works as $work):?>
-								<div class="slide-item">
+								<div class="slide-item-2">
 									<div class="proekt clearfix">
 										<div class="title-3"><?=$work->title?></div>
 										<?if(isset($work->img)):?>
@@ -207,7 +207,7 @@
 											</div>
 										<?endif;?>
 										<div class="proekt-bottom">
-											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> <?=$work->word?></div>
+											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time['0']?></span> <?=$work->time['1']?></div>
 											<div class="price">Стоимость работы: <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>
@@ -242,7 +242,7 @@
 							<div class="slide-list">
 								<div class="slide-wrap-3 clearfix">		
 									<?foreach ($partners as $partner):?>
-										<div class="slide-item">
+										<div class="slide-item-3">
 											<a href="<?=$partner->link?>" target="_blank"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
 										</div>		 
 									<?endforeach;?>
