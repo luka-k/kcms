@@ -138,13 +138,13 @@
             <div class="wrap">
 				<div class="title" style="margin-bottom:-60px">Отзывы наших клиентов</div>
 				<div class="slider">
-					<div name="prev" class="navy prev-slide">Предыдущий</div>
-					<div name="next" class="navy next-slide">Следующий</div>
+					<div name="prev" class="navy prev-slide-1">Предыдущий</div>
+					<div name="next" class="navy next-slide-1">Следующий</div>
 					<div class="slide-list">
-						<div class="slide-wrap">
+						<div class="slide-wrap-1">
 							<?$count = 1?>
 							<?foreach($works as $review):?>
-								<div class="slide-item clearfix">
+								<div class="slide-item-1 clearfix">
 									<div class="txt-wrap">
 										<div class="text">
 											<?=$review->text?>  

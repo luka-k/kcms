@@ -85,20 +85,20 @@ function validation (element, errorClass) {
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
-	function htmSlider(){
-		var slideWrap = jQuery('.slide-wrap');
-		var nextLink = jQuery('.next-slide');
-		var prevLink = jQuery('.prev-slide');
+	function htmSlider(num){
+		var slideWrap = jQuery('.slide-wrap-'+num);
+		var nextLink = jQuery('.next-slide-'+num);
+		var prevLink = jQuery('.prev-slide-'+num);
 		var playLink = jQuery('.auto');
 		var is_animate = false;
-		var slideWidth = jQuery('.slide-item').outerWidth();
+		var slideWidth = jQuery('.slide-item-'+num).outerWidth();
 		var scrollSlider = slideWrap.position().left - slideWidth;
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
 				slideWrap.animate({left: scrollSlider}, 300, function(){
 					slideWrap
-					.find('.slide-item:first')
+					.find('.slide-item-'+num+':first')
 					.appendTo(slideWrap)
 					.parent()
 					.css({'left': 0});
@@ -110,7 +110,7 @@ jQuery(document).ready(function(){
 			if(!slideWrap.is(':animated')) {
 				slideWrap
 				.css({'left': scrollSlider})
-				.find('.slide-item:last')
+				.find('.slide-item-'+num+':last')
 				.prependTo(slideWrap)
 				.parent()
 				.animate({left: 0}, 300);
@@ -118,84 +118,8 @@ jQuery(document).ready(function(){
 		});
 	}
  
-	htmSlider();
-});
-</script>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-	function htmSlider(){
-		var slideWrap = jQuery('.slide-wrap-2');
-		var nextLink = jQuery('.next-slide-2');
-		var prevLink = jQuery('.prev-slide-2');
-		var playLink = jQuery('.auto');
-		var is_animate = false;
-		var slideWidth = jQuery('.slide-item-2').outerWidth();
-		var scrollSlider = slideWrap.position().left - slideWidth;
-		
-		nextLink.click(function(){
-			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 200, function(){
-					slideWrap
-					.find('.slide-item-2:first')
-					.appendTo(slideWrap)
-					.parent()
-					.css({'left': 0});
-				});
-			}
-		});
- 
-		prevLink.click(function(){
-			if(!slideWrap.is(':animated')) {
-				slideWrap
-				.css({'left': scrollSlider})
-				.find('.slide-item-2:last')
-				.prependTo(slideWrap)
-				.parent()
-				.animate({left: 0}, 200);
-			}
-		});
-	}
- 
-	htmSlider();
-});
-</script>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-	function htmSlider(){
-		var slideWrap = jQuery('.slide-wrap-3');
-		var nextLink = jQuery('.next-slide-3');
-		var prevLink = jQuery('.prev-slide-3');
-		var playLink = jQuery('.auto');
-		var is_animate = false;
-		var slideWidth = jQuery('.slide-item-3').outerWidth();
-		var scrollSlider = slideWrap.position().left - slideWidth;
-		
-		nextLink.click(function(){
-			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 200, function(){
-					slideWrap
-					.find('.slide-item-3:first')
-					.appendTo(slideWrap)
-					.parent()
-					.css({'left': 0});
-				});
-			}
-		});
- 
-		prevLink.click(function(){
-			if(!slideWrap.is(':animated')) {
-				slideWrap
-				.css({'left': scrollSlider})
-				.find('.slide-item-3:last')
-				.prependTo(slideWrap)
-				.parent()
-				.animate({left: 0}, 200);
-			}
-		});
-	}
- 
-	htmSlider();
+	htmSlider(1);
+	htmSlider(2);
+	htmSlider(3);
 });
 </script>

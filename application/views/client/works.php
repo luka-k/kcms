@@ -6,13 +6,13 @@
             <div class="wrap">
 				<div class="title" style="margin-bottom:-60px;">Наши работы</div>
 						<div class="slider">
-							<div name="prev" class="navy prev-slide">Предыдущая</div>
-							<div name="next" class="navy next-slide">Следующая</div>
+							<div name="prev" class="navy prev-slide-1">Предыдущая</div>
+							<div name="next" class="navy next-slide-1">Следующая</div>
 							<div class="slide-list">
-								<div class="slide-wrap">	
+								<div class="slide-wrap-1">	
 
 									<?foreach($content as $work):?>
-									<div class="slide-item">
+									<div class="slide-item-1">
 										<div class="proekt clearfix">
 											<div class="title-3"><?=$work->title?></div>
 											<?if(isset($work->img)):?>

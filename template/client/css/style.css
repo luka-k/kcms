@@ -454,19 +454,19 @@ padding:0;
 overflow:hidden;
 }
   
-.otzovi .slide-wrap {
+.otzovi .slide-wrap-1 {
 position: relative;
 left:0;
 top: 0;
 width: 10000000000000px;
 }
 
-.otzovi .slide-wrap .txt-wrap{
+.otzovi .slide-wrap-1 .txt-wrap{
 position:relative;
 padding:0;
 }
 
-.otzovi .slide-wrap .txt-wrap .img-left{
+.otzovi .slide-wrap-1 .txt-wrap .img-left{
 position:relative;
 bottom:7px;
 left:-190px;
@@ -489,7 +489,7 @@ background: url('../images/otziv.png') no-repeat 94% 0;
 z-index:10;
 }
 
-.otzovi .slide-wrap .txt-wrap .img-right{
+.otzovi .slide-wrap-1 .txt-wrap .img-right{
 margin:0;
 padding:0;
 position:relative;
@@ -498,7 +498,7 @@ left:190px;
 z-index:10;
 }
 
-.otzovi .slide-wrap .text{
+.otzovi .slide-wrap-1 .text{
 position:relative;
 padding:15px;
 margin:0;
@@ -508,7 +508,7 @@ color:#999;
 z-index:9;
 }
 
-.otzovi .slide-wrap .vk_link{
+.otzovi .slide-wrap-1 .vk_link{
 display:inline-block;
 width:19px;
 height:19px;
@@ -516,7 +516,7 @@ background: url('../images/vk-link.png') no-repeat;
 text-decoration:none;
 }
  
-.otzovi .slide-item{
+.otzovi .slide-item-1{
 width: 480px;
 margin:0 20px 0 0;
 padding:0;
@@ -533,7 +533,7 @@ cursor:pointer;
 color:#999;
 }
  
-.otzovi .prev-slide{
+.otzovi .prev-slide-1{
 margin-left:0px;
 margin-top:-21px;
 padding:0 0 0 20px; 
@@ -541,7 +541,7 @@ background: url('../images/prev.png') no-repeat;
 z-index:100;
 }
 
-.otzovi .next-slide{
+.otzovi .next-slide-1{
 margin-left:870px;
 margin-top:-21px;
 padding:0 20px 0 0; 
@@ -764,11 +764,11 @@ vertical-align:middle;
 float:left;
 }
 
-.partneri .slide-item a img{
+.partneri .slide-item-3 a img{
 width:100%;
 }
 
-.partneri .slide-item a{
+.partneri .slide-item-3 a{
 width:100%;
 display: inline-block;
 line-height: 1.2;
@@ -999,14 +999,14 @@ padding:0;
 overflow:hidden;
 }
   
-.works .slide-wrap {
+.works .slide-wrap-1{
 position: relative;
 left:0;
 top: 0;
 width: 10000000000000px;
 }
  
-.works .slide-item{
+.works .slide-item-1{
 width: 950px;
 margin:0 20px 0 0;
 padding:0;
@@ -1023,7 +1023,7 @@ cursor:pointer;
 color:#999;
 }
  
-.works .prev-slide{
+.works .prev-slide-1{
 margin-left:55px;
 margin-top:-21px;
 padding:0 0 0 20px; 
@@ -1031,7 +1031,7 @@ background: url('../images/prev.png') no-repeat;
 z-index:100;
 }
 
-.works .next-slide{
+.works .next-slide-1{
 margin-left:860px;
 margin-top:-21px;
 padding:0 20px 0 0; 
