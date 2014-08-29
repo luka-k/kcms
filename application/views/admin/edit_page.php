@@ -87,7 +87,7 @@
 									</div>
 								<?endif;?>
 							<?elseif(($content->part_url == "works")):?>
-								<?if(count($content->img)<1):?>
+								<?/*if(count($content->img)<1):*/?>
 									<div class="col_12">
 										<div class="col_12">Добавить фотографии</div>
 										<div class="col_3">Было</div>
@@ -97,7 +97,7 @@
 										<div class="col_3">Стало</div>
 										<div class="col_9"><input type="file" id="pic" name="pic[result]" /></div>
 									</div>					
-								<?else:?>
+								<?/*else:*/?>
 									<div class="col_12">
 										<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
 											<thead>
@@ -132,7 +132,7 @@
 											<?endforeach?>
 										</table>
 									</div>									
-								<?endif;?>
+								<?/*endif;*/?>
 							<?endif;?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
