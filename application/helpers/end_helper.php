@@ -4,9 +4,9 @@ function end_maker($word, $counter)
 {
 	if ($word == 'day')
 	{
-		$form_1 = 'день';
-		$form_2 = 'дней';
-		$form_3 = 'дня';
+		$form_1 = 'месяц';
+		$form_2 = 'месяцов';
+		$form_3 = 'месяца';
 		$counter = $counter % 100;
 		if ($counter >= 20)
 			$counter = $counter % 10;

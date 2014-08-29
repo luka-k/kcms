@@ -31,6 +31,7 @@ class Main extends CI_Controller {
 			{
 				$item->img[$img->image_type] = $img;
 			}
+			$item->word = end_maker('day', $item->time);
 		}
 		$this->load->view('client/index.php', $data);
 	}	

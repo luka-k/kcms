@@ -207,7 +207,7 @@
 											</div>
 										<?endif;?>
 										<div class="proekt-bottom">
-											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> месяца</div>
+											<div class="time">Срок: <span style="font-size:48px; font-weight:normal;"><?=$work->time?></span> <?=$work->word?></div>
 											<div class="price">Стоимость работы: <span style="font-size:48px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>

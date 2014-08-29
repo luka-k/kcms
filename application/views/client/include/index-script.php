@@ -96,7 +96,7 @@ jQuery(document).ready(function(){
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 150, function(){
+				slideWrap.animate({left: scrollSlider}, 300, function(){
 					slideWrap
 					.find('.slide-item:first')
 					.appendTo(slideWrap)
@@ -113,7 +113,7 @@ jQuery(document).ready(function(){
 				.find('.slide-item:last')
 				.prependTo(slideWrap)
 				.parent()
-				.animate({left: 0}, 150);
+				.animate({left: 0}, 300);
 			}
 		});
 	}
@@ -135,7 +135,7 @@ jQuery(document).ready(function(){
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 150, function(){
+				slideWrap.animate({left: scrollSlider}, 300, function(){
 					slideWrap
 					.find('.slide-item:first')
 					.appendTo(slideWrap)
@@ -152,7 +152,7 @@ jQuery(document).ready(function(){
 				.find('.slide-item:last')
 				.prependTo(slideWrap)
 				.parent()
-				.animate({left: 0}, 150);
+				.animate({left: 0}, 300);
 			}
 		});
 	}
@@ -174,7 +174,7 @@ jQuery(document).ready(function(){
 		
 		nextLink.click(function(){
 			if(!slideWrap.is(':animated')) {
-				slideWrap.animate({left: scrollSlider}, 150, function(){
+				slideWrap.animate({left: scrollSlider}, 300, function(){
 					slideWrap
 					.find('.slide-item:first')
 					.appendTo(slideWrap)
@@ -191,7 +191,7 @@ jQuery(document).ready(function(){
 				.find('.slide-item:last')
 				.prependTo(slideWrap)
 				.parent()
-				.animate({left: 0}, 150);
+				.animate({left: 0}, 300);
 			}
 		});
 	}
