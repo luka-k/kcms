@@ -53,24 +53,25 @@
 			<div class="title">Отправить резюме</div>
 		</div>
         <div id="overlay_form" class="popup-body clearfix">
-            <form action="" id="formpopup" method="post" class="js-form">
+            <form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="formpopup-2" action="<?=base_url()?>pages/resume/" >
 				<div style="margin-bottom:10px;">
 					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/><br/>
 					<input type="text" name="email" data-id="email" placeholder="e-mail" data-necessarily="true"/><br/>
 					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/><br/>
 				</div>
-				<div style="margin-bottom:10px; width:220px; margin-left:135px;" class="clearfix">
-					<a href="#" class="upload">Загрузите резюме</a>
+				<div class="file_upload clearfix">
+					<a href="#" id="psevdoInput" class="upload">Загрузите резюме</a>
+					<input id="psevdoFileValue" class="inputFileText" type="text"/>
+					<input type="file" name="resume" accept="application/msword" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoInput').style.display='none'"/>
 				</div>
 				<div style="margin-bottom:10px;">
 					<textarea placeholder="Или напишите о себе"></textarea>
 				</div>
-				<a href="" onclick="$('#formpopup').submit();return false;" class="btn-3">Отправить</a>
+				<a href="#" onclick="document.forms['formpopup-2'].submit()" class="btn-3">Отправить</a>
             </form>
         </div>
         
     </div>	
-<?require_once('index-script.php')?>
 
 </body>
 </html>

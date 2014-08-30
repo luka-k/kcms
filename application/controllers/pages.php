@@ -46,6 +46,17 @@ class Pages extends CI_Controller {
 		//var_dump($data['content']);
 		$this->load->view('client/'.$url.'.php', $data);		
 	}
+	
+	
+	public function resume()
+	{
+		$post = $this->input->post();
+		//var_dump($post);
+		//var_dump($_FILES);
+		$this->files->upload_file($_FILES['resume']);
+		redirect(base_url().'pages/vacancy');
+	}
+	
 }
 
 /* End of file pages.php */
