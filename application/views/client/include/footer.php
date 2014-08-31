@@ -65,7 +65,7 @@
 					<input type="file" name="resume" accept="application/msword" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoInput').style.display='none'"/>
 				</div>
 				<div style="margin-bottom:10px;">
-					<textarea placeholder="Или напишите о себе"></textarea>
+					<textarea placeholder="Или напишите о себе" name="about"></textarea>
 				</div>
 				<a href="#" onclick="document.forms['formpopup-2'].submit()" class="btn-3">Отправить</a>
             </form>

@@ -50,11 +50,47 @@ class Pages extends CI_Controller {
 	
 	public function resume()
 	{
+		$menu = $this->menus->top_menu;
+		$menu = $this->menus->set_active($menu, "vacancy");
+		
+		$settings = $this->settings->get_item_by(array('id' => 1));
+		$data = array(
+			'title' => "Вакансии",
+			'meta_title' => $settings->site_title,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
+			'menu' => $menu
+		);
+		
 		$post = $this->input->post();
-		//var_dump($post);
-		//var_dump($_FILES);
-		$this->files->upload_file($_FILES['resume']);
-		redirect(base_url().'pages/vacancy');
+		if ($_FILES['resume']['error'] <> 4)
+		{
+			$file_url = $this->files->upload_file($_FILES['resume']);
+		}
+		
+		$admin_email = $this->config->item('admin_email');
+		$subject = 'Резюме';
+		$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
+		$message = 'Получено резюме от '.$post['name'].'<br/>';
+		$message = $message.'Контактный телефон - '.$post['phone'].'<br/>';
+		$message = $message.'e-mail - '.$post['email'];
+		if ($post['about'] <> NULL)
+		{
+			$message = $message.'Соискатель оставил краткую информацию о себе<br/>';
+			$message = $message.$post['about'].'<br/>';
+		}
+		if ($_FILES['resume']['error'] <> 4)
+		{
+			$message = $message.'Соискатель приложил файл с резюме<br/>';
+			$message = $message.'<a href='.base_url().$file_url.'>Скачать резюме</a>';
+		}
+		if($this->mail->send_mail($admin_email, $subject, $message))
+		{
+			$data['callback'] = "Ваше резюме отправлено";
+		}
+		
+		
+		$this->load->view('client/vacancy.php', $data);
 	}
 	
 }

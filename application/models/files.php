@@ -21,5 +21,7 @@ class Files extends MY_Model
 		{
 			return FALSE;
 		}
+		$file_url = "download/files".make_upload_path($file_name).$file_name;
+		return $file_url;
 	}
 }

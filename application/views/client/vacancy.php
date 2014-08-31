@@ -19,6 +19,11 @@
 								<a href="#vacancy-popup" class="btn js-callback callback-phone fancybox">Отправить резюме</a>
 							</div>
 						</div>
+						<?if($callback <> NULL):?>
+							<div style=" width:100%; text-align:center; font-size:26px; color:#00c0e9">
+								<?=$callback?>
+							</div>
+						<?endif?>
 				</div>
             </div>
         </div>
