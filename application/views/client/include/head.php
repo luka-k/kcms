@@ -25,7 +25,7 @@
 		
 		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 		
-        <script src="<?=base_url()?>template/client/js/script.js"></script>
+        <!--<script src="<?=base_url()?>template/client/js/script.js"></script>-->
         
         <!--[if lte IE 6 ]><script type="text/javascript">window.location.href="ie6_close/index_ru.html";</script><![endif]-->
         

@@ -16,10 +16,10 @@
 								<p>Если вы желаете работать в компании «Ремонт Гаража» – просто напишите нам, и мы очень скоро рассмотрим вашу заявку.</p>
 							</div>
 							<div class="right-col">
-								<a href="#vacancy-popup" class="btn js-callback callback-phone fancybox">Отправить резюме</a>
+								<a href="#vacancy-popup" class="btn fancybox">Отправить резюме</a>
 							</div>
 						</div>
-						<?if($callback <> NULL):?>
+						<?if(isset($callback)):?>
 							<div style=" width:100%; text-align:center; font-size:26px; color:#00c0e9">
 								<?=$callback?>
 							</div>
@@ -28,5 +28,5 @@
             </div>
         </div>
     </section>
-
+<?require_once('include/index-script.php')?> 
 <?require_once('include/footer.php')?>   

@@ -1,17 +1,15 @@
 ﻿<script>
 $('body').on('submit', '.js-form', function (e) {
+  
   var form = $(this),
   inputs = form.find('input'),
   el = {},
   data = {},
   errorClass = 'frame-input_error',
-  baseURL,
   i;
+  
 // гугл в помощь что за функция
   e.preventDefault();
-  
-  baseURL = "<?=base_url()?>";
-  alert(baseURL);
 // следующий кусок кода отвечает за валидацию и заполнение массива данных data
   inputs.each(function () {
     var element = $(this);
@@ -20,6 +18,7 @@ $('body').on('submit', '.js-form', function (e) {
       data[element.attr('data-id')] = element.val();
     }
   });
+
   for (i in el) {
     if (el[i].hasClass(errorClass)) el[i].removeClass(errorClass);
   }
@@ -27,13 +26,13 @@ $('body').on('submit', '.js-form', function (e) {
 
   // а дальше аякс-вызов и всплывающее окошко
   $.ajax({
-    url: baseURL + '/ajax/send_mail.php',
+    url:'/ajax/',
     type: 'POST',
     cache: false,
     data: data,
     complete: function (xhr, response) {
       if ('success') {
-          $.fancybox('<div class="resultat" style="padding: 0;padding-top: 0px;padding-bottom: 0px; background:#fff;"><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">Спасибо, что выбрали нас!</p><br><p style="color: #634f6a;font-family: Georgia;font-size: 30px;">В течение дня <br>мы с вами свяжемся <br>для подтверждения!</p></div>', {
+          $.fancybox('<div class="res"><div class="popup-top"></div><div class="popup-body"><p style="color: #634f6a;font-family: Georgia;font-size: 24px; text-align:center;  padding-top:30px;">Спасибо, что выбрали нас!</p><p style="color: #634f6a;font-family: Georgia;font-size: 24px; text-align:center;">В течение дня <br>мы с вами свяжемся <br>для подтверждения!</p></div></div>', {
                autoSize: false,
                autoHeight: false,
                autoWidth: false,
@@ -47,7 +46,7 @@ $('body').on('submit', '.js-form', function (e) {
            }, 6000);
          
        } else {
-           $.fancybox('<div class="resultat err"><h3>Ошибка!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
+           $.fancybox('<div class="resultat err popup-top"><h3>Ошибка!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
                autoSize: false,
                autoHeight: false,
                autoWidth: false,
