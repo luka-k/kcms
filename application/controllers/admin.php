@@ -400,36 +400,30 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
-				//$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
 			}
-			if ((isset($_FILES['pic']))&&($_FILES['pic']['error'] <> 4))
+			$error_set = 0;
+			foreach ($_FILES['pic']['error'] as $error)
 			{
-				if(is_array($_FILES['pic']['name']))
-				{
-					foreach($_FILES['pic']['name'] as $key => $value)
-					{
-						$object_info = array(
-							"object_type" => $part_url,
-							"image_type" => $key,
-							"object_id" => $data['page']->id
-						);
-						$pic_info = array(
-							"name" => $_FILES['pic']['name'][$key],
-							"tmp_name" => $_FILES['pic']['tmp_name'][$key],
-						);
-						$this->images->upload_image($pic_info, $object_info);
-					}
-				}
-				else
+				if ($error == 4) $error_set++;
+			}
+			foreach($_FILES['pic']['name'] as $key => $value)
+			{
+				if($_FILES['pic']['error'][$key] <> 4)
 				{
 					$object_info = array(
 						"object_type" => $part_url,
+						"image_type" => $key,
 						"object_id" => $data['page']->id
 					);
-					$this->images->upload_image($_FILES['pic'], $object_info);				
+					$pic_info = array(
+						"name" => $_FILES['pic']['name'][$key],
+						"tmp_name" => $_FILES['pic']['tmp_name'][$key],
+					);
+					$this->images->upload_image($pic_info, $object_info);
 				}
-			}	
+			}
+
 			if($exit == false)
 			{
 				redirect(base_url().'admin/page/'.$part_url."/".$data['page']->id);
