@@ -8,18 +8,18 @@
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="right_col" class="col_12 back">
-					<?$count = 1?>
+					<?$counter = 1?>
 					<ul class="tabs left">
 						<?foreach ($editors as $key => $edit):?>
-							<li><a href="#tabr<?=$count?>"><?=$key?></a></li>
-							<?$count++?>
+							<li><a href="#tabr<?=$counter?>"><?=$key?></a></li>
+							<?$counter++?>
 						<?endforeach?>
 					</ul>
 					
-					<?php $count = 1?>
+					<?php $counter = 1?>
 					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_page/<?=$content->part_url?>"/>
 					<?php foreach ($editors as $key => $edits):?>
-						<div id="tabr<?=$count?>" class="clearfix tab-content">
+						<div id="tabr<?=$counter?>" class="clearfix tab-content">
 							<?=$error;?>
 							<?php echo validation_errors(); ?>
 							<div  class="col_12">
@@ -34,15 +34,16 @@
 										Вы точно уверены что хотите удалалить страницу <strong><?=$content->title?></strong>?
 									</div><br/>
 									<a href="<?=base_url()?>admin/delete_page/<?=$content->part_url?>/<?=$content->id?>" class="button small">Удалить?</a>
-									<a href="#" class="button small" onclick="">Нет</a>
+									<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 									</div>
 							</div>
 							
 								
-							<?php $coun = 1?>
+							<?php $editors_counter = 1?>
 							<input type="hidden" name="part_url" value="<?=$content->part_url?>">	
 							<?php foreach($edits as $name => $edit):?>
 								<?require "include/editors/{$edit[1]}.php"?>
+								<?$editors_counter++?>
 							<?php endforeach?>
 
 							<?if(($content->part_url == "partners")or($content->part_url == "calculator")):?>
@@ -61,10 +62,10 @@
 													<th class="tb_2">Действие</th>
 												</tr>
 											</thead>
-											<?$count = 1?>
+											<?$img_counter = 1?>
 											<?foreach($content->img as $img_item):?>
 												<tr>
-													<td class="tb_1"><?=$count?></td>
+													<td class="tb_1"><?=$img_counter?></td>
 													<td class="tb_5"><img src="<?=base_url()?>download/images/catalog_small<?=$img_item->url?>"/></td>
 													<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
 													<td class="tb_2"><a href="#delete_img_<?=$img_item->id?>" class="lightbox">Удалить</a></td>
@@ -81,7 +82,7 @@
 														<a href="#" class="button small" onclick="">Нет</a>
 													</div>
 												</div>
-												<?$count++?>
+												<?$img_counter++?>
 											<?endforeach?>
 										</table>
 									</div>
@@ -108,10 +109,10 @@
 													<th class="tb_2">Действие</th>
 												</tr>
 											</thead>
-											<?$count = 1?>											
+											<?$img_counter = 1?>											
 											<?foreach($content->img as $img_item):?>
 												<tr>
-													<td class="tb_1"><?=$count?></td>
+													<td class="tb_1"><?=$img_counter?></td>
 													<td class="tb_5"><img src="<?=base_url()?>download/images/catalog_small<?=$img_item->url?>"/></td>
 													<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
 													<td class="tb_2"><a href="#delete_img_<?=$img_item->id?>" class="lightbox">Удалить</a></td>
@@ -128,18 +129,20 @@
 														<a href="#" class="button small" onclick="">Нет</a>
 													</div>
 												</div>
-												<?$count++?>
+												<?$img_counter++?>
 											<?endforeach?>
 										</table>
 									</div>									
 								<?endif;?>
 							<?endif;?>
 							<div  class="col_12">
+								<a href="<?=base_url()?>admin/pages/<?=$content->part_url?>/" class="btn small">Назад</a>
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-								<a href="<?=base_url()?>admin/delete_page/<?=$content->part_url?>/<?=$content->id?>" class="btn small">Удалить</a>
+								<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_page/<?=$content->part_url?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
+								<a href="#delete" class="btn small lightbox">Удалить</a>
 							</div>	
 						</div>
-						<?$count++?>
+						<?$counter++?>
 					<?endforeach?>
 					</form>
 					

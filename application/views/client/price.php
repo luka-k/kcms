@@ -62,9 +62,9 @@
 						</div>
 					<?endforeach;?>
 					<table>
-						<?$count = 1?>
+						<?$counter = 1?>
 						<?foreach($calculator as $item):?>
-							<tr <?if(fmod($count, 2) == 0):?>class="grey"<?endif;?>>
+							<tr <?if(($counter % 2) == 0):?>class="grey"<?endif;?>>
 								<td class="col_1">
 									<?=$item->title?>
 								</td>
@@ -72,7 +72,7 @@
 									<?=$item->price?> руб.
 								</td>
 							</tr>
-							<?$count++?>
+							<?$counter++?>
 						<?endforeach;?>						
 					</table>
 				</div>

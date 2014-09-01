@@ -142,23 +142,22 @@
 					<div name="next" class="navy next-slide-1">Следующий</div>
 					<div class="slide-list">
 						<div class="slide-wrap-1">
-							<?$count = 1?>
+							<?$counter = 1?>
 							<?foreach($works as $review):?>
 								<div class="slide-item-1 clearfix">
 									<div class="txt-wrap">
 										<div class="text">
 											<?=$review->text?>  
 										</div>
-										<div <?if($count == 1):?>class="text-bottom-left"<?else:?>class="text-bottom-right"<?endif;?>>
+										<div <?if($counter == 1):?>class="text-bottom-left"<?else:?>class="text-bottom-right"<?endif;?>>
 											&nbsp;
 										</div>
-										<!--<img src="<?=base_url()?>template/client/images/otziv.png" <?if($count == 1):?>class="img-left"<?else:?>class="img-right"<?endif;?> alt=""/>-->
 									</div>
-									<div class="name" style="float:<?if($count == 1):?>left<?else:?>right<?$count = 0?><?endif;?>;">
+									<div class="name" style="float:<?if($counter == 1):?>left<?else:?>right<?$counter = 0?><?endif;?>;">
 										<?=$review->name?>, <span style="color:#999">страница</span> <a href="<?=$review->vk_link?>" class="vk_link">&nbsp;</a>
 									</div>
 								</div>
-								<?$count++?>
+								<?$counter++?>
 							<?endforeach;?>									
 						</div>
 					</div>
@@ -236,19 +235,19 @@
         <div class="partneri clearfix">
             <div class="wrap">
 				<div class="title-4">Наши партнеры</div>
-						<div class="slider">
-							<div name="prev" class="navy prev-slide-3">&nbsp;</div>
-							<div name="next" class="navy next-slide-3">&nbsp;</div>
-							<div class="slide-list">
-								<div class="slide-wrap-3 clearfix">		
-									<?foreach ($partners as $partner):?>
-										<div class="slide-item-3">
-											<a href="<?=$partner->link?>" target="_blank"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
-										</div>		 
-									<?endforeach;?>
-								</div>
-							</div>
-						</div>		
+				<div class="slider">
+					<div name="prev" class="navy prev-slide-3">&nbsp;</div>
+					<div name="next" class="navy next-slide-3">&nbsp;</div>
+					<div class="slide-list">
+						<div class="slide-wrap-3 clearfix">		
+							<?foreach ($partners as $partner):?>
+								<div class="slide-item-3">
+									<a href="<?=$partner->link?>" target="_blank"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
+								</div>		 
+							<?endforeach;?>
+						</div>
+					</div>
+				</div>		
             </div>
         </div>
     </section>
