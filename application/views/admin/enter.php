@@ -4,9 +4,9 @@
 	<body>
 		<div id="page" class="grid flex">
 			<div class="col_12 center">
-				<div class="clearfix" style="width:40%; margin:0 auto">
-					Вход в KCMS
-					<?=$error;?>
+				Вход в KCMS<br/>
+				<?=$error;?>
+				<div class="clearfix" style="width:230px; margin:0 auto">
 					<form method="post" accept-charset="utf-8" action="<?=base_url()?>registration/do_enter"/>
 						<input id="text1" type="text" placeholder="Введите логин" name="email" class="col_12"/>
 						<input id="text2" type="password" placeholder="Введите пароль" name ="pass" class="col_12"/>
