@@ -208,10 +208,6 @@ class Admin extends CI_Controller
 				{
 					$data['content']->url = slug($data['content']->title);
 					$this->$type->insert($data['content']);
-					if ($_FILES['pic']['error'] <> 4)
-					{
-						$this->images->upload_image($_FILES['pic'], $object_info);
-					}
 					redirect(base_url().'admin/items/'.$type);
 				}
 				else
@@ -225,7 +221,11 @@ class Admin extends CI_Controller
 				//Если id не пустая вносим изменения.
 				$data['content']->url = slug($data['content']->url);
 				$this->$type->update($data['content']->id, $data['content']);
-				if($_FILES['pic']['error'] <> 4)
+			}
+			
+			if($type <> "parts")
+			{
+				if ($_FILES['pic']['error'] <> 4)
 				{
 					$this->images->upload_image($_FILES['pic'], $object_info);
 				}

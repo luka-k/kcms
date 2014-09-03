@@ -15,7 +15,7 @@
 					<div id="right_col" class="col_8 back">
 						<h6 class="col_8 left">Редактировать пользователей</h6> 
 						<div class="col_4 right">
-							<a href="<?=base_url()?>/admin/user" class="button small">Создать нового</a>
+							<a href="<?=base_url()?>/registration/user" class="button small">Создать нового</a>
 						</div>
 												
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >

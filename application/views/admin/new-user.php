@@ -14,40 +14,40 @@
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">
-					<?$count = 1?>
+					<?$tabs_counter = 1?>
 					<ul class="tabs left">
 						<?foreach ($editors as $key => $edit):?>
-							<li><a href="#tabr<?=$count?>"><?=$key?></a></li>
-							<?$count++?>
+							<li><a href="#tab_<?=$tabs_counter?>"><?=$key?></a></li>
+							<?$tabs_counter++?>
 						<?endforeach?>
 					</ul>
 					
-					<?php $count = 1?>
+					<?php $tabs_counter = 1?>
 					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_user/<?=$content->id?>"/>
 					<?php foreach ($editors as $key => $edits):?>
-						<div id="tabr<?=$count?>" class="clearfix tab-content">
+						<div id="tab_<?=$tabs_counter?>" class="clearfix tab-content">
 							<?=$error;?>
 							<?=validation_errors(); ?>
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
 							</div>
 								
-							<?php $coun = 1?>
+							<?$editors_counter = 1?>
 							<?php foreach($edits as $name => $edit):?>
 								<?require "include/editors/{$edit[1]}.php"?>
-								<?php $coun++?>
+								<?$editors_counter++?>
 							<?php endforeach?>
 							
 							<div  class="col_12">
-								<div class="col_3"><label for="lbl_<?=$coun?>">Повторите пароль</label></div>
-								<div class="col_9"><input type="password" id="lbl_" class="col_12" name="conf_password" placeholder="Повторите пароль"/></div>
+								<div class="col_3"><label for="lbl_<?=$editors_counter?>">Повторите пароль</label></div>
+								<div class="col_9"><input type="password" id="lbl_<?=$editors_counter?>" class="col_12" name="conf_password" placeholder="Повторите пароль"/></div>
 							</div>
 							
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
 							</div>						
 						</div>
-						<?$count++?>
+						<?$tabs_counter++?>
 					<?endforeach?>
 					</form>
 					

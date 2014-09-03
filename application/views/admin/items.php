@@ -7,7 +7,7 @@
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
-						<h5>Разделы</h5>
+						<h6>Разделы</h6>
 						<div id="left-menu">
 							<?if($type == "products"):?>
 								<? require 'include/products_tree.php' ?>
