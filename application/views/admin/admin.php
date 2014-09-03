@@ -18,13 +18,13 @@
 							</thead>
 							<tbody id="sortable">
 								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
-									<?$news_count = 1?>
+									<?$news_counter = 1?>
 									<?php foreach ($news as $news_item): ?>
 										<tr>
-											<td class="tb_1"><?=$news_count?></td>
+											<td class="tb_1"><?=$news_counter?></td>
 											<td class="tb_11"><a href="<?=base_url()?>admin/page/news/<?=$news_item->id?>"><?=$news_item->title?></a></td>
 										</tr>
-										<?$news_count++?>
+										<?$news_counter++?>
 									<?php endforeach ?>
 								</form>
 							</tbody>
@@ -44,13 +44,13 @@
 							<tbody id="sortable">
 							
 								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
-									<?$blog_count = 1?>
+									<?$blog_counter = 1?>
 									<?php foreach ($blog as $blog_item): ?>
 										<tr>
-											<td class="tb_1"><?=$blog_count?></td>
+											<td class="tb_1"><?=$blog_counter?></td>
 											<td class="tb_11"><a href="<?=base_url()?>admin/page/blog/<?=$blog_item->id?>"><?=$blog_item->title?></a></td>
 										</tr>
-										<?$blog_count++?>
+										<?$blog_counter++?>
 									<?php endforeach ?>
 								</form>
 							</tbody>

@@ -143,7 +143,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/edit_item.php', $data);	
 	}
 	
-	public function edit_item($type)
+	public function edit_item($type, $exit = false)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
@@ -229,8 +229,15 @@ class Admin extends CI_Controller
 				{
 					$this->images->upload_image($_FILES['pic'], $object_info);
 				}
-				redirect(base_url().'admin/items/'.$type);
 			}
+			if($exit == false)
+			{
+				redirect(base_url().'admin/item/'.$type."/".$data['content']->id);
+			}
+			else
+			{
+				redirect(base_url().'admin/items/'.$type);
+			}				
 		}	
 	}
 	
@@ -246,7 +253,7 @@ class Admin extends CI_Controller
 	/*------------Редактирование страниц разделов------------*/
 
 	//Вывод страниц раздела
-	public function pages($part_id = false)
+	public function pages($part_url = false)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'parts');
@@ -268,7 +275,7 @@ class Admin extends CI_Controller
 			$part_pages[$base] = $this->$base->get_list(FALSE);
 		}
 			
-		if ($part_id == NULL)
+		if ($part_url == NULL)
 		{
 			//Если id раздела не задан получаем все страницы
 			foreach($part_pages as $part_url => $pages)
@@ -281,16 +288,7 @@ class Admin extends CI_Controller
 			}
 		}
 		else
-		{
-			//Если id указан выводим страницы данного раздела
-			foreach ($parts as $part)
-			{
-				if ($part_id == $part->id)
-				{
-					$part_url = $part->url;
-				}
-			}
-			
+		{			
 			foreach ($part_pages[$part_url] as $page)
 			{
 				$page->part_url = $part_url;
@@ -342,7 +340,7 @@ class Admin extends CI_Controller
 	}
 
 	//Редактирование страницы разделов
-	public function edit_page($part_url)
+	public function edit_page($part_url, $exit = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'parts');
@@ -351,7 +349,7 @@ class Admin extends CI_Controller
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent"),	
+			'tree' => $this->parts->get_sub_tree(0, "parent_id"),	
 			'menu' => $menu
 		);
 					
@@ -396,8 +394,15 @@ class Admin extends CI_Controller
 				//Если id не пустая вносим изменения.
 				$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
-				redirect(base_url().'admin/pages');
 			}
+			if($exit == false)
+			{
+				redirect(base_url().'admin/page/'.$part_url."/".$data['page']->id);
+			}
+			else
+			{
+				redirect(base_url().'admin/pages/'.$part_url);
+			}	
 		}
 	}
 

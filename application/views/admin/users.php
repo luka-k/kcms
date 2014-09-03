@@ -21,7 +21,7 @@
 						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
-									<th class="tb_1">id</th>
+									<th class="tb_1">№</th>
 									<th class="tb_9">Имя</th>
 									<th class="tb_2">Действие</th>
 								</tr>
@@ -29,13 +29,14 @@
 							<tbody id="sortable">
 							
 								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_user"/>
-								
+									<?$counter = 1?>
 									<?php foreach ($users as $user): ?>
 									<tr>
-										<td class="tb_1"><?=$user->id?></td>
+										<td class="tb_1"><?=$counter?></td>
 										<td class="tb_9"><a href="<?=base_url()?>registration/user/<?=$user->id?>"><?=$user->name?></a></td>
 										<td class="tb_2"><a href="<?=base_url()?>registration/delete_user/<?=$user->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
+									<?$counter++?>
 									<?php endforeach ?>
 								</form>
 							</tbody>
