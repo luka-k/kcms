@@ -23,7 +23,7 @@
 					</ul>
 					
 					<?php $tabs_counter = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_user/<?=$content->id?>"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>registration/edit_user/<?=$content->id?>"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tab_<?=$tabs_counter?>" class="clearfix tab-content">
 							<?=$error;?>

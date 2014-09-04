@@ -55,7 +55,7 @@ class Catalog extends CI_Controller {
 				$content = $this->categories->get_list(array("parent_id" => $category->id));
 				if($content == NULL)
 				{
-					$content = $this->products->get_list(array("category_id" => $category->id));
+					$content = $this->products->get_list(array("parent_id" => $category->id));
 					$content = $this->images->get_img_list($content, 'products');	
 					$content = $this->url_model->get_full_url($content);
 					$template = "client/pages.php";

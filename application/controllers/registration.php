@@ -259,7 +259,8 @@ class Registration extends CI_Controller
 			$editors = $this->users->new_editors;
 			$post = $this->input->post();
 		
-			$data['content'] = editors_post($editors, $post);			
+			$data['content'] = editors_post($editors, $post);	
+			$data['content']->password = md5($data['content']->password);
 			$data['editors'] = $editors;
 
 			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');

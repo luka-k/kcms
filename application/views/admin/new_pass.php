@@ -6,7 +6,7 @@
 			<div class="col_12 center">
 				<div class="clearfix" style="width:40%; margin:0 auto">
 					<?php echo validation_errors(); ?>
-					<form  method="post" accept-charset="utf-8" action="<?=base_url()?>admin/change_pwd"/>
+					<form  method="post" accept-charset="utf-8" action="<?=base_url()?>registration/change_pwd"/>
 						<p><input type="hidden" name="user_email" value="<?=$email?>"/></p>
 						<p><input type="hidden" name="secret" value="<?=$secret?>"/></p>
 					
