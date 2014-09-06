@@ -459,7 +459,7 @@ class Admin extends CI_Controller
 			'user_id' => $this->session->userdata('user_id'),
 			'cat' => $this->categories->get_list(FALSE),
 			'menu' => $menu,
-			'tree' => $this->categories->get_sub_tree(0, "parent")	
+			'tree' => $this->categories->get_sub_tree(0, "parent_id")	
 		);
 		
 		$editors = $this->settings->editors;

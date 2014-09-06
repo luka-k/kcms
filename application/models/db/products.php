@@ -8,7 +8,8 @@ class Products extends MY_Model
 			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
 			'title' => array('Заголовок', 'text'),
-			'description' => array('Содержимое', 'tiny'),
+			'price' => array('Цена', 'text'),
+			'description' => array('Описание', 'tiny'),
 			'publish_date' => array('Дата публикации', 'hidden')
 		),
 		'SEO' => array(

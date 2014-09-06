@@ -53,31 +53,24 @@ class Pages extends CI_Controller {
 		$this->load->view('client/'.$url_part.'.php', $data);		
 	}
 	
-	public function page($url_part, $url_page)	
+	public function cart()
 	{
-		$menu = $this->menus->top_menu;
-		$menu = $this->menus->set_active($menu, $url_part);
-		$part = $this->parts->get_item_by(array('url' => $url_part));
-		$news_info = $this->$url_part->get_item_by(array('url' => $url_page));
-			
-		$breadcrumbs = array(
-			'Главная' => base_url(),
-			$part->title => base_url()."/pages/".$url_part,
-			$news_info->title => ""
-		);
-		
+		$menu = $this->menus->top_menu;		
+		$cart = $this->cart->cart_contents();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
 		$data = array(
-			'title' => $news_info->title,
-			'meta_title' => $news_info->meta_title,
-			'meta_keywords' => $news_info->meta_keywords,
-			'meta_description' => $news_info->meta_description,
-			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
-			'content' => $news_info,
-			'breadcrumbs' => $breadcrumbs,
+			'title' => "Корзина",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
 			'menu' => $menu
 		);
-		$this->load->view('client/news-page.php', $data);	
-	}	
+		$this->load->view('client/cart.php', $data);
+	}
 }
 
 /* End of file pages.php */
