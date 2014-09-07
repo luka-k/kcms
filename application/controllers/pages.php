@@ -56,7 +56,7 @@ class Pages extends CI_Controller {
 	public function cart()
 	{
 		$menu = $this->menus->top_menu;		
-		$cart = $this->cart->cart_contents();
+		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$data = array(

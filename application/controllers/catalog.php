@@ -12,7 +12,7 @@ class Catalog extends CI_Controller {
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		$menu = $this->menus->top_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
-		$cart = $this->cart->cart_contents();
+		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$category = $this->url_model->url_parse(2);

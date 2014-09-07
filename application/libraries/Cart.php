@@ -63,13 +63,10 @@ class CI_Cart {
 		{
 			$item_id = md5($item['id']);
 		}
-		if ($item['qty'] == 0)
-		{
-			$this->delete_item($item_id);
-		}
-		elseif(array_key_exists($item_id, $this->cart_contents['items']))
+		if(array_key_exists($item_id, $this->cart_contents['items']))
 		{
 			$this->cart_contents['items'][$item_id]['qty'] += $item['qty']; 
+			$this->cart_contents['items'][$item_id]['item_total'] = $this->cart_contents['items'][$item_id]['price']*$this->cart_contents['items'][$item_id]['qty'];
 		}
 		else
 		{
@@ -82,6 +79,7 @@ class CI_Cart {
 	{
 		$item_id = $item['item_id'];
 		$qty = $item['qty'];
+		if ($qty < 0) return FALSE;
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		$this->cart_contents['items'][$item_id]['qty'] = $qty;
 		$this->cart_contents['items'][$item_id]['item_total'] = ($this->cart_contents['items'][$item_id]['price'] * $qty);
@@ -96,7 +94,7 @@ class CI_Cart {
 		$cart_total = 0;
 		foreach($this->cart_contents['items'] as $item)
 		{
-			$cart_total += $item['item_total'];
+			$cart_total += $item['price']*$item['qty'];
 			$total_qty += $item['qty'];		
 		}
 		$this->cart_contents['total_qty'] = $total_qty;
@@ -104,10 +102,24 @@ class CI_Cart {
 		$this->CI->session->set_userdata(array('cart_contents' => $this->cart_contents));
 	}
 	
-	public function cart_contents()
+	public function get_all()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		return $this->cart_contents['items'];
+	}
+	
+	public function get($item_id)
+	{
+		$this->cart_contents = $this->CI->session->userdata('cart_contents');
+		if(array_key_exists($item_id, $this->cart_contents['items']))
+		{
+			$item = $this->cart_contents['items'][$item_id];
+			return $item;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 	
 	public function total_price()
@@ -122,14 +134,14 @@ class CI_Cart {
 		return $this->cart_contents['total_qty'];		
 	}
 	
-	public function delete_item($item_id)
+	public function delete($item_id)
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		unset($this->cart_contents['items'][$item_id]);
 		$this->safe_cart();
 	}
 	
-	public function destroy_cart()
+	public function clear()
 	{
 		$this->cart_contents = array(
 			"items" => array(),

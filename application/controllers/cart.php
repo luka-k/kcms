@@ -10,7 +10,6 @@ class Cart extends CI_Controller {
 	public function add_to_cart($id = FALSE)
 	{
 		$product = $this->products->get_item_by(array("id" => $id));
-		//var_dump($product);
 		$cart_item = array(
 			"id" => $product->id,
 			"title" => $product->title,
@@ -18,17 +17,12 @@ class Cart extends CI_Controller {
 			"qty" => 1
 		);
 		$this->cart->insert($cart_item);
-		
-		//$cart_contents = $this->session->userdata('cart_contents');
-		//var_dump($cart_contents);
-		//$this->cart->destroy_cart();
-		//$cart_contents = $this->session->userdata('cart_contents');
-		//var_dump($cart_contents);
+
 	}
 	
 	public function delete_item($item_id)
 	{
-		$this->cart->delete_item($item_id);
+		$this->cart->delete($item_id);
 		redirect(base_url().'pages/cart');
 	}
 }
