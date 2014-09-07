@@ -1,15 +1,5 @@
 <? require 'include/head.php' ?>
-<script>
-	function add_to_cart(page_id){
-		data = new Object();
-		data.page_id = page_id;
-		var json_str = JSON.stringify(data);
-		$.post ("/ajax/add_to_cart/", json_str, function(res) {
-			$('#total_qty').text(res['total_qty']);
-			$('#total_price').text(res['total_price']);
-		}, "json");
-	}
-</script>
+
 	<div class="grid flex">
 		<div id="menu col_12">
 			<? require 'include/top-menu.php'?>
