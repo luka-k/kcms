@@ -23,7 +23,7 @@
 							<?if($page->img <> NULL):?>
 								<div>
 									<a href="<?=base_url($page->full_url)?>">
-										<img src="<?=base_url()?>download/images/catalog_mid<?=$page->img->url?>" />
+										<img src="<?=$page->img->url?>" />
 									</a>
 								</div>
 							<?endif;?>

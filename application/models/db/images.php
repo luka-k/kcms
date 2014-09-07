@@ -142,6 +142,11 @@ class Images extends MY_Model
 				"object_id" => $info[$key]->id
 			);
 			$info[$key]->img = $this->images->get_images($object_info, '1');
+			$image = $info[$key]->img;
+			if($image <> NULL)
+			{
+				$info[$key]->img->url = $this->url_model->get_url($info[$key]->img->url, 'images', 'catalog_mid');
+			}
 		}
 		return $info;
 	}

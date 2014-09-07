@@ -8,11 +8,11 @@
 				<?require 'include/breadcrumbs.php'?> 
 				<?foreach($content as $category):?>
 					<div class="cat-item col_4">
-						<h6><a href="<?=base_url($category->full_url)?>"><?=$category->title?></a></h6>
+						<h6><a href="<?=$category->full_url?>"><?=$category->title?></a></h6>
 						<?if($category->img <> NULL):?>
 							<div>
-								<a href="<?=base_url($category->full_url)?>">
-									<img src="<?=base_url()?>download/images/catalog_mid<?=$category->img->url?>" />
+								<a href="<?=$category->full_url?>">
+									<img src="<?=$category->img->url?>" />
 								</a>
 							</div>
 						<?endif;?>
