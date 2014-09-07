@@ -1,12 +1,12 @@
 <? require 'include/head.php' ?>
 <script>
-	function addtoCart(pageId){
-		pars = new Object();
-		pars.page_id = pageId;
-		var json_str = JSON.stringify(pars);
+	function add_to_cart(page_id){
+		data = new Object();
+		data.page_id = page_id;
+		var json_str = JSON.stringify(data);
 		$.post ("/ajax/add_to_cart/", json_str, function(res) {
 			$('#total_qty').text(res['total_qty']);
-			$('#total_cart').text(res['total_cart']);
+			$('#total_price').text(res['total_price']);
 		}, "json");
 	}
 </script>
@@ -32,7 +32,7 @@
 								<?=$page->price?>
 							</div>
 							<div class="right">
-								<a href="#" class="button small red" onclick="addtoCart(<?=$page->id?>)">В корзину</a>
+								<a href="#" class="button small red" onclick="add_to_cart(<?=$page->id?>)">В корзину</a>
 							</div>
 						</div>	
 				<?endforeach;?>
@@ -41,7 +41,7 @@
 				<div class="cart">
 					<h5>Корзина</h5>
 					В корзине <span id="total_qty"><?=$total_qty?></span> товаров.<br/>
-					На сумму <span id="total_cart"><?=$total_price?></span><br/>
+					На сумму <span id="total_price"><?=$total_price?></span><br/>
 					<a href="<?=base_url()?>/pages/cart">Оформить заказ</a>
 				</div>
 				<h5>Каталог продукции</h5>

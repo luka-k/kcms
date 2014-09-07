@@ -1,16 +1,16 @@
-+<? require 'include/head.php' ?>
+<? require 'include/head.php' ?>
 
 <script>
-	function updateCart(itemId){
-		pars = new Object();
-		pars.item_id = itemId;
-		pars.qty = $('#qty_'+itemId).val();
-		var json_str = JSON.stringify(pars);
+	function update_cart(item_id){
+		data = new Object();
+		data.item_id = item_id;
+		data.qty = $('#qty_'+item_id).val();
+		var json_str = JSON.stringify(data);
 		$.post ("/ajax/update_cart/", json_str, function(res) {
 			
 			$('#total_qty').text(res['total_qty']);
-			$('#total_price').text(res['total_cart']);
-			$('#item_total_'+itemId).text(res['item_total']);
+			$('#total_price').text(res['total_price']);
+			$('#item_total_'+item_id).text(res['item_total']);
 		}, "json");
 	}
 </script>
@@ -39,7 +39,7 @@
 									<td><?=$counter?></td>
 									<td><?=$item['title']?></td>
 									<td><?=$item['price']?></td>
-									<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="updateCart('<?=$item_id?>');"/></td>
+									<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>');"/></td>
 									<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
 									<td><a href="<?=base_url()?>/cart/delete_item/<?=$item_id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 								<tr>

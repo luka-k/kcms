@@ -31,7 +31,7 @@ class Ajax extends CI_Controller {
 		$this->cart->insert($cart_item);
 		
 		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_cart'] = $this->cart->total_price();
+		$data['total_price'] = $this->cart->total_price();
 		
 		echo json_encode($data);
 	}
@@ -47,7 +47,7 @@ class Ajax extends CI_Controller {
 		$items = $this->cart->cart_contents();
 		$data['item_total'] = $items[$info->item_id]['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_cart'] = $this->cart->total_price();		
+		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
 	}
 }
