@@ -8,14 +8,6 @@ class CI_Cart {
 		'cart_total' => 0,
 		'total_qty' =>0
 	);
-	
-	/*
-	cart_contents = array (
-		"items" => array(),
-		"cart_total" => "",
-		"total_qty" => "",
-	);
-	*/
 
 	public function __construct()
 	{
@@ -30,12 +22,6 @@ class CI_Cart {
 	
 	public function insert($items = array())
 	{
-		//var_dump($this->cart_contents);
-		//var_dump($items);
-		
-		
-		//var_dump($this->cart_contents);
-
 		if (isset($items['id']))
 		{
 			$this->insert_item($items);

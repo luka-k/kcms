@@ -16,13 +16,7 @@ class Catalog extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$category = $this->url_model->url_parse(2);
-		
-		//$uri_lenght = $this->uri->total_segments();
-		//$last_segment = $this->uri->segment($uri_lenght);
-		//$url = $this->url_model->get_url($last_segment, 'catalog');
-		//var_dump($url);
-		
-		
+
 		if ($category == FALSE)
 		{
 			$content = $this->categories->get_list(array("parent_id" => 0));

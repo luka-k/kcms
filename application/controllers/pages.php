@@ -8,7 +8,7 @@ class Pages extends CI_Controller {
 		parent::__construct();
 	}
 	
-	public function index($url_part, /*$url_page = FALSE,*/ $pagin = FALSE)
+	public function index($url_part, $pagin = FALSE)
 	{		
 		$menu = $this->menus->top_menu;
 		$menu = $this->menus->set_active($menu, $url_part);
