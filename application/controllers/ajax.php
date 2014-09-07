@@ -47,4 +47,16 @@ class Ajax extends CI_Controller {
 		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
 	}
+	
+	public function delete_item()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$item_id = $info->item_id;
+		
+		$this->cart->delete($item_id);
+		
+ 		$data['total_qty'] = $this->cart->total_qty();
+		$data['total_price'] = $this->cart->total_price();		
+		echo json_encode($data);
+	}
 }
