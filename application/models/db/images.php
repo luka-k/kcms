@@ -133,7 +133,7 @@ class Images extends MY_Model
 		return $img;
 	}
 	
-	public function get_img_list($info, $object_type)
+	public function get_img_list($info, $object_type, $path)
 	{
 		foreach($info as $key => $item)
 		{
@@ -145,7 +145,7 @@ class Images extends MY_Model
 			$image = $info[$key]->img;
 			if($image <> NULL)
 			{
-				$info[$key]->img->url = $this->url_model->get_url($info[$key]->img->url, 'images', 'catalog_mid');
+				$info[$key]->img->url = $this->get_url($info[$key]->img->url, $path);
 			}
 		}
 		return $info;
@@ -187,5 +187,17 @@ class Images extends MY_Model
 			$this->set_cover($object_info, $images[0]->id);
 		}	
 		return $img->object_id;
+	}
+	
+	public function get_url($url, $path)
+	{
+		$this->full_url = NULL;
+		$this->full_url[] = $url;
+		$this->full_url[] = $path;
+		$this->full_url[] = "images";
+		$this->full_url[] = "download";
+		$this->full_url[] = base_url();
+		$full_url = implode("/", array_reverse($this->full_url));
+		return $full_url;	
 	}
 }

@@ -34,7 +34,7 @@ class Catalog extends CI_Controller {
 				'total_qty' => $total_qty,
 				'menu' => $menu
 			);
-			$data['content'] = $this->images->get_img_list($data['content'], 'categories');
+			$data['content'] = $this->images->get_img_list($data['content'], 'categories', 'catalog_mid');
 			$content = $this->categories->get_urls($data['content']);
 			$this->load->view('client/categories.php', $data);			
 		}
@@ -52,13 +52,13 @@ class Catalog extends CI_Controller {
 				if($content == NULL)
 				{
 					$content = $this->products->get_list(array("parent_id" => $category->id));
-					$content = $this->images->get_img_list($content, 'products');	
+					$content = $this->images->get_img_list($content, 'products', 'catalog_mid');	
 					$content = $this->products->get_urls($content);
 					$template = "client/pages.php";
 				}
 				else
 				{
-					$content = $this->images->get_img_list($content, 'categories');
+					$content = $this->images->get_img_list($content, 'categories', 'catalog_mid');
 					$content = $this->categories->get_urls($content);
 					$template = "client/categories.php";
 				}		
