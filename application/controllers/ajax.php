@@ -17,8 +17,8 @@ class Ajax extends CI_Controller {
 	public function add_to_cart()
 	{
 		$id = json_decode(file_get_contents('php://input', true));
-		$page_id = $id->page_id;
-		$product = $this->products->get_item_by(array("id" => $page_id));
+		$item_id = $id->item_id;
+		$product = $this->products->get_item_by(array("id" => $item_id));
 		$cart_item = array(
 			"id" => $product->id,
 			"title" => $product->title,

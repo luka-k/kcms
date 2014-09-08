@@ -8,10 +8,10 @@ function add_to_cart(item_id){
 	}, "json");
 }
 	
-function update_cart(item_id){
+function update_cart(item_id, qty){
 	data = new Object();
 	data.item_id = item_id;
-	data.qty = $('#qty_'+item_id).val();
+	data.qty = qty;
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/update_cart/", json_str, function(res) {
 		$('#total_qty').text(res['total_qty']);

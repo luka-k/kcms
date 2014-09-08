@@ -1,13 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Url_model extends MY_Model
-{
-	var $full_url = array();
-	
+{	
     function __construct()
 	{
         parent::__construct();
-		$this->config->load('upload_config');
 	}
 
 	public function url_parse($segment_number, $category = FALSE)
@@ -42,53 +39,5 @@ class Url_model extends MY_Model
 				return $child_category;
 			}
 		}
-	}
-	
-	public function get_url($url, $type, $path = FALSE)
-	{
-		$this->full_url = NULL;
-		if ($type == "catalog")
-		{
-			$item = $this->products->get_item_by(array("url" => $url));
-			if (empty($item))
-			{
-				$item = $this->categories->get_item_by(array("url" => $url));
-			}
-			$this->make_full_url($item);
-		}
-		elseif($type == "images")
-		{
-			$this->full_url[] = $url;
-			$this->full_url[] = $path;
-			$this->full_url[] = "images";
-			$this->full_url[] = "download";
-		}
-		
-		$this->full_url[] = base_url();
-		$full_url = implode("/", array_reverse($this->full_url));
-		return $full_url;
-	}
-	
-	private function make_full_url($item)
-	{
-		$this->full_url[] = $item->url;
-		if ($item->parent_id <> 0)
-		{
-			$item = $this->categories->get_item_by(array("id" => $item->parent_id));
-			$this->make_full_url($item);
-		}
-		else
-		{
-			$this->full_url[] = 'catalog';
-		}
-	}
-	
-	public function get_full_url($info)
-	{
-		foreach($info as $item)
-		{
-			$item->full_url = $this->uri->uri_string()."/".$item->url;
-		}
-		return $info;
 	}
 }

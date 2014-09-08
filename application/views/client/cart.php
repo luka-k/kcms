@@ -33,13 +33,12 @@
 						</thead>
 						<tbody>
 							<?$counter = 1?>
-							<!--<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="#"/>-->
 							<?foreach($cart as $item_id => $item):?>
 								<tr>
 									<td><?=$counter?></td>
 									<td><?=$item['title']?></td>
 									<td><?=$item['price']?></td>
-									<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>');"/></td>
+									<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
 									<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
 									<td><a href="<?=base_url()?>/cart/delete_item/<?=$item_id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 								<tr>
