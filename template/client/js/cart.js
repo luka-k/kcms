@@ -1,6 +1,6 @@
-function add_to_cart(page_id){
+function add_to_cart(item_id){
 	data = new Object();
-	data.page_id = page_id;
+	data.item_id = item_id;
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/add_to_cart/", json_str, function(res) {
 		$('#total_qty').text(res['total_qty']);

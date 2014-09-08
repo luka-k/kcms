@@ -35,32 +35,15 @@ class Catalog extends CI_Controller {
 				'menu' => $menu
 			);
 			$data['content'] = $this->images->get_img_list($data['content'], 'categories');
-			foreach ($data['content'] as $item)
-			{
-				$item->full_url = $this->url_model->get_url($item->url, 'catalog');
-			}
-			
+			$content = $this->categories->get_urls($data['content']);
 			$this->load->view('client/categories.php', $data);			
 		}
 		else
 		{
 			if(isset($category->product))
 			{
-				$content = $this->products->get_item_by(array("url" => $category->product->url));
-				$data = array(
-					'title' => $content->title,
-					'meta_title' => $content->meta_title,
-					'meta_keywords' => $content->meta_keywords,
-					'meta_description' => $content->meta_description,
-					'tree' => $this->categories->get_sub_tree(0, "parent_id"),
-					'content' => $content,
-					'breadcrumbs' => $this->breadcrumbs->get(),
-					'cart' => $cart,
-					'total_price' => $total_price,
-					'total_qty' => $total_qty,
-					'menu' => $menu
-				);				
-				$data['content']->img = $this->images->get_images(array("object_type" => "products", "object_id" => $data['content']->id));
+				$content = $this->products->get_item_by(array("url" => $category->product->url));			
+				$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
 				$template = "client/page.php";
 			}
 			else
@@ -70,19 +53,16 @@ class Catalog extends CI_Controller {
 				{
 					$content = $this->products->get_list(array("parent_id" => $category->id));
 					$content = $this->images->get_img_list($content, 'products');	
-					$content = $this->url_model->get_full_url($content);
+					$content = $this->products->get_urls($content);
 					$template = "client/pages.php";
 				}
 				else
 				{
 					$content = $this->images->get_img_list($content, 'categories');
-					
-					foreach ($content as $item)
-					{
-						$item->full_url = $this->url_model->get_url($item->url, 'catalog');
-					}
+					$content = $this->categories->get_urls($content);
 					$template = "client/categories.php";
-				}
+				}		
+			}		
 				$data = array(
 					'title' => $category->title,
 					'meta_title' => $category->meta_title,
@@ -95,8 +75,7 @@ class Catalog extends CI_Controller {
 					'total_price' => $total_price,
 					'total_qty' => $total_qty,
 					'menu' => $menu
-				);			
-			}			
+				);				
 			$this->load->view($template, $data);
 		}
 	
