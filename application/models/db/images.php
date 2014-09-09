@@ -27,13 +27,8 @@ class Images extends MY_Model
 		//$thumb_sizes = $this->config->item('thumb_size');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		//$img_name = explode(".", $img['name']);
-		//Чистим от лишних символов и транлитируем имя файла.
-		//$img_name[0] = slug($img_name[0]);
-		
 		$img_info = $this->non_requrrent_info($img['name']);
 		
-		//$img_name = $img_name[0].".".$img_name[1];
 		//Формируем путь для загрузки оригинала изображения
 		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
 	
