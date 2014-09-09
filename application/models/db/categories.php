@@ -18,6 +18,8 @@ class Categories extends MY_Model
 		)
 	);
 	
+	public $full_url = array();
+	
 	function __construct()
 	{
         parent::__construct();
@@ -34,7 +36,7 @@ class Categories extends MY_Model
 		return $full_url;		
 	}
 	
-	private function make_full_url($item)
+	public function make_full_url($item)
 	{
 		$this->full_url[] = $item->url;
 		if ($item->parent_id <> 0)
