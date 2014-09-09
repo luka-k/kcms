@@ -26,7 +26,7 @@ class CI_Cart {
 		{
 			$this->insert_item($items);
 		}
-		else
+		elseif(is_array($items))
 		{
 			foreach ($items as $item)
 			{
@@ -36,6 +36,10 @@ class CI_Cart {
 				}
 			}
 		}	
+		else
+		{
+			return FALSE;
+		}
 		$this->safe_cart();
 	}
 	
