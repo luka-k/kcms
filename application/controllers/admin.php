@@ -87,7 +87,7 @@ class Admin extends CI_Controller
 		{
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id));
 		}
-		$data['content'] = $this->images->get_img_list($data['content'], $type);
+		$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 		$this->load->view('admin/items.php', $data);
 	}
 	

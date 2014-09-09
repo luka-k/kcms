@@ -39,7 +39,7 @@
 										<td class="tb_1"><?=$count?></td>
 										<td class="tb_3">
 											<?if($item->img <> NULL):?>
-												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=base_url()?>download/images/catalog_small<?=$item->img->url?>" /></a>
+												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 											<?endif;?>
 										</td>									
 										<td class="tb_6"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>

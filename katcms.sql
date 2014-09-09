@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 09 2014 г., 11:23
+-- Время создания: Сен 09 2014 г., 15:05
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('13563e257e0ce68fdaf5370825da0395', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1410247007, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
+('92c2f892d9d48d11e6b075106076005c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1410260526, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -120,18 +120,20 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
-(10, 1, 'products', 15, '/p/s/pshenichnaya.jpg'),
 (11, 1, 'categories', 2, '/w/o/wodkaflaschen.JPG'),
-(18, 1, 'products', 18, '/b/e/beer-baltika-1.jpg'),
-(20, 1, 'products', 17, '/8/-/8-70-baltik-1000x769.gif'),
-(22, 1, 'products', 14, '/v/o/vodka-putinka-0-5l.jpg');
+(23, 1, 'products', 14, '/n/o/no-photo-available.png'),
+(24, 1, 'products', 15, '/n/o/no-photo-available[1].png'),
+(25, 1, 'products', 16, '/n/o/no-photo-available[2].png'),
+(26, 1, 'products', 17, '/n/o/no-photo-available[3].png'),
+(27, 1, 'products', 18, '/n/o/no-photo-available[4].png'),
+(28, 1, 'products', 19, '/n/o/no-photo-available[5].png');
 
 -- --------------------------------------------------------
 
