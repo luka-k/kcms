@@ -6,6 +6,8 @@ class Pages extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->config->load('order_config');
 	}
 	
 	public function index($url_part, $pagin = FALSE)
@@ -59,6 +61,7 @@ class Pages extends CI_Controller {
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
+	
 		$data = array(
 			'title' => "Корзина",
 			'meta_title' => "",
@@ -67,6 +70,10 @@ class Pages extends CI_Controller {
 			'cart' => $cart,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
+			'selects' => array(
+				'method_delivery' => $this->config->item('method_delivery'),
+				'method_pay' => $this->config->item('method_pay')
+			),
 			'menu' => $menu
 		);
 		$this->load->view('client/cart.php', $data);
