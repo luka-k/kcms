@@ -20,7 +20,7 @@
 							<tbody>
 								<?$counter = 1?>
 								<?foreach($cart as $item_id => $item):?>
-									<tr id="tr_<?=$item_id?>">
+									<tr id="<?=$item_id?>">
 										<td><?=$counter?></td>
 										<td><?=$item['title']?></td>
 										<td><?=$item['price']?></td>

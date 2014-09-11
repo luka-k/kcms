@@ -16,12 +16,12 @@ function update_cart(item_id, qty){
 	$.post ("/ajax/update_cart/", json_str, function(res) {
 		$('#total_qty').text(res['total_qty']);
 		$('#total_price').text(res['total_price']);
-		$('#item_total_'+item_id).text(res['item_total']);
+		$('#'+item_id).text(res['item_total']);
 	}, "json");
 }
 	
 function delete_item(item_id){
-	$("#tr_"+item_id).detach();
+	$("#"+item_id).detach();
 	data = new Object();
 	data.item_id = item_id;
 	var json_str = JSON.stringify(data);
