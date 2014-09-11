@@ -5,6 +5,7 @@ class Orders extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
+			'customer_id' => array('customer_id', 'hidden'),
 			'order_total' => array('Сумма заказа', 'hidden'),
 			'method_delivery' => array('Способ доставки', 'select'),
 			'method_pay' => array('Способ оплаты', 'select'),
@@ -18,6 +19,8 @@ class Orders extends MY_Model
         parent::__construct();
 		$this->load->database();
 	}
+	
+	
 }
 
 /* End of file news.php */

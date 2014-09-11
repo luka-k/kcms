@@ -8,6 +8,8 @@ class Order extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->config->load('order_config');
 	}
 	
 	public function edit_order()
@@ -29,6 +31,7 @@ class Order extends CI_Controller
 		$this->orders->insert($orders);
 		
 		$orders_customers = array(
+			'id' => date("ymdhms"),
 			'name' => $orders_info['name'],
 			'phone' => $orders_info['phone'],
 			'email' => $orders_info['email'],
@@ -51,14 +54,57 @@ class Order extends CI_Controller
 		
 		$this->cart->clear();
 		redirect(base_url().'pages/cart');		
-		//var_dump($orders_products);
-		
-		//var_dump($orders_customers);
-		
-		//var_dump($user_info);
-		//var_dump($cart_items);
-		//var_dump($total_price);
-		//var_dump($total_qty);
 	}
 	
+	public function orders()
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'orders');
+		
+		$method_delivery = $this->config->item('method_delivery');
+		$method_pay = $this->config->item('method_pay');
+		
+		$orders = $this->orders->get_list(FALSE);
+	
+		foreach ($orders as $key => $order)
+		{
+			$customer = $this->orders_customers->get_item_by(array("id" => $order->customer_id));
+
+			$orders_info[$key] = array(
+				"id" => $order->id,
+				"order_status" => $order->order_status,
+				"order_items" => array(),
+				"method_delivery" => $order->method_delivery,
+				"method_pay" => $order->method_pay,
+				"order_date" => $order->order_date,
+				"name" => $customer->name,
+				"phone" => $customer->phone,
+				"email" => $customer->email,
+				"address" => $customer->address,
+			);
+			
+			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
+			foreach ($order_items as $order_item)
+			{
+				$orders_info[$key]['order_items'] = $order_item;
+			}
+		}
+		
+		var_dump($orders_info);
+		
+		$data = array(
+			'title' => "Заказы",			
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+
+			'selects' => array(
+				'method_delivery' => $this->config->item('method_delivery'),
+				'method_pay' => $this->config->item('method_pay'),
+				'order_status' => $this->config->item('order_status')
+			),
+			'menu' => $menu
+		);		
+		
+		$this->load->view('admin/orders.php', $data);
+	}
 }

@@ -28,6 +28,7 @@ class Menus extends MY_Model
 				2 => array('Товары', base_url()."admin/items/products", 0),
 				3 => array('Создать товар', base_url()."admin/item/products", 0)				
 			)),
+			'orders' => array('Заказы', base_url()."order/orders", 0),
 			'settings' => array('Настройки', base_url()."admin/settings", 0),
 			'users' => array('Пользователи', base_url()."registration/users", 0)
 		);		
