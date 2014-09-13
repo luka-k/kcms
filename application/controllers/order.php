@@ -18,9 +18,11 @@ class Order extends CI_Controller
 		$cart_items = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
+		
+		$order_id = uniqid();
 		$orders = array(
-			'order_id' => date("mdhms"),
-			'customer_id' => date("mdhms"),
+			'order_id' => $order_id,
+			'customer_id' => $order_id,
 			'order_total' => $total_price,
 			'method_delivery' => $orders_info['method_delivery'],
 			'method_pay' => $orders_info['method_pay'],
@@ -31,7 +33,7 @@ class Order extends CI_Controller
 		$this->orders->insert($orders);
 		
 		$orders_customers = array(
-			'customer_id' => date("mdhms"),
+			'customer_id' => $order_id,
 			'name' => $orders_info['name'],
 			'phone' => $orders_info['phone'],
 			'email' => $orders_info['email'],
@@ -43,7 +45,7 @@ class Order extends CI_Controller
 		foreach($cart_items as $item)
 		{
 			$orders_products = array(
-				'order_id' => date("mdhms"),
+				'order_id' => $order_id,
 				'product_id' => $item["id"],
 				'product_name' => $item["title"],
 				'product_price' => $item["price"],
@@ -71,7 +73,7 @@ class Order extends CI_Controller
 			$customer = $this->orders_customers->get_item_by(array("customer_id" => $order->customer_id));
 			$order_info[$key] = new stdClass();	
 			
-			$orders_info[$key]->id = $order->id;
+			$orders_info[$key]->order_id = $order->order_id;
 			$orders_info[$key]->order_status = $order->order_status;
 			$orders_info[$key]->order_products = array();
 			$orders_info[$key]->method_delivery = $order->method_delivery;

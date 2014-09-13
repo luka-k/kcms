@@ -22,7 +22,7 @@
 							<tbody>
 								<?foreach ($orders_info as $order_item):?>
 									<tr>
-										<td><?=$order_item->id?></td>
+										<td><?=$order_item->order_id?></td>
 										<td>
 											<select id="order_status"  name="order_status" class="col_12">
 												<?php foreach ($selects['order_status'] as $key => $title): ?>
