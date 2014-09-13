@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 09 2014 г., 15:05
+-- Время создания: Сен 13 2014 г., 17:42
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('92c2f892d9d48d11e6b075106076005c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1410260526, 'a:4:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
+('4ce756a64dfefd233bbd944fbaee49d5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1410615446, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -120,20 +120,27 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
-(11, 1, 'categories', 2, '/w/o/wodkaflaschen.JPG'),
 (23, 1, 'products', 14, '/n/o/no-photo-available.png'),
 (24, 1, 'products', 15, '/n/o/no-photo-available[1].png'),
 (25, 1, 'products', 16, '/n/o/no-photo-available[2].png'),
 (26, 1, 'products', 17, '/n/o/no-photo-available[3].png'),
 (27, 1, 'products', 18, '/n/o/no-photo-available[4].png'),
-(28, 1, 'products', 19, '/n/o/no-photo-available[5].png');
+(28, 1, 'products', 19, '/n/o/no-photo-available[5].png'),
+(29, 1, 'products', 20, '/n/o/no-photo-available[6].png'),
+(30, 1, 'products', 21, '/n/o/no-photo-available[7].png'),
+(31, 0, 'products', 21, '/n/o/no-photo-available[8].png'),
+(32, 1, 'products', 22, '/n/o/no-photo-available[9].png'),
+(33, 1, 'products', 23, '/n/o/no-photo-available[10].png'),
+(34, 1, 'products', 24, '/n/o/no-photo-available[11].png'),
+(35, 1, 'products', 25, '/n/o/no-photo-available[12].png'),
+(36, 1, 'products', 26, '/n/o/no-photo-available[13].png');
 
 -- --------------------------------------------------------
 
@@ -175,14 +182,73 @@ INSERT INTO `news` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `meta_k
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(10) NOT NULL,
-  `order_total` float NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(13) NOT NULL,
+  `customer_id` int(13) NOT NULL,
+  `order_total` int(11) NOT NULL,
   `method_delivery` int(11) NOT NULL,
   `method_pay` int(11) NOT NULL,
-  `order_date` int(11) NOT NULL,
+  `order_date` text COLLATE utf8_unicode_ci NOT NULL,
   `order_status` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `customer_id`, `order_total`, `method_delivery`, `method_pay`, `order_date`, `order_status`) VALUES
+(1, 913050957, 913050957, 281, 1, 1, '2014-09-13', 1),
+(2, 913050925, 913050925, 241, 5, 2, '2014-09-13', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders_customers`
+--
+
+CREATE TABLE IF NOT EXISTS `orders_customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(13) NOT NULL,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
+  `phone` text COLLATE utf8_unicode_ci NOT NULL,
+  `email` text COLLATE utf8_unicode_ci NOT NULL,
+  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `orders_customers`
+--
+
+INSERT INTO `orders_customers` (`id`, `customer_id`, `name`, `phone`, `email`, `address`) VALUES
+(1, 913050957, 'pavel', '8-950-65-65', 'pavel@pavel.ru', 'Happy stree 123-45-67'),
+(2, 913050925, 'stas', '8-950-123-45-67', 'sas@stas.ru', 'food stree 123-45-8');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders_products`
+--
+
+CREATE TABLE IF NOT EXISTS `orders_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(13) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` text COLLATE utf8_unicode_ci NOT NULL,
+  `product_price` text COLLATE utf8_unicode_ci NOT NULL,
+  `order_qty` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `orders_products`
+--
+
+INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
+(1, 913050957, 14, 'Товар 1 категории 1', '120.6', 1),
+(2, 913050957, 15, 'Товар 2 категории 1', '160.2', 1),
+(3, 913050925, 14, 'Товар 1 категории 1', '120.6', 2);
 
 -- --------------------------------------------------------
 
