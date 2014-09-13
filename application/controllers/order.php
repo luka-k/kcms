@@ -20,7 +20,7 @@ class Order extends CI_Controller
 		$total_qty = $this->cart->total_qty();
 		
 		$order_id = uniqid();
-		$orders = array(
+		$new_order = array(
 			'order_id' => $order_id,
 			'customer_id' => $order_id,
 			'order_total' => $total_price,
@@ -30,7 +30,7 @@ class Order extends CI_Controller
 			'order_status' => 1
 		);
 		
-		$this->orders->insert($orders);
+		$this->orders->insert($new_order);
 		
 		$orders_customers = array(
 			'customer_id' => $order_id,
