@@ -71,7 +71,8 @@ class Order extends CI_Controller
 		foreach ($orders as $key => $order)
 		{
 			$customer = $this->orders_customers->get_item_by(array("customer_id" => $order->customer_id));
-			$order_info[$key] = new stdClass();	
+			
+			$orders_info[$key] = new stdClass();	
 			
 			$orders_info[$key]->order_id = $order->order_id;
 			$orders_info[$key]->order_status = $order->order_status;
