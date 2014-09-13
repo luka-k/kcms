@@ -75,23 +75,24 @@ class Order extends CI_Controller
 			$customer = $this->orders_customers->get_item_by(array("id" => $order->customer_id));
 			
 			$orders_info[$key] = new stdClass();	
+			
 			$date = new DateTime($order->order_date);
-			$orders_info[$key]->order_id = $order->order_id;
-			$orders_info[$key]->order_status = $order->order_status;
-			$orders_info[$key]->order_products = array();
-			$orders_info[$key]->method_delivery = $order->method_delivery;
-			$orders_info[$key]->method_pay = $order->method_pay;
-			$orders_info[$key]->order_date = date_format($date, 'Y-m-d');
-			$orders_info[$key]->name = $customer->name;
-			$orders_info[$key]->phone = $customer->phone;
-			$orders_info[$key]->email = $customer->email;
-			$orders_info[$key]->address = $customer->address;
 			
 			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
-			foreach ($order_items as $order_item)
-			{
-				$orders_info[$key]->order_products[] = $order_item;
-			}
+			
+			$orders_info[$key] = (object)array(
+				"order_id" => $order->order_id,
+				"order_status" => $order->order_status,
+				"order_products" => $order_items,
+				"method_delivery" => $order->method_delivery,
+				"method_pay" => $order->method_pay,
+				"order_date" => date_format($date, 'Y-m-d'),
+				"name" => $customer->name,
+				"phone" => $customer->phone,
+				"email" => $customer->email,
+				"address" => $customer->address
+			);
+			
 		}
 		
 		$data = array(
