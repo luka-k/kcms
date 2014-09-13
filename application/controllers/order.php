@@ -19,10 +19,22 @@ class Order extends CI_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
+		
+		$orders_customers = array(
+			'name' => $orders_info['name'],
+			'phone' => $orders_info['phone'],
+			'email' => $orders_info['email'],
+			'address' => $orders_info['address']
+		);
+
+		$this->orders_customers->insert($orders_customers);
+		
+		$customer_id = $this->db->insert_id();
+		
 		$order_id = uniqid();
 		$new_order = array(
 			'order_id' => $order_id,
-			'customer_id' => $order_id,
+			'customer_id' => $customer_id,
 			'order_total' => $total_price,
 			'method_delivery' => $orders_info['method_delivery'],
 			'method_pay' => $orders_info['method_pay'],
@@ -31,16 +43,6 @@ class Order extends CI_Controller
 		);
 		
 		$this->orders->insert($new_order);
-		
-		$orders_customers = array(
-			'customer_id' => $order_id,
-			'name' => $orders_info['name'],
-			'phone' => $orders_info['phone'],
-			'email' => $orders_info['email'],
-			'address' => $orders_info['address']
-		);
-
-		$this->orders_customers->insert($orders_customers);
 		
 		foreach($cart_items as $item)
 		{
@@ -70,16 +72,16 @@ class Order extends CI_Controller
 		$orders_info = array();
 		foreach ($orders as $key => $order)
 		{
-			$customer = $this->orders_customers->get_item_by(array("customer_id" => $order->customer_id));
+			$customer = $this->orders_customers->get_item_by(array("id" => $order->customer_id));
 			
 			$orders_info[$key] = new stdClass();	
-			
+			$date = new DateTime($order->order_date);
 			$orders_info[$key]->order_id = $order->order_id;
 			$orders_info[$key]->order_status = $order->order_status;
 			$orders_info[$key]->order_products = array();
 			$orders_info[$key]->method_delivery = $order->method_delivery;
 			$orders_info[$key]->method_pay = $order->method_pay;
-			$orders_info[$key]->order_date = $order->order_date;
+			$orders_info[$key]->order_date = date_format($date, 'Y-m-d');
 			$orders_info[$key]->name = $customer->name;
 			$orders_info[$key]->phone = $customer->phone;
 			$orders_info[$key]->email = $customer->email;
