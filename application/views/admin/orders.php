@@ -24,7 +24,7 @@
 									<tr>
 										<td><?=$order_item->order_id?></td>
 										<td>
-											<select id="order_status"  name="order_status" class="col_12">
+											<select id="order_status"  name="order_status" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
 												<?php foreach ($selects['order_status'] as $key => $title): ?>
 													<option value="<?=$key?>" <?if($key == $order_item->order_status):?>selected="selected"<?endif;?> >
 														<?=$title?>
@@ -51,7 +51,7 @@
 											</table>
 										</td>
 										<td>
-											<select id="method_pay"  name="method_pay" class="col_12">
+											<select id="method_pay"  name="method_pay" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
 												<?php foreach ($selects['method_pay'] as $key => $title): ?>
 													<option value="<?=$key?>" <?if($key == $order_item->method_pay):?>selected="selected"<?endif;?> >
 														<?=$title?>
@@ -60,7 +60,7 @@
 											</select>										
 										</td>
 										<td>
-											<select id="method_delivery"  name="method_delivery" class="col_12">
+											<select id="method_delivery"  name="method_delivery" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
 												<?php foreach ($selects['method_delivery'] as $key => $title): ?>
 													<option value="<?=$key?>" <?if($key == $order_item->method_delivery):?>selected="selected"<?endif;?> >
 														<?=$title?>
@@ -88,6 +88,7 @@
 			</div>
 		</div>
 		<? require 'include/footer_scripth.php' ?>
+		<? require 'include/orders_script.php'?>
 		<? require 'footer.php' ?>
 	</body>
 </html>

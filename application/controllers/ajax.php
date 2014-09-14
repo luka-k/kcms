@@ -64,4 +64,23 @@ class Ajax extends CI_Controller {
 		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
 	}
+	
+	public function change_field()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$item = array(
+			"order_id" => $info->order_id,
+			"$info->type" => $info->value
+		);
+		$this->orders->update($item['order_id'], $item);
+		
+		switch ($info->type) 
+		{
+			case "order_status": $data['message'] = "Статус заказа изменен"; break;
+			case "method_pay": $data['message'] = "Способ оплаты изменен"; break;
+			case "method_delivery": $data['message'] = "Способ доставки изменен"; break;
+		}
+		
+		echo json_encode($data);
+	}
 }

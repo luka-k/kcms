@@ -14,6 +14,8 @@ class Orders extends MY_Model
 		),
 	);
 	
+	protected $_primary_key = 'order_id';
+	
 	function __construct()
 	{
         parent::__construct();
