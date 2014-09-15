@@ -19,28 +19,24 @@ class Order extends CI_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		
-		$orders_customers = array(
-			'name' => $orders_info['name'],
-			'phone' => $orders_info['phone'],
-			'email' => $orders_info['email'],
-			'address' => $orders_info['address']
-		);
-
-		$this->orders_customers->insert($orders_customers);
-		
-		$customer_id = $this->db->insert_id();
-		
 		$order_id = uniqid();
 		$new_order = array(
 			'order_id' => $order_id,
-			'customer_id' => $customer_id,
-			'order_total' => $total_price,
-			'method_delivery' => $orders_info['method_delivery'],
-			'method_pay' => $orders_info['method_pay'],
-			'order_date' => date("Y-m-d"),
-			'order_status' => 1
+			'user_name' => $orders_info['name'],
+			'user_email' => $orders_info['email'],
+			'user_phone' => $orders_info['phone'],
+			'user_address' => $orders_info['address'],
+			'total' => $total_price,
+			'delivery_id' => $orders_info['method_delivery'],
+			'payment_id' => $orders_info['method_pay'],
+			'date' => date("Y-m-d"),
+			'status_id' => 1
 		);
+		
+		if(isset($orders_info['id']))
+		{
+			$new_order['user_id'] = $orders_info['id'];
+		}
 		
 		$this->orders->insert($new_order);
 		
@@ -65,32 +61,31 @@ class Order extends CI_Controller
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'orders');
 		
-		$method_delivery = $this->config->item('method_delivery');
-		$method_pay = $this->config->item('method_pay');
+		$delivery_id = $this->config->item('method_delivery');
+		$payment_id = $this->config->item('method_pay');
 		
 		$orders = $this->orders->get_list(FALSE);
+		
 		$orders_info = array();
 		foreach ($orders as $key => $order)
-		{
-			$customer = $this->orders_customers->get_item_by(array("id" => $order->customer_id));
-			
+		{	
 			$orders_info[$key] = new stdClass();	
 			
-			$date = new DateTime($order->order_date);
+			$date = new DateTime($order->date);
 			
 			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
 			
 			$orders_info[$key] = (object)array(
 				"order_id" => $order->order_id,
-				"order_status" => $order->order_status,
+				"status_id" => $order->status_id,
 				"order_products" => $order_items,
-				"method_delivery" => $order->method_delivery,
-				"method_pay" => $order->method_pay,
+				"delivery_id" => $order->delivery_id,
+				"payment_id" => $order->payment_id,
 				"order_date" => date_format($date, 'Y-m-d'),
-				"name" => $customer->name,
-				"phone" => $customer->phone,
-				"email" => $customer->email,
-				"address" => $customer->address
+				"name" => $order->user_name,
+				"phone" => $order->user_phone,
+				"email" => $order->user_email,
+				"address" => $order->user_address
 			);
 			
 		}
@@ -101,9 +96,9 @@ class Order extends CI_Controller
 			'user_id' => $this->session->userdata('user_id'),
 			'orders_info' => $orders_info,
 			'selects' => array(
-				'method_delivery' => $this->config->item('method_delivery'),
-				'method_pay' => $this->config->item('method_pay'),
-				'order_status' => $this->config->item('order_status')
+				'delivery_id' => $this->config->item('method_delivery'),
+				'payment_id' => $this->config->item('method_pay'),
+				'status_id' => $this->config->item('order_status')
 			),
 			'menu' => $menu
 		);		

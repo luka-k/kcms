@@ -76,9 +76,9 @@ class Ajax extends CI_Controller {
 		
 		switch ($info->type) 
 		{
-			case "order_status": $data['message'] = "Статус заказа изменен"; break;
-			case "method_pay": $data['message'] = "Способ оплаты изменен"; break;
-			case "method_delivery": $data['message'] = "Способ доставки изменен"; break;
+			case "status_id": $data['message'] = "Статус заказа изменен"; break;
+			case "payment_id": $data['message'] = "Способ оплаты изменен"; break;
+			case "delivery_id": $data['message'] = "Способ доставки изменен"; break;
 		}
 		
 		echo json_encode($data);

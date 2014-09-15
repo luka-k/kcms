@@ -24,9 +24,9 @@
 									<tr>
 										<td><?=$order_item->order_id?></td>
 										<td>
-											<select id="order_status"  name="order_status" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
-												<?php foreach ($selects['order_status'] as $key => $title): ?>
-													<option value="<?=$key?>" <?if($key == $order_item->order_status):?>selected="selected"<?endif;?> >
+											<select id="status_id"  name="status_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
+												<?php foreach ($selects['status_id'] as $key => $title): ?>
+													<option value="<?=$key?>" <?if($key == $order_item->status_id):?>selected="selected"<?endif;?> >
 														<?=$title?>
 													</option>
 												<?php endforeach ?>										
@@ -51,18 +51,18 @@
 											</table>
 										</td>
 										<td>
-											<select id="method_pay"  name="method_pay" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
-												<?php foreach ($selects['method_pay'] as $key => $title): ?>
-													<option value="<?=$key?>" <?if($key == $order_item->method_pay):?>selected="selected"<?endif;?> >
+											<select id="payment_id"  name="payment_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
+												<?php foreach ($selects['payment_id'] as $key => $title): ?>
+													<option value="<?=$key?>" <?if($key == $order_item->payment_id):?>selected="selected"<?endif;?> >
 														<?=$title?>
 													</option>
 												<?php endforeach ?>										
 											</select>										
 										</td>
 										<td>
-											<select id="method_delivery"  name="method_delivery" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
-												<?php foreach ($selects['method_delivery'] as $key => $title): ?>
-													<option value="<?=$key?>" <?if($key == $order_item->method_delivery):?>selected="selected"<?endif;?> >
+											<select id="delivery_id"  name="delivery_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
+												<?php foreach ($selects['delivery_id'] as $key => $title): ?>
+													<option value="<?=$key?>" <?if($key == $order_item->delivery_id):?>selected="selected"<?endif;?> >
 														<?=$title?>
 													</option>
 												<?php endforeach ?>										

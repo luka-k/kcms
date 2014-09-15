@@ -13,7 +13,7 @@
 							<?=$error;?>
 							<?=validation_errors(); ?>
 							<div  class="col_12">
-								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
+								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Зарегистрировать</a>
 							</div>
 								
 							<?$editors_counter = 1?>
@@ -23,7 +23,7 @@
 							<?php endforeach?>
 							
 							<div  class="col_12">
-								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
+								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Зарегистрировать</a>
 							</div>						
 						</div>
 					<?endforeach?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 13 2014 г., 17:42
+-- Время создания: Сен 15 2014 г., 13:44
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4ce756a64dfefd233bbd944fbaee49d5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1410615446, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
+('e2eb6c19299f9f0fd69ceefcd63d666c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1410774161, 'a:4:{s:7:"user_id";s:2:"30";s:9:"user_name";s:10:"Павел";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -183,47 +183,26 @@ INSERT INTO `news` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `meta_k
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(13) NOT NULL,
-  `customer_id` int(13) NOT NULL,
-  `order_total` int(11) NOT NULL,
-  `method_delivery` int(11) NOT NULL,
-  `method_pay` int(11) NOT NULL,
-  `order_date` text COLLATE utf8_unicode_ci NOT NULL,
-  `order_status` int(11) NOT NULL,
+  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_name` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_email` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_phone` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_address` text COLLATE utf8_unicode_ci NOT NULL,
+  `total` int(11) NOT NULL,
+  `delivery_id` int(11) NOT NULL,
+  `payment_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `order_id`, `customer_id`, `order_total`, `method_delivery`, `method_pay`, `order_date`, `order_status`) VALUES
-(1, 913050957, 913050957, 281, 1, 1, '2014-09-13', 1),
-(2, 913050925, 913050925, 241, 5, 2, '2014-09-13', 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `orders_customers`
---
-
-CREATE TABLE IF NOT EXISTS `orders_customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(13) NOT NULL,
-  `name` text COLLATE utf8_unicode_ci NOT NULL,
-  `phone` text COLLATE utf8_unicode_ci NOT NULL,
-  `email` text COLLATE utf8_unicode_ci NOT NULL,
-  `address` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `orders_customers`
---
-
-INSERT INTO `orders_customers` (`id`, `customer_id`, `name`, `phone`, `email`, `address`) VALUES
-(1, 913050957, 'pavel', '8-950-65-65', 'pavel@pavel.ru', 'Happy stree 123-45-67'),
-(2, 913050925, 'stas', '8-950-123-45-67', 'sas@stas.ru', 'food stree 123-45-8');
+INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
+(2, '5416af6567a16', '', 'pavel', 'pavel@pavel.ru', '8-950-123-45-67', 'Happy stree 123-45-67', 121, 2, 1, '2014-09-15 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -233,22 +212,20 @@ INSERT INTO `orders_customers` (`id`, `customer_id`, `name`, `phone`, `email`, `
 
 CREATE TABLE IF NOT EXISTS `orders_products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(13) NOT NULL,
+  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_name` text COLLATE utf8_unicode_ci NOT NULL,
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `orders_products`
 --
 
 INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(1, 913050957, 14, 'Товар 1 категории 1', '120.6', 1),
-(2, 913050957, 15, 'Товар 2 категории 1', '160.2', 1),
-(3, 913050925, 14, 'Товар 1 категории 1', '120.6', 2);
+(2, '5416af6567a16', 14, 'Товар 1 категории 1', '120.6', 1);
 
 -- --------------------------------------------------------
 
@@ -354,17 +331,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(125) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `secret`) VALUES
-(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '');
+INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `role`, `secret`) VALUES
+(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', '', ''),
+(30, 'Павел', 'fae0b27c451c728867a567e8c1bb4e53', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 'customer', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
