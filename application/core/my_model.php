@@ -176,7 +176,7 @@ class MY_Model extends CI_Model
 		}
 		else
 		{
-			$this->db->where($this->_primary_key,$id)->update($this->_table);
+			$this->db->where($this->_primary_key, $id)->update($this->_table);
 		}
 	}
 	

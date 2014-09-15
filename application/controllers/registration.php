@@ -415,6 +415,7 @@ class Registration extends CI_Controller
 			else 
 			{	
 				unset($data['content']->conf_password);
+				$data['content']->role = "customer";
 				$this->users->insert($data['content']);
 				if($this->users->login($content->email, $content->password))
 				{
