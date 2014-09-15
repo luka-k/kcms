@@ -17,10 +17,12 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'secret' => array('secret', 'hidden'),
-			//'status' => array('Статус', 'select'),
 			'name' => array('Имя', 'text'),
 			'email' => array('Почта', 'text'),
-			'password' => array('Пароль', 'pass')
+			'phone' => array('Телефон', 'text'),
+			'address' => array('Адрес', 'text'),
+			'password' => array('Пароль', 'pass'),
+			'conf_password' => array('Повторите пароль', 'pass')
 		)
 	);
 	

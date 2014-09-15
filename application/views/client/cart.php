@@ -7,7 +7,7 @@
 			<div id="main_content" class="col_8 clearfix">
 				<div class="col_12">
 					<h5>Корзина</h5>
-					<?if($cart<>NULL):?>
+					<?if($cart <> NULL):?>
 						<table>
 							<thead>
 								<th>№</th>
@@ -46,6 +46,20 @@
 				</div>
 			</div>
 			<div id="main_content" class="col_4">
+				<div class="col_12">
+					<h5>Войти</h5>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>order/edit_order/"/>
+						<input type="text" name="login" placeholder="Логин"/></br></br>
+						<input type="password" name="password" placeholder="Пароль"/></br></br>
+						<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
+					</form>
+					<div class="col_6">
+						<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
+					</div>
+					<div class="col_6">
+						<a href="<?=base_url()?>registration/forgot_password/">Забыли пароль?</a>
+					</div>
+				</div>
 				<div class="col_12">
 					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
 						<div class="cart">

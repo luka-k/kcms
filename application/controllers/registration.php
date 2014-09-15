@@ -336,4 +336,126 @@ class Registration extends CI_Controller
 			redirect(base_url().'registration/users');
 		}	
 	}	
+	
+	/*----------Клиентская часть----------*/
+	
+	public function register_user()
+	{
+		$menu = $this->menus->top_menu;	
+
+		$editors = $this->users->new_editors;
+		$user = new stdClass();
+		foreach ($editors as $tabs)
+		{
+			foreach ($tabs as $item => $value)
+			{
+				$user->$item = "";
+			}
+		}		
+	
+		$data = array(
+			'title' => "Регистрация",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'error' => "",
+			'menu' => $menu,
+			'editors' => $editors,
+			'content' => $user
+		);
+		$this->load->view('client/register_user.php', $data);		
+	}
+	
+	public function edit_new_user()
+	{
+		$menu = $this->menus->top_menu;
+		
+		$editors = $this->users->new_editors;
+		$post = $this->input->post();
+		
+		$content = editors_post($editors, $post);	
+		$content->password = md5($content->password);
+
+		$data = array(
+			'title' => "Регистрация",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'error' => "",
+			'menu' => $menu,
+			'editors' => $editors,
+			'content' => $content
+		);			
+		
+		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+		$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+					
+		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+					
+		//Валидация формы
+		if($this->form_validation->run() == FALSE)
+		{
+			//Если валидация не прошла выводим сообщение об ошибке
+			$this->load->view('client/register_user.php', $data);			
+		}
+		else
+		{	
+			//Если id пустой то добавляем нового пользователя
+			if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+			{
+				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
+				$this->load->view('client/register_user.php', $data);	
+			} 
+			elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+			{
+				$data['error'] ="Такой email уже зарегистрирован";
+				$this->load->view('client/register_user.php', $data);						
+			} 
+			else 
+			{	
+				unset($data['content']->conf_password);
+				$this->users->insert($data['content']);
+				if($this->users->login($content->email, $content->password))
+				{
+					redirect(base_url().'registration/cabinet');
+				}
+			}
+		}			
+	}
+	
+	/*----------Личный кабинет----------*/
+	public function cabinet()
+	{
+		if (!$this->session->userdata('logged_in'))
+		{
+			$this->load->view('admin/enter.php', $data);	
+		}
+		else
+		{
+			$menu = $this->menus->top_menu;
+			$cart = $this->cart->get_all();
+			$total_price = $this->cart->total_price();
+			$total_qty = $this->cart->total_qty();
+	
+			$data = array(
+				'title' => "Регистрация",
+				'meta_title' => "",
+				'meta_keywords' => "",
+				'meta_description' => "",
+				'error' => "",
+				'name' => $this->session->userdata('user_name'),
+				'user_id' => $this->session->userdata('user_id'),
+				'menu' => $menu,
+				'cart' => $cart,
+				'total_price' => $total_price,
+				'total_qty' => $total_qty,
+				'selects' => array(
+					'method_delivery' => $this->config->item('method_delivery'),
+					'method_pay' => $this->config->item('method_pay')
+				)
+			);
+			$this->load->view('client/cabinet.php', $data);
+		}
+	}
 }
