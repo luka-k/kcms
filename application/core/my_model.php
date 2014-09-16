@@ -15,6 +15,7 @@ class MY_Model extends CI_Model
 	//Возращает количество записей в таблице
 	//$factors условие where для фильтра элементов
 	//$factors ассоциативный массив	
+	//
 	function get_count($factors = FALSE)
 	{
 		if ($factors)
