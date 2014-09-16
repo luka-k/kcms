@@ -125,9 +125,11 @@
         <div class="consult">
             <div class="wrap">
                 <div class="content">
-					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
-					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-					<a href="#" class="btn-2">Бесплатная консультация</a>
+					<form action="" id="form_1" method="post" class="js-form">
+						<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
+						<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
+						<a href="" class="btn-2" onclick="$('#form_1').submit();return false;">Бесплатная консультация</a>
+					</form>
 				</div>
 			</div>
 		</div>	
@@ -223,9 +225,11 @@
         <div class="consult">
             <div class="wrap">
                 <div class="content">
-					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
-					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-					<a href="#" class="btn-2">Хочу так же</a>
+					<form action="" id="form_2" method="post" class="js-form">
+						<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
+						<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
+						<a href="" class="btn-2" onclick="$('#form_2').submit();return false;">Хочу так же</a>
+					</form>
 				</div>
 			</div>
 		</div>	

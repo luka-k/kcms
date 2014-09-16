@@ -14,7 +14,11 @@ class Files extends MY_Model
 	public function upload_file($file)
 	{
 		$upload_path = $this->config->item('file_upload_path');
-		$file_name = slug($file["name"]);
+		$name = explode(".", $file["name"]);
+		//Чистим от лишних символов и транлитируем имя файла.
+		$name[0] = slug($name[0]);
+		$file_name = $name[0].".".$name[1];
+
 		$temp_path = make_upload_path($file_name, $upload_path).$file_name;
 		//Загружаем оригинал
 		if(!move_uploaded_file($file["tmp_name"], $temp_path))

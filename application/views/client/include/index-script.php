@@ -18,6 +18,10 @@ $('body').on('submit', '.js-form', function (e) {
       data[element.attr('data-id')] = element.val();
     }
   });
+  
+  
+  data['time'] = $("#time").val();
+  data['comment'] = $("#comment").val();
 
   for (i in el) {
     if (el[i].hasClass(errorClass)) el[i].removeClass(errorClass);

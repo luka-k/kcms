@@ -4,13 +4,13 @@
                 <div class="content clearfix">
 				
 				<?require('top-menu.php')?>
-					<form method="post" class="js-form" id="contactform" action="/#send_mail">
 						<div class="content">
-							<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
-							<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-							<a href="#" class="btn-2" onClick="$('#contactform').submit();return false;">Получить консультацию</a>
+							<form action="" id="form_3" method="post" class="js-form">
+								<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
+								<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
+								<a href="#" class="btn-2" onClick="$('#form_3').submit();return false;">Получить консультацию</a>
+							</form>
 						</div>
-					</form>
 					<div class="copyr">
 						&copy; 2014<br/>
 						<span style="color:#999">ремонт-гаража.рф</span>
@@ -33,11 +33,11 @@
 				<div style="margin-bottom:20px;">
 					<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/><br/>
 					<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/><br/>
-					<select>
-						<option>9:00 - 12:00</option>
-						<option>9:00 - 12:00</option>
-						<option>9:00 - 12:00</option>
-						<option>9:00 - 12:00</option>
+					<select id="time" name="time">
+						<option value="9:00-12:00">9:00 - 12:00</option>
+						<option value="12:00-15:00">12:00 - 15:00</option>
+						<option value="15:00-18:00">15:00 - 18:00</option>
+						<option value="18:00-21:00">18:00 - 21:00</option>
 					</select>
 				</div>
 				<a href="" onclick="$('#formpopup').submit();return false;" class="btn-3">Отправить</a>
