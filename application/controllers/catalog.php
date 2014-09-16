@@ -16,6 +16,9 @@ class Catalog extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$category = $this->url_model->url_parse(2);
+		
+		$user_id = $this->session->userdata('user_id');
+		$user = $this->users->get_item_by(array("id" => $user_id));
 
 		if ($category == FALSE)
 		{
@@ -32,7 +35,8 @@ class Catalog extends CI_Controller {
 				'cart' => $cart,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
-				'menu' => $menu
+				'menu' => $menu,
+				'user' => $user
 			);
 			$data['content'] = $this->images->get_img_list($data['content'], 'categories', 'catalog_mid');
 			$content = $this->categories->get_urls($data['content']);
@@ -74,7 +78,8 @@ class Catalog extends CI_Controller {
 					'cart' => $cart,
 					'total_price' => $total_price,
 					'total_qty' => $total_qty,
-					'menu' => $menu
+					'menu' => $menu,
+					'user' => $user
 				);				
 			$this->load->view($template, $data);
 		}

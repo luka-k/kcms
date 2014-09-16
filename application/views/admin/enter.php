@@ -7,9 +7,9 @@
 				Вход в KCMS<br/>
 				<?=$error;?>
 				<div class="clearfix" style="width:230px; margin:0 auto">
-					<form method="post" accept-charset="utf-8" action="<?=base_url()?>registration/do_enter"/>
+					<form method="post" accept-charset="utf-8" action="<?=base_url()?>registration/do_admin_enter"/>
 						<input id="text1" type="text" placeholder="Введите логин" name="email" class="col_12"/>
-						<input id="text2" type="password" placeholder="Введите пароль" name ="pass" class="col_12"/>
+						<input id="text2" type="password" placeholder="Введите пароль" name ="password" class="col_12"/>
 						<button type="submit" class="col_4 small">Войти</button>
 						<div class="col_8 right">
 							<a href="<?=base_url()?>registration/forgot_pass">Забыли пароль?</a>

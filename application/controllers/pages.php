@@ -61,6 +61,9 @@ class Pages extends CI_Controller {
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
+		
+		$user_id = $this->session->userdata('user_id');
+		$user = $this->users->get_item_by(array("id" => $user_id));
 	
 		$data = array(
 			'title' => "Корзина",
@@ -74,7 +77,8 @@ class Pages extends CI_Controller {
 				'method_delivery' => $this->config->item('method_delivery'),
 				'method_pay' => $this->config->item('method_pay')
 			),
-			'menu' => $menu
+			'menu' => $menu,
+			'user' => $user
 		);
 		$this->load->view('client/cart.php', $data);
 	}

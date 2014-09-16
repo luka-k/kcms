@@ -43,8 +43,62 @@
 								</tfoot>
 							</table>
 						</div>
+						<div class="col_4">
+							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
+								<div class="cart">
+									<h5>Оформить заказ</h5>
+									<input type="hidden" name="id" value="<?=$user->id?>"/>
+									<input type="hidden" name="name" value="<?=$user->name?>"/>
+									<input type="hidden" name="phone" value="<?=$user->phone?>"/>
+									<input type="hidden" name="email" value="<?=$user->email?>"/>
+									<input type="hidden" name="address" value="<?=$user->address?>"/>
+									<?foreach($selects as $name => $select):?>
+										<?require "include/editors/select.php"?>
+									<?endforeach;?></br>
+									<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
+						</div>
+					</form>							
+						</div>
 					<?endif;?>
 					
+					<?if(isset($orders)):?>
+						<h5>Заказы</h5>
+						<table>
+							<thead>
+								<th width="7%">Id</th>
+								<th width="10%">Статус</th>
+								<th width="30%">Товары</th>
+								<th width="5%">Дата</th>
+							</thead>
+							<tbody>
+							<?foreach ($orders as $order):?>
+								<tr>
+									<td><?=$order->order_id?></td>
+									<td><?=$order->status?></td>
+									<td>
+										<table>
+											<thead>
+												<th width="70%">Наименование</th>
+												<th width="15%">Цена</th>
+												<th width="15%">Количество</th>
+											</thead>
+											<tbody>
+												<?foreach($order->order_products as $product):?>
+													<tr>
+														<td><?=$product->product_name?></td>
+														<td><?=$product->product_price?></td>
+														<td><?=$product->order_qty?></td>
+													</tr>
+												<?endforeach;?>
+											<tbody>
+										</table>
+									</td>
+									<td><?=$order->date?></td>
+								</tr>
+							<?endforeach;?>
+							</tbody>
+						</table>
+					<?endif;?>
 				</div>
 			</div>
 		</div>

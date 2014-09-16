@@ -27,8 +27,8 @@ class Order extends CI_Controller
 			'user_phone' => $orders_info['phone'],
 			'user_address' => $orders_info['address'],
 			'total' => $total_price,
-			'delivery_id' => $orders_info['method_delivery'],
-			'payment_id' => $orders_info['method_pay'],
+			'delivery_id' => $orders_info['delivery_id'],
+			'payment_id' => $orders_info['payment_id'],
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);
@@ -36,6 +36,13 @@ class Order extends CI_Controller
 		if(isset($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];
+			
+			$settings = $this->settings->get_item_by(array("id" => 1));
+			
+			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+			$message = 'С Вашего email сделан заказ в интернет магазине '.$settings->site_title.'. В заказе '.$total_qty.' - товаров. На сумму - '.$total_price;
+				
+			$this->mail->send_mail($orders_info['email'], $subject, $message);
 		}
 		
 		$this->orders->insert($new_order);
@@ -51,6 +58,8 @@ class Order extends CI_Controller
 			);
 			$this->orders_products->insert($orders_products);
 		}
+		
+		
 		
 		$this->cart->clear();
 		redirect(base_url().'pages/cart');		

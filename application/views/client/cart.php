@@ -46,39 +46,52 @@
 				</div>
 			</div>
 			<div id="main_content" class="col_4">
-				<div class="col_12">
-					<h5>Войти</h5>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>order/edit_order/"/>
-						<input type="text" name="login" placeholder="Логин"/></br></br>
-						<input type="password" name="password" placeholder="Пароль"/></br></br>
-						<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
-					</form>
-					<div class="col_6">
-						<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
-					</div>
-					<div class="col_6">
-						<a href="<?=base_url()?>registration/forgot_password/">Забыли пароль?</a>
-					</div>
-				</div>
-				<div class="col_12">
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
-						<div class="cart">
-							<h5>Оформить заказ</h5>
-							Имя:<br/>
-							<input type="text" name="name" /></br>
-							Телефон:<br/>
-							<input type="text" name="phone" /></br>
-							E-mail:<br/>
-							<input type="text" name="email" /></br>
-							Адрес:<br/>
-							<input type="text" name="address" /></br>
-							<?foreach($selects as $name => $select):?>
-								<?require "include/editors/select.php"?>
-							<?endforeach;?></br>
-							<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
+				<?if($user <> false):?>
+					<div class="col_12">
+						<div class="col_6">
+							<a href="<?=base_url()?>/registration/cabinet">Личный кабинета</a>
 						</div>
-					</form>
-				</div>
+						<div class="col_6">
+							<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
+						</div>
+					</div>
+				<?else:?>
+					<div class="col_12">
+						<h5>Войти</h5>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter/"/>
+							<input type="text" name="login" placeholder="Логин"/></br></br>
+							<input type="password" name="password" placeholder="Пароль"/></br></br>
+							<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
+						</form>
+						<div class="col_6">
+							<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
+						</div>
+						<div class="col_6">
+							<a href="<?=base_url()?>registration/forgot_password/">Забыли пароль?</a>
+						</div>
+					</div>
+				<?endif;?>
+				<?if($cart <> NULL):?>
+					<div class="col_12">
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
+							<div class="cart">
+								<h5>Быстрый заказ</h5>
+								Имя:<br/>
+								<input type="text" name="name" /></br>
+								Телефон:<br/>
+								<input type="text" name="phone" /></br>
+								E-mail:<br/>
+								<input type="text" name="email" /></br>
+								Адрес:<br/>
+								<input type="text" name="address" /></br>
+								<?foreach($selects as $name => $select):?>
+									<?require "include/editors/select.php"?>
+								<?endforeach;?></br>
+								<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
+							</div>
+						</form>
+					</div>
+				<?endif;?>
 			</div>
 		</div>
 	</div>

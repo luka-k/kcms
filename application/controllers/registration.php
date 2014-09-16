@@ -9,6 +9,8 @@ class Registration extends CI_Controller
 	{
 		parent::__construct();
 		
+		$this->config->load('order_config');
+		
 		$data = array(
 			'title' => "Вход",
 			'meta_title' => "Вход",
@@ -18,7 +20,7 @@ class Registration extends CI_Controller
 	
 	
 	/*Авторизация пользователя*/	
-	public function do_enter($field="email", $field="pass")
+	public function do_admin_enter($field="email", $field="pass")
 	{
 		$data = array(
 			'title' => "Вход",
@@ -27,8 +29,8 @@ class Registration extends CI_Controller
 		);
 		
 		$email = $this->input->post('email');
-		$pass = md5($this->input->post('pass'));			
-		$authdata = $this->users->login($email, $pass);
+		$password = md5($this->input->post('password'));			
+		$authdata = $this->users->login($email, $password);
 
 		if (!$authdata['logged_in'])
 		{
@@ -37,20 +39,70 @@ class Registration extends CI_Controller
 		} 
 		else 
 		{
-			redirect(base_url().'admin/admin_main');		
+			redirect(base_url().'admin/admin_main');	
+		}	
+	}
+	
+	/*Авторизация покупателя*/	
+	public function do_enter()
+	{
+		$email = $this->input->post('login');
+		$password = md5($this->input->post('password'));			
+		$authdata = $this->users->login($email, $password);
+
+		if (!$authdata['logged_in'])
+		{
+			$menu = $this->menus->top_menu;		
+			$cart = $this->cart->get_all();
+			$total_price = $this->cart->total_price();
+			$total_qty = $this->cart->total_qty();
+		
+			$user_id = $this->session->userdata('user_id');
+			$user = $this->users->get_item_by(array("id" => $user_id));
+	
+			$data = array(
+				'title' => "Корзина",
+				'meta_title' => "",
+				'meta_keywords' => "",
+				'meta_description' => "",
+				'cart' => $cart,
+				'total_price' => $total_price,
+				'total_qty' => $total_qty,
+				'selects' => array(
+					'method_delivery' => $this->config->item('method_delivery'),
+					'method_pay' => $this->config->item('method_pay')
+				),
+				'menu' => $menu,
+				'user' => $user
+			);
+			
+			$data['error'] = "Данные не верны. Повторите ввод";		
+			$this->load->view('client/cart.php', $data);	
+		} 
+		else 
+		{
+			redirect(base_url().'registration/cabinet');	
 		}	
 	}
 	
 	//Выход
 	public function do_exit()
 	{
+		$role = $this->session->userdata('role');
 		$authdata = array(
 			'user_id' => '',
 			'user_name' => '',
 			'logged_in' => ''
 			);
 		$this->session->unset_userdata($authdata);
-		redirect(base_url().'admin');
+		if($role == "admin")
+		{
+			redirect(base_url().'admin');
+		}
+		else
+		{
+			redirect(base_url().'pages/cart');
+		}
 	}
 	
 	/*Вывод формы востановления пароля*/
@@ -417,6 +469,13 @@ class Registration extends CI_Controller
 				unset($data['content']->conf_password);
 				$data['content']->role = "customer";
 				$this->users->insert($data['content']);
+				
+				$settings = $this->settings->get_item_by(array("id" => 1));
+				$subject = 'Регистрация в интернет-магазине '.$settings->site_title;
+				$message = 'Благодарим Вас за регистрацию в интернет-магазине '.$settings->site_title;
+				
+				$this->mail->send_mail($data['content']->email, $subject, $message);
+				
 				if($this->users->login($content->email, $content->password))
 				{
 					redirect(base_url().'registration/cabinet');
@@ -430,31 +489,70 @@ class Registration extends CI_Controller
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
-			$this->load->view('admin/enter.php', $data);	
+			redirect(base_url().'pages/cart');
 		}
 		else
 		{
 			$menu = $this->menus->top_menu;
 			$cart = $this->cart->get_all();
 			$total_price = $this->cart->total_price();
-			$total_qty = $this->cart->total_qty();
-	
+			$total_qty = $this->cart->total_qty();	
+
+			$orders = $this->orders->get_list(array("user_id" => $this->session->userdata('user_id')));
+			
+			$orders_info = array();
+			foreach ($orders as $key => $order)
+			{	
+				$orders_info[$key] = new stdClass();	
+			
+				$date = new DateTime($order->date);
+			
+				$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
+			
+				$orders_info[$key] = (object)array(
+					"order_id" => $order->order_id,
+					"status" => $order->status_id,
+					"order_products" => $order_items,
+					"delivery_id" => $order->delivery_id,
+					"payment_id" => $order->payment_id,
+					"date" => date_format($date, 'Y-m-d'),
+					"name" => $order->user_name,
+					"phone" => $order->user_phone,
+					"email" => $order->user_email,
+					"address" => $order->user_address
+				);
+				
+				$status_id = $this->config->item('order_status');
+				foreach ($status_id as $value => $title)
+				{
+					if ($orders_info[$key]->status == $value) $orders_info[$key]->status = $title;
+				}
+			
+			}
+			
+			$user_id = $this->session->userdata('user_id');
+			$user = $this->users->get_item_by(array("id" => $user_id));
+			
+			
+			
 			$data = array(
-				'title' => "Регистрация",
+				'title' => "Личный кабинет",
 				'meta_title' => "",
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
 				'name' => $this->session->userdata('user_name'),
-				'user_id' => $this->session->userdata('user_id'),
+				'user' => $user,
 				'menu' => $menu,
 				'cart' => $cart,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
+				'orders' => $orders_info,
 				'selects' => array(
-					'method_delivery' => $this->config->item('method_delivery'),
-					'method_pay' => $this->config->item('method_pay')
-				)
+					'delivery_id' => $this->config->item('method_delivery'),
+					'payment_id' => $this->config->item('method_pay')
+				),
+				'status_id' => $this->config->item('order_status')
 			);
 			$this->load->view('client/cabinet.php', $data);
 		}

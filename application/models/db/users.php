@@ -38,6 +38,7 @@ class Users extends MY_Model
 		$authdata = array(
 			'user_id' => " ",
 			'user_name' => " ",
+			'role' => " ",
 			'logged_in' => 0
 			);
 	
@@ -47,6 +48,7 @@ class Users extends MY_Model
 			$authdata = array(
 				'user_id' => $login->id,
 				'user_name' => $login->name,
+				'role' => $login->role,
 				'logged_in' => TRUE
 				);		
 			$this->session->set_userdata($authdata);
