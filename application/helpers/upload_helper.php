@@ -23,9 +23,10 @@ function scan_dir($dirname)
 	return $count_files;
 } 
  
-function make_upload_path($file_name, $upload_path = FALSE)
+function make_upload_path($file_name, $path = FALSE)
 {
 	//Преобразуем имя файла в массив каждый элемент которого содержит один символ имени.
+	$upload_path = $path;
 	$updir_name = str_split($file_name);
 	
 	if (!file_exists($upload_path) and $upload_path <> FALSE)
@@ -38,7 +39,10 @@ function make_upload_path($file_name, $upload_path = FALSE)
 		if (!file_exists($upload_path."/".$updir_name[$i]))
 		{
 			$upload_path = $upload_path. "/" .$updir_name[$i];
-			mkdir($upload_path, 0755);	
+			if($path <> FALSE)
+			{
+				mkdir($upload_path, 0755);
+			}
 		} 
 		else 
 		{
