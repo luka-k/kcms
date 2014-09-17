@@ -102,6 +102,53 @@ font-size:24px;
 font-weight:bold;
 }
 
+@media all and (min-device-width: 240px) and (max-device-width: 820px) {
+	.header-top .phone .ph{
+		font-size:16px;
+	}
+
+	header .nav ul li {
+		padding:7px 17px 8px 17px;
+	}
+
+	header .nav ul li.first{
+		padding:6px 17px 8px 0px;
+	}
+
+	header .nav ul li.last{
+		padding:6px 0px 8px 17px;
+	}	
+
+	header .nav ul li a{
+		font-size: 18px;
+	}
+	
+	section .contact ul li {
+		padding:0px 17px 0px 17px;
+	}
+	
+	section .contact ul li.first{
+		padding:0px 17px 0px 0px;
+		text-align:left;
+		text-transform:none;
+	}
+
+	section .contact ul li.last{
+		padding:0px 0px 0px 17px;
+		text-align:right;
+		text-transform:none;
+	}
+
+	section .contact ul li a {
+		font-size: 18px;
+	}	
+	
+	section .btn-2{
+		width:292px;
+`	}
+	
+}
+
 .header-top .search{
 float:left;
 width:235px;

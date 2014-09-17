@@ -21,7 +21,7 @@
 	
         <div class="nav-bg"></div>
         <div class="nav">
-            <div class="wrap">
+            <div class="wrap" >
 				<?require('top-menu.php')?>
             </div>
         </div>
