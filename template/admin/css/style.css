@@ -123,19 +123,32 @@ list-style-type:square;
 list-style-type:disc;
 }
 
-.option{
-background:url('../img/alt.png');
-padding:10px;
+.option-1{
+background:url('../img/option_2.png') no-repeat 5px;
+padding:3px 0 3px 25px;
 }
 
-.option-1{
-
+.option-1-ch{
+background:url('../img/option_1.png') no-repeat 5px;
+padding:3px 0 3px 25px;
 }
 
 .option-2{
+background:url('../img/option_2.png') no-repeat 25px;
+padding:3px 0 3px 45px;
+}
 
+.option-2-ch{
+background:url('../img/option_1.png') no-repeat 25px;
+padding:3px 0 3px 45px;
 }
 
 .option-3{
+background:url('../img/option_2.png') no-repeat 45px;
+padding:3px 0 3px 65px;
+}
 
+.option-3-ch{
+background:url('../img/option_1.png') no-repeat 45px;
+padding:3px 0 3px 65px;
 }
