@@ -20,8 +20,8 @@ $('body').on('submit', '.js-form', function (e) {
   });
   
   
-  data['time'] = $("#time").val();
-  data['comment'] = $("#comment").val();
+  data['time'] = form.find("#time").val();
+  data['comment'] = form.find("#comment").val();
 
   for (i in el) {
     if (el[i].hasClass(errorClass)) el[i].removeClass(errorClass);
@@ -85,8 +85,7 @@ function validation (element, errorClass) {
 }
 
 function sub_form(){
-	var form = $(this),
-	errorClass = 'frame-input_error';
+	var errorClass = 'frame-input_error';
 				
 	if (validation($("#formpopup-2"), errorClass)) return false;
 	$("#formpopup-2").submit();

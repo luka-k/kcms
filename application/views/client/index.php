@@ -147,16 +147,18 @@
 							<?$counter = 1?>
 							<?foreach($works as $review):?>
 								<div class="slide-item-1 clearfix">
-									<div class="txt-wrap">
-										<div class="text">
-											<?=$review->text?>  
+									<div style="width:480px; padding-right:20px">
+										<div class="txt-wrap">
+											<div class="text">
+												<?=$review->text?>  
+											</div>
+											<div <?if($counter == 1):?>class="text-bottom-left"<?else:?>class="text-bottom-right"<?endif;?>>
+												&nbsp;
+											</div>
 										</div>
-										<div <?if($counter == 1):?>class="text-bottom-left"<?else:?>class="text-bottom-right"<?endif;?>>
-											&nbsp;
+										<div class="name" style="float:<?if($counter == 1):?>left<?else:?>right<?$counter = 0?><?endif;?>;">
+											<?=$review->name?>, <span style="color:#999">страница</span> <a href="<?=$review->vk_link?>" class="vk_link">&nbsp;</a>
 										</div>
-									</div>
-									<div class="name" style="float:<?if($counter == 1):?>left<?else:?>right<?$counter = 0?><?endif;?>;">
-										<?=$review->name?>, <span style="color:#999">страница</span> <a href="<?=$review->vk_link?>" class="vk_link">&nbsp;</a>
 									</div>
 								</div>
 								<?$counter++?>
@@ -179,6 +181,7 @@
 						<div class="slide-wrap-2">
 							<?foreach($works as $work):?>
 								<div class="slide-item-2">
+								<div style="width:980px;">
 									<div class="proekt clearfix">
 										<div class="title-3"><?=$work->title?></div>
 										<?if(isset($work->img)):?>
@@ -213,6 +216,7 @@
 										</div>
 									</div>
 								</div>
+								</div>
 							<?endforeach;?>	
 						</div>
 					</div>
@@ -244,10 +248,13 @@
 					<div name="next" class="navy next-slide-3">&nbsp;</div>
 					<div class="slide-list">
 						<div class="slide-wrap-3 clearfix">		
+						
 							<?foreach ($partners as $partner):?>
 								<div class="slide-item-3">
+								<div style="width:180px; padding-right:10px;">
 									<a href="<?=$partner->link?>" target="_blank"><img src="<?=base_url()?>download/images/catalog_small/<?=$partner->img->url?>" alt="<?=$partner->title?>"/></a>
-								</div>		 
+								</div>
+								</div>								
 							<?endforeach;?>
 						</div>
 					</div>
