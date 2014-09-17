@@ -8,9 +8,12 @@
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_4 back">
-						<h6>Страницы по категориям</h6>
 						<div id="left-menu">
-							<? require 'include/tree.php' ?>
+							<?if($type == "products"):?>
+								<? require 'include/products_tree.php' ?>
+							<?else:?>
+								<? require 'include/categories_tree.php' ?>
+							<?endif;?>
 						</div>
 					</div>
 					<div id="right_col" class="col_8 back">

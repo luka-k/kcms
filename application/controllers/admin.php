@@ -68,16 +68,17 @@ class Admin extends CI_Controller
 			'user_id' => $this->session->userdata('user_id'),
 			'type' => $type,
 			'menu' => $menu
-		);		
+		);	
 		
 		if($type == "products")
 		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
 		}
 		else
 		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
 		}
+		
 		
 		if($id == FALSE)
 		{
@@ -110,11 +111,11 @@ class Admin extends CI_Controller
 		
 		if($type == "products")
 		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
 		}
 		else
 		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
 		}
 		
 		if($id == FALSE)

@@ -376,13 +376,23 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	public function get_sub_tree($parent_id, $parent_id_field)
+	public function get_sub_tree($parent_id, $parent_id_field, $id = FALSE)
 	{
 		$branches = $this->get_list(array($parent_id_field => $parent_id));
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
+			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $id);
+			if ($id <> FALSE)
+			{
+				if(!($this->get_active_class($branches[$i], $id))) $branches[$i]->class = "noactive";
+			}
+			else
+			{
+				$branches[$i]->class = "noactive";
+			}
+			
 		}
+		
 		return $branches;
 	}
 
@@ -390,4 +400,35 @@ class MY_Model extends CI_Model
 	{
 		return $this->get_sub_tree(0, 'root');
 	}
+	
+	private function get_active_class($branch, $id)
+	{		
+		$item = $this->products->get_item_by(array("id" => $id));
+
+		if (empty($item))
+		{
+			if($branch->id == $id)
+			{		
+				$branch->class = "active";
+				return TRUE;
+			}
+			$item = $this->categories->get_item_by(array("id" => $id));
+		}
+		$parent_id = $item->parent_id;
+		while($parent_id <> 0)
+		{
+			if($branch->id == $parent_id)
+			{
+				$branch->class = "active";
+				return TRUE;
+			}
+			else
+			{
+				$item = $this->categories->get_item_by(array("id" => $parent_id));
+				$parent_id = $item->parent_id;
+			}
+		}
+	}
+	
+	
 } 

@@ -1,13 +1,6 @@
 <script>
-	$('ul .up').click(function() {
-		$(this).next().slideToggle().toggleClass('noactive');
-		$(this).toggleClass('up');
-		$(this).toggleClass('down');
-	});
-
-	$('ul .down').click(function() {
-		$(this).next().slideToggle().toggleClass('noactive');
-		$(this).toggleClass('down');
-		$(this).toggleClass('up');
+	$('ul .down-1').mouseover(function() {
+		$(this).next().removeClass('noactive');
+		$(this).next().addClass('active');
 	});
 </script>
