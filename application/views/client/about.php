@@ -74,4 +74,5 @@
 			</div>
 		</div>	
 	</section>	
+<?require_once('include/index-script.php')?>
 <?require_once('include/footer.php')?>

@@ -208,7 +208,7 @@
 											</div>
 										<?endif;?>
 										<div class="proekt-bottom">
-											<div class="time">Срок: <span style="font-size:72px; font-weight:normal;"><?=$work->time['0']?></span> <?=$work->time['1']?></div>
+											<div class="time">Срок: <span style="font-size:72px; font-weight:normal;"><?=$work->time['0']?></span> <?if(isset($work->time['1'])):?><?=$work->time['1']?><?endif;?></div>
 											<div class="price">Стоимость работы: <span style="font-size:72px; font-weight:normal;"><?=$work->price?></span> рублей.</div>
 										</div>
 									</div>

@@ -84,6 +84,13 @@ function validation (element, errorClass) {
    return isError;
 }
 
+function sub_form(){
+	var form = $(this),
+	errorClass = 'frame-input_error';
+				
+	if (validation($("#formpopup-2"), errorClass)) return false;
+	$("#formpopup-2").submit();
+}
 </script>
 
 <script type="text/javascript">

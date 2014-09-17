@@ -280,7 +280,7 @@ class Registration extends CI_Controller
 				if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
 				{
 					$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-					$this->load->view('admin/new-user.php', $data);
+					$this->load->view('registration/new-user.php', $data);
 				} 
 				elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
 				{

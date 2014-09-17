@@ -67,10 +67,9 @@
 				<div style="margin-bottom:10px;">
 					<textarea placeholder="Или напишите о себе" name="about"></textarea>
 				</div>
-				<a href="#" onclick="document.forms['formpopup-2'].submit()" class="btn-3">Отправить</a>
+				<a href="#" onclick="sub();" class="btn-3">Отправить</a>
             </form>
         </div>
-        
     </div>	
 
 </body>

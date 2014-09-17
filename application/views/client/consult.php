@@ -14,16 +14,16 @@
 							<p>Наши клиенты всегда могут связаться с менеджерами «Ремонт-Гаража», чтобы получить необходимые консультации по будущему заказу. Цены, услуги, материалы – поможем информацией и делом.</p>
 						</div>
 					</div>
-					<form action="#contacts" method="post" class="js-form" id="contactform">
-						<div class="content">
+					<div class="content">
+						<form action="" id="form_1" method="post" class="js-form">
 							<input type="text" name="name" data-id="name" placeholder="Имя" data-necessarily="true"/>
 							<input type="text" name="phone" data-id="phone" class="mask" placeholder="Телефон" data-necessarily="true"/>
-							<a href="#callrequest" class="btn-2 fancybox">Получить консультацию</a>
-						</div>
-
-					</form>					
+							<a href="#" class="btn-2" onClick="$('#form_1').submit(); return false;">Получить консультацию</a>
+						</form>
+					</div>			
 				</div>
             </div>
         </div>
     </section>
+<?require_once('include/index-script.php')?>
 <?require_once('include/footer.php')?>
