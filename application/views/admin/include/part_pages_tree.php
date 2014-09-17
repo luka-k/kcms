@@ -1,4 +1,4 @@
-<ul>
+<ul class="tree">
 	<li><a href="<?base_url()?>/admin/pages/">Все страницы</a></li>
 	<?php foreach ($tree as $branch): ?>
 		<li><a href = "<?base_url()?>/admin/pages/<?=$branch->url?>"><?=$branch->title?></a>

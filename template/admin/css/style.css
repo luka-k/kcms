@@ -77,7 +77,7 @@ position:relative;
 padding-bottom: 100px;
 z-index:1;
 }
-
+7
 #left_col, #right_col{
 padding-bottom:1em;
 }
@@ -116,11 +116,12 @@ width:500px;
 }
 
 .tree, .tree ul {
-list-style-type:square;
+list-style-type:none;
+list-style-image:url('../img/option_2.png');
 }
 
 .tree .down, .tree .down-1{
-list-style-type:disc;
+list-style-image:url('../img/option_1.png');
 }
 
 .option-1{
