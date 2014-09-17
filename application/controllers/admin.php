@@ -109,8 +109,6 @@ class Admin extends CI_Controller
 			'editors' => $this->$type->editors
 		);
 		
-		var_dump($data['selects']);
-		
 		if($type == "products")
 		{
 			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
