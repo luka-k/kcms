@@ -102,12 +102,14 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_list(FALSE)
+				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id", $id)
 			),
 			'menu' => $menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
 		);
+		
+		var_dump($data['selects']);
 		
 		if($type == "products")
 		{
@@ -155,12 +157,12 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_list(FALSE)
+				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id", $id)
 			),
-			/*'tree' => $this->categories->get_sub_tree(0, "parent"),*/
 			'menu' => $menu,
 			'editors' => $this->products->editors		
 		);
+		
 		
 		if($type == "products")
 		{
