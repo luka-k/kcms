@@ -8,7 +8,7 @@
 			</option>
 				<?php if(!empty($select->childs)):?>
 					<?php foreach ($select->childs as $select_2): ?>
-						<option class="opt" value="<?=$select_2->id?>" <?php if ($content->$name == $select_2->id):?>selected<?php endif; ?><?php if ($content->id == $select_2->id):?>disabled<?php endif; ?>>
+						<option class="icon-fighter-jet" value="<?=$select_2->id?>" <?php if ($content->$name == $select_2->id):?>selected<?php endif; ?><?php if ($content->id == $select_2->id):?>disabled<?php endif; ?>>
 							<?php if(!empty($select_2->childs)):?>---><?else:?>----<?endif;?>
 							<?=$select_2->title?>
 						</option>
