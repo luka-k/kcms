@@ -1,10 +1,38 @@
 <?require_once('include/head.php')?>    
 <body>
 	<script>
-		function add_item(){
-			$(".add_item").before('<div class="calc-item clearfix"><select class="select-calc"><option>Пункт 1</option><option>Пункт 2</option></select><input type="text" class="input-calc" placeholder=""/><div class="txt-calc"> 20000 руб.</div></div>');
+		var items = [<?foreach($calculator as $i=>$item):?><?= $i > 0 ? ',':''?>"<?=$item->title?>"<?endforeach;?>];
+		var prices = [<?foreach($calculator as $i=>$item):?><?= $i > 0 ? ',':''?><?=$item->price?><?endforeach;?>];
+	
+		function calc()
+		{
+			var sum = 0;
+			$('.select-calc').each(function( index ) {
+				var itemsum = parseInt(parseInt($(this).val())*parseInt($(this).parent().children('.input-calc').val()));
+				if (!isNaN(itemsum))
+				{
+					sum += itemsum;
+					$(this).parent().children('.txt-calc').html(itemsum +' руб.');
+				}
+			});
+			$('.qty').html(sum);
 		}
+	
+		function add_item(){
+			$(".add_block").before('<div class="calc-item clearfix">\
+								<select class="select-calc" onchange="calc()">\
+									<option class="grey">Выберите позицию</option>\
+									<?foreach($calculator as $i=>$item):?><option value="<?= $item->price?>"><?= $item->title?></option><? endforeach ?> \
+								</select>\
+								<input type="text" onchange="calc()" onkeyup="calc()" class="input-calc" placeholder="введите метраж"/>\
+								<div class="txt-calc"> 0 руб.</div>\
+							</div>');
+		}
+		$(document).ready(function(){
+			add_item(); 
+		});
 	</script>
+	
 	<?require_once('include/header.php')?> 
     <section>
         <div class="services clearfix">
@@ -16,31 +44,18 @@
 							<div class="calc-title">Калькулятор ремонта</div>
 						</div>
 						<div class="right-col clearfix">
-							<div class="calc-item clearfix">
-								<select class="select-calc">
-									<option>Пункт 1</option>
-									<option>Пункт 2</option>
-								</select>
-								<input type="text" class="input-calc" placeholder=""/>
-								<div class="txt-calc"> 20000 руб.</div>
-							</div>
 						
-							<div class="clearfix">
-								<select class="select-calc">
-									<option class="grey">Выберите позицию</option>
-									<option>Пункт 1</option>
-									<option>Пункт 2</option>
-								</select>
-								<input type="text" class="input-calc" placeholder="введите метраж"/>
-								<a href="#" class="btn">Рассчитать</a>
-							</div>
-							<div>
-								<a href="#" class="add_item" onclick="add_item()">Добавить позицию</a>
+							<div class="clearfix add_block">
+								<div style="float: left;width: 240px;margin-right: 20px;">
+									<a href="#" class="add_item" onclick="add_item()">Добавить позицию</a>
+								</div>
+								<div style="float: left;width: 240px;height: 30px;margin-right: 20px;"></div>
+								<a href="#" onclick="calc(); return false;" class="btn">Оформить заявку</a>
 							</div>
 						</div>
 					</div>
 					<div class="itogo">
-						ИТОГО: <span class="blue"><span class="qty">20000</span> руб.</span>
+						ИТОГО: <span class="blue"><span class="qty">0</span> руб.</span>
 					</div>
 					<?foreach($calculator as $item):?>
 						<div class="usluga-item clearfix">
@@ -62,9 +77,9 @@
 						</div>
 					<?endforeach;?>
 					<table>
-						<?$counter = 1?>
+						<?$count = 1?>
 						<?foreach($calculator as $item):?>
-							<tr <?if(($counter % 2) == 0):?>class="grey"<?endif;?>>
+							<tr <?if(fmod($count, 2) == 0):?>class="grey"<?endif;?>>
 								<td class="col_1">
 									<?=$item->title?>
 								</td>
@@ -72,12 +87,11 @@
 									<?=$item->price?> руб.
 								</td>
 							</tr>
-							<?$counter++?>
+							<?$count++?>
 						<?endforeach;?>						
 					</table>
 				</div>
             </div>
         </div>
     </section>
-<?require_once('include/index-script.php')?>
 <?require_once('include/footer.php')?>   
