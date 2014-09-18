@@ -19,6 +19,8 @@ class Admin extends CI_Controller
 		{
 			$this->load->view('admin/enter.php', $data);	
 		} 
+		
+		$this->config->load('emails_config');
 	}
 	
 	public function index()
@@ -481,5 +483,48 @@ class Admin extends CI_Controller
 			$this->settings->update(1, $data['settings']);
 		}
 		redirect(base_url().'admin/settings');
+	}
+	
+	/*----------Отправка писем----------*/
+	
+	public function mails()
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'settings');
+		$data = array(
+			'title' => "Редактировать настройки писем",
+			'meta_title' => "Редактировать настройки писем",
+			'error' => " ",
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+			'cat' => $this->categories->get_list(FALSE),
+			'menu' => $menu,
+			'emails' => $this->emails->get_list(FALSE),
+			'select' => $this->config->item('message_type')
+		);
+		
+		$this->load->view('admin/mails.php', $data);
+	}
+	
+	public function edit_mails()
+	{
+		$mails = $this->input->post();
+
+		foreach($mails['type'] as $key => $value)
+		{
+			$emails[$key] = array(
+				"id" => $mails['id'][$key],
+				"type" => $mails['type'][$key],
+				"subject" => $mails['subject'][$key],
+				"description" => $mails['description'][$key],
+			);
+		}
+	
+		foreach($emails as $mail)
+		{
+			$this->emails->update($mail['id'], $mail);
+		}
+		
+		redirect(base_url().'admin/mails');
 	}
 }

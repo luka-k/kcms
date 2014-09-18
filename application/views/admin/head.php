@@ -13,29 +13,7 @@
 		<!--FANCYBOX-->
 		<script type="text/javascript" src="<?=base_url()?>template/admin/fancybox/source/jquery.fancybox.js"></script>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/fancybox/source/jquery.fancybox.css" media="all" />
-		
-		<script type="text/javascript">
-			tinymce.init({
-				selector: "textarea",
-				language : 'ru',
-				plugins:[
-					"advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste",
-				],
-				toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-			});
-		
-			$('ul .up').click(function() {
-				$(this).next().slideToggle().toggleClass('noactive');
-				$(this).toggleClass('up');
-				$(this).toggleClass('down');
-			});
-
-			$('ul .down').click(function() {
-				$(this).next().slideToggle().toggleClass('noactive');
-				$(this).toggleClass('down');
-				$(this).toggleClass('up');
-			});
-		</script>
+	
 		
 <script type="text/javascript">
 	$(document).ready(function() {
