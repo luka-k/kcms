@@ -37,20 +37,34 @@
     <section>
         <div class="services clearfix">
             <div class="wrap">
-				<div class="content">
-					<div class="title">Услуги и цены</div>
+				<div class="content clearfix">
+					<div class="left">
+						<div class="title">Услуги и цены</div>
+						<table>
+						<?$count = 1?>
+						<?foreach($calculator as $item):?>
+							<tr <?if(fmod($count, 2) == 0):?>class="grey"<?endif;?>>
+								<td class="col_1">
+									<?=$item->title?>
+								</td>
+								<td class="col_2">
+									<?=$item->price?> руб.
+								</td>
+							</tr>
+							<?$count++?>
+						<?endforeach;?>						
+					</table>
+					</div>
+					<div class="right">
 					<div class="clearfix">
-						<div class="left-col">
-							<div class="calc-title">Калькулятор ремонта</div>
-						</div>
-						<div class="right-col clearfix">
-						
+						<div class="calc-title">Калькулятор ремонта</div>
+						<div class="clearfix">
 							<div class="clearfix add_block">
 								<div style="float: left;width: 240px;margin-right: 20px;">
 									<a href="#" class="add_item" onclick="add_item()">Добавить позицию</a>
 								</div>
 								<div style="float: left;width: 240px;height: 30px;margin-right: 20px;"></div>
-								<a href="#" onclick="calc(); return false;" class="btn">Оформить заявку</a>
+								<!--<a href="#" onclick="calc(); return false;" class="btn">Оформить заявку</a>-->
 							</div>
 						</div>
 					</div>
@@ -76,20 +90,7 @@
 							</div>
 						</div>
 					<?endforeach;?>
-					<table>
-						<?$count = 1?>
-						<?foreach($calculator as $item):?>
-							<tr <?if(fmod($count, 2) == 0):?>class="grey"<?endif;?>>
-								<td class="col_1">
-									<?=$item->title?>
-								</td>
-								<td class="col_2">
-									<?=$item->price?> руб.
-								</td>
-							</tr>
-							<?$count++?>
-						<?endforeach;?>						
-					</table>
+					</div>
 				</div>
             </div>
         </div>
