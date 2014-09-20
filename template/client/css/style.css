@@ -206,13 +206,13 @@ text-align:center;
 }
 
 .nav ul li.first{
-padding:6px 40px 8px 0px;
+padding:7px 40px 8px 0px;
 text-align:left;
 text-transform:none;
 }
 
 .nav ul li.last{
-padding:6px 0px 8px 40px;
+padding:7px 0px 8px 40px;
 text-align:right;
 text-transform:none;
 }
