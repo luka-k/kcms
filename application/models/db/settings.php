@@ -6,6 +6,8 @@ class Settings extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'site_title' => array('Название сайта', 'text'),
+			'admin_email' => array('e-mail Администратора', 'text'),
+			'admin_name' => array('Имя Администратора', 'text'),
 			'site_offline' => array('Сайт выключен', 'checkbox'),
 			'offline_text' => array('Оффлайн сообщение', 'text')
 		),

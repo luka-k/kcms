@@ -174,7 +174,14 @@ class Registration extends CI_Controller
 						'error' => ""
 					);	
 					
-					$this->load->view('admin/enter.php', $data);				
+					if($email->role == "admin")
+					{
+						redirect(base_url().'admin');
+					}
+					else
+					{
+						redirect(base_url().'pages/cart');
+					}				
 				}
 			} 
 			else
@@ -220,15 +227,23 @@ class Registration extends CI_Controller
 			$email = $this->users->get_item_by(array('email' => $user_email));
 			$this->users->update($email->id, array('secret' => ""));			
 
-			$subject = 'Ваш новый пароль от сайта';
-			$message = 'Ваш новый пароль от сайта -'. $password;
-			$this->mail->send_mail($user_email, $subject, $message);
-			$data = array(
-				'meta_title' => "Вход",
-				'error' => " ",
+			$message_info = array(
+				"user_name" => $email->name,
+				"login" => $email->email,
+				"password" => $this->input->post('password')
 			);
+				
+			$this->emails->send_mail($email->email, 'change_password', $message_info);			
 		}
-		$this->load->view('admin/enter.php', $data);	
+
+		if($email->role == "admin")
+		{
+			redirect(base_url().'admin');
+		}
+		else
+		{
+			redirect(base_url().'pages/cart');
+		}	
 	}
 		
 	//Пользователи
@@ -415,6 +430,8 @@ class Registration extends CI_Controller
 			'editors' => $editors,
 			'content' => $user
 		);
+		
+		
 		$this->load->view('client/register_user.php', $data);		
 	}
 	
@@ -425,7 +442,7 @@ class Registration extends CI_Controller
 		$editors = $this->users->new_editors;
 		$post = $this->input->post();
 		
-		$content = editors_post($editors, $post);	
+		$content = editors_post($editors, $post);
 		$content->password = md5($content->password);
 
 		$data = array(
@@ -466,15 +483,18 @@ class Registration extends CI_Controller
 			} 
 			else 
 			{	
+				$pass = $content->conf_password;
 				unset($data['content']->conf_password);
 				$data['content']->role = "customer";
 				$this->users->insert($data['content']);
 				
-				$settings = $this->settings->get_item_by(array("id" => 1));
-				$subject = 'Регистрация в интернет-магазине '.$settings->site_title;
-				$message = 'Благодарим Вас за регистрацию в интернет-магазине '.$settings->site_title;
+				$message_info = array(
+					"user_name" => $content->name,
+					"login" => $content->email,
+					"password" => $pass
+				);
 				
-				$this->mail->send_mail($data['content']->email, $subject, $message);
+				$this->emails->send_mail($content->email, 'registration', $message_info);				
 				
 				if($this->users->login($content->email, $content->password))
 				{

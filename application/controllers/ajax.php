@@ -8,6 +8,7 @@ class Ajax extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->config->load('order_config');
 	}
 
 	function index()
@@ -73,6 +74,20 @@ class Ajax extends CI_Controller {
 			"$info->type" => $info->value
 		);
 		$this->orders->update($item['order_id'], $item);
+		
+		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
+		$status_id = $this->config->item('order_status');
+		
+		foreach($status_id as $key => $value)
+		{
+			if ($order->status_id == $key) $status = $value;
+		}
+		$message_info = array(
+			"order_id" => $info->order_id,
+			"user_name" => $order->user_name,
+			"order_status" => $status
+		);
+		$this->emails->send_mail($order->user_email, 'change_order_status', $message_info);
 		
 		switch ($info->type) 
 		{

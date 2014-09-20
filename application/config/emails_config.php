@@ -9,5 +9,11 @@ $config['message_type'] = array(
 	"callback" => "Обратный звонок"
 );
 
+$config['replace'] = array(
+	"%ORDER_ID%" => "Номер заказа",
+	"%USER_NAME%" => "Имя заказчика",
+	"%CART%" => "Содержимое корзины"
+);
+
 /* End of file emails_config.php */
 /* Location: ./application/config/emails_config.php */
