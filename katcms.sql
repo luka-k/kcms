@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 15 2014 г., 13:44
+-- Время создания: Сен 21 2014 г., 00:08
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -105,7 +105,33 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('e2eb6c19299f9f0fd69ceefcd63d666c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1410774161, 'a:4:{s:7:"user_id";s:2:"30";s:9:"user_name";s:10:"Павел";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
+('b0052e0c2a73dde5ad4c5237a22e125e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1411243522, 'a:5:{s:4:"role";s:5:"admin";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `emails`
+--
+
+CREATE TABLE IF NOT EXISTS `emails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `emails`
+--
+
+INSERT INTO `emails` (`id`, `type`, `subject`, `description`) VALUES
+(1, 'admin_order', 'Новый заказ', 'Кллиент  %user_name% оформил заказ № %order_id%.'),
+(2, 'customer_order', 'Заказ %order_id% в интернет магазине', 'Менеджер свяжется с Вами %user_name%.'),
+(3, 'change_order_status', 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%'),
+(4, 'registration', 'Регистрация в магазине', '%user_name%, спасибо за регистрацию в нашем магазине. \r\nВаш логин %login%\r\nВаш пароль %password%'),
+(5, 'change_password', 'Ваш пароль изменен', '%user_name%, Ваш пароль в интернет магазине изменен.\r\nНовые данный доступа\r\nВаш логин %login%\r\nВаш пароль %password%'),
+(6, 'callback', 'Заказан обратный звонок', '');
 
 -- --------------------------------------------------------
 
@@ -195,14 +221,60 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
-(2, '5416af6567a16', '', 'pavel', 'pavel@pavel.ru', '8-950-123-45-67', 'Happy stree 123-45-67', 121, 2, 1, '2014-09-15 00:00:00', 1);
+(2, '5416af6567a16', '30', 'pavel', 'pavel@pavel.ru', '8-950-123-45-67', 'Happy stree 123-45-67', 121, 2, 1, '2014-09-15 00:00:00', 1),
+(5, '541743b1a99e7', '', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 6030, 1, 2, '2014-09-15 00:00:00', 1),
+(6, '54174443e307d', '', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 1206, 2, 2, '2014-09-15 00:00:00', 1),
+(7, '5417e385077c9', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 281, 1, 1, '2014-09-16 00:00:00', 1),
+(8, '541db4347ed9d', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-20 00:00:00', 1),
+(9, '541db4ddd16db', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(10, '541db5005e4f5', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(11, '541db51e619b6', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(12, '541db53743179', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(13, '541db546bf92d', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(14, '541db5baec884', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(15, '541dc1bc2ef7e', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(16, '541dc1d7698cd', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(17, '541dc1fe350e9', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(18, '541dc22b81920', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(19, '541dc6c009284', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(20, '541dc6e971427', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(21, '541dc708ba96a', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(22, '541dc744604b1', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(23, '541dc7649144f', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(24, '541dc770880d7', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(25, '541dc77fc7fd8', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(26, '541dc8385d43d', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(27, '541dc85beba42', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(28, '541dc85f35431', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(29, '541dc8a98e1f2', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(30, '541dc8d489ae7', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(31, '541dc8ffe4b83', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(32, '541dc91a4b21b', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(33, '541dc938c985d', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(34, '541dc955a836a', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(35, '541dc9a374677', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(36, '541dca466e151', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(37, '541dca64938b7', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(38, '541dca73eae7a', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(39, '541dca9a6a0b1', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(40, '541dcc9292f95', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-20 00:00:00', 1),
+(41, '541dce0197e62', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-20 00:00:00', 1),
+(42, '541dce64370d3', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(43, '541dce83e0c93', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(44, '541dceaae21ef', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(45, '541dceb497212', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(46, '541dcf032e38d', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(47, '541dcf802b554', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(48, '541dcfaa25784', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(49, '541dcfc304720', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 0, 1, 1, '2014-09-20 00:00:00', 1),
+(50, '541dd19d4515c', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 160, 2, 2, '2014-09-20 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -218,14 +290,22 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `orders_products`
 --
 
 INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(2, '5416af6567a16', 14, 'Товар 1 категории 1', '120.6', 1);
+(2, '5416af6567a16', 14, 'Товар 1 категории 1', '120.6', 1),
+(3, '541743b1a99e7', 14, 'Товар 1 категории 1', '120.6', 50),
+(4, '54174443e307d', 14, 'Товар 1 категории 1', '120.6', 10),
+(5, '5417e385077c9', 14, 'Товар 1 категории 1', '120.6', 1),
+(6, '5417e385077c9', 15, 'Товар 2 категории 1', '160.2', 1),
+(7, '541db4347ed9d', 14, 'Товар 1 категории 1', '120.6', 1),
+(8, '541dcc9292f95', 14, 'Товар 1 категории 1', '120.6', 1),
+(9, '541dce0197e62', 14, 'Товар 1 категории 1', '120.6', 1),
+(10, '541dd19d4515c', 15, 'Товар 2 категории 1', '160.2', 1);
 
 -- --------------------------------------------------------
 
@@ -303,6 +383,8 @@ INSERT INTO `products` (`id`, `parent_id`, `is_active`, `title`, `price`, `meta_
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_email` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_offline` int(11) DEFAULT '0',
@@ -317,8 +399,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Пробный сайт', 'Описание пробного сайта', 'сайт, пробный сайт', 0, '', 2, 6, 1);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
+(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Описание пробного сайта', 'сайт, пробный сайт', 0, '', 2, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -337,15 +419,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `role`, `secret`) VALUES
-(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', '', ''),
-(30, 'Павел', 'fae0b27c451c728867a567e8c1bb4e53', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 'customer', '');
+(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', 'admin', ''),
+(30, 'Павел', 'fae0b27c451c728867a567e8c1bb4e53', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 'customer', ''),
+(31, 'Стас', 'fae0b27c451c728867a567e8c1bb4e53', 'stas@stas.ru', '8-950-123-45-67', 'food street 1-23-456', 'customer', ''),
+(32, 'Вася', 'fae0b27c451c728867a567e8c1bb4e53', 'stasic@stas.ru', '8-950-123-45-67', 'food street 1-23-456', 'customer', ''),
+(33, 'Василий', '698d51a19d8a121ce581499d7b701668', 'vasja@loh.ru', '8-950-65-65', 'food street', 'customer', ''),
+(34, 'Василек', 'bcbe3365e6ac95ea2c0343a2395834dd', 'vasja-2@loh.ru', '8-950-65-65', 'food street', 'customer', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
