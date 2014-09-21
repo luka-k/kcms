@@ -11,9 +11,9 @@
 						<?if(isset($orders_info)):?>
 						<div class="col_12">
 							Показать: 
-							<a href="<?=base_url()?>order/orders" class="button small">Все</a>
+							<a href="<?=base_url()?>admin/orders" class="button small">Все</a>
 							<?foreach($selects['status_id'] as $key => $item):?>
-								<a href="<?=base_url()?>order/orders/<?=$key?>" class="button small"><?=$item?></a>
+								<a href="<?=base_url()?>admin/orders/<?=$key?>" class="button small"><?=$item?></a>
 							<?endforeach;?>
 						</div>
 						<table>

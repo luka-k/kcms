@@ -14,8 +14,11 @@ class Admin extends CI_Controller
 			'meta_title' => "Вход",
 			'error' => " "
 		);
+		
+		$user = $this->session->userdata('logged_in');
+		$role = $this->session->userdata('role');
 
-		if (!$this->session->userdata('logged_in'))
+		if (!$user or $role <> "admin")
 		{
 			$this->load->view('admin/enter.php', $data);	
 		} 
@@ -485,6 +488,71 @@ class Admin extends CI_Controller
 		redirect(base_url().'admin/settings');
 	}
 	
+	/*----------Вывод заказов в админку----------*/
+	
+	public function orders($filter = FALSE)
+	{
+		$this->config->load('order_config');
+		
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'orders');
+		
+		$delivery_id = $this->config->item('method_delivery');
+		$payment_id = $this->config->item('method_pay');
+		
+		switch ($filter) 
+		{
+			case FALSE:	$orders = $this->orders->get_list(FALSE);
+			break;
+			case 1: $orders = $this->orders->get_list(array("status_id" => 1));
+			break;
+			case 2: $orders = $this->orders->get_list(array("status_id" => 2));
+			break;
+			case 3: $orders = $this->orders->get_list(array("status_id" => 3));
+			break;
+			case 4: $orders = $this->orders->get_list(array("status_id" => 4));
+			break;
+		}	
+		
+		$orders_info = array();
+		foreach ($orders as $key => $order)
+		{	
+			$orders_info[$key] = new stdClass();	
+			
+			$date = new DateTime($order->date);
+
+			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
+			
+			$orders_info[$key] = (object)array(
+				"order_id" => $order->order_id,
+				"status_id" => $order->status_id,
+				"order_products" => $order_items,
+				"delivery_id" => $order->delivery_id,
+				"payment_id" => $order->payment_id,
+				"order_date" => date_format($date, 'Y-m-d'),
+				"name" => $order->user_name,
+				"phone" => $order->user_phone,
+				"email" => $order->user_email,
+				"address" => $order->user_address
+			);
+			
+		}
+		
+		$data = array(
+			'title' => "Заказы",			
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+			'orders_info' => array_reverse($orders_info),
+			'selects' => array(
+				'delivery_id' => $this->config->item('method_delivery'),
+				'payment_id' => $this->config->item('method_pay'),
+				'status_id' => $this->config->item('order_status')
+			),
+			'menu' => $menu
+		);		
+		$this->load->view('admin/orders.php', $data);
+	}
+	
 	/*----------Отправка писем----------*/
 	
 	public function mails()
@@ -527,4 +595,162 @@ class Admin extends CI_Controller
 		
 		redirect(base_url().'admin/mails');
 	}
+
+	/*-----------Пользователи----------*/
+	public function users()
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
+		$data = array(
+			'title' => "Пользователи",
+			'meta_title' => "Пользователи",
+			'error' => "",
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+			'tree' => $this->parts->get_list(FALSE),
+			'menu' => $menu,
+			'users' => $this->users->get_list(FALSE)
+		);	
+		$this->load->view('admin/users.php', $data);	
+	}
+	
+	//Информация о пользователе
+	public function user($id = FALSE)
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
+		$data = array(
+			'title' => "Редактировать пользователя",
+			'meta_title' => "Редактировать пользователя",
+			'error' => "",
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+			'menu' => $menu,
+			'tree' => $this->parts->get_sub_tree(0, "parent_id")				
+		);
+			
+		if ($id == FALSE)
+		{
+			//Если id нет выводи пустую форму для долбавления пользователя
+			$data['editors'] = $this->users->new_editors;
+			$user = new stdClass();
+			foreach ($data['editors'] as $tabs)
+			{
+				foreach ($tabs as $item => $value)
+				{
+					$user->$item = "";
+				}
+			}
+			$data['content'] = $user;
+			$this->load->view('admin/new-user.php', $data);
+		}
+		else
+		//Если id не пустой выводим инфу о пользователе
+		{
+			$data['editors'] = $this->users->editors;
+			$data['content'] = $this->users->get_item_by(array('id' => $id));
+			$data['content']->secret = md5($this->config->item('allowed_types'));
+			$this->users->update($id, array('secret' => $data['content']->secret));
+			$data['content']->password = NULL;
+			$this->load->view('admin/user.php', $data);
+		}
+	}
+	
+	/*Изменение данных пользователя*/
+	public function edit_user($id = FALSE)
+	{
+		$menu = $this->menus->admin_menu;
+		$menu = $this->menus->set_active($menu, 'users');
+		$data = array(
+			'title' => "Редактировать пользователя",
+			'meta_title' => "Редактировать пользователя",
+			'error' => "",
+			'name' => $this->session->userdata('user_name'),
+			'user_id' => $this->session->userdata('user_id'),
+			'menu' => $menu,
+			'tree' => $this->parts->get_sub_tree(0, "parent_id")			
+		);
+			
+		if ($id == NULL)
+		{
+			$editors = $this->users->new_editors;
+			$post = $this->input->post();
+		
+			$data['content'] = editors_post($editors, $post);	
+			$data['content']->password = md5($data['content']->password);
+			$data['editors'] = $editors;
+
+			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+					
+			$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
+			$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+					
+			//Валидация формы
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/new-user.php', $data);			
+			}
+			else
+			{	
+				//Если id пустой то добавляем нового пользователя
+				if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+				{
+					$data['error'] ="Пользователь с таким именем уже зарегистрирован";
+					$this->load->view('admin/new-user.php', $data);
+				} 
+				elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+				{
+					$data['error'] ="Такой email уже зарегистрирован";
+					$this->load->view('admin/new-user.php', $data);					
+				} 
+				else 
+				{	
+					$this->users->insert($data['content']);
+					redirect(base_url().'admin/users');
+				}
+			}						
+		}
+		else
+		{
+			$editors = $this->users->editors;
+			$post = $this->input->post();
+		
+			$data['content'] = editors_post($editors, $post);			
+			$data['editors'] = $editors;
+
+			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+					
+			//Валидация формы
+			if($this->form_validation->run() == FALSE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/user.php', $data);			
+			}
+			else
+			{					
+				//Если id не пустой обновляем не пустые поля
+				foreach($data['content'] as $field=>$value)
+				{
+					if ($value <> NULL)
+					{
+						$this->db->set($field, $value);
+					}
+				}
+				$this->users->update($data['content']->id);
+				redirect(base_url().'admin/users');
+			}
+		}	
+	}
+	
+	//Удаление пользователя
+	public function delete_user($id)
+	{
+		if($this->users->delete($id))
+		{
+			redirect(base_url().'admin/users');
+		}	
+	}	
 }
