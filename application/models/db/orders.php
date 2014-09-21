@@ -21,7 +21,23 @@ class Orders extends MY_Model
         parent::__construct();
 		$this->load->database();
 	}
-	
+
+	function update($id, $data = FALSE)
+	{
+		if (!$id)
+		{	
+			return FALSE;
+		}
+		
+		if ($data)
+		{
+			$this->db->where($this->_primary_key, $id)->update($this->_table, $data);
+		}
+		else
+		{
+			$this->db->where($this->_primary_key, $id)->update($this->_table);
+		}
+	}	
 	
 }
 
