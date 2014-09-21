@@ -69,11 +69,11 @@ class Ajax extends CI_Controller {
 	public function change_field()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+		$order_id = $info->order_id;
 		$item = array(
-			"order_id" => $info->order_id,
-			"$info->type" => $info->value
+			"{$info->type}" => $info->value
 		);
-		$this->orders->update($item['order_id'], $item);
+		$this->orders->update($order_id, $item);
 		
 		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
 		$status_id = $this->config->item('order_status');

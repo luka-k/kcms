@@ -9,15 +9,22 @@
 					<div class="col_12">
 						<h5>Заказы</h5>
 						<?if(isset($orders_info)):?>
+						<div class="col_12">
+							Показать: 
+							<a href="<?=base_url()?>order/orders" class="button small">Все</a>
+							<?foreach($selects['status_id'] as $key => $item):?>
+								<a href="<?=base_url()?>order/orders/<?=$key?>" class="button small"><?=$item?></a>
+							<?endforeach;?>
+						</div>
 						<table>
 							<thead>
-								<th width="7%">Id</th>
+								<th width="10%">Id</th>
 								<th width="10%">Статус</th>
 								<th width="30%">Товары</th>
 								<th width="10%">Способ оплаты</th>
 								<th width="10%">Способ доставки</th>
 								<th width="5%">Дата</th>
-								<th width="15%">Контанты</th>
+								<th width="25%">Контанты</th>
 							</thead>
 							<tbody>
 								<?foreach ($orders_info as $order_item):?>

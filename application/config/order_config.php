@@ -12,8 +12,8 @@ $config['method_delivery'] = array(
 $config['order_status'] = array(
 	"1" => "Новый",
 	"2" => "Подтвержден",
-	"5" => "Доставлен",
-	"7" => "Отменен"
+	"3" => "Доставлен",
+	"4" => "Отменен"
 );
 
 $config['method_pay'] = array(

@@ -67,7 +67,7 @@ class Order extends CI_Controller
 		redirect(base_url().'pages/cart');		
 	}
 	
-	public function orders($filtr = FALSE)
+	public function orders($filter = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'orders');
@@ -75,7 +75,19 @@ class Order extends CI_Controller
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
-		$orders = $this->orders->get_list(FALSE);
+		switch ($filter) 
+		{
+			case FALSE:	$orders = $this->orders->get_list(FALSE);
+			break;
+			case 1: $orders = $this->orders->get_list(array("status_id" => 1));
+			break;
+			case 2: $orders = $this->orders->get_list(array("status_id" => 2));
+			break;
+			case 3: $orders = $this->orders->get_list(array("status_id" => 3));
+			break;
+			case 4: $orders = $this->orders->get_list(array("status_id" => 4));
+			break;
+		}	
 		
 		$orders_info = array();
 		foreach ($orders as $key => $order)
@@ -83,7 +95,7 @@ class Order extends CI_Controller
 			$orders_info[$key] = new stdClass();	
 			
 			$date = new DateTime($order->date);
-			
+
 			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
 			
 			$orders_info[$key] = (object)array(
@@ -105,7 +117,7 @@ class Order extends CI_Controller
 			'title' => "Заказы",			
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'orders_info' => $orders_info,
+			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay'),
