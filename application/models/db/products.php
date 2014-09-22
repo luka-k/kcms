@@ -30,11 +30,13 @@ class Products extends MY_Model
 	
 	public function get_url($url)
 	{
-		$this->full_url = NULL;
+		$this->categories->full_url = NULL;
 		$item = $this->products->get_item_by(array("url" => $url));
+		
 		$this->categories->make_full_url($item);
-		$this->full_url[] = base_url();
-		$full_url = implode("/", array_reverse($this->full_url));
+		
+		$this->categories->full_url[] = base_url();
+		$full_url = implode("/", array_reverse($this->categories->full_url));
 		return $full_url;		
 	}
 	

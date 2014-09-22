@@ -46,7 +46,7 @@ class Catalog extends CI_Controller {
 		{
 			if(isset($category->product))
 			{
-				$content = $this->products->get_item_by(array("url" => $category->product->url));			
+				$content = $this->products->get_item_by(array("url" => $category->product->url));
 				$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
 				$template = "client/page.php";
 			}
