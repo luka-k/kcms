@@ -4,7 +4,7 @@
             <div class="wrap">
                 <div class="content">
                     <div class="logo">
-                        <a href="<?=base_url()?>main"><img src="<?=base_url()?>template/client/images/logo.png" alt="" /></a>
+                        <a href="<?=base_url()?>"><img src="<?=base_url()?>template/client/images/logo.png" alt="" /></a>
                     </div>
                     <div class="phone">
                         <span class="ph"><span class="ph-style">+7 (921)</span> 123-45-67</span>
