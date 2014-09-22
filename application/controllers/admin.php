@@ -504,6 +504,9 @@ class Admin extends CI_Controller
 		{
 			case FALSE:	$orders = $this->orders->get_list(FALSE);
 			break;
+			case "by_order_id": $order_id = $this->input->post("order_id");
+			$orders = $this->orders->get_list(array("order_id" => $order_id));
+			break;
 			case 1: $orders = $this->orders->get_list(array("status_id" => 1));
 			break;
 			case 2: $orders = $this->orders->get_list(array("status_id" => 2));

@@ -9,13 +9,17 @@
 					<div class="col_12">
 						<h5>Заказы</h5>
 						<?if(isset($orders_info)):?>
-						<div class="col_12">
-							Показать: 
-							<a href="<?=base_url()?>admin/orders" class="button small">Все</a>
-							<?foreach($selects['status_id'] as $key => $item):?>
-								<a href="<?=base_url()?>admin/orders/<?=$key?>" class="button small"><?=$item?></a>
-							<?endforeach;?>
+						<div class="col_12 clerfix">
+							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/orders/by_order_id"/>
+								Найти по номеру заказа <input type="text" name="order_id" onchange="document.forms['form1'].submit()"/>&nbsp;
+								Показать со статусом: 
+								<a href="<?=base_url()?>admin/orders">Все</a>&nbsp;
+								<?foreach($selects['status_id'] as $key => $item):?>
+									<a href="<?=base_url()?>admin/orders/<?=$key?>"><?=$item?></a>&nbsp;
+								<?endforeach;?>
+							</form>
 						</div>
+						</br>
 						<table>
 							<thead>
 								<th width="10%">Id</th>
@@ -27,8 +31,9 @@
 								<th width="25%">Контанты</th>
 							</thead>
 							<tbody>
+								<?$counter = 1?>
 								<?foreach ($orders_info as $order_item):?>
-									<tr>
+									<tr <?if(($counter%2) == 0):?>class = "grey"<?endif;?>>
 										<td><?=$order_item->order_id?></td>
 										<td>
 											<select id="status_id"  name="status_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
@@ -86,6 +91,7 @@
 										</td>
 
 									</tr>
+								<?$counter++?>
 								<?endforeach;?>
 							</tbody>
 						</table>
