@@ -84,13 +84,16 @@ class Admin extends CI_Controller
 			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
 		}
 		
+		$order = "sort";
+		$direction = "asc";
+		
 		if($id == FALSE)
 		{
-			$data['content'] = $this->$type->get_list(FALSE);
+			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(array("parent_id" => $id));
+			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 		}
 		$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 		$this->load->view('admin/items.php', $data);

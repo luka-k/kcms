@@ -109,4 +109,16 @@ class Ajax extends CI_Controller {
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}	
+	
+	public function sortable(){
+		$post = $this->input->post();
+		
+		foreach($post as $type => $items)
+		{
+			foreach ($items as $key => $id)
+			{
+				$this->$type->update($id, array("sort" => $key));
+			}
+		}
+	}
 }

@@ -19,8 +19,25 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/fancybox/source/jquery.fancybox.css" media="all" />
 		
 		<script type="text/javascript">			
+			//$(function() {
+			//	$("#sortable").sortable();
+			//});
+			
+
 			$(function() {
-				$("#sortable").sortable();
+			$('#sortable').sortable({
+				axis: 'y',
+				update: function (event, ui) {
+					var data = $(this).sortable('serialize');
+					alert(data);
+					// POST to server using $.post or $.ajax
+					$.ajax({
+						data: data,
+						type: 'POST',
+						url: '/ajax/sortable'
+					});
+				}
+			});
 			});
 		</script>
 	

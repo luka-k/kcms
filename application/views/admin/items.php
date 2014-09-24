@@ -35,9 +35,10 @@
 							<tbody id="sortable">
 								<?$count = 1?>
 								<?php foreach ($content as $item): ?>
-									<tr>
+									<tr id="<?=$type?>-<?=$item->id?>">
 										<td class="tb_1"><?=$count?></td>
 										<td class="tb_2">
+											<?=$type?>-<?=$item->id?>
 											<?if($item->img <> NULL):?>
 												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 											<?endif;?>
