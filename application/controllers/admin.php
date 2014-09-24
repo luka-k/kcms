@@ -65,7 +65,7 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
-
+		
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
@@ -83,7 +83,6 @@ class Admin extends CI_Controller
 		{
 			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
 		}
-		
 		
 		if($id == FALSE)
 		{
@@ -107,7 +106,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id", $id)
+				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'type' => $type,
@@ -153,8 +152,6 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
-		
-		$post = $this->input->post();
 	
 		$data = array(
 			'title' => "Редактировать страницу каталога",
@@ -162,7 +159,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id", $post['id'])
+				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'editors' => $this->products->editors		

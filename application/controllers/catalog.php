@@ -25,6 +25,7 @@ class Catalog extends CI_Controller {
 
 		if ($category == FALSE)
 		{
+			echo "fuck";
 			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 			$settings = $this->settings->get_item_by(array('id' => 1));
 			$data = array(
