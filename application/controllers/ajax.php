@@ -102,9 +102,10 @@ class Ajax extends CI_Controller {
 	public function change_sort()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+		$type = $info->type;
 		$item_id = $info->item_id;
 		$sort = $info->sort;
-		$this->categories->update($item_id, array("sort" => $sort));
+		$this->$type->update($item_id, array("sort" => $sort));
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}	

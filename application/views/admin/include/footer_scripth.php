@@ -1,8 +1,9 @@
 
 
 <script>
-	function change_sort(item_id, sort){
+	function change_sort(type, item_id, sort){
 		data = new Object();
+		data.type = type;
 		data.item_id = item_id;
 		data.sort = sort;
 		var json_str = JSON.stringify(data);
