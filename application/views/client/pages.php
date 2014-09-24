@@ -7,6 +7,13 @@
 		<div class="wrap col_12 clearfix">
 			<div id="main_content" class="col_8 clearfix">
 				<?require 'include/breadcrumbs.php'?> 
+				<div class="col_12">
+					Сортировать: 
+					<a href="<?=$url?>.html?order=title&direction=asc">по возрастанию имени</a>&nbsp;
+					<a href="<?=$url?>.html?order=title&direction=desc">по убыванию имени</a>&nbsp;
+					<a href="<?=$url?>.html?order=sort&direction=asc">по возрастанию sort</a>&nbsp;
+					<a href="<?=$url?>.html?order=sort&direction=desc">по убыванию sort</a>&nbsp;				
+				</div>
 				<?foreach($content as $page):?>
 						<div class="cat-item col_4">
 							<h6><a href="<?=$page->full_url?>"><?=$page->title?></a></h6>

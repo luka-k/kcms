@@ -9,6 +9,9 @@ class Catalog extends CI_Controller {
 	
 	public function index()
 	{
+		$url = base_url().uri_string();
+		$order = $this->input->get('order');
+		$direction = $this->input->get('direction');
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		$menu = $this->menus->top_menu;
 		$menu = $this->menus->set_active($menu, 'catalog');
@@ -22,7 +25,7 @@ class Catalog extends CI_Controller {
 
 		if ($category == FALSE)
 		{
-			$content = $this->categories->get_list(array("parent_id" => 0));
+			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 			$settings = $this->settings->get_item_by(array('id' => 1));
 			$data = array(
 				'title' => $settings->site_title,
@@ -36,6 +39,7 @@ class Catalog extends CI_Controller {
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
 				'menu' => $menu,
+				'url' => $url,
 				'user' => $user
 			);
 			$data['content'] = $this->images->get_img_list($data['content'], 'categories', 'catalog_mid');
@@ -52,10 +56,10 @@ class Catalog extends CI_Controller {
 			}
 			else
 			{
-				$content = $this->categories->get_list(array("parent_id" => $category->id));
+				$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 				if($content == NULL)
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id));
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 					$content = $this->images->get_img_list($content, 'products', 'catalog_mid');	
 					$content = $this->products->get_urls($content);
 					$template = "client/pages.php";
@@ -79,11 +83,11 @@ class Catalog extends CI_Controller {
 					'total_price' => $total_price,
 					'total_qty' => $total_qty,
 					'menu' => $menu,
+					'url' => $url,
 					'user' => $user
 				);				
 			$this->load->view($template, $data);
 		}
-	
 	}
 }
 

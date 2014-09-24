@@ -1,6 +1,18 @@
 
 
 <script>
+	function change_sort(item_id, sort){
+		data = new Object();
+		data.item_id = item_id;
+		data.sort = sort;
+		var json_str = JSON.stringify(data);
+		$.post ("/ajax/change_sort/", json_str, update_items, "json");
+	}
+	
+	function update_items(res){
+
+	}
+
 	$('ul .down-1').mouseover(function() {
 		$(this).next().removeClass('noactive');
 		$(this).next().addClass('active');

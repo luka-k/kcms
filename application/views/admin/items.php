@@ -26,7 +26,8 @@
 							<thead>
 								<tr>
 									<th class="tb_1">Номер</th>
-									<th class="tb_3">Фотография</th>
+									<th class="tb_2">Фотография</th>
+									<th class="tb_1">Сортировка</th>
 									<th class="tb_6">Имя</th>
 									<th class="tb_2">Действие</th>
 								</tr>
@@ -36,11 +37,12 @@
 								<?php foreach ($content as $item): ?>
 									<tr>
 										<td class="tb_1"><?=$count?></td>
-										<td class="tb_3">
+										<td class="tb_2">
 											<?if($item->img <> NULL):?>
 												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 											<?endif;?>
-										</td>									
+										</td>
+										<td class="tb_1"><input type="text" size="5" value="<?=$item->sort?>" onchange="change_sort('<?=$item->id?>', this.value);"/></td>
 										<td class="tb_6"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
 										<td class="tb_2"><a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>

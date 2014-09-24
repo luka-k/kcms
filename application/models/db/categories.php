@@ -8,6 +8,7 @@ class Categories extends MY_Model
 			'title' => array('Заголовок', 'text'),
 			'parent_id' => array('Родительская категория', 'select'),
 			'is_active' => array('Активен', 'checkbox'),
+			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
