@@ -10,14 +10,18 @@
 		<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/kickstart.js"></script>    	
 		<script type="text/javascript" src="<?=base_url()?>template/admin/js/tinymce/tinymce.min.js"></script>
 		
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
+		
 		<!--FANCYBOX-->
 		<script type="text/javascript" src="<?=base_url()?>template/admin/fancybox/source/jquery.fancybox.js"></script>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/fancybox/source/jquery.fancybox.css" media="all" />
-	
 		
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".fancybox").fancybox();
-	});
-</script>
+		<script type="text/javascript">			
+			$(function() {
+				$("#sortable").sortable();
+			});
+		</script>
+	
 	</head>

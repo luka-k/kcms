@@ -12,6 +12,7 @@
 							<? require 'include/part_pages_tree.php' ?>
 						</div>
 					</div>
+					
 					<div id="right_col" class="col_8 back">
 						<h6 class="col_8 left">Редактировать страницы</h6> 
 						<div class="col_4 right">
