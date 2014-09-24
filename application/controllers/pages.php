@@ -65,7 +65,8 @@ class Pages extends CI_Controller {
 		$post = $this->input->post();
 		if ($_FILES['resume']['error'] <> 4)
 		{
-			$file_url = $this->files->upload_file($_FILES['resume']);
+			$file_name = $this->files->upload_file($_FILES['resume']);
+			$file_url = $this->files->get_url($file_name);
 		}
 		
 		$admin_email = $this->config->item('admin_email');
