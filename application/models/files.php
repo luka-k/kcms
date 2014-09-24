@@ -7,7 +7,6 @@ class Files extends MY_Model
 	{
         parent::__construct();
 		$this->load->database();
-		
 		$this->config->load('upload_config');
 	}
 	
@@ -25,7 +24,12 @@ class Files extends MY_Model
 		{
 			return FALSE;
 		}
+		return $file_name;
+	}
+	
+	public function get_url($file_name)
+	{
 		$file_url = "download/files".make_upload_path($file_name).$file_name;
-		return $file_url;
+		return $file_url;		
 	}
 }

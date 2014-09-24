@@ -93,9 +93,6 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			/*'selects' => array(
-				'parent_id' =>$this->categories->get_list(FALSE)
-			),*/
 			'menu' => $menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
@@ -461,6 +458,16 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'settings');
+		
+		$content = $this->settings->get_item_by(array('id' => 1));
+		if ($content->file <> "")
+		{
+			$content->file = (object)array(
+				"url" => $this->files->get_url($content->file),
+				"name" => $content->file
+			);
+		}
+		
 		$data = array(
 			'title' => "Настройки сайта",
 			'meta_title' => "Настройки сайта",
@@ -468,7 +475,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
-			'content' => $this->settings->get_item_by(array('id' => 1)),
+			'content' => $content,
 			'menu' => $menu,
 			'editors' => $this->settings->editors
 		);
@@ -491,7 +498,6 @@ class Admin extends CI_Controller
 		
 		$editors = $this->settings->editors;
 		$post = $this->input->post();
-		
 		$data['settings'] = editors_post($editors, $post);
 
 		//Валидация формы
@@ -506,6 +512,18 @@ class Admin extends CI_Controller
 		{
 			$this->settings->update(1, $data['settings']);
 		}
+		if ((isset($_FILES['file']))&&($_FILES['file']['error'] <> 4))
+		{	
+			$file_url = $this->files->upload_file($_FILES['file']);
+			$this->settings->update(1, array("file" => $file_url));
+		}		
+		redirect(base_url().'admin/settings');
+	}
+	
+	public function delete_file($file_name)
+	{
+		unlink(FCPATH."/".$this->files->get_url($file_name));
+		$this->settings->update(1, array("file" => ""));
 		redirect(base_url().'admin/settings');
 	}
 }

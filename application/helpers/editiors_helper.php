@@ -14,6 +14,10 @@ function editors_post($editors, $post)
 					{
 						$data->$key = 0;
 					}
+					elseif ($value[1] == 'file')
+					{
+						break;
+					}
 					else
 					{
 						$data->$key = htmlspecialchars($post[$key]);	
