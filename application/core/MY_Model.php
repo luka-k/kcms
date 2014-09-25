@@ -376,23 +376,14 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	public function get_sub_tree($parent_id, $parent_id_field, $id = FALSE)
+	public function get_sub_tree($parent_id, $parent_id_field)
 	{
 		$branches = $this->get_list(array($parent_id_field => $parent_id));
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $id);
-			if ($id <> FALSE)
-			{
-				if(!($this->get_active_class($branches[$i], $id))) $branches[$i]->class = "noactive";
-			}
-			else
-			{
-				$branches[$i]->class = "noactive";
-			}
-			
-		}
-		
+			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
+			if(!($this->get_active_class($branches[$i]))) $branches[$i]->class = "noactive";
+		}		
 		return $branches;
 	}
 
@@ -401,32 +392,45 @@ class MY_Model extends CI_Model
 		return $this->get_sub_tree(0, 'root');
 	}
 	
-	private function get_active_class($branch, $id)
-	{		
-		$item = $this->products->get_item_by(array("id" => $id));
-
-		if (empty($item))
+	private function get_active_class($branch)
+	{	
+		$type = $this->uri->segment(2);
+		$base = $this->uri->segment(3);
+		$id = $this->uri->segment(4);
+		
+		if(($type == "item")and($base == "products"))
 		{
-			if($branch->id == $id)
-			{		
-				$branch->class = "active";
-				return TRUE;
-			}
-			$item = $this->categories->get_item_by(array("id" => $id));
+			$item = $this->products->get_item_by(array("id" => $id));
+			$active_branch[] = $item->parent_id;
 		}
-		$parent_id = $item->parent_id;
-		while($parent_id <> 0)
+		else
 		{
-			if($branch->id == $parent_id)
+			$item = $this->get_item_by(array("id" => $id));
+			$active_branch[] = $id;
+		}
+		if (!empty($item))
+		{
+			$active_branch[] = $item->parent_id;
+			$parent_id = $item->parent_id;
+			while($parent_id <> 0)
 			{
-				$branch->class = "active";
-				return TRUE;
-			}
-			else
-			{
-				$item = $this->categories->get_item_by(array("id" => $parent_id));
+				$item = $this->get_item_by(array("id" => $parent_id));
+				$active_branch[] = $item->parent_id;
 				$parent_id = $item->parent_id;
+			}	
+
+			foreach($active_branch as $element)
+			{
+				if($branch->id == $element)
+				{
+					$branch->class = "active";
+					return TRUE;
+				}
 			}
+		}	
+		else
+		{
+			return FALSE;
 		}
 	}
 	

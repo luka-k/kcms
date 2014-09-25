@@ -84,8 +84,16 @@ class Admin extends CI_Controller
 			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
 		}
 		
-		$order = "sort";
-		$direction = "asc";
+		if($type == "parts")
+		{
+			$order = FALSE;
+			$direction = FALSE;
+		}
+		else
+		{
+			$order = "sort";
+			$direction = "asc";
+		}
 		
 		if($id == FALSE)
 		{
