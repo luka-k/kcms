@@ -13,5 +13,8 @@
 		<!--FANCYBOX-->
 		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.js"></script>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/client/fancybox/source/jquery.fancybox.css" media="all" />
+		
+
+	
 	</head>
 	<body>

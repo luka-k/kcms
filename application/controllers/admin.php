@@ -77,11 +77,11 @@ class Admin extends CI_Controller
 		
 		if($type == "products")
 		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}
 		else
 		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
+			$data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($type == "parts")

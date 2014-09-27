@@ -32,7 +32,7 @@ class Catalog extends CI_Controller {
 				'meta_title' => $settings->site_title,
 				'meta_keywords' => $settings->site_keywords,
 				'meta_description' => $settings->site_description,
-				'tree' => $this->categories->get_sub_tree(0, "parent_id"),
+				'tree' => $this->categories->get_tree(0, "parent_id"),
 				'content' => $content,
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'cart' => $cart,
@@ -76,7 +76,7 @@ class Catalog extends CI_Controller {
 					'meta_title' => $category->meta_title,
 					'meta_keywords' => $category->meta_keywords,
 					'meta_description' => $category->meta_description,
-					'tree' => $this->categories->get_sub_tree(0, "parent_id"),
+					'tree' => $this->categories->get_tree(0, "parent_id"),
 					'content' => $content,
 					'breadcrumbs' => $this->breadcrumbs->get(),
 					'cart' => $cart,
@@ -85,7 +85,7 @@ class Catalog extends CI_Controller {
 					'menu' => $menu,
 					'url' => $url,
 					'user' => $user
-				);				
+				);		
 			$this->load->view($template, $data);
 		}
 	}
