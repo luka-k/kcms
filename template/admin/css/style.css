@@ -120,7 +120,7 @@ list-style-type:none;
 list-style-image:url('../img/option_2.png');
 }
 
-.tree .down, .tree .down-1{
+.tree .down, .tree  .down-1{
 list-style-image:url('../img/option_1.png');
 }
 

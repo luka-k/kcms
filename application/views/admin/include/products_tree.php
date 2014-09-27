@@ -1,5 +1,6 @@
 <h6>Страницы по категориям</h6>
 <ul class="tree">
+	<li><a href="<?=base_url()?>/admin/items/<?=$type?>">Все страницы</a></li>
 	<?php foreach ($tree as $branch_1): ?>
 		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>/admin/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->title?></a>
 			<?php if(!empty($branch_1->childs)):?>

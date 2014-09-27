@@ -14,9 +14,9 @@
 
 	}
 
-	$('ul .down-1').mouseover(function() {
-		$(this).next().removeClass('noactive');
-		$(this).next().addClass('active');
+	$('ul .down a').mouseover(function() {
+		$(this).next('ul').removeClass('noactive');
+		$(this).next('ul').addClass('active');
 	});
 	
 	tinymce.init({
