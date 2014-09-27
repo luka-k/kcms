@@ -39,7 +39,7 @@
 									<th class="tb_2">Действие</th>
 								</tr>
 							</thead>
-							<tbody id="sortable">
+							<tbody <?if(isset($sortable)):?> id="sortable" <?endif?>>
 							
 								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
 								

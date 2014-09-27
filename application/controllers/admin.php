@@ -102,6 +102,7 @@ class Admin extends CI_Controller
 		else
 		{
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['sortable'] = TRUE;
 		}
 		$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 		$this->load->view('admin/items.php', $data);
@@ -309,7 +310,8 @@ class Admin extends CI_Controller
 			{
 				$page->part_url = $part_url;
 				$data['pages'][] = $page;
-			}				
+			}	
+			$data['sortable'] = TRUE;			
 		}
 		$this->load->view('admin/pages.php', $data);
 	}

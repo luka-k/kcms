@@ -27,12 +27,12 @@
 								<tr>
 									<th class="tb_1">Номер</th>
 									<th class="tb_2">Фотография</th>
-									<th class="tb_1">Сортировка</th>
-									<th class="tb_6">Имя</th>
+									<!--<th class="tb_1">Сортировка</th>-->
+									<th class="tb_7">Имя</th>
 									<th class="tb_2">Действие</th>
 								</tr>
 							</thead>
-							<tbody id="sortable">
+							<tbody <?if(isset($sortable)):?> id="sortable"<?endif?>>
 								<?$count = 1?>
 								<?php foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
@@ -42,12 +42,12 @@
 												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 											<?endif;?>
 										</td>
-										<td class="tb_1">
+										<!--<td class="tb_1">
 											<?if(isset($item->sort)):?>
 												<input type="text" size="5" value="<?=$item->sort?>" onchange="change_sort('<?=$type?>', '<?=$item->id?>', this.value);"/>
 											<?endif;?>
-										</td>
-										<td class="tb_6"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
+										</td>-->
+										<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
 										<td class="tb_2"><a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?$count++?>
