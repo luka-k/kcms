@@ -9,13 +9,27 @@ class Menus extends MY_Model
     function __construct()
 	{
         parent::__construct();
+		$total_price = "0";
 		$this->top_menu = array(
-			"main" => array("Главная", base_url(), "0"),
-			"news" => array("Новости", base_url()."pages/news", "0"),
-			"catalog" => array("Каталог", base_url()."catalog", "0"),
-			"blog" => array("Блог", base_url()."pages/blog", "0"),
+			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."pages/news", "0"),
+			"help" => array("Help", base_url()."pages/news", "0"),
+			"sitemap" => array("Sitemap", base_url()."catalog", "0"),
+			"contact_us" => array("Contact us", base_url()."pages/blog", "0"),
+			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total_price'></span> €</span>", base_url()."pages/blog", "0"),
+			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/blog", "0"),
 		);	
-
+		
+		$this->footer_menu = array(
+			"home" => array("Home", base_url(), "0"),
+			"catologue" => array("Catologue", base_url()."catalog", "0"),
+			"order_and_delivery" => array("Order and Delivery", base_url()."catalog", "0"),
+			"contact_us" => array("Contact us", base_url()."pages/blog", "0"),
+			"about_us" => array("About us", base_url()."pages/blog", "0"),
+			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."pages/news", "0"),
+			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total_price'></span> €</span>", base_url()."pages/blog", "0"),
+			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/blog", "0"),
+		);	
+		
 		$this->admin_menu = array(
 			'main' => array("Главная", base_url()."admin/admin_main", 0),
 			'parts' => array('Разделы', "#", 0, array(

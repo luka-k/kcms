@@ -13,19 +13,20 @@ class Catalog extends CI_Controller {
 		$order = $this->input->get('order');
 		$direction = $this->input->get('direction');
 		$this->breadcrumbs->Add("catalog", "Каталог");
-		$menu = $this->menus->top_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
+		$top_menu = $this->menus->top_menu;
+		$footer_menu = $this->menus->footer_menu;
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$category = $this->url_model->url_parse(2);
-		
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
 
 		if ($category == FALSE)
 		{
-			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+			//$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+			$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+			//var_dump($content);
 			$settings = $this->settings->get_item_by(array('id' => 1));
 			$data = array(
 				'title' => $settings->site_title,
@@ -38,12 +39,13 @@ class Catalog extends CI_Controller {
 				'cart' => $cart,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
-				'menu' => $menu,
+				'top_menu' => $top_menu,
+				'footer_menu' => $footer_menu,
 				'url' => $url,
 				'user' => $user
 			);
-			$data['content'] = $this->images->get_img_list($data['content'], 'categories', 'catalog_mid');
-			$content = $this->categories->get_urls($data['content']);
+			$data['content'] = $this->images->get_img_list($data['content'], 'products', 'catalog_small');
+			$content = $this->products->get_urls($data['content']);
 			$this->load->view('client/categories.php', $data);			
 		}
 		else
@@ -62,7 +64,7 @@ class Catalog extends CI_Controller {
 					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 					$content = $this->images->get_img_list($content, 'products', 'catalog_mid');	
 					$content = $this->products->get_urls($content);
-					$template = "client/pages.php";
+					$template = "client/categories.php";
 				}
 				else
 				{
@@ -77,12 +79,14 @@ class Catalog extends CI_Controller {
 					'meta_keywords' => $category->meta_keywords,
 					'meta_description' => $category->meta_description,
 					'tree' => $this->categories->get_tree(0, "parent_id"),
+					'category' => $category,
 					'content' => $content,
 					'breadcrumbs' => $this->breadcrumbs->get(),
 					'cart' => $cart,
 					'total_price' => $total_price,
 					'total_qty' => $total_qty,
-					'menu' => $menu,
+					'top_menu' => $top_menu,
+					'footer_menu' => $footer_menu,
 					'url' => $url,
 					'user' => $user
 				);		

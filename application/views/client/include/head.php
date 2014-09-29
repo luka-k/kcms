@@ -1,20 +1,27 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="generator" content="" />
+		
 		<title><?=$title?></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="keywords" content="<?=$meta_keywords?>" />
-		<meta name="description" content="<?=$meta_description?>" />
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/client/css/kickstart.css" media="all" />		<!-- KICKSTART -->
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/client/css/style.css" media="all" />			<!-- CUSTOM STYLES -->
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/kickstart.js"></script>    	
-		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/cart.js"></script>   
 		
-		<!--FANCYBOX-->
-		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.js"></script>
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/client/fancybox/source/jquery.fancybox.css" media="all" />
+		<link href="<?=base_url()?>template/client/favicon.ico" rel="shortcut icon" type="" />
 		
-
+		<link rel="stylesheet" href="<?=base_url()?>template/client/css/template.css" type="text/css" />
+		<link rel="stylesheet" href="<?=base_url()?>template/client/css/stylesheet.css" type="text/css" />
+		<link rel="stylesheet" href="<?=base_url()?>template/client/css/gallery.css" type="text/css"/>
 	
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery-migrate.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+	
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
 	</head>
+	
 	<body>

@@ -31,10 +31,13 @@ class Ajax extends CI_Controller {
 			"price" => $product->price,
 			"qty" => 1
 		);
-		$this->cart->insert($cart_item);
+		$cart_item_id = $this->cart->insert($cart_item);
 		
+		$item = $this->cart->get($cart_item_id);
+		$data['item_qty'] = $item['qty'];
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
+		$data['cart_item_id'] = $cart_item_id;
 		
 		echo json_encode($data);
 	}
@@ -96,6 +99,13 @@ class Ajax extends CI_Controller {
 			case "delivery_id": $data['message'] = "Способ доставки изменен"; break;
 		}
 		
+		echo json_encode($data);
+	}
+	
+	public function cart()
+	{
+		$data['total_qty'] = $this->cart->total_qty();
+		$data['total_price'] = $this->cart->total_price();
 		echo json_encode($data);
 	}
 	

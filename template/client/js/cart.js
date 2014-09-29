@@ -22,7 +22,14 @@ function delete_item(item_id){
 }
 
 function update_items(res){		
-	$('#total_qty').text(res['total_qty']);
-	$('#total_price').text(res['total_price']);
+	$('.total_qty').text(res['total_qty']);
+	$('.total_price').text(res['total_price']);
+	$('.qty-'+res['cart_item_id']).text(res['item_qty']);
 	$('#'+item_id).text(res['item_total']);
 }
+
+jQuery(document).ready(function($){
+	data = new Object();
+	var json_str = JSON.stringify(data);
+	$.post ("/ajax/cart/", json_str, update_items, "json");	
+});

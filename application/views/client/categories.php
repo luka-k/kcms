@@ -1,68 +1,50 @@
-<? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12 clearfix">
-			<div id="main_content" class="col_8 clearfix">
-				<?require 'include/breadcrumbs.php'?> 
-				<div class="col_12">
-					Сортировать: 
-					<a href="<?=$url?>.html?order=title&direction=asc">по возрастанию имени</a>&nbsp;
-					<a href="<?=$url?>.html?order=title&direction=desc">по убыванию имени</a>&nbsp;
-					<a href="<?=$url?>.html?order=sort&direction=asc">по возрастанию sort</a>&nbsp;
-					<a href="<?=$url?>.html?order=sort&direction=desc">по убыванию sort</a>&nbsp;				
-				</div>
-				<?foreach($content as $category):?>
-					<div class="cat-item col_4">
-						<h6><a href="<?=$category->full_url?>"><?=$category->title?></a></h6>
-						<?if($category->img <> NULL):?>
-							<div>
-								<a href="<?=$category->full_url?>">
-									<img src="<?=$category->img->url?>" />
-								</a>
-							</div>
-						<?endif;?>
-						<div><?=$category->description?></div>
-					</div>
-				<?endforeach;?>
-			</div>
-			<div class="col_4">
-				<?if($user <> false):?>
-					<div class="col_12">
-						<div class="col_6">
-							<a href="<?=base_url()?>/registration/cabinet">Личный кабинета</a>
-						</div>
-						<div class="col_6">
-							<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
-						</div>
-					</div>
-				<?else:?>
-					<div class="col_12">
-						<h5>Войти</h5>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter/"/>
-							<input type="text" name="login" placeholder="Логин"/></br></br>
-							<input type="password" name="password" placeholder="Пароль"/></br></br>
-							<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
-						</form>
-						<div class="col_6">
-							<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
-						</div>
-						<div class="col_6">
-							<a href="<?=base_url()?>registration/forgot_password/">Забыли пароль?</a>
-						</div>
+<?require_once 'include/head.php'?>
+
+	<div id="parent" class="clearfix">
+		<?require_once 'include/header.php'?>
+		
+		<div id="breadcrumbs"><a href="">Home</a> > Synapse Syndicate</div>
+		<div id="wrapper">
+			<?require_once 'include/left_col.php'?>
+			<div id="main-content">
+				<?if(isset($category)):?>
+					<div class="title"><?=$category->title?></div>
+					<div id="content">
+						<?=$category->description?>
 					</div>
 				<?endif;?>
-				
-				<div class="cart">
-					<h5>Корзина</h5>
-					В корзине <?=$total_qty?> товаров.<br/>
-					На сумму <?=$total_price?><br/>
-					<a href="<?=base_url()?>/pages/cart">Оформить заказ</a>
+				<div class="title">CATOLOGUE</div>
+				<div id="catologue">
+					<?foreach($content as $item):?>
+						<section>
+							<a href="<?=$item->full_url?>"><img src="<?=$item->img->url?>" alt=""/></a>
+							<div class="price">9&euro;</div>
+							<div class="fig_name"><?=$item->title?></div><br/><br/>
+							<div class="add_to">	
+								add to: <a href="#" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$item->id?>'); return false">cart</a><a href="">wish list</a>
+							</div>
+						</section>						
+					<?endforeach;?>
 				</div>
-				<h5>Каталог продукции</h5>
-				<? require 'include/tree.php' ?>
 			</div>
+			<?require_once 'include/right_col.php'?>
 		</div>
-	</div>
-<? require 'include/footer.php' ?>
+		<?require_once 'include/footer.php'?>
+	</div>	
+	
+<script>
+$('ul .up').click(function() {
+$(this).next().slideToggle().toggleClass('noactive');
+$(this).toggleClass('up');
+$(this).toggleClass('down');
+});
+
+$('ul .down').click(function() {
+$(this).next().slideToggle().toggleClass('noactive');
+$(this).toggleClass('down');
+$(this).toggleClass('up');
+});
+</script>
+
+  </body>
+</html>

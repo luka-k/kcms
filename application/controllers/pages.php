@@ -57,7 +57,8 @@ class Pages extends CI_Controller {
 	
 	public function cart()
 	{
-		$menu = $this->menus->top_menu;		
+		$top_menu = $this->menus->top_menu;		
+		$footer_menu = $this->menus->footer_menu;
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
@@ -77,7 +78,9 @@ class Pages extends CI_Controller {
 				'method_delivery' => $this->config->item('method_delivery'),
 				'method_pay' => $this->config->item('method_pay')
 			),
-			'menu' => $menu,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'user' => $user
 		);
 		$this->load->view('client/cart.php', $data);

@@ -24,7 +24,7 @@ class CI_Cart {
 	{
 		if (isset($items['id']))
 		{
-			$this->insert_item($items);
+			$item_id = $this->insert_item($items);
 		}
 		elseif(is_array($items))
 		{
@@ -41,6 +41,7 @@ class CI_Cart {
 			return FALSE;
 		}
 		$this->safe_cart();
+		return $item_id;
 	}
 	
 	public function insert_item($item = array())
@@ -63,6 +64,7 @@ class CI_Cart {
 			$item['item_total'] = ($item['price'] * $item['qty']);
 			$this->cart_contents['items'][$item_id] = $item;
 		}
+		return $item_id;
 	}
 	
 	public function update($item = array())

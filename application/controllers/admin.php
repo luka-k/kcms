@@ -118,7 +118,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
+				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'type' => $type,
@@ -127,11 +127,11 @@ class Admin extends CI_Controller
 		
 		if($type == "products")
 		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}
 		else
 		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
+			$data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($id == FALSE)
@@ -171,7 +171,7 @@ class Admin extends CI_Controller
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
+				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'editors' => $this->products->editors		
@@ -180,11 +180,11 @@ class Admin extends CI_Controller
 		
 		if($type == "products")
 		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}
 		else
 		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
+			$data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 					
 		$editors = $this->$type->editors;
