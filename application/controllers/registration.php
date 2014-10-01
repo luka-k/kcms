@@ -30,7 +30,7 @@ class Registration extends CI_Controller
 		
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));			
-		$authdata = $this->users->login($email, $password);
+		$authdata = $this->users->login($email, $password, 'admin');
 
 		if (!$authdata['logged_in'])
 		{

@@ -8,6 +8,7 @@ class Settings extends MY_Model
 			'site_title' => array('Название сайта', 'text'),
 			'admin_email' => array('e-mail Администратора', 'text'),
 			'admin_name' => array('Имя Администратора', 'text'),
+			'shipping' => array('Стоимость доставки', 'text'),
 			'site_offline' => array('Сайт выключен', 'checkbox'),
 			'offline_text' => array('Оффлайн сообщение', 'text')
 		),

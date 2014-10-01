@@ -5,10 +5,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Ajax extends CI_Controller {
 
+	var $shipping;
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->config->load('order_config');
+		
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		$this->shipping = $settings->shipping;
 	}
 
 	function index()
@@ -37,7 +42,7 @@ class Ajax extends CI_Controller {
 		$data['item_qty'] = $item['qty'];
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
-		$data['shipping'] = 6;
+		$data['shipping'] = $this->shipping;
 		$data['total'] = $data['total_price'] + $data['shipping'];
 		$data['cart_item_id'] = $cart_item_id;
 		
@@ -56,7 +61,7 @@ class Ajax extends CI_Controller {
 		$data['item_total'] = $items[$info->item_id]['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();	
-		$data['shipping'] = 6;
+		$data['shipping'] = $this->shipping;
 		$data['total'] = $data['total_price'] + $data['shipping'];	
 		$data['cart_item_id'] =	$info->item_id;		
 		echo json_encode($data);
@@ -71,7 +76,7 @@ class Ajax extends CI_Controller {
 		
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();	
-		$data['shipping'] = 6;
+		$data['shipping'] = $this->shipping;
 		$data['total'] = $data['total_price'] + $data['shipping'];		
 		echo json_encode($data);
 	}
@@ -113,7 +118,7 @@ class Ajax extends CI_Controller {
 	{
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
-		$data['shipping'] = 6;
+		$data['shipping'] = $this->shipping;
 		if($data['total_price'] == 0)
 		{
 			$data['total'] = 0;
