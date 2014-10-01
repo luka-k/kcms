@@ -673,11 +673,19 @@ td
   color:#843a36;
   cursor:pointer;
   }
+    
+.freak_link:hover{
+text-decoration:underline;
+}
   
-.freak_link:hover
-  {
-  text-decoration:underline;
-  }
+.disable{
+color:#998e7e;
+cursor:default;
+}
+
+.disable:hover{
+text-decoration:none;
+}
   
 #right
   {

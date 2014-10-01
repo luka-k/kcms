@@ -7,8 +7,6 @@ class Orders extends MY_Model
 			'id' => array('id', 'hidden'),
 			'customer_id' => array('customer_id', 'hidden'),
 			'order_total' => array('Сумма заказа', 'hidden'),
-			'method_delivery' => array('Способ доставки', 'select'),
-			'method_pay' => array('Способ оплаты', 'select'),
 			'order_date' => array('Дата заказа', 'hidden'),
 			'order_status' => array('Статус', 'select')
 		),

@@ -112,6 +112,7 @@ class Pages extends CI_Controller {
 						$cart[$item_id]['img'] = $this->images->get_images(array("object_id" => $item['id'], "object_type" => "products"), "1");
 						$cart[$item_id]['img']->url = $this->images->get_url($cart[$item_id]['img']->url, 'catalog_small');
 					}
+					$data['cart'] = $cart;
 				}
 				$this->load->view('client/cart.php', $data);
 				break;
