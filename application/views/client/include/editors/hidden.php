@@ -1,1 +1,1 @@
-<input type="<?=$edit['1']?>" name="<?=$name?>" id="lbl_<?=$editors_counter?>" value="<?=$content->$name?>"/>
+<input type="<?=$edit['1']?>" name="<?=$name?>" id="lbl_<?=$editors_counter?>" value="<?=$name?>"/>

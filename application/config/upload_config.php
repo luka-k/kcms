@@ -4,13 +4,14 @@ $config['upload_path'] = FCPATH.'download/images';
 
 $config['thumb_config'] = array(
 	"catalog_big" => array(
-		'w' => 640,
-		'h' => 640,
-		'wp' => 640,
-		'hp' => 640,
+		'w' => 800,
+		'h' => 800,
+		'wp' => 800,
+		'hp' => 800,
 		"zc" => "l",
 		"bg" => "ffffff"
 	),
+	
 	"catalog_mid" => array(
 		'w' => 320,
 		'h' => 320,
@@ -19,6 +20,7 @@ $config['thumb_config'] = array(
 		"zc" => "l",
 		"bg" => "ffffff"	
 	),
+	
 	"catalog_small" => array(
 		'w' => 120,
 		'h' => 120,
@@ -26,10 +28,17 @@ $config['thumb_config'] = array(
 		'hp' => 120,
 		"zc" => "l",
 		"bg" => "ffffff"	
+	),
+	
+	"slider" => array(
+		'w' => 834,
+		'h' => 144,
+		'wp' => 834,
+		'hp' => 144,
+		"zc" => "l",
+		"bg" => "ffffff"	
 	)
 );
-
-
 
 
 /*$config['allowed_types'] = 'gif|jpg|png|jpeg';

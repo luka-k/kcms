@@ -263,7 +263,7 @@ class Admin extends CI_Controller
 	{
 		if($this->$type->delete($category_id))
 		{
-			redirect(base_url().'admin/items'.$type);
+			redirect(base_url().'admin/items/'.$type);
 		}
 	}
 	
@@ -280,7 +280,7 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
+			'tree' => $this->parts->get_tree(0, "parent_id"),
 			'parts' => $this->parts->get_list(FALSE),
 			'menu' => $menu
 		);
@@ -327,7 +327,7 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
+			'tree' => $this->parts->get_tree(0, "parent_id"),
 			'menu' => $menu
 		);
 		
@@ -345,13 +345,19 @@ class Admin extends CI_Controller
 				}
 			}
 			$page->is_active = "1";
-			$data['content'] = $page;			
+			$data['content'] = $page;
+			$data['content']->img = NULL;			
 		}
 		else
 		//Если url категории и id страницы не пуст выводим инфу страницы из базы
 		{
 			$data['editors'] = $this->$part_url->editors;
 			$data['content'] = $this->$part_url->get_item_by(array('id' => $id));
+			$object_info = array(
+				"object_type" => $part_url,
+				"object_id" => $data['content']->id
+			);
+			$data['content']->img = $this->images->get_images($object_info);	
 		}
 		$data['content']->part_url = $part_url;
 		$this->load->view('admin/edit_page.php', $data);
@@ -367,7 +373,7 @@ class Admin extends CI_Controller
 			'error' => " ",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),	
+			'tree' => $this->parts->get_tree(0, "parent_id"),	
 			'menu' => $menu
 		);
 					
@@ -375,8 +381,19 @@ class Admin extends CI_Controller
 		$post = $this->input->post();
 		
 		$data['page'] = editors_post($editors, $post);
-			
-		$data['page']->date = date("d.m.Y");
+		
+		$object_info = array(
+			"object_type" => $part_url,
+			"object_id" => $data['page']->id
+		);
+		
+		$cover_id = $this->input->post("cover_id");
+		
+		if ($cover_id <> NULL)
+		{
+			$this->images->set_cover($object_info, $cover_id);
+		}
+		
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
 		
@@ -397,9 +414,8 @@ class Admin extends CI_Controller
 					
 				if($this->$part_url->non_requrrent($fields))
 				{
-					$data['page']->url = slug($data['page']->title);
+					//$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
-					redirect(base_url().'admin/pages');
 				}
 				else
 				{
@@ -410,8 +426,12 @@ class Admin extends CI_Controller
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$data['page']->url = slug($data['page']->url);
+				//$data['page']->url = slug($data['page']->url);
 				$this->$part_url->update($data['page']->id, $data['page']);
+			}
+			if ($_FILES['pic']['error'] <> 4)
+			{
+				$this->images->upload_image($_FILES['pic'], $object_info);
 			}
 			if($exit == false)
 			{
@@ -435,14 +455,14 @@ class Admin extends CI_Controller
 	
 	/*--------------Удаление изображения-------------*/
 	
-	public function delete_img($object_type, $id)
+	public function delete_img($type, $object_type, $id)
 	{
 		$object_info = array(
 			"object_type" => $object_type,
 			"id" => $id
 		);
 		$cat_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/item/'.$object_type."/".$cat_id);
+		redirect(base_url().'admin/'.$type.'/'.$object_type."/".$cat_id);
 	}
 		
 	/*------------Редактирование настроек------------*/

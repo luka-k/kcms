@@ -11,11 +11,11 @@ class Menus extends MY_Model
         parent::__construct();
 		$total_price = "0";
 		$this->top_menu = array(
-			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."pages/news", "0"),
+			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."registration/register_user", "0"),
 			"help" => array("Help", base_url()."pages/news", "0"),
 			"sitemap" => array("Sitemap", base_url()."catalog", "0"),
 			"contact_us" => array("Contact us", base_url()."pages/blog", "0"),
-			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total_price'></span> €</span>", base_url()."pages/blog", "0"),
+			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total'></span> €</span>", base_url()."pages/cart", "0"),
 			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/blog", "0"),
 		);	
 		
@@ -26,7 +26,7 @@ class Menus extends MY_Model
 			"contact_us" => array("Contact us", base_url()."pages/blog", "0"),
 			"about_us" => array("About us", base_url()."pages/blog", "0"),
 			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."pages/news", "0"),
-			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total_price'></span> €</span>", base_url()."pages/blog", "0"),
+			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total'></span> €</span>", base_url()."pages/cart", "0"),
 			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/blog", "0"),
 		);	
 		

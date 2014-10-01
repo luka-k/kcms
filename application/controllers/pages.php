@@ -15,6 +15,9 @@ class Pages extends CI_Controller {
 		$menu = $this->menus->top_menu;
 		$menu = $this->menus->set_active($menu, $url_part);
 		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		
 		$news_info = $this->parts->get_item_by(array('url' => $url_part));
 			
 		$breadcrumbs = array(
@@ -50,27 +53,34 @@ class Pages extends CI_Controller {
 			'content' => array_reverse($items),
 			'breadcrumbs' => $breadcrumbs,
 			'pagination' => $pagination,
-			'menu' => $menu
+			'menu' => $menu,
+			'slider' => $slider
 		);
 		$this->load->view('client/'.$url_part.'.php', $data);		
 	}
 	
-	public function cart()
+	public function cart($step = 1, $error = 0)
 	{
 		$top_menu = $this->menus->top_menu;		
 		$footer_menu = $this->menus->footer_menu;
-		$cart = $this->cart->get_all();
-		$total_price = $this->cart->total_price();
-		$total_qty = $this->cart->total_qty();
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
 		
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
+		
+		$cart = $this->cart->get_all();
+		
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
 	
 		$data = array(
-			'title' => "Корзина",
+			'title' => "Cart",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'error' => '',
 			'cart' => $cart,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
@@ -80,10 +90,40 @@ class Pages extends CI_Controller {
 			),
 			'top_menu' => $top_menu,
 			'footer_menu' => $footer_menu,
+			'slider' => $slider,
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'user' => $user
 		);
-		$this->load->view('client/cart.php', $data);
+		
+		if ($error == 1)
+		{
+			$data['error'] = "Данные не верны. Повторите ввод.";
+			$this->load->view('client/cart_registration.php', $data);
+		}
+		else
+		{
+			switch($step){
+				case 1:		
+				if (isset($cart))
+				{
+					foreach($cart as $item_id => $item)
+					{
+						$product = $this->products->get_item_by(array("id" => $item['id']));
+						$cart[$item_id]['img'] = $this->images->get_images(array("object_id" => $item['id'], "object_type" => "products"), "1");
+						$cart[$item_id]['img']->url = $this->images->get_url($cart[$item_id]['img']->url, 'catalog_small');
+					}
+				}
+				$this->load->view('client/cart.php', $data);
+				break;
+				case 2:
+				$this->load->view('client/cart_registration.php', $data);
+				case 3:
+				$this->load->view('client/cart_address.php', $data);
+				case 4:
+				$this->load->view('client/cart_payment.php', $data);
+			}
+		}
+		
 	}
 }
 

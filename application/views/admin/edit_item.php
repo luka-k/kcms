@@ -94,7 +94,7 @@
 														<td class="tb_1"><?=$counter?></td>
 														<td class="tb_5"><img src="<?=base_url()?>download/images/catalog_small<?=$img_item->url?>"/></td>
 														<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
-														<td class="tb_2"><a href="<?=base_url()?>admin/delete_img/products/<?=$img_item->id?>">Удалить</a></td>
+														<td class="tb_2"><a href="<?=base_url()?>admin/delete_img/item/products/<?=$img_item->id?>">Удалить</a></td>
 													</tr>
 													<?$counter++?>
 												<?endforeach?>

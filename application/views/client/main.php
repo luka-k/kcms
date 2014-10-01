@@ -20,59 +20,16 @@
 				
 				<div class="title">CATOLOGUE</div>
 				<div id="catologue">
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
-					
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
-				
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
-					
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
-					
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
-					
-					<section>
-						<a href=""><img src="<?php echo base_url()?>template/client/images/ronin/ronin1.jpg" alt=""/></a>
-						<div class="price">9 &euro;</div>
-						<div class="fig_name">NAME</div><br/><br/>
-						<div class="add_to">
-							add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;">cart</a><a href="">wish list</a>
-						</div>
-					</section>
+					<?foreach($content as $item):?>
+						<section>
+							<a href="<?=$item->full_url?>"><img src="<?=$item->img->url?>" alt=""/></a>
+							<div class="price">9&euro;</div>
+							<div class="fig_name"><?=$item->title?></div><br/><br/>
+							<div class="add_to">	
+								add to: <a href="#" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$item->id?>'); return false">cart</a><a href="">wish list</a>
+							</div>
+						</section>						
+					<?endforeach;?>
 				</div>
 			</div>
 			
@@ -81,20 +38,5 @@
 		</div>
 		<?require_once 'include/footer.php'?>
 	</div>	
-
-<script>
-$('ul .up').click(function() {
-$(this).next().slideToggle().toggleClass('noactive');
-$(this).toggleClass('up');
-$(this).toggleClass('down');
-});
-
-$('ul .down').click(function() {
-$(this).next().slideToggle().toggleClass('noactive');
-$(this).toggleClass('down');
-$(this).toggleClass('up');
-});
-</script>
-
-  </body>
+	</body>
 </html>

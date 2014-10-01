@@ -2,18 +2,27 @@
 
 class Users extends MY_Model
 {
-	public $editors = array(
-		'Основное' => array(
-			'id' => array('id', 'hidden'),
-			'secret' => array('secret', 'hidden'),
-			//'status' => array('Статус', 'select'),
-			'name' => array('Имя', 'text'),
-			'email' => array('Почта', 'text')
-			//'password' => array('Пароль', 'pass')
+	public $new_editors = array(
+		'main' => array(
+			'id' => array('id', 'hidden', 0),
+			'secret' => array('secret', 'hidden', 0),
+			'first_name' => array('First name', 'text', 1),
+			'last_name' => array('Last name', 'text', 1),
+			'email' => array('Email address', 'text', 1),
+			'password' => array('Password', 'pass', 1),
+			'conf_password' => array('Confirm password', 'pass', 1),
+			'country' => array('Country', 'text', 1),
+			'region' => array('Region', 'text', 0),
+			'city' => array('Town/City', 'text', 1),
+			'address_1' => array('Address line 1', 'text', 0),
+			'address_2' => array('Address line 2', 'text', 0),
+			'postal' => array('Postal/Zip code', 'text', 0),
+			'phone' => array('Phone number', 'text', 1),
+			'birth_date' => array('Date of birth', 'text', 0)
 		)
 	);
 	
-	public $new_editors = array(
+	public $new_editorsss = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'secret' => array('secret', 'hidden'),
@@ -33,7 +42,7 @@ class Users extends MY_Model
 	}
 	
 	/*Авторизация*/
-	public function login($e_email, $e_pass)
+	public function login($email, $pass, $role)
 	{	
 		$authdata = array(
 			'user_id' => " ",
@@ -42,9 +51,9 @@ class Users extends MY_Model
 			'logged_in' => 0
 			);
 	
-		if($this->get_count(array('email' => $e_email, 'password' => $e_pass)) == 1)
+		if($this->get_count(array('email' => $email, 'password' => $pass, 'role' => $role)) == 1)
 		{
-			$login = $this->get_item_by(array('email' => $e_email, 'password' => $e_pass));
+			$login = $this->get_item_by(array('email' => $email, 'password' => $pass, 'role' => $role));
 			$authdata = array(
 				'user_id' => $login->id,
 				'user_name' => $login->name,

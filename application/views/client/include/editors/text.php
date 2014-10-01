@@ -1,4 +1,4 @@
-<div  class="col_12">
-	<div class="col_3"><label for="lbl_<?=$editors_counter?>"><?=$edit['0']?></label></div>
-	<div class="col_9"><input type="text" id="lbl_<?=$editors_counter?>" class="col_12" name="<?=$name?>" value="<?=$content->$name?>"/></div>
-</div>
+<tr>
+	<td class="tb_left"><?=$edit['0']?></td>
+	<td class="tb_right"><input type="text" name="<?=$name?>"/><?if($edit['2'] == 1):?><span class="req">*</span><?endif;?></td>
+</tr>

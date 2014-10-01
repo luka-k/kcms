@@ -3,7 +3,7 @@
 	<div id="parent" class="clearfix">
 		<?require_once 'include/header.php'?>
 		
-		<div id="breadcrumbs"><a href="">Home</a> > Synapse Syndicate</div>
+		<?require_once 'include/breadcrumbs.php'?>
 		<div id="wrapper">
 			<?require_once 'include/left_col.php'?>
 			<div id="main-content">
@@ -30,21 +30,6 @@
 			<?require_once 'include/right_col.php'?>
 		</div>
 		<?require_once 'include/footer.php'?>
-	</div>	
-	
-<script>
-$('ul .up').click(function() {
-$(this).next().slideToggle().toggleClass('noactive');
-$(this).toggleClass('up');
-$(this).toggleClass('down');
-});
-
-$('ul .down').click(function() {
-$(this).next().slideToggle().toggleClass('noactive');
-$(this).toggleClass('down');
-$(this).toggleClass('up');
-});
-</script>
-
-  </body>
+	</div>
+</body>
 </html>

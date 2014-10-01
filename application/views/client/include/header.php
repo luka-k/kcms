@@ -14,8 +14,8 @@
 	</div>
 	
 	<div id="slider" class="slider_wrap">
-		<a href=""><img src="<?php echo base_url()?>template/client/images/slider/slider_image1.jpg" alt="" /></a>
-		<a href=""><img src="<?php echo base_url()?>template/client/images/slider/slider_image2.jpg" alt="" /></a>
-		<a href=""><img src="<?php echo base_url()?>template/client/images/slider/slider_image3.jpg" alt="" /></a>
+		<?foreach($slider as $item):?>
+			<a href="<?=$item->link?>"><img src="<?=$item->img->url?>" alt="" /></a>
+		<?endforeach;?>
 	</div>
 </header>

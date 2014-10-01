@@ -48,11 +48,15 @@ class Registration extends CI_Controller
 	{
 		$email = $this->input->post('login');
 		$password = md5($this->input->post('password'));			
-		$authdata = $this->users->login($email, $password);
-
+		$authdata = $this->users->login($email, $password, 'customer');
 		if (!$authdata['logged_in'])
 		{
-			$menu = $this->menus->top_menu;		
+			$top_menu = $this->menus->top_menu;		
+			$footer_menu = $this->menus->footer_menu;
+		
+			$slider = $this->slider->get_list(FALSE);
+			$slider = $this->images->get_img_list($slider, 'slider', 'slider');	
+			
 			$cart = $this->cart->get_all();
 			$total_price = $this->cart->total_price();
 			$total_qty = $this->cart->total_qty();
@@ -72,16 +76,19 @@ class Registration extends CI_Controller
 					'method_delivery' => $this->config->item('method_delivery'),
 					'method_pay' => $this->config->item('method_pay')
 				),
-				'menu' => $menu,
+				'top_menu' => $top_menu,
+				'footer_menu' => $footer_menu,
+				'tree' => $this->categories->get_tree(0, "parent_id"),
+				'slider' => $slider,
 				'user' => $user
 			);
 			
 			$data['error'] = "Данные не верны. Повторите ввод";		
-			$this->load->view('client/cart.php', $data);	
+			$this->load->view('client/cart_registration.php', $data);	
 		} 
 		else 
 		{
-			redirect(base_url().'registration/cabinet');	
+			redirect(base_url().'pages/cart/3');	
 		}	
 	}
 	
@@ -250,8 +257,17 @@ class Registration extends CI_Controller
 	
 	public function register_user()
 	{
-		$menu = $this->menus->top_menu;	
-
+		$top_menu = $this->menus->top_menu;		
+		$footer_menu = $this->menus->footer_menu;
+	
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');	
+		
+		$cart = $this->cart->get_all();
+		
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
+		
 		$editors = $this->users->new_editors;
 		$user = new stdClass();
 		foreach ($editors as $tabs)
@@ -263,13 +279,19 @@ class Registration extends CI_Controller
 		}		
 	
 		$data = array(
-			'title' => "Регистрация",
+			'title' => "Log In/Registration",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
 			'error' => "",
-			'menu' => $menu,
-			'editors' => $editors,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'slider' => $slider,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'editors' => $editors['main'],
 			'content' => $user
 		);
 		
@@ -279,7 +301,16 @@ class Registration extends CI_Controller
 	
 	public function edit_new_user()
 	{
-		$menu = $this->menus->top_menu;
+		$top_menu = $this->menus->top_menu;		
+		$footer_menu = $this->menus->footer_menu;
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+
+		$cart = $this->cart->get_all();
+		
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
 		
 		$editors = $this->users->new_editors;
 		$post = $this->input->post();
@@ -288,18 +319,24 @@ class Registration extends CI_Controller
 		$content->password = md5($content->password);
 
 		$data = array(
-			'title' => "Регистрация",
+			'title' => "Log In/Registration",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
 			'error' => "",
-			'menu' => $menu,
-			'editors' => $editors,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'slider' => $slider,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'editors' => $editors['main'],
 			'content' => $content
-		);			
+		);		
 		
 		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-		$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+		$this->form_validation->set_rules( 'first_name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
 					
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
 		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
@@ -313,12 +350,7 @@ class Registration extends CI_Controller
 		else
 		{	
 			//Если id пустой то добавляем нового пользователя
-			if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
-			{
-				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-				$this->load->view('client/register_user.php', $data);	
-			} 
-			elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+			if (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
 			{
 				$data['error'] ="Такой email уже зарегистрирован";
 				$this->load->view('client/register_user.php', $data);						
@@ -331,14 +363,14 @@ class Registration extends CI_Controller
 				$this->users->insert($data['content']);
 				
 				$message_info = array(
-					"user_name" => $content->name,
+					"user_name" => $content->first_name,
 					"login" => $content->email,
 					"password" => $pass
 				);
 				
 				$this->emails->send_mail($content->email, 'registration', $message_info);				
 				
-				if($this->users->login($content->email, $content->password))
+				if($this->users->login($content->email, $content->password, 'customer'))
 				{
 					redirect(base_url().'registration/cabinet');
 				}

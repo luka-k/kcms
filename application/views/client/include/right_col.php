@@ -5,22 +5,24 @@
 		</div>
 		<div id="cart_items" class="clearfix">
 			<?if($cart == NULL):?>
-				No products
+				<span class="noproduct">No products</span>
 			<?else:?>
 				<?foreach($cart as $item_id => $item):?>
-					<div id="<?=$item_id?>" class="cart_item" >
+					<div class="cart_item <?=$item_id?>" >
 						<div class="cart_item_name">
 							<?if($item['qty']>1):?><span class="qty-<?=$item_id?>"><?=$item['qty']?></span>x<?endif;?>
-							<?=$item['title']?></div> 
+							<span class="title-<?=$item_id?>"><?=$item['title']?></span>
+						</div> 
 						<span class="cart_price"><a href="#" onclick="delete_item('<?=$item_id?>')"><img src="<?php echo base_url()?>template/client/images/item_clear.png"></a><?=$item['price']?> &euro;</span>
 					</div>				
 				<?endforeach;?>
+					<span class="alt"></span>
 			<?endif;?>
 		</div>
 		
 		<div id="cart_total">
-			<?if($cart <> NULL):?><div class="total_item">Shipping <span class="cart_price">5 &euro;</span></div><?endif;?>
-			<div class="total_item">Total <span class="cart_price"><span class='total_price'><?=$total_price?></span> &euro;</span></div>
+			<?if($cart <> NULL):?><div class="total_item">Shipping <span class="cart_price"><span class="shipping"></span> &euro;</span></div><?endif;?>
+			<div class="total_item">Total <span class="cart_price"><span class='total'>0</span> &euro;</span></div>
 		</div>
 		<div id="check">
 			<a href="<?=base_url()?>pages/cart"><img src="<?=base_url()?>template/client/images/check.png"/></a>
@@ -32,10 +34,10 @@
 			SHARE
 		</div>
 		<div id="shr" style="margin-top:20px;">
-			<a href=""><img src="images/facebook.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="images/vk.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="images/google.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="images/tw.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href=""><img src="<?=base_url()?>/template/client/images/facebook.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href=""><img src="<?=base_url()?>/template/client/images/vk.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href=""><img src="<?=base_url()?>/template/client/images/google.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href=""><img src="<?=base_url()?>/template/client/images/tw.png" style="float:left; margin-left:15px;"alt=""/></a>
 		</div>
 	</div>
 	

@@ -41,24 +41,25 @@
 							</thead>
 							<tbody <?if(isset($sortable)):?> id="sortable" <?endif?>>
 							
-								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>
-								
-									<?php foreach ($pages as $page): ?>
-									<tr>
-										<td class="tb_1"><?=$page->id?></td>
-										<td class="tb_9"><a href="<?=base_url()?>admin/page/<?=$page->part_url?>/<?=$page->id?>"><?=$page->title?></a></td>
-										<td class="tb_2"><a href="#delete_<?=$page->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
-										<div id="delete_<?=$page->id?>" style="display:none;">
-											<div class="pop-up">
-												<div>
-													Вы точно уверены что хотите удалалить страницу <strong><?=$page->title?></strong>?
-												</div><br/>
-												<a href="<?=base_url()?>admin/delete_page/<?=$page->id?>" class="button small">Удалить?</a>
-												<a href="#" class="button small" onclick="">Нет</a>
+								<form id="form" method="get" accept-charset="utf-8"  enctype="multipart/form-data" action="<?=base_url()?>admin/edit_page"/>	
+									<?if(isset($pages)):?>
+										<?php foreach ($pages as $page): ?>
+										<tr>
+											<td class="tb_1"><?=$page->id?></td>
+											<td class="tb_9"><a href="<?=base_url()?>admin/page/<?=$page->part_url?>/<?=$page->id?>"><?=$page->title?></a></td>
+											<td class="tb_2"><a href="#delete_<?=$page->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
+											<div id="delete_<?=$page->id?>" style="display:none;">
+												<div class="pop-up">
+													<div>
+														Вы точно уверены что хотите удалалить страницу <strong><?=$page->title?></strong>?
+													</div><br/>
+													<a href="<?=base_url()?>admin/delete_page/<?=$page->id?>" class="button small">Удалить?</a>
+													<a href="#" class="button small" onclick="">Нет</a>
+												</div>
 											</div>
-										</div>
-									</tr>
-									<?php endforeach ?>
+										</tr>
+										<?php endforeach ?>
+									<?endif;?>
 								</form>
 							</tbody>
 						</table>

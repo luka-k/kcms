@@ -12,7 +12,7 @@ class Catalog extends CI_Controller {
 		$url = base_url().uri_string();
 		$order = $this->input->get('order');
 		$direction = $this->input->get('direction');
-		$this->breadcrumbs->Add("catalog", "Каталог");
+		$this->breadcrumbs->Add("catalog", "Catalog");
 		$top_menu = $this->menus->top_menu;
 		$footer_menu = $this->menus->footer_menu;
 		$cart = $this->cart->get_all();
@@ -21,6 +21,9 @@ class Catalog extends CI_Controller {
 		$category = $this->url_model->url_parse(2);
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
 
 		if ($category == FALSE)
 		{
@@ -41,6 +44,7 @@ class Catalog extends CI_Controller {
 				'total_qty' => $total_qty,
 				'top_menu' => $top_menu,
 				'footer_menu' => $footer_menu,
+				'slider' => $slider,
 				'url' => $url,
 				'user' => $user
 			);
@@ -87,6 +91,7 @@ class Catalog extends CI_Controller {
 					'total_qty' => $total_qty,
 					'top_menu' => $top_menu,
 					'footer_menu' => $footer_menu,
+					'slider' => $slider,
 					'url' => $url,
 					'user' => $user
 				);		
