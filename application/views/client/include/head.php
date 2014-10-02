@@ -21,7 +21,15 @@
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-
+		
+		<script>
+			jQuery(document).ready(function(){
+				var params = {
+					changedEl: ".select-2",
+				}
+				cuSel(params);
+			});
+		</script>
 	</head>
 	
 	<body>

@@ -381,7 +381,7 @@ padding: 0 0 0px 28px;
 
 .leftnav ul li span.up
   { 
-  background:url('../images/arrow_u.png') left 6px no-repeat;
+  background:url('../images/arrow_u.png') left 8px no-repeat;
   padding-left:15px;
   float:left; 
   cursor:pointer;
@@ -409,7 +409,6 @@ padding: 0 0 0px 28px;
   
 #info ul{
 list-style:none;
-margin-left:20px;
 }
   
 #main-content

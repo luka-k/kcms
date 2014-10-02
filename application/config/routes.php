@@ -52,9 +52,10 @@ $route['order/(:any)/(:num)'] = 'order/$1/$2';
 $route['ajax/(:any)'] = 'ajax/$1';
 $route['pages/cart'] = 'pages/cart';
 $route['pages/cart/(:any)'] = 'pages/cart/$1';
+$route['contact'] = 'pages/contact';
 $route['pages/(:any)'] = 'pages/index/$1';
 $route['pages/(:any)/(:num)'] = 'pages/index/$1/$2';
-$route['(:any)/(:num)'] = 'pages/index/$1/$2';
+$route['(:any)/(:any)'] = 'pages/index/$1/$2';
 $route['default_controller'] = "main/index";
 $route['404_override'] = '';
 

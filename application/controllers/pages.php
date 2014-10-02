@@ -10,53 +10,72 @@ class Pages extends CI_Controller {
 		$this->config->load('order_config');
 	}
 	
-	public function index($url_part, $pagin = FALSE)
-	{		
-		$menu = $this->menus->top_menu;
-		$menu = $this->menus->set_active($menu, $url_part);
+	public function index($part_url, $url)
+	{	
+		$top_menu = $this->menus->top_menu;
+		$footer_menu = $this->menus->footer_menu;
 		
 		$slider = $this->slider->get_list(FALSE);
 		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
 		
-		$news_info = $this->parts->get_item_by(array('url' => $url_part));
-			
-		$breadcrumbs = array(
-			'Главная' => base_url(),
-			$news_info->title => ""
-		);
-			
-		$config['base_url'] = base_url()."pages/".$url_part;
-		$config['total_rows'] = count($this->$url_part->get_list(array('is_active' => '1')));
-		$config['per_page'] = 3;
-		$this->pagination->initialize($config);	
-		$pagination = $this->pagination->create_links();
+		$cart = $this->cart->get_all();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();	
 		
-		if ($pagin == null)
-		{
-			$pagin = 1;
-		}
+		$item = $this->information->get_item_by(array("url" => $url));
 		
-		$from = $config['total_rows']-$config['per_page']*$pagin;
-		if ($from < 0)
+		if ($item == NULL)
 		{
-			$from = 0;
+			$this->load->view('client/404.php', $data);
 		}
 
-		$items = $this->$url_part->get_list(array('is_active' => '1'), $from, $config['per_page']);			
-		
 		$data = array(
-			'title' => $news_info->title,
-			'meta_title' => $news_info->meta_title,
-			'meta_keywords' => $news_info->meta_keywords,
-			'meta_description' => $news_info->meta_description,
-			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
-			'content' => array_reverse($items),
-			'breadcrumbs' => $breadcrumbs,
-			'pagination' => $pagination,
-			'menu' => $menu,
+			'title' => $item->title,
+			'meta_title' => $item->meta_title,
+			'meta_keywords' => $item->meta_keywords,
+			'meta_description' => $item->meta_description,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'content' => $item,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
 			'slider' => $slider
 		);
-		$this->load->view('client/'.$url_part.'.php', $data);		
+
+		$this->load->view('client/pages.php', $data);
+	}
+	
+	public function contact()
+	{
+		$top_menu = $this->menus->top_menu;
+		$footer_menu = $this->menus->footer_menu;
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		
+		$cart = $this->cart->get_all();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();	
+		
+		$item = $this->settings->get_item_by(array("id" => 1));
+
+		$data = array(
+			'title' => $item->site_title,
+			'meta_title' => $item->site_title,
+			'meta_keywords' => $item->site_keywords,
+			'meta_description' => $item->site_description,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'content' => $item,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'slider' => $slider
+		);
+		$this->load->view('client/contact.php', $data);
 	}
 	
 	public function cart($step = 1, $error = 0)
@@ -71,7 +90,6 @@ class Pages extends CI_Controller {
 		$user = $this->users->get_item_by(array("id" => $user_id));
 		
 		$cart = $this->cart->get_all();
-		
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 	

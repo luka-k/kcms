@@ -416,6 +416,7 @@ class Admin extends CI_Controller
 				{
 					//$data['page']->url = slug($data['page']->title);
 					$this->$part_url->insert($data['page']);
+					$data['page']->id = $this->db->insert_id();
 				}
 				else
 				{
