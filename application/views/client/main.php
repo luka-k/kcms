@@ -7,16 +7,8 @@
 			<?require_once 'include/left_col.php'?>
 			
 			<div id="main-content">
-				<div class="title">ANNOUCEMENT</div>
-				<div id="content">
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-					Blah Blah Blah Blah Blah Blah Blah Blah Blah
-				</div>
+				<div class="title"><?=$main->title?></div>
+				<div id="content"><?=$main->description?></div>
 				
 				<div class="title">CATOLOGUE</div>
 				<div id="catologue">

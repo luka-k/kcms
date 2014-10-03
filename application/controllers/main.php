@@ -19,6 +19,8 @@ class Main extends CI_Controller {
 		$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
 		$content = $this->products->get_urls($content);
 		
+		$main = $this->information->get_item_by(array("url" => "main"));
+		
 		$slider = $this->slider->get_list(FALSE);
 		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
 		$data = array(
@@ -33,6 +35,7 @@ class Main extends CI_Controller {
 			'total_qty' => $total_qty,
 			'slider' => $slider,
 			'content' => $content,
+			'main' => $main,
 			'footer_menu' => $this->menus->footer_menu
 		);
 		

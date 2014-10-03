@@ -19,7 +19,7 @@
 			</ul>
 		</li>
 		<li><a href="<?=base_url()?>information/legal_notice">Legal Notice</a></li>
-		<li><a href="">News at Google+</a></li>
+		<li><a href="https://plus.google.com/+MywayminiaturesBlog/posts" target="blanc">News at Google+</a></li>
 		<li><a href="<?=base_url()?>information/about_us">About Us</a></li>
 		<li><a href="<?=base_url()?>/pages/contact">Contact Us</a></li>
 	</ul>
