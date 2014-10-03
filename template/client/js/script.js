@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function(e) {
 $('body').on('submit', '.js-form', function (e) {
   
   var form = $(this),
@@ -63,6 +63,8 @@ $('body').on('submit', '.js-form', function (e) {
 return false;
 });
 
+});
+
 function validation (element, errorClass) {
    var input = element.find('input[type="text"]'),
        spaces = new RegExp(/^(\s|\u00A0)+|(\s|\u00A0)+$/g),
@@ -98,7 +100,13 @@ function validation (element, errorClass) {
         });
    return isError;
 }
-});
+
+function sub_form(){
+	var errorClass = 'frame-input_error';
+
+	if (validation($("#form-1"), errorClass)) return false;
+	$("#form-1").submit();
+}
 
 $(function () {
 	var elWrap = $('#slider'),

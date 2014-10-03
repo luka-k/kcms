@@ -34,10 +34,10 @@
 			SHARE
 		</div>
 		<div id="shr" style="margin-top:20px;">
-			<a href=""><img src="<?=base_url()?>/template/client/images/facebook.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="<?=base_url()?>/template/client/images/vk.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="<?=base_url()?>/template/client/images/google.png" style="float:left; margin-left:15px;"alt=""/></a>
-			<a href=""><img src="<?=base_url()?>/template/client/images/tw.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fmywayminiatures.com%2F" target="blanc"><img src="<?=base_url()?>/template/client/images/facebook.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href="http://vkontakte.ru/share.php?url=http%3A%2F%2Fmywayminiatures.com%2F" target="blanc"><img src="<?=base_url()?>/template/client/images/vk.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href="https://plus.google.com/share?url=http%3A%2F%2Fmywayminiatures.com%2F" target="blanc"><img src="<?=base_url()?>/template/client/images/google.png" style="float:left; margin-left:15px;"alt=""/></a>
+			<a href="http://twitter.com/share?url=http%3A%2F%2Fmywayminiatures.com%2F" target="blanc"><img src="<?=base_url()?>/template/client/images/tw.png" style="float:left; margin-left:15px;"alt=""/></a>
 		</div>
 	</div>
 	
