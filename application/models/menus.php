@@ -13,10 +13,10 @@ class Menus extends MY_Model
 		$this->top_menu = array(
 			"registration" => array("<span class='chec'>Log in/Register</span>", base_url()."registration/register_user", "0"),
 			"help" => array("Help", base_url()."information/help", "0"),
-			"sitemap" => array("Sitemap", base_url()."catalog", "0"),
+			"sitemap" => array("Sitemap", base_url()."sitemap", "0"),
 			"contact_us" => array("Contact us", base_url()."contact", "0"),
 			"cart" => array("Cart <span class='chec'><span class='total_qty'></span></span> items <span class='chec'><span class='total'></span> €</span>", base_url()."pages/cart", "0"),
-			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/contact", "0"),
+			"checkout" => array("<span class='chec'>Checkout</span>", base_url()."pages/cart", "0"),
 		);	
 		
 		$this->footer_menu = array(
