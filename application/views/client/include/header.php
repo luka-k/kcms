@@ -8,8 +8,8 @@
 	<div id="logo">
 		<a href="<?=base_url()?>"><img src="<?=base_url()?>template/client/images/logo.png"></a>
 		<div id="slogan">
-			28mm miniatures and bits</br>
-			for games and collectors			
+			custom miniatures and bits</br>
+			for gamers and collectors			
 		</div>
 	</div>
 	
