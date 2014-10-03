@@ -17,6 +17,10 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery-migrate.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+		
+		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.pack.js"></script>
+		<link rel="stylesheet" href="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.css" type="text/css" />
 	
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
