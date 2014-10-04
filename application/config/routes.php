@@ -56,6 +56,7 @@ $route['order/(:any)'] = 'order/$1';
 $route['contact'] = 'pages/contact';
 $route['pages/(:any)'] = 'pages/index/$1';
 $route['pages/(:any)/(:num)'] = 'pages/index/$1/$2';
+$route['(:any)'] = 'pages/index/$1';
 $route['(:any)/(:any)'] = 'pages/index/$1/$2';
 $route['default_controller'] = "main/index";
 $route['404_override'] = '';
