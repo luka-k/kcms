@@ -58,17 +58,19 @@
 					<section>
 						<div id="item_description"><?=$content->description?></div>
 						<div class="clearfix" style="width:200px; float:right;">
+							<form  method="post" accept-charset="utf-8" action=""/>
 							<div class="price"><?=$content->price?>&euro;</div>
 							<div class="quan">
 								art. <?=$content->article?> </br>
-								quantity: <input type="text" size="1" placeholder = "1"/>
+								quantity: <input type="text" size="1" name="qty" id="qty" placeholder = "1"/>
 							</div>
 							<div class="add_to">
-								add to: <a href="#" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$content->id?>'); return false">cart</a><a href="">wish list</a>
+								add to: <a href="#" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$content->id?>', this.form.qty.value); return false">cart</a><a href="">wish list</a>
 							</div>
 							<div class="buy">	
 								<a href=""><img src="images/buy.png" alt=""/></a>
 							</div>
+							</form>
 						</div>
 					</section>
 				</div>

@@ -1,6 +1,7 @@
-function add_to_cart(item_id){
+function add_to_cart(item_id, qty){
 	data = new Object();
 	data.item_id = item_id;
+	data.qty = qty;
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/add_to_cart/", json_str, update_items_1, "json");
 }
