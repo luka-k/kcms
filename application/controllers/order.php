@@ -42,7 +42,6 @@ class Order extends CI_Controller
 			$settings = $this->settings->get_item_by(array("id" => 1));
 			
 			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
-			/*$message = 'С Вашего email сделан заказ в интернет магазине '.$settings->site_title.'. В заказе '.$total_qty.' - товаров. На сумму - '.$total_price;*/
 			$message_info = array(
 				"order_id" => $order_id,
 				"user_name" => $user->first_name

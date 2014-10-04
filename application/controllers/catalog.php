@@ -11,16 +11,23 @@ class Catalog extends CI_Controller {
 	{
 		$url = base_url().uri_string();
 		$order = $this->input->get('order');
+		
 		$direction = $this->input->get('direction');
+		
 		$this->breadcrumbs->Add("catalog", "Catalog");
+		
 		$top_menu = $this->menus->top_menu;
 		$footer_menu = $this->menus->footer_menu;
+		
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
-		$category = $this->url_model->url_parse(2);
+		
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
+
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');	
 		
 		$viewed_id = $this->session->userdata('viewed_id');
 		if (isset($viewed_id))
@@ -29,14 +36,11 @@ class Catalog extends CI_Controller {
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
 		}
 		
-		$slider = $this->slider->get_list(FALSE);
-		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		$category = $this->url_model->url_parse(2);
 
 		if ($category == FALSE)
 		{
-			//$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 			$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
-			//var_dump($content);
 			$settings = $this->settings->get_item_by(array('id' => 1));
 			$data = array(
 				'title' => $settings->site_title,

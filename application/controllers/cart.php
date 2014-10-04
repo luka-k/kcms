@@ -17,7 +17,6 @@ class Cart extends CI_Controller {
 			"qty" => 1
 		);
 		$this->cart->insert($cart_item);
-
 	}
 	
 	public function delete_item($item_id)

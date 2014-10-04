@@ -10,7 +10,7 @@ class Pages extends CI_Controller {
 		$this->config->load('order_config');
 	}
 	
-	public function index($part_url, $url)
+	public function index($part_url, $url = FALSE)
 	{	
 		$top_menu = $this->menus->top_menu;
 		$footer_menu = $this->menus->footer_menu;
@@ -31,28 +31,35 @@ class Pages extends CI_Controller {
 		
 		$item = $this->information->get_item_by(array("url" => $url));
 		
-		if ($item == NULL)
-		{
-			$this->load->view('client/404.php', $data);
-		}
-
 		$data = array(
-			'title' => $item->title,
-			'meta_title' => $item->meta_title,
-			'meta_keywords' => $item->meta_keywords,
-			'meta_description' => $item->meta_description,
+			'title' => "Error",
+			'meta_title' => "Error",
+			'meta_keywords' => "Error",
+			'meta_description' => "Error",
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'cart' => $cart,
 			'viewed' => $viewed,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
-			'content' => $item,
 			'top_menu' => $top_menu,
 			'footer_menu' => $footer_menu,
 			'slider' => $slider
 		);
+		
+		if (($item == NULL) or ($url == FALSE))
+		{
+			$this->load->view('client/404.php', $data);
+		}
+		else
+		{
+			$data['title'] = $item->title;
+			$data['meta_title'] = $item->meta_title;
+			$data['meta_keywords'] = $item->meta_keywords;
+			$data['meta_description'] = $item->meta_description;
+			$data['content'] = $item;
 
-		$this->load->view('client/pages.php', $data);
+			$this->load->view('client/pages.php', $data);
+		}
 	}
 	
 	public function contact()
