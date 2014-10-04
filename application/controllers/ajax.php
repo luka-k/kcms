@@ -42,7 +42,7 @@ class Ajax extends CI_Controller {
 			"id" => $product->id,
 			"title" => $product->title,
 			"price" => $product->price,
-			"qty" => $product->qty
+			"qty" => $id->qty
 		);
 		$cart_item_id = $this->cart->insert($cart_item);
 		
