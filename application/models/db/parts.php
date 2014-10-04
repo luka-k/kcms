@@ -14,6 +14,9 @@ class Parts extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text'),
 			'meta_description' => array('Описание страницы', 'text'),
 			'url' => array('url', 'hidden')
+		),		
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'text')
 		)
 	);
 	

@@ -26,10 +26,14 @@
 							<thead>
 								<tr>
 									<th class="tb_1">Номер</th>
-									<th class="tb_2">Фотография</th>
-									<!--<th class="tb_1">Сортировка</th>-->
-									<th class="tb_7">Имя</th>
-									<th class="tb_2">Действие</th>
+
+									<?if(isset($images)):?>
+										<th class="tb_3">Фотография</th>
+										<th class="tb_7">Имя</th>
+									<?else:?>
+										<th class="tb_9">Имя</th>
+									<?endif;?>
+									<th class="tb_1">Действие</th>
 								</tr>
 							</thead>
 							<tbody <?if(isset($sortable)):?> id="sortable"<?endif?>>
@@ -37,18 +41,18 @@
 								<?php foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
 										<td class="tb_1"><?=$count?></td>
-										<td class="tb_2">
-											<?if($item->img <> NULL):?>
-												<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
-											<?endif;?>
-										</td>
-										<!--<td class="tb_1">
-											<?if(isset($item->sort)):?>
-												<input type="text" size="5" value="<?=$item->sort?>" onchange="change_sort('<?=$type?>', '<?=$item->id?>', this.value);"/>
-											<?endif;?>
-										</td>-->
-										<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
-										<td class="tb_2"><a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+										
+										<?if(isset($images)):?>
+											<td class="tb_3">
+												<?if($item->img <> NULL):?>
+													<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
+												<?endif;?>
+											</td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
+										<?else:?>
+											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
+										<?endif;?>	
+										<td class="tb_1"><a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?$count++?>
 								<?php endforeach ?>

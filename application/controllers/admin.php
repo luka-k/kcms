@@ -56,33 +56,31 @@ class Admin extends CI_Controller
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
 		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
+		$editors = $this->$type->editors;
+		
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'type' => $type,
-			'menu' => $menu
+			'name' => $name,
+			'user_id' => $user_id,
+			'menu' => $menu,
+			'type' => $type
 		);	
 		
-		if($type == "products")
-		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}
-		else
-		{
-			$data['tree'] = $this->$type->get_tree(0, "parent_id");
-		}
+		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
 		
-		if($type == "parts")
-		{
-			$order = FALSE;
-			$direction = FALSE;
-		}
-		else
+		if ($this->db->field_exists('sort', $type))
 		{
 			$order = "sort";
 			$direction = "asc";
+		}
+		else
+		{
+			$order = FALSE;
+			$direction = FALSE;
 		}
 		
 		if($id == FALSE)
@@ -94,7 +92,13 @@ class Admin extends CI_Controller
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
-		$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
+		
+		if(editors_key_exists("upload_image", $editors))
+		{
+			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
+			$data['images'] = TRUE;
+		}
+		
 		$this->load->view('admin/items.php', $data);
 	}
 	
