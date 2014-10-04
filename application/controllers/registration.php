@@ -63,6 +63,13 @@ class Registration extends CI_Controller
 		
 			$user_id = $this->session->userdata('user_id');
 			$user = $this->users->get_item_by(array("id" => $user_id));
+			
+			$viewed_id = $this->session->userdata('viewed_id');
+			if (isset($viewed_id))
+			{
+				$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+				$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+			}
 	
 			$data = array(
 				'title' => "Корзина",
@@ -70,6 +77,7 @@ class Registration extends CI_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'cart' => $cart,
+				'viewed' => $viewed,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
 				'selects' => array(
@@ -268,6 +276,13 @@ class Registration extends CI_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		
 		$editors = $this->users->new_editors;
 		$user = new stdClass();
 		foreach ($editors as $tabs)
@@ -286,6 +301,7 @@ class Registration extends CI_Controller
 			'cart' => $cart,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
+			'viewed' => $viewed,
 			'error' => "",
 			'top_menu' => $top_menu,
 			'footer_menu' => $footer_menu,
@@ -312,6 +328,13 @@ class Registration extends CI_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		
 		$editors = $this->users->new_editors;
 		$post = $this->input->post();
 		
@@ -326,6 +349,7 @@ class Registration extends CI_Controller
 			'cart' => $cart,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
+			'viewed' => $viewed,
 			'error' => "",
 			'top_menu' => $top_menu,
 			'footer_menu' => $footer_menu,

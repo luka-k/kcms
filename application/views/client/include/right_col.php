@@ -50,7 +50,7 @@
 			<div class="price"><?=$viewed->price?> &euro;</div>
 			<div class="fig_name"><?=$viewed->title?></div><br/><br/>
 			<div class="add_to">
-				add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$item->id?>', 1); return false">cart</a><a href="">wish list</a>
+				add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$viewed->id?>', 1); return false">cart</a><a href="">wish list</a>
 			</div>
 		</section>
 	</div>

@@ -18,6 +18,13 @@ class Main extends CI_Controller {
 		$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, "sort", "asc");
 		$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
 		$content = $this->products->get_urls($content);
+
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
 		
 		$main = $this->information->get_item_by(array("url" => "main"));
 		
@@ -31,6 +38,7 @@ class Main extends CI_Controller {
 			'top_menu' => $this->menus->top_menu,
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'cart' => $cart,
+			'viewed' => $viewed,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
 			'slider' => $slider,

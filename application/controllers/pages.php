@@ -22,6 +22,13 @@ class Pages extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();	
 		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		
 		$item = $this->information->get_item_by(array("url" => $url));
 		
 		if ($item == NULL)
@@ -36,6 +43,7 @@ class Pages extends CI_Controller {
 			'meta_description' => $item->meta_description,
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'cart' => $cart,
+			'viewed' => $viewed,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
 			'content' => $item,
@@ -59,6 +67,13 @@ class Pages extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();	
 		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		
 		$item = $this->settings->get_item_by(array("id" => 1));
 
 		$data = array(
@@ -68,6 +83,7 @@ class Pages extends CI_Controller {
 			'meta_description' => $item->site_description,
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'cart' => $cart,
+			'viewed' => $viewed,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
 			'content' => $item,
@@ -92,6 +108,13 @@ class Pages extends CI_Controller {
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
+		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
 	
 		$data = array(
 			'title' => "Cart",
@@ -100,6 +123,7 @@ class Pages extends CI_Controller {
 			'meta_description' => "",
 			'error' => '',
 			'cart' => $cart,
+			'viewed' => $viewed,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
 			'selects' => array(
