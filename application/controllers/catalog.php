@@ -22,6 +22,13 @@ class Catalog extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
 		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if (isset($viewed_id))
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		
 		$slider = $this->slider->get_list(FALSE);
 		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
 
@@ -38,6 +45,7 @@ class Catalog extends CI_Controller {
 				'meta_description' => $settings->site_description,
 				'tree' => $this->categories->get_tree(0, "parent_id"),
 				'content' => $content,
+				'viewed' => $viewed,
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'cart' => $cart,
 				'total_price' => $total_price,
@@ -58,6 +66,9 @@ class Catalog extends CI_Controller {
 			{
 				$content = $this->products->get_item_by(array("url" => $category->product->url));
 				$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
+				
+				$this->session->set_userdata(array("viewed_id" => $content->id));
+				
 				$template = "client/page.php";
 			}
 			else
@@ -85,6 +96,7 @@ class Catalog extends CI_Controller {
 					'tree' => $this->categories->get_tree(0, "parent_id"),
 					'category' => $category,
 					'content' => $content,
+					'viewed' => $viewed,
 					'breadcrumbs' => $this->breadcrumbs->get(),
 					'cart' => $cart,
 					'total_price' => $total_price,
