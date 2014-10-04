@@ -566,10 +566,17 @@ class Admin extends CI_Controller
 				"delivery_id" => $order->delivery_id,
 				"payment_id" => $order->payment_id,
 				"order_date" => date_format($date, 'Y-m-d'),
-				"name" => $order->user_name,
+				"first_name" => $order->user_first_name,
+				"last_name" => $order->user_last_name,
+				"email" => $order->user_email,
 				"phone" => $order->user_phone,
 				"email" => $order->user_email,
-				"address" => $order->user_address
+				"country" => $order->user_country,
+				"region" => $order->user_region,
+				"city" => $order->user_city,
+				"address_1" => $order->user_address_1,
+				"address_2" => $order->user_address_2,
+				"postal" => $order->user_postal
 			);
 			
 		}

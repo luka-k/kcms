@@ -24,11 +24,11 @@
 							<thead>
 								<th width="10%">Id</th>
 								<th width="10%">Статус</th>
-								<th width="30%">Товары</th>
+								<th width="25%">Товары</th>
 								<th width="10%">Способ оплаты</th>
 								<th width="10%">Способ доставки</th>
 								<th width="5%">Дата</th>
-								<th width="25%">Контанты</th>
+								<th width="30%">Контанты</th>
 							</thead>
 							<tbody>
 								<?$counter = 1?>
@@ -83,10 +83,16 @@
 										<td><?=$order_item->order_date?></td>
 										<td>
 											<div class="contacts">
-												<div>Имя - <?=$order_item->name?></div>
-												<div>Телефон - <?=$order_item->phone?></div>
-												<div>e-mail - <?=$order_item->email?></div>
-												<div>Адресс - <?=$order_item->address?></div>
+												<div class="contacts-item">First name - <?=$order_item->first_name?></div>
+												<div class="contacts-item">Last name - <?=$order_item->last_name?></div>
+												<div class="contacts-item">e-mail - <?=$order_item->email?></div>
+												<div class="contacts-item">Phone - <?=$order_item->phone?></div>
+												<div class="contacts-item">Country - <?=$order_item->country?></div>
+												<div class="contacts-item">Region - <?=$order_item->region?></div>
+												<div class="contacts-item">City - <?=$order_item->city?></div>
+												<div class="contacts-item">Address 1 - <?=$order_item->address_1?></div>
+												<div class="contacts-item">Address 2 - <?=$order_item->address_2?></div>
+												<div class="contacts-item">Postal - <?=$order_item->postal?></div>
 											</div>
 										</td>
 

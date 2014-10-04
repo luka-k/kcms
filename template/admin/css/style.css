@@ -161,3 +161,7 @@ background:#f5f5f5;
 #sortable tr{
 cursor:move;
 }
+
+.contacts-item:hover{
+outline:1px dashed #843a36
+}
