@@ -70,7 +70,14 @@ class Admin extends CI_Controller
 			'type' => $type
 		);	
 		
-		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
+		if(($type == "products")||($type == "categories"))
+		{
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+		}	
+		else
+		{
+			$data['tree'] = $this->parts->get_tree(0, "parent_id");
+		}
 		
 		if ($this->db->field_exists('sort', $type))
 		{
@@ -123,7 +130,14 @@ class Admin extends CI_Controller
 			'editors' => $this->$type->editors
 		);
 		
-		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
+		if(($type == "products")||($type == "categories"))
+		{
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+		}	
+		else
+		{
+			$data['tree'] = $this->parts->get_tree(0, "parent_id");
+		}
 		
 		if($id == FALSE)
 		{	
@@ -171,24 +185,19 @@ class Admin extends CI_Controller
 			'editors' => $this->products->editors		
 		);
 		
-		
-		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
+		if(($type == "products")||($type == "categories"))
+		{
+			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+		}	
+		else
+		{
+			$data['tree'] = $this->parts->get_tree(0, "parent_id");
+		}
 					
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
 		
 		$data['content'] = editors_post($editors, $post);
-
-		$object_info = array(
-			"object_type" => $type,
-			"object_id" => $data['content']->id
-		);
-		
-		$cover_id = $this->input->post("cover_id");
-		if ($cover_id <> NULL)
-		{
-			$this->images->set_cover($object_info, $cover_id);
-		}
 		
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -252,6 +261,17 @@ class Admin extends CI_Controller
 			
 			if(editors_key_exists("upload_image", $editors))
 			{
+				$object_info = array(
+					"object_type" => $type,
+					"object_id" => $data['content']->id
+				);
+		
+				$cover_id = $this->input->post("cover_id");
+				if ($cover_id <> NULL)
+				{
+					$this->images->set_cover($object_info, $cover_id);
+				}
+				
 				if ($_FILES['pic']['error'] <> 4)
 				{
 					$this->images->upload_image($_FILES['pic'], $object_info);
@@ -277,172 +297,6 @@ class Admin extends CI_Controller
 			redirect(base_url().'admin/items'.$type);
 		}
 	}
-	
-	/*------------Редактирование страниц разделов------------*/
-
-	//Вывод страниц раздела
-	public function pages($part_url = false)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
-		$data = array(
-			'title' => "Страницы",
-			'meta_title' => "Страницы",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
-			'parts' => $this->parts->get_list(FALSE),
-			'menu' => $menu
-		);
-			
-		$parts = $data['parts'];
-		foreach ($parts as $part)
-		{
-			$base = $part->url;
-			$part_pages[$base] = $this->$base->get_list(FALSE);
-		}
-			
-		if ($part_url == NULL)
-		{
-			//Если id раздела не задан получаем все страницы
-			foreach($part_pages as $part_url => $pages)
-			{
-				foreach ($pages as $page)
-				{
-					$page->part_url = $part_url;
-					$data['pages'][] = $page;
-				}
-			}
-		}
-		else
-		{			
-			foreach ($part_pages[$part_url] as $page)
-			{
-				$page->part_url = $part_url;
-				$data['pages'][] = $page;
-			}	
-			$data['sortable'] = TRUE;			
-		}
-		$this->load->view('admin/pages.php', $data);
-	}
-	
-	//Вывод информации о странице
-	public function page($part_url = FALSE, $id = FALSE)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
-		$data = array(
-			'title' => "Редактировать страницу",
-			'meta_title' => "Редактировать страницу",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),
-			'menu' => $menu
-		);
-		
-		//Если url раздела и id страниццы не существуют то выводим всплывающее окно для выбора в какой раздел добавить страницу
-		if ($part_url == FALSE && $id == FALSE)
-		{
-			$part_url = $this->input->post('url');
-			$data['editors'] = $this->$part_url->editors;
-			$page = new stdClass();
-			foreach ($data['editors'] as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$page->$item = "";
-				}
-			}
-			$page->is_active = "1";
-			$data['content'] = $page;			
-		}
-		else
-		//Если url категории и id страницы не пуст выводим инфу страницы из базы
-		{
-			$data['editors'] = $this->$part_url->editors;
-			$data['content'] = $this->$part_url->get_item_by(array('id' => $id));
-		}
-		$data['content']->part_url = $part_url;
-		$this->load->view('admin/edit_page.php', $data);
-	}
-
-	//Редактирование страницы разделов
-	public function edit_page($part_url, $exit = FALSE)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'parts');
-		$data = array(
-			'meta_title' => "Редактировать страницу",
-			'error' => " ",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_sub_tree(0, "parent_id"),	
-			'menu' => $menu
-		);
-					
-		$editors = $this->$part_url->editors;
-		$post = $this->input->post();
-		
-		$data['page'] = editors_post($editors, $post);
-			
-		$data['page']->date = date("d.m.Y");
-		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/edit_page.php', $data);			
-		}
-		else
-		{
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['page']->id==NULL)
-			{
-				//Если id пустая создаем новую страницу в базе
-				$fields = array(
-					'title' => $data['page']->title
-				);
-					
-				if($this->$part_url->non_requrrent($fields))
-				{
-					$data['page']->url = slug($data['page']->title);
-					$this->$part_url->insert($data['page']);
-					redirect(base_url().'admin/pages');
-				}
-				else
-				{
-					$data['error'] = "Страница с таким именем в этой категории уже ссуществует.";
-					$this->load->view('admin/edit_page.php', $data);
-				}
-			}
-			else
-			{
-				//Если id не пустая вносим изменения.
-				$data['page']->url = slug($data['page']->url);
-				$this->$part_url->update($data['page']->id, $data['page']);
-			}
-			if($exit == false)
-			{
-				redirect(base_url().'admin/page/'.$part_url."/".$data['page']->id);
-			}
-			else
-			{
-				redirect(base_url().'admin/pages/'.$part_url);
-			}	
-		}
-	}
-
-	//Удаление страницы
-	public function delete_page($part_url, $id)
-	{
-		if($this->$part_url->delete($id))
-		{
-			redirect(base_url().'admin/pages');
-		}
-	}	
 	
 	/*--------------Удаление изображения-------------*/
 	

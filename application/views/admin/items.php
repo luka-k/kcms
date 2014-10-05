@@ -10,8 +10,12 @@
 						<div id="left-menu">
 							<?if($type == "products"):?>
 								<? require 'include/products_tree.php' ?>
-							<?else:?>
+							<?elseif($type == "categories"):?>
 								<? require 'include/categories_tree.php' ?>
+							<?elseif($type == "parts"):?>
+								<? require 'include/parts_tree.php' ?>
+							<?else:?>
+								<? require 'include/part_pages_tree.php' ?>
 							<?endif;?>
 						</div>
 					</div>
