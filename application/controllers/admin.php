@@ -5,6 +5,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Admin extends CI_Controller 
 {	
+	public $menu;
+	public $name;
+	public $user_id;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,6 +27,10 @@ class Admin extends CI_Controller
 			$this->load->view('admin/enter.php', $data);	
 		} 
 		
+		$this->menu = $this->menus->admin_menu;
+		$this->name = $this->session->userdata('user_name');
+		$this->user_id = $this->session->userdata('user_id');
+		
 		$this->config->load('emails_config');
 	}
 	
@@ -34,39 +42,31 @@ class Admin extends CI_Controller
 	//Главная страница
 	public function admin_main()
 	{		
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'main');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, 'main');
 
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu
 		);
 		$this->load->view('admin/admin.php', $data);
 	}
 	
 	public function items($type, $id = FALSE)
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, $type);
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
-		
+		$this->menu = $this->menus->set_active($this->menu, $type);
+
 		$editors = $this->$type->editors;
 		
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu,
 			'type' => $type
 		);	
 		
@@ -111,21 +111,17 @@ class Admin extends CI_Controller
 	
 	public function item($type, $id = FALSE)
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, $type);
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, $type);
 		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
 			'selects' => array(
 				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
-			'menu' => $menu,
+			'menu' => $this->menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
 		);
@@ -167,21 +163,17 @@ class Admin extends CI_Controller
 	
 	public function edit_item($type, $exit = false)
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, $type);
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
-	
+		$this->menu = $this->menus->set_active($this->menu, $type);
+
 		$data = array(
 			'title' => "Редактировать страницу каталога",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
 			'selects' => array(
 				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
-			'menu' => $menu,
+			'menu' => $this->menu,
 			'editors' => $this->products->editors		
 		);
 		
@@ -313,20 +305,16 @@ class Admin extends CI_Controller
 	/*------------Редактирование настроек------------*/
 	public function settings()
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'settings');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, 'settings');
 		
 		$data = array(
 			'title' => "Настройки сайта",
 			'meta_title' => "Настройки сайта",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
 			'content' => $this->settings->get_item_by(array('id' => 1)),
-			'menu' => $menu,
+			'menu' => $this->menu,
 			'editors' => $this->settings->editors
 		);
 		$this->load->view('admin/settings.php', $data);	
@@ -334,19 +322,15 @@ class Admin extends CI_Controller
 	
 	public function edit_settings()
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'settings');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, 'settings');
 		
 		$data = array(
 			'title' => "Редактировать настройки",
 			'meta_title' => "Редактировать настройки",
 			'error' => " ",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent_id")	
 		);
 		
@@ -375,13 +359,9 @@ class Admin extends CI_Controller
 	public function orders($filter = FALSE)
 	{
 		$this->config->load('order_config');
-		
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'orders');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
-		
+
+		$this->menu = $this->menus->set_active($this->menu, 'orders');
+
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
@@ -428,15 +408,15 @@ class Admin extends CI_Controller
 		
 		$data = array(
 			'title' => "Заказы",			
-			'name' => $name,
-			'user_id' => $user_id,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
 			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay'),
 				'status_id' => $this->config->item('order_status')
 			),
-			'menu' => $menu
+			'menu' => $this->menu
 		);		
 		$this->load->view('admin/orders.php', $data);
 	}
@@ -445,19 +425,15 @@ class Admin extends CI_Controller
 	
 	public function mails()
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'settings');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
-		
+		$this->menu = $this->menus->set_active($this->menu, 'settings');
+
 		$data = array(
 			'title' => "Редактировать настройки писем",
 			'meta_title' => "Редактировать настройки писем",
 			'error' => " ",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu,
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu,
 			'emails' => $this->emails->get_list(FALSE),
 			'select' => $this->config->item('message_type')
 		);
@@ -490,19 +466,15 @@ class Admin extends CI_Controller
 	/*-----------Пользователи----------*/
 	public function users($id = FALSE)
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'users');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, 'users');
 		
 		$data = array(
 			'title' => "Пользователи",
 			'meta_title' => "Пользователи",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu
 		);	
 		if($id == FALSE)
 		{
@@ -538,19 +510,15 @@ class Admin extends CI_Controller
 	/*Изменение данных пользователя*/
 	public function edit_user($id = FALSE)
 	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'users');
-		
-		$name = $this->session->userdata('user_name');
-		$user_id = $this->session->userdata('user_id');
+		$this->menu = $this->menus->set_active($this->menu, 'users');
 		
 		$data = array(
 			'title' => "Редактировать пользователя",
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
-			'name' => $name,
-			'user_id' => $user_id,
-			'menu' => $menu,		
+			'name' => $this->name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu,		
 		);
 			
 		if ($id == NULL)
