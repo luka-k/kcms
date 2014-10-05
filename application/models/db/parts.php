@@ -16,7 +16,8 @@ class Parts extends MY_Model
 			'url' => array('url', 'hidden')
 		),		
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'text', "unset")
+			'upload_image' => array('Загрузить изображение', 'upload_image', "unset"),
+			'view_image' => array('Изображение', 'view_image', "unset")
 		)
 	);
 	

@@ -361,7 +361,6 @@ class Admin extends CI_Controller
 		$this->config->load('order_config');
 
 		$this->menu = $this->menus->set_active($this->menu, 'orders');
-
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
