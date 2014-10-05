@@ -306,8 +306,8 @@ class Admin extends CI_Controller
 			"object_type" => $object_type,
 			"id" => $id
 		);
-		$cat_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/item/'.$object_type."/".$cat_id);
+		$item_id = $this->images->delete_img($object_info);
+		redirect(base_url().'admin/item/'.$object_type."/".$item_id);
 	}
 		
 	/*------------Редактирование настроек------------*/
@@ -315,14 +315,16 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'settings');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Настройки сайта",
 			'meta_title' => "Настройки сайта",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'cat' => $this->categories->get_list(FALSE),
-			'tree' => $this->categories->get_sub_tree(0, "parent_id"),
+			'name' => $name,
+			'user_id' => $user_id,
 			'content' => $this->settings->get_item_by(array('id' => 1)),
 			'menu' => $menu,
 			'editors' => $this->settings->editors
@@ -334,13 +336,16 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'settings');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Редактировать настройки",
 			'meta_title' => "Редактировать настройки",
 			'error' => " ",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'cat' => $this->categories->get_list(FALSE),
+			'name' => $name,
+			'user_id' => $user_id,
 			'menu' => $menu,
 			'tree' => $this->categories->get_sub_tree(0, "parent_id")	
 		);
@@ -373,6 +378,9 @@ class Admin extends CI_Controller
 		
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'orders');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
 		
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
@@ -420,8 +428,8 @@ class Admin extends CI_Controller
 		
 		$data = array(
 			'title' => "Заказы",			
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
+			'name' => $name,
+			'user_id' => $user_id,
 			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
@@ -439,13 +447,16 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'settings');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Редактировать настройки писем",
 			'meta_title' => "Редактировать настройки писем",
 			'error' => " ",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'cat' => $this->categories->get_list(FALSE),
+			'name' => $name,
+			'user_id' => $user_id,
 			'menu' => $menu,
 			'emails' => $this->emails->get_list(FALSE),
 			'select' => $this->config->item('message_type')
@@ -477,39 +488,28 @@ class Admin extends CI_Controller
 	}
 
 	/*-----------Пользователи----------*/
-	public function users()
+	public function users($id = FALSE)
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'users');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Пользователи",
 			'meta_title' => "Пользователи",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_list(FALSE),
-			'menu' => $menu,
-			'users' => $this->users->get_list(FALSE)
+			'name' => $name,
+			'user_id' => $user_id,
+			'menu' => $menu
 		);	
-		$this->load->view('admin/users.php', $data);	
-	}
-	
-	//Информация о пользователе
-	public function user($id = FALSE)
-	{
-		$menu = $this->menus->admin_menu;
-		$menu = $this->menus->set_active($menu, 'users');
-		$data = array(
-			'title' => "Редактировать пользователя",
-			'meta_title' => "Редактировать пользователя",
-			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent_id")				
-		);
-			
-		if ($id == FALSE)
+		if($id == FALSE)
+		{
+			$data['users'] = $this->users->get_list(FALSE);
+			$this->load->view('admin/users.php', $data);
+		}
+		elseif ($id == "new")
 		{
 			//Если id нет выводи пустую форму для долбавления пользователя
 			$data['editors'] = $this->users->new_editors;
@@ -522,18 +522,17 @@ class Admin extends CI_Controller
 				}
 			}
 			$data['content'] = $user;
-			$this->load->view('admin/new-user.php', $data);
+			$this->load->view('admin/new-user.php', $data);				
 		}
 		else
-		//Если id не пустой выводим инфу о пользователе
 		{
 			$data['editors'] = $this->users->editors;
 			$data['content'] = $this->users->get_item_by(array('id' => $id));
 			$data['content']->secret = md5($this->config->item('allowed_types'));
 			$this->users->update($id, array('secret' => $data['content']->secret));
 			$data['content']->password = NULL;
-			$this->load->view('admin/user.php', $data);
-		}
+			$this->load->view('admin/user.php', $data);		
+		}		
 	}
 	
 	/*Изменение данных пользователя*/
@@ -541,14 +540,17 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'users');
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Редактировать пользователя",
 			'meta_title' => "Редактировать пользователя",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
-			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent_id")			
+			'name' => $name,
+			'user_id' => $user_id,
+			'menu' => $menu,		
 		);
 			
 		if ($id == NULL)

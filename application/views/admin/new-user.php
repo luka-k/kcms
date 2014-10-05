@@ -7,13 +7,7 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<div id="left_col" class="col_3 back">
-						<h5>Страницы разделов</h5>
-						<div id="left-menu">
-							<? require 'include/part_pages_tree.php' ?>
-						</div>
-					</div>
-					<div id="right_col" class="col_9 back">
+					<div id="right_col" class="col_12 back">
 					<?$tabs_counter = 1?>
 					<ul class="tabs left">
 						<?foreach ($editors as $key => $edit):?>
@@ -23,7 +17,7 @@
 					</ul>
 					
 					<?php $tabs_counter = 1?>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>registration/edit_user/<?=$content->id?>"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_user/<?=$content->id?>"/>
 					<?php foreach ($editors as $key => $edits):?>
 						<div id="tab_<?=$tabs_counter?>" class="clearfix tab-content">
 							<?=$error;?>
