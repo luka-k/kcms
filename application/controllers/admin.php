@@ -106,27 +106,24 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
+		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
+			'name' => $name,
+			'user_id' => $user_id,
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
+				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
 		);
 		
-		if($type == "products")
-		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id", $id);
-		}
-		else
-		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id", $id);
-		}
+		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
 		
 		if($id == FALSE)
 		{	
@@ -158,28 +155,24 @@ class Admin extends CI_Controller
 	{
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, $type);
+		
+		$name = $this->session->userdata('user_name');
+		$user_id = $this->session->userdata('user_id');
 	
 		$data = array(
 			'title' => "Редактировать страницу каталога",
 			'error' => "",
-			'name' => $this->session->userdata('user_name'),
-			'user_id' => $this->session->userdata('user_id'),
+			'name' => $name,
+			'user_id' => $user_id,
 			'selects' => array(
-				'parent_id' =>$this->categories->get_sub_tree(0, "parent_id")
+				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $menu,
 			'editors' => $this->products->editors		
 		);
 		
 		
-		if($type == "products")
-		{
-			$data['tree'] = $this->categories->get_sub_tree(0, "parent_id");
-		}
-		else
-		{
-			$data['tree'] = $this->$type->get_sub_tree(0, "parent_id");
-		}
+		$type == "products"?$data['tree'] = $this->categories->get_tree(0, "parent_id"):$data['tree'] = $this->$type->get_tree(0, "parent_id");
 					
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
@@ -207,40 +200,64 @@ class Admin extends CI_Controller
 		}
 		else
 		{
+			//Удаляем поля которые не присутствуют в базе
+			//Например картинки
+			//Возможно чуть позднее уйдет в функцию помошника
+			foreach($editors as $tab)
+			{
+				foreach($tab as $name => $editor)
+				{
+					if(isset($editor[2])&&($editor[2] == "unset"))
+					{
+						unset($data['content']->$name);
+					}
+				}
+			}
+			
 			//Если валидация прошла успешно проверяем переменную id
 			if($data['content']->id==NULL)
 			{
 				//Если id пустая создаем новую страницу в базе
-				$fields = array(
-					'title' => $data['content']->title,
-				);
-					
+				//Аналогично unset проверка на уникальность имени
+				//Думаю тоже в помошник уйдет
+				foreach($editors as $tab)
+				{
+					foreach($tab as $name => $editor)
+					{
+						if(isset($editor[2])&&($editor[2] == "non_requrrent"))
+						{
+							$fields = array(
+								$name => $data['content']->$name,
+							);							
+						}
+					}
+				}
+				
 				if($this->$type->non_requrrent($fields))
 				{
-					$data['content']->url = slug($data['content']->title);
 					$this->$type->insert($data['content']);
 					redirect(base_url().'admin/items/'.$type);
 				}
 				else
 				{
-					$data['error'] = "Страница с таким именем в каталоге уже ссуществует.";
+					$data['error'] = "Страница с таким именем в каталоге уже существует.";
 					$this->load->view('admin/edit_item.php', $data);
 				}
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
-				$data['content']->url = slug($data['content']->url);
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 			
-			if($type <> "parts")
+			if(editors_key_exists("upload_image", $editors))
 			{
 				if ($_FILES['pic']['error'] <> 4)
 				{
 					$this->images->upload_image($_FILES['pic'], $object_info);
 				}
 			}
+
 			if($exit == false)
 			{
 				redirect(base_url().'admin/item/'.$type."/".$data['content']->id);

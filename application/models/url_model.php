@@ -53,24 +53,24 @@ class Url_model extends MY_Model
 		$type = $this->uri->segment(2);
 		$base = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
-		
 		if(($type == "item")and($base == "products"))
 		{
 			$item = $this->products->get_item_by(array("id" => $id));
 		}
 		else
 		{
-			$item = $this->categories->get_item_by(array("id" => $id));
-			$this->categories->add_active($id);
+			$item = $this->$base->get_item_by(array("id" => $id));
+			$this->$base->add_active($id);
 		}
 		if (!empty($item))
 		{
-			$this->categories->add_active($item->parent_id);
+			
 			$parent_id = $item->parent_id;
 			while($parent_id <> 0)
 			{
-				$item = $this->categories->get_item_by(array("id" => $parent_id));
-				$this->categories->add_active($item->parent_id);
+				$this->$base->add_active($item->parent_id);
+				$item = $this->$base->get_item_by(array("id" => $parent_id));
+				$this->$base->add_active($item->parent_id);
 				$parent_id = $item->parent_id;
 			}	
 			return TRUE;

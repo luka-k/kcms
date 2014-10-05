@@ -5,7 +5,7 @@ class Parts extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'title' => array('Заголовок', 'text'),
+			'title' => array('Заголовок', 'text', "non_requrrent"),
 			'is_active' => array('Активна', 'checkbox'),
 			'description' => array('Описание', 'tiny')
 		),
@@ -16,7 +16,7 @@ class Parts extends MY_Model
 			'url' => array('url', 'hidden')
 		),		
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'text')
+			'upload_image' => array('Загрузить изображение', 'text', "unset")
 		)
 	);
 	
