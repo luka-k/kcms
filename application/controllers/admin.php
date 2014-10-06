@@ -118,9 +118,9 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->name,
 			'user_id' => $this->user_id,
-			/*'selects' => array(
-				'parent_id' =>$this->categories->get_tree(0, "parent_id")
-			),*/
+			'selects' => array(
+				'parent_id' =>$this->categories->get_list(FALSE)
+			),
 			'menu' => $this->menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
@@ -145,7 +145,7 @@ class Admin extends CI_Controller
 					$category->$item = "";
 				}
 			}
-			$cat->is_active = "1";
+			$category->is_active = "1";
 			$data['content'] = $category;
 			$data['content']->img = NULL;
 		}	
@@ -171,9 +171,10 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' =>$this->categories->get_tree(0, "parent_id")
+				'parent_id' =>$this->categories->get_list(FALSE)
 			),
 			'menu' => $this->menu,
+			'type' => $type,
 			'editors' => $this->products->editors		
 		);
 		
@@ -192,7 +193,7 @@ class Admin extends CI_Controller
 		$data['content'] = editors_post($editors, $post);
 		
 		//Валидация формы
-		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
+		$this->form_validation->set_rules('name', 'name', 'trim|xss_clean|required');
 		
 		if($this->form_validation->run() == FALSE)
 		{
@@ -215,40 +216,47 @@ class Admin extends CI_Controller
 				}
 			}
 			
-			//Если валидация прошла успешно проверяем переменную id
-			if($data['content']->id==NULL)
+			//Аналогично unset проверка на уникальность имени
+			//Думаю тоже в помошник уйдет
+			foreach($editors as $tab)
 			{
-				//Если id пустая создаем новую страницу в базе
-				//Аналогично unset проверка на уникальность имени
-				//Думаю тоже в помошник уйдет
-				foreach($editors as $tab)
+				foreach($tab as $name => $editor)
 				{
-					foreach($tab as $name => $editor)
+					/*if(isset($editor[2])&&($editor[2] == "non_requrrent"))
 					{
-						if(isset($editor[2])&&($editor[2] == "non_requrrent"))
-						{
-							$fields = array(
-								$name => $data['content']->$name,
-							);							
-						}
+						$fields = array(
+							$name => $data['content']->$name,
+						);							
+					}*/
+						
+					if(isset($editor[2])&&($editor[2] == "category2category"))
+					{
+						$data["category2category"]->$name = $data['content']->$name;
+						unset($data['content']->$name);
+						$c2c = TRUE;
 					}
 				}
-				
-				if($this->$type->non_requrrent($fields))
+			}
+			
+			if($data['content']->id == NULL)
+			{	
+				$this->$type->insert($data['content']);
+				if($c2c == TRUE)
 				{
-					$this->$type->insert($data['content']);
-					redirect(base_url().'admin/items/'.$type);
+					$data["category2category"]->child_id = $this->db->insert_id();
+					$this->db->insert('category2category', $data['category2category']);
 				}
-				else
-				{
-					$data['error'] = "Страница с таким именем в каталоге уже существует.";
-					$this->load->view('admin/edit_item.php', $data);
-				}
+				redirect(base_url().'admin/items/'.$type);
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
+				if($c2c == TRUE)
+				{
+					$this->db->where('child_id', $data['content']->id);
+					$this->db->update('category2category', $data['category2category']);
+				}
 			}
 			
 			if(editors_key_exists("upload_image", $editors))
@@ -264,9 +272,16 @@ class Admin extends CI_Controller
 					$this->images->set_cover($object_info, $cover_id);
 				}
 				
-				if ($_FILES['pic']['error'] <> 4)
+				if(is_array($_FILES['pic']['error']))
 				{
-					$this->images->upload_image($_FILES['pic'], $object_info);
+					$this->images->upload_images($_FILES['pic'], $object_info);
+				}
+				else
+				{
+					if ($_FILES['pic']['error'] <> 4)
+					{
+						$this->images->upload_image($_FILES['pic'], $object_info);
+					}
 				}
 			}
 

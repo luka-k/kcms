@@ -1,7 +1,7 @@
 ﻿<div  class="col_12">
 	<label for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></label>
 	<select id="lbl_<?=$editors_counter?>"  name="<?=$name?>" class="col_8">
-		<option <?php if ($content->$name == 0):?>selected<?php endif; ?>>Выберите</option>
+		<option <?php if ($content->$name == 0):?>selected<?php endif; ?> value="0">Без категории</option>
 		<?php foreach ($selects[$name] as $select): ?>
 			<option <?php if(!empty($select->childs)):?>class="option-1-ch"<?else:?>class="option-1"<?endif;?> value="<?=$select->id?>" <?php if ($content->$name == $select->id):?>selected<?php endif; ?><?php if ($content->id == $select->id):?>disabled<?php endif; ?>>
 				<?=$select->title?>

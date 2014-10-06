@@ -1,6 +1,6 @@
+<input type="hidden" name="view_image" value="view_image"/>
 <?if($content->img <> NULL):?>
 	<div class="col_12">
-		<input type="hidden" name="view_image" value="view_image"/>
 		<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
 			<thead>
 				<tr>

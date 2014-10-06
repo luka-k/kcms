@@ -93,6 +93,26 @@ class Images extends MY_Model
 		return TRUE;
 	}
 	
+	public function upload_images($images, $object)
+	{
+		foreach($images['name'] as $key => $value)
+		{
+			if($images['error'][$key] <> 4)
+			{
+				$object_info = array(
+					"object_type" => $object['part_url'],
+					"image_type" => $key,
+					"object_id" => $$object['id']
+				);
+				$pic_info = array(
+					"name" => $images['name'][$key],
+					"tmp_name" => $images['tmp_name'][$key],
+				);
+				$this->upload_image($pic_info, $object_info);
+			}
+		}
+	}
+	
 	public function non_requrrent_info($img_name)
 	{
 		$image = explode(".", $img_name);
