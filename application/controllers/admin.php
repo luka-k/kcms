@@ -113,21 +113,13 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' =>$this->categories->get_list(FALSE)
+				'parent_id' => $this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $this->menu,
 			'type' => $type,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'editors' => $this->$type->editors
 		);
-		
-		if(($type == "products")||($type == "categories"))
-		{
-			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
 		
 		if($id == FALSE)
 		{	

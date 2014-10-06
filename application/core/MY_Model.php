@@ -380,17 +380,14 @@ class MY_Model extends CI_Model
 	
 	public function get_tree($parent_id, $parent_id_field)
 	{
-		$this->url_model->admin_url_parse();
+		//$this->url_model->admin_url_parse();
 		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
 	}
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
 	{
-		//var_dump($parent_id);
-		//$items = $this->category2category->get_list(array($parent_id_field => $parent_id));
 		$query = $this->db->get_where('category2category', array($parent_id_field => $parent_id)); 
 		$items = $query->result_array();
-		//var_dump($items);
 		if (empty($items) <> TRUE) foreach($items as $item)
 		{
 			$category = $this->get_item_by(array("id" => $item['child_id']));
@@ -403,11 +400,9 @@ class MY_Model extends CI_Model
 		if (empty($branches) <> TRUE)foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
-			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
+			//if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
 		}
-		return $branches;
-		//var_dump($branches);
-		//$branches = $this->get_list(array($parent_id_field => $parent_id));	
+		return $branches;	
 	}
 	
 	public function add_active($id)

@@ -7,7 +7,7 @@ class Categories extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text'),
 			'is_active' => array('Активен', 'checkbox'),
-			'parent_id' => array('Сортировка', 'select', 'category2category'),
+			'parent_id' => array('Категория', 'select', 'category2category'),
 			'url' => array('Описание', 'tiny')
 		),
 		'Изображения' => array(
