@@ -72,7 +72,7 @@ class Admin extends CI_Controller
 		
 		if(($type == "products")||($type == "categories"))
 		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}	
 		else
 		{
@@ -118,9 +118,9 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->name,
 			'user_id' => $this->user_id,
-			'selects' => array(
+			/*'selects' => array(
 				'parent_id' =>$this->categories->get_tree(0, "parent_id")
-			),
+			),*/
 			'menu' => $this->menu,
 			'type' => $type,
 			'editors' => $this->$type->editors
@@ -128,7 +128,7 @@ class Admin extends CI_Controller
 		
 		if(($type == "products")||($type == "categories"))
 		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}	
 		else
 		{
@@ -179,7 +179,7 @@ class Admin extends CI_Controller
 		
 		if(($type == "products")||($type == "categories"))
 		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
+			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
 		}	
 		else
 		{

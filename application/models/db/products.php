@@ -5,12 +5,11 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'parent_id' => array('Категория', 'select'),
+			'category_id' => array('Категория', 'select'),
+			'manufacturer_id' => array('Производитель', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
-			'title' => array('Заголовок', 'text'),
-			'price' => array('Цена', 'text'),
-			'description' => array('Описание', 'tiny'),
-			'publish_date' => array('Дата публикации', 'hidden')
+			'name' => array('Заголовок', 'text'),
+			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),
