@@ -67,17 +67,11 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
-			'type' => $type
+			'type' => $type,
+			'tree' => $this->categories->get_tree(0, "parent_id")
 		);	
 		
-		if(($type == "products")||($type == "categories"))
-		{
-			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
+		//var_dump($data['tree']);
 		
 		if ($this->db->field_exists('sort', $type))
 		{
