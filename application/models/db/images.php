@@ -100,9 +100,9 @@ class Images extends MY_Model
 			if($images['error'][$key] <> 4)
 			{
 				$object_info = array(
-					"object_type" => $object['part_url'],
+					"object_type" => $object['object_type'],
 					"image_type" => $key,
-					"object_id" => $$object['id']
+					"object_id" => $object['object_id']
 				);
 				$pic_info = array(
 					"name" => $images['name'][$key],
