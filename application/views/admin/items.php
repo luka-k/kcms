@@ -15,7 +15,7 @@
 							<?elseif($type == "parts"):?>
 								<? require 'include/parts_tree.php' ?>
 							<?else:?>
-								<? require 'include/part_pages_tree.php' ?>
+								<? require 'include/categories_tree.php' ?>
 							<?endif;?>
 						</div>
 					</div>

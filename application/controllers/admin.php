@@ -71,8 +71,6 @@ class Admin extends CI_Controller
 			'tree' => $this->categories->get_tree(0, "parent_id")
 		);	
 		
-		//var_dump($data['tree']);
-		
 		if ($this->db->field_exists('sort', $type))
 		{
 			$order = "sort";
@@ -113,7 +111,8 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' => $this->categories->get_tree(0, "parent_id")
+				'parent_id' => $this->categories->get_tree(0, "parent_id"),
+				'manufacturer_id' => $this->manufacturer->get_list(FALSE)
 			),
 			'menu' => $this->menu,
 			'type' => $type,
@@ -133,11 +132,25 @@ class Admin extends CI_Controller
 			}
 			$category->is_active = "1";
 			$data['content'] = $category;
+			$data['content']->parent_id[] = 0;
 			$data['content']->img = NULL;
 		}	
 		else
 		{			
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			if($type <> "products")
+			{
+				$query = $this->db->get_where('category2category', array("child_id" => $id));
+				$items = $query->result_array();
+
+				foreach($items as $item)
+				{
+					$data['content']->parent_id[] = $item['parent_id'];
+				}
+			}
+			
+			//var_dump($data['content']);
+			//var_dump($data['selects']['parent_id']);
 			$object_info = array(
 				"object_type" => $type,
 				"object_id" => $data['content']->id
@@ -157,24 +170,19 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' =>$this->categories->get_list(FALSE)
+				'parent_id' => $this->categories->get_tree(0, "parent_id"),
+				'manufacturer_id' => $this->manufacturer->get_list(FALSE)
 			),
 			'menu' => $this->menu,
 			'type' => $type,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'editors' => $this->products->editors		
 		);
-		
-		if(($type == "products")||($type == "categories"))
-		{
-			//$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
 					
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
+		
+		//var_dump($post);
 		
 		$data['content'] = editors_post($editors, $post);
 		
@@ -207,14 +215,7 @@ class Admin extends CI_Controller
 			foreach($editors as $tab)
 			{
 				foreach($tab as $name => $editor)
-				{
-					/*if(isset($editor[2])&&($editor[2] == "non_requrrent"))
-					{
-						$fields = array(
-							$name => $data['content']->$name,
-						);							
-					}*/
-						
+				{						
 					if(isset($editor[2])&&($editor[2] == "category2category"))
 					{
 						$data["category2category"]->$name = $data['content']->$name;
@@ -223,14 +224,20 @@ class Admin extends CI_Controller
 					}
 				}
 			}
-			
+			//var_dump($data['content']);
+			//var_dump($data["category2category"]);
 			if($data['content']->id == NULL)
 			{	
 				$this->$type->insert($data['content']);
-				if($c2c == TRUE)
+				if((isset($c2c))&&($c2c == TRUE))
 				{
-					$data["category2category"]->child_id = $this->db->insert_id();
-					$this->db->insert('category2category', $data['category2category']);
+					$id = $this->db->insert_id();
+					foreach($data["category2category"]->parent_id  as $item)
+					{	
+						$category2category->parent_id = $item;
+						$category2category->child_id = $id;
+						$this->db->insert('category2category', $category2category);
+					}
 				}
 				redirect(base_url().'admin/items/'.$type);
 			}
@@ -238,10 +245,17 @@ class Admin extends CI_Controller
 			{
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
-				if($c2c == TRUE)
+				if((isset($c2c))&&($c2c == TRUE))
 				{
 					$this->db->where('child_id', $data['content']->id);
-					$this->db->update('category2category', $data['category2category']);
+					$this->db->delete('category2category');
+					//var_dump($data["category2category"]->parent_id);
+					foreach($data["category2category"]->parent_id  as $item)
+					{	
+						$category2category->parent_id = $item;
+						$category2category->child_id = $data['content']->id;
+						$this->db->insert('category2category', $category2category);
+					}
 				}
 			}
 			
@@ -287,7 +301,7 @@ class Admin extends CI_Controller
 	{
 		if($this->$type->delete($category_id))
 		{
-			redirect(base_url().'admin/items'.$type);
+			redirect(base_url().'admin/items/'.$type);
 		}
 	}
 	

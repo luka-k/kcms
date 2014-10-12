@@ -5,11 +5,19 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'category_id' => array('Категория', 'select'),
-			'manufacturer_id' => array('Производитель', 'select'),
+			'parent_id' => array('Категория', 'select_2'),
+			'manufacturer_id' => array('Производитель', 'select_3'),
 			'is_active' => array('Активна', 'checkbox'),
 			'name' => array('Заголовок', 'text'),
+			'name' => array('Заголовок', 'text'),
+			'price' => array('Цена', 'text'),
+			'discount' => array('Скидка', 'text'),
+			'location' => array('Наличие', 'text'),
 			'description' => array('Описание', 'tiny')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'upload_image', "unset"),
+			'view_image' => array('Изображение', 'view_image', "unset")
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),

@@ -10,13 +10,19 @@ class Url_model extends MY_Model
 	public function url_parse($segment_number, $category = FALSE)
 	{
 		$url = $this->uri->segment($segment_number);
+		//var_dump($url);
 		if (!$url) return FALSE;
-		$child_category = $this->categories->get_item_by(array('url' => $url, 'parent_id' => isset($category->id) ? $category->id : 0));
+		
+		$category = $this->categories->get_item_by(array("url" => $url));
+		
+		return $category;
+		var_dump($category);
+		//$child_category = $this->categories->get_item_by(array('url' => $url, 'parent_id' => isset($category->id) ? $category->id : 0));
 		/*if(isset($category->id))
 		{
 			$this->categories->add_active($category->id);
 		}*/
-		if (!$child_category)
+		/*if (!$child_category)
 		{
 			$product = $this->products->get_item_by(array('url' => $url));
 			if ($product)
@@ -45,7 +51,7 @@ class Url_model extends MY_Model
 			{
 				return $child_category;
 			}
-		}
+		}*/
 	}
 	
 	public function admin_url_parse()

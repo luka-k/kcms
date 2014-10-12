@@ -6,7 +6,7 @@ function editors_post($editors, $post)
 			{
 				foreach ($edit as $key => $value)
 				{
-					if ($value[1] == 'tiny')
+					if (($value[1] == 'tiny')||($value[1] == 'select')||($value[1] == 'select_2'))
 					{
 						$data->$key = $post[$key];				
 					}

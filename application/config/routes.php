@@ -41,8 +41,9 @@
 $route['admin'] = 'admin';
 $route['admin/(:any)'] = 'admin/$1';
 $route['registration/(:any)'] = 'registration/$1';
-$route['catalog'] = 'catalog/index';
-$route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
+$route['shop'] = 'catalog/index';
+$route['shop/(:any)'] = 'catalog/index/$1';
+$route['shop/(:any)/(:num)'] = 'catalog/index/$1/$2';
 $route['product/(:any)'] = 'catalog/product/$1';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['registration/(:any)'] = 'registration/$1';

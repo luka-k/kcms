@@ -1,18 +1,19 @@
 ﻿<div  class="col_12">
-	<label for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></label>
-	<select id="lbl_<?=$editors_counter?>"  name="<?=$name?>" class="col_8">
-		<option value="0">Без категории</option>
-		<?php foreach ($selects[$name] as $select): ?>
-			<option <?php if(!empty($select->childs)):?>class="option-1-ch"<?else:?>class="option-1"<?endif;?> value="<?=$select->id?>">
-				<?=$select->name?>
-			</option>
-				<?php if(!empty($select->childs)):?>
-					<?php foreach ($select->childs as $select_2): ?>
-						<option <?php if(!empty($select_2->childs)):?>class="option-2-ch"<?else:?>class="option-2"<?endif;?> value="<?=$select_2->id?>">
-							<?=$select_2->name?>
-						</option>
-					<?endforeach?>
+	<div for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></div>
+	<div class="col_9">
+		<table>
+			<tr>
+				<td class="tb_1"><input type="checkbox" name="<?=$name?>[]" <?foreach($content->parent_id as $parent_id):?> <?if($parent_id == 0):?>checked<?endif;?> <?endforeach;?> value="0"/></td>
+				<td class="tb_11"><label for="lbl_<?=$editors_counter?>">Без категории</label></td>				
+			</tr>
+			<?php foreach ($selects[$name] as $select): ?>
+				<?if($select->id <> $content->id):?>
+					<tr>
+						<td class="tb_1"><input type="checkbox" name="<?=$name?>[]" <?foreach($content->parent_id as $parent_id):?> <?if($parent_id == $select->id):?>checked<?endif;?> <?endforeach;?> value="<?=$select->id?>"/></td>
+						<td class="tb_11"><label for="lbl_<?=$editors_counter?>"><?=$select->name?></label></td>
+					</tr>
 				<?endif;?>
-		<?php endforeach ?>										
-	</select>
+			<?php endforeach ?>	
+		</table>
+	</div>
 </div>

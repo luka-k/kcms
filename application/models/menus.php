@@ -10,10 +10,15 @@ class Menus extends MY_Model
 	{
         parent::__construct();
 		$this->top_menu = array(
-			"main" => array("Главная", base_url(), "0"),
-			"news" => array("Новости", base_url()."pages/news", "0"),
-			"catalog" => array("Каталог", base_url()."catalog", "0"),
-			"blog" => array("Блог", base_url()."pages/blog", "0"),
+			"catalog" => array("Каталог", base_url(), 0, array(
+				0 => array('Продавцы', base_url()."", 0),
+				1 => array('Подрядчики', base_url()."", 0),
+				2 => array('Производители', base_url()."", 0),			
+			)),
+			"shop" => array("Магазин", base_url()."shop", 0),
+			"brigtbild" => array("bрайтbилd", base_url()."catalog", 0),
+			"contact" => array("Контакты", base_url()."pages/blog", 0),
+			"repository" => array("Складские остатки", base_url()."pages/blog", 0)
 		);	
 
 		$this->admin_menu = array(
