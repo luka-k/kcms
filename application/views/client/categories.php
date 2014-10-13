@@ -45,11 +45,12 @@
 								
 								<div class="left-sidebar-attr clearfix" >
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="formpopup-2" action="<?=base_url()?>shop/" >
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form-1" action="<?=base_url()?>shop/" >
 										
 										<div id="attr-1" class="clearfix noactive">
 											<div id="attribut" class="clearfix">
 												<ul>
+													<?$counter = 1?>
 													<?foreach($left_menu as $item_1):?>
 														<li class="accd">
 															<div class="attr-titl open"><?=$item_1->name?></div>
@@ -57,18 +58,20 @@
 																<ul class="show">
 																	<?foreach ($item_1->childs as $item_2):?>
 																		<li>
-																			<input type="checkbox" name="cetegories_checked[]" value="<?=$item_2->id?>" id="c_1_1" onclick="document.forms['formpopup-2'].submit()" 
+																			<input type="checkbox" name="cetegories_checked[<?=$counter?>]" value="<?=$item_2->id?>" id="c_1_1" onclick="document.forms['form-1'].submit()" 
 																				<?if(!empty($categories_checked)):?>
-																					<?foreach($categories_checked as $ch):?>
-																						<?if($ch == $item_2->id):?>checked<?endif;?>
+																					<?foreach($categories_checked as $key => $ch):?>
+																						<?if($key == $counter):?>checked<?endif;?>
 																					<?endforeach;?>
 																				<?endif;?>>
 																				<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 																		</li>
+																		<?$counter++?>
 																	<?endforeach;?>
 																</ul>
 															<? endif;?>
 														</li>
+											
 													<?endforeach;?>
 												</ul>
 											</div>

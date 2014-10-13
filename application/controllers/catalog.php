@@ -9,8 +9,6 @@ class Catalog extends CI_Controller {
 	
 	public function index()
 	{
-		$url = base_url().uri_string();
-		
 		$order = $this->input->get('order');
 		
 		$direction = $this->input->get('direction');
@@ -31,14 +29,14 @@ class Catalog extends CI_Controller {
 		$manufacturer = $this->manufacturer->get_list(FALSE);
 		
 		$post = $this->input->post();
-		
+				
 		if($post)
 		{
 			if(isset($post['cetegories_checked']))
 			{
-				foreach($post['cetegories_checked'] as $item)
+				foreach($post['cetegories_checked'] as $key => $item)
 				{
-					$categories_checked[] = $item;	
+					$categories_checked[$key] = $item;	
 				}
 				$this->db->where_in('parent_id', $categories_checked);
 			}
@@ -73,7 +71,6 @@ class Catalog extends CI_Controller {
 					$content[$key] = (object)$item;
 				}
 			}
-			
 			$template = "client/categories.php";
 		}
 		else
@@ -141,7 +138,6 @@ class Catalog extends CI_Controller {
 			'left_menu' => $left_menu,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
-			'url' => $url,
 			'user' => $user
 		);
 		
