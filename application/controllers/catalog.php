@@ -96,7 +96,12 @@ class Catalog extends CI_Controller {
 				if(isset($category->product))
 				{
 					$content = $category->product;
-					$template = "client/categories.php";
+					$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
+					if(!empty($content->discount))
+					{
+						$content->sale_price = $content->price*(100 - $content->discount)/100;
+					}
+					$template = "client/product.php";
 				}
 				else
 				{
