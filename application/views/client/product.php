@@ -21,7 +21,6 @@
 																
 																	<?if(!empty($content->img)):?>
 																		<img src="<?=base_url()?>download/images/catalog_mid/<?=$content->img[0]->url?>" class="picture"/>
-					
 																	<?endif;?>
 																</div>	
 																<div id="bg-1" class="bg" class="clearfix">
@@ -56,34 +55,9 @@
 								
 								<div class="left-sidebar-attr clearfix" >
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="formpopup-2" action="<?=base_url()?>shop/" >
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form-1" action="<?=base_url()?>shop/" >
 										
-										<div id="attr-1" class="clearfix noactive">
-											<div id="attribut" class="clearfix">
-												<ul>
-													<?foreach($left_menu as $item_1):?>
-														<li class="accd">
-															<div class="attr-titl open"><?=$item_1->name?></div>
-															<? if(!empty($item_1->childs)):?>
-																<ul class="show">
-																	<?foreach ($item_1->childs as $item_2):?>
-																		<li>
-																			<input type="checkbox" name="cetegories_checked[]" value="<?=$item_2->id?>" id="c_1_1" onclick="document.forms['formpopup-2'].submit()" 
-																				<?if(!empty($categories_checked)):?>
-																					<?foreach($categories_checked as $ch):?>
-																						<?if($ch == $item_2->id):?>checked<?endif;?>
-																					<?endforeach;?>
-																				<?endif;?>>
-																				<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
-																		</li>
-																	<?endforeach;?>
-																</ul>
-															<? endif;?>
-														</li>
-													<?endforeach;?>
-												</ul>
-											</div>
-										</div>
+										<? require 'include/left-menu.php'?>
 										
 										<div id="attr-2" class="clearfix noactive">
 											<div id="attribut" class="clearfix">

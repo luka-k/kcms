@@ -632,6 +632,7 @@ padding: 10px 0px 0 0px;
   
 .count
   {
+  position:relative;
   float:right;
   padding:1px 3px;
   background:#c8c8c8;
@@ -639,6 +640,22 @@ padding: 10px 0px 0 0px;
   color:#000;
   border-radius:2px;
   }
+  
+.popup-count{
+position:absolute;
+display:none;
+width:200px;
+left:-195px;
+top:20px;
+padding:5px;
+border-radius:2px;
+background:#c8c8c8;
+z-index:10000;
+}
+
+.count:hover .popup-count{
+display:block;
+}
   
 .filtr-razmer-1
   {

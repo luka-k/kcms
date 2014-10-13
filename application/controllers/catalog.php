@@ -36,14 +36,19 @@ class Catalog extends CI_Controller {
 			{
 				foreach($post['cetegories_checked'] as $key => $item)
 				{
+					$categories_ch[] = $this->categories->get_item_by(array("id" => $item));
 					$categories_checked[$key] = $item;	
+					
 				}
 				$this->db->where_in('parent_id', $categories_checked);
 			}
 			else
 			{
 				$categories_checked = "";
+				$categories_ch = "";
 			}
+			
+			//var_dump($categories_ch);
 			
 			if(isset($post['manufacturer_checked']))
 			{
@@ -138,6 +143,7 @@ class Catalog extends CI_Controller {
 			'left_menu' => $left_menu,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
+			'categories_ch' => $categories_ch,
 			'user' => $user
 		);
 		
