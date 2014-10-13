@@ -33,7 +33,7 @@
 																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$item->sale_price?> р. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$item->discount?>%</span></span></div>
 																<?endif;?>	
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$item->location?></div>
-																<div class="item-buy">Купить</div><div class="item-more">Подробнее</div>
+																<div class="item-buy">Купить</div><a href="<?=$item->full_url?>" class="item-more">Подробнее</a>
 															</div>
 														</div>
 													<?endforeach;?>
@@ -63,7 +63,7 @@
 																						<?if($ch == $item_2->id):?>checked<?endif;?>
 																					<?endforeach;?>
 																				<?endif;?>>
-																				<a href="<?=base_url()?>shop/<?=$item_2->url?>"><?=$item_2->name?></a>
+																				<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 																		</li>
 																	<?endforeach;?>
 																</ul>

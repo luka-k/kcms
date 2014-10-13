@@ -82,30 +82,44 @@ class Catalog extends CI_Controller {
 			$manufacturer_checked = "";
 			
 			$category = $this->url_model->url_parse(2);
+			//var_dump($category);
 		
 			if ($category == FALSE)
 			{
 				$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+				
+				
 				$template = "client/categories.php";
 			}
 			else
 			{
-				$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-				//вынети в хэлпер
-				$template = "client/categories.php";
+				if(isset($category->product))
+				{
+					$content = $category->product;
+					$template = "client/categories.php";
+				}
+				else
+				{
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					//вынети в хэлпер
+					$template = "client/categories.php";
+				}
 			}
 	
 		}
-		
-		if(!empty($content)) foreach($content as $key => $item)
+				
+		if(!isset($category->product))
 		{
-			if(!empty($item->discount))
+			$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
+			$content = $this->products->get_urls($content);
+			foreach($content as $key => $item)
 			{
-				$content[$key]->sale_price = $item->price*(100 - $item->discount)/100;
+				if(!empty($item->discount))
+				{
+					$content[$key]->sale_price = $item->price*(100 - $item->discount)/100;
+				}
 			}
 		}
-		
-		if(!empty($content)) $content = $this->images->get_img_list($content, 'products', 'catalog_mid');
 		$data = array(
 			//'title' => $settings->site_title,
 			//'meta_title' => $settings->site_title,

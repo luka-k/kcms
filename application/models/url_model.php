@@ -10,19 +10,54 @@ class Url_model extends MY_Model
 	public function url_parse($segment_number, $category = FALSE)
 	{
 		$url = $this->uri->segment($segment_number);
-		//var_dump($url);
+		
 		if (!$url) return FALSE;
 		
-		$category = $this->categories->get_item_by(array("url" => $url));
-		
-		return $category;
+		$child_category = $this->categories->get_item_by(array("url" => $url));
+		if($child_category)
+		{
+			$this->breadcrumbs->add($url, $child_category->name);
+			$query = $this->db->get_where('category2category', array("child_id" => $child_category->id));
+			$item = $query->row();
+			if (isset($item->parent_id))
+			{
+				if($this->url_parse($segment_number + 1))
+				{
+					return $this->url_parse($segment_number + 1, $child_category);
+				}
+				else
+				{
+					return $child_category;
+				}
+			}
+		}
+		else
+		{
+			$product = $this->products->get_item_by(array('url' => $url));
+			if ($product)
+			{
+				$this->breadcrumbs->add($url, $product->name);
+				$category->product = $product;
+				return $category;
+			}
+			else
+			{
+				return '404';
+			}			
+		}
+			
+		/*$query = $this->db->get_where('category2category', array("parent_id" => 0));
+		$child = $query->result_array();//$this->categories->get_item_by(array('url' => $url, 'parent_id' => isset($category->id) ? $category->id : 0));
+		foreach($child as $item)
+		{
+			$category = $this->categories->get_item_by(array("id" => $item['id'], "url" => $url));
+		}
 		var_dump($category);
-		//$child_category = $this->categories->get_item_by(array('url' => $url, 'parent_id' => isset($category->id) ? $category->id : 0));
-		/*if(isset($category->id))
+		if(isset($category->id))
 		{
 			$this->categories->add_active($category->id);
-		}*/
-		/*if (!$child_category)
+		}
+		if (!$child_category)
 		{
 			$product = $this->products->get_item_by(array('url' => $url));
 			if ($product)
@@ -38,7 +73,7 @@ class Url_model extends MY_Model
 		} 
 		else 
 		{
-			$this->categories->add_active($child_category->id);
+			$this->categories->add_active($child_category->child_id);
 			$child_category->parent = $category;
 			
 			$this->breadcrumbs->add($url, $child_category->title);

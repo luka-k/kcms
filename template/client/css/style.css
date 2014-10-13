@@ -942,6 +942,8 @@ color:#000;
   font-size:14px;
   font-weight:bold;
   line-height:16px;
+  text-decoration:none;
+  color:#000;
   }
   
 .item  > .item-buy:hover, .item  > .item-more:hover
