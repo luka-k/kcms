@@ -82,6 +82,7 @@ class Catalog extends CI_Controller {
 		{
 			$categories_checked = "";
 			$manufacturer_checked = "";
+			$categories_ch = "";
 			
 			$category = $this->url_model->url_parse(2);
 			//var_dump($category);

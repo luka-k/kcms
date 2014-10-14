@@ -41,7 +41,10 @@
 																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$content->sale_price?> р. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$content->discount?>%</span></span></div>
 																<?endif;?>	
 																<div>
-																	ОПИСАНИЕ ХАРАКТЕРИСТИКИ И ТД!!!!!
+																	ОПИСАНИЕ ХАРАКТЕРИСТИКИ И ТД!!!!!<br/>
+																	Описание описание описание <br/>
+																	Описание описание описание <br/>
+																	Описание описание описание <br/>
 																</div>
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$content->location?></div>
 																<div class="item-buy">Купить</div>
