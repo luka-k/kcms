@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2014 г., 00:41
+-- Время создания: Окт 14 2014 г., 18:39
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `category2category` (
   `parent_id` int(10) NOT NULL,
   `child_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Дамп данных таблицы `category2category`
@@ -68,8 +68,9 @@ INSERT INTO `category2category` (`id`, `parent_id`, `child_id`) VALUES
 (9, 0, 2),
 (10, 0, 3),
 (11, 0, 4),
-(12, 1, 5),
-(14, 1, 6);
+(14, 1, 6),
+(15, 1, 5),
+(16, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -92,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('6965091af61875bc6521e46632679c62', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413146383, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('403bd990b9131c2d4c0fa4cf6e9d2848', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413294534, 'a:1:{s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"a87ff679a2f3e71d9181a67b7542122c";a:5:{s:2:"id";s:1:"4";s:5:"title";N;s:5:"price";s:4:"8210";s:3:"qty";i:7;s:10:"item_total";i:57470;}}s:9:"total_qty";i:7;s:10:"cart_total";i:57470;}}'),
+('5978a10c64a60a5beda5206fb10931e6', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413297377, 'a:6:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"a87ff679a2f3e71d9181a67b7542122c";a:5:{s:2:"id";s:1:"4";s:4:"name";s:24:"Kuga elegance 22025.2033";s:5:"price";s:4:"8210";s:3:"qty";i:1;s:10:"item_total";i:8210;}}s:9:"total_qty";i:1;s:10:"cart_total";i:8210;}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -134,14 +136,15 @@ CREATE TABLE IF NOT EXISTS `images` (
   `image_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=50 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
-(48, 1, 'products', 4, '', '/i/t/item-1.jpg');
+(48, 1, 'products', 4, '', '/i/t/item-1.jpg'),
+(49, 0, 'products', 4, '', '/i/t/item-2.jpg');
 
 -- --------------------------------------------------------
 
@@ -198,16 +201,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=64 ;
-
---
--- Дамп данных таблицы `orders`
---
-
-INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
-(61, '541f01199a053', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-21 00:00:00', 3),
-(62, '541f012798fee', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 341, 4, 1, '2014-09-21 00:00:00', 1),
-(63, '541f017a477b3', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 2, '2014-09-21 00:00:00', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -223,40 +217,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
-
---
--- Дамп данных таблицы `orders_products`
---
-
-INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(2, '5416af6567a16', 14, 'Товар 1 категории 1', '120.6', 1),
-(3, '541743b1a99e7', 14, 'Товар 1 категории 1', '120.6', 50),
-(4, '54174443e307d', 14, 'Товар 1 категории 1', '120.6', 10),
-(5, '5417e385077c9', 14, 'Товар 1 категории 1', '120.6', 1),
-(6, '5417e385077c9', 15, 'Товар 2 категории 1', '160.2', 1),
-(7, '541db4347ed9d', 14, 'Товар 1 категории 1', '120.6', 1),
-(8, '541dcc9292f95', 14, 'Товар 1 категории 1', '120.6', 1),
-(9, '541dce0197e62', 14, 'Товар 1 категории 1', '120.6', 1),
-(10, '541dd19d4515c', 15, 'Товар 2 категории 1', '160.2', 1),
-(11, '541eed18ce6ef', 14, 'Товар 1 категории 1', '120.6', 1),
-(12, '541eed18ce6ef', 15, 'Товар 2 категории 1', '160.2', 1),
-(13, '541eed2b7fbb2', 16, 'Товар 3 категории 1', '220.3', 1),
-(14, '541eed2b7fbb2', 14, 'Товар 1 категории 1', '120.6', 1),
-(15, '541eee4ca8f9a', 14, 'Товар 1 категории 1', '120.6', 1),
-(16, '541eee70bece9', 15, 'Товар 2 категории 1', '160.2', 1),
-(17, '541eee8e0e4c8', 15, 'Товар 2 категории 1', '160.2', 1),
-(18, '541eee8e0e4c8', 16, 'Товар 3 категории 1', '220.3', 1),
-(19, '541eefe819c1b', 14, 'Товар 1 категории 1', '120.6', 2),
-(20, '541ef1c191852', 14, 'Товар 1 категории 1', '120.6', 1),
-(21, '541ef1c191852', 15, 'Товар 2 категории 1', '160.2', 1),
-(22, '541efb86b559e', 14, 'Товар 1 категории 1', '120.6', 1),
-(23, '541efc0c7ed8c', 14, 'Товар 1 категории 1', '120.6', 1),
-(24, '541efd07db45e', 14, 'Товар 1 категории 1', '120.6', 1),
-(25, '541f01199a053', 14, 'Товар 1 категории 1', '120.6', 1),
-(26, '541f012798fee', 14, 'Товар 1 категории 1', '120.6', 1),
-(27, '541f012798fee', 16, 'Товар 3 категории 1', '220.3', 1),
-(28, '541f017a477b3', 14, 'Товар 1 категории 1', '120.6', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -275,15 +236,7 @@ CREATE TABLE IF NOT EXISTS `parts` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `parts`
---
-
-INSERT INTO `parts` (`id`, `is_active`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
-(1, 1, 'Блог', 'Блог', '', '', 'blog', 0, '<p>В блоге много интересных статей о разном бухле</p>'),
-(2, 1, 'Новости', 'Новости', '', '', 'news', 0, '<p>Новости нашей компании.</p>');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -314,8 +267,8 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `manufacturer_id`, `is_active`, `name`, `color`, `price`, `discount`, `location`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(4, 5, 1, 1, 'Kuga elegance 22025.2033', '', 8210, 30, 'СПб', '', '', '', '', ''),
-(5, 6, 4, 1, 'Kuga elegance 22025.2033-233', '', 80000, 0, 'Москва', '', '', '', '', '');
+(4, 5, 1, 1, 'Kuga elegance 22025.2033', '', 8210, 30, 'СПб', '', '', '', 'kuga_1', ''),
+(5, 6, 4, 1, 'Kuga elegance 22025.2033-233', '', 80000, 0, 'Москва', '', '', '', 'kuga_2', '');
 
 -- --------------------------------------------------------
 
@@ -362,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `users`
