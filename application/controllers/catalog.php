@@ -140,6 +140,7 @@ class Catalog extends CI_Controller {
 			'cart' => $cart,
 			'total_price' => $total_price,
 			'total_qty' => $total_qty,
+			'product_word' => end_maker("товар", $total_qty),
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
 			'categories_checked' => $categories_checked,
