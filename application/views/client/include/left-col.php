@@ -1,6 +1,15 @@
 <div class="scroll-contentd" id="leftscroll" style="height: 410px;">
 	<div id="filter" class="clearfix scroll-content"  style="height: 400px;overflow-y: hidden;">
-		<div class="clearfix">
+	
+		<div class="clearfix" style="margin-top:10px">
+			<div id="filt-4" class="filtr-noact" <?if($cart):?><?endif;?> onclick="return false">Корзина</div>
+			<div style="width:100%; clear:both;" class="clearfix">
+				<div>В корзине: <span class="total_qty"><?=$total_qty?></span> товаров</div>
+				<div>На сумму: <span class="total_price"><?=$total_price?></span> руб.</div>
+			<div>
+		</div>
+		
+		<div class="clearfix" style="margin-top:10px">
 			<div class="filter-titl">Группа товаров:</div>
 			<div class="help">i
 				<div class="popup-help">
@@ -29,7 +38,7 @@
 			</div>
 		</div>
 								
-		<div class="clearfix" style="margin-top:40px">
+		<div class="clearfix" style="margin-top:10px">
 			<div class="filter-titl">Производитель:</div>
 			<div class="help">i
 				<div class="popup-help">
@@ -55,7 +64,7 @@
 				</div>
 				<input class="input" type="text" name="" />
 		</div>
-		<div class="clearfix" style="margin-top:40px">
+		<div class="clearfix" style="margin-top:10px">
 			<div class="filter-titl">Название товара:</div>
 			<div class="help">i
 				<div class="popup-help">
@@ -71,13 +80,13 @@
 			</div>
 			<div id="filt-2" class="filtr-noact" onclick="return false">Сместиель для раковины</div>
 		</div>
-		<div class="clearfix" style="margin-top:40px">
-			<div id="filt-3" class="filtr-noact" onclick="return false">Характеристики:</div>
+		<div class="clearfix" style="margin-top:10px">
 			<div class="help">i
 				<div class="popup-help">
 					Окно с подсказкой
 				</div>
 			</div>
+			<div id="filt-3" class="filtr-noact" onclick="return false">Характеристики:</div>
 		</div>
 	</div>
 </div><!-- .left-sidebar -->

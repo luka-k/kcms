@@ -33,7 +33,7 @@
 																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$item->sale_price?> р. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$item->discount?>%</span></span></div>
 																<?endif;?>	
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$item->location?></div>
-																<div class="item-buy">Купить</div><a href="<?=$item->full_url?>" class="item-more">Подробнее</a>
+																<div class="item-buy" onclick="add_to_cart('<?=$item->id?>', 1); return false">Купить</div><a href="<?=$item->full_url?>" class="item-more">Подробнее</a>
 															</div>
 														</div>
 													<?endforeach;?>
@@ -46,6 +46,25 @@
 								<div class="left-sidebar-attr clearfix" >
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form-1" action="<?=base_url()?>shop/" >
+										
+										<div id="attr-4" class="clearfix noactive">
+											<div id="attribut" class="clearfix">
+												<div style="margin-bottom:5px;">Корзина:</div>
+												<div class="cart">
+													<?if($cart):?>
+															<?foreach($cart as $item_id => $item):?>
+																<div class="<?=$item_id?>  clearfix">
+																	<div style="width:10%; float:left;"><?=$item['qty']?></div>
+																	<div style="width:85%; float:left;"><?=$item['name']?></div>
+																	<div style="width:5%; float:left; text-align:right;"><a href="#" onclick="delete_item('<?=$item_id?>')" class="delete">X</a></div>
+																</div>
+															<?endforeach;?>
+													<?else:?>
+														Ваша корзина пуста.
+													<?endif;?>
+												</div>
+											</div>
+										</div>
 										
 										<? require 'include/left-menu.php'?>
 										
@@ -103,6 +122,7 @@
 												</div>
 											</div>
 										</div>
+
 										</form>
 									</div>
 								</div>

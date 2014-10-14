@@ -13,6 +13,8 @@
 		
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/accordion.js?v05"></script>
+	
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
 		
 	<script src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>

@@ -148,6 +148,7 @@ class Catalog extends CI_Controller {
 			'user' => $user
 		);
 		
+		
 		$this->load->view($template, $data);
 		
 

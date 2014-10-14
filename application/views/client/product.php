@@ -47,7 +47,7 @@
 																	Описание описание описание <br/>
 																</div>
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$content->location?></div>
-																<div class="item-buy">Купить</div>
+																<div class="item-buy" onclick="add_to_cart('<?=$content->id?>', 1); return false">Купить</div>
 															</div>
 														</div>
 												<?endif;?>
@@ -123,37 +123,7 @@
 						</div><!-- .content-->
 					</div><!-- .container-->
 					<div class="left-sidebar-filtr clearfix">
-						<div class="scroll-contentd" id="leftscroll" style="height: 410px;">
-							<div id="filter" class="clearfix scroll-content"  style="height: 400px;overflow-y: hidden;">
-								<div class="clearfix">
-									<div class="filter-titl">Группа товаров:</div><div class="help">i</div>
-									
-									<div id="filt-1" class="filtr-noact" onclick="return false">Смесители для ванной</div>
-								</div>
-								
-								<div class="clearfix" style="margin-top:40px">
-									<div class="filter-titl">Производитель:</div><div class="help">i</div>
-									
-									<div id="filt-2" class="filtr-noact" onclick="return false">Kludi</div>
-									
-									<div class="filter-titl">Колекция/Серия:</div><div class="help">i</div>
-									<div id="filt-2" class="filtr-noact" onclick="return false">balance</div>
-									<input class="input" type="text" name="" />
-									<div class="filter-titl">Артикул/Модель:</div><div class="help">i</div>
-									<input class="input" type="text" name="" />
-								</div>
-								<div class="clearfix" style="margin-top:40px">
-									<div class="filter-titl">Название товара:</div><div class="help">i</div>
-									<div id="filt-2" class="filtr-noact" onclick="return false">Kludi Balance 2532255<div class="count">2</div></div>
-									<div class="filter-titl">Описание товара:</div><div class="help">i</div>
-									<div id="filt-2" class="filtr-noact" onclick="return false">Сместиель для раковины</div>
-								</div>
-								<div class="clearfix" style="margin-top:40px">
-									<div class="help">i</div>
-									<div id="filt-3" class="filtr-noact" onclick="return false">Характеристики:</div>
-								</div>
-							</div>
-						</div><!-- .left-sidebar -->
+						<? require 'include/left-col.php'?>
 					</div>
 				</div><!-- .middle-->
 			</div><!--/main-->
