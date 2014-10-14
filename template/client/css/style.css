@@ -582,14 +582,32 @@ h2.document-name a:hover {
   margin:5px 0 0 0;
   }
   
-.help
-  {
-  float:right;
-  margin:5px 30px 0 0;
-  color:#0ca0db;
-  font-weight:bold;
-  cursor:pointer;
-  }
+.help{
+position:relative;  
+float:right;
+margin:5px 30px 0 0;
+color:#0ca0db;
+font-weight:bold;
+cursor:pointer;
+}
+  
+.popup-help{
+position:absolute;
+display:none;
+width:200px;
+left:-195px;
+top:20px;
+padding:5px;
+border-radius:2px;
+background:#c8c8c8;
+color:#000;
+font-weight:normal;
+z-index:10000;
+}
+
+.help:hover .popup-help{
+display:block;
+}  
   
 .filtr-noact
   {
