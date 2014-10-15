@@ -297,10 +297,15 @@ class Admin extends CI_Controller
 	}
 	
 	//Удаление категории
-	public function delete_item($type, $category_id)
+	public function delete_item($type, $item_id)
 	{
-		if($this->$type->delete($category_id))
+		if($this->$type->delete($item_id))
 		{
+			if($type == "categories")
+			{
+				$this->db->where(array("child_id" => $item_id));
+				$this->db->delete('category2category');
+			}
 			redirect(base_url().'admin/items/'.$type);
 		}
 	}
@@ -345,8 +350,7 @@ class Admin extends CI_Controller
 			'error' => " ",
 			'name' => $this->name,
 			'user_id' => $this->user_id,
-			'menu' => $this->menu,
-			'tree' => $this->categories->get_sub_tree(0, "parent_id")	
+			'menu' => $this->menu	
 		);
 		
 		$editors = $this->settings->editors;
