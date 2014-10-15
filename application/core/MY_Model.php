@@ -467,7 +467,7 @@ class MY_Model extends CI_Model
 								case 'url':
 									if(empty($post['url']))
 									{
-										$post['url'] = $post[$key];
+										$post['url'] = slug($post[$key]);
 									}
 									$data->$key = $post[$key];
 									break;

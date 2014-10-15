@@ -112,7 +112,7 @@ class Catalog extends CI_Controller {
 	
 		}
 				
-		if(!isset($category->product))
+		if(!isset($category->product)&&(!empty($content)))
 		{
 			$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
 			

@@ -76,7 +76,7 @@
 														<ul class="show">
 															<?foreach($manufacturer as $firma):?>
 																<li>
-																	<input type="checkbox" name="manufacturer_checked[]" value="<?=$firma->id?>" id="c_1_1" onclick="document.forms['formpopup-2'].submit()" 
+																	<input type="checkbox" name="manufacturer_checked[]" value="<?=$firma->id?>" id="c_1_1" onclick="document.forms['form-1'].submit()" 
 																		<?if(!empty($manufacturer_checked)):?>
 																			<?foreach($manufacturer_checked as $ch):?>
 																				<?if($ch == $firma->id):?>checked<?endif;?>

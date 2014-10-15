@@ -60,6 +60,25 @@
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form-1" action="<?=base_url()?>shop/" >
 										
+										<div id="attr-4" class="clearfix noactive">
+											<div id="attribut" class="clearfix">
+												<div style="margin-bottom:5px;">Корзина:</div>
+												<div class="cart">
+													<?if($cart):?>
+															<?foreach($cart as $item_id => $item):?>
+																<div class="<?=$item_id?>  clearfix">
+																	<div style="width:10%; float:left;"><?=$item['qty']?></div>
+																	<div style="width:85%; float:left;"><?=$item['name']?></div>
+																	<div style="width:5%; float:left; text-align:right;"><a href="#" onclick="delete_item('<?=$item_id?>')" class="delete">X</a></div>
+																</div>
+															<?endforeach;?>
+													<?else:?>
+														Ваша корзина пуста.
+													<?endif;?>
+												</div>
+											</div>
+										</div>
+										
 										<? require 'include/left-menu.php'?>
 										
 										<div id="attr-2" class="clearfix noactive">
