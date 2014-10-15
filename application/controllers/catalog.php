@@ -87,8 +87,6 @@ class Catalog extends CI_Controller {
 			if ($category == FALSE)
 			{
 				$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
-				
-				
 				$template = "client/categories.php";
 			}
 			else
@@ -96,6 +94,7 @@ class Catalog extends CI_Controller {
 				if(isset($category->product))
 				{
 					$content = $category->product;
+					
 					$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
 					if(!empty($content->discount))
 					{
@@ -105,7 +104,7 @@ class Catalog extends CI_Controller {
 				}
 				else
 				{
-					$content = $this->products->get_list(array("category_parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 					//вынети в хэлпер
 					$template = "client/categories.php";
 				}
@@ -113,10 +112,12 @@ class Catalog extends CI_Controller {
 	
 		}
 				
-		if(!empty($content))
+		if(!isset($category->product))
 		{
 			$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
+			
 			$content = $this->products->get_urls($content);
+
 			foreach($content as $key => $item)
 			{
 				if(!empty($item->discount))

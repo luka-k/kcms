@@ -19,7 +19,7 @@ class Url_model extends MY_Model
 			$this->breadcrumbs->add($url, $child_category->name);
 			$query = $this->db->get_where('category2category', array("child_id" => $child_category->id));
 			$item = $query->row();
-			if (isset($item->parent_id))
+			if (isset($item->category_parent_id))
 			{
 				if($this->url_parse($segment_number + 1))
 				{
