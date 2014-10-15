@@ -17,7 +17,7 @@ class Catalog extends CI_Controller {
 		
 		$top_menu = $this->menus->top_menu;
 		$top_menu = $this->menus->set_active($top_menu, 'shop');
-		$left_menu = $this->categories->get_tree(0, "parent_id");
+		$left_menu = $this->categories->get_tree(0, "category_parent_id");
 		
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
@@ -60,9 +60,9 @@ class Catalog extends CI_Controller {
 			{
 				$manufacturer_checked = "";
 			}
-			
 			$query = $this->db->get('products');
 			$result = $query->result_array();
+			
 			if(empty($result))
 			{
 				$content = "";
@@ -105,7 +105,7 @@ class Catalog extends CI_Controller {
 				}
 				else
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					$content = $this->products->get_list(array("category_parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 					//вынети в хэлпер
 					$template = "client/categories.php";
 				}
@@ -113,7 +113,7 @@ class Catalog extends CI_Controller {
 	
 		}
 				
-		if(!isset($category->product))
+		if(!empty($content))
 		{
 			$content = $this->images->get_img_list($content, 'products', 'catalog_mid');
 			$content = $this->products->get_urls($content);

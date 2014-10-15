@@ -49,7 +49,7 @@ class Categories extends MY_Model
 		$this->full_url[] = $item->url;
 		$query = $this->db->get_where('category2category', array("child_id" => $item->id)); 
 		$c2c = $query->row();
-		$item = $this->categories->get_item_by(array("id" => $c2c->parent_id));
+		$item = $this->categories->get_item_by(array("id" => $c2c->category_parent_id));
 		$this->full_url[] = $item->url;
 		$this->full_url[] = 'shop';	
 	}	
