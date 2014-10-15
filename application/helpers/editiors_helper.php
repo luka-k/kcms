@@ -1,11 +1,14 @@
 <? if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function editors_post($editors, $post)
+function editors_post($editors, $post, $type)
 {
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
 				{
+					if ($this->db->field_exists($key, $type))
+					{
+				
 					if (($value[1] == 'tiny')||($value[1] == 'select')||($value[1] == 'select_2'))
 					{
 						$data->$key = $post[$key];				
@@ -17,6 +20,18 @@ function editors_post($editors, $post)
 					else
 					{
 						$data->$key = htmlspecialchars($post[$key]);	
+					}
+					
+					if(($value[2] == 'url'))
+					{
+						if (isset($post['url']))
+						{
+							if(empty($post['url']))
+							{
+								$data->url = $post[$key];
+							}
+						}
+					}
 					}
 				}
 			}

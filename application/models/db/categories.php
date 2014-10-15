@@ -5,14 +5,14 @@ class Categories extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text'),
+			'name' => array('Заголовок', 'text', 'url'),
 			'url' => array('url', 'text'),
 			'is_active' => array('Активен', 'checkbox'),
 			'parent_id' => array('Категория', 'select', 'category2category')
 		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'upload_2_image', "unset"),
-			'view_image' => array('Изображение', 'view_image', "unset")
+			'upload_image' => array('Загрузить изображение', 'upload_2_image'),
+			'view_image' => array('Изображение', 'view_image')
 		)		
 	);
 	

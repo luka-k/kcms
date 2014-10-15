@@ -138,7 +138,7 @@ class Admin extends CI_Controller
 		else
 		{			
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
-			if($type <> "products")
+			if($type == "categories")
 			{
 				$query = $this->db->get_where('category2category', array("child_id" => $id));
 				$items = $query->result_array();
@@ -149,8 +149,6 @@ class Admin extends CI_Controller
 				}
 			}
 			
-			//var_dump($data['content']);
-			//var_dump($data['selects']['parent_id']);
 			$object_info = array(
 				"object_type" => $type,
 				"object_id" => $data['content']->id
@@ -184,8 +182,7 @@ class Admin extends CI_Controller
 		
 		//var_dump($post);
 		
-		$data['content'] = editors_post($editors, $post);
-		
+		$data['content'] = $this->$type->editors_post($editors, $post);
 		//Валидация формы
 		$this->form_validation->set_rules('name', 'name', 'trim|xss_clean|required');
 		
@@ -196,36 +193,18 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			//Удаляем поля которые не присутствуют в базе
-			//Например картинки
-			//Возможно чуть позднее уйдет в функцию помошника
-			foreach($editors as $tab)
-			{
-				foreach($tab as $name => $editor)
-				{
-					if(isset($editor[2])&&($editor[2] == "unset"))
-					{
-						unset($data['content']->$name);
-					}
-				}
-			}
-			
-			//Аналогично unset проверка на уникальность имени
-			//Думаю тоже в помошник уйдет
 			foreach($editors as $tab)
 			{
 				foreach($tab as $name => $editor)
 				{						
 					if(isset($editor[2])&&($editor[2] == "category2category"))
 					{
-						$data["category2category"]->$name = $data['content']->$name;
-						unset($data['content']->$name);
+						$data["category2category"]->$name = $post[$name];
 						$c2c = TRUE;
 					}
 				}
 			}
-			//var_dump($data['content']);
-			//var_dump($data["category2category"]);
+			
 			if($data['content']->id == NULL)
 			{	
 				$this->$type->insert($data['content']);
@@ -249,7 +228,6 @@ class Admin extends CI_Controller
 				{
 					$this->db->where('child_id', $data['content']->id);
 					$this->db->delete('category2category');
-					//var_dump($data["category2category"]->parent_id);
 					foreach($data["category2category"]->parent_id  as $item)
 					{	
 						$category2category->parent_id = $item;

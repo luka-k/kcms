@@ -422,4 +422,43 @@ class MY_Model extends CI_Model
 		}	
 	}
 	
+	
+	function editors_post($editors, $post)
+	{
+		foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($this->db->field_exists($key, $this->_table))
+					{
+				
+						if (($value[1] == 'tiny')||($value[1] == 'select')||($value[1] == 'select_2'))
+						{
+							$data->$key = $post[$key];				
+						}
+						elseif (($value[1] == 'checkbox') and (!array_key_exists($key, $post)))
+						{
+							$data->$key = 0;
+						}
+						elseif($key == "url")
+						{
+							if(empty($post[$key]))
+							{
+								$data->$key = $post['name'];
+							}
+							else
+							{	
+								$data->$key = htmlspecialchars($post[$key]);
+							}
+						}
+						else
+						{
+							$data->$key = htmlspecialchars($post[$key]);	
+						}
+					}
+				}
+			}
+		return $data;
+	}
+	
 } 
