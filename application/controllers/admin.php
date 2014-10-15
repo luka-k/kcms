@@ -206,6 +206,7 @@ class Admin extends CI_Controller
 			if($data['content']->id == NULL)
 			{	
 				$this->$type->insert($data['content']);
+				$data['content']->id = $this->db->insert_id();
 				if((isset($c2c))&&($c2c == TRUE))
 				{
 					$id = $this->db->insert_id();
@@ -262,7 +263,6 @@ class Admin extends CI_Controller
 
 			if($exit == false)
 			{
-				if (empty($data['content']->id)) $data['content']->id = $this->db->insert_id();
 				redirect(base_url().'admin/item/'.$type."/".$data['content']->id);
 			}
 			else
