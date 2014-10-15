@@ -334,7 +334,7 @@ class Admin extends CI_Controller
 		$editors = $this->settings->editors;
 		$post = $this->input->post();
 		
-		$data['settings'] = editors_post($editors, $post);
+		$data['settings'] = $this->settings->editors_post($editors, $post);
 
 		//Валидация формы
 		$this->form_validation->set_rules('trim|xss_clean|required');
