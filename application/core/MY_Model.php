@@ -467,9 +467,10 @@ class MY_Model extends CI_Model
 								case 'url':
 									if(empty($post['url']))
 									{
-										$data->$key = $post[$key];
 										$post['url'] = $post[$key];
 									}
+									$data->$key = $post[$key];
+									break;
 							}
 						}
 						else
