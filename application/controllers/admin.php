@@ -180,8 +180,6 @@ class Admin extends CI_Controller
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
 		
-		//var_dump($post);
-		
 		$data['content'] = $this->$type->editors_post($editors, $post);
 		//Валидация формы
 		$this->form_validation->set_rules('name', 'name', 'trim|xss_clean|required');
@@ -218,7 +216,6 @@ class Admin extends CI_Controller
 						$this->db->insert('category2category', $category2category);
 					}
 				}
-				redirect(base_url().'admin/items/'.$type);
 			}
 			else
 			{
@@ -265,10 +262,11 @@ class Admin extends CI_Controller
 
 			if($exit == false)
 			{
+				if (empty($data['content']->id)) $data['content']->id = $this->db->insert_id();
 				redirect(base_url().'admin/item/'.$type."/".$data['content']->id);
 			}
 			else
-			{
+			{ 
 				redirect(base_url().'admin/items/'.$type);
 			}				
 		}	
