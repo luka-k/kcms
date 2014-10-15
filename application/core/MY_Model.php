@@ -422,6 +422,29 @@ class MY_Model extends CI_Model
 		}	
 	}
 	
+	public function subcategory()
+	{
+		$query = $this->db->get_where('category2category', array('parent_id >' => 0)); 
+		$items = $query->result_array();
+		foreach($items as $key => $item)
+		{
+			$counter = 0;
+			foreach ($items as $it)
+			{
+				if($item['child_id'] == $it['child_id']) $counter++;
+			}
+			if($counter > 1) 
+			{
+				unset($items[$key]);
+			}
+			else
+			{
+				$subcategory[] = $this->get_item_by(array("id" => $item['child_id']));
+			}
+		}
+		return $subcategory;
+	}
+	
 	
 	function editors_post($editors, $post)
 	{

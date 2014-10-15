@@ -105,13 +105,14 @@ class Admin extends CI_Controller
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
+		var_dump($this->categories->subcategory());
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' => $this->categories->get_tree(0, "parent_id"),
+				'parent_id' => $this->categories->subcategory(),
 				'manufacturer_id' => $this->manufacturer->get_list(FALSE)
 			),
 			'menu' => $this->menu,

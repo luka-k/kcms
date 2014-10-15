@@ -48,8 +48,6 @@ class Catalog extends CI_Controller {
 				$categories_ch = "";
 			}
 			
-			//var_dump($categories_ch);
-			
 			if(isset($post['manufacturer_checked']))
 			{
 				foreach($post['manufacturer_checked'] as $item)
@@ -85,7 +83,6 @@ class Catalog extends CI_Controller {
 			$categories_ch = "";
 			
 			$category = $this->url_model->url_parse(2);
-			//var_dump($category);
 		
 			if ($category == FALSE)
 			{

@@ -50,5 +50,6 @@ function editors_key_exists($field, $editors)
 	return FALSE;
 }
 
+
 /* End of file editiors_helper.php */
 /* Location: ./application/helpers/editors_helper.php */
