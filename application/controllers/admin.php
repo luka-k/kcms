@@ -105,7 +105,6 @@ class Admin extends CI_Controller
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
-		var_dump($this->categories->subcategory());
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",

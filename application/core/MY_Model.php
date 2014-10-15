@@ -454,30 +454,28 @@ class MY_Model extends CI_Model
 				{
 					if ($this->db->field_exists($key, $this->_table))
 					{
-				
-						if (($value[1] == 'tiny')||($value[1] == 'select')||($value[1] == 'select_2'))
-						{
-							$data->$key = $post[$key];				
-						}
-						elseif (($value[1] == 'checkbox') and (!array_key_exists($key, $post)))
-						{
-							$data->$key = 0;
-						}
-						elseif($key == "url")
-						{
-							if(empty($post[$key]))
+						if (isset($value[2])) 
+						{	
+							switch ($value[2]) 
 							{
-								$data->$key = $post['name'];
-							}
-							else
-							{	
-								$data->$key = htmlspecialchars($post[$key]);
+								case "0":
+									$data->$key = $post[$key];
+									break;
+								case "null":
+									if (!array_key_exists($key, $post)) $data->$key = 0;;
+									break;
+								case 'url':
+									if(empty($post['url']))
+									{
+										$data->$key = $post[$key];
+										$post['url'] = $post[$key];
+									}
 							}
 						}
 						else
-						{
-							$data->$key = htmlspecialchars($post[$key]);	
-						}
+						{	
+							$data->$key = htmlspecialchars($post[$key]);
+						}						
 					}
 				}
 			}
