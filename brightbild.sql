@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 14 2014 г., 18:39
+-- Время создания: Окт 15 2014 г., 21:15
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `is_active` int(1) NOT NULL DEFAULT '1',
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `categories`
@@ -53,24 +53,22 @@ INSERT INTO `categories` (`id`, `name`, `is_active`, `url`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `category2category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) NOT NULL,
-  `child_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+  `category_parent_id` int(10) NOT NULL,
+  `child_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `category2category`
 --
 
-INSERT INTO `category2category` (`id`, `parent_id`, `child_id`) VALUES
-(8, 0, 1),
-(9, 0, 2),
-(10, 0, 3),
-(11, 0, 4),
-(14, 1, 6),
-(15, 1, 5),
-(16, 4, 5);
+INSERT INTO `category2category` (`category_parent_id`, `child_id`) VALUES
+(0, 2),
+(0, 3),
+(0, 4),
+(1, 5),
+(4, 5),
+(0, 1),
+(1, 6);
 
 -- --------------------------------------------------------
 
@@ -93,8 +91,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('403bd990b9131c2d4c0fa4cf6e9d2848', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413294534, 'a:1:{s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"a87ff679a2f3e71d9181a67b7542122c";a:5:{s:2:"id";s:1:"4";s:5:"title";N;s:5:"price";s:4:"8210";s:3:"qty";i:7;s:10:"item_total";i:57470;}}s:9:"total_qty";i:7;s:10:"cart_total";i:57470;}}'),
-('5978a10c64a60a5beda5206fb10931e6', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413297377, 'a:6:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"a87ff679a2f3e71d9181a67b7542122c";a:5:{s:2:"id";s:1:"4";s:4:"name";s:24:"Kuga elegance 22025.2033";s:5:"price";s:4:"8210";s:3:"qty";i:1;s:10:"item_total";i:8210;}}s:9:"total_qty";i:1;s:10:"cart_total";i:8210;}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('d4a8929d08410a332cdcf3cf1ec59b3f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413393125, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -159,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
   `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `link` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `manufacturer`
@@ -260,14 +257,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `manufacturer_id`, `is_active`, `name`, `color`, `price`, `discount`, `location`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(4, 5, 1, 1, 'Kuga elegance 22025.2033', '', 8210, 30, 'СПб', '', '', '', 'kuga_1', ''),
+(4, 6, 1, 1, 'Kuga elegance 22025.2033', '', 8210, 30, 'СПб', '', '', '', 'kuga_1', ''),
 (5, 6, 4, 1, 'Kuga elegance 22025.2033-233', '', 80000, 0, 'Москва', '', '', '', 'kuga_2', '');
 
 -- --------------------------------------------------------

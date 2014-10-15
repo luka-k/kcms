@@ -16,7 +16,7 @@ class Categories extends MY_Model
 			'name' => array('Заголовок', 'text', 'url'),
 			'url' => array('url', 'text'),
 			'is_active' => array('Активен', 'checkbox'),
-			'parent_id' => array('Категория', 'select', 'category2category')
+			'category_parent_id' => array('Категория', 'select', 'category2category')
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'upload_2_image'),

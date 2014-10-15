@@ -424,7 +424,7 @@ class MY_Model extends CI_Model
 	
 	public function subcategory()
 	{
-		$query = $this->db->get_where('category2category', array('parent_id >' => 0)); 
+		$query = $this->db->get_where('category2category', array('category_parent_id >' => 0)); 
 		$items = $query->result_array();
 		foreach($items as $key => $item)
 		{

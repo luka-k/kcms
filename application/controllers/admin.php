@@ -68,7 +68,7 @@ class Admin extends CI_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type,
-			'tree' => $this->categories->get_tree(0, "parent_id")
+			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);	
 		
 		if ($this->db->field_exists('sort', $type))
@@ -112,11 +112,12 @@ class Admin extends CI_Controller
 			'user_id' => $this->user_id,
 			'selects' => array(
 				'parent_id' => $this->categories->subcategory(),
+				'category_parent_id' => $this->categories->get_tree(0, "category_parent_id"),
 				'manufacturer_id' => $this->manufacturer->get_list(FALSE)
 			),
 			'menu' => $this->menu,
 			'type' => $type,
-			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'tree' => $this->categories->get_tree(0, "category_parent_id"),
 			'editors' => $this->$type->editors
 		);
 		
@@ -145,7 +146,7 @@ class Admin extends CI_Controller
 
 				foreach($items as $item)
 				{
-					$data['content']->parent_id[] = $item['parent_id'];
+					$data['content']->parent_id[] = $item['category_parent_id'];
 				}
 			}
 			
@@ -168,12 +169,13 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'selects' => array(
-				'parent_id' => $this->categories->get_tree(0, "parent_id"),
+				'parent_id' => $this->categories->subcategory(),
+				'category_parent_id' => $this->categories->get_tree(0, "category_parent_id"),
 				'manufacturer_id' => $this->manufacturer->get_list(FALSE)
 			),
 			'menu' => $this->menu,
 			'type' => $type,
-			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'tree' => $this->categories->get_tree(0, "category_parent_id"),
 			'editors' => $this->products->editors		
 		);
 					
@@ -210,9 +212,9 @@ class Admin extends CI_Controller
 				if((isset($c2c))&&($c2c == TRUE))
 				{
 					$id = $this->db->insert_id();
-					foreach($data["category2category"]->parent_id  as $item)
+					foreach($data["category2category"]->category_parent_id  as $item)
 					{	
-						$category2category->parent_id = $item;
+						$category2category->category_parent_id = $item;
 						$category2category->child_id = $id;
 						$this->db->insert('category2category', $category2category);
 					}
@@ -226,9 +228,9 @@ class Admin extends CI_Controller
 				{
 					$this->db->where('child_id', $data['content']->id);
 					$this->db->delete('category2category');
-					foreach($data["category2category"]->parent_id  as $item)
+					foreach($data["category2category"]->category_parent_id  as $item)
 					{	
-						$category2category->parent_id = $item;
+						$category2category->category_parent_id = $item;
 						$category2category->child_id = $data['content']->id;
 						$this->db->insert('category2category', $category2category);
 					}
