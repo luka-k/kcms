@@ -15,10 +15,11 @@
 										<div class="good-page" style="height: 500px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
 											<div class="gp-content">
 												<?if(!empty($content)):?>
+													<?$counter = 1?>
 													<?foreach($content as $item):?>
 														<div class="item-content clearfix">
-															<div id="gal-1" class="item-gallery">
-																<div id="box-1" class="box">
+															<div id="gal-<?=$counter?>" class="item-gallery">
+																<div id="box-<?=$counter?>" class="box">
 																	<?if(!empty($item->img->url)):?>
 																		<img src="<?=$item->img->url?>" class="picture"/>
 																	<?endif;?>
@@ -36,6 +37,7 @@
 																<div class="item-buy" onclick="add_to_cart('<?=$item->id?>', 1); return false">Купить</div><a href="<?=$item->full_url?>" class="item-more">Подробнее</a>
 															</div>
 														</div>
+														<?$counter++?>
 													<?endforeach;?>
 												<?endif;?>
 											</div>

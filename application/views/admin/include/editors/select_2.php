@@ -3,7 +3,7 @@
 	<select id="select_<?=$name?>"  name="<?=$name?>" class="col_8">
 	
 		<?php foreach ($selects[$name] as $item): ?>
-			<option value="<?=$item->id?>" <?php if ($content->$name == $item->id):?>selected<?php endif; ?><?php if ($content->id == $item->id):?>disabled<?php endif; ?>>
+			<option value="<?=$item->id?>" <?php if ($content->$name == $item->id):?>selected<?php endif; ?>>
 				<?=$item->name?>
 			</option>
 		<?php endforeach ?>										
