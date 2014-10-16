@@ -9,6 +9,7 @@
 				<div class="middle">
 					<div class="container">
 						<div class="content">
+							<? require 'include/breadcrumbs.php' ?>
 							<div class="middle2">
 								<div class="container2">
 									<div id="shop-item" class="content-shop-1">

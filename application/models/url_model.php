@@ -7,28 +7,24 @@ class Url_model extends MY_Model
         parent::__construct();
 	}
 
-	public function url_parse($segment_number, $category = FALSE)
+	public function url_parse($segment_number)
 	{
 		$url = $this->uri->segment($segment_number);
-		
+
 		if (!$url) return FALSE;
 		
 		$child_category = $this->categories->get_item_by(array("url" => $url));
+		
 		if($child_category)
 		{
 			$this->breadcrumbs->add($url, $child_category->name);
-			$query = $this->db->get_where('category2category', array("child_id" => $child_category->id));
-			$item = $query->row();
-			if (isset($item->category_parent_id))
+			if($this->uri->segment($segment_number + 1))
 			{
-				if($this->url_parse($segment_number + 1))
-				{
-					return $this->url_parse($segment_number + 1, $child_category);
-				}
-				else
-				{
-					return $child_category;
-				}
+				return $this->url_parse($segment_number + 1);
+			}
+			else
+			{
+				return $child_category;
 			}
 		}
 		else

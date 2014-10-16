@@ -195,6 +195,15 @@ text-decoration:none;
 	padding: 0px 0px 0 335px;
 }
 
+#breadcrumbs{
+margin:5px 0;
+font-size:12px;
+}
+
+#breadcrumbs a:visited{
+color:blue;
+}
+
 
 /* Left Sidebar
 -----------------------------------------------------------------------------*/
