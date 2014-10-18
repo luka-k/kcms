@@ -1,4 +1,39 @@
-﻿<div id="attr-1" class="clearfix noactive">
+﻿<script>
+function filter() {
+
+		var form = $('.filter-form'),
+		inputs = form.find('input'),
+		categories_checked = {},
+		manufacturer_checked = {},
+		data = {},
+		categories_num,
+		manufacturer_num;
+
+		inputs.each(function () {
+			var element = $(this);
+			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
+				if (element.attr('class') == 'cetegories_checked'){
+					categories_num = element.attr('num');
+					categories_checked[categories_num] = element.val();
+				}
+				if (element.attr('class') == 'manufacturer_checked'){
+					manufacturer_num = element.attr('num');
+					manufacturer_checked[manufacturer_num] = element.val();
+				}
+			}
+		});	
+		data.categories_checked = categories_checked;
+		data.manufacturer_checked = manufacturer_checked;
+		var json_str = JSON.stringify(data);
+		$.post ("/ajax/filter/", json_str, update_items_1, "json");
+	}
+	
+function update_items_1(){
+	window.location.replace("/shop?filter=true");
+}	
+</script>
+
+<div id="attr-1" class="clearfix noactive">
 	<div id="attribut" class="clearfix">
 		<ul>
 			<?$counter = 1?>
@@ -9,7 +44,7 @@
 						<ul class="show">
 							<?foreach ($item_1->childs as $item_2):?>
 								<li>
-									<input type="checkbox" name="cetegories_checked[<?=$counter?>]" value="<?=$item_2->id?>" id="c_1_1" onclick="document.forms['form-1'].submit()" 
+									<input type="checkbox" class="cetegories_checked" name="cetegories_checked[<?=$counter?>]" num="<?=$counter?>" value="<?=$item_2->id?>" id="c_1_1" onclick="filter()" 
 									<?if(!empty($categories_checked)):?>
 										<?foreach($categories_checked as $key => $ch):?>
 											<?if($key == $counter):?>checked<?endif;?>

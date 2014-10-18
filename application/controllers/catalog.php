@@ -9,9 +9,10 @@ class Catalog extends CI_Controller {
 	
 	public function index()
 	{
-		$order = $this->input->get('order');
-		
+		$order = $this->input->get('order');	
 		$direction = $this->input->get('direction');
+		
+		$filter = $this->input->get('filter');
 		
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		
@@ -23,46 +24,48 @@ class Catalog extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$user_id = $this->session->userdata('user_id');
-		$user = $this->users->get_item_by(array("id" => $user_id));
-		
 		$manufacturer = $this->manufacturer->get_list(FALSE);
+
+		$session = array(
+			'categories_checked' => $this->session->userdata('categories_checked'),
+			'manufacturer_checked' => $this->session->userdata('manufacturer_checked')
+		);
 		
-		$post = $this->input->post();
-				
-		if($post)
+		if(!empty($session['categories_checked']))
 		{
-			if(isset($post['cetegories_checked']))
+			foreach($session['categories_checked'] as $key => $item)
 			{
-				foreach($post['cetegories_checked'] as $key => $item)
-				{
-					$categories_ch[] = $this->categories->get_item_by(array("id" => $item));
-					$categories_checked[$key] = $item;	
-					
-				}
-				$this->db->where_in('parent_id', $categories_checked);
+				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));
+				$categories_checked[$key] = $item;		
 			}
-			else
+		}
+		else
+		{
+			$categories_checked = "";
+			$categories_ch = "";
+		}
+
+		if(!empty($session['manufacturer_checked']))
+		{
+			foreach($session['manufacturer_checked'] as $item)
 			{
-				$categories_checked = "";
-				$categories_ch = "";
+				$manufacturer_checked[] = $item;	
 			}
-			
-			if(isset($post['manufacturer_checked']))
-			{
-				foreach($post['manufacturer_checked'] as $item)
-				{
-					$manufacturer_checked[] = $item;	
-				}
-				$this->db->where_in('manufacturer_id', $manufacturer_checked);
-			}
-			else
-			{
-				$manufacturer_checked = "";
-			}
+		}
+		else
+		{
+			$manufacturer_checked = "";
+		}	
+		
+		$category = $this->url_model->url_parse(2);
+		
+		if($filter)
+		{
+			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $categories_checked);
+			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $manufacturer_checked);
 			$query = $this->db->get('products');
 			$result = $query->result_array();
-			
+
 			if(empty($result))
 			{
 				$content = "";
@@ -74,42 +77,48 @@ class Catalog extends CI_Controller {
 					$content[$key] = (object)$item;
 				}
 			}
-			$template = "client/categories.php";
+	
+			$template = "client/categories.php";			
 		}
 		else
 		{
-			$categories_checked = "";
-			$manufacturer_checked = "";
-			$categories_ch = "";
-			
-			$category = $this->url_model->url_parse(2);
-		
-			if ($category == FALSE)
+			if(isset($category->product))
 			{
-				$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
-				$template = "client/categories.php";
+				$content = $category->product;
+					
+				$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
+				if(!empty($content->discount))
+				{
+					$content->sale_price = $content->price*(100 - $content->discount)/100;
+				}
+				$template = "client/product.php";		
 			}
 			else
 			{
-				if(isset($category->product))
+				if ($category == FALSE)
 				{
-					$content = $category->product;
-					
-					$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
-					if(!empty($content->discount))
-					{
-						$content->sale_price = $content->price*(100 - $content->discount)/100;
-					}
-					$template = "client/product.php";
+					$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 				}
 				else
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					//вынети в хэлпер
-					$template = "client/categories.php";
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);			
 				}
+				$template = "client/categories.php";
+				
 			}
-	
+				$buy = $this->session->userdata('buy');
+				if($buy)
+				{
+					$this->session->unset_userdata('buy');
+				}
+				else
+				{
+					$this->session->unset_userdata('categories_checked');
+					$this->session->unset_userdata('manufacturer_checked');					
+					$categories_checked = "";
+					$categories_ch = "";
+					$manufacturer_checked = "";
+				}
 		}
 				
 		if(!isset($category->product)&&(!empty($content)))
@@ -126,12 +135,12 @@ class Catalog extends CI_Controller {
 				}
 			}
 		}
+		
 		$data = array(
 			//'title' => $settings->site_title,
 			//'meta_title' => $settings->site_title,
 			//'meta_keywords' => $settings->site_keywords,
 			//'meta_description' => $settings->site_description,
-			//'tree' => $this->categories->get_tree(0, "parent_id"),
 			'content' => $content,
 			'manufacturer' => $manufacturer,
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -143,82 +152,12 @@ class Catalog extends CI_Controller {
 			'left_menu' => $left_menu,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
-			'categories_ch' => $categories_ch,
-			'user' => $user
+			'categories_ch' => $categories_ch
 		);
 		
 		
 		$this->load->view($template, $data);
-		
 
-		/*if ($category == FALSE)
-		{
-			//$content = $this->categories->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
-			$left_menu = $this->categories->get_tree(0, "parent_id");
-			//var_dump($left_menu);
-			//$settings = $this->settings->get_item_by(array('id' => 1));
-			$data = array(
-				//'title' => $settings->site_title,
-				//'meta_title' => $settings->site_title,
-				//'meta_keywords' => $settings->site_keywords,
-				//'meta_description' => $settings->site_description,
-				//'tree' => $this->categories->get_tree(0, "parent_id"),
-				//'content' => $content,
-				'breadcrumbs' => $this->breadcrumbs->get(),
-				'cart' => $cart,
-				'total_price' => $total_price,
-				'total_qty' => $total_qty,
-				'top_menu' => $top_menu,
-				'left_menu' => $left_menu,
-				'url' => $url,
-				'user' => $user
-			);
-			//$data['content'] = $this->images->get_img_list($data['content'], 'categories', 'catalog_mid');
-			//$content = $this->categories->get_urls($data['content']);
-			$this->load->view('client/categories.php', $data);			
-		}
-		else
-		{
-			if(isset($category->product))
-			{
-				$content = $this->products->get_item_by(array("url" => $category->product->url));
-				$content->img = $this->images->get_images(array("object_type" => "products", "object_id" => $content->id));
-				$template = "client/page.php";
-			}
-			else
-			{
-				//$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-				if($content == NULL)
-				{
-					//$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					$content = $this->images->get_img_list($content, 'products', 'catalog_mid');	
-					$content = $this->products->get_urls($content);
-					$template = "client/pages.php";
-				}
-				else
-				{
-					$content = $this->images->get_img_list($content, 'categories', 'catalog_mid');
-					$content = $this->categories->get_urls($content);
-					$template = "client/categories.php";
-				}		
-			}		
-				$data = array(
-					'title' => $category->title,
-					'meta_title' => $category->meta_title,
-					'meta_keywords' => $category->meta_keywords,
-					'meta_description' => $category->meta_description,
-					'tree' => $this->categories->get_tree(0, "parent_id"),
-					'content' => $content,
-					'breadcrumbs' => $this->breadcrumbs->get(),
-					'cart' => $cart,
-					'total_price' => $total_price,
-					'total_qty' => $total_qty,
-					'menu' => $menu,
-					'url' => $url,
-					'user' => $user
-				);		
-			$this->load->view($template, $data);
-		}*/
 	}
 }
 

@@ -3,7 +3,7 @@ function add_to_cart(item_id, qty){
 	data.item_id = item_id;
 	data.qty = qty;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/add_to_cart/", json_str, update_items_1, "json");
+	$.post ("/ajax/add_to_cart/", json_str, update_items_2, "json");
 }
 	
 function update_cart(item_id, qty){
@@ -22,9 +22,9 @@ function delete_item(item_id){
 	$.post ("/ajax/delete_item/", json_str, update_items, "json");
 }
 
-function update_items_1(res){
+function update_items_2(){
 	window.location.reload();
-}
+}	
 
 function update_items(res){		
 	$('.total_qty').text(res['total_qty']);

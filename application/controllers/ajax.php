@@ -33,6 +33,8 @@ class Ajax extends CI_Controller {
 		);
 		$this->cart->insert($cart_item);
 		
+		$this->session->set_userdata(array("buy" => TRUE));
+		
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
 		
@@ -48,6 +50,7 @@ class Ajax extends CI_Controller {
 		);
 		$this->cart->update($item);
 		$items = $this->cart->get_all();
+		
 		$data['item_total'] = $items[$info->item_id]['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
@@ -110,7 +113,8 @@ class Ajax extends CI_Controller {
 		echo json_encode($data);
 	}	
 	
-	public function sortable(){
+	public function sortable()
+	{
 		$post = $this->input->post();
 		
 		foreach($post as $type => $items)
@@ -120,5 +124,31 @@ class Ajax extends CI_Controller {
 				$this->$type->update($id, array("sort" => $key));
 			}
 		}
+	}
+	
+	public function filter()
+	{
+		$filter = json_decode(file_get_contents('php://input', true));
+		$categories_checked = (array)$filter->categories_checked;
+		$manufacturer_checked = (array)$filter->manufacturer_checked;
+
+		$this->session->unset_userdata('categories_checked');
+		$this->session->unset_userdata('manufacturer_checked');
+
+		if ((empty($categories_checked))&&(empty($manufacturer_checked)))
+		{	
+			$session_data = "";
+		}
+		else
+		{
+			$session_data = array(
+				'categories_checked' => $categories_checked,
+				'manufacturer_checked' => $manufacturer_checked 
+			);
+		}
+		$this->session->set_userdata($session_data);
+
+		$data['message'] = "Ok";
+		echo json_encode($data);
 	}
 }

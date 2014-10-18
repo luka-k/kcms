@@ -48,7 +48,7 @@
 								
 								<div class="left-sidebar-attr clearfix" >
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form-1" action="<?=base_url()?>shop/" >
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="" >
 										
 										<div id="attr-4" class="clearfix noactive">
 											<div id="attribut" class="clearfix">
@@ -77,9 +77,10 @@
 													<li class="accd">
 														<div class="attr-titl open">Производители</div>
 														<ul class="show">
+															<?$counter_2 = 1?>
 															<?foreach($manufacturer as $firma):?>
 																<li>
-																	<input type="checkbox" name="manufacturer_checked[]" value="<?=$firma->id?>" id="c_1_1" onclick="document.forms['form-1'].submit()" 
+																	<input type="checkbox" class="manufacturer_checked" name="manufacturer_checked[]" num="<?=$counter_2?>" value="<?=$firma->id?>" id="c_1_1" onclick="filter()" 
 																		<?if(!empty($manufacturer_checked)):?>
 																			<?foreach($manufacturer_checked as $ch):?>
 																				<?if($ch == $firma->id):?>checked<?endif;?>
@@ -87,6 +88,7 @@
 																		<?endif;?>>
 																		<a href="#"><?=$firma->name?></a>
 																</li>
+																<?$counter_2++?>
 															<?endforeach;?>
 														</ul>
 													</li>
