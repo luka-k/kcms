@@ -25,6 +25,25 @@ class Catalog extends CI_Controller {
 		$total_qty = $this->cart->total_qty();
 		
 		$manufacturer = $this->manufacturer->get_list(FALSE);
+		
+		$this->load->library('pagination');
+		
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$pagin = $this->input->get('pagination');
+		
+		if($pagin)
+		{
+			$per_page = $this->input->get('per_page');
+			if($per_page == "") $per_page = 0;
+			$from = $per_page;
+			$limit = $settings->pagination_page;
+		}
+		else
+		{
+			$from = 0;
+			$limit = $settings->pagination_page;
+		}
 
 		$session = array(
 			'categories_checked' => $this->session->userdata('categories_checked'),
@@ -63,7 +82,9 @@ class Catalog extends CI_Controller {
 		{
 			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $categories_checked);
 			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $manufacturer_checked);
-			$query = $this->db->get('products');
+			$query_1 = $this->db->get('products');
+			$config['total_rows'] = count($query_1->result_array());
+			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
 
 			if(empty($result))
@@ -97,11 +118,13 @@ class Catalog extends CI_Controller {
 			{
 				if ($category == FALSE)
 				{
-					$content = $this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+					$content = $this->products->get_list(FALSE, $from, $limit, $order, $direction);
+					$config['total_rows'] = count($this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction));
 				}
 				else
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);			
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from, $limit, $order, $direction);		
+					$config['total_rows'] = count($this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction));
 				}
 				$template = "client/categories.php";
 				
@@ -135,6 +158,21 @@ class Catalog extends CI_Controller {
 				}
 			}
 		}
+
+		if($filter)
+		{
+			$config['base_url'] = base_url().uri_string()."?filter=true&pagination=true";
+		}
+		else
+		{
+			$config['base_url'] = base_url().uri_string()."?pagination=true";
+		}
+		$config['page_query_string'] = TRUE;
+		$config['per_page'] = 2;
+
+		$this->pagination->initialize($config);
+
+		$pagination = $this->pagination->create_links();
 		
 		$data = array(
 			//'title' => $settings->site_title,
@@ -152,7 +190,8 @@ class Catalog extends CI_Controller {
 			'left_menu' => $left_menu,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
-			'categories_ch' => $categories_ch
+			'categories_ch' => $categories_ch,
+			'pagination' => $pagination
 		);
 		
 		

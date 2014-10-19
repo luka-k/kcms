@@ -14,6 +14,7 @@
 								<div class="container2">
 									<div id="shop-item" class="content-shop-1">
 										<div class="good-page" style="height: 500px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
+											<?=$pagination?>
 											<div class="gp-content">
 												<?if(!empty($content)):?>
 													<?$counter = 1?>
