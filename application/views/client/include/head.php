@@ -26,7 +26,7 @@
 				$(".scroll-content").height($( window ).height() - 125);
 				$(".scroll-contentd").height($( window ).height() - 125);
 				$("#leftscroll").height($( "#leftscroll" ).height() + 0);
-				$("#good_page_scroll").height($( window ).height() - 95);
+				$("#good_page_scroll").height($( window ).height() - 115);
 				$(".scroll-content").mCustomScrollbar({
 					scrollButtons:{
 						enable:true

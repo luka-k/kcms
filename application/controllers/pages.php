@@ -57,15 +57,23 @@ class Pages extends CI_Controller {
 	
 	public function cart()
 	{
-		$menu = $this->menus->top_menu;		
+		$this->breadcrumbs->Add("catalog", "Каталог");
+		
+		$top_menu = $this->menus->top_menu;
+		$top_menu = $this->menus->set_active($top_menu, 'shop');
+		$left_menu = $this->categories->get_tree(0, "category_parent_id");
+		
 		$cart = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$user_id = $this->session->userdata('user_id');
-		$user = $this->users->get_item_by(array("id" => $user_id));
+		$categories_checked = "";
+		$categories_ch = "";
+		$manufacturer_checked = "";
+		
+		$manufacturer = $this->manufacturer->get_list(FALSE);
 	
-		$data = array(
+		/*$data = array(
 			'title' => "Корзина",
 			'meta_title' => "",
 			'meta_keywords' => "",
@@ -79,6 +87,29 @@ class Pages extends CI_Controller {
 			),
 			'menu' => $menu,
 			'user' => $user
+		);*/
+		
+		$data = array(
+			//'title' => $settings->site_title,
+			//'meta_title' => $settings->site_title,
+			//'meta_keywords' => $settings->site_keywords,
+			//'meta_description' => $settings->site_description,
+			'title' => "Оформление заказа",
+			'manufacturer' => $manufacturer,
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'selects' => array(
+				'delivery_id' => $this->config->item('method_delivery'),
+				'payment_id' => $this->config->item('method_pay')
+			),
+			'product_word' => end_maker("товар", $total_qty),
+			'top_menu' => $top_menu,
+			'left_menu' => $left_menu,
+			'categories_checked' => $categories_checked,
+			'manufacturer_checked' => $manufacturer_checked,
+			'categories_ch' => $categories_ch
 		);
 		$this->load->view('client/cart.php', $data);
 	}

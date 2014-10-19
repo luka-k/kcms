@@ -1018,3 +1018,29 @@ font-size:12px;
   margin-left:-1px;
   background:url(../images/more.png) 96% center no-repeat;
   }
+  
+.cart-content table{
+width:100%;
+text-align:center;
+}
+
+.cart-content table a{
+text-decoration:none;
+}
+
+.order input, .order select{
+width:90%;
+margin-bottom:10px;
+}
+
+.frame-input_error{
+background:red;
+}
+
+.order input:focus::-moz-placeholder { color:#fff;}
+
+.order input:focus::-webkit-input-placeholder{ color:#fff;}
+
+.order textarea:focus::-moz-placeholder { color:#fff;}
+
+.order textarea:focus::-webkit-input-placeholder{ color:#fff;}

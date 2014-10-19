@@ -54,7 +54,7 @@ class Order extends CI_Controller
 			$orders_products = array(
 				'order_id' => $order_id,
 				'product_id' => $item["id"],
-				'product_name' => $item["title"],
+				'product_name' => $item["name"],
 				'product_price' => $item["price"],
 				'order_qty' => $item["qty"]				
 			);

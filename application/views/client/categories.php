@@ -13,7 +13,7 @@
 							<div class="middle2">
 								<div class="container2">
 									<div id="shop-item" class="content-shop-1">
-										<div class="good-page" style="height: 500px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
+										<div class="good-page" style="height: 100px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
 											<?=$pagination?>
 											<div class="gp-content">
 												<?if(!empty($content)):?>
@@ -56,13 +56,16 @@
 												<div style="margin-bottom:5px;">Корзина:</div>
 												<div class="cart">
 													<?if($cart):?>
-															<?foreach($cart as $item_id => $item):?>
-																<div class="<?=$item_id?>  clearfix">
-																	<div style="width:10%; float:left;"><?=$item['qty']?></div>
-																	<div style="width:85%; float:left;"><?=$item['name']?></div>
-																	<div style="width:5%; float:left; text-align:right;"><a href="#" onclick="delete_item('<?=$item_id?>')" class="delete">X</a></div>
-																</div>
-															<?endforeach;?>
+														<?foreach($cart as $item_id => $item):?>
+															<div class="<?=$item_id?>  clearfix">
+																<div style="width:10%; float:left;"><?=$item['qty']?></div>
+																<div style="width:85%; float:left;"><?=$item['name']?></div>
+																<div style="width:5%; float:left; text-align:right;"><a href="#" onclick="delete_item('<?=$item_id?>')" class="delete">X</a></div>
+															</div>
+														<?endforeach;?>
+														<div>
+															<a href="<?=base_url()?>pages/cart">Оформить заказ</a>
+														</div>
 													<?else:?>
 														Ваша корзина пуста.
 													<?endif;?>
