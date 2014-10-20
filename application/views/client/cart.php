@@ -60,62 +60,60 @@
 									<div id="shop-item" class="cart-content <?if($left_active):?>content-shop<?else:?>content-shop-1<?endif;?>">
 										<div class="good-page" style="height: 100px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
 											
-										<?if($cart <> NULL):?>	
-											<table>
-												<thead>
-													<th>№</th>
-													<th>Наименование</th>
-													<th>Цена</th>
-													<th>Количество</th>
-													<th>Сумма</th>
-													<th>Удалить</th>
-												</thead>
-												<tbody>
-													<?$counter = 1?>
-													<?foreach($cart as $item_id => $item):?>
-														<tr id="<?=$item_id?>">
-															<td><?=$counter?></td>
-															<td><?=$item['name']?></td>
-															<td><?=$item['price']?></td>
-															<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
-															<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
-															<td><a href="#" onclick="delete_item('<?=$item_id?>');">X</a></td>
-														<tr>
-														<?$counter++?>
-													<?endforeach;?>
-												</tbody>
-												<tfoot>
-													<th>&nbsp;</th>
-													<th>&nbsp;</th>
-													<th>&nbsp;</th>
-													<th><span id="total_qty"><?=$total_qty?></span></th>
-													<th><span id="total_price"><?=$total_price?></span></th>
-													<th>&nbsp;</th>
+											<?if($cart <> NULL):?>	
+												<table>
+													<thead>
+														<th>№</th>
+														<th>Наименование</th>
+														<th>Цена</th>
+														<th>Количество</th>
+														<th>Сумма</th>
+														<th>Удалить</th>
+													</thead>
+													<tbody>
+														<?$counter = 1?>
+														<?foreach($cart as $item_id => $item):?>
+															<tr id="<?=$item_id?>">
+																<td><?=$counter?></td>
+																<td><?=$item['name']?></td>
+																<td><?=$item['price']?></td>
+																<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
+																<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
+																<td><a href="#" onclick="delete_item('<?=$item_id?>');">X</a></td>
+															<tr>
+															<?$counter++?>
+														<?endforeach;?>
+													</tbody>
+													<tfoot>
+														<th>&nbsp;</th>
+														<th>&nbsp;</th>
+														<th>&nbsp;</th>
+														<th><span id="total_qty"><?=$total_qty?></span></th>
+														<th><span id="total_price"><?=$total_price?></span></th>
+														<th>&nbsp;</th>
 													</tfoot>
 												</table>
 												
-												<div >
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" class="js-form	" action="<?=base_url()?>order/edit_order/"/>
-							<div class="order clearfix">
-								<h5>Быстрый заказ</h5>
-								<div style="position:relative; float:left; width:45%">
-									<input type="text" name="name" placeholder="Имя" data-id="name" data-necessarily="true"/><br/>
-									<input type="text" name="phone" placeholder="Телефон" data-id="phone" data-necessarily="true"/><br/>
-									<input type="text" name="email" placeholder="E-mail" data-id="email" data-necessarily="true"/><br/>
-									<input type="text" name="address" placeholder="Адрес" data-id="address" data-necessarily="true"/>
-								</div>
-								<div style="position:relative; float:left; width:45%">
-									<?foreach($selects as $name => $select):?>
-										<?require "include/editors/select.php"?>
-									<?endforeach;?>
-									<br/>
-									<a href="#" class="button small" onClick="sub_form()">Оформить</a>
-								</div>
-							</div>
-						</form>
-					</div>												
-												
-											
+												<div>
+													<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" class="js-form	" action="<?=base_url()?>order/edit_order/"/>
+														<div class="order clearfix">
+															<h5>Быстрый заказ</h5>
+															<div style="position:relative; float:left; width:45%">
+																<input type="text" name="name" placeholder="Имя" data-id="name" data-necessarily="true"/><br/>
+																<input type="text" name="phone" placeholder="Телефон" data-id="phone" data-necessarily="true"/><br/>
+																<input type="text" name="email" placeholder="E-mail" data-id="email" data-necessarily="true"/><br/>
+																<input type="text" name="address" placeholder="Адрес" data-id="address" data-necessarily="true"/>
+															</div>
+															<div style="position:relative; float:left; width:45%">
+																<?foreach($selects as $name => $select):?>
+																	<?require "include/editors/select.php"?>
+																<?endforeach;?>
+																<br/>
+																<a href="#" class="button small" onClick="sub_form()">Оформить</a>
+															</div>
+														</div>
+													</form>
+												</div>												
 											<?else:?>
 												Ваша корзина пуста.
 											<?endif;?>
@@ -127,87 +125,14 @@
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="" >
 										
-										<div id="attr-4" class="clearfix <?if($left_active == "filt-4"):?>active<?else:?>noactive<?endif;?>">
-											<div id="attribut" class="clearfix">
-												<div style="margin-bottom:5px;">Корзина:</div>
-												<div class="cart">
-													<?if($cart):?>
-														<?foreach($cart as $item_id => $item):?>
-															<div class="<?=$item_id?>  clearfix">
-																<div style="width:10%; float:left;"><?=$item['qty']?></div>
-																<div style="width:85%; float:left;"><?=$item['name']?></div>
-																<div style="width:5%; float:left; text-align:right;"><a href="#" onclick="delete_item('<?=$item_id?>')" class="delete">X</a></div>
-															</div>
-														<?endforeach;?>
-														<div>
-															<a href="<?=base_url()?>pages/cart">Оформить заказ</a>
-														</div>
-													<?else:?>
-														Ваша корзина пуста.
-													<?endif;?>
-												</div>
-											</div>
-										</div>
+											<? require 'include/cart.php'?>
 										
-										<? require 'include/left-menu.php'?>
+											<? require 'include/left-menu.php'?>
 										
-										<div id="attr-2" class="clearfix noactive">
-											<div id="attribut" class="clearfix">
-												<ul>
-													<li class="accd">
-														<div class="attr-titl open">Производители</div>
-														<ul class="show">
-															<?$counter_2 = 1?>
-															<?foreach($manufacturer as $firma):?>
-																<li>
-																	<input type="checkbox" class="manufacturer_checked" name="manufacturer_checked[]" num="<?=$counter_2?>" value="<?=$firma->id?>" id="c_1_1" onclick="filter()" 
-																		<?if(!empty($manufacturer_checked)):?>
-																			<?foreach($manufacturer_checked as $ch):?>
-																				<?if($ch == $firma->id):?>checked<?endif;?>
-																			<?endforeach;?>
-																		<?endif;?>>
-																		<a href="#"><?=$firma->name?></a>
-																</li>
-																<?$counter_2++?>
-															<?endforeach;?>
-														</ul>
-													</li>
-												</ul>
-											</div>
-										</div>
+											<? require 'include/manufacturer.php'?>
 										
-										<div id="attr-3" class="clearfix noactive">
-											<div id="attribut" class="clearfix">
-												<div style="margin-bottom:5px;">Характеристики:</div>
-												<div class="filter">	
-													<div class="filtr-razmer-1">Размеры(мм):</div>
-													<div class="filtr-razmer-2">от:</div>	
-													<div class="filtr-razmer-2">до:</div>
-													<div class="filtr-razmer-1">ширина:</div>
-													<input class="filtr-razmer-3" type="text" name="" />
-													<input class="filtr-razmer-3" type="text" name="" />
-													<div class="filtr-razmer-1">высота(h):</div>	
-													<input class="filtr-razmer-3" type="text" name="" />
-													<input class="filtr-razmer-3" type="text" name="" />
-													<div class="filtr-razmer-1">глубина:</div>
-													<input class="filtr-razmer-3" type="text" name="" />
-													<input class="filtr-razmer-3" type="text" name="" />
-													<div class="filter-titl">Цвет:</div>
-													<div class="help">i</div>
-													<input class="input" type="text" name="" />
-													<div class="filter-titl">Материал:</div>
-													<div class="help">i</div>
-													<input class="input" type="text" name="" />
-													<div class="filter-titl">Отделка:</div>
-													<div class="help">i</div>
-													<input class="input" type="text" name="" />
-													<div class="filter-titl">Разворот:</div>
-													<div class="help">i</div>
-													<input class="input" type="text" name="" />
-												</div>
-											</div>
-										</div>
-
+											<? require 'include/filter.php'?>
+											
 										</form>
 									</div>
 								</div>

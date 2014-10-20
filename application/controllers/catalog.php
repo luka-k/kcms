@@ -188,10 +188,6 @@ class Catalog extends CI_Controller {
 		}
 			
 		$data = array(
-			//'title' => $settings->site_title,
-			//'meta_title' => $settings->site_title,
-			//'meta_keywords' => $settings->site_keywords,
-			//'meta_description' => $settings->site_description,
 			'content' => $content,
 			'manufacturer' => $manufacturer,
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -208,9 +204,22 @@ class Catalog extends CI_Controller {
 			'pagination' => $pagination
 		);
 		
+		if($content)
+		{
+			$data['title'] = $settings->site_title;
+			$data['meta_title'] = $settings->site_title;
+			$data['meta_keywords'] = $settings->site_keywords;
+			$data['meta_description'] = $settings->site_description;
+		}
+		else
+		{
+			$data['title'] = $settings->site_title;
+			$data['meta_title'] = $settings->site_title;
+			$data['meta_keywords'] = $settings->site_keywords;
+			$data['meta_description'] = $settings->site_description;		
+		}
 		
 		$this->load->view($template, $data);
-
 	}
 }
 
