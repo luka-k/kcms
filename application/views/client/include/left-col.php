@@ -2,7 +2,7 @@
 	<div id="filter" class="clearfix scroll-content"  style="height: 400px;overflow-y: hidden;">
 	
 		<div class="clearfix" style="margin-top:10px">
-			<div id="filt-4" class="filtr-noact" <?if($cart):?><?endif;?> onclick="return false">Корзина</div>
+			<div id="filt-4" class="filtr-noact" <?if($cart):?><?endif;?> onclick="menu(4)">Корзина</div>
 			<div style="width:100%; clear:both;" class="clearfix">
 				<div>В корзине: <span class="total_qty"><?=$total_qty?></span> <?=$product_word?></div>
 				<div>На сумму: <span class="total_price"><?=$total_price?></span> руб.</div>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 									
-			<div id="filt-1" class="filtr-noact" onclick="return false">
+			<div id="filt-1" class="filtr-noact" onclick="menu(1)">
 				<?if(empty($categories_ch)):?>
 					Все товары
 				<?else:?>
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 							
-			<div id="filt-2" class="filtr-noact" onclick="return false">Kludi</div>
+			<div id="filt-2" class="filtr-noact" onclick="menu(2)">Kludi</div>
 									
 			<div class="filter-titl">Колекция/Серия:</div>
 			<div class="help">i
@@ -86,7 +86,7 @@
 					Окно с подсказкой
 				</div>
 			</div>
-			<div id="filt-3" class="filtr-noact" onclick="return false">Характеристики:</div>
+			<div id="filt-3" class="filtr-noact" onclick="menu(3)">Характеристики:</div>
 		</div>
 	</div>
 </div><!-- .left-sidebar -->

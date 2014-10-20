@@ -8,109 +8,61 @@
 		$(this).next().slideToggle().toggleClass('hide');
 		$(this).toggleClass('open');
 	});
-			
-	$('#filt-1').click(function() {
-		$(this).toggleClass('filtr-act');
-		$('#attr-1').slideToggle().toggleClass('active');
-		
-		if ($('#attr-1').hasClass('active')){
-			$('#shop-item').removeClass('content-shop-1');
-			$('#shop-item').addClass('content-shop');
-		}else{
-			$('#shop-item').removeClass('content-shop');
-			$('#shop-item').addClass('content-shop-1');		
-		}
-				
-		if ($(this).hasClass('filtr-act')){
-			$('#attr-2').removeClass('active');
-			$('#attr-2').hide();
-			$('#filt-2').removeClass('filtr-act');
-			$('#attr-3').removeClass('active');
-			$('#attr-3').hide();
-			$('#filt-3').removeClass('filtr-act');
-			$('#attr-4').removeClass('active');
-			$('#attr-4').hide();
-			$('#filt-4').removeClass('filtr-act');
-		}
-		
-
-	});
-			
-	$('#filt-2').click(function() {
-		$(this).toggleClass('filtr-act');
-		$('#attr-2').slideToggle().toggleClass('active');
-
-		if ($(this).hasClass('filtr-act')){
-			$('#attr-1').removeClass('active');
-			$('#attr-1').hide();
-			$('#filt-1').removeClass('filtr-act');
-			$('#attr-3').removeClass('active');
-			$('#attr-3').hide();
-			$('#filt-3').removeClass('filtr-act');
-			$('#attr-4').removeClass('active');
-			$('#attr-4').hide();
-			$('#filt-4').removeClass('filtr-act');
-		}	
-		if ($('#attr-2').hasClass('active')){
-			$('#shop-item').removeClass('content-shop-1');
-			$('#shop-item').addClass('content-shop');
-		}else{
-			$('#shop-item').removeClass('content-shop');
-			$('#shop-item').addClass('content-shop-1');		
-		}
-	});
-			
-	$('#filt-3').click(function() {
-		$(this).toggleClass('filtr-act');
-		$('#attr-3').slideToggle().toggleClass('active');
-		
-		if ($('#attr-3').hasClass('active')){
-			$('#shop-item').removeClass('content-shop-1');
-			$('#shop-item').addClass('content-shop');
-		}else{
-			$('#shop-item').removeClass('content-shop');
-			$('#shop-item').addClass('content-shop-1');		
-		}
-				
-		if ($(this).hasClass('filtr-act')){
-			$('#attr-1').removeClass('active');
-			$('#attr-1').hide();
-			$('#filt-1').removeClass('filtr-act');
-			$('#attr-2').removeClass('active');
-			$('#attr-2').hide();
-			$('#filt-2').removeClass('filtr-act');
-			$('#attr-4').removeClass('active');
-			$('#attr-4').hide();
-			$('#filt-4').removeClass('filtr-act');
-		}
-
-	});
 	
-	$('#filt-4').click(function() {
-		$(this).toggleClass('filtr-act');
-		$('#attr-4').slideToggle().toggleClass('active');
+	function menu(item){
+		$('#filt-'+item).toggleClass('filtr-act');
+		$('#attr-'+item).slideToggle().toggleClass('active');
 		
-		if ($('#attr-4').hasClass('active')){
+		if ($('#attr-'+item).hasClass('active')){
 			$('#shop-item').removeClass('content-shop-1');
 			$('#shop-item').addClass('content-shop');
 		}else{
 			$('#shop-item').removeClass('content-shop');
 			$('#shop-item').addClass('content-shop-1');		
 		}
-				
-		if ($(this).hasClass('filtr-act')){
-			$('#attr-1').removeClass('active');
-			$('#attr-1').hide();
-			$('#filt-1').removeClass('filtr-act');
-			$('#attr-2').removeClass('active');
-			$('#attr-2').hide();
-			$('#filt-2').removeClass('filtr-act');
-			$('#attr-3').removeClass('active');
-			$('#attr-3').hide();
-			$('#filt-3').removeClass('filtr-act');
-		}
-
-	});
+		
+		for (var i = 1; i < 5; i++) {
+			if(i != item){
+				$('#filt-'+i).removeClass('filtr-act');
+				$('#attr-'+i).removeClass('active');
+				$('#attr-'+i).hide();
+			}
+	    }
+		
+	}
 				
 	$('#filt-1').click();
+	
+	function filter() {
+
+		var form = $('.filter-form'),
+		inputs = form.find('input'),
+		categories_checked = {},
+		manufacturer_checked = {},
+		data = {},
+		categories_num,
+		manufacturer_num;
+
+		inputs.each(function () {
+			var element = $(this);
+			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
+				if (element.attr('class') == 'cetegories_checked'){
+					categories_num = element.attr('num');
+					categories_checked[categories_num] = element.val();
+				}
+				if (element.attr('class') == 'manufacturer_checked'){
+					manufacturer_num = element.attr('num');
+					manufacturer_checked[manufacturer_num] = element.val();
+				}
+			}
+		});	
+		data.categories_checked = categories_checked;
+		data.manufacturer_checked = manufacturer_checked;
+		var json_str = JSON.stringify(data);
+		$.post ("/ajax/filter/", json_str, update_items_1, "json");
+	}
+	
+	function update_items_1(){
+		window.location.replace("/shop?filter=true");
+	}	
 </script>

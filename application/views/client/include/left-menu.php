@@ -1,39 +1,4 @@
-﻿<script>
-function filter() {
-
-		var form = $('.filter-form'),
-		inputs = form.find('input'),
-		categories_checked = {},
-		manufacturer_checked = {},
-		data = {},
-		categories_num,
-		manufacturer_num;
-
-		inputs.each(function () {
-			var element = $(this);
-			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
-				if (element.attr('class') == 'cetegories_checked'){
-					categories_num = element.attr('num');
-					categories_checked[categories_num] = element.val();
-				}
-				if (element.attr('class') == 'manufacturer_checked'){
-					manufacturer_num = element.attr('num');
-					manufacturer_checked[manufacturer_num] = element.val();
-				}
-			}
-		});	
-		data.categories_checked = categories_checked;
-		data.manufacturer_checked = manufacturer_checked;
-		var json_str = JSON.stringify(data);
-		$.post ("/ajax/filter/", json_str, update_items_1, "json");
-	}
-	
-function update_items_1(){
-	window.location.replace("/shop?filter=true");
-}	
-</script>
-
-<div id="attr-1" class="clearfix noactive">
+﻿<div id="attr-1" class="clearfix noactive">
 	<div id="attribut" class="clearfix">
 		<ul>
 			<?$counter = 1?>
