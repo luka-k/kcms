@@ -22,13 +22,15 @@ class Pages extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
 		$categories_checked = "";
 		$categories_ch = "";
 		$manufacturer_checked = "";
 		
 		$manufacturer = $this->manufacturer->get_list(FALSE);
 		
-		$left_active = "filt-4";
+		$left_active = "filt-1";
 		
 		$data = array(
 			'title' => "Оформление заказа",

@@ -115,12 +115,20 @@ class CI_Cart {
 	public function total_price()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
+		if($this->cart_contents['cart_total'] == NULL)
+		{
+			$this->cart_contents['cart_total'] = 0;
+		}
 		return $this->cart_contents['cart_total'];		
 	}
 	
 	public function total_qty()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
+		if($this->cart_contents['total_qty'] == NULL)
+		{
+			$this->cart_contents['total_qty'] = 0;
+		}
 		return $this->cart_contents['total_qty'];		
 	}
 	

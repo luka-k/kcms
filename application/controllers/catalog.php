@@ -177,15 +177,15 @@ class Catalog extends CI_Controller {
 		
 		$active_cart = $this->session->userdata('active_cart');
 		
-		if($active_cart)
+		/*if($active_cart)
 		{
 			$this->session->unset_userdata('active_cart');
 			$left_active = "filt-4";
 		}
 		else
-		{
+		{*/
 			$left_active = "filt-1";
-		}
+		/*}*/
 			
 		$data = array(
 			'content' => $content,
