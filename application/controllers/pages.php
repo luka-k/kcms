@@ -72,6 +72,8 @@ class Pages extends CI_Controller {
 		$manufacturer_checked = "";
 		
 		$manufacturer = $this->manufacturer->get_list(FALSE);
+		
+		$left_active = "filt-4";
 	
 		/*$data = array(
 			'title' => "Корзина",
@@ -107,6 +109,7 @@ class Pages extends CI_Controller {
 			'product_word' => end_maker("товар", $total_qty),
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
+			'left_active' => $left_active,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
 			'categories_ch' => $categories_ch

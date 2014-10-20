@@ -31,7 +31,7 @@
 		
 	}
 				
-	$('#filt-1').click();
+	//$('#filt-1').click();
 	
 	function filter() {
 

@@ -1,4 +1,4 @@
-﻿<div id="attr-1" class="clearfix noactive">
+﻿<div id="attr-1" class="clearfix <?if($left_active == "filt-1"):?>active<?else:?>noactive<?endif;?>">
 	<div id="attribut" class="clearfix">
 		<ul>
 			<?$counter = 1?>

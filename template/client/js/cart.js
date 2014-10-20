@@ -11,7 +11,7 @@ function update_cart(item_id, qty){
 	data.item_id = item_id;
 	data.qty = qty;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/update_cart/", json_str, update_items, "json");
+	$.post ("/ajax/update_cart/", json_str, update_items_2, "json");
 }
 
 function delete_item(item_id){
@@ -19,7 +19,7 @@ function delete_item(item_id){
 	data = new Object();
 	data.item_id = item_id;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/delete_item/", json_str, update_items, "json");
+	$.post ("/ajax/delete_item/", json_str, update_items_2, "json");
 }
 
 function update_items_2(){

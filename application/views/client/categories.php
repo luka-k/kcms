@@ -12,7 +12,7 @@
 							<? require 'include/breadcrumbs.php' ?>
 							<div class="middle2">
 								<div class="container2">
-									<div id="shop-item" class="content-shop-1">
+									<div id="shop-item" class="<?if($left_active):?>content-shop<?else:?>content-shop-1<?endif;?>">
 										<div class="good-page" style="height: 100px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
 											<?=$pagination?>
 											<div class="gp-content">
@@ -51,7 +51,7 @@
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="" >
 										
-										<div id="attr-4" class="clearfix noactive">
+										<div id="attr-4" class="clearfix <?if($left_active == "filt-4"):?>active<?else:?>noactive<?endif;?>">
 											<div id="attribut" class="clearfix">
 												<div style="margin-bottom:5px;">Корзина:</div>
 												<div class="cart">

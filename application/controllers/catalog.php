@@ -174,6 +174,19 @@ class Catalog extends CI_Controller {
 
 		$pagination = $this->pagination->create_links();
 		
+		
+		$active_cart = $this->session->userdata('active_cart');
+		
+		if($active_cart)
+		{
+			$this->session->unset_userdata('active_cart');
+			$left_active = "filt-4";
+		}
+		else
+		{
+			$left_active = "filt-1";
+		}
+			
 		$data = array(
 			//'title' => $settings->site_title,
 			//'meta_title' => $settings->site_title,
@@ -188,6 +201,7 @@ class Catalog extends CI_Controller {
 			'product_word' => end_maker("товар", $total_qty),
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
+			'left_active' => $left_active,
 			'categories_checked' => $categories_checked,
 			'manufacturer_checked' => $manufacturer_checked,
 			'categories_ch' => $categories_ch,

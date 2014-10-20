@@ -51,6 +51,8 @@ class Ajax extends CI_Controller {
 		$this->cart->update($item);
 		$items = $this->cart->get_all();
 		
+		$this->session->set_userdata(array('active_cart'=>true));
+		
 		$data['item_total'] = $items[$info->item_id]['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
@@ -63,6 +65,8 @@ class Ajax extends CI_Controller {
 		$item_id = $info->item_id;
 		
 		$this->cart->delete($item_id);
+		
+		$this->session->set_userdata(array('active_cart'=>true));
 		
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
