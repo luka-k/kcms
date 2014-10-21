@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/accordion.js?v05"></script>
 	
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
 		
 	<script src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
@@ -40,5 +41,53 @@
 				});
 			});
 		})(jQuery);
+		
+		function validation (element, errorClass) {
+			var input = element.find('input[type="text"]'),
+			spaces = new RegExp(/^(\s|\u00A0)+|(\s|\u00A0)+$/g),
+			isNecessatily,
+			isError = false;
+			
+			input.on('focus', function () {
+				var el = $(this);
+				if (el.hasClass(errorClass)) el.removeClass(errorClass);
+			});
+			
+			input.each(function () {
+				var el = $(this);
+				if (el.attr('data-necessarily') == 'true' && el.val().replace(spaces, '') == '') {
+					el.addClass(errorClass);
+					isError = true;
+				}
+				
+				if (el.attr('data-id') == 'name' && el.val() == null) {
+					el.addClass(errorClass);
+					isError = true;
+				}
+				
+				if (el.attr('data-id') == 'email' && el.val().match('@') == null) {
+					el.addClass(errorClass);
+					isError = true;
+				}
+				
+				if (el.attr('data-id') == 'phone' && el.val() == null) {
+					el.addClass(errorClass);
+					isError = true;
+				}
+				
+				if (el.attr('data-id') == 'address' && el.val() == null) {
+					el.addClass(errorClass);
+					isError = true;
+				}
+			});
+			return isError;
+		}
+		
+		function sub_form(){
+			var errorClass = 'frame-input_error';
+			if (validation($("#order"), errorClass)) return false;
+			$("#order").submit();
+		}
+		
 	</script>	
 </head>

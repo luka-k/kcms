@@ -12,5 +12,4 @@
 			$('<img class="picture-2" />').appendTo('#box-2').attr('src',$(this).attr('src'));
 		});
 	});
-	
-	</script>
+</script>

@@ -1,51 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
-	<script>	
-	function validation (element, errorClass) {
-   var input = element.find('input[type="text"]'),
-       spaces = new RegExp(/^(\s|\u00A0)+|(\s|\u00A0)+$/g),
-       isNecessatily,
-       isError = false;
-   input.on('focus', function () {
-       var el = $(this);
-     
-       if (el.hasClass(errorClass)) el.removeClass(errorClass);
-   });
-        input.each(function () {
-            var el = $(this);
-            if (el.attr('data-necessarily') == 'true' && el.val().replace(spaces, '') == '') {
-                el.addClass(errorClass);
-                isError = true;
-            }
-			if (el.attr('data-id') == 'name' && el.val() == null) {
-                el.addClass(errorClass);
-                isError = true;
-            }
-            if (el.attr('data-id') == 'email' && el.val().match('@') == null) {
-                el.addClass(errorClass);
-                isError = true;
-            }
-            if (el.attr('data-id') == 'phone' && el.val() == null) {
-                el.addClass(errorClass);
-                isError = true;
-            }
-            if (el.attr('data-id') == 'address' && el.val() == null) {
-                el.addClass(errorClass);
-                isError = true;
-            }
-        });
-   return isError;
-}
-	
-	
-	function sub_form(){
-		var errorClass = 'frame-input_error';
 
-			if (validation($("#order"), errorClass)) return false;
-			$("#order").submit();
-		}
-</script>
 	<body>
 		<div class="wrap">
 			<? require 'include/header.php'?>
