@@ -93,8 +93,8 @@ left:334px;
 
 .top-menu  li{
 float:left;
-margin-right: 20px;
-padding-right: 20px;
+margin-right: 15px;
+padding-right: 15px;
 line-height: 14px;
 border-right: 1px solid #b3b3b3;
 }
@@ -131,7 +131,7 @@ display:block;
 }
 
 .top-menu li ul li{
-padding:7px 10px;
+padding:7px 8px;
 border:none;
 clear:both;
 }
@@ -160,6 +160,11 @@ height:18px;
 
 .top-menu li .top-cart a{
 font-weight:normal;
+font-size:16px;
+}
+
+.top-menu li{
+padding-right:10px
 }
 
 .top-info{

@@ -213,10 +213,10 @@ class Catalog extends CI_Controller {
 		}
 		else
 		{
-			$data['title'] = $settings->site_title;
-			$data['meta_title'] = $settings->site_title;
-			$data['meta_keywords'] = $settings->site_keywords;
-			$data['meta_description'] = $settings->site_description;		
+			$data['title'] = $content->title;
+			$data['meta_title'] = $content->site_title;
+			$data['meta_keywords'] = $content->site_keywords;
+			$data['meta_description'] = $content->site_description;		
 		}
 		
 		$this->load->view($template, $data);
