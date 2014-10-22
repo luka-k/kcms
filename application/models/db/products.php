@@ -14,9 +14,18 @@ class Products extends MY_Model
 			'location' => array('Наличие', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
+		'Характеристики' => array(
+			'width' => array('Ширина', 'text'),
+			'height' => array('Высота', 'text'),
+			'depth' => array('Глубина', 'text'),
+			'color' => array('Цвет', 'text'),
+			'material' => array('Материал', 'text'),
+			'finishing' => array('Отделка', 'text'),
+			'turn' => array('Разворот', 'text'),
+		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'upload_image', "unset"),
-			'view_image' => array('Изображение', 'view_image', "unset")
+			'upload_image' => array('Загрузить изображение', 'upload_image'),
+			'view_image' => array('Изображение', 'view_image')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text'),

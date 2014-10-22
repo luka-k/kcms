@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 15 2014 г., 21:15
+-- Время создания: Окт 22 2014 г., 23:53
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `is_active` int(1) NOT NULL DEFAULT '1',
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `categories`
@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('d4a8929d08410a332cdcf3cf1ec59b3f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413393125, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('2e40ca0c67a61afd36b4b77a9980a73a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413975899, 'a:9:{s:9:"user_data";s:0:"";s:0:"";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:14:"parent_checked";a:0:{}s:18:"categories_checked";a:1:{s:1:"1";s:1:"5";}s:20:"manufacturer_checked";a:0:{}}'),
+('8c1529fd522a386965dc8dfb5c4fb7d2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1414007398, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `image_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -141,7 +142,12 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
 (48, 1, 'products', 4, '', '/i/t/item-1.jpg'),
-(49, 0, 'products', 4, '', '/i/t/item-2.jpg');
+(49, 0, 'products', 4, '', '/i/t/item-2.jpg'),
+(50, 1, 'products', 14, '', '/i/t/item-1[1].jpg'),
+(51, 1, 'products', 15, '', '/i/t/item-2[1].jpg'),
+(52, 0, 'products', 14, '', '/i/t/item-2[2].jpg'),
+(53, 1, 'products', 16, '', '/i/t/item-4.jpg'),
+(54, 1, 'products', 17, '', '/i/t/item-3.jpg');
 
 -- --------------------------------------------------------
 
@@ -156,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
   `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `link` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `manufacturer`
@@ -219,25 +225,6 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `parts`
---
-
-CREATE TABLE IF NOT EXISTS `parts` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `is_active` int(1) NOT NULL,
-  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` text COLLATE utf8_unicode_ci,
-  `meta_description` text COLLATE utf8_unicode_ci,
-  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `parent_id` int(5) NOT NULL DEFAULT '0',
-  `description` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `products`
 --
 
@@ -247,25 +234,33 @@ CREATE TABLE IF NOT EXISTS `products` (
   `manufacturer_id` int(10) NOT NULL,
   `is_active` int(1) NOT NULL,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `color` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `price` double NOT NULL,
   `discount` int(11) NOT NULL,
   `location` text COLLATE utf8_unicode_ci NOT NULL,
+  `width` float NOT NULL,
+  `height` float NOT NULL,
+  `depth` float NOT NULL,
+  `color` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `material` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `finishing` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `turn` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `meta_keywords` text COLLATE utf8_unicode_ci NOT NULL,
   `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id`, `parent_id`, `manufacturer_id`, `is_active`, `name`, `color`, `price`, `discount`, `location`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(4, 6, 1, 1, 'Kuga elegance 22025.2033', '', 8210, 30, 'СПб', '', '', '', 'kuga_1', ''),
-(5, 6, 4, 1, 'Kuga elegance 22025.2033-233', '', 80000, 0, 'Москва', '', '', '', 'kuga_2', '');
+INSERT INTO `products` (`id`, `parent_id`, `manufacturer_id`, `is_active`, `name`, `price`, `discount`, `location`, `width`, `height`, `depth`, `color`, `material`, `finishing`, `turn`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
+(14, 5, 1, 1, 'Kuga elegance 22025.2033', 8000, 10, 'Спб', 0, 0, 0, '', '', '', '', '', '', '', 'kuga-elegance-22025-2033', ''),
+(15, 6, 4, 1, 'Kuga elegance 22025.2033-233', 50000, 0, '', 0, 0, 0, '', '', '', '', '', '', '', 'kuga-elegance-22025-2033-233', ''),
+(16, 5, 1, 1, 'Kuga not-elegance', 100000, 20, 'СПб', 0, 0, 0, '', '', '', '', '', '', '', 'kuga-not-elegance', ''),
+(17, 5, 1, 1, 'Kuga not-elegance 2200', 0, 0, '', 0, 0, 0, '', '', '', '', '', '', '', 'kuga-not-elegance-2200', '');
 
 -- --------------------------------------------------------
 
@@ -282,9 +277,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_offline` int(11) DEFAULT '0',
   `offline_text` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `main_page_type` int(11) NOT NULL DEFAULT '1',
-  `main_page_id` int(11) NOT NULL,
-  `main_page_cat` int(11) NOT NULL,
+  `pagination_page` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
@@ -292,8 +285,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Описание пробного сайта', 'сайт, пробный сайт', 0, '', 2, 6, 1);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `pagination_page`) VALUES
+(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Описание пробного сайта', 'сайт, пробный сайт', 0, '', 2);
 
 -- --------------------------------------------------------
 
