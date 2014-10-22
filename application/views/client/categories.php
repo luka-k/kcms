@@ -51,8 +51,6 @@
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="" >
 										
-											<? require 'include/cart.php'?>
-										
 											<? require 'include/left-menu.php'?>
 										
 											<? require 'include/manufacturer.php'?>

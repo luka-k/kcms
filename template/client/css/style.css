@@ -593,19 +593,19 @@ h2.document-name a:hover {
 .left-sidebar-attr 
    {
   position:absolute;
-  top:0;
+  top:-20px;
   left:-12px;
   width: 233px;
   min-height:400px;
   }
 /*---------Фильтры----------*/  
-#filter
-  {
-  position:absolute;
-  width:302px;
-  margin-left:35px;
-  padding:20px 0 0 0;
-  }
+#filter {
+position:absolute;
+width:302px;
+margin-left:35px;
+padding:10px 0 0 0;
+font-size:12px;
+}
   
 .filter-titl
   {
@@ -650,7 +650,7 @@ display:block;
   border:1px solid #7f8fa8;
   color:#fd2020;
   font-weight:bold;
-  font-size:14px;
+  font-size:12px;
   cursor:pointer;
 
   }  
@@ -665,7 +665,7 @@ display:block;
   border-right:1px solid #fff;
   color:#fd2020;
   font-weight:bold;
-  font-size:14px;
+  font-size:12px;
   cursor:pointer;
   } 
   
@@ -723,7 +723,7 @@ display:block;
 .filtr-razmer-2{
 position:relative;
 float:left;
-width:40px;
+width:76px;
 height:18px;
 margin:-1px 0 0 -1px;
 padding:2px 5px;
@@ -735,7 +735,7 @@ text-align:center;
 .filtr-razmer-3
   {
   float:left;
-  width:40px;
+  width:76px;
   height:18px;
   margin:-1px 0 0 -1px;
   padding:2px 5px;
