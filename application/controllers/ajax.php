@@ -133,19 +133,22 @@ class Ajax extends CI_Controller {
 	public function filter()
 	{
 		$filter = json_decode(file_get_contents('php://input', true));
+		$parent_checked = (array)$filter->parent_checked;
 		$categories_checked = (array)$filter->categories_checked;
 		$manufacturer_checked = (array)$filter->manufacturer_checked;
 
+		$this->session->unset_userdata('parent_checked');
 		$this->session->unset_userdata('categories_checked');
 		$this->session->unset_userdata('manufacturer_checked');
 
-		if ((empty($categories_checked))&&(empty($manufacturer_checked)))
+		if ((empty($categories_checked))&&(empty($manufacturer_checked))&&(empty($parent_checked)))
 		{	
 			$session_data = "";
 		}
 		else
 		{
 			$session_data = array(
+				'parent_checked' => $parent_checked,
 				'categories_checked' => $categories_checked,
 				'manufacturer_checked' => $manufacturer_checked 
 			);

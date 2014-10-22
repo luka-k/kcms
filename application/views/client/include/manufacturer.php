@@ -7,7 +7,7 @@
 					<?$counter_2 = 1?>
 					<?foreach($manufacturer as $firma):?>
 						<li>
-							<input type="checkbox" class="manufacturer_checked" name="manufacturer_checked[]" num="<?=$counter_2?>" value="<?=$firma->id?>" id="c_1_1" onclick="filter()" 
+							<input type="checkbox" class="manufacturer_checked" name="manufacturer_checked" num="<?=$counter_2?>" value="<?=$firma->id?>" id="c_1_1" onclick="category_filter()" 
 								<?if(!empty($manufacturer_checked)):?>
 									<?foreach($manufacturer_checked as $ch):?>
 										<?if($ch == $firma->id):?>checked<?endif;?>

@@ -46,47 +46,37 @@ class Catalog extends CI_Controller {
 		}
 
 		$session = array(
+			'parent_checked' => $this->session->userdata('parent_checked'),
 			'categories_checked' => $this->session->userdata('categories_checked'),
 			'manufacturer_checked' => $this->session->userdata('manufacturer_checked')
 		);
-		
+				
 		if(!empty($session['categories_checked']))
 		{
 			foreach($session['categories_checked'] as $key => $item)
 			{
-				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));
-				$categories_checked[$key] = $item;		
+				$categories_checked[] = $this->categories->get_item_by(array("id" => $item));		
 			}
 		}
 		else
 		{
 			$categories_checked = "";
-			$categories_ch = "";
 		}
-
-		if(!empty($session['manufacturer_checked']))
-		{
-			foreach($session['manufacturer_checked'] as $item)
-			{
-				$manufacturer_checked[] = $item;	
-			}
-		}
-		else
-		{
-			$manufacturer_checked = "";
-		}	
 		
 		$category = $this->url_model->url_parse(2);
 		
 		if($filter)
 		{
-			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $categories_checked);
-			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $manufacturer_checked);
-			$query_1 = $this->db->get('products');
-			$config['total_rows'] = count($query_1->result_array());
+			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $session['categories_checked']/* $categories_checked*/);
+			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $session['manufacturer_checked']);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
-
+			
+			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $session['categories_checked']/* $categories_checked*/);
+			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $session['manufacturer_checked']);			
+			$query_1 = $this->db->get('products');
+			$config['total_rows'] = count($query_1->result_array());
+			
 			if(empty($result))
 			{
 				$content = "";
@@ -177,16 +167,8 @@ class Catalog extends CI_Controller {
 		
 		$active_cart = $this->session->userdata('active_cart');
 		
-		/*if($active_cart)
-		{
-			$this->session->unset_userdata('active_cart');
-			$left_active = "filt-4";
-		}
-		else
-		{*/
-			$left_active = "filt-1";
-		/*}*/
-			
+		$left_active = "filt-1";
+
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,
@@ -198,26 +180,16 @@ class Catalog extends CI_Controller {
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
 			'left_active' => $left_active,
-			'categories_checked' => $categories_checked,
-			'manufacturer_checked' => $manufacturer_checked,
-			'categories_ch' => $categories_ch,
+			'categories_checked' => $session['categories_checked'],
+			'manufacturer_checked' => $session['manufacturer_checked'],
+			'parent_checked' => $session['parent_checked'],
 			'pagination' => $pagination
 		);
 		
-		if($content)
-		{
-			$data['title'] = $settings->site_title;
-			$data['meta_title'] = $settings->site_title;
-			$data['meta_keywords'] = $settings->site_keywords;
-			$data['meta_description'] = $settings->site_description;
-		}
-		else
-		{
-			$data['title'] = $content->title;
-			$data['meta_title'] = $content->site_title;
-			$data['meta_keywords'] = $content->site_keywords;
-			$data['meta_description'] = $content->site_description;		
-		}
+		$data['title'] = $settings->site_title;
+		$data['meta_title'] = $settings->site_title;
+		$data['meta_keywords'] = $settings->site_keywords;
+		$data['meta_description'] = $settings->site_description;
 		
 		$this->load->view($template, $data);
 	}

@@ -30,39 +30,67 @@
 	    }
 		
 	}
-				
-	//$('#filt-1').click();
 	
-	function filter() {
+	function update_items_1(){
+		window.location.replace("/shop?filter=true");
+	}	
 
+	function category_filter(category_id){
 		var form = $('.filter-form'),
-		inputs = form.find('input'),
+		categories_inputs = form.find('input.categories_checked'),
+		manufacturer_inputs = form.find('input.manufacturer_checked'),
+		parent_inputs = form.find('input.parent_checked'),
+		parent_checked = {},
 		categories_checked = {},
 		manufacturer_checked = {},
 		data = {},
 		categories_num,
 		manufacturer_num;
-
-		inputs.each(function () {
+		
+		parent_inputs.each(function () {
 			var element = $(this);
 			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
-				if (element.attr('class') == 'cetegories_checked'){
+				parent_checked[element.val()] = element.val();
+			}
+		});	
+		
+		categories_inputs.each(function () {
+			var element = $(this);
+			
+			if (element.attr('type') == 'checkbox' && element.attr('parent') == category_id) {
+				if($(".category-"+category_id).prop("checked")){
+					element.prop("checked", true);
+				}else{
+					element.prop("checked", false);
+				}
+			}	
+			
+			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
+				if (element.attr('name') == 'cetegories_checked'){
 					categories_num = element.attr('num');
 					categories_checked[categories_num] = element.val();
 				}
-				if (element.attr('class') == 'manufacturer_checked'){
+			}else{
+				$(".category-"+element.attr('parent')).prop("checked", false);
+				delete parent_checked[element.attr('parent')];
+			}
+		});
+		
+		manufacturer_inputs.each(function () {
+			var element = $(this);
+			
+			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
+				if (element.attr('name') == 'manufacturer_checked'){
 					manufacturer_num = element.attr('num');
 					manufacturer_checked[manufacturer_num] = element.val();
-				}
+				}			
 			}
-		});	
+		});
+		
+		data.parent_checked = parent_checked;
 		data.categories_checked = categories_checked;
 		data.manufacturer_checked = manufacturer_checked;
 		var json_str = JSON.stringify(data);
 		$.post ("/ajax/filter/", json_str, update_items_1, "json");
 	}
-	
-	function update_items_1(){
-		window.location.replace("/shop?filter=true");
-	}	
 </script>

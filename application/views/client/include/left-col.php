@@ -1,13 +1,5 @@
 <div class="scroll-contentd" id="leftscroll" style="height: 410px;">
 	<div id="filter" class="clearfix scroll-content"  style="height: 400px;overflow-y: hidden;">
-	
-		<!--<div class="clearfix" style="margin-top:10px">
-			<div id="filt-4" class="filtr-noact <?if($left_active == "filt-4"):?>filtr-act<?endif;?>" <?if($cart):?><?endif;?> onclick="menu(4)">Корзина</div>
-			<div style="width:100%; clear:both;" class="clearfix">
-				<div>В корзине: <span class="total_qty"><?=$total_qty?></span> <?=$product_word?></div>
-				<div>На сумму: <span class="total_price"><?=$total_price?></span> руб.</div>
-			<div>
-		</div>-->
 		
 		<div class="clearfix" style="margin-top:10px">
 			<div class="filter-titl">Группа товаров:</div>
