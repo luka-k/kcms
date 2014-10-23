@@ -81,7 +81,7 @@
 			<div class="filter-titl">Характеристики:</div>
 			<div class="clearfix">
 
-				<div class="filter">	
+			<div class="filter">	
 					<div class="filtr-razmer-1">Размеры(мм):</div>
 					<div class="filtr-razmer-2">от:</div>	
 					<div class="filtr-razmer-2">до:</div>

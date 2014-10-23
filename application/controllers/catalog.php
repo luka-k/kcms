@@ -168,7 +168,7 @@ class Catalog extends CI_Controller {
 		$active_cart = $this->session->userdata('active_cart');
 		
 		$left_active = "filt-1";
-
+		
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,
@@ -181,6 +181,7 @@ class Catalog extends CI_Controller {
 			'left_menu' => $left_menu,
 			'left_active' => $left_active,
 			'categories_checked' => $session['categories_checked'],
+			'categories_ch' => $categories_checked,
 			'manufacturer_checked' => $session['manufacturer_checked'],
 			'parent_checked' => $session['parent_checked'],
 			'pagination' => $pagination
