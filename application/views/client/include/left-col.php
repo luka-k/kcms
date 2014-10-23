@@ -86,26 +86,26 @@
 					<div class="filtr-razmer-2">от:</div>	
 					<div class="filtr-razmer-2">до:</div>
 					<div class="filtr-razmer-1">ширина:</div>
-					<input class="filtr-razmer-3" type="text" name="" />
-					<input class="filtr-razmer-3" type="text" name="" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="width_from" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="width_to" />
 					<div class="filtr-razmer-1">высота(h):</div>	
-					<input class="filtr-razmer-3" type="text" name="" />
-					<input class="filtr-razmer-3" type="text" name="" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="height_from" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="height_to" />
 					<div class="filtr-razmer-1">глубина:</div>
-					<input class="filtr-razmer-3" type="text" name="" />
-					<input class="filtr-razmer-3" type="text" name="" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="depth_from" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="depth_to" />
 					<div class="filter-titl">Цвет:</div>
 					<div class="help">i</div>
-					<input class="input" type="text" name="" />
+					<input class="input filter-input" type="text" name="color" />
 					<div class="filter-titl">Материал:</div>
 					<div class="help">i</div>
-					<input class="input" type="text" name="" />
+					<input class="input filter-input" type="text" name="material" />
 					<div class="filter-titl">Отделка:</div>
 					<div class="help">i</div>
-					<input class="input" type="text" name="" />
+					<input class="input filter-input" type="text" name="finishing" />
 					<div class="filter-titl">Разворот:</div>
 					<div class="help">i</div>
-					<input class="input" type="text" name="" />
+					<input class="input filter-input" type="text" name="turn" />
 				</div>
 			</div>
 		</div>

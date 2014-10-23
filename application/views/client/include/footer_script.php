@@ -35,11 +35,12 @@
 		window.location.replace("/shop?filter=true");
 	}	
 
-	function category_filter(category_id){
+	function filter(category_id){
 		var form = $('.filter-form'),
 		categories_inputs = form.find('input.categories_checked'),
 		manufacturer_inputs = form.find('input.manufacturer_checked'),
 		parent_inputs = form.find('input.parent_checked'),
+		filter_inputs = form.find('input.filter_input'),
 		parent_checked = {},
 		categories_checked = {},
 		manufacturer_checked = {},
@@ -85,6 +86,11 @@
 					manufacturer_checked[manufacturer_num] = element.val();
 				}			
 			}
+		});
+		
+		filter_inputs.each(function () {
+			var element = $(this);
+			alert(element.attr('name'));
 		});
 		
 		data.parent_checked = parent_checked;

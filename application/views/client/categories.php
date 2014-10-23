@@ -57,7 +57,6 @@
 										
 											<? require 'include/filter.php'?>
 
-										</form>
 									</div>
 								</div>
 							</div>
@@ -66,6 +65,7 @@
 					<div class="left-sidebar-filtr clearfix">
 						<? require 'include/left-col.php'?>
 					</div>
+					</form>
 				</div><!-- .middle-->
 			</div><!--/main-->
 			
