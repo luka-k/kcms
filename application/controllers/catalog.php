@@ -46,34 +46,38 @@ class Catalog extends CI_Controller {
 		}
 
 		$session = array(
-			'parent_checked' => $this->session->userdata('parent_checked'),
-			'categories_checked' => $this->session->userdata('categories_checked'),
-			'manufacturer_checked' => $this->session->userdata('manufacturer_checked')
+			
+			
+			
 		);
+		
+		$parent_checked = $this->session->userdata('parent_checked');
+		$categories_checked = $this->session->userdata('categories_checked');
+		$manufacturer_checked = $this->session->userdata('manufacturer_checked');
 				
-		if(!empty($session['categories_checked']))
+		if(!empty($categories_checked))
 		{
-			foreach($session['categories_checked'] as $key => $item)
+			foreach($categories_checked as $key => $item)
 			{
-				$categories_checked[] = $this->categories->get_item_by(array("id" => $item));		
+				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
 			}
 		}
 		else
 		{
-			$categories_checked = "";
+			$categories_ch = "";
 		}
 		
 		$category = $this->url_model->url_parse(2);
 		
 		if($filter)
 		{
-			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $session['categories_checked']/* $categories_checked*/);
-			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $session['manufacturer_checked']);
+			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
+			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
 			
-			if(!empty($session['categories_checked'])) $this->db->where_in('parent_id', $session['categories_checked']/* $categories_checked*/);
-			if(!empty($session['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $session['manufacturer_checked']);			
+			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
+			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);			
 			$query_1 = $this->db->get('products');
 			$config['total_rows'] = count($query_1->result_array());
 			
@@ -127,10 +131,12 @@ class Catalog extends CI_Controller {
 				else
 				{
 					$this->session->unset_userdata('categories_checked');
-					$this->session->unset_userdata('manufacturer_checked');					
+					$this->session->unset_userdata('manufacturer_checked');		
+					$this->session->unset_userdata('parent_checked');		
 					$categories_checked = "";
 					$categories_ch = "";
 					$manufacturer_checked = "";
+					$parent_checked = "";
 				}
 		}
 				
@@ -157,6 +163,7 @@ class Catalog extends CI_Controller {
 		{
 			$config['base_url'] = base_url().uri_string()."?pagination=true";
 		}
+		
 		$config['page_query_string'] = TRUE;
 		$config['per_page'] = 2;
 
@@ -180,10 +187,10 @@ class Catalog extends CI_Controller {
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
 			'left_active' => $left_active,
-			'categories_checked' => $session['categories_checked'],
-			'categories_ch' => $categories_checked,
-			'manufacturer_checked' => $session['manufacturer_checked'],
-			'parent_checked' => $session['parent_checked'],
+			'categories_checked' => $categories_checked,
+			'categories_ch' => $categories_ch,
+			'manufacturer_checked' => $manufacturer_checked,
+			'parent_checked' => $parent_checked,
 			'pagination' => $pagination
 		);
 		
