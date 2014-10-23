@@ -12,26 +12,22 @@ class Admin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		$data = array(
-			'title' => "Вход",
-			'meta_title' => "Вход",
-			'error' => " "
-		);
 		
 		$user = $this->session->userdata('logged_in');
 		$role = $this->session->userdata('role');
 
 		if ((!$user)||($role <> "admin"))
 		{
-			$this->load->view('admin/enter.php', $data);	
-		} 
+			redirect(base_url().'registration/admin_enter');	
+		}
+		else
+		{		
+			$this->menu = $this->menus->admin_menu;
+			$this->name = $this->session->userdata('user_name');
+			$this->user_id = $this->session->userdata('user_id');
 		
-		$this->menu = $this->menus->admin_menu;
-		$this->name = $this->session->userdata('user_name');
-		$this->user_id = $this->session->userdata('user_id');
-		
-		$this->config->load('emails_config');
+			$this->config->load('emails_config');
+		}
 	}
 	
 	
@@ -86,6 +82,7 @@ class Admin extends CI_Controller
 	{
 		redirect(base_url().'admin/admin_main');
 	}
+	
 
 	//Главная страница
 	public function admin_main()
