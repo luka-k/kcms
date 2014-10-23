@@ -34,6 +34,54 @@ class Admin extends CI_Controller
 		$this->config->load('emails_config');
 	}
 	
+	
+	public function load1C()
+	{
+		$xmlstr = file_get_contents('1c/import.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		$i = 0;
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$manufacturer = (string) $el->Изготовитель->ОфициальноеНаименование;
+			$name = (string) $el->Наименование;
+			
+			// TODO: fix
+			$categoryName = explode('.', $name);
+			$categoryName = trim($categoryName[1]);
+			$categoryName = explode(' ', $categoryName);
+			$categoryName = $categoryName[0];
+			// ~TODO
+			
+			if ($categoryName)
+			{
+				$category = $this->categories->get_item_by(array('name' => $categoryName));
+				if (!$category)
+				{
+					$this->categories->insert(array('name' => $categoryName));
+					$category = $this->categories->get_item($this->db->insert_id());
+					$category2category->category_parent_id = 1;
+					$category2category->child_id = $category->id;
+					$this->db->insert('category2category', $category2category);
+				}
+				$this->products->insert(array(
+					'name' => $name,
+					'parent_id' => $category->id,
+					'is_active' => 1,
+					'price' => rand(500, 1000) * 10,
+					'url' => slug($name)
+				));
+				$product_id = $this->db->insert_id();
+				$this->images->insert(array(
+					'url' => '/i/t/item-1.jpg',
+					'is_cover' => '1',
+					'object_type' => 'products',
+					'object_id' => $product_id
+				));
+					
+			}
+		}
+	}
+	
 	public function index()
 	{
 		redirect(base_url().'admin/admin_main');
