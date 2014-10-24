@@ -82,31 +82,33 @@
 			<div class="clearfix">
 
 			<div class="filter">	
+				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form-2" class="filter-form-2" action="" >
 					<div class="filtr-razmer-1">Размеры(мм):</div>
 					<div class="filtr-razmer-2">от:</div>	
 					<div class="filtr-razmer-2">до:</div>
 					<div class="filtr-razmer-1">ширина:</div>
-					<input class="filtr-razmer-3 filter-input" type="text" name="width_from" />
-					<input class="filtr-razmer-3 filter-input" type="text" name="width_to" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="width_from" value="<?=$filters['width_from']?>" onchange="filter()"/>
+					<input class="filtr-razmer-3 filter-input" type="text" name="width_to" value="<?=$filters['width_to']?>" onchange="filter()"/>
 					<div class="filtr-razmer-1">высота(h):</div>	
-					<input class="filtr-razmer-3 filter-input" type="text" name="height_from" />
-					<input class="filtr-razmer-3 filter-input" type="text" name="height_to" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="height_from" value="<?=$filters['height_from']?>" onchange="filter()"/>
+					<input class="filtr-razmer-3 filter-input" type="text" name="height_to" value="<?=$filters['height_to']?>" onchange="filter()"/>
 					<div class="filtr-razmer-1">глубина:</div>
-					<input class="filtr-razmer-3 filter-input" type="text" name="depth_from" />
-					<input class="filtr-razmer-3 filter-input" type="text" name="depth_to" />
+					<input class="filtr-razmer-3 filter-input" type="text" name="depth_from" value="<?=$filters['depth_from']?>" onchange="filter()"/>
+					<input class="filtr-razmer-3 filter-input" type="text" name="depth_to" value="<?=$filters['depth_to']?>" onchange="filter()"/>
 					<div class="filter-titl">Цвет:</div>
 					<div class="help">i</div>
-					<input class="input filter-input" type="text" name="color" />
+					<input class="input filter-input" type="text" name="color" value="<?=$filters['color']?>" onchange="filter()"/>
 					<div class="filter-titl">Материал:</div>
 					<div class="help">i</div>
-					<input class="input filter-input" type="text" name="material" />
+					<input class="input filter-input" type="text" name="material" value="<?=$filters['material']?>" onchange="filter()"/>
 					<div class="filter-titl">Отделка:</div>
 					<div class="help">i</div>
-					<input class="input filter-input" type="text" name="finishing" />
+					<input class="input filter-input" type="text" name="finishing" value="<?=$filters['finishing']?>" onchange="filter()"/>
 					<div class="filter-titl">Разворот:</div>
 					<div class="help">i</div>
-					<input class="input filter-input" type="text" name="turn" />
-				</div>
+					<input class="input filter-input" type="text" name="turn" value="<?=$filters['turn']?>" onchange="filter()"/>
+				</form>	
+			</div>
 			</div>
 		</div>
 	</div>

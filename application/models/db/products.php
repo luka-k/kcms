@@ -63,4 +63,50 @@ class Products extends MY_Model
 		}
 		return $info;
 	}
+	
+	public function set_filters($filters)
+	{
+		if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
+		if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
+		//Ширина (их бы упростить еще бы надо как нить)
+		if(!empty($filters['width_from'])&&!empty($filters['width_to']))
+		{
+			$where = "width BETWEEN {$filters['width_from']} AND {$filters['width_to']}";
+			$this->db->where($where);
+		}
+		else
+		{
+			!empty($filters['width_from'])?$this->db->where('width >', $filters['width_from']):$filters['width_from'] = "";
+			!empty($filters['width_to'])?$this->db->where('width <', $filters['width_to']):$filters['width_to'] = "";
+		}
+		//Высота
+		if(!empty($filters['height_from'])&&!empty($filters['height_to']))
+		{
+			$where = "height BETWEEN {$filters['height_from']} AND {$filters['height_to']}";
+			$this->db->where($where);
+		}
+		else
+		{
+			!empty($filters['height_from'])?$this->db->where('height >', $filters['height_from']):$filters['height_from'] = "";
+			!empty($filters['height_to'])?$this->db->where('height <', $filters['height_to']):$filters['height_to'] = "";
+		}
+		//Глубина
+		if(!empty($filters['depth_from'])&&!empty($filters['depth_to']))
+		{
+			$where = "depth BETWEEN {$filters['depth_from']} AND {$filters['depth_to']}";
+			$this->db->where($where);
+		}
+		else
+		{
+			!empty($filters['depth_from'])?$this->db->where('depth >', $filters['depth_from']):$filters['depth_from'] = "";
+			!empty($filters['depth_to'])?$this->db->where('depth <', $filters['depth_to']):$filters['depth_to'] = "";
+		}	
+	
+		!empty($filters['color'])?$this->db->where('color', $filters['color']):$filters['color'] = "";
+		!empty($filters['material'])?$this->db->where('material', $filters['material']):$filters['material'] = "";
+		!empty($filters['finishing'])?$this->db->where('finishing', $filters['finishing']):$filters['finishing'] = "";
+		!empty($filters['turn'])?$this->db->where('turn', $filters['turn']):$filters['turn'] = "";	
+		
+		return $filters;
+	}
 }

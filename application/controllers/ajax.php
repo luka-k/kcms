@@ -143,12 +143,14 @@ class Ajax extends CI_Controller {
 		$parent_checked = (array)$filter->parent_checked;
 		$categories_checked = (array)$filter->categories_checked;
 		$manufacturer_checked = (array)$filter->manufacturer_checked;
+		$filters = (array)$filter->filters;
 
 		$this->session->unset_userdata('parent_checked');
 		$this->session->unset_userdata('categories_checked');
 		$this->session->unset_userdata('manufacturer_checked');
-
-		if ((empty($categories_checked))&&(empty($manufacturer_checked))&&(empty($parent_checked)))
+		$this->session->unset_userdata('filters');
+		
+		if ((empty($categories_checked))&&(empty($manufacturer_checked))&&(empty($parent_checked))&&(empty($filters)))
 		{	
 			$session_data = "";
 		}
@@ -157,7 +159,8 @@ class Ajax extends CI_Controller {
 			$session_data = array(
 				'parent_checked' => $parent_checked,
 				'categories_checked' => $categories_checked,
-				'manufacturer_checked' => $manufacturer_checked 
+				'manufacturer_checked' => $manufacturer_checked,
+				'filters' => $filters 				
 			);
 		}
 		$this->session->set_userdata($session_data);

@@ -44,17 +44,11 @@ class Catalog extends CI_Controller {
 			$from = 0;
 			$limit = $settings->pagination_page;
 		}
-
-		$session = array(
-			
-			
-			
-		);
 		
 		$parent_checked = $this->session->userdata('parent_checked');
 		$categories_checked = $this->session->userdata('categories_checked');
 		$manufacturer_checked = $this->session->userdata('manufacturer_checked');
-				
+		$filters = $this->session->userdata('filters');
 		if(!empty($categories_checked))
 		{
 			foreach($categories_checked as $key => $item)
@@ -68,18 +62,15 @@ class Catalog extends CI_Controller {
 		}
 		
 		$category = $this->url_model->url_parse(2);
-		
+				
 		if($filter)
 		{
-			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
-			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
+			$this->products->set_filters($filters);
+			$config['total_rows'] = $this->db->count_all_results('products');
+			
+			$filters = $this->products->set_filters($filters);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
-			
-			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
-			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);			
-			$query_1 = $this->db->get('products');
-			$config['total_rows'] = count($query_1->result_array());
 			
 			if(empty($result))
 			{
@@ -97,6 +88,18 @@ class Catalog extends CI_Controller {
 		}
 		else
 		{
+			$filters = array(
+				"width_from" => "",
+				"width_to" => "",
+				"height_from" => "",
+				"height_to" => "",
+				"depth_from" => "",
+				"depth_to" => "",
+				"color" => "",
+				"material" => "",
+				"finishing" => "",
+				"turn" => ""
+			);
 			if(isset($category->product))
 			{
 				$content = $category->product;
@@ -190,6 +193,7 @@ class Catalog extends CI_Controller {
 			'categories_checked' => $categories_checked,
 			'categories_ch' => $categories_ch,
 			'manufacturer_checked' => $manufacturer_checked,
+			'filters' => $filters,
 			'parent_checked' => $parent_checked,
 			'pagination' => $pagination
 		);

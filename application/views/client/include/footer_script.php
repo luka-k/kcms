@@ -37,16 +37,25 @@
 
 	function filter(category_id){
 		var form = $('.filter-form'),
+		form_2 = $('.filter-form-2'),
 		categories_inputs = form.find('input.categories_checked'),
 		manufacturer_inputs = form.find('input.manufacturer_checked'),
 		parent_inputs = form.find('input.parent_checked'),
-		filter_inputs = form.find('input.filter_input'),
+		filter_inputs = form_2.find('input.filter-input'),
 		parent_checked = {},
 		categories_checked = {},
 		manufacturer_checked = {},
+		filters = {},
 		data = {},
 		categories_num,
 		manufacturer_num;
+		
+		filter_inputs.each(function () {
+			var element = $(this);
+			if (element.val() != ""){
+				filters[element.attr('name')] = element.val();
+			}
+		});
 		
 		parent_inputs.each(function () {
 			var element = $(this);
@@ -88,14 +97,10 @@
 			}
 		});
 		
-		filter_inputs.each(function () {
-			var element = $(this);
-			alert(element.attr('name'));
-		});
-		
 		data.parent_checked = parent_checked;
 		data.categories_checked = categories_checked;
 		data.manufacturer_checked = manufacturer_checked;
+		data.filters = filters;
 		var json_str = JSON.stringify(data);
 		$.post ("/ajax/filter/", json_str, update_items_1, "json");
 	}
