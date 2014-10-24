@@ -5,6 +5,8 @@ class Catalog extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->config->load('pagination_config');
 	}
 	
 	public function index()
@@ -31,6 +33,7 @@ class Catalog extends CI_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$pagin = $this->input->get('pagination');
+		$total_rows = "";
 		
 		if($pagin)
 		{
@@ -66,7 +69,7 @@ class Catalog extends CI_Controller {
 		if($filter)
 		{
 			$this->products->set_filters($filters);
-			$config['total_rows'] = $this->db->count_all_results('products');
+			$total_rows = $this->db->count_all_results('products');
 			
 			$filters = $this->products->set_filters($filters);
 			$query = $this->db->get('products', $limit, $from);
@@ -116,12 +119,12 @@ class Catalog extends CI_Controller {
 				if ($category == FALSE)
 				{
 					$content = $this->products->get_list(FALSE, $from, $limit, $order, $direction);
-					$config['total_rows'] = count($this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction));
+					$total_rows = count($this->products->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction));
 				}
 				else
 				{
 					$content = $this->products->get_list(array("parent_id" => $category->id), $from, $limit, $order, $direction);		
-					$config['total_rows'] = count($this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction));
+					$total_rows = count($this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction));
 				}
 				$template = "client/categories.php";
 				
@@ -157,23 +160,24 @@ class Catalog extends CI_Controller {
 				}
 			}
 		}
-
+		
+		$pagination_config = $this->config->item('pagination');
+		
+		$pagination_config['per_page'] = $settings->pagination_page;
+		$pagination_config['total_rows'] = $total_rows;
+		
 		if($filter)
 		{
-			$config['base_url'] = base_url().uri_string()."?filter=true&pagination=true";
+			$pagination_config['base_url'] = base_url().uri_string()."?filter=true&pagination=true";
 		}
 		else
 		{
-			$config['base_url'] = base_url().uri_string()."?pagination=true";
+			$pagination_config['base_url'] = base_url().uri_string()."?pagination=true";
 		}
-		
-		$config['page_query_string'] = TRUE;
-		$config['per_page'] = 2;
 
-		$this->pagination->initialize($config);
+		$this->pagination->initialize($pagination_config);
 
 		$pagination = $this->pagination->create_links();
-		
 		
 		$active_cart = $this->session->userdata('active_cart');
 		

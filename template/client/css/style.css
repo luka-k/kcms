@@ -1070,3 +1070,7 @@ background:red;
 .order textarea:focus::-moz-placeholder { color:#fff;}
 
 .order textarea:focus::-webkit-input-placeholder{ color:#fff;}
+
+.pagination{
+margin-bottom:5px;
+}
