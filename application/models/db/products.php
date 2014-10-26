@@ -66,8 +66,6 @@ class Products extends MY_Model
 	
 	public function set_filters($filters)
 	{
-		if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
-		if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
 		//Ширина (их бы упростить еще бы надо как нить)
 		if(!empty($filters['width_from'])&&!empty($filters['width_to']))
 		{

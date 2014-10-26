@@ -51,6 +51,7 @@ class Catalog extends CI_Controller {
 		$parent_checked = $this->session->userdata('parent_checked');
 		$categories_checked = $this->session->userdata('categories_checked');
 		$manufacturer_checked = $this->session->userdata('manufacturer_checked');
+		
 		$filters = $this->session->userdata('filters');
 		if(!empty($categories_checked))
 		{
@@ -68,9 +69,13 @@ class Catalog extends CI_Controller {
 				
 		if($filter)
 		{
+			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
+			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
 			$this->products->set_filters($filters);
 			$total_rows = $this->db->count_all_results('products');
 			
+			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
+			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
 			$filters = $this->products->set_filters($filters);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
