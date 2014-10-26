@@ -48,14 +48,12 @@ class Catalog extends CI_Controller {
 			$limit = $settings->pagination_page;
 		}
 		
-		$parent_checked = $this->session->userdata('parent_checked');
-		$categories_checked = $this->session->userdata('categories_checked');
-		$manufacturer_checked = $this->session->userdata('manufacturer_checked');
-		
 		$filters = $this->session->userdata('filters');
-		if(!empty($categories_checked))
+		
+		var_dump($filters);
+		if(!empty($filters['categories_checked']))
 		{
-			foreach($categories_checked as $key => $item)
+			foreach($filters['categories_checked'] as $key => $item)
 			{
 				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
 			}
@@ -69,13 +67,10 @@ class Catalog extends CI_Controller {
 				
 		if($filter)
 		{
-			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
-			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
+			
 			$this->products->set_filters($filters);
 			$total_rows = $this->db->count_all_results('products');
-			
-			if(!empty($categories_checked)) $this->db->where_in('parent_id', $categories_checked);
-			if(!empty($manufacturer_checked)) $this->db->where_in('manufacturer_id', $manufacturer_checked);
+
 			$filters = $this->products->set_filters($filters);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
@@ -141,13 +136,14 @@ class Catalog extends CI_Controller {
 				}
 				else
 				{
-					$this->session->unset_userdata('categories_checked');
-					$this->session->unset_userdata('manufacturer_checked');		
-					$this->session->unset_userdata('parent_checked');		
-					$categories_checked = "";
-					$categories_ch = "";
-					$manufacturer_checked = "";
-					$parent_checked = "";
+					$this->session->unset_userdata('filters');	
+					$filters = array(
+						'parent_checked' => "",
+						'categories_checked' => "",
+						'manufacturer_checked' => "",
+						'attributes_range' => "",
+						'attributes' => ""
+					);
 				}
 		}
 				
@@ -187,7 +183,7 @@ class Catalog extends CI_Controller {
 		$active_cart = $this->session->userdata('active_cart');
 		
 		$left_active = "filt-1";
-		
+		var_dump($filters);
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,
@@ -199,11 +195,11 @@ class Catalog extends CI_Controller {
 			'top_menu' => $top_menu,
 			'left_menu' => $left_menu,
 			'left_active' => $left_active,
-			'categories_checked' => $categories_checked,
+			'categories_checked' => $filters['categories_checked'],
 			'categories_ch' => $categories_ch,
-			'manufacturer_checked' => $manufacturer_checked,
+			'manufacturer_checked' => $filters['manufacturer_checked'],
 			'filters' => $filters,
-			'parent_checked' => $parent_checked,
+			'parent_checked' => $filters['parent_checked'],
 			'pagination' => $pagination
 		);
 		

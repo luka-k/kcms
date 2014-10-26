@@ -41,19 +41,30 @@
 		categories_inputs = form.find('input.categories_checked'),
 		manufacturer_inputs = form.find('input.manufacturer_checked'),
 		parent_inputs = form.find('input.parent_checked'),
-		filter_inputs = form_2.find('input.filter-input'),
+		attributes_inputs = form_2.find('input.attributes'),
 		parent_checked = {},
 		categories_checked = {},
 		manufacturer_checked = {},
-		filters = {},
-		data = {},
-		categories_num,
-		manufacturer_num;
+		attributes = {},
+		attributes_range = {},
+		item = {},
+		data = {};
 		
-		filter_inputs.each(function () {
+		var num = 0;
+		attributes_inputs.each(function () {
 			var element = $(this);
-			if (element.val() != ""){
-				filters[element.attr('name')] = element.val();
+			if (element.attr('range') == 'true'){
+				item[num] = element.val();
+				alert(element.attr('name'));
+				attributes_range[element.attr('name')] = item;
+			}
+			
+			if (element.attr('range') == 'false'){
+				attributes[element.attr('name')] = element.val();
+			}
+			num++;
+			if(num == 2){
+				num = 0;
 			}
 		});
 		
@@ -100,7 +111,8 @@
 		data.parent_checked = parent_checked;
 		data.categories_checked = categories_checked;
 		data.manufacturer_checked = manufacturer_checked;
-		data.filters = filters;
+		data.attributes_range = attributes_range;
+		data.attributes = attributes;
 		var json_str = JSON.stringify(data);
 		$.post ("/ajax/filter/", json_str, update_items_1, "json");
 	}

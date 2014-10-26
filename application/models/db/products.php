@@ -66,7 +66,24 @@ class Products extends MY_Model
 	
 	public function set_filters($filters)
 	{
-		//Ширина (их бы упростить еще бы надо как нить)
+		if(!empty($filters['categories_checked'])) $this->db->where_in('parent_id', $filters['categories_checked']);
+		if(!empty($filters['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filters['manufacturer_checked']);
+		
+		foreach($filters['attributes_range'] as $name => $item)
+		{
+			if(!empty($item->0)&&!empty($item->1))
+			{
+				$where = "{$name} BETWEEN {$item[0]} AND {$item[0]}";
+				$this->db->where($where);
+			}
+			else
+			{
+				!empty($item->0)?$this->db->where("{$name} >", $item->0):$filters['attributes_range'][$name]->0 = "";
+				!empty($item->1)?$this->db->where("{$name} <", $item->1):$filters['attributes_range'][$name]->1 = "";
+			}	
+		}
+		/*//Ширина (их бы упростить еще бы надо как нить)
+
 		if(!empty($filters['width_from'])&&!empty($filters['width_to']))
 		{
 			$where = "width BETWEEN {$filters['width_from']} AND {$filters['width_to']}";
@@ -98,7 +115,7 @@ class Products extends MY_Model
 		{
 			!empty($filters['depth_from'])?$this->db->where('depth >', $filters['depth_from']):$filters['depth_from'] = "";
 			!empty($filters['depth_to'])?$this->db->where('depth <', $filters['depth_to']):$filters['depth_to'] = "";
-		}	
+		}	*/
 	
 		!empty($filters['color'])?$this->db->where('color', $filters['color']):$filters['color'] = "";
 		!empty($filters['material'])?$this->db->where('material', $filters['material']):$filters['material'] = "";

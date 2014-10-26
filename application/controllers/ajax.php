@@ -140,27 +140,25 @@ class Ajax extends CI_Controller {
 	public function filter()
 	{
 		$filter = json_decode(file_get_contents('php://input', true));
-		$parent_checked = (array)$filter->parent_checked;
-		$categories_checked = (array)$filter->categories_checked;
-		$manufacturer_checked = (array)$filter->manufacturer_checked;
-		$filters = (array)$filter->filters;
+		
+		$filters = array(
+			'parent_checked' => (array)$filter->parent_checked,
+			'categories_checked' => (array)$filter->categories_checked,
+			'manufacturer_checked' => (array)$filter->manufacturer_checked,
+			'attributes_range' => (array)$filter->attributes_range,
+			'attributes' => (array)$filter->attributes
+		);
 
-		$this->session->unset_userdata('parent_checked');
-		$this->session->unset_userdata('categories_checked');
-		$this->session->unset_userdata('manufacturer_checked');
 		$this->session->unset_userdata('filters');
 		
-		if ((empty($categories_checked))&&(empty($manufacturer_checked))&&(empty($parent_checked))&&(empty($filters)))
+		if ((empty($filters['categories_checked']))&&(empty($filters['manufacturer_checked']))&&(empty($filters['parent_checked']))&&(empty($filters['attributes_range']))&&(empty($filters['attributes'])))
 		{	
 			$session_data = "";
 		}
 		else
 		{
 			$session_data = array(
-				'parent_checked' => $parent_checked,
-				'categories_checked' => $categories_checked,
-				'manufacturer_checked' => $manufacturer_checked,
-				'filters' => $filters 				
+				'filters' => $filters,				
 			);
 		}
 		$this->session->set_userdata($session_data);
