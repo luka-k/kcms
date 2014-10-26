@@ -47,26 +47,30 @@
 		manufacturer_checked = {},
 		attributes = {},
 		attributes_range = {},
-		item = {},
-		data = {};
+		data = {},
+		item = {};
 		
 		var num = 0;
 		attributes_inputs.each(function () {
 			var element = $(this);
 			if (element.attr('range') == 'true'){
-				item[num] = element.val();
-				alert(element.attr('name'));
+				item[element.attr('sort')] = element.val();
 				attributes_range[element.attr('name')] = item;
+				num++;
 			}
 			
 			if (element.attr('range') == 'false'){
 				attributes[element.attr('name')] = element.val();
 			}
-			num++;
-			if(num == 2){
+			
+			if (num == 2){
+				item = {};
 				num = 0;
 			}
+			
 		});
+		
+		console.log(attributes_range);
 		
 		parent_inputs.each(function () {
 			var element = $(this);

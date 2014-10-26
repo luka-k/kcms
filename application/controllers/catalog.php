@@ -49,8 +49,7 @@ class Catalog extends CI_Controller {
 		}
 		
 		$filters = $this->session->userdata('filters');
-		
-		var_dump($filters);
+
 		if(!empty($filters['categories_checked']))
 		{
 			foreach($filters['categories_checked'] as $key => $item)
@@ -91,18 +90,6 @@ class Catalog extends CI_Controller {
 		}
 		else
 		{
-			$filters = array(
-				"width_from" => "",
-				"width_to" => "",
-				"height_from" => "",
-				"height_to" => "",
-				"depth_from" => "",
-				"depth_to" => "",
-				"color" => "",
-				"material" => "",
-				"finishing" => "",
-				"turn" => ""
-			);
 			if(isset($category->product))
 			{
 				$content = $category->product;
@@ -116,6 +103,31 @@ class Catalog extends CI_Controller {
 			}
 			else
 			{
+				$filters = array(
+					'parent_checked' => "",
+					'categories_checked' => "",
+					'manufacturer_checked' => "",
+					'attributes_range' => array(
+						'width' => (object)array(
+							'from' => "",
+							'to' => ""
+						),
+						'height' => (object)array(
+							'from' => "",
+							'to' => ""
+						),
+						'depth' => (object)array(
+							'from' => "",
+							'to' => ""
+						)
+					),
+					'attributes' => array(
+						"color" => "",
+						"material" => "",
+						"finishing" => "",
+						"turn" => ""
+					)
+				);
 				if ($category == FALSE)
 				{
 					$content = $this->products->get_list(FALSE, $from, $limit, $order, $direction);
@@ -137,13 +149,6 @@ class Catalog extends CI_Controller {
 				else
 				{
 					$this->session->unset_userdata('filters');	
-					$filters = array(
-						'parent_checked' => "",
-						'categories_checked' => "",
-						'manufacturer_checked' => "",
-						'attributes_range' => "",
-						'attributes' => ""
-					);
 				}
 		}
 				
@@ -183,7 +188,7 @@ class Catalog extends CI_Controller {
 		$active_cart = $this->session->userdata('active_cart');
 		
 		$left_active = "filt-1";
-		var_dump($filters);
+
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,

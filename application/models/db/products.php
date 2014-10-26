@@ -71,56 +71,22 @@ class Products extends MY_Model
 		
 		foreach($filters['attributes_range'] as $name => $item)
 		{
-			if(!empty($item->0)&&!empty($item->1))
+			if(!empty($item->from)&&!empty($item->to))
 			{
-				$where = "{$name} BETWEEN {$item[0]} AND {$item[0]}";
+				$where = "{$name} BETWEEN {$item->from} AND {$item->to}";
 				$this->db->where($where);
 			}
 			else
 			{
-				!empty($item->0)?$this->db->where("{$name} >", $item->0):$filters['attributes_range'][$name]->0 = "";
-				!empty($item->1)?$this->db->where("{$name} <", $item->1):$filters['attributes_range'][$name]->1 = "";
+				!empty($item->from)?$this->db->where("{$name} >", $item->from):$filters['attributes_range'][$name]->from = "";
+				!empty($item->to)?$this->db->where("{$name} <", $item->to):$filters['attributes_range'][$name]->to = "";
 			}	
 		}
-		/*//Ширина (их бы упростить еще бы надо как нить)
-
-		if(!empty($filters['width_from'])&&!empty($filters['width_to']))
+		
+		foreach($filters['attributes'] as $name => $item)
 		{
-			$where = "width BETWEEN {$filters['width_from']} AND {$filters['width_to']}";
-			$this->db->where($where);
+			!empty($item)?$this->db->where("{$name}", $item):$filters['color'] = "";
 		}
-		else
-		{
-			!empty($filters['width_from'])?$this->db->where('width >', $filters['width_from']):$filters['width_from'] = "";
-			!empty($filters['width_to'])?$this->db->where('width <', $filters['width_to']):$filters['width_to'] = "";
-		}
-		//Высота
-		if(!empty($filters['height_from'])&&!empty($filters['height_to']))
-		{
-			$where = "height BETWEEN {$filters['height_from']} AND {$filters['height_to']}";
-			$this->db->where($where);
-		}
-		else
-		{
-			!empty($filters['height_from'])?$this->db->where('height >', $filters['height_from']):$filters['height_from'] = "";
-			!empty($filters['height_to'])?$this->db->where('height <', $filters['height_to']):$filters['height_to'] = "";
-		}
-		//Глубина
-		if(!empty($filters['depth_from'])&&!empty($filters['depth_to']))
-		{
-			$where = "depth BETWEEN {$filters['depth_from']} AND {$filters['depth_to']}";
-			$this->db->where($where);
-		}
-		else
-		{
-			!empty($filters['depth_from'])?$this->db->where('depth >', $filters['depth_from']):$filters['depth_from'] = "";
-			!empty($filters['depth_to'])?$this->db->where('depth <', $filters['depth_to']):$filters['depth_to'] = "";
-		}	*/
-	
-		!empty($filters['color'])?$this->db->where('color', $filters['color']):$filters['color'] = "";
-		!empty($filters['material'])?$this->db->where('material', $filters['material']):$filters['material'] = "";
-		!empty($filters['finishing'])?$this->db->where('finishing', $filters['finishing']):$filters['finishing'] = "";
-		!empty($filters['turn'])?$this->db->where('turn', $filters['turn']):$filters['turn'] = "";	
 		
 		return $filters;
 	}

@@ -140,7 +140,7 @@ class Ajax extends CI_Controller {
 	public function filter()
 	{
 		$filter = json_decode(file_get_contents('php://input', true));
-		
+
 		$filters = array(
 			'parent_checked' => (array)$filter->parent_checked,
 			'categories_checked' => (array)$filter->categories_checked,
