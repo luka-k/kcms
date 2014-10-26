@@ -37,8 +37,9 @@ class Categories extends MY_Model
 		$this->full_url = NULL;
 		$item = $this->categories->get_item_by(array("url" => $url));
 		$this->make_full_url($item);
-		$this->full_url[] = base_url();
+	
 		$full_url = implode("/", array_reverse($this->full_url));
+		$full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	

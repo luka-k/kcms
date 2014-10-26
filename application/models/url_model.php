@@ -7,7 +7,7 @@ class Url_model extends MY_Model
         parent::__construct();
 	}
 
-	public function url_parse($segment_number)
+	public function url_parse($segment_number, $category = FALSE)
 	{
 		$url = $this->uri->segment($segment_number);
 
@@ -20,7 +20,7 @@ class Url_model extends MY_Model
 			$this->breadcrumbs->add($url, $child_category->name);
 			if($this->uri->segment($segment_number + 1))
 			{
-				return $this->url_parse($segment_number + 1);
+				return $this->url_parse($segment_number + 1, $child_category);
 			}
 			else
 			{

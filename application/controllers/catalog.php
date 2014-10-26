@@ -90,6 +90,31 @@ class Catalog extends CI_Controller {
 		}
 		else
 		{
+			$filters = array(
+				'parent_checked' => "",
+				'categories_checked' => "",
+				'manufacturer_checked' => "",
+				'attributes_range' => array(
+					'width' => (object)array(
+						'from' => "",
+						'to' => ""
+					),
+					'height' => (object)array(
+						'from' => "",
+						'to' => ""
+					),
+					'depth' => (object)array(
+						'from' => "",
+						'to' => ""
+					)
+				),
+				'attributes' => array(
+					"color" => "",
+					"material" => "",
+					"finishing" => "",
+					"turn" => ""
+				)
+			);
 			if(isset($category->product))
 			{
 				$content = $category->product;
@@ -103,31 +128,6 @@ class Catalog extends CI_Controller {
 			}
 			else
 			{
-				$filters = array(
-					'parent_checked' => "",
-					'categories_checked' => "",
-					'manufacturer_checked' => "",
-					'attributes_range' => array(
-						'width' => (object)array(
-							'from' => "",
-							'to' => ""
-						),
-						'height' => (object)array(
-							'from' => "",
-							'to' => ""
-						),
-						'depth' => (object)array(
-							'from' => "",
-							'to' => ""
-						)
-					),
-					'attributes' => array(
-						"color" => "",
-						"material" => "",
-						"finishing" => "",
-						"turn" => ""
-					)
-				);
 				if ($category == FALSE)
 				{
 					$content = $this->products->get_list(FALSE, $from, $limit, $order, $direction);
