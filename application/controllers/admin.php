@@ -358,22 +358,19 @@ class Admin extends CI_Controller
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
-		switch ($filter) 
+		if ($filter == FALSE)
 		{
-			case FALSE:	$orders = $this->orders->get_list(FALSE);
-			break;
-			case "by_order_id": $order_id = $this->input->post("order_id");
+			$orders = $this->orders->get_list(FALSE);
+		}
+		elseif($filter == "by_order_id")
+		{
+			$order_id = $this->input->post("order_id");
 			$orders = $this->orders->get_list(array("order_id" => $order_id));
-			break;
-			case 1: $orders = $this->orders->get_list(array("status_id" => 1));
-			break;
-			case 2: $orders = $this->orders->get_list(array("status_id" => 2));
-			break;
-			case 3: $orders = $this->orders->get_list(array("status_id" => 3));
-			break;
-			case 4: $orders = $this->orders->get_list(array("status_id" => 4));
-			break;
-		}	
+		}
+		else
+		{
+			$orders = $this->orders->get_list(array("status_id" => $filter));
+		}
 		
 		$orders_info = array();
 		foreach ($orders as $key => $order)
