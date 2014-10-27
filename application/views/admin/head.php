@@ -6,7 +6,7 @@
 		<meta name="copyright" content="" />
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/css/kickstart.css" media="all" />		<!-- KICKSTART -->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/css/style.css" media="all" />			<!-- CUSTOM STYLES -->
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/admin/js/jquery.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/kickstart.js"></script>    	
 		<script type="text/javascript" src="<?=base_url()?>template/admin/js/tinymce/tinymce.min.js"></script>
 		
