@@ -13,10 +13,6 @@
 								<? require 'include/products_tree.php' ?>
 							<?elseif($type == "categories"):?>
 								<? require 'include/categories_tree.php' ?>
-							<?elseif($type == "parts"):?>
-								<? require 'include/parts_tree.php' ?>
-							<?else:?>
-								<? require 'include/part_pages_tree.php' ?>
 							<?endif;?>
 						</div>
 					</div>
@@ -27,7 +23,6 @@
 								<li><a href="#tab_<?=$tab_counter?>"><?=$key?></a></li>
 								<?$tab_counter++?>
 							<?endforeach?>
-							<?if($type <> "parts"):?><li><a href="#tab_<?=$tab_counter?>">Фотографии</a></li><?endif;?>
 						</ul>
 					
 						<?php $tab_counter = 1?>
@@ -69,27 +64,6 @@
 								</div>
 								<?$tab_counter++?>
 							<?endforeach?>
-							<?if($type <> "parts"):?>
-								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">	
-									<div  class="col_12">
-										<a href="<?=base_url()?>admin/items/<?=$type?>/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_item/<?=$type?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>
-									<div class="col_12">
-										<div class="col_3">Добавить фотографии</div>
-										<div class="col_4"><input type="file" id="pic[]" name="pic" /></div>
-									</div>
-
-									<div  class="col_12">
-										<a href="<?=base_url()?>admin/items/<?=$type?>/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_item/<?=$type?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>
-								</div>
-							<?endif;?>
 						</form>							
 					</div>
 				</div>

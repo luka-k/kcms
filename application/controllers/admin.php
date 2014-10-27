@@ -61,18 +61,10 @@ class Admin extends CI_Controller
 			'name' => $this->name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
-			'type' => $type
+			'type' => $type,
+			'tree' => $this->categories->get_tree(0, "parent_id")
 		);	
-		
-		if(($type == "products")||($type == "categories"))
-		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
-		
+				
 		if ($this->db->field_exists('sort', $type))
 		{
 			$order = "sort";
@@ -117,17 +109,9 @@ class Admin extends CI_Controller
 			),
 			'menu' => $this->menu,
 			'type' => $type,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'editors' => $this->$type->editors
 		);
-		
-		if(($type == "products")||($type == "categories"))
-		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
 		
 		if($id == FALSE)
 		{	
@@ -168,17 +152,9 @@ class Admin extends CI_Controller
 				'parent_id' =>$this->categories->get_tree(0, "parent_id")
 			),
 			'menu' => $this->menu,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'editors' => $this->products->editors		
 		);
-		
-		if(($type == "products")||($type == "categories"))
-		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-		}	
-		else
-		{
-			$data['tree'] = $this->parts->get_tree(0, "parent_id");
-		}
 					
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
