@@ -1,4 +1,10 @@
-<?if($content->img <> NULL):?>
+<?if($content->img == NULL):?>
+	<div class="col_12">
+		<div class="col_3">Добавить фотографии</div>
+		<div class="col_4"><input type="file" id="pic[]" name="pic" /></div>
+		<input type="hidden" name="upload_image" value="upload_image"/>
+	</div>
+<?else:?>
 	<div class="col_12">
 		<input type="hidden" name="view_image" value="view_image"/>
 		<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
