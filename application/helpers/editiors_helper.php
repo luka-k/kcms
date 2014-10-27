@@ -1,38 +1,20 @@
 <? if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function editors_post($editors, $post)
-{
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($value[1] == 'tiny')
-					{
-						$data->$key = $post[$key];				
-					}
-					elseif (($value[1] == 'checkbox') and (!array_key_exists($key, $post)))
-					{
-						$data->$key = 0;
-					}
-					else
-					{
-						$data->$key = htmlspecialchars($post[$key]);	
-					}
-				}
-			}
-	return $data;
-}
 
-function editors_key_exists($field, $editors)
+function editors_field_exists($field, $editors)
 {
-	foreach($editors as $item)
+	$field_name = "";
+	foreach ($editors as $edit)
 	{
-		if(array_key_exists($field, $item))
+		foreach ($edit as $key => $value)
 		{
-			return TRUE;
+			if (isset($value[2])and($value[2] == $field))
+			{
+				$field_name = $key;
+			}
 		}
 	}
-	return FALSE;
+	return $field_name;
 }
 
 /* End of file editiors_helper.php */

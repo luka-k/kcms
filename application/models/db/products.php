@@ -6,8 +6,8 @@ class Products extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'parent_id' => array('Категория', 'select'),
-			'is_active' => array('Активна', 'checkbox'),
-			'title' => array('Заголовок', 'text'),
+			'is_active' => array('Активна', 'checkbox', 'null'),
+			'title' => array('Заголовок', 'text', 'url'),
 			'price' => array('Цена', 'text'),
 			'description' => array('Описание', 'tiny'),
 			'publish_date' => array('Дата публикации', 'hidden')
@@ -19,7 +19,7 @@ class Products extends MY_Model
 			'url' => array('url страницы', 'text')		
 		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image_gallery')
+			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	

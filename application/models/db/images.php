@@ -86,7 +86,7 @@ class Images extends MY_Model
 		{
 			$data['is_cover'] = 0;
 		}
-		if(!$this->images->insert($data))
+		if(!$this->insert($data))
 		{
 			return FALSE;
 		}
@@ -100,14 +100,13 @@ class Images extends MY_Model
 		$image[0] = slug($image[0]);
 		$img_name = $image[0].".".$image[1];
 		$url = make_upload_path($img_name, NULL).$img_name;
-		//var_dump($img_name);
+	
 		$count = 1;
 		while(!($this->non_requrrent(array("url" => $url))))
 		{
 			$img_name = $image[0]."[".$count."]".".".$image[1];
 			$url = make_upload_path($img_name, NULL).$img_name;
 			$count++;
-			//var_dump($img_name);
 		};
 		$img_info = new stdClass();
 		$img_info->name = $img_name;
@@ -119,11 +118,11 @@ class Images extends MY_Model
 	{
 		if ($is_cover == FALSE)
 		{
-			$img = $this->images->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
+			$img = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
 		}
 		else
 		{
-			$img = $this->images->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
+			$img = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
 		}
 		return $img;
 	}
@@ -134,9 +133,9 @@ class Images extends MY_Model
 		{
 			$object_info =array (
 				"object_type" => $object_type,
-				"object_id" => $info[$key]->id
+				"object_id" => $item->id
 			);
-			$info[$key]->img = $this->images->get_images($object_info, '1');
+			$info[$key]->img = $this->get_images($object_info, '1');
 			$image = $info[$key]->img;
 			if($image <> NULL)
 			{
@@ -161,8 +160,8 @@ class Images extends MY_Model
 	
 	public function delete_img($object_info)
 	{
-		$img = $this->images->get_item_by(array('object_type' => $object_info['object_type'], 'id' =>$object_info['id']));
-		$this->images->delete($object_info['id']);
+		$img = $this->get_item_by(array('object_type' => $object_info['object_type'], 'id' =>$object_info['id']));
+		$this->delete($object_info['id']);
 		
 		$upload_path = $this->config->item('upload_path');
 		$thumb_info = $this->config->item('thumb_config');
@@ -172,7 +171,7 @@ class Images extends MY_Model
 		}
 		unlink($upload_path.$img->url);
 		
-		if(($this->images->get_count(array("object_id" => $img->object_id))>0) and ($img->is_cover == 1))
+		if(($this->get_count(array("object_id" => $img->object_id))>0) and ($img->is_cover == 1))
 		{
 			$object_info = array(
 				"object_type" => $object_info['object_type'],

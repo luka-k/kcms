@@ -5,7 +5,7 @@ class MY_Model extends CI_Model
 	protected $_table;
     protected $_primary_key = 'id';
     protected $_active_key = 'is_active';
-	
+		
 	private $active_branch = array();
 	
 	function __construct()
@@ -411,5 +411,44 @@ class MY_Model extends CI_Model
 			}
 		}	
 	}
+	
+	function editors_post($editors, $post)
+	{
+		foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+					if ($this->db->field_exists($key, $this->_table))
+					{
+						if (isset($value[2])) 
+						{	
+							switch ($value[2]) 
+							{
+								case "0":
+									$data->$key = $post[$key];
+									break;
+								case "null":
+									if (!array_key_exists($key, $post)) $data->$key = 0;;
+									break;
+								case 'url':
+									if(empty($post['url']))
+									{
+										$post['url'] = slug($post[$key]);
+									}
+									$data->$key = $post[$key];
+									break;
+							}
+						}
+						else
+						{	
+							$data->$key = htmlspecialchars($post[$key]);
+						}						
+					}
+				}
+			}
+		return $data;
+	}
+	
+	
 	
 } 

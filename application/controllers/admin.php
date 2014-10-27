@@ -85,8 +85,7 @@ class Admin extends CI_Controller
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
-		
-		if(editors_key_exists("upload_image", $editors))
+		if(editors_field_exists('img', $editors))
 		{
 			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 			$data['images'] = TRUE;
@@ -112,7 +111,7 @@ class Admin extends CI_Controller
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'editors' => $this->$type->editors
 		);
-		
+			
 		if($id == FALSE)
 		{	
 			$content = new stdClass();
@@ -159,7 +158,7 @@ class Admin extends CI_Controller
 		$editors = $this->$type->editors;
 		$post = $this->input->post();
 		
-		$data['content'] = editors_post($editors, $post);
+		$data['content'] = $this->$type->editors_post($editors, $post);
 		
 		//Валидация формы
 		$this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|required');
@@ -170,28 +169,16 @@ class Admin extends CI_Controller
 			$this->load->view('admin/edit_item.php', $data);			
 		}
 		else
-		{
-			//Удаляем поля которые не присутствуют в базе
-			//Например картинки
-			//Возможно чуть позднее уйдет в функцию помошника
-			foreach($editors as $tab)
-			{
-				foreach($tab as $name => $editor)
-				{
-					if(isset($editor[2])&&($editor[2] == "unset"))
-					{
-						unset($data['content']->$name);
-					}
-				}
-			}
-			
+		{			
 			//Если валидация прошла успешно проверяем переменную id
 			if($data['content']->id==NULL)
 			{
 				//Если id пустая создаем новую страницу в базе
 				//Аналогично unset проверка на уникальность имени
 				//Думаю тоже в помошник уйдет
-				foreach($editors as $tab)
+				
+				$this->$type->insert($data['content']);
+				/*foreach($editors as $tab)
 				{
 					foreach($tab as $name => $editor)
 					{
@@ -213,7 +200,7 @@ class Admin extends CI_Controller
 				{
 					$data['error'] = "Страница с таким именем в каталоге уже существует.";
 					$this->load->view('admin/edit_item.php', $data);
-				}
+				}*/
 			}
 			else
 			{
@@ -221,7 +208,9 @@ class Admin extends CI_Controller
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 			
-			if(editors_key_exists("upload_image", $editors))
+			$field_name = editors_field_exists('img', $editors);
+			
+			if(!empty($field_name))
 			{
 				$object_info = array(
 					"object_type" => $type,
@@ -234,9 +223,9 @@ class Admin extends CI_Controller
 					$this->images->set_cover($object_info, $cover_id);
 				}
 				
-				if ($_FILES['pic']['error'] <> 4)
+				if ($_FILES[$field_name]['error'] <> 4)
 				{
-					$this->images->upload_image($_FILES['pic'], $object_info);
+					$this->images->upload_image($_FILES[$field_name], $object_info);
 				}
 			}
 

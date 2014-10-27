@@ -5,9 +5,9 @@ class Categories extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'title' => array('Заголовок', 'text'),
+			'title' => array('Заголовок', 'text', 'url'),
 			'parent_id' => array('Родительская категория', 'select'),
-			'is_active' => array('Активен', 'checkbox'),
+			'is_active' => array('Активен', 'checkbox', 'null'),
 			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
@@ -18,7 +18,7 @@ class Categories extends MY_Model
 			'url' => array('url', 'text')
 		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image')
+			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	
