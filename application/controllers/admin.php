@@ -12,19 +12,13 @@ class Admin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		$data = array(
-			'title' => "Вход",
-			'meta_title' => "Вход",
-			'error' => " "
-		);
 		
 		$user = $this->session->userdata('logged_in');
 		$role = $this->session->userdata('role');
 
 		if ((!$user)||($role <> "admin"))
 		{
-			$this->load->view('admin/enter.php', $data);	
+			die(redirect(base_url().'registration/admin_enter'));	
 		} 
 		
 		$this->menu = $this->menus->admin_menu;

@@ -10,12 +10,16 @@ class Registration extends CI_Controller
 		parent::__construct();
 		
 		$this->config->load('order_config');
-		
+	}
+	
+	public function admin_enter()
+	{
 		$data = array(
 			'title' => "Вход",
 			'meta_title' => "Вход",
 			'error' => " "
 		);
+		$this->load->view('admin/enter.php', $data);
 	}
 	
 	
