@@ -53,9 +53,11 @@ class Url_model extends MY_Model
 		$type = $this->uri->segment(2);
 		$base = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
+
 		if(($type == "item")and($base == "products"))
 		{
-			$item = $this->products->get_item_by(array("id" => $id));
+			$item = $this->$base->get_item_by(array("id" => $id));
+			$base = "categories";
 		}
 		else
 		{
@@ -64,7 +66,6 @@ class Url_model extends MY_Model
 		}
 		if (!empty($item))
 		{
-			
 			$parent_id = $item->parent_id;
 			while($parent_id <> 0)
 			{
