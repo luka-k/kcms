@@ -52,7 +52,17 @@
 										<?else:?>
 											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
 										<?endif;?>	
-										<td class="tb_1"><a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_1"><a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<!--popup on delete-->
+										<div id="delete-<?=$item->id?>" style="display:none;">
+											<div class="pop-up">
+												<div>
+													Вы точно уверены что хотите удалалить - <strong><?=$item->title?></strong>?
+												</div><br/>
+												<a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>" class="button small">Удалить?</a>
+												<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
+											</div>
+										</div>
 									</tr>
 									<?$count++?>
 								<?php endforeach ?>
