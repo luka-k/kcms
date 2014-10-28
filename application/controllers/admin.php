@@ -178,20 +178,8 @@ class Admin extends CI_Controller
 				//Думаю тоже в помошник уйдет
 				
 				$this->$type->insert($data['content']);
-				/*foreach($editors as $tab)
-				{
-					foreach($tab as $name => $editor)
-					{
-						if(isset($editor[2])&&($editor[2] == "non_requrrent"))
-						{
-							$fields = array(
-								$name => $data['content']->$name,
-							);							
-						}
-					}
-				}
-				
-				if($this->$type->non_requrrent($fields))
+								
+				/*if($this->$type->non_requrrent($fields))
 				{
 					$this->$type->insert($data['content']);
 					redirect(base_url().'admin/items/'.$type);
@@ -208,8 +196,10 @@ class Admin extends CI_Controller
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 			
+	
 			$field_name = editors_field_exists('img', $editors);
-			
+			//Получаем id эдитора который предназначен для загрузки изображения
+			//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
 			if(!empty($field_name))
 			{
 				$object_info = array(
@@ -245,7 +235,7 @@ class Admin extends CI_Controller
 	{
 		if($this->$type->delete($category_id))
 		{
-			redirect(base_url().'admin/items'.$type);
+			redirect(base_url().'admin/items/'.$type);
 		}
 	}
 	
