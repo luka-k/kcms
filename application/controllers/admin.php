@@ -178,7 +178,7 @@ class Admin extends CI_Controller
 				//Думаю тоже в помошник уйдет
 				
 				$this->$type->insert($data['content']);
-								
+				$data['content']->id = $this->db->insert_id();				
 				/*if($this->$type->non_requrrent($fields))
 				{
 					$this->$type->insert($data['content']);
