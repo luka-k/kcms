@@ -24,7 +24,7 @@ class Menus extends MY_Model
 			)),
 			'orders' => array('Заказы', base_url()."admin/orders", 0),
 			'settings' => array('Настройки', "#", 0, array(
-				0 => array('Настройки сайта', base_url()."admin/settings", 0),
+				0 => array('Настройки сайта', base_url()."admin/item/settings/1", 0),
 				1 => array('Письма', base_url()."admin/mails", 0),
 			)),
 			'users' => array('Пользователи', base_url()."admin/items/users", 0)

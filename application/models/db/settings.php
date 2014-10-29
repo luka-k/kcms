@@ -7,9 +7,9 @@ class Settings extends MY_Model
 			'id' => array('id', 'hidden'),
 			'site_title' => array('Название сайта', 'text'),
 			'admin_email' => array('e-mail Администратора', 'text'),
-			'admin_name' => array('Имя Администратора', 'text'),
-			'site_offline' => array('Сайт выключен', 'checkbox'),
-			'offline_text' => array('Оффлайн сообщение', 'text')
+			'admin_name' => array('Имя Администратора', 'text')/*,
+			'site_offline' => array('Сайт выключен', 'checkbox', "null"),
+			'offline_text' => array('Оффлайн сообщение', 'text')*/
 		),
 		'SEO' => array(
 			'site_description' => array('Описание сайта', 'text'),

@@ -107,7 +107,7 @@ class Admin extends CI_Controller
 			'type' => $type
 		);
 		
-		if($type <> "users")
+		if(($type <> "users")and($type <> "settings"))
 		{
 			$data['tree'] = $this->categories->get_tree(0, "parent_id");
 			$data['selects'] = array(
@@ -165,7 +165,7 @@ class Admin extends CI_Controller
 		
 		$data['content'] = $this->$type->editors_post($editors, $post);
 		
-		if($type <> "users")
+		if(($type <> "users")and($type <> "settings"))
 		{
 			$data['tree'] = $this->categories->get_tree(0, "parent_id");
 			$data['selects'] = array(
@@ -268,59 +268,7 @@ class Admin extends CI_Controller
 		$item_id = $this->images->delete_img($object_info);
 		redirect(base_url().'admin/item/'.$object_type."/".$item_id);
 	}
-		
-	/*------------Редактирование настроек------------*/
-	public function settings()
-	{
-		$this->menu = $this->menus->set_active($this->menu, 'settings');
-		
-		$data = array(
-			'title' => "Настройки сайта",
-			'meta_title' => "Настройки сайта",
-			'error' => "",
-			'name' => $this->name,
-			'user_id' => $this->user_id,
-			'content' => $this->settings->get_item_by(array('id' => 1)),
-			'menu' => $this->menu,
-			'editors' => $this->settings->editors
-		);
-		$this->load->view('admin/settings.php', $data);	
-	}
-	
-	public function edit_settings()
-	{
-		$this->menu = $this->menus->set_active($this->menu, 'settings');
-		
-		$data = array(
-			'title' => "Редактировать настройки",
-			'meta_title' => "Редактировать настройки",
-			'error' => " ",
-			'name' => $this->name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menu,
-			'tree' => $this->categories->get_sub_tree(0, "parent_id")	
-		);
-		
-		$editors = $this->settings->editors;
-		$post = $this->input->post();
-		
-		$data['settings'] = editors_post($editors, $post);
-
-		//Валидация формы
-		$this->form_validation->set_rules('trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
-		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/settings.php', $data);						
-		}
-		else
-		{
-			$this->settings->update(1, $data['settings']);
-		}
-		redirect(base_url().'admin/settings');
-	}
-	
+			
 	/*----------Вывод заказов в админку----------*/
 	
 	public function orders($filter = FALSE)

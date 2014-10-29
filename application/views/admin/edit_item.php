@@ -7,7 +7,7 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if($type <> "users"):?>
+					<?if(($type <> "users")and($type <> "settings")):?>
 						<div id="left_col" class="col_4 back">
 							<div id="left-menu">
 								<?if($type == "products"):?>
@@ -18,7 +18,7 @@
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if($type == "users"):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if(($type == "users")or($type == "settings")):?>col_12<?else:?>col_8<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>
