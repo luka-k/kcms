@@ -21,7 +21,8 @@ class Emails extends MY_Model
 	{
 		$config = array(
 			'protocol' => "mail",
-			'charset' => "iso-8859-1",
+			'charset' => "utf-8",
+			'mailtype' => "html",
 			'wordwrap' => TRUE
 		);
 	
