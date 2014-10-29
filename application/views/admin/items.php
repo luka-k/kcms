@@ -9,6 +9,7 @@
 					<?if($type <> "users"):?>
 						<div id="left_col" class="col_4 back">
 							<div id="left-menu">
+								
 								<?if($type == "products"):?>
 									<? require 'include/products_tree.php' ?>
 								<?elseif($type == "categories"):?>
