@@ -1,4 +1,4 @@
-<h6>Страницы по категориям</h6>
+<h6>Товары</h6>
 <ul class="tree">
 	<li><a href="<?=base_url()?>/admin/items/<?=$type?>">Все страницы</a></li>
 	<?php foreach ($tree as $branch_1): ?>
