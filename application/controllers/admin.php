@@ -46,6 +46,7 @@ class Admin extends CI_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu
 		);
+		
 		$this->load->view('admin/admin.php', $data);
 	}
 	
@@ -150,7 +151,7 @@ class Admin extends CI_Controller
 	public function edit_item($type, $exit = false)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
-
+		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
@@ -161,9 +162,12 @@ class Admin extends CI_Controller
 		);
 					
 		$editors = $this->$type->editors;
-		$post = $this->input->post();
+		//$post = $this->input->post();
 		
-		$data['content'] = $this->$type->editors_post($editors, $post);
+		$validation = $this->$type->editors_post();
+		//var_dump($validation['data']);
+		$data['content'] = $validation['data'];
+		
 		
 		if(($type <> "users")and($type <> "settings"))
 		{
@@ -178,10 +182,7 @@ class Admin extends CI_Controller
 			$data['content']->id == FALSE? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
 		}
 		
-		//Валидация формы
-		$this->form_validation->set_rules('name', 'Name', 'trim|xss_clean|required');
-		
-		if($this->form_validation->run() == FALSE)
+		if($validation['error'] == TRUE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
 			$this->load->view('admin/edit_item.php', $data);			
@@ -189,7 +190,7 @@ class Admin extends CI_Controller
 		else
 		{			
 			//Если валидация прошла успешно проверяем переменную id
-			if($data['content']->id==NULL)
+			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
 				//Аналогично unset проверка на уникальность имени
@@ -197,16 +198,6 @@ class Admin extends CI_Controller
 				
 				$this->$type->insert($data['content']);
 				$data['content']->id = $this->db->insert_id();				
-				/*if($this->$type->non_requrrent($fields))
-				{
-					$this->$type->insert($data['content']);
-					redirect(base_url().'admin/items/'.$type);
-				}
-				else
-				{
-					$data['error'] = "Страница с таким именем в каталоге уже существует.";
-					$this->load->view('admin/edit_item.php', $data);
-				}*/
 			}
 			else
 			{

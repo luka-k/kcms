@@ -59,7 +59,7 @@
 										<div id="delete-<?=$item->id?>" style="display:none;">
 											<div class="pop-up">
 												<div>
-													Вы точно уверены что хотите удалалить - <strong><?=$item->title?></strong>?
+													Вы точно уверены что хотите удалалить - <strong><?=$item->name?></strong>?
 												</div><br/>
 												<a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>" class="button small">Удалить?</a>
 												<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>

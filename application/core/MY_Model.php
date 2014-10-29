@@ -412,43 +412,64 @@ class MY_Model extends CI_Model
 		}	
 	}
 	
-	function editors_post($editors, $post)
+	function editors_post()
 	{
+		$post = $_POST;
+		
+		if(empty($post['id'])&&(isset($this->new_editors)))
+		{
+			$editors = $this->new_editors;
+		}
+		else
+		{
+			$editors = $this->editors;
+		}
+		
 		foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
 				{
+					if (isset($value[2])) 
+					{	
+						$validation_config[] = array(
+							'field' => $key,
+							'label' => $value[0],
+							'rules' => $value[2]);
+					}
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						if (isset($value[2])) 
-						{	
-							switch ($value[2]) 
-							{
-								case "0":
-									$data->$key = $post[$key];
-									break;
-								case "null":
-									if (!array_key_exists($key, $post)) $data->$key = 0;;
-									break;
-								case 'url':
-									if(empty($post['url']))
-									{
-										$post['url'] = slug($post[$key]);
-									}
-									$data->$key = $post[$key];
-									break;
-							}
-						}
-						else
-						{	
-							$data->$key = htmlspecialchars($post[$key]);
-						}						
+						$data->$key = $post[$key];
 					}
 				}
 			}
-		return $data;
+		$this->form_validation->set_rules($validation_config);
+		
+		if($this->form_validation->run())
+		{
+			unset($data);
+			foreach ($editors as $edit)
+			{
+				foreach ($edit as $key => $value)
+				{
+				
+					if ($this->db->field_exists($key, $this->_table))
+					{
+						$data->$key = set_value($key);
+					}		
+				}
+			}
+			$error = FALSE;
+		}
+		else
+		{
+			$error = TRUE;
+		}
+
+		$return = array(
+			'error' => $error,
+			'data' => $data
+		);
+				
+		return $return;
 	}
-	
-	
-	
 } 

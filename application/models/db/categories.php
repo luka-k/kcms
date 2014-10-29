@@ -2,20 +2,22 @@
 
 class Categories extends MY_Model
 {
+	//Третий параметр параметры валидации и обработки для функции editors_post
+	//'img' для обработки изображений
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', 'url'),
-			'parent_id' => array('Родительская категория', 'select'),
-			'is_active' => array('Активен', 'checkbox', 'null'),
-			'sort' => array('Сортировка', 'text'),
-			'description' => array('Описание', 'tiny')
+			'id' => array('id', 'hidden', 'integer'),
+			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars'),
+			'parent_id' => array('Родительская категория', 'select', 'integer'),
+			'is_active' => array('Активен', 'checkbox', 'integer'),
+			'sort' => array('Сортировка', 'text', 'integer'),
+			'description' => array('Описание', 'tiny', 'trim|prep_for_form')
 		),
 		'SEO' => array(
-			'meta_title' => array('Meta title страницы', 'text'),
-			'meta_keywords' => array('Ключевые слова страницы', 'text'),
-			'meta_description' => array('Описание страницы', 'text'),
-			'url' => array('url', 'text')
+			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
+			'url' => array('url', 'text', 'trim|htmlspecialchars')
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image', 'img')

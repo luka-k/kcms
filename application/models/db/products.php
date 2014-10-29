@@ -4,19 +4,18 @@ class Products extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden'),
-			'parent_id' => array('Категория', 'select'),
-			'is_active' => array('Активна', 'checkbox', 'null'),
-			'name' => array('Заголовок', 'text', 'url'),
-			'price' => array('Цена', 'text'),
-			'description' => array('Описание', 'tiny'),
-			'publish_date' => array('Дата публикации', 'hidden')
+			'id' => array('id', 'hidden', 'integer'),
+			'parent_id' => array('Категория', 'select', 'integer'),
+			'is_active' => array('Активна', 'checkbox', 'integer'),
+			'name' => array('Заголовок', 'text', 'url', 'trim|required|htmlspecialchars'),
+			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
+			'description' => array('Описание', 'tiny', 'trim|prep_for_form')
 		),
 		'SEO' => array(
-			'meta_title' => array('Meta title страницы', 'text'),
-			'meta_keywords' => array('Ключевые слова страницы', 'text'),
-			'meta_description' => array('Описание страницы', 'text'),
-			'url' => array('url страницы', 'text')		
+			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
+			'url' => array('url', 'text', 'trim|htmlspecialchars')		
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
