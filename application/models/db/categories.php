@@ -5,7 +5,7 @@ class Categories extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'title' => array('Заголовок', 'text', 'url'),
+			'name' => array('Заголовок', 'text', 'url'),
 			'parent_id' => array('Родительская категория', 'select'),
 			'is_active' => array('Активен', 'checkbox', 'null'),
 			'sort' => array('Сортировка', 'text'),

@@ -6,10 +6,8 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'secret' => array('secret', 'hidden'),
-			//'status' => array('Статус', 'select'),
 			'name' => array('Имя', 'text'),
 			'email' => array('Почта', 'text')
-			//'password' => array('Пароль', 'pass')
 		)
 	);
 	
@@ -19,8 +17,6 @@ class Users extends MY_Model
 			'secret' => array('secret', 'hidden'),
 			'name' => array('Имя', 'text'),
 			'email' => array('Почта', 'text'),
-			'phone' => array('Телефон', 'text'),
-			'address' => array('Адрес', 'text'),
 			'password' => array('Пароль', 'pass'),
 			'conf_password' => array('Повторите пароль', 'pass')
 		)

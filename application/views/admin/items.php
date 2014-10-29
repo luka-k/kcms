@@ -6,16 +6,18 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<div id="left_col" class="col_4 back">
-						<div id="left-menu">
-							<?if($type == "products"):?>
-								<? require 'include/products_tree.php' ?>
-							<?elseif($type == "categories"):?>
-								<? require 'include/categories_tree.php' ?>
-							<?endif;?>
+					<?if($type <> "users"):?>
+						<div id="left_col" class="col_4 back">
+							<div id="left-menu">
+								<?if($type == "products"):?>
+									<? require 'include/products_tree.php' ?>
+								<?elseif($type == "categories"):?>
+									<? require 'include/categories_tree.php' ?>
+								<?endif;?>
+							</div>
 						</div>
-					</div>
-					<div id="right_col" class="col_8 back">
+					<?endif;?>
+					<div id="right_col" class="<?if($type == "users"):?>col_12<?else:?>col_8<?endif;?> back">
 						<div class="col_12">						
 							<h6 class="col_8 left">Редактировать</h6> 
 							<div class="col_4 right">
@@ -48,9 +50,9 @@
 													<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->name?></a></td>
 										<?else:?>
-											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->title?></a></td>
+											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->name?></a></td>
 										<?endif;?>	
 										<td class="tb_1"><a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
 										<!--popup on delete-->

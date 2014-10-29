@@ -7,16 +7,18 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<div id="left_col" class="col_4 back">
-						<div id="left-menu">
-							<?if($type == "products"):?>
-								<? require 'include/products_tree.php' ?>
-							<?elseif($type == "categories"):?>
-								<? require 'include/categories_tree.php' ?>
-							<?endif;?>
+					<?if($type <> "users"):?>
+						<div id="left_col" class="col_4 back">
+							<div id="left-menu">
+								<?if($type == "products"):?>
+									<? require 'include/products_tree.php' ?>
+								<?elseif($type == "categories"):?>
+									<? require 'include/categories_tree.php' ?>
+								<?endif;?>
+							</div>
 						</div>
-					</div>
-					<div id="right_col" class="col_8 back">
+					<?endif;?>
+					<div id="right_col" class="<?if($type == "users"):?>col_12<?else:?>col_8<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>
@@ -31,12 +33,7 @@
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error;?>
 									<?php echo validation_errors(); ?>
-									<div  class="col_12">
-										<a href="<?=base_url()?>admin/items/<?=$type?>/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_item/<?=$type?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>
+									<? require 'include/buttons.php' ?>
 									<!--popup on delete-->
 									<div id="delete" style="display:none;">
 										<div class="pop-up">
@@ -54,13 +51,7 @@
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
 									<?php endforeach?>
-							
-									<div  class="col_12">
-										<a href="<?=base_url()?>admin/items/<?=$type?>/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/edit_item/<?=$type?>/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>						
+									<? require 'include/buttons.php' ?>				
 								</div>
 								<?$tab_counter++?>
 							<?endforeach?>

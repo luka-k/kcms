@@ -27,7 +27,7 @@ class Menus extends MY_Model
 				0 => array('Настройки сайта', base_url()."admin/settings", 0),
 				1 => array('Письма', base_url()."admin/mails", 0),
 			)),
-			'users' => array('Пользователи', base_url()."admin/users", 0)
+			'users' => array('Пользователи', base_url()."admin/items/users", 0)
 		);		
 	}
 	
