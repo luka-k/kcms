@@ -10,7 +10,9 @@ class Catalog extends CI_Controller {
 	public function index()
 	{
 		$url = base_url().uri_string();
+		//var_dump($url);
 		$order = $this->input->get('order');
+		
 		$direction = $this->input->get('direction');
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		$menu = $this->menus->top_menu;
@@ -19,20 +21,21 @@ class Catalog extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		$category = $this->url_model->url_parse(2);
-		
+		//var_dump($category);
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
 
 		if ($category == FALSE)
 		{
 			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+			//var_dump($this->categories->get_site_tree(0, "parent_id"));
 			$settings = $this->settings->get_item_by(array('id' => 1));
 			$data = array(
 				'title' => $settings->site_title,
 				'meta_title' => $settings->site_title,
 				'meta_keywords' => $settings->site_keywords,
 				'meta_description' => $settings->site_description,
-				'tree' => $this->categories->get_tree(0, "parent_id"),
+				'tree' => $this->categories->get_site_tree(0, "parent_id"),
 				'content' => $content,
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'cart' => $cart,
@@ -72,11 +75,11 @@ class Catalog extends CI_Controller {
 				}		
 			}		
 				$data = array(
-					'title' => $category->title,
+					'title' => $category->name,
 					'meta_title' => $category->meta_title,
 					'meta_keywords' => $category->meta_keywords,
 					'meta_description' => $category->meta_description,
-					'tree' => $this->categories->get_tree(0, "parent_id"),
+					'tree' => $this->categories->get_site_tree(0, "parent_id"),
 					'content' => $content,
 					'breadcrumbs' => $this->breadcrumbs->get(),
 					'cart' => $cart,

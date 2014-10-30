@@ -15,7 +15,7 @@
 				</div>
 				<?foreach($content as $category):?>
 					<div class="cat-item col_4">
-						<h6><a href="<?=$category->full_url?>"><?=$category->title?></a></h6>
+						<h6><a href="<?=$category->full_url?>"><?=$category->name?></a></h6>
 						<?if($category->img <> NULL):?>
 							<div>
 								<a href="<?=$category->full_url?>">

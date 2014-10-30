@@ -378,6 +378,11 @@ class MY_Model extends CI_Model
 		}
 	}
 	
+	public function get_site_tree($parent_id, $parent_id_field)
+	{
+		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
+	}
+	
 	public function get_tree($parent_id, $parent_id_field)
 	{
 		$this->url_model->admin_url_parse();

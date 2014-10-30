@@ -16,7 +16,7 @@
 				</div>
 				<?foreach($content as $page):?>
 						<div class="cat-item col_4">
-							<h6><a href="<?=$page->full_url?>"><?=$page->title?></a></h6>
+							<h6><a href="<?=$page->full_url?>"><?=$page->name?></a></h6>
 							<?if($page->img <> NULL):?>
 								<div>
 									<a href="<?=$page->full_url?>">
