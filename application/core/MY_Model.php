@@ -459,7 +459,7 @@ class MY_Model extends CI_Model
 				
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						$data->$key = set_value($key);
+						$data->$key = htmlspecialchars_decode(set_value($key));
 					}		
 				}
 			}
@@ -469,6 +469,8 @@ class MY_Model extends CI_Model
 		{
 			$error = TRUE;
 		}
+		
+		//var_dump($data);
 
 		$return = array(
 			'error' => $error,

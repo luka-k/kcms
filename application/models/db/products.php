@@ -9,7 +9,7 @@ class Products extends MY_Model
 			'is_active' => array('Активна', 'checkbox', 'integer'),
 			'name' => array('Заголовок', 'text', 'url', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
-			'description' => array('Описание', 'tiny', 'trim|prep_for_form')
+			'description' => array('Описание', 'tiny', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

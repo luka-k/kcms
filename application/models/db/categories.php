@@ -17,7 +17,7 @@ class Categories extends MY_Model
 			'parent_id' => array('Родительская категория', 'select', 'integer'),
 			'is_active' => array('Активен', 'checkbox', 'integer'),
 			'sort' => array('Сортировка', 'text', 'integer'),
-			'description' => array('Описание', 'tiny', 'trim|prep_for_form')
+			'description' => array('Описание', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
