@@ -9,13 +9,14 @@ class Products extends MY_Model
 			'is_active' => array('Активна', 'checkbox', 'integer'),
 			'name' => array('Заголовок', 'text', 'url', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
+			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
 			'description' => array('Описание', 'tiny', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'url' => array('url', 'text', 'trim|htmlspecialchars')		
+			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')		
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
@@ -42,12 +43,27 @@ class Products extends MY_Model
 		return $full_url;		
 	}
 	
-	public function get_urls($info)
+	public function set_sale_price($item)
 	{
-		foreach($info as $item)
+		if(!empty($item->discount))
 		{
-			$item->full_url = $this->get_url($item->url);
+			$item->sale_price = $item->price*(100 - $item->discount)/100;
+		}	
+		return $item;
+	}
+	
+	function prepare($item)
+	{
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
+		if($item->img)
+		{
+			foreach($item->img as $key => $image)
+			{
+				$item->img[$key]->url = $this->images->get_url($image->url, "catalog_mid");
+			}
 		}
-		return $info;
+		$item->full_url = $this->get_url($item->url);
+		$item = $this->set_sale_price($item);
+		return $item;		
 	}
 }

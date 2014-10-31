@@ -7,12 +7,16 @@
 			<div id="main_content" class="col_8">
 				<? require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
-					<h6><?=$content->title?></h6>
+					<h6><?=$content->name?></h6>
+					<div>Цена:<?=$content->price?></div>
+					<?if(isset($content->sale_price)):?>
+						<div>Цена со скидкой:<?=$content->sale_price?></div>
+					<?endif;?>
 					<div><?=$content->description?></div>
 					<?if($content->img <> NULL):?>
 						<div>
 							<?foreach($content->img as $img_item):?>
-								<img src="<?=base_url()?>download/images/catalog_mid<?=$img_item->url?>" />
+								<img src="<?=$img_item->url?>" />
 							<?endforeach?>
 						</div>
 					<?endif;?>					

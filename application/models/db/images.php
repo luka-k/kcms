@@ -127,24 +127,6 @@ class Images extends MY_Model
 		return $img;
 	}
 	
-	public function get_img_list($info, $object_type, $path)
-	{
-		foreach($info as $key => $item)
-		{
-			$object_info =array (
-				"object_type" => $object_type,
-				"object_id" => $item->id
-			);
-			$info[$key]->img = $this->get_images($object_info, '1');
-			$image = $info[$key]->img;
-			if($image <> NULL)
-			{
-				$info[$key]->img->url = $this->get_url($info[$key]->img->url, $path);
-			}
-		}
-		return $info;
-	}
-	
 	public function set_cover($object_info, $cover_id)
 	{
 		$this->db->set('is_cover', 0);

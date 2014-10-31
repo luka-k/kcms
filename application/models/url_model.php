@@ -19,7 +19,7 @@ class Url_model extends MY_Model
 			$product = $this->products->get_item_by(array('url' => $url));
 			if ($product)
 			{
-				$this->breadcrumbs->add($url, $product->title);
+				$this->breadcrumbs->add($url, $product->name);
 				$category->product = $product;
 				return $category;
             }

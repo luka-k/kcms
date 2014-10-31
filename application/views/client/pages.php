@@ -20,13 +20,16 @@
 							<?if($page->img <> NULL):?>
 								<div>
 									<a href="<?=$page->full_url?>">
-										<img src="<?=$page->img->url?>" />
+										<img src="<?=$page->img[0]->url?>" />
 									</a>
 								</div>
 							<?endif;?>
 							<div><?=$page->description?></div>
 							<div class="left">
-								<?=$page->price?>
+								<div>Цена:<?=$page->price?></div>
+								<?if(isset($page->sale_price)):?>
+									<div>Цена со скидкой:<?=$page->sale_price?></div>
+								<?endif;?>
 							</div>
 							<div class="right">
 								<a href="#" class="button small red" onclick="add_to_cart(<?=$page->id?>)">В корзину</a>

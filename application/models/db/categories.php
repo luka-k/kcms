@@ -62,12 +62,14 @@ class Categories extends MY_Model
 		}
 	}	
 	
-	public function get_urls($info)
+	function prepare($item)
 	{
-		foreach($info as $item)
+		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
+		if($item->img)
 		{
-			$item->full_url = $this->get_url($item->url);
+			$item->img->url = $this->images->get_url($item->img->url, "catalog_mid");
 		}
-		return $info;
+		$item->full_url = $this->get_url($item->url);
+		return $item;
 	}
 }

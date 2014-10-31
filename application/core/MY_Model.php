@@ -417,6 +417,15 @@ class MY_Model extends CI_Model
 		}	
 	}
 	
+	public function get_prepared_list($info)
+	{
+		foreach($info as $key => $item)
+		{
+			$info[$key] = $this->prepare($item, "1");
+		}
+		return $info;
+	}
+	
 	function editors_post()
 	{
 		$post = $_POST;
@@ -478,5 +487,5 @@ class MY_Model extends CI_Model
 		);
 				
 		return $return;
-	}
+	}	
 } 
