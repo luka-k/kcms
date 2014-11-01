@@ -17,8 +17,8 @@ class Catalog extends CI_Controller {
 		
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		
-		$menu = $this->menus->top_menu;
-		$menu = $this->menus->set_active($menu, 'catalog');
+		$top_menu = $this->menus->top_menu;
+		$top_menu = $this->menus->set_active($top_menu, 'catalog');
 		
 		$user_id = $this->session->userdata('user_id');
 		$user = $this->users->get_item_by(array("id" => $user_id));
@@ -46,7 +46,7 @@ class Catalog extends CI_Controller {
 				'cart' => $cart,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
-				'menu' => $menu,
+				'top_menu' => $top_menu,
 				'url' => $url,
 				'user' => $user
 			);
@@ -90,12 +90,48 @@ class Catalog extends CI_Controller {
 					'cart' => $cart,
 					'total_price' => $total_price,
 					'total_qty' => $total_qty,
-					'menu' => $menu,
+					'top_menu' => $top_menu,
 					'url' => $url,
 					'user' => $user
 				);		
 			$this->load->view($template, $data);
 		}
+	}
+	
+	public function cart()
+	{
+		$this->breadcrumbs->Add("catalog", "Корзина");
+		
+		$top_menu = $this->menus->top_menu;
+		$top_menu = $this->menus->set_active($top_menu, 'cart');
+		
+		$user_id = $this->session->userdata('user_id');
+		$user = $this->users->get_item_by(array("id" => $user_id));
+		
+		$cart = $this->cart->get_all();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
+		
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$data = array(
+			'title' => "Корзина",
+			'meta_title' => $settings->site_title,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'cart' => $cart,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'selects' => array(
+				'delivery_id' => $this->config->item('method_delivery'),
+				'payment_id' => $this->config->item('method_pay')
+			),
+			'product_word' => end_maker("товар", $total_qty),
+			'top_menu' => $top_menu,
+			'user' => $user
+		);
+		$this->load->view('client/cart.php', $data);
 	}
 }
 

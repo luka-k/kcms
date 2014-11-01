@@ -27,7 +27,7 @@ class Ajax extends CI_Controller {
 		$product = $this->products->get_item_by(array("id" => $item_id));
 		$cart_item = array(
 			"id" => $product->id,
-			"title" => $product->title,
+			"name" => $product->name,
 			"price" => $product->price,
 			"qty" => 1
 		);

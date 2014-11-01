@@ -67,7 +67,7 @@
 					<h5>Корзина</h5>
 					В корзине <span id="total_qty"><?=$total_qty?></span> товаров.<br/>
 					На сумму <span id="total_price"><?=$total_price?></span><br/>
-					<a href="<?=base_url()?>/pages/cart">Оформить заказ</a>
+					<a href="<?=base_url()?>cart">Оформить заказ</a>
 				</div>
 				<h5>Каталог продукции</h5>
 				<? require 'include/tree.php' ?>

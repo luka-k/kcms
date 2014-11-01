@@ -38,8 +38,8 @@ class Products extends MY_Model
 		
 		$this->categories->make_full_url($item);
 		
-		$this->categories->full_url[] = base_url();
 		$full_url = implode("/", array_reverse($this->categories->full_url));
+		$full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	
