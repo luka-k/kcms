@@ -143,7 +143,7 @@ class Admin extends CI_Controller
 				"object_type" => $type,
 				"object_id" => $data['content']->id
 			);
-			$data['content']->img = $this->images->get_images($object_info);		
+			$data['content']->img = $this->images->get_images($object_info, "catalog_small");		
 		}
 		$this->load->view('admin/edit_item.php', $data);	
 	}

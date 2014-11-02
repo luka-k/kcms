@@ -54,14 +54,7 @@ class Products extends MY_Model
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
-		if($item->img)
-		{
-			foreach($item->img as $key => $image)
-			{
-				$item->img[$key]->url = $this->images->get_url($image->url, "catalog_mid");
-			}
-		}
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_mid");
 		$item->full_url = $this->get_url($item->url);
 		$item = $this->set_sale_price($item);
 		return $item;		

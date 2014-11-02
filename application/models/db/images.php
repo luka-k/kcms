@@ -114,17 +114,41 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $is_cover = FALSE)
+	public function get_images($object_info, $path, $is_cover = FALSE)
 	{
 		if ($is_cover == FALSE)
 		{
-			$img = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
+			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
+			foreach($images as $key => $item)
+			{
+				if(!empty($item))
+				{
+					$images[$key]->url = $this->get_url($item->url, $path);
+				}
+			}
 		}
 		else
 		{
-			$img = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
+			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
+			if(!empty($images))
+			{
+				$images->url = $this->get_url($images->url, $path);
+			}
 		}
-		return $img;
+		return $images;
+	}
+	
+	public function get_img_list($info, $object_type, $path)
+	{
+		foreach($info as $key => $item)
+		{
+			$object_info =array (
+				"object_type" => $object_type,
+				"object_id" => $info[$key]->id
+			);
+			$info[$key]->img = $this->images->get_images($object_info, $path, '1');
+		}
+		return $info;
 	}
 	
 	public function set_cover($object_info, $cover_id)
@@ -172,8 +196,10 @@ class Images extends MY_Model
 		$this->full_url[] = $path;
 		$this->full_url[] = "images";
 		$this->full_url[] = "download";
-		$this->full_url[] = base_url();
 		$full_url = implode("/", array_reverse($this->full_url));
+		$full_url = base_url().$full_url;
 		return $full_url;	
 	}
+	
+	
 }
