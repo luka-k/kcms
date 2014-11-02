@@ -222,7 +222,7 @@ class Admin extends CI_Controller
 					$this->images->set_cover($object_info, $cover_id);
 				}
 				
-				if ($_FILES[$field_name]['error'] <> 4)
+				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4))
 				{
 					$this->images->upload_image($_FILES[$field_name], $object_info);
 				}
