@@ -25,6 +25,12 @@ class Ajax extends CI_Controller {
 		$id = json_decode(file_get_contents('php://input', true));
 		$item_id = $id->item_id;
 		$product = $this->products->get_item_by(array("id" => $item_id));
+		
+		if(!empty($product->discount))
+		{
+			$product->price = $product->price*(100 - $product->discount)/100;
+		}
+		
 		$cart_item = array(
 			"id" => $product->id,
 			"name" => $product->name,
