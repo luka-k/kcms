@@ -78,7 +78,7 @@ class Images extends MY_Model
 		}
 		//$data['title'] = $img_name[0];
 		$data['url'] = $img_info->url;
-		if($this->get_images($object_info) == FALSE)
+		if($this->get_images($object_info, 'catalog_mid') == FALSE)
 		{
 			$data['is_cover'] = 1;
 		}
