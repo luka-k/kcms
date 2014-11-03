@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 27 2014 г., 13:48
+-- Время создания: Ноя 03 2014 г., 15:26
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -23,37 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `blog`
---
-
-CREATE TABLE IF NOT EXISTS `blog` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `part_id` int(2) NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8_unicode_ci,
-  `meta_description` text COLLATE utf8_unicode_ci,
-  `url` text COLLATE utf8_unicode_ci NOT NULL,
-  `short_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `autor` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `date` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
-
---
--- Дамп данных таблицы `blog`
---
-
-INSERT INTO `blog` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `short_description`, `description`, `autor`, `date`) VALUES
-(2, 0, 1, 'Первая запись в блоге', 'Первая запись в блоге', '', '', 'pervaya-zapis-v-bloge', '<p>Текст первой записи в блоге</p>', '', '', '03.09.2014'),
-(3, 0, 1, 'Вторая запись в блоге', '', '', '', 'vtoraja-zapis-v-bloge', '<p>Текст второй записи</p>', '', '', '20.07.2014'),
-(4, 0, 1, 'Третья запись в блоге', '', '', '', 'tretja-zapis-v-bloge', '<p>Текст третьей записи в блоге</p>', '', '', '30.07.2014');
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `categories`
 --
 
@@ -61,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `is_active` int(1) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL,
-  `title` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `meta_keywords` text COLLATE utf8_unicode_ci NOT NULL,
   `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -69,21 +38,21 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Дамп данных таблицы `categories`
 --
 
-INSERT INTO `categories` (`id`, `is_active`, `sort`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
-(4, 1, 0, 'Категория 3', '', '', '', '', 0, ''),
-(7, 1, 0, 'Подкатегория 2_1', '', '', '', '', 15, ''),
-(8, 1, 1, 'Подкатегория 2_2', '', '', '', '', 15, ''),
+INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
+(7, 1, 1, 'Подкатегория 2_1', '', '', '', 'podkategoriya-2-1', 15, ''),
+(8, 1, 0, 'Подкатегория 2_2', '', '', '', 'podkategoriya-2-2', 15, '<p>Описание второй категории</p>\r\n<p>В два ряда</p>'),
 (9, 1, 2, 'Подкатегория 2_3', '', '', '', '', 15, ''),
-(12, 1, 1, 'Подкатегория 2_1_1', '', '', '', '', 7, ''),
-(13, 1, 0, 'Подкатегория 2_1_2', '', '', '', '', 7, ''),
-(14, 0, 5, 'Категория 1', '', '', '', 'kategoriya-1', 0, '<p>Описание первой категории</p>'),
-(15, 0, 4, 'Категория 2', '', '', '', 'kategoriya-2', 0, '<p>Описание второй категории</p>');
+(12, 1, 0, 'Подкатегория 2_1_1', '', '', '', 'podkategoria', 7, ''),
+(13, 1, 1, 'Подкатегория 2_1_2', '', '', '', 'podkat', 7, ''),
+(14, 1, 5, 'Категория 1', '', '', '', 'kategoriya-1', 0, '<p>Описание первой категории.</p>\r\n<p>Описание первой категории.</p>'),
+(15, 0, 4, 'Категория 2', '', '', '', 'kategoriya-2', 0, '&lt;p&gt;Описание второй категории&lt;/p&gt;'),
+(22, 1, 0, 'Категория 3', '', '', '', 'kategoriya-3', 0, '');
 
 -- --------------------------------------------------------
 
@@ -106,7 +75,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('ab541a2f71abbeb384fdad9f342b0b4b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1414402829, 'a:4:{s:4:"role";s:5:"admin";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
+('332cb9fc9ad8f077c20c668ea36ccfcf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415012366, ''),
+('43a890dc458a260a6f2582f16daf3b85', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1414959804, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}'),
+('44c9b9dedd0c4d592c975aec468713f4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415013815, ''),
+('e6ba83d26825e457f54724005d283b35', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415013235, ''),
+('e79dd91d021ae7159ae135279744f85d', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1414959040, 'a:6:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}}');
 
 -- --------------------------------------------------------
 
@@ -147,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=57 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -167,40 +140,14 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUE
 (33, 1, 'products', 23, '/n/o/no-photo-available[10].png'),
 (34, 1, 'products', 24, '/n/o/no-photo-available[11].png'),
 (35, 1, 'products', 25, '/n/o/no-photo-available[12].png'),
-(36, 1, 'products', 26, '/n/o/no-photo-available[13].png');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `news`
---
-
-CREATE TABLE IF NOT EXISTS `news` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `part_id` int(2) NOT NULL DEFAULT '0',
-  `is_active` int(1) NOT NULL,
-  `title` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_title` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `meta_keywords` text COLLATE utf8_unicode_ci,
-  `meta_description` text COLLATE utf8_unicode_ci,
-  `url` text COLLATE utf8_unicode_ci NOT NULL,
-  `short_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `date` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
-
---
--- Дамп данных таблицы `news`
---
-
-INSERT INTO `news` (`id`, `part_id`, `is_active`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `short_description`, `description`, `date`) VALUES
-(1, 0, 1, 'Новость первая', '', ' ', ' ', 'novost-pervaja', '<p>Текст первой новости</p>', '', '20.07.2014'),
-(2, 0, 1, 'Новость вторая', '', '', '', 'novost-vtoraya', '<p>Текст второй новости</p>', '', '05.08.2014'),
-(3, 0, 1, 'Новость третья', '', '', '', 'novost-tretja', '<p>Текст третьей новости</p>', '', '28.07.2014'),
-(4, 0, 1, 'Новость четвертая', '', '', '', 'novost-chetvertaja', '<p>Текст четвертой новости</p>', '', '28.07.2014'),
-(5, 0, 1, 'Новость пятая', '', '', '', 'novost-pjataja', '<p>Текст пятой новости</p>', '', '28.07.2014'),
-(6, 0, 1, 'Новость шестая', '', '', '', 'novost-shestaya', '<p>Текст шестой новости</p>', '', '05.08.2014');
+(36, 1, 'products', 26, '/n/o/no-photo-available[13].png'),
+(38, 1, 'categories', 15, '/n/o/no-photo-available[14].png'),
+(44, 1, 'categories', 16, '/n/o/no-photo-available[18].png'),
+(47, 1, 'categories', 4, '/n/o/no-photo-available[15].png'),
+(51, 1, 'categories', 20, '/n/o/no-photo-available[17].png'),
+(52, 1, 'products', 29, '/n/o/no-photo-available[19].png'),
+(55, 1, 'categories', 7, '/n/o/no-photo-available[16].png'),
+(56, 1, 'categories', 8, '/n/o/no-photo-available[20].png');
 
 -- --------------------------------------------------------
 
@@ -230,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
 (61, '541f01199a053', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-21 00:00:00', 3),
-(62, '541f012798fee', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 341, 4, 1, '2014-09-21 00:00:00', 1),
+(62, '541f012798fee', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 341, 4, 1, '2014-09-21 00:00:00', 2),
 (63, '541f017a477b3', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 2, '2014-09-21 00:00:00', 1);
 
 -- --------------------------------------------------------
@@ -285,33 +232,6 @@ INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `parts`
---
-
-CREATE TABLE IF NOT EXISTS `parts` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `is_active` int(1) NOT NULL,
-  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` text COLLATE utf8_unicode_ci,
-  `meta_description` text COLLATE utf8_unicode_ci,
-  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `parent_id` int(5) NOT NULL DEFAULT '0',
-  `description` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `parts`
---
-
-INSERT INTO `parts` (`id`, `is_active`, `title`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
-(1, 1, 'Блог', 'Блог', '', '', 'blog', 0, ''),
-(2, 1, 'Новости', 'Новости', '', '', 'news', 0, '<p>Новости нашей компании.</p>');
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `products`
 --
 
@@ -320,14 +240,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   `parent_id` int(11) NOT NULL,
   `is_active` int(1) NOT NULL,
   `sort` int(11) NOT NULL,
-  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `price` float NOT NULL DEFAULT '0',
+  `discount` int(2) NOT NULL,
   `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `meta_keywords` text COLLATE utf8_unicode_ci NOT NULL,
   `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `publish_date` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
@@ -335,17 +255,17 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `title`, `price`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`, `publish_date`) VALUES
-(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(19, 12, 1, 0, 'Товар 3 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(20, 12, 1, 1, 'Товар 4 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(21, 8, 1, 0, 'Товар 1 подкатегории 2_2', 0, '', '', '', '', '', 0),
-(22, 12, 1, 2, 'Товар 5 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(23, 8, 1, 1, 'Товар 2 подкатегории 2_2', 0, '', '', '', '', '', 0),
-(24, 12, 1, 5, 'Товар 6 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(25, 12, 1, 6, 'Товар 7 подкатегории 2_1_1', 0, '', '', '', '', '', 0),
-(26, 12, 1, 7, 'Товар 8 подкатегории 2_1_1', 0, '', '', '', '', '', 0);
+INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
+(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(19, 12, 1, 0, 'Товар 3 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', ''),
+(20, 12, 1, 1, 'Товар 4 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(21, 8, 1, 0, 'Товар 1 подкатегории 2_2', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', ''),
+(22, 12, 1, 2, 'Товар 5 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(23, 8, 1, 1, 'Товар 2 подкатегории 2_2', 0, 0, '', '', '', 'tovar-2-podkategorii-2-2', ''),
+(24, 12, 1, 5, 'Товар 6 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(25, 12, 1, 6, 'Товар 7 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(26, 12, 1, 7, 'Товар 8 подкатегории 2_1_1', 0, 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -373,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Описание пробного сайта', 'сайт, пробный сайт', 0, '', 2, 6, 1);
+(1, 'Пробный сайт', 'admin@admin.ru', 'admin', '', '', 0, '', 2, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -392,15 +312,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `role`, `secret`) VALUES
-(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e'),
-(30, 'Павел', 'fae0b27c451c728867a567e8c1bb4e53', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 'customer', 'd41d8cd98f00b204e9800998ecf8427e');
+(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', 'admin', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
