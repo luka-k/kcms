@@ -407,7 +407,7 @@ class Registration extends CI_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
-				'name' => $this->session->userdata('user_name'),
+				'user_name' => $this->session->userdata('user_name'),
 				'user' => $user,
 				'menu' => $menu,
 				'cart' => $cart,

@@ -8,9 +8,16 @@ function editors_field_exists($field, $editors)
 	{
 		foreach ($edit as $key => $value)
 		{
-			if (isset($value[2])and($value[2] == $field))
+			if (isset($value[2]))
 			{
-				$field_name = $key;
+				$items = explode("|", $value[2]);
+				foreach($items as $item)
+				{
+					if($item == $field)
+					{
+						$field_name = $key;
+					}
+				}
 			}
 		}
 	}

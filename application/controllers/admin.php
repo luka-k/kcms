@@ -6,7 +6,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin extends CI_Controller 
 {	
 	public $menu;
-	public $name;
+	public $user_name;
 	public $user_id;
 
 	public function __construct()
@@ -22,7 +22,7 @@ class Admin extends CI_Controller
 		} 
 		
 		$this->menu = $this->menus->admin_menu;
-		$this->name = $this->session->userdata('user_name');
+		$this->user_name = $this->session->userdata('user_name');
 		$this->user_id = $this->session->userdata('user_id');
 		
 		$this->config->load('emails_config');
@@ -42,7 +42,7 @@ class Admin extends CI_Controller
 			'title' => "CMS",
 			'meta_title' => "CMS",
 			'error' => "",
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu
 		);
@@ -56,13 +56,21 @@ class Admin extends CI_Controller
 
 		$editors = $this->$type->editors;
 		
+		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
+		//Это поле используем как поле для колонки Имя
+		//Тем самым избавляемся от привязки к названию name(title) и тд.
+		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
+		//что не всегда удобно.
+		$name = editors_field_exists('name', $editors);
+
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type,
+			'name' => $name,
 			'tree' => $this->categories->get_tree(0, "parent_id")
 		);	
 				
@@ -97,12 +105,13 @@ class Admin extends CI_Controller
 	
 	public function item($type, $id = FALSE)
 	{
+		
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type
@@ -121,7 +130,6 @@ class Admin extends CI_Controller
 			$id == FALSE? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
 		}
 		
-			
 		if($id == FALSE)
 		{	
 			$content = new stdClass();
@@ -155,17 +163,16 @@ class Admin extends CI_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type
 		);
 					
 		$editors = $this->$type->editors;
-		//$post = $this->input->post();
 		
 		$validation = $this->$type->editors_post();
-		//var_dump($validation['data']);
+
 		$data['content'] = $validation['data'];
 		
 		
@@ -310,7 +317,7 @@ class Admin extends CI_Controller
 		
 		$data = array(
 			'title' => "Заказы",			
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
@@ -333,7 +340,7 @@ class Admin extends CI_Controller
 			'title' => "Редактировать настройки писем",
 			'meta_title' => "Редактировать настройки писем",
 			'error' => " ",
-			'name' => $this->name,
+			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'emails' => $this->emails->get_list(FALSE),

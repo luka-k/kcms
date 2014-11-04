@@ -46,16 +46,16 @@
 													<a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->name?></a></td>
+											<td class="tb_9"><a href="<?=base_url()?>admin/item/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_1"><a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
 										<!--popup on delete-->
 										<div id="delete-<?=$item->id?>" style="display:none;">
 											<div class="pop-up">
 												<div>
-													Вы точно уверены что хотите удалалить - <strong><?=$item->name?></strong>?
+													Вы точно уверены что хотите удалалить - <strong><?=$item->$name?></strong>?
 												</div><br/>
 												<a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$item->id?>" class="button small">Удалить?</a>
 												<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>

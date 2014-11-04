@@ -6,7 +6,7 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', 'integer'),
 			'secret' => array('secret', 'hidden', 'trim'),
-			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars'),
+			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
 			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email')
 		)
 	);
