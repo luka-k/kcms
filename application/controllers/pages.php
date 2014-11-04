@@ -23,10 +23,14 @@ class Pages extends CI_Controller {
 		$total_qty = $this->cart->total_qty();	
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 		
 		$item = $this->information->get_item_by(array("url" => $url));
@@ -75,10 +79,14 @@ class Pages extends CI_Controller {
 		$total_qty = $this->cart->total_qty();	
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 		
 		$item = $this->settings->get_item_by(array("id" => 1));
@@ -117,10 +125,14 @@ class Pages extends CI_Controller {
 		$total_qty = $this->cart->total_qty();
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 	
 		$data = array(

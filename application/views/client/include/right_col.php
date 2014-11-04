@@ -41,17 +41,19 @@
 		</div>
 	</div>
 	
-	<div id="view">
-		<div class="title">
-			VIEWED
-		</div>
-		<section style="margin-top:17px;">
-			<a href=""><img src="<?=base_url()?>download/images/catalog_small/<?=$viewed->img->url?>" alt=""/></a>
-			<div class="price"><?=$viewed->price?> &euro;</div>
-			<div class="fig_name"><?=$viewed->title?></div><br/><br/>
-			<div class="add_to">
-				add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$viewed->id?>', 1); return false">cart</a><a href="">wish list</a>
+	<?if($viewed):?>
+		<div id="view">
+			<div class="title">
+				VIEWED
 			</div>
-		</section>
-	</div>
+			<section style="margin-top:17px;">
+				<a href=""><img src="<?=base_url()?>download/images/catalog_small/<?=$viewed->img->url?>" alt=""/></a>
+				<div class="price"><?=$viewed->price?> &euro;</div>
+				<div class="fig_name"><?=$viewed->title?></div><br/><br/>
+				<div class="add_to">
+					add to: <a href="" style="margin-right:5px; padding-right:5px; border-right:1px solid #2e2d29;" onclick="add_to_cart('<?=$viewed->id?>', 1); return false">cart</a><a href="">wish list</a>
+				</div>
+			</section>
+		</div>
+	<?endif;?>
 	</aside>

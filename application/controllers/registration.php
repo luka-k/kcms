@@ -65,10 +65,14 @@ class Registration extends CI_Controller
 			$user = $this->users->get_item_by(array("id" => $user_id));
 			
 			$viewed_id = $this->session->userdata('viewed_id');
-			if (isset($viewed_id))
+			if ($viewed_id)
 			{
 				$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 				$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+			}
+			else
+			{
+				$viewed = "";
 			}
 	
 			$data = array(
@@ -277,10 +281,14 @@ class Registration extends CI_Controller
 		$total_qty = $this->cart->total_qty();
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 		
 		$editors = $this->users->new_editors;
@@ -329,10 +337,14 @@ class Registration extends CI_Controller
 		$total_qty = $this->cart->total_qty();
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 		
 		$editors = $this->users->new_editors;
@@ -415,6 +427,17 @@ class Registration extends CI_Controller
 			$cart = $this->cart->get_all();
 			$total_price = $this->cart->total_price();
 			$total_qty = $this->cart->total_qty();	
+			
+			$viewed_id = $this->session->userdata('viewed_id');
+			if ($viewed_id)
+			{
+				$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+				$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+			}
+			else
+			{
+				$viewed = "";
+			}
 
 			$orders = $this->orders->get_list(array("user_id" => $this->session->userdata('user_id')));
 			

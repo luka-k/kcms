@@ -30,10 +30,14 @@ class Catalog extends CI_Controller {
 		$slider = $this->images->get_img_list($slider, 'slider', 'slider');	
 		
 		$viewed_id = $this->session->userdata('viewed_id');
-		if (isset($viewed_id))
+		if ($viewed_id)
 		{
 			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
 			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
 		}
 		
 		$category = $this->url_model->url_parse(2);
