@@ -34,11 +34,10 @@ class CI_Wishlist {
 	
 	public function safe_wishlist()
 	{
-	
 		$cookie = array(
 			'name'   => 'wishlist',
 			'value'  => serialize($this->wishlist),
-			'expire' => '0'
+			'expire' =>  "622080000"
 		);
 
 		$this->CI->input->set_cookie($cookie); 

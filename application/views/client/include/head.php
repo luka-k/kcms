@@ -17,6 +17,7 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery-migrate.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/wishlist.js"></script>
 		
 		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/fancybox/source/jquery.fancybox.pack.js"></script>
