@@ -187,6 +187,55 @@ class Pages extends CI_Controller {
 		}
 		
 	}
+	
+	public function wishlist()
+	{
+		$top_menu = $this->menus->top_menu;		
+		$footer_menu = $this->menus->footer_menu;
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		
+		$user_id = $this->session->userdata('user_id');
+		$user = $this->users->get_item_by(array("id" => $user_id));
+		
+		$cart = $this->cart->get_all();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
+		
+		$viewed_id = $this->session->userdata('viewed_id');
+		if ($viewed_id)
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
+		}
+		
+		$wishlist = unserialize($this->input->cookie('wishlist'));
+
+		$data = array(
+			'title' => "Wishlist",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'error' => '',
+			'cart' => $cart,
+			'viewed' => $viewed,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'slider' => $slider,
+			'wishlist' => $wishlist,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'user' => $user
+		);	
+
+		$this->load->view('client/wishlist.php', $data);
+	}
 }
 
 /* End of file pages.php */
