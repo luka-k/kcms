@@ -33,7 +33,7 @@
 									<?php foreach ($users as $user): ?>
 									<tr>
 										<td class="tb_1"><?=$counter?></td>
-										<td class="tb_9"><a href="<?=base_url()?>admin/user/<?=$user->id?>"><?=$user->name?></a></td>
+										<td class="tb_9"><a href="<?=base_url()?>admin/user/<?=$user->id?>"><?=$user->first_name?></a></td>
 										<td class="tb_2"><a href="<?=base_url()?>admin/delete_user/<?=$user->id?>"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?$counter++?>

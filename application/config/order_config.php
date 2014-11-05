@@ -10,10 +10,10 @@ $config['method_delivery'] = array(
 );
 
 $config['order_status'] = array(
-	"1" => "Новый",
-	"2" => "Подтвержден",
-	"3" => "Доставлен",
-	"4" => "Отменен"
+	"1" => "New",
+	"2" => "Delivered",
+	"3" => "Shipping",
+	"4" => "Desabled"
 );
 
 $config['method_pay'] = array(

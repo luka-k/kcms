@@ -10,7 +10,7 @@
 				<div class="title">Login</div>
 				<div style="text-align:center"><?=$error?></div>
 				<div id="content">
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter"/>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter?page=registration/cabinet"/>
 						<table>
 							<tr>
 								<td class="tb_left">E-mail</td>

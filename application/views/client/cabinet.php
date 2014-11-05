@@ -1,106 +1,65 @@
-<? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12 clearfix">
-			<div id="main_content" class="col_12 clearfix">
-				<div class="col_12">
-					<h5>Личный кабинет</h5>
-					
-					<?if($cart <> NULL):?>
-						<div class="col_8">
-							<table>
-								<thead>
-									<th>№</th>
-									<th>Наименование</th>
-									<th>Цена</th>
-									<th>Количество</th>
-									<th>Сумма</th>
-									<th>Удалить</th>
-								</thead>
-								<tbody>
-									<?$counter = 1?>
-									<?foreach($cart as $item_id => $item):?>
-										<tr id="<?=$item_id?>">
-											<td><?=$counter?></td>
-											<td><?=$item['title']?></td>
-											<td><?=$item['price']?></td>
-											<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
-											<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
-											<td><a href="#" onclick="delete_item('<?=$item_id?>');"><i class="icon-minus-sign icon-2x"></i></a></td>
-										<tr>
-										<?$counter++?>
-									<?endforeach;?>
-								</tbody>
-								<tfoot>
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th><span id="total_qty"><?=$total_qty?></span></th>
-									<th><span id="total_price"><?=$total_price?></span></th>
-									<th>&nbsp;</th>
-								</tfoot>
-							</table>
-						</div>
-						<div class="col_4">
-							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
-								<div class="cart">
-									<h5>Оформить заказ</h5>
-									<input type="hidden" name="id" value="<?=$user->id?>"/>
-									<input type="hidden" name="name" value="<?=$user->name?>"/>
-									<input type="hidden" name="phone" value="<?=$user->phone?>"/>
-									<input type="hidden" name="email" value="<?=$user->email?>"/>
-									<input type="hidden" name="address" value="<?=$user->address?>"/>
-									<?foreach($selects as $name => $select):?>
-										<?require "include/editors/select.php"?>
-									<?endforeach;?></br>
-									<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
-						</div>
-					</form>							
-						</div>
-					<?endif;?>
-					
-					<?if(isset($orders)):?>
-						<h5>Заказы</h5>
-						<table>
-							<thead>
-								<th width="7%">Id</th>
-								<th width="10%">Статус</th>
-								<th width="30%">Товары</th>
-								<th width="5%">Дата</th>
-							</thead>
-							<tbody>
-							<?foreach ($orders as $order):?>
-								<tr>
-									<td><?=$order->order_id?></td>
-									<td><?=$order->status?></td>
-									<td>
-										<table>
-											<thead>
-												<th width="70%">Наименование</th>
-												<th width="15%">Цена</th>
-												<th width="15%">Количество</th>
-											</thead>
-											<tbody>
-												<?foreach($order->order_products as $product):?>
-													<tr>
-														<td><?=$product->product_name?></td>
-														<td><?=$product->product_price?></td>
-														<td><?=$product->order_qty?></td>
-													</tr>
-												<?endforeach;?>
-											<tbody>
-										</table>
+<?require_once 'include/head.php'?>
+
+<div id="parent" class="clearfix">
+	<?require_once 'include/header.php'?>
+	
+	<div id="wrapper">
+		<?require_once 'include/left_col.php'?>
+		
+		<div id="main-content">
+			<div class="title">Orders Overview</div>
+			
+			<!--<div class="oo-text">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>-->
+			<?if($new_orders_info):?>
+				<div class="cur-ord clearfix">
+					<div class="title-3">Current Orders</div>
+					<div class="curent-ord clearfix">
+				
+						<table cellspacing="0">
+							<tr class="tbl-ttl">
+								<td class="td-1">Order number</td><td class="td-2">Payment date</td><td class="td-3">Cost.</td><td class="td-4">Status</td><td class="td-5">Tracking number</td>
+							</tr>
+						
+							<?foreach($new_orders_info as $item):?>
+								<tr class="tbl-item">
+									<td class="td-1"><?=$item->order_id?></td>
+									<td class="td-2"><?=$item->payment_date?></td>
+									<td class="td-3">
+										<span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="">(details)</a></span>
 									</td>
-									<td><?=$order->date?></td>
+									<td class="td-5"><span class="ord-stat"><?=$item->status?></span></td>
+									<td class="td-4"><span class="tr-numb"><?=$item->tracking_number?></span></td>
 								</tr>
 							<?endforeach;?>
-							</tbody>
 						</table>
-					<?endif;?>
+					</div>
 				</div>
-			</div>
+			<?endif;?>
+			<?if($history_orders_info):?>
+				<div class="ord-history clearfix">
+					<div class="title-3">Order History</div>
+					<div class="ord-hist clearfix">
+						<table cellspacing="0">
+							<tr class="tbl-ttl">
+								<td class="td-1">Order number</td><td class="td-2">Payment date</td><td class="td-3">Cost.</td>
+							</tr>
+							<?foreach($history_orders_info as $item):?>
+								<tr class="tbl-item">
+									<td class="td-1"><?=$item->order_id?></td>
+									<td class="td-2"><?=$item->payment_date?></td>
+									<td class="td-3"><span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="">(details)</a></span></td>
+								</tr>
+							<?endforeach;?>
+						</table>
+					</div>
+				</div>
+			<?endif;?>
 		</div>
+		<?require_once 'include/right_col.php'?>
 	</div>
-<? require 'include/footer.php' ?>
+	<?require_once 'include/footer.php'?>
+</div>	
+</body>
+</html>

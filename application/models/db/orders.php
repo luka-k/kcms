@@ -8,6 +8,7 @@ class Orders extends MY_Model
 			'customer_id' => array('customer_id', 'hidden'),
 			'order_total' => array('Сумма заказа', 'hidden'),
 			'order_date' => array('Дата заказа', 'hidden'),
+			'order_status' => array('Статус', 'select'),
 			'order_status' => array('Статус', 'select')
 		),
 	);

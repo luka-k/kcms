@@ -24,11 +24,11 @@
 							<thead>
 								<th width="10%">Id</th>
 								<th width="10%">Статус</th>
-								<th width="25%">Товары</th>
-								<th width="10%">Способ оплаты</th>
-								<th width="10%">Способ доставки</th>
+								<th width="27%">Товары</th>
+								<th width="11%">Дата оплаты</th>
+								<th width="12%">Tracking number</th>
 								<th width="5%">Дата</th>
-								<th width="30%">Контанты</th>
+								<th width="25%">Контанты</th>
 							</thead>
 							<tbody>
 								<?$counter = 1?>
@@ -63,35 +63,31 @@
 											</table>
 										</td>
 										<td>
-											<select id="payment_id"  name="payment_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
-												<?php foreach ($selects['payment_id'] as $key => $title): ?>
-													<option value="<?=$key?>" <?if($key == $order_item->payment_id):?>selected="selected"<?endif;?> >
-														<?=$title?>
-													</option>
-												<?php endforeach ?>										
-											</select>										
+											<input type="text" style="font-size:12px; width:100%" value="<?=$order_item->payment_date?>"/>
 										</td>
 										<td>
-											<select id="delivery_id"  name="delivery_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
-												<?php foreach ($selects['delivery_id'] as $key => $title): ?>
-													<option value="<?=$key?>" <?if($key == $order_item->delivery_id):?>selected="selected"<?endif;?> >
-														<?=$title?>
-													</option>
-												<?php endforeach ?>										
-											</select>											
+											<input type="text" style="font-size:12px; width:100%" value="<?=$order_item->tracking_number?>"/>											
 										</td>
 										<td><?=$order_item->order_date?></td>
 										<td>
 											<div class="contacts">
 												<div class="contacts-item">First name - <?=$order_item->first_name?></div>
 												<div class="contacts-item">Last name - <?=$order_item->last_name?></div>
-												<div class="contacts-item">e-mail - <?=$order_item->email?></div>
-												<div class="contacts-item">Phone - <?=$order_item->phone?></div>
+												<?if($order_item->email):?>
+													<div class="contacts-item">e-mail - <?=$order_item->email?></div>
+												<?endif;?>
+												<?if($order_item->phone):?>
+													<div class="contacts-item">Phone - <?=$order_item->phone?></div>
+												<?endif;?>
 												<div class="contacts-item">Country - <?=$order_item->country?></div>
-												<div class="contacts-item">Region - <?=$order_item->region?></div>
+												<?if($order_item->region):?>
+													<div class="contacts-item">Region - <?=$order_item->region?></div>
+												<?endif;?>
 												<div class="contacts-item">City - <?=$order_item->city?></div>
 												<div class="contacts-item">Address 1 - <?=$order_item->address_1?></div>
-												<div class="contacts-item">Address 2 - <?=$order_item->address_2?></div>
+												<?if($order_item->address_2):?>
+													<div class="contacts-item">Address 2 - <?=$order_item->address_2?></div>
+												<?endif;?>
 												<div class="contacts-item">Postal - <?=$order_item->postal?></div>
 											</div>
 										</td>

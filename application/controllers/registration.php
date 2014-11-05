@@ -47,7 +47,9 @@ class Registration extends CI_Controller
 	public function do_enter()
 	{
 		$email = $this->input->post('login');
-		$password = md5($this->input->post('password'));			
+		$password = md5($this->input->post('password'));	
+		$page = $this->input->get('page');	
+	
 		$authdata = $this->users->login($email, $password, 'customer');
 		if (!$authdata['logged_in'])
 		{
@@ -100,7 +102,7 @@ class Registration extends CI_Controller
 		} 
 		else 
 		{
-			redirect(base_url().'pages/cart/3');	
+			redirect(base_url().$page/*'pages/cart/3'*/);	
 		}	
 	}
 	
@@ -423,10 +425,19 @@ class Registration extends CI_Controller
 		}
 		else
 		{
-			$menu = $this->menus->top_menu;
+		
+			$top_menu = $this->menus->top_menu;		
+			$footer_menu = $this->menus->footer_menu;
+		
+			$slider = $this->slider->get_list(FALSE);
+			$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		
+			$user_id = $this->session->userdata('user_id');
+			$user = $this->users->get_item_by(array("id" => $user_id));
+		
 			$cart = $this->cart->get_all();
 			$total_price = $this->cart->total_price();
-			$total_qty = $this->cart->total_qty();	
+			$total_qty = $this->cart->total_qty();
 			
 			$viewed_id = $this->session->userdata('viewed_id');
 			if ($viewed_id)
@@ -439,61 +450,105 @@ class Registration extends CI_Controller
 				$viewed = "";
 			}
 
-			$orders = $this->orders->get_list(array("user_id" => $this->session->userdata('user_id')));
+			$new_orders = $this->orders->get_list(array("status_id" => 1, "user_id" => $user_id));
 			
-			$orders_info = array();
-			foreach ($orders as $key => $order)
+			$new_orders_info = array();
+			
+			$status_config = $this->config->item('order_status');
+			
+			foreach ($new_orders as $key => $order)
 			{	
-				$orders_info[$key] = new stdClass();	
-			
-				$date = new DateTime($order->date);
-			
+				$new_orders_info[$key] = new stdClass();	
+
+				if($order->payment_date == NULL)
+				{
+					$payment_date = "Payment didn't arrive";
+				}
+				else
+				{
+					$payment_date = new DateTime($order->payment_date);
+					$payment_date = date_format($payment_date, 'd-m-Y');
+				}
+				
+				foreach($status_config as $id => $item)
+				{
+					if($order->status_id == $id)
+					{
+						$status = $item;
+					}
+				}
+
 				$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
 			
-				$orders_info[$key] = (object)array(
+				$new_orders_info[$key] = (object)array(
 					"order_id" => $order->order_id,
-					"status" => $order->status_id,
+					"status" => $status,
+					"total" => $order->total,
 					"order_products" => $order_items,
-					"delivery_id" => $order->delivery_id,
-					"payment_id" => $order->payment_id,
-					"date" => date_format($date, 'Y-m-d'),
-					"name" => $order->user_name,
-					"phone" => $order->user_phone,
-					"email" => $order->user_email,
-					"address" => $order->user_address
+					"tracking_number" => $order->tracking_number,
+					"payment_date" => $payment_date
 				);
-				
-				$status_id = $this->config->item('order_status');
-				foreach ($status_id as $value => $title)
-				{
-					if ($orders_info[$key]->status == $value) $orders_info[$key]->status = $title;
-				}
+			}
 			
+			$history_orders = $this->orders->get_list(array("status_id" => 4, "user_id" => $user_id));
+			
+			$history_orders_info = array();
+			
+			$status_config = $this->config->item('order_status');
+			
+			foreach ($history_orders as $key => $order)
+			{	
+				$history_orders_info[$key] = new stdClass();	
+
+				if($order->payment_date == NULL)
+				{
+					$payment_date = "Payment didn't arrive";
+				}
+				else
+				{
+					$payment_date = new DateTime($order->payment_date);
+					$payment_date = date_format($payment_date, 'd-m-Y');
+				}
+				
+				foreach($status_config as $id => $item)
+				{
+					if($order->status_id == $id)
+					{
+						$status = $item;
+					}
+				}
+
+				$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
+			
+				$history_orders_info[$key] = (object)array(
+					"order_id" => $order->order_id,
+					"status" => $status,
+					"total" => $order->total,
+					"order_products" => $order_items,
+					"payment_date" => $payment_date
+				);
 			}
 			
 			$user_id = $this->session->userdata('user_id');
 			$user = $this->users->get_item_by(array("id" => $user_id));
-			
-			
-			
+									
 			$data = array(
-				'title' => "Личный кабинет",
+				'title' => "Cabinet",
 				'meta_title' => "",
 				'meta_keywords' => "",
 				'meta_description' => "",
-				'error' => "",
-				'name' => $this->session->userdata('user_name'),
-				'user' => $user,
-				'menu' => $menu,
+				'error' => '',
 				'cart' => $cart,
+				'viewed' => $viewed,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
-				'orders' => $orders_info,
-				'selects' => array(
-					'delivery_id' => $this->config->item('method_delivery'),
-					'payment_id' => $this->config->item('method_pay')
-				),
-				'status_id' => $this->config->item('order_status')
+				'new_orders_info' => $new_orders_info,
+				'history_orders_info' => $history_orders_info,
+				'top_menu' => $top_menu,
+				'footer_menu' => $footer_menu,
+				'slider' => $slider,
+				'tree' => $this->categories->get_tree(0, "parent_id"),
+				'user' => $user
 			);
 			$this->load->view('client/cabinet.php', $data);
 		}

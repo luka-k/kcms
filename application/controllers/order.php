@@ -34,7 +34,6 @@ class Order extends CI_Controller
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);
-		
 		if(isset($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];

@@ -557,6 +557,16 @@ class Admin extends CI_Controller
 			
 			$date = new DateTime($order->date);
 
+			if($order->payment_date == NULL)
+			{
+				$payment_date = "Не произведена";
+			}
+			else
+			{
+				$payment_date = new DateTime($order->payment_date);
+				$payment_date = date_format($payment_date, 'd-m-Y');
+			}
+
 			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
 			
 			$orders_info[$key] = (object)array(
@@ -564,8 +574,10 @@ class Admin extends CI_Controller
 				"status_id" => $order->status_id,
 				"order_products" => $order_items,
 				"delivery_id" => $order->delivery_id,
+				"tracking_number" => $order->tracking_number,
 				"payment_id" => $order->payment_id,
-				"order_date" => date_format($date, 'Y-m-d'),
+				"payment_date" => $payment_date,
+				"order_date" => date_format($date, 'd-m-Y'),
 				"first_name" => $order->user_first_name,
 				"last_name" => $order->user_last_name,
 				"email" => $order->user_email,

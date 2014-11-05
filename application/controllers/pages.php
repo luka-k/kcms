@@ -179,10 +179,13 @@ class Pages extends CI_Controller {
 				break;
 				case 2:
 				$this->load->view('client/cart_registration.php', $data);
+				break;
 				case 3:
 				$this->load->view('client/cart_address.php', $data);
+				break;
 				case 4:
 				$this->load->view('client/cart_payment.php', $data);
+				break;
 			}
 		}
 		
