@@ -17,8 +17,8 @@ class Users extends MY_Model
 			'address_1' => array('Address line 1', 'text', 0),
 			'address_2' => array('Address line 2', 'text', 0),
 			'postal' => array('Postal/Zip code', 'text', 0),
-			'phone' => array('Phone number', 'text', 1),
-			'birth_date' => array('Date of birth', 'text', 0)
+			'phone' => array('Phone number', 'text', 1)//,
+			//'birth_date' => array('Date of birth', 'text', 0)
 		)
 	);
 	

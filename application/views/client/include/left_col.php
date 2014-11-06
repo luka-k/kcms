@@ -29,9 +29,9 @@
 	<nav class="leftnav">
 		<ul id="info">
 			<li><a href="<?=base_url()?>pages/wishlist">Wishlist</a></li>
-			<?if(isset($user)):?>
+			<?if(!empty($user)):?>
 				<li><a href="<?=base_url()?>registration/cabinet">Orders Overview</a></li>
-				<li><a href="">Personal information</a></li>
+				<li><a href="<?=base_url()?>pages/personal_info">Personal information</a></li>
 			<?endif;?>
 		</ul>
 	</nav>

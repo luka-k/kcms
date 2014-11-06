@@ -48,7 +48,7 @@ class Registration extends CI_Controller
 	{
 		$email = $this->input->post('login');
 		$password = md5($this->input->post('password'));	
-		$page = $this->input->get('page');	
+		$page = $this->input->get('page');
 	
 		$authdata = $this->users->login($email, $password, 'customer');
 		if (!$authdata['logged_in'])
@@ -421,7 +421,7 @@ class Registration extends CI_Controller
 	{
 		if (!$this->session->userdata('logged_in'))
 		{
-			redirect(base_url().'pages/cart');
+			redirect(base_url().'registration/register_user');
 		}
 		else
 		{
@@ -552,5 +552,78 @@ class Registration extends CI_Controller
 			);
 			$this->load->view('client/cabinet.php', $data);
 		}
+	}
+	
+	public function update_info($type)
+	{
+		$top_menu = $this->menus->top_menu;		
+		$footer_menu = $this->menus->footer_menu;
+		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->images->get_img_list($slider, 'slider', 'slider');
+		
+		$user_id = $this->session->userdata('user_id');
+		$user = $this->users->get_item_by(array("id" => $user_id));
+		
+		$cart = $this->cart->get_all();
+		$total_price = $this->cart->total_price();
+		$total_qty = $this->cart->total_qty();
+			
+		$viewed_id = $this->session->userdata('viewed_id');
+		if ($viewed_id)
+		{
+			$viewed = $this->products->get_item_by(array("id" => $viewed_id));
+			$viewed->img = $this->images->get_images(array("object_type" => "products", "object_id" => $viewed->id), 1);
+		}
+		else
+		{
+			$viewed = "";
+		}
+		
+		$data = array(
+			'title' => "Personal information",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'error' => '',
+			'cart' => $cart,
+			'viewed' => $viewed,
+			'total_price' => $total_price,
+			'total_qty' => $total_qty,
+			'top_menu' => $top_menu,
+			'footer_menu' => $footer_menu,
+			'slider' => $slider,
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'user' => $user
+		);
+		
+		$user = (object)$this->input->post();
+		
+		if($type == "personal")
+		{
+			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+			$this->form_validation->set_rules( 'first_name','Name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');	
+		}
+		else
+		{
+			$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
+			$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+			$user->password = md5($user->password);
+			unset($user->conf_password);
+		}	
+			
+		
+		//Валидация формы
+		if($this->form_validation->run())
+		{
+			$this->users->update($user->id, $user);
+			$data['user'] = $user;
+		}
+		else
+		{
+			$this->load->view('client/personal_info.php', $data);	
+		}
+	
+		redirect(base_url().'pages/personal_info');
 	}
 }
