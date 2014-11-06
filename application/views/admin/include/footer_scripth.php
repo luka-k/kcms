@@ -1,5 +1,3 @@
-
-
 <script>
 	function change_sort(type, item_id, sort){
 		data = new Object();

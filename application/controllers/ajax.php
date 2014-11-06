@@ -92,31 +92,40 @@ class Ajax extends CI_Controller {
 	public function change_field()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$order_id = $info->order_id;
+		
+		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
+		
+		if($info->type == "status_id")
+		{
+			$status_id = $this->config->item('order_status');
+		
+			foreach($status_id as $key => $value)
+			{
+				if ($order->status_id == $key) $status = $value;
+			}
+			$message_info = array(
+				"order_id" => $info->order_id,
+				"user_name" => $order->user_first_name,
+				"order_status" => $status
+			);
+			$this->emails->send_mail($order->user_email, 'change_order_status', $message_info);
+		}
+		elseif($info->type == "payment_date")
+		{
+			$date = new DateTime($info->value);
+			$info->value = date_format($date, 'Y-m-d');		
+		}
+		
 		$item = array(
 			"{$info->type}" => $info->value
 		);
-		$this->orders->update($order_id, $item);
 		
-		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
-		$status_id = $this->config->item('order_status');
-		
-		foreach($status_id as $key => $value)
-		{
-			if ($order->status_id == $key) $status = $value;
-		}
-		$message_info = array(
-			"order_id" => $info->order_id,
-			"user_name" => $order->user_name,
-			"order_status" => $status
-		);
-		$this->emails->send_mail($order->user_email, 'change_order_status', $message_info);
-		
+		$this->orders->update($info->order_id, $item);
 		switch ($info->type) 
 		{
 			case "status_id": $data['message'] = "Статус заказа изменен"; break;
-			case "payment_id": $data['message'] = "Способ оплаты изменен"; break;
-			case "delivery_id": $data['message'] = "Способ доставки изменен"; break;
+			case "payment_date": $data['message'] = "Время оплаты изменено"; break;
+			case "tracking_number": $data['message'] = "Tracking number изменен"; break;
 		}
 		
 		echo json_encode($data);

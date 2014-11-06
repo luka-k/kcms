@@ -63,10 +63,10 @@
 											</table>
 										</td>
 										<td>
-											<input type="text" style="font-size:12px; width:100%" value="<?=$order_item->payment_date?>"/>
+											<input type="text" id="payment_date" style="font-size:12px; width:100%" value="<?=$order_item->payment_date?>" onchange="change_field('<?=$order_item->order_id?>', this.value, this.id)"/>
 										</td>
 										<td>
-											<input type="text" style="font-size:12px; width:100%" value="<?=$order_item->tracking_number?>"/>											
+											<input type="text" id="tracking_number" style="font-size:12px; width:100%" value="<?=$order_item->tracking_number?>" onchange="change_field('<?=$order_item->order_id?>', this.value, this.id)"/>											
 										</td>
 										<td><?=$order_item->order_date?></td>
 										<td>

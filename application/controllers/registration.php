@@ -494,7 +494,7 @@ class Registration extends CI_Controller
 				);
 			}
 			
-			$history_orders = $this->orders->get_list(array("status_id" => 4, "user_id" => $user_id));
+			$history_orders = $this->orders->get_list(array("status_id" => 3, "user_id" => $user_id));
 			
 			$history_orders_info = array();
 			
