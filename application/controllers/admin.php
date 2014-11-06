@@ -36,26 +36,13 @@ class Admin extends CI_Controller
 	{		
 		$menu = $this->menus->admin_menu;
 		$menu = $this->menus->set_active($menu, 'main');
-		//Отбираем для главной последние три записи в блоге и в новостях
-		$from_news = $this->news->get_count(array('is_active' => 1))-5;
-		$from_blog = $this->blog->get_count(array('is_active' => 1))-5;
-		if ($from_news < 0)
-		{
-			$from_news = 0;
-		}
-		
-		if ($from_blog < 0)
-		{
-			$from_blog = 0;
-		}	
+	
 		$data = array(
 			'title' => "CMS",
 			'meta_title' => "CMS",
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'news' => array_reverse($this->news->get_list(array('is_active' => 1), $from_news, 5)),
-			'blog' => array_reverse($this->blog->get_list(array('is_active' => 1), $from_blog, 5)),
 			'menu' => $menu
 		);
 		$this->load->view('admin/admin.php', $data);

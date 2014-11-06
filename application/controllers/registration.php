@@ -373,9 +373,13 @@ class Registration extends CI_Controller
 			'content' => $content
 		);		
 		
+		$this->form_validation->set_rules( 'first_name','First name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');
+		$this->form_validation->set_rules( 'last_name','Last name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');			
 		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-		$this->form_validation->set_rules( 'first_name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
-					
+		$this->form_validation->set_rules( 'country','Country','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'city','City','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'address_1','Address line 1','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'postal','Postal','trim|xss_clean|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
 		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
 					
@@ -601,8 +605,13 @@ class Registration extends CI_Controller
 		
 		if($type == "personal")
 		{
+			$this->form_validation->set_rules( 'first_name','First name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');
+			$this->form_validation->set_rules( 'last_name','Last name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');			
 			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-			$this->form_validation->set_rules( 'first_name','Name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');	
+			$this->form_validation->set_rules( 'country','Country','trim|xss_clean|required');
+			$this->form_validation->set_rules( 'city','City','trim|xss_clean|required');
+			$this->form_validation->set_rules( 'address_1','Address line 1','trim|xss_clean|required');
+			$this->form_validation->set_rules( 'postal','Postal','trim|xss_clean|required');
 		}
 		else
 		{
@@ -611,19 +620,18 @@ class Registration extends CI_Controller
 			$user->password = md5($user->password);
 			unset($user->conf_password);
 		}	
-			
 		
 		//Валидация формы
-		if($this->form_validation->run())
+		if($this->form_validation->run() == FALSE)
 		{
-			$this->users->update($user->id, $user);
-			$data['user'] = $user;
+			//var_dump(validation_errors());
+			$this->load->view('client/personal_info.php', $data);	
 		}
 		else
 		{
-			$this->load->view('client/personal_info.php', $data);	
+			$this->users->update($user->id, $user);
+			$data['user'] = $user;
+			redirect(base_url().'pages/personal_info');
 		}
-	
-		redirect(base_url().'pages/personal_info');
 	}
 }
