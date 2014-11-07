@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 03 2014 г., 15:26
+-- Время создания: Ноя 08 2014 г., 01:44
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -75,11 +75,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('332cb9fc9ad8f077c20c668ea36ccfcf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415012366, ''),
-('43a890dc458a260a6f2582f16daf3b85', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1414959804, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}'),
-('44c9b9dedd0c4d592c975aec468713f4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415013815, ''),
-('e6ba83d26825e457f54724005d283b35', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415013235, ''),
-('e79dd91d021ae7159ae135279744f85d', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1414959040, 'a:6:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}}');
+('73e610ada6fe49142c0d37f5cf09bf89', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415396494, 'a:6:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"3c59dc048e8850243be8079a5c74d079";a:5:{s:2:"id";s:2:"21";s:4:"name";s:41:"Товар 1 подкатегории 2_2";s:5:"price";i:1800;s:3:"qty";i:2;s:10:"item_total";i:3600;}s:32:"37693cfc748049e45d87b8c7d8b9aacd";a:5:{s:2:"id";s:2:"23";s:4:"name";s:41:"Товар 2 подкатегории 2_2";s:5:"price";s:1:"0";s:3:"qty";i:1;s:10:"item_total";i:0;}}s:9:"total_qty";i:3;s:10:"cart_total";i:3600;}s:4:"role";s:5:"admin";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -120,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=57 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=62 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -147,7 +143,8 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUE
 (51, 1, 'categories', 20, '/n/o/no-photo-available[17].png'),
 (52, 1, 'products', 29, '/n/o/no-photo-available[19].png'),
 (55, 1, 'categories', 7, '/n/o/no-photo-available[16].png'),
-(56, 1, 'categories', 8, '/n/o/no-photo-available[20].png');
+(56, 1, 'categories', 8, '/n/o/no-photo-available[20].png'),
+(58, 1, 'categories', 12, '/n/o/no-photo-available[21].png');
 
 -- --------------------------------------------------------
 
@@ -256,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
-(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
+(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-1-podkategorii-2-1-1', ''),
+(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', ''),
 (19, 12, 1, 0, 'Товар 3 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', ''),
 (20, 12, 1, 1, 'Товар 4 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
 (21, 8, 1, 0, 'Товар 1 подкатегории 2_2', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', ''),
@@ -312,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 --
 -- Дамп данных таблицы `users`
