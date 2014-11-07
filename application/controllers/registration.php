@@ -249,7 +249,7 @@ class Registration extends CI_Controller
 			$this->users->update($email->id, array('secret' => ""));			
 
 			$message_info = array(
-				"user_name" => $email->name,
+				"first_name" => $email->first_name,
 				"login" => $email->email,
 				"password" => $this->input->post('password')
 			);

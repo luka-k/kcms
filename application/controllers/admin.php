@@ -709,6 +709,14 @@ class Admin extends CI_Controller
 			'user_id' => $this->session->userdata('user_id'),
 			'menu' => $menu		
 		);
+		
+		$this->form_validation->set_rules( 'first_name','First name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');
+		$this->form_validation->set_rules( 'last_name','Last name','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');			
+		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
+		$this->form_validation->set_rules( 'country','Country','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'city','City','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'address_1','Address line 1','trim|xss_clean|required');
+		$this->form_validation->set_rules( 'postal','Postal','trim|xss_clean|required');
 			
 		if ($id == NULL)
 		{
@@ -718,12 +726,6 @@ class Admin extends CI_Controller
 			$data['content'] = editors_post($editors, $post);	
 			$data['content']->password = md5($data['content']->password);
 			$data['editors'] = $editors;
-
-			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
-					
-			$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
-			$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
 					
 			//Валидация формы
 			if($this->form_validation->run() == FALSE)
@@ -758,9 +760,6 @@ class Admin extends CI_Controller
 		
 			$data['content'] = editors_post($editors, $post);			
 			$data['editors'] = $editors;
-
-			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-			$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
 					
 			//Валидация формы
 			if($this->form_validation->run() == FALSE)

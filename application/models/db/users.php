@@ -29,7 +29,7 @@ class Users extends MY_Model
 			'first_name' => array('First name', 'text', 1),
 			'last_name' => array('Last name', 'text', 1),
 			'email' => array('Email address', 'text', 1),
-			'password' => array('Password', 'pass', 1),
+			//'password' => array('Password', 'pass', 1),
 			'country' => array('Country', 'text', 1),
 			'region' => array('Region', 'text', 0),
 			'city' => array('Town/City', 'text', 1),
@@ -37,7 +37,7 @@ class Users extends MY_Model
 			'address_2' => array('Address line 2', 'text', 0),
 			'postal' => array('Postal/Zip code', 'text', 0),
 			'phone' => array('Phone number', 'text', 1),
-			'birth_date' => array('Date of birth', 'text', 0)
+			//'birth_date' => array('Date of birth', 'text', 0)
 		)
 	);
 	
