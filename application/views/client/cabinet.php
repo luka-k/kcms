@@ -32,10 +32,10 @@
 									<td class="td-5"><span class="ord-stat"><?=$item->status?></span></td>
 									<td class="td-4"><span class="tr-numb"><?=$item->tracking_number?></span></td>
 								</tr>
-								<tr id="detail-<?=$item->order_id?>" class="noactive">
+								<tr id="detail-<?=$item->order_id?>" class="details noactive">
 									<td class="td-1"></td>
 									<td colspan="4">
-										<table style="text-align:left; margin-bottom:0px;">
+										<table style="text-align:left; margin-bottom:0px; font-size:16px; border-top:1px dashed #998e7e; border-bottom:1px dashed #998e7e;">
 											<thead>
 												<th width="70%">Name</th>
 												<th width="15%">Per Unit</th>
@@ -45,11 +45,21 @@
 												<?foreach($item->order_products as $product):?>
 													<tr>
 														<td><?=$product->product_name?></td>
-														<td><?=$product->product_price?></td>
+														<td><?=$product->product_price?> &euro;</td>
 														<td><?=$product->order_qty?></td>
 													</tr>
 												<?endforeach;?>
+												<tr>
+													<td style="text-align:right">Shipping:</td>
+													<td><?=$shipping?> &euro;</td>
+													<td>&nbsp;</td>
+												</tr>
 											<tbody>
+											<tfoot>
+												<th style="text-align:right">Total:</th>
+												<th><?=$item->total?> &euro;</th>
+												<th>&nbsp;</th>
+											</tfoot>
 										</table>
 									</td>
 								</tr>
@@ -75,7 +85,7 @@
 								<tr id="detail-<?=$item->order_id?>" class="noactive">
 									<td class="td-1"></td>
 									<td colspan="4">
-										<table style="text-align:left; margin-bottom:0px;">
+										<table style="text-align:left; margin-bottom:0px; font-size:16px; border-top:1px dashed #998e7e; border-bottom:1px dashed #998e7e;">
 											<thead>
 												<th width="70%">Name</th>
 												<th width="15%">Per Unit</th>
@@ -85,11 +95,21 @@
 												<?foreach($item->order_products as $product):?>
 													<tr>
 														<td><?=$product->product_name?></td>
-														<td><?=$product->product_price?></td>
+														<td><?=$product->product_price?> &euro;</td>
 														<td><?=$product->order_qty?></td>
 													</tr>
 												<?endforeach;?>
+												<tr>
+													<td style="text-align:right">Shipping:</td>
+													<td><?=$shipping?> &euro;</td>
+													<td>&nbsp;</td>
+												</tr>
 											<tbody>
+											<tfoot>
+												<th style="text-align:right">Total:</th>
+												<th><?=$item->total?> &euro;</th>
+												<th>&nbsp;</th>
+											</tfoot>
 										</table>
 									</td>
 								</tr>

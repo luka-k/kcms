@@ -546,6 +546,7 @@ class Registration extends CI_Controller
 				'viewed' => $viewed,
 				'total_price' => $total_price,
 				'total_qty' => $total_qty,
+				'shipping' => $this->settings->get_item_by(array("id" => 1))->shipping,
 				'new_orders_info' => $new_orders_info,
 				'history_orders_info' => $history_orders_info,
 				'top_menu' => $top_menu,

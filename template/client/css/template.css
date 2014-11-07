@@ -1130,6 +1130,11 @@ footer nav a
 background:red;
 }
 
+.details{
+font-size:12px;
+border:1px solid red;
+}
+
 .cur-ord .noactive, .ord-history .noactive{
 display:none;
 }

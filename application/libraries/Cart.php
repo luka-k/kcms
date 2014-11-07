@@ -3,6 +3,7 @@
 class CI_Cart {
 
 	var $CI;
+	var $shipping;
 	var $cart_contents = array(
 		'items' => array(),
 		'cart_total' => 0,
@@ -18,6 +19,11 @@ class CI_Cart {
 		{
 			$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		}	
+		
+		$this->CI->load->model('db/settings');
+		
+		$settings = $this->CI->settings->get_item_by(array("id" => 1));
+		$this->shipping = $settings->shipping;
 	}
 	
 	public function insert($items = array())
@@ -90,7 +96,12 @@ class CI_Cart {
 			$total_qty += $item['qty'];		
 		}
 		$this->cart_contents['total_qty'] = $total_qty;
-		$this->cart_contents['cart_total'] = $cart_total; 
+		
+		if($cart_total <> 0)
+		{
+			$cart_total = $cart_total + $this->shipping;
+		}
+		$this->cart_contents['cart_total'] = $cart_total;
 		$this->CI->session->set_userdata(array('cart_contents' => $this->cart_contents));
 	}
 	

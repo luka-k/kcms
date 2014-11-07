@@ -51,7 +51,7 @@ class Ajax extends CI_Controller {
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
 		$data['shipping'] = $this->shipping;
-		$data['total'] = $data['total_price'] + $data['shipping'];
+		$data['total'] = $data['total_price'];
 		$data['cart_item_id'] = $cart_item_id;
 		
 		echo json_encode($data);
@@ -70,7 +70,7 @@ class Ajax extends CI_Controller {
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();	
 		$data['shipping'] = $this->shipping;
-		$data['total'] = $data['total_price'] + $data['shipping'];	
+		$data['total'] = $data['total_price'];	
 		$data['cart_item_id'] =	$info->item_id;		
 		echo json_encode($data);
 	}
@@ -85,7 +85,7 @@ class Ajax extends CI_Controller {
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();	
 		$data['shipping'] = $this->shipping;
-		$data['total'] = $data['total_price'] + $data['shipping'];		
+		$data['total'] = $data['total_price'];		
 		echo json_encode($data);
 	}
 	
@@ -142,7 +142,7 @@ class Ajax extends CI_Controller {
 		}
 		else
 		{
-			$data['total'] = $data['total_price'] + $data['shipping'];		
+			$data['total'] = $data['total_price'];		
 		}
 		if ($data['total_qty'] == NULL) $data['total_qty'] = 0;
 		if ($data['total_price'] == NULL) $data['total_price'] = 0;		
