@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 04 2014 г., 20:13
+-- Время создания: Ноя 07 2014 г., 14:05
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('38e325a43d9bf992c5c8f70e8e8056e9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1412433550, 'a:7:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}s:9:"viewed_id";s:2:"27";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('cab5b951eda0a1ee28b240f40f5e9cad', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415354607, 'a:6:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -247,20 +247,20 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `user_postal` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   `total` int(11) NOT NULL,
   `delivery_id` int(11) NOT NULL,
+  `tracking_number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `payment_id` int(11) NOT NULL,
+  `payment_date` datetime DEFAULT NULL,
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_first_name`, `user_last_name`, `user_email`, `user_phone`, `user_country`, `user_region`, `user_city`, `user_address_1`, `user_address_2`, `user_postal`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
-(1, '542c5e8b44da1', '', 'pavel', 'lukinsky', 'luka_bass_king@inbox.ru', '', 'Russia', '', 'SPb', 'rudneva 5-162', '', '256336', 9, 0, 0, '2014-10-02 00:00:00', 1),
-(2, '542eec25e4184', '', '', '', '', '', '', '', '', '', '', '', 9, 0, 0, '2014-10-03 00:00:00', 1),
-(3, '542ff49c5e01f', '', '', '', '', '', '', '', '', '', '', '', 9, 0, 0, '2014-10-04 00:00:00', 1);
+INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_first_name`, `user_last_name`, `user_email`, `user_phone`, `user_country`, `user_region`, `user_city`, `user_address_1`, `user_address_2`, `user_postal`, `total`, `delivery_id`, `tracking_number`, `payment_id`, `payment_date`, `date`, `status_id`) VALUES
+(1, '545c84e3be055', '28', 'pavel', 'lukinsky', 'luka_bass_king@inbox.ru', '8-950-014-71-25', 'Russia', '', 'Spb', '', '', '', 15, 0, '', 0, NULL, '2014-11-07 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -276,43 +276,14 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `orders_products`
 --
 
 INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(2, '5416af6567a16', 14, 'Товар 1 категории 1', '120.6', 1),
-(3, '541743b1a99e7', 14, 'Товар 1 категории 1', '120.6', 50),
-(4, '54174443e307d', 14, 'Товар 1 категории 1', '120.6', 10),
-(5, '5417e385077c9', 14, 'Товар 1 категории 1', '120.6', 1),
-(6, '5417e385077c9', 15, 'Товар 2 категории 1', '160.2', 1),
-(7, '541db4347ed9d', 14, 'Товар 1 категории 1', '120.6', 1),
-(8, '541dcc9292f95', 14, 'Товар 1 категории 1', '120.6', 1),
-(9, '541dce0197e62', 14, 'Товар 1 категории 1', '120.6', 1),
-(10, '541dd19d4515c', 15, 'Товар 2 категории 1', '160.2', 1),
-(11, '541eed18ce6ef', 14, 'Товар 1 категории 1', '120.6', 1),
-(12, '541eed18ce6ef', 15, 'Товар 2 категории 1', '160.2', 1),
-(13, '541eed2b7fbb2', 16, 'Товар 3 категории 1', '220.3', 1),
-(14, '541eed2b7fbb2', 14, 'Товар 1 категории 1', '120.6', 1),
-(15, '541eee4ca8f9a', 14, 'Товар 1 категории 1', '120.6', 1),
-(16, '541eee70bece9', 15, 'Товар 2 категории 1', '160.2', 1),
-(17, '541eee8e0e4c8', 15, 'Товар 2 категории 1', '160.2', 1),
-(18, '541eee8e0e4c8', 16, 'Товар 3 категории 1', '220.3', 1),
-(19, '541eefe819c1b', 14, 'Товар 1 категории 1', '120.6', 2),
-(20, '541ef1c191852', 14, 'Товар 1 категории 1', '120.6', 1),
-(21, '541ef1c191852', 15, 'Товар 2 категории 1', '160.2', 1),
-(22, '541efb86b559e', 14, 'Товар 1 категории 1', '120.6', 1),
-(23, '541efc0c7ed8c', 14, 'Товар 1 категории 1', '120.6', 1),
-(24, '541efd07db45e', 14, 'Товар 1 категории 1', '120.6', 1),
-(25, '541f01199a053', 14, 'Товар 1 категории 1', '120.6', 1),
-(26, '541f012798fee', 14, 'Товар 1 категории 1', '120.6', 1),
-(27, '541f012798fee', 16, 'Товар 3 категории 1', '220.3', 1),
-(28, '541f017a477b3', 14, 'Товар 1 категории 1', '120.6', 1),
-(29, '542c5e8b44da1', 27, 'Ronin', '9', 1),
-(30, '542eec25e4184', 27, 'Ronin', '9', 1),
-(31, '542ff49c5e01f', 27, 'Ronin', '9', 1);
+(1, '545c84e3be055', 27, 'Ronin', '9', 1);
 
 -- --------------------------------------------------------
 
@@ -453,7 +424,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `country`, `region`, `city`, `address_1`, `address_2`, `postal`, `phone`, `birth_date`, `role`, `secret`) VALUES
-(27, 'admin', '', 'admin@admin.ru', '21232f297a57a5a743894a0e4a801fc3', '', '', '', '', '', '0', '', '0000-00-00', 'admin', 'd41d8cd98f00b204e9800998ecf8427e');
+(27, 'admin', '', 'admin@admin.ru', '21232f297a57a5a743894a0e4a801fc3', '', '', '', '', '', '0', '', '0000-00-00', 'admin', 'd41d8cd98f00b204e9800998ecf8427e'),
+(28, 'pavel', 'lukinsky', 'luka_bass_king@inbox.ru', 'fae0b27c451c728867a567e8c1bb4e53', 'Russia', '', 'Spb', 'Rudneva 5-162', '', '21221', '8-950-014-71-25', '0000-00-00', 'customer', 'd41d8cd98f00b204e9800998ecf8427e');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
