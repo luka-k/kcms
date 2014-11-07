@@ -27,10 +27,31 @@
 									<td class="td-1"><?=$item->order_id?></td>
 									<td class="td-2"><?=$item->payment_date?></td>
 									<td class="td-3">
-										<span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="">(details)</a></span>
+										<span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="#" onclick="slide('<?=$item->order_id?>'); return false">(details)</a></span>
 									</td>
 									<td class="td-5"><span class="ord-stat"><?=$item->status?></span></td>
 									<td class="td-4"><span class="tr-numb"><?=$item->tracking_number?></span></td>
+								</tr>
+								<tr id="detail-<?=$item->order_id?>" class="noactive">
+									<td class="td-1"></td>
+									<td colspan="4">
+										<table style="text-align:left; margin-bottom:0px;">
+											<thead>
+												<th width="70%">Name</th>
+												<th width="15%">Per Unit</th>
+												<th width="15%">Qty</th>
+											</thead>
+											<tbody>
+												<?foreach($item->order_products as $product):?>
+													<tr>
+														<td><?=$product->product_name?></td>
+														<td><?=$product->product_price?></td>
+														<td><?=$product->order_qty?></td>
+													</tr>
+												<?endforeach;?>
+											<tbody>
+										</table>
+									</td>
 								</tr>
 							<?endforeach;?>
 						</table>
@@ -49,7 +70,28 @@
 								<tr class="tbl-item">
 									<td class="td-1"><?=$item->order_id?></td>
 									<td class="td-2"><?=$item->payment_date?></td>
-									<td class="td-3"><span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="">(details)</a></span></td>
+									<td class="td-3"><span class="cost"><?=$item->total?></span>&euro; <span class="cost-detail"><a href="#" onclick="slide('<?=$item->order_id?>'); return false">(details)</a></span></td>
+								</tr>
+								<tr id="detail-<?=$item->order_id?>" class="noactive">
+									<td class="td-1"></td>
+									<td colspan="4">
+										<table style="text-align:left; margin-bottom:0px;">
+											<thead>
+												<th width="70%">Name</th>
+												<th width="15%">Per Unit</th>
+												<th width="15%">Qty</th>
+											</thead>
+											<tbody>
+												<?foreach($item->order_products as $product):?>
+													<tr>
+														<td><?=$product->product_name?></td>
+														<td><?=$product->product_price?></td>
+														<td><?=$product->order_qty?></td>
+													</tr>
+												<?endforeach;?>
+											<tbody>
+										</table>
+									</td>
 								</tr>
 							<?endforeach;?>
 						</table>

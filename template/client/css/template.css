@@ -1129,3 +1129,7 @@ footer nav a
 .frame-input_error{
 background:red;
 }
+
+.cur-ord .noactive, .ord-history .noactive{
+display:none;
+}
