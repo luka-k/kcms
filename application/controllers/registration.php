@@ -24,7 +24,7 @@ class Registration extends CI_Controller
 	
 	
 	/*Авторизация пользователя*/	
-	public function do_admin_enter($field="email", $field="pass")
+	public function do_admin_enter()
 	{
 		$data = array(
 			'title' => "Вход",
@@ -55,29 +55,23 @@ class Registration extends CI_Controller
 		$authdata = $this->users->login($email, $password);
 
 		if (!$authdata['logged_in'])
-		{
-			$menu = $this->menus->top_menu;		
-			$cart = $this->cart->get_all();
-			$total_price = $this->cart->total_price();
-			$total_qty = $this->cart->total_qty();
-		
+		{	
 			$user_id = $this->session->userdata('user_id');
-			$user = $this->users->get_item_by(array("id" => $user_id));
 	
 			$data = array(
 				'title' => "Корзина",
 				'meta_title' => "",
 				'meta_keywords' => "",
 				'meta_description' => "",
-				'cart' => $cart,
-				'total_price' => $total_price,
-				'total_qty' => $total_qty,
+				'cart' => $this->cart->get_all(),
+				'total_price' => $this->cart->total_price(),
+				'total_qty' => $this->cart->total_qty(),
 				'selects' => array(
 					'method_delivery' => $this->config->item('method_delivery'),
 					'method_pay' => $this->config->item('method_pay')
 				),
-				'menu' => $menu,
-				'user' => $user
+				'top_menu' => $this->menus->top_menu,
+				'user' => $this->users->get_item_by(array("id" => $user_id))
 			);
 			
 			$data['error'] = "Данные не верны. Повторите ввод";		
@@ -99,14 +93,8 @@ class Registration extends CI_Controller
 			'logged_in' => ''
 			);
 		$this->session->unset_userdata($authdata);
-		if($role == "admin")
-		{
-			redirect(base_url().'admin');
-		}
-		else
-		{
-			redirect(base_url().'pages/cart');
-		}
+		
+		$role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');
 	}
 	
 	/*Вывод формы востановления пароля*/
@@ -178,14 +166,7 @@ class Registration extends CI_Controller
 						'error' => ""
 					);	
 					
-					if($email->role == "admin")
-					{
-						redirect(base_url().'admin');
-					}
-					else
-					{
-						redirect(base_url().'pages/cart');
-					}				
+					$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');			
 				}
 			} 
 			else
@@ -240,14 +221,7 @@ class Registration extends CI_Controller
 			$this->emails->send_mail($email->email, 'change_password', $message_info);			
 		}
 
-		if($email->role == "admin")
-		{
-			redirect(base_url().'admin');
-		}
-		else
-		{
-			redirect(base_url().'pages/cart');
-		}	
+		$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');		
 	}
 			
 	/*----------Клиентская часть----------*/
@@ -288,8 +262,7 @@ class Registration extends CI_Controller
 		$editors = $this->users->new_editors;
 		$post = $this->input->post();
 		
-		$content = editors_post($editors, $post);
-		$content->password = md5($content->password);
+		$content = $this->$type->editors_post()->data;
 
 		$data = array(
 			'title' => "Регистрация",
@@ -330,7 +303,6 @@ class Registration extends CI_Controller
 			else 
 			{	
 				$pass = $content->conf_password;
-				unset($data['content']->conf_password);
 				$data['content']->role = "customer";
 				$this->users->insert($data['content']);
 				
@@ -342,10 +314,7 @@ class Registration extends CI_Controller
 				
 				$this->emails->send_mail($content->email, 'registration', $message_info);				
 				
-				if($this->users->login($content->email, $content->password))
-				{
-					redirect(base_url().'registration/cabinet');
-				}
+				if($this->users->login($content->email, $content->password)) redirect(base_url().'registration/cabinet');
 			}
 		}			
 	}
@@ -359,11 +328,6 @@ class Registration extends CI_Controller
 		}
 		else
 		{
-			$menu = $this->menus->top_menu;
-			$cart = $this->cart->get_all();
-			$total_price = $this->cart->total_price();
-			$total_qty = $this->cart->total_qty();	
-
 			$orders = $this->orders->get_list(array("user_id" => $this->session->userdata('user_id')));
 			
 			$orders_info = array();
@@ -398,9 +362,7 @@ class Registration extends CI_Controller
 			
 			$user_id = $this->session->userdata('user_id');
 			$user = $this->users->get_item_by(array("id" => $user_id));
-			
-			
-			
+				
 			$data = array(
 				'title' => "Личный кабинет",
 				'meta_title' => "",
@@ -409,10 +371,10 @@ class Registration extends CI_Controller
 				'error' => "",
 				'user_name' => $this->session->userdata('user_name'),
 				'user' => $user,
-				'menu' => $menu,
-				'cart' => $cart,
-				'total_price' => $total_price,
-				'total_qty' => $total_qty,
+				'top_menu' => $this->menus->top_menu,
+				'cart' => $this->cart->get_all(),
+				'total_price' => $this->cart->total_price(),
+				'total_qty' => $this->cart->total_qty(),
 				'orders' => $orders_info,
 				'selects' => array(
 					'delivery_id' => $this->config->item('method_delivery'),

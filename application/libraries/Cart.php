@@ -14,10 +14,7 @@ class CI_Cart {
 		$this->CI =& get_instance();
 		$this->CI->load->library('session');
 		
-		if ($this->CI->session->userdata('cart_contents') !== FALSE)
-		{
-			$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		}	
+		if ($this->CI->session->userdata('cart_contents') !== FALSE) $this->cart_contents = $this->CI->session->userdata('cart_contents');
 	}
 	
 	public function insert($items = array())
@@ -30,10 +27,7 @@ class CI_Cart {
 		{
 			foreach ($items as $item)
 			{
-				if (is_array($item) && isset($item['id']))
-				{
-					$this->insert_item($item);
-				}
+				if (is_array($item) && isset($item['id'])) $this->insert_item($item);
 			}
 		}	
 		else
@@ -45,14 +39,8 @@ class CI_Cart {
 	
 	public function insert_item($item = array())
 	{
-		if (isset($item['options']) && count($item['options']) > 0)
-		{
-			$item_id = md5($item['id'].implode('_', $item['options']));
-		}
-		else
-		{
-			$item_id = md5($item['id']);
-		}
+		isset($item['options']) && count($item['options']) > 0 ? $item_id = md5($item['id'].implode('_', $item['options'])) : $item_id = md5($item['id']);
+		
 		if(array_key_exists($item_id, $this->cart_contents['items']))
 		{
 			$this->cart_contents['items'][$item_id]['qty'] += $item['qty']; 
@@ -69,8 +57,7 @@ class CI_Cart {
 	{
 		$item_id = $item['item_id'];
 		$qty = $item['qty'];
-		var_dump($qty);
-		if ($qty < 0) return FALSE;
+		if ($qty < 0) return;
 		if ($qty == 0) 
 		{
 			$this->delete($item_id);
@@ -121,20 +108,14 @@ class CI_Cart {
 	public function total_price()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		if($this->cart_contents['cart_total'] == NULL)
-		{
-			$this->cart_contents['cart_total'] = 0;
-		}
+		if($this->cart_contents['cart_total'] == NULL) $this->cart_contents['cart_total'] = 0;
 		return $this->cart_contents['cart_total'];		
 	}
 	
 	public function total_qty()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		if($this->cart_contents['total_qty'] == NULL)
-		{
-			$this->cart_contents['total_qty'] = 0;
-		}
+		if($this->cart_contents['total_qty'] == NULL) $this->cart_contents['total_qty'] = 0;
 		return $this->cart_contents['total_qty'];		
 	}
 	

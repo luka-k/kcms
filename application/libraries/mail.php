@@ -13,7 +13,6 @@ class mail {
 	{
 		$config = array(
 			'protocol' => "mail",
-			//'charset' => "utf-8",
 			'mailtype' => "html",
 			'wordwrap' => TRUE
 		);

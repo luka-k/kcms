@@ -94,10 +94,7 @@ public function run($group = '')
 	
 	public function substituted($str, $field)
 	{
-		if(empty($str))
-		{
-			$str = slug($_POST[$field]);
-		}
+		if(empty($str)) $str = slug($_POST[$field]);
 		
 		return $str;
 	}

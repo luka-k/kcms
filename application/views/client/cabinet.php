@@ -24,7 +24,7 @@
 									<?foreach($cart as $item_id => $item):?>
 										<tr id="<?=$item_id?>">
 											<td><?=$counter?></td>
-											<td><?=$item['title']?></td>
+											<td><?=$item['name']?></td>
 											<td><?=$item['price']?></td>
 											<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
 											<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>

@@ -101,13 +101,13 @@ class MY_Model extends CI_Model
 	//Возращает активные страницы
 	function get_active($from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
-		return $this->get_list(TRUE,$from,$limit,$order,$direction);
+		return $this->get_list(TRUE, $from, $limit, $order, $direction);
 	}
 	
     //Возращает неактивные страницы
-	function get_deleted($from = FALSE, $limit = FALSE,$order = FALSE,$direction = 'asc')
+	function get_deleted($from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
-		return $this->get_list('deleted',$from,$limit,$order,$direction);
+		return $this->get_list('deleted', $from, $limit, $order, $direction);
 	}
 	
 	//Добавляет элемент в таблицу
@@ -121,12 +121,11 @@ class MY_Model extends CI_Model
 		$this->accordion('add');
 		return $this->db->insert($this->_table, $data);
 	}
-	
+
 	//Проверяем оригинальность данного имени в категории.
 	function non_requrrent($fields)
 	{
-		$this->db->where($fields);
-		$query = $this->db->get($this->_table);
+		$query = $this->db->where($fields)->get($this->_table);
 		if ($query->num_rows() > 0)
 		{
 			return FALSE;
@@ -430,6 +429,8 @@ class MY_Model extends CI_Model
 	{
 		$post = $_POST;
 		
+		$return = new stdCLass();
+		
 		if(empty($post['id'])&&(isset($this->new_editors)))
 		{
 			$editors = $this->new_editors;
@@ -440,27 +441,27 @@ class MY_Model extends CI_Model
 		}
 		
 		foreach ($editors as $edit)
+		{
+			foreach ($edit as $key => $value)
 			{
-				foreach ($edit as $key => $value)
+				if (isset($value[2])) 
+				{	
+					$validation_config[] = array(
+						'field' => $key,
+						'label' => $value[0],
+						'rules' => $value[2]);
+				}
+				if ($this->db->field_exists($key, $this->_table))
 				{
-					if (isset($value[2])) 
-					{	
-						$validation_config[] = array(
-							'field' => $key,
-							'label' => $value[0],
-							'rules' => $value[2]);
-					}
-					if ($this->db->field_exists($key, $this->_table))
-					{
-						$data->$key = $post[$key];
-					}
+					$return->data->$key = $post[$key];
 				}
 			}
+		}
 		$this->form_validation->set_rules($validation_config);
 		
 		if($this->form_validation->run())
 		{
-			unset($data);
+			unset($return->data);
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
@@ -468,24 +469,17 @@ class MY_Model extends CI_Model
 				
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						$data->$key = htmlspecialchars_decode(set_value($key));
+						$return->data->$key = htmlspecialchars_decode(set_value($key));
 					}		
 				}
 			}
-			$error = FALSE;
+			$return->error = FALSE;
 		}
 		else
 		{
-			$error = TRUE;
+			$return->error = TRUE;
 		}
 		
-		//var_dump($data);
-
-		$return = array(
-			'error' => $error,
-			'data' => $data
-		);
-				
 		return $return;
 	}	
 } 

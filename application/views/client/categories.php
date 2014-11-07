@@ -56,7 +56,7 @@
 				
 				<div class="cart">
 					<h5>Корзина</h5>
-					В корзине <?=$total_qty?> товаров.<br/>
+					В корзине <?=$total_qty?> <?=$product_word?>.<br/>
 					На сумму <?=$total_price?><br/>
 					<a href="<?=base_url()?>cart">Оформить заказ</a>
 				</div>

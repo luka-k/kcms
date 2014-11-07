@@ -23,8 +23,7 @@ class Ajax extends CI_Controller {
 	public function add_to_cart()
 	{
 		$id = json_decode(file_get_contents('php://input', true));
-		$item_id = $id->item_id;
-		$product = $this->products->get_item_by(array("id" => $item_id));
+		$product = $this->products->get_item_by(array("id" => $id->item_id));
 		
 		if(!empty($product->discount))
 		{
@@ -37,6 +36,7 @@ class Ajax extends CI_Controller {
 			"price" => $product->price,
 			"qty" => 1
 		);
+		
 		$this->cart->insert($cart_item);
 		
 		$data['total_qty'] = $this->cart->total_qty();
@@ -48,13 +48,9 @@ class Ajax extends CI_Controller {
 	public function update_cart()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$item = array(
-			"item_id" => $info->item_id,
-			"qty" => $info->qty
-		);
-		$this->cart->update($item);
-		$items = $this->cart->get_all();
-		$data['item_total'] = $items[$info->item_id]['item_total'];
+		$this->cart->update(array("item_id" => $info->item_id, "qty" => $info->qty));
+		$item = $this->cart->get($info->item_id);
+		$data['item_total'] = $item['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
@@ -63,9 +59,8 @@ class Ajax extends CI_Controller {
 	public function delete_item()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$item_id = $info->item_id;
-		
-		$this->cart->delete($item_id);
+	
+		$this->cart->delete($info->item_id);
 		
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
@@ -75,11 +70,8 @@ class Ajax extends CI_Controller {
 	public function change_field()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$order_id = $info->order_id;
-		$item = array(
-			"{$info->type}" => $info->value
-		);
-		$this->orders->update($order_id, $item);
+
+		$this->orders->update($info->order_id, array("{$info->type}" => $info->value));
 		
 		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
 		$status_id = $this->config->item('order_status');
@@ -109,9 +101,7 @@ class Ajax extends CI_Controller {
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 		$type = $info->type;
-		$item_id = $info->item_id;
-		$sort = $info->sort;
-		$this->$type->update($item_id, array("sort" => $sort));
+		$this->$info->type->update($info->item_id, array("sort" => $info->sort));
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}	

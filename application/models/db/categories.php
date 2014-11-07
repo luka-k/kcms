@@ -12,11 +12,11 @@ class Categories extends MY_Model
 	//Параметр 'img' используется для обработки изображений
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', 'integer'),
+			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'parent_id' => array('Родительская категория', 'select', 'integer'),
 			'is_active' => array('Активен', 'checkbox', 'integer'),
-			'sort' => array('Сортировка', 'text', 'integer'),
+			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', '')
 		),
 		'SEO' => array(

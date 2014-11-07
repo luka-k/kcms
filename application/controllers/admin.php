@@ -16,10 +16,7 @@ class Admin extends CI_Controller
 		$user = $this->session->userdata('logged_in');
 		$role = $this->session->userdata('role');
 
-		if ((!$user)||($role <> "admin"))
-		{
-			die(redirect(base_url().'registration/admin_enter'));	
-		} 
+		if ((!$user)||($role <> "admin")) die(redirect(base_url().'registration/admin_enter'));	
 		
 		$this->menu = $this->menus->admin_menu;
 		$this->user_name = $this->session->userdata('user_name');
@@ -39,8 +36,8 @@ class Admin extends CI_Controller
 		$this->menu = $this->menus->set_active($this->menu, 'main');
 
 		$data = array(
-			'title' => "CMS",
-			'meta_title' => "CMS",
+			'title' => "Главная",
+			'meta_title' => "Главная",
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
@@ -53,15 +50,13 @@ class Admin extends CI_Controller
 	public function items($type, $id = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
-
-		$editors = $this->$type->editors;
 		
 		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
 		//Это поле используем как поле для колонки Имя
 		//Тем самым избавляемся от привязки к названию name(title) и тд.
 		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
 		//что не всегда удобно.
-		$name = editors_field_exists('name', $editors);
+		$name = editors_field_exists('name', $this->$type->editors);
 
 		$data = array(
 			'title' => "Страницы",
@@ -94,7 +89,8 @@ class Admin extends CI_Controller
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
-		if(editors_field_exists('img', $editors))
+		
+		if(editors_field_exists('img', $this->$type->editors))
 		{
 			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 			$data['images'] = TRUE;
@@ -127,7 +123,7 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			$id == FALSE? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
+			$id == FALSE ? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
 		}
 		
 		if($id == FALSE)
@@ -137,11 +133,11 @@ class Admin extends CI_Controller
 			{
 				foreach ($tabs as $item => $value)
 				{
-					$category->$item = "";
+					$content->$item = "";
 				}
 			}
-			$category->is_active = "1";
-			$data['content'] = $category;
+			$content->is_active = "1";
+			$data['content'] = $content;
 			$data['content']->img = NULL;
 		}	
 		else
@@ -165,16 +161,12 @@ class Admin extends CI_Controller
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
+			'editors' => $this->$type->editors,
 			'menu' => $this->menu,
 			'type' => $type
 		);
-					
-		$editors = $this->$type->editors;
 		
-		$validation = $this->$type->editors_post();
-
-		$data['content'] = $validation['data'];
-		
+		$data['content'] = $this->$type->editors_post()->data;
 		
 		if(($type <> "users")and($type <> "settings"))
 		{
@@ -186,10 +178,10 @@ class Admin extends CI_Controller
 		}
 		else
 		{
-			$data['content']->id == FALSE? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
+			$data['content']->id == FALSE ? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
 		}
 		
-		if($validation['error'] == TRUE)
+		if($this->$type->editors_post()->error == TRUE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
 			$this->load->view('admin/edit_item.php', $data);			
@@ -200,9 +192,6 @@ class Admin extends CI_Controller
 			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
-				//Аналогично unset проверка на уникальность имени
-				//Думаю тоже в помошник уйдет
-				
 				$this->$type->insert($data['content']);
 				$data['content']->id = $this->db->insert_id();				
 			}
@@ -212,8 +201,7 @@ class Admin extends CI_Controller
 				$this->$type->update($data['content']->id, $data['content']);
 			}
 			
-	
-			$field_name = editors_field_exists('img', $editors);
+			$field_name = editors_field_exists('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
 			//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
 			if(!empty($field_name))
@@ -224,35 +212,19 @@ class Admin extends CI_Controller
 				);
 		
 				$cover_id = $this->input->post("cover_id");
-				if ($cover_id <> NULL)
-				{
-					$this->images->set_cover($object_info, $cover_id);
-				}
+				if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
 				
-				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4))
-				{
-					$this->images->upload_image($_FILES[$field_name], $object_info);
-				}
+				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
 
-			if($exit == false)
-			{
-				redirect(base_url().'admin/item/'.$type."/".$data['content']->id);
-			}
-			else
-			{
-				redirect(base_url().'admin/items/'.$type);
-			}				
+			$exit == false ? redirect(base_url().'admin/item/'.$type."/".$data['content']->id) : redirect(base_url().'admin/items/'.$type);		
 		}	
 	}
 	
 	//Удаление категории
-	public function delete_item($type, $category_id)
+	public function delete_item($type, $id)
 	{
-		if($this->$type->delete($category_id))
-		{
-			redirect(base_url().'admin/items/'.$type);
-		}
+		if($this->$type->delete($id)) redirect(base_url().'admin/items/'.$type);
 	}
 	
 	/*--------------Удаление изображения-------------*/
@@ -367,8 +339,7 @@ class Admin extends CI_Controller
 		foreach($emails as $mail)
 		{
 			$this->emails->update($mail['id'], $mail);
-		}
-		
+		}	
 		redirect(base_url().'admin/mails');
 	}	
 }

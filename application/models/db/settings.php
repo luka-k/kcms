@@ -4,7 +4,7 @@ class Settings extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', 'trim|htmlspecialchars'),
+			'id' => array('id', 'hidden', ''),
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars')/*,

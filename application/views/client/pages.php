@@ -65,7 +65,7 @@
 				<?endif;?>
 				<div class="cart">
 					<h5>Корзина</h5>
-					В корзине <span id="total_qty"><?=$total_qty?></span> товаров.<br/>
+					В корзине <span id="total_qty"><?=$total_qty?></span> <?=$product_word?>.<br/>
 					На сумму <span id="total_price"><?=$total_price?></span><br/>
 					<a href="<?=base_url()?>cart">Оформить заказ</a>
 				</div>
