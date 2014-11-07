@@ -6,13 +6,7 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<div id="left_col" class="col_4 back">
-						<h6>Страницы по разделам</h6>
-						<div id="left-menu">
-							<? require 'include/part_pages_tree.php' ?>
-						</div>
-					</div>
-					<div id="right_col" class="col_8 back">
+					<div id="right_col" class="col_12 back">
 						<h6 class="col_8 left">Редактировать пользователей</h6> 
 						<div class="col_4 right">
 							<a href="<?=base_url()?>/admin/user" class="button small">Создать нового</a>

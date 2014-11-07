@@ -649,7 +649,6 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'tree' => $this->parts->get_list(FALSE),
 			'menu' => $menu,
 			'users' => $this->users->get_list(FALSE)
 		);	
@@ -667,8 +666,7 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent_id")				
+			'menu' => $menu				
 		);
 			
 		if ($id == FALSE)
@@ -709,8 +707,7 @@ class Admin extends CI_Controller
 			'error' => "",
 			'name' => $this->session->userdata('user_name'),
 			'user_id' => $this->session->userdata('user_id'),
-			'menu' => $menu,
-			'tree' => $this->parts->get_sub_tree(0, "parent_id")			
+			'menu' => $menu		
 		);
 			
 		if ($id == NULL)
