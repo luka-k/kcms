@@ -1,8 +1,6 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Admin class
-
 class Order extends CI_Controller 
 {	
 	public function __construct()
