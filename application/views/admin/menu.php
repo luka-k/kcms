@@ -8,7 +8,7 @@
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 
-					<div id="left_col" class="<?if($content->id):?>col_7<?else:?>col_12<?endif;?> back">
+					<div id="left_col" class="<?if($content->id):?>col_6<?else:?>col_12<?endif;?> back">
 						
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
@@ -63,13 +63,89 @@
 					</div>
 					
 					<?if($content->id):?>
-						<div id="right_col" class="col_5 back">
+						<div id="right_col" class="col_6 back">
 							<div class="col_12">						
-								<h6 class="col_8 left">Пункты меню</h6> 
+								<h6 class="col_8 left" onclick="ok()">Пункты меню</h6> 
 								<div class="col_4 right">
-									<a href="<?=base_url()?>menu_module/menu/" class="button small">Создать</a>
-								</div>			
+									<a href="#item_info" class="button small lightbox">Создать</a>
+								</div>
 							</div>
+							
+							<div id="menu_items">
+								<?if(isset($menu_items)):?>
+									<ul id="sortable">
+										<?foreach($menu_items as $item):?>
+											<li><?=$item->name?> 
+												<a href="#" class="various" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
+												<a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-large"></i></a>
+												<?if(!empty($item->childs)):?>
+													<ul id="sortable-1">
+														<?foreach($item->childs as $item_2):?>
+															<li><?=$item_2->name?></li>
+														<?endforeach;?>
+													</ul>
+												<?endif;?>
+											</li>
+										<?endforeach;?>
+									</ul>
+								<?endif;?>
+							</div>
+							<script>
+								function item_info(id){
+									var data = {};
+									data.id = id;
+									var json_str = JSON.stringify(data);
+									$.post("/admin_ajax/menu_item/", json_str, item_info_answer, "json");
+								}
+																
+								function item_info_answer(res){
+									$.fancybox.open("#item_info");
+									//console.log(item);
+									var form = $('.edit_item');
+									for (var key in res.item) {
+										var val = res.item[key];
+										element = form.find('.'+key);
+										element.val(val);
+									} 
+								}
+								
+								function edit_item(){
+									var form = $('.edit_item'),
+									inputs = form.find('.menu_items'),
+									data = {},
+									info = {};
+									
+									inputs.each(function () {
+										var element = $(this);
+										info[element.attr('name')] = element.val();
+									});	
+									
+									//console.log(info);
+									
+									data.info = info;
+									var json_str = JSON.stringify(data);
+									$.post("/admin_ajax/edit_item/", json_str, update_menu, "json");
+									
+									function update_menu(resultat){
+									
+									}
+								}
+							</script>
+							<div id="item_info" class="various" style="display:none;">
+								<div class="pop-up">
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="#">
+										<a href="#" class="btn small" onclick="edit_item()">Сохранить</a>
+										<?foreach($items_editors as $item_editors):?>
+											<?$editors_counter = 1?>
+											<?foreach($item_editors as $name => $edit):?>
+												<?require "include/menu_editors/{$edit[1]}.php"?>
+												<?$editors_counter++?>
+											<?endforeach;?>
+										<?endforeach;?>
+									</form>
+								</div>
+							</div>
+							
 						</div>
 					<?endif;?>
 				</div>

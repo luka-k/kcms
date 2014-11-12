@@ -425,9 +425,9 @@ class MY_Model extends CI_Model
 		return $info;
 	}
 	
-	function editors_post()
+	function editors_post($post = FALSE)
 	{
-		$post = $_POST;
+		if($_POST == FALSE) $_POST = $post;
 		
 		$return = new stdCLass();
 		

@@ -1,5 +1,3 @@
-
-
 <script>
 	function change_sort(type, item_id, sort){
 		data = new Object();
@@ -13,6 +11,11 @@
 	function update_items(res){
 
 	}
+	
+	function slider(id){
+		$("#"+id).slideToggle().toggleClass('noactive');
+	}
+	
 
 	$('ul .down a').mouseover(function() {
 		$(this).next('ul').removeClass('noactive');

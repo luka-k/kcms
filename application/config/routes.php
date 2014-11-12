@@ -51,6 +51,7 @@ $route['cart/(:any)'] = 'cart/$1';
 $route['cart/(:any)/(:num)'] = 'cart/$1/$2';
 $route['order/(:any)/(:num)'] = 'order/$1/$2';
 $route['ajax/(:any)'] = 'ajax/$1';
+$route['admin_ajax/(:any)'] = 'admin_ajax/$1';
 $route['cart'] = 'catalog/cart';
 $route['pages/(:any)'] = 'pages/index/$1';
 $route['pages/(:any)/(:num)'] = 'pages/index/$1/$2';

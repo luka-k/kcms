@@ -48,6 +48,7 @@ class Menu_module extends CI_Controller
 	{
 		$this->menu = $this->menus->set_active($this->menu, "menus");
 		$editors = $this->dynamic_menus->editors;
+		$items_editors = $this->menus_items->editors;
 		
 		if($id == FALSE)
 		{	
@@ -59,12 +60,13 @@ class Menu_module extends CI_Controller
 					$content->$item = "";
 				}
 			}
-			$content->is_active = "1";
+			
 			$content->img = NULL;
 		}	
 		else
 		{			
 			$content = $this->dynamic_menus->get_item_by(array("id" => $id));
+			$menu_items = $this->menus_items->get_items(array("menu_id" => $id));
 
 			$object_info = array(
 				"object_type" => "dynamic_menus",
@@ -72,6 +74,21 @@ class Menu_module extends CI_Controller
 			);
 			$content->img = $this->images->get_images($object_info, "catalog_small");		
 		}
+		
+		$item_content = new stdClass();
+		foreach ($items_editors as $tabs)
+		{
+			foreach ($tabs as $item => $value)
+			{
+				$item_content->$item = "";
+			}
+		}
+		$item_content->menu_id = $id;	
+		$item_content->parent_id = $id;
+		$item_content->img = NULL;
+		
+		//var_dump($this->menus_items->editors);
+		
 		$data = array(
 			'title' => "Редактировать меню",
 			'error' => "",
@@ -79,9 +96,14 @@ class Menu_module extends CI_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => "dynamic_menus",
-			'tree' => $this->dynamic_menus->get_list(FALSE),
 			'editors' => $editors,
-			'content' => $content
+			'content' => $content,
+			'menu_items' => $this->menus_items->menu_tree($id),
+			'items_editors' => $this->menus_items->editors,
+			'selects' => array(
+				'parent_id' =>$this->menus_items->menu_tree($id)
+			),
+			'item_content' => $item_content
 		);	
 			
 		$this->load->view("admin/menu", $data);
@@ -92,6 +114,7 @@ class Menu_module extends CI_Controller
 		$this->menu = $this->menus->set_active($this->menu, "menus");
 		
 		$editors = $this->dynamic_menus->editors;
+		$items_editors = $this->menus_items->editors;
 		
 		$content = $this->dynamic_menus->editors_post()->data;
 		
@@ -102,7 +125,6 @@ class Menu_module extends CI_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => "dynamic_menus",
-			'tree' => $this->dynamic_menus->get_list(FALSE),
 			'editors' => $editors,
 			'content' => $content
 		);
@@ -144,6 +166,25 @@ class Menu_module extends CI_Controller
 		
 		$exit == false ? redirect(base_url()."menu_module/menu/".$content->id) : redirect(base_url().'menu_module/menus');
 	}
+	
+	/*public function edit_item($id = FALSE)
+	{
+		$this->menu = $this->menus->set_active($this->menu, "menus");
+		
+		$editors = $this->dynamic_menus->editors;
+		$items_editors = $this->menus_items->editors;	
+
+		$data = array(
+			'title' => "Редактировать меню",
+			'error' => "",
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menu,
+			'type' => "dynamic_menus",
+			'editors' => $editors,
+			'content' => $content
+		);
+	}*/
 	
 	public function delete_menu($id)
 	{
