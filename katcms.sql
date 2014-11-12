@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 08 2014 г., 01:44
+-- Время создания: Ноя 12 2014 г., 22:51
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- База данных: `katcms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `articles`
+--
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `parent_id`, `name`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`) VALUES
+(1, 0, 'Блог', 0, '', '', '', '', 'blog'),
+(3, 0, 'Новости', 0, '', '', '', '', 'novosti'),
+(4, 3, 'Первая новость', 0, '', '', '', '', 'pervaya-novost');
 
 -- --------------------------------------------------------
 
@@ -45,8 +73,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
-(7, 1, 1, 'Подкатегория 2_1', '', '', '', 'podkategoriya-2-1', 15, ''),
-(8, 1, 0, 'Подкатегория 2_2', '', '', '', 'podkategoriya-2-2', 15, '<p>Описание второй категории</p>\r\n<p>В два ряда</p>'),
+(7, 1, 0, 'Подкатегория 2_1', '', '', '', 'podkategoriya-2-1', 15, ''),
+(8, 1, 1, 'Подкатегория 2_2', '', '', '', 'podkategoriya-2-2', 15, '<p>Описание второй категории</p>\r\n<p>В два ряда</p>'),
 (9, 1, 2, 'Подкатегория 2_3', '', '', '', '', 15, ''),
 (12, 1, 0, 'Подкатегория 2_1_1', '', '', '', 'podkategoria', 7, ''),
 (13, 1, 1, 'Подкатегория 2_1_2', '', '', '', 'podkat', 7, ''),
@@ -75,7 +103,27 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('73e610ada6fe49142c0d37f5cf09bf89', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415396494, 'a:6:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"3c59dc048e8850243be8079a5c74d079";a:5:{s:2:"id";s:2:"21";s:4:"name";s:41:"Товар 1 подкатегории 2_2";s:5:"price";i:1800;s:3:"qty";i:2;s:10:"item_total";i:3600;}s:32:"37693cfc748049e45d87b8c7d8b9aacd";a:5:{s:2:"id";s:2:"23";s:4:"name";s:41:"Товар 2 подкатегории 2_2";s:5:"price";s:1:"0";s:3:"qty";i:1;s:10:"item_total";i:0;}}s:9:"total_qty";i:3;s:10:"cart_total";i:3600;}s:4:"role";s:5:"admin";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
+('b99dfab377b737da0de66e16f37ec52b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415817933, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `dynamic_menus`
+--
+
+CREATE TABLE IF NOT EXISTS `dynamic_menus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `dynamic_menus`
+--
+
+INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
+(4, 'Верхнее меню', '');
 
 -- --------------------------------------------------------
 
@@ -112,11 +160,11 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `description`) VALUES
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
   `is_cover` int(1) NOT NULL DEFAULT '0',
-  `object_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=59 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -145,6 +193,32 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUE
 (55, 1, 'categories', 7, '/n/o/no-photo-available[16].png'),
 (56, 1, 'categories', 8, '/n/o/no-photo-available[20].png'),
 (58, 1, 'categories', 12, '/n/o/no-photo-available[21].png');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `menus_items`
+--
+
+CREATE TABLE IF NOT EXISTS `menus_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `link` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `menus_items`
+--
+
+INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `description`, `link`) VALUES
+(1, 4, 'item-1', 0, 'описание-2', 'про-2'),
+(2, 4, 'item-2', 0, 'описание', 'про'),
+(3, 4, 'item-1-1', 1, 'описание', 'про'),
+(4, 4, 'item-1-2', 1, 'bla', 'bla_bla');
 
 -- --------------------------------------------------------
 
@@ -309,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `users`

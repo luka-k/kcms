@@ -1,21 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Categories extends MY_Model
+class Articles extends MY_Model
 {
-	//Третий параметр параметры валидации и обработки для функции editors_post
-	//Параметры валидации класса валидации codeignighter
-	//+ можно указывать  функции php которые принимают один параметр
-	//+ хочу расширить класс валмдации на две функции
-	//url - автоматически подставлять значени поля в url если он пуст
-	//и для обработки чекбоксов
-	//вообще расширая класс валидации можно легко делать обработку любых данных
-	//Параметр 'img' используется для обработки изображений
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'parent_id' => array('Родительская категория', 'select', ''),
-			'is_active' => array('Активен', 'checkbox', 'integer'),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', '')
 		),
@@ -24,9 +15,6 @@ class Categories extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
-		),
-		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	

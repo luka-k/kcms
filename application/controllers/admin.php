@@ -65,8 +65,7 @@ class Admin extends CI_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type,
-			'name' => $name,
-			'tree' => $this->categories->get_tree(0, "parent_id")
+			'name' => $name
 		);	
 				
 		if ($this->db->field_exists('sort', $type))
@@ -78,6 +77,11 @@ class Admin extends CI_Controller
 		{
 			$order = FALSE;
 			$direction = FALSE;
+		}
+		
+		if($this->db->field_exists('parent_id', $type))
+		{
+			$type == "products" ? $data['tree'] = $this->categories->get_tree(0, "parent_id") : $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($id == FALSE)
@@ -113,17 +117,31 @@ class Admin extends CI_Controller
 			'type' => $type
 		);
 		
-		if(($type <> "users")and($type <> "settings"))
+		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-			$data['selects'] = array(
-				'parent_id' =>$this->categories->get_tree(0, "parent_id")
-			);
-			$data['editors'] = $this->$type->editors;
+			if($type == "products")
+			{
+				$data['tree'] = $this->categories->get_tree(0, "parent_id");
+				$data['selects'] = array(
+					'parent_id' =>$this->categories->get_tree(0, "parent_id")
+				);
+			}
+			else
+			{
+				$data['tree'] = $this->$type->get_tree(0, "parent_id");
+				$data['selects'] = array(
+					'parent_id' =>$this->$type->get_tree(0, "parent_id")
+				);
+			}
+		}
+		
+		if(($id == FALSE)&&(isset($this->$type->new_editors)))
+		{
+			$data['editors'] = $this->$type->new_editors;
 		}
 		else
 		{
-			$id == FALSE ? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
+			$data['editors'] = $this->$type->editors;
 		}
 		
 		if($id == FALSE)
@@ -168,17 +186,31 @@ class Admin extends CI_Controller
 		
 		$data['content'] = $this->$type->editors_post()->data;
 		
-		if(($type <> "users")and($type <> "settings"))
+		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $this->categories->get_tree(0, "parent_id");
-			$data['selects'] = array(
-				'parent_id' =>$this->categories->get_tree(0, "parent_id")
-			);
-			$data['editors'] = $this->$type->editors;
+			if($type == "products")
+			{
+				$data['tree'] = $this->categories->get_tree(0, "parent_id");
+				$data['selects'] = array(
+					'parent_id' =>$this->categories->get_tree(0, "parent_id")
+				);
+			}
+			else
+			{
+				$data['tree'] = $this->$type->get_tree(0, "parent_id");
+				$data['selects'] = array(
+					'parent_id' =>$this->$type->get_tree(0, "parent_id")
+				);
+			}
+		}
+		
+		if(($data['content']->id == FALSE)&&(isset($this->$type->new_editors)))
+		{
+			$data['editors'] = $this->$type->new_editors;
 		}
 		else
 		{
-			$data['content']->id == FALSE ? $data['editors'] = $this->$type->new_editors : $data['editors'] = $this->$type->editors;
+			$data['editors'] = $this->$type->editors;
 		}
 		
 		if($this->$type->editors_post()->error == TRUE)

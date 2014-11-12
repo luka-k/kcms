@@ -111,6 +111,7 @@ $autoload['language'] = array();
 $autoload['model'] = array(
 	'db/products', 
 	'db/categories', 
+	'db/articles',
 	'db/settings', 
 	'db/users', 
 	'db/orders', 

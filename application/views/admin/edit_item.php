@@ -10,11 +10,7 @@
 					<?if(($type <> "users")and($type <> "settings")):?>
 						<div id="left_col" class="col_4 back">
 							<div id="left-menu">
-								<?if($type == "products"):?>
-									<? require 'include/products_tree.php' ?>
-								<?elseif($type == "categories"):?>
-									<? require 'include/categories_tree.php' ?>
-								<?endif;?>
+								<?require "include/{$type}_tree.php"?>
 							</div>
 						</div>
 					<?endif;?>
