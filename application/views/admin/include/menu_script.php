@@ -10,11 +10,24 @@
 		$.fancybox.open("#item_info");
 		//console.log(item);
 		var form = $('.edit_item');
-		for (var key in res.item) {
-			var val = res.item[key];
-			element = form.find('.'+key);
-			element.val(val);
-		} 
+		if(res.item != ""){
+			for (var key in res.item) {
+				var val = res.item[key];
+				element = form.find('.'+key);
+				element.val(val);
+			}
+		}else{
+			var form = $('.edit_item'),
+			inputs = form.find('.menu_items');
+			
+			inputs.each(function (){ 
+				var element = $(this);
+				var val = null;
+				if(element.attr('name') != "menu_id"){
+					element.val(val);
+				}
+			});
+		}
 	}
 								
 	function edit_item(){
@@ -50,11 +63,13 @@
 			if(res.after){
 				var after = res.after;
 				var item = res.item;
-				$("#menus_items-"+after.id).after("<li id='menus_items-'"+item.id+">"+item.name+" <a href='#' class='various' onclick='item_info(); return false;'><i class='icon-pencil icon-large'></i></a><a href='#' class='lightbox'><i class='icon-minus-sign icon-large'></i></a></li>");
+				$("#menus_items-"+after.id).after("<li id='menus_items-'"+item.id+">"+item.name+" <a href='#' class='various' onclick=''><i class='icon-pencil icon-large'></i></a><a href='#' class='lightbox'><i class='icon-minus-sign icon-large'></i></a></li>");	
+				var link = "item_info('"+item.id+"'); return false;";
+				$('a.various').attr('onclick', link);
 			}
 			$.fancybox.close("#item_info");
 		}else{
-										
+			$('#validation_error').text(res.error);
 		}
 	}
 	

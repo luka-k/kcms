@@ -84,7 +84,7 @@ class Menu_module extends CI_Controller
 			}
 		}
 		$item_content->menu_id = $id;	
-		$item_content->parent_id = $id;
+		$item_content->parent_id = 0;
 		$item_content->img = NULL;
 		
 		//var_dump($this->menus_items->editors);

@@ -38,7 +38,7 @@ class Admin_ajax extends CI_Controller {
 		if($info->error == TRUE)
 		{
 			//Если валидация не прошла формируем сообщение об ошибке
-			$resultat['error'] = validation_errors();;
+			$resultat['error'] = strip_tags(validation_errors());
 		}
 		else
 		{

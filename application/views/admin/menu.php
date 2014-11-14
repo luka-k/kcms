@@ -67,7 +67,7 @@
 							<div class="col_12">						
 								<h6 class="col_8 left" onclick="ok()">Пункты меню</h6> 
 								<div class="col_4 right">
-									<a href="#item_info" class="button small lightbox">Создать</a>
+									<a href="#" onclick="item_info(''); return false;" class="button small">Создать</a>
 								</div>
 							</div>
 							
@@ -98,6 +98,9 @@
 								<div class="pop-up">
 									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="#">
 										<a href="#" class="btn small" onclick="edit_item()">Сохранить</a>
+										<div style="margin-top:5px; color:red;">
+											<span id="validation_error"></span>
+										</div>
 										<?foreach($items_editors as $item_editors):?>
 											<?$editors_counter = 1?>
 											<?foreach($item_editors as $name => $edit):?>
