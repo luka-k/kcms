@@ -7,6 +7,7 @@
 	}
 																
 	function item_info_answer(res){
+		$('#validation_error').text("");
 		$.fancybox.open("#item_info");
 		//console.log(item);
 		var form = $('.edit_item');
@@ -17,16 +18,7 @@
 				element.val(val);
 			}
 		}else{
-			var form = $('.edit_item'),
-			inputs = form.find('.menu_items');
-			
-			inputs.each(function (){ 
-				var element = $(this);
-				var val = null;
-				if(element.attr('name') != "menu_id"){
-					element.val(val);
-				}
-			});
+			clear_form();		
 		}
 	}
 								
@@ -47,25 +39,19 @@
 	}
 								
 	function update_menu(res){
-		console.log(res);
+		//console.log(res);
 		if(res.error == false){
-			var form = $('.edit_item'),
-			inputs = form.find('.menu_items');
-			
-			inputs.each(function (){ 
-				var element = $(this);
-				var val = null;
-				if(element.attr('name') != "menu_id"){
-					element.val(val);
-				}
-			});
+			clear_form();
 			
 			if(res.after){
 				var after = res.after;
 				var item = res.item;
-				$("#menus_items-"+after.id).after("<li id='menus_items-'"+item.id+">"+item.name+" <a href='#' class='various' onclick=''><i class='icon-pencil icon-large'></i></a><a href='#' class='lightbox'><i class='icon-minus-sign icon-large'></i></a></li>");	
-				var link = "item_info('"+item.id+"'); return false;";
-				$('a.various').attr('onclick', link);
+				
+				$("#menus_items-"+after.id).after("<li id='menus_items-'"+item.id+">"+item.name+" <a href='#' class='edit' onclick=''><i class='icon-pencil icon-large'></i></a><a href='#' class='del' onclick=''><i class='icon-minus-sign icon-large'></i></a></li>");	
+				var edit_link = "item_info('"+item.id+"'); return false;";
+				var del_link = "delete_menu_item('"+res.base_url+"', '"+item.id+"', '"+item.name+"'); return false;"
+				$('a.edit').attr('onclick', edit_link);
+				$('a.del').attr('onclick', del_link);
 			}
 			$.fancybox.close("#item_info");
 		}else{
@@ -79,5 +65,18 @@
 		$('#item_name').text(item_name);
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
+	}
+	
+	function clear_form(){
+		var form = $('.edit_item'),
+		inputs = form.find('.menu_items');
+			
+		inputs.each(function (){ 
+			var element = $(this);
+			var val = null;
+			if(element.attr('name') != "menu_id"){
+				element.val(val);
+			}
+		});	
 	}
 </script>

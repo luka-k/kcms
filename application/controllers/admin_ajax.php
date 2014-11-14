@@ -53,10 +53,11 @@ class Admin_ajax extends CI_Controller {
 				
 				$info->data->sort = $max_sort+1;
 				$this->menus_items->insert($info->data);
-				$info->id = $this->db->insert_id();
+				$info->data->id = $this->db->insert_id();
 				
 				$resultat['after'] = $this->menus_items->get_item_by(array("parent_id" => $info->data->parent_id, "sort" => $max_sort));
 				$resultat['item'] = $info->data;
+				$resultat['base_url'] = base_url();
 			}
 			else
 			{
