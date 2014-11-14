@@ -42,7 +42,7 @@
 											</td>
 											<td class="tb_7"><a href="<?=base_url()?>menu_module/menu/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_9"><a href="<?=base_url()?>menu_module/menu//<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_9"><a href="<?=base_url()?>menu_module/menu/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_1"><a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-2x"></i></a></td>
 										<!--popup on delete-->
