@@ -16,7 +16,7 @@ class Menus_items extends MY_Model
 	
 	public function menu_tree($menu_id, $parent_id = 0)
 	{
-		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id));
+		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);

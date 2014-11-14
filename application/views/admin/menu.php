@@ -75,13 +75,13 @@
 								<?if(isset($menu_items)):?>
 									<ul id="sortable">
 										<?foreach($menu_items as $item):?>
-											<li><?=$item->name?> 
-												<a href="#" class="various" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
-												<a href="#delete-<?=$item->id?>" class="lightbox"><i class="icon-minus-sign icon-large"></i></a>
+											<li id="menus_items-<?=$item->id?>"><?=$item->name?> 
+												<a href="#" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
+												<a href="#" onclick="delete_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 												<?if(!empty($item->childs)):?>
 													<ul id="sortable-1">
 														<?foreach($item->childs as $item_2):?>
-															<li><?=$item_2->name?></li>
+															<li id="menus_items-<?=$item_2->id?>"><?=$item_2->name?></li>
 														<?endforeach;?>
 													</ul>
 												<?endif;?>
@@ -90,48 +90,8 @@
 									</ul>
 								<?endif;?>
 							</div>
-							<script>
-								function item_info(id){
-									var data = {};
-									data.id = id;
-									var json_str = JSON.stringify(data);
-									$.post("/admin_ajax/menu_item/", json_str, item_info_answer, "json");
-								}
-																
-								function item_info_answer(res){
-									$.fancybox.open("#item_info");
-									//console.log(item);
-									var form = $('.edit_item');
-									for (var key in res.item) {
-										var val = res.item[key];
-										element = form.find('.'+key);
-										element.val(val);
-									} 
-								}
-								
-								function edit_item(){
-									var form = $('.edit_item'),
-									inputs = form.find('.menu_items'),
-									data = {},
-									info = {};
-									
-									inputs.each(function () {
-										var element = $(this);
-										info[element.attr('name')] = element.val();
-									});	
-									
-									//console.log(info);
-									
-									data.info = info;
-									var json_str = JSON.stringify(data);
-									$.post("/admin_ajax/edit_item/", json_str, update_menu, "json");
-									
-									function update_menu(resultat){
-									
-									}
-								}
-							</script>
-							<div id="item_info" class="various" style="display:none;">
+							
+							<div id="item_info" style="display:none;">
 								<div class="pop-up">
 									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="#">
 										<a href="#" class="btn small" onclick="edit_item()">Сохранить</a>
@@ -146,12 +106,23 @@
 								</div>
 							</div>
 							
+							<div id="delete_item" style="display:none;">
+								<div class="pop-up">
+									<div>
+										Вы точно уверены что хотите удалалить - <strong id="item_name"></strong>?
+									</div><br/>
+									<a href="" class="delete_button button small">Удалить?</a>
+									<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
+								</div>
+							</div>
+							
 						</div>
 					<?endif;?>
 				</div>
 			</div>
 		</div>
-		<? require 'include/footer_scripth.php' ?>
+		<? require 'include/menu_script.php' ?>
+		<? require 'include/footer_script.php' ?>
 		<? require 'footer.php' ?>
 	</body>
 </html>

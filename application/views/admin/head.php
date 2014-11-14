@@ -17,39 +17,4 @@
 		<!--FANCYBOX-->
 		<script type="text/javascript" src="<?=base_url()?>template/admin/fancybox/source/jquery.fancybox.js"></script>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/admin/fancybox/source/jquery.fancybox.css" media="all" />
-		
-		<script type="text/javascript">			
-			$(function() {
-				$('#sortable').sortable({cursor:'move'});
-				$('#sortable').sortable({cursorAt:{left:5}})
-				$('#sortable').sortable({
-					axis: 'y',
-					update: function (event, ui) {
-						var data = $(this).sortable('serialize');
-						$.ajax({
-							data: data,
-							type: 'POST',
-							url: '/ajax/sortable'
-						});
-					}
-				});
-			});
-			
-			$(function() {
-				$('#sortable-1').sortable({cursor:'move'});
-				$('#sortable-1').sortable({cursorAt:{left:5}})
-				$('#sortable-1').sortable({
-					axis: 'y',
-					update: function (event, ui) {
-						var data = $(this).sortable('serialize');
-						$.ajax({
-							data: data,
-							type: 'POST',
-							url: '/ajax/sortable'
-						});
-					}
-				});
-			});
-		</script>
-	
 	</head>

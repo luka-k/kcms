@@ -167,25 +167,6 @@ class Menu_module extends CI_Controller
 		$exit == false ? redirect(base_url()."menu_module/menu/".$content->id) : redirect(base_url().'menu_module/menus');
 	}
 	
-	/*public function edit_item($id = FALSE)
-	{
-		$this->menu = $this->menus->set_active($this->menu, "menus");
-		
-		$editors = $this->dynamic_menus->editors;
-		$items_editors = $this->menus_items->editors;	
-
-		$data = array(
-			'title' => "Редактировать меню",
-			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menu,
-			'type' => "dynamic_menus",
-			'editors' => $editors,
-			'content' => $content
-		);
-	}*/
-	
 	public function delete_menu($id)
 	{
 		if($this->dynamic_menus->delete($id)) redirect(base_url().'menu_module/menus');
@@ -199,5 +180,11 @@ class Menu_module extends CI_Controller
 		);
 		$item_id = $this->images->delete_img($object_info);
 		redirect(base_url().'menu_module/menu/'.$item_id);
+	}
+	
+	public function delete_item($id)
+	{
+		$menu = $this->menus_items->get_item_by(array("id" => $id));
+		if($this->menus_items->delete($id)) redirect(base_url().'menu_module/menu/'.$menu->menu_id);
 	}
 }

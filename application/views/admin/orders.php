@@ -100,7 +100,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'include/footer_scripth.php' ?>
+		<? require 'include/footer_script.php' ?>
 		<? require 'include/orders_script.php'?>
 		<? require 'footer.php' ?>
 	</body>

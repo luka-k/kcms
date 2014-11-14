@@ -1,11 +1,43 @@
 <script>
+	$(function() {
+		$('#sortable').sortable({cursor:'move'});
+		$('#sortable').sortable({cursorAt:{left:5}})
+		$('#sortable').sortable({
+			axis: 'y',
+			update: function (event, ui) {
+				var data = $(this).sortable('serialize');
+				$.ajax({
+					data: data,
+					type: 'POST',
+					url: '/admin_ajax/sortable/'
+				});
+			}
+		});
+	});
+	
+	$(function() {
+		$('#sortable-1').sortable({cursor:'move'});
+		$('#sortable-1').sortable({cursorAt:{left:5}})
+		$('#sortable-1').sortable({
+			axis: 'y',
+			update: function (event, ui) {
+				var data = $(this).sortable('serialize');
+				$.ajax({
+					data: data,
+					type: 'POST',
+					url: '/admin_ajax/sortable/'
+				});
+			}
+		});
+	});
+
 	function change_sort(type, item_id, sort){
 		data = new Object();
 		data.type = type;
 		data.item_id = item_id;
 		data.sort = sort;
 		var json_str = JSON.stringify(data);
-		$.post ("/ajax/change_sort/", json_str, update_items, "json");
+		$.post ("/admin_ajax/change_sort/", json_str, update_items, "json");
 	}
 	
 	function update_items(res){
