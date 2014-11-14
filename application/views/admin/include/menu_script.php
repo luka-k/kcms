@@ -58,7 +58,7 @@
 		}
 	}
 	
-	function delete_item(base_url, item_id, item_name){
+	function delete_menu_item(base_url, item_id, item_name){
 		var href;
 		href = base_url+"menu_module/delete_item/"+item_id;
 		$('#item_name').text(item_name);

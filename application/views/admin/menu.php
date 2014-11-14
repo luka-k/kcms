@@ -77,13 +77,13 @@
 										<?foreach($menu_items as $item):?>
 											<li id="menus_items-<?=$item->id?>" <?if(!empty($item->childs)):?> class="down" <?endif;?>><?=$item->name?> 
 												<a href="#" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
-												<a href="#" onclick="delete_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+												<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 												<?if(!empty($item->childs)):?>
 													<ul id="sortable-1">
 														<?foreach($item->childs as $item_2):?>
 															<li id="menus_items-<?=$item_2->id?>"><?=$item_2->name?>
 																<a href="#" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
-																<a href="#" onclick="delete_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 															</li>
 														<?endforeach;?>
 													</ul>
