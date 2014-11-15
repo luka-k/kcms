@@ -101,11 +101,13 @@ class Menu_module extends CI_Controller
 			'menu_items' => $this->menus_items->menu_tree($id),
 			'items_editors' => $this->menus_items->editors,
 			'selects' => array(
-				'parent_id' =>$this->menus_items->menu_tree($id)
+				'parent_id' =>$this->menus_items->menu_tree($id),
+				'link' => $this->articles->get_site_tree(0, "parent_id")
 			),
 			'item_content' => $item_content
 		);	
-			
+		//var_dump($data['selects']['link']);	
+		//var_dump($data['item_content']);
 		$this->load->view("admin/menu", $data);
 	}
 	
