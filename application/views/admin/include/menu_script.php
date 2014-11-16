@@ -15,7 +15,9 @@
 			for (var key in res.item) {
 				var val = res.item[key];
 				element = form.find('.'+key);
-				element.val(val);
+				if(element.attr('type') != 'radio'){
+					element.val(val);
+				}
 			}
 		}else{
 			clear_form();		
@@ -32,7 +34,7 @@
 			var element = $(this);
 			info[element.attr('name')] = element.val();
 		});	
-									
+		//console.log(info);						
 		data.info = info;
 		var json_str = JSON.stringify(data);
 		$.post("/admin_ajax/edit_item/", json_str, update_menu, "json");
@@ -74,7 +76,7 @@
 		inputs.each(function (){ 
 			var element = $(this);
 			var val = null;
-			if(element.attr('name') != "menu_id"){
+			if(element.attr('name') != "menu_id" && element.attr('type') != 'radio'){
 				element.val(val);
 			}
 		});	

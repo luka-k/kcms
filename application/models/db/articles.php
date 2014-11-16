@@ -26,6 +26,45 @@ class Articles extends MY_Model
 		$this->load->database();
 	}
 	
+	public function url_parse($segment_number, $parent = FALSE)
+	{
+		$url = $this->uri->segment($segment_number);
+		
+		if(!$url) return FALSE;
+		
+		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
+		if(!$child)
+		{
+			return '404';
+		}
+		else
+		{
+			$this->add_active($child->id);
+			if($segment_number == 2) $url = "articles/".$url; 
+			$this->breadcrumbs->add($url, $child->name);
+			//если дошли до 4 сегмента url
+			//то есть до 3 уровняя влодежости
+			//формируем статью.
+			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
+			if($segment_number == 4)
+			{
+				$parent->article = $this->get_item_by(array('url' => $url));
+				return $parent;
+			}
+			else
+			{
+				if ($this->uri->segment($segment_number+1))
+				{
+					return $this->url_parse($segment_number + 1, $child);
+				}
+				else 
+				{
+					return $child;
+				}
+			}
+		}
+	}
+	
 	public function get_url($url)
 	{
 		$this->full_url = NULL;
@@ -46,13 +85,13 @@ class Articles extends MY_Model
 		}
 		else
 		{
-			$this->full_url[] = 'catalog';
+			$this->full_url[] = 'articles';
 		}
 	}	
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "catalog_mid", "1");
+		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
 		return $item;
 	}

@@ -9,7 +9,8 @@ class Menus_items extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'parent_id' => array('Родительский пункт меню', 'select', ''),
 			'description' => array('Описание', 'text', ''),
-			'link' => array('Ссылка', 'link', '')//,
+			'item_type' => array('Тип пункта', 'type', ''),
+			'url' => array('Ссылка', 'link', '')//,
 			//'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
@@ -23,9 +24,5 @@ class Menus_items extends MY_Model
 		}		
 		return $branches;
 	}
-	
-	public function get_items()
-	{
-		
-	}
+
 }

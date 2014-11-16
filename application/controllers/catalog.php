@@ -15,7 +15,7 @@ class Catalog extends CI_Controller {
 		
 		$direction = $this->input->get('direction');
 		
-		$this->breadcrumbs->Add("catalog", "Каталог");
+		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$top_menu = $this->menus->top_menu;
 		
@@ -23,7 +23,6 @@ class Catalog extends CI_Controller {
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'breadcrumbs' => $this->breadcrumbs->get(),
 			'cart' => $this->cart->get_all(),
 			'total_price' => $this->cart->total_price(),
 			'total_qty' => $this->cart->total_qty(),
@@ -33,7 +32,7 @@ class Catalog extends CI_Controller {
 			'user' => $this->users->get_item_by(array("id" => $user_id))
 		);
 
-		$category = $this->url_model->url_parse(2);
+		$category = $this->categories->url_parse(2);
 
 		if ($category == FALSE)
 		{
@@ -46,6 +45,7 @@ class Catalog extends CI_Controller {
 			$data['meta_title'] = $settings->site_title;
 			$data['meta_keywords'] = $settings->site_keywords;
 			$data['meta_description'] = $settings->site_description;
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['content'] = $content;
 			
 			$this->load->view('client/categories.php', $data);			
@@ -54,10 +54,9 @@ class Catalog extends CI_Controller {
 		{
 			if(isset($category->product))
 			{
-				$content = $this->products->get_item_by(array("url" => $category->product->url));
-				$content = $this->products->prepare($content);
+				$content = $this->products->prepare($category->product);
 				
-				$template = "client/page.php";
+				$template = "client/product.php";
 			}
 			else
 			{
@@ -67,7 +66,7 @@ class Catalog extends CI_Controller {
 					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 					$content = $this->products->get_prepared_list($content);
 										
-					$template = "client/pages.php";
+					$template = "client/products.php";
 				}
 				else
 				{
@@ -82,7 +81,7 @@ class Catalog extends CI_Controller {
 			$data['meta_keywords'] = $category->meta_keywords;
 			$data['meta_description'] = $category->meta_description;
 			$data['content'] = $content;
-			
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$this->load->view($template, $data);
 		}
 	}

@@ -34,7 +34,9 @@ class Admin_ajax extends CI_Controller {
 	{
 		$data = json_decode(file_get_contents('php://input', true));
 		$info = (array)$data->info;
+		//var_dump($info);
 		$info = $this->menus_items->editors_post($info);
+		//var_dump($info);
 		if($info->error == TRUE)
 		{
 			//Если валидация не прошла формируем сообщение об ошибке

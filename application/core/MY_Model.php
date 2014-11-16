@@ -420,7 +420,7 @@ class MY_Model extends CI_Model
 	{
 		foreach($info as $key => $item)
 		{
-			$info[$key] = $this->prepare($item, "1");
+			$info[$key] = $this->prepare($item);
 		}
 		return $info;
 	}
@@ -428,7 +428,6 @@ class MY_Model extends CI_Model
 	function editors_post($post = FALSE)
 	{
 		if($_POST == FALSE) $_POST = $post;
-		
 		$return = new stdCLass();
 		
 		if(empty($post['id'])&&(isset($this->new_editors)))

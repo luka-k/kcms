@@ -66,7 +66,6 @@ class Menu_module extends CI_Controller
 		else
 		{			
 			$content = $this->dynamic_menus->get_item_by(array("id" => $id));
-			$menu_items = $this->menus_items->get_items(array("menu_id" => $id));
 
 			$object_info = array(
 				"object_type" => "dynamic_menus",
@@ -87,7 +86,10 @@ class Menu_module extends CI_Controller
 		$item_content->parent_id = 0;
 		$item_content->img = NULL;
 		
-		//var_dump($this->menus_items->editors);
+		//Задаем типы ссылок на которые может ссылаться пункт меню
+		$types = array(
+			"Статьи" => "articles"
+		);
 		
 		$data = array(
 			'title' => "Редактировать меню",
@@ -102,8 +104,9 @@ class Menu_module extends CI_Controller
 			'items_editors' => $this->menus_items->editors,
 			'selects' => array(
 				'parent_id' =>$this->menus_items->menu_tree($id),
-				'link' => $this->articles->get_site_tree(0, "parent_id")
+				'url' => $this->articles->get_site_tree(0, "parent_id")
 			),
+			'types' => $types,
 			'item_content' => $item_content
 		);	
 		//var_dump($data['selects']['link']);	
@@ -164,8 +167,6 @@ class Menu_module extends CI_Controller
 				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
 		}
-		
-		
 		$exit == false ? redirect(base_url()."menu_module/menu/".$content->id) : redirect(base_url().'menu_module/menus');
 	}
 	
