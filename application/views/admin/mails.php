@@ -7,7 +7,7 @@
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
 					<div class="col_12 clearfix">
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_mails/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/mails/edit_mails/"/>
 							<a href="#" onClick="document.forms['form1'].submit()" class="btn small">Сохранить</a>
 							
 							<table>
