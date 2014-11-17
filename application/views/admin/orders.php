@@ -10,12 +10,12 @@
 						<h5>Заказы</h5>
 						<?if(isset($orders_info)):?>
 						<div class="col_12 clerfix">
-							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/admin_orders/orders/by_order_id"/>
+							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/admin_orders/index/by_order_id"/>
 								Найти по номеру заказа <input type="text" name="order_id" onchange="document.forms['form1'].submit()"/>&nbsp;
 								Показать со статусом: 
-								<a href="<?=base_url()?>admin/admin_orders/orders">Все</a>&nbsp;
+								<a href="<?=base_url()?>admin/admin_orders/">Все</a>&nbsp;
 								<?foreach($selects['status_id'] as $key => $item):?>
-									<a href="<?=base_url()?>admin/admin_orders/orders/<?=$key?>"><?=$item?></a>&nbsp;
+									<a href="<?=base_url()?>admin/admin_orders/index/<?=$key?>"><?=$item?></a>&nbsp;
 								<?endforeach;?>
 							</form>
 						</div>

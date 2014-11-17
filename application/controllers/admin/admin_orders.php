@@ -13,7 +13,7 @@ class Admin_orders extends Admin_Controller
 	
 	/*----------Вывод заказов в админку----------*/
 	
-	public function orders($filter = FALSE)
+	public function index($filter = FALSE)
 	{
 		$this->config->load('order_config');
 
