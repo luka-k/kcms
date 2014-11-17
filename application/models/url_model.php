@@ -9,9 +9,9 @@ class Url_model extends MY_Model
 	
 	public function admin_url_parse()
 	{
-		$type = $this->uri->segment(2);
-		$base = $this->uri->segment(3);
-		$id = $this->uri->segment(4);
+		$type = $this->uri->segment(3);
+		$base = $this->uri->segment(4);
+		$id = $this->uri->segment(5);
 
 		if(($type == "item")and($base == "products"))
 		{

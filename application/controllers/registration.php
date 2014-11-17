@@ -43,7 +43,7 @@ class Registration extends CI_Controller
 		} 
 		else 
 		{
-			redirect(base_url().'admin/admin_main');	
+			redirect(base_url().'admin');	
 		}	
 	}
 	

@@ -24,7 +24,7 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/edit_item/<?=$type?>"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/edit_item/<?=$type?>"/>
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error;?>
@@ -36,7 +36,7 @@
 											<div>
 												Вы точно уверены что хотите удалалить - <strong><?=$content->name?></strong>?
 											</div><br/>
-											<a href="<?=base_url()?>admin/delete_item/<?=$type?>/<?=$content->id?>" class="button small">Удалить?</a>
+											<a href="<?=base_url()?>admin/content/delete_item/<?=$type?>/<?=$content->id?>" class="button small">Удалить?</a>
 											<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 										</div>
 									</div>

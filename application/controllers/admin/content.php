@@ -1,50 +1,14 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Admin class
+// Base admin class
 
-class Admin extends CI_Controller 
-{	
-	public $menu;
-	public $user_name;
-	public $user_id;
+class Content extends Admin_Controller 
+{
 
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$user = $this->session->userdata('logged_in');
-		$role = $this->session->userdata('role');
-
-		if ((!$user)||($role <> "admin")) die(redirect(base_url().'registration/admin_enter'));	
-		
-		$this->menu = $this->menus->admin_menu;
-		$this->user_name = $this->session->userdata('user_name');
-		$this->user_id = $this->session->userdata('user_id');
-		
-		$this->config->load('emails_config');
-	}
-	
-	public function index()
-	{
-		redirect(base_url().'admin/admin_main');
-	}
-
-	//Главная страница
-	public function admin_main()
-	{		
-		$this->menu = $this->menus->set_active($this->menu, 'main');
-
-		$data = array(
-			'title' => "Главная",
-			'meta_title' => "Главная",
-			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menu
-		);
-		
-		$this->load->view('admin/admin.php', $data);
 	}
 	
 	public function items($type, $id = FALSE)
@@ -249,129 +213,14 @@ class Admin extends CI_Controller
 				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
 
-			$exit == false ? redirect(base_url().'admin/item/'.$type."/".$data['content']->id) : redirect(base_url().'admin/items/'.$type);		
+			$exit == false ? redirect(base_url().'admin/content/item/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type);		
 		}	
 	}
 	
-	//Удаление категории
+	//Удаление элемента
 	public function delete_item($type, $id)
 	{
-		if($this->$type->delete($id)) redirect(base_url().'admin/items/'.$type);
+		if($this->$type->delete($id)) redirect(base_url().'admin/content/items/'.$type);
 	}
 	
-	/*--------------Удаление изображения-------------*/
-	
-	public function delete_img($object_type, $id)
-	{
-		$object_info = array(
-			"object_type" => $object_type,
-			"id" => $id
-		);
-		$item_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/item/'.$object_type."/".$item_id);
-	}
-			
-	/*----------Вывод заказов в админку----------*/
-	
-	public function orders($filter = FALSE)
-	{
-		$this->config->load('order_config');
-
-		$this->menu = $this->menus->set_active($this->menu, 'orders');
-		$delivery_id = $this->config->item('method_delivery');
-		$payment_id = $this->config->item('method_pay');
-		
-		if ($filter == FALSE)
-		{
-			$orders = $this->orders->get_list(FALSE);
-		}
-		elseif($filter == "by_order_id")
-		{
-			$order_id = $this->input->post("order_id");
-			$orders = $this->orders->get_list(array("order_id" => $order_id));
-		}
-		else
-		{
-			$orders = $this->orders->get_list(array("status_id" => $filter));
-		}
-		
-		$orders_info = array();
-		foreach ($orders as $key => $order)
-		{	
-			$orders_info[$key] = new stdClass();	
-			
-			$date = new DateTime($order->date);
-
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
-			
-			$orders_info[$key] = (object)array(
-				"order_id" => $order->order_id,
-				"status_id" => $order->status_id,
-				"order_products" => $order_items,
-				"delivery_id" => $order->delivery_id,
-				"payment_id" => $order->payment_id,
-				"order_date" => date_format($date, 'Y-m-d'),
-				"name" => $order->user_name,
-				"phone" => $order->user_phone,
-				"email" => $order->user_email,
-				"address" => $order->user_address
-			);
-			
-		}
-		
-		$data = array(
-			'title' => "Заказы",			
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'orders_info' => array_reverse($orders_info),
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay'),
-				'status_id' => $this->config->item('order_status')
-			),
-			'menu' => $this->menu
-		);		
-		$this->load->view('admin/orders.php', $data);
-	}
-	
-	/*----------Отправка писем----------*/
-	
-	public function mails()
-	{
-		$this->menu = $this->menus->set_active($this->menu, 'settings');
-
-		$data = array(
-			'title' => "Редактировать настройки писем",
-			'meta_title' => "Редактировать настройки писем",
-			'error' => " ",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menu,
-			'emails' => $this->emails->get_list(FALSE),
-			'select' => $this->config->item('message_type')
-		);
-		
-		$this->load->view('admin/mails.php', $data);
-	}
-	
-	public function edit_mails()
-	{
-		$mails = $this->input->post();
-
-		foreach($mails['type'] as $key => $value)
-		{
-			$emails[$key] = array(
-				"id" => $mails['id'][$key],
-				"type" => $mails['type'][$key],
-				"subject" => $mails['subject'][$key],
-				"description" => $mails['description'][$key],
-			);
-		}
-	
-		foreach($emails as $mail)
-		{
-			$this->emails->update($mail['id'], $mail);
-		}	
-		redirect(base_url().'admin/mails');
-	}	
 }

@@ -46,7 +46,7 @@
 	
 	function delete_item(base_url, type, item_id, item_name){
 		var href;
-		href = base_url+"admin/delete_item/"+type+"/"+item_id;
+		href = base_url+"admin/content/delete_item/"+type+"/"+item_id;
 		$('#item_name').text(item_name);
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
