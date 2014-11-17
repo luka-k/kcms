@@ -25,3 +25,4 @@ class Admin_Controller extends CI_Controller
 		$this->config->load('emails_config');
 	}
 }
+

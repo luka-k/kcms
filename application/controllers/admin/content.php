@@ -1,8 +1,6 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Base admin class
-
 class Content extends Admin_Controller 
 {
 
@@ -221,6 +219,18 @@ class Content extends Admin_Controller
 	public function delete_item($type, $id)
 	{
 		if($this->$type->delete($id)) redirect(base_url().'admin/content/items/'.$type);
+	}
+	
+	/*--------------Удаление изображения-------------*/
+	
+	public function delete_img($object_type, $id)
+	{
+		$object_info = array(
+			"object_type" => $object_type,
+			"id" => $id
+		);
+		$item_id = $this->images->delete_img($object_info);
+		redirect(base_url().'admin/item/'.$object_type."/".$item_id);
 	}
 	
 }

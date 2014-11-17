@@ -30,7 +30,7 @@
 									<div>
 										Вы точно уверены что хотите удалалить изображение?
 									</div><br/>
-									<a href="<?=base_url()?>admin/delete_img/<?=$type?>/<?=$img_item->id?>" class="button small">Удалить?</a>
+									<a href="<?=base_url()?>admin/content/delete_img/<?=$type?>/<?=$img_item->id?>" class="button small">Удалить?</a>
 									<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 								</div>
 							</div>
