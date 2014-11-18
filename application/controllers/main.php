@@ -2,7 +2,7 @@
 
 // Главная страница
 
-class Main extends CI_Controller {
+class Main extends Client_Controller {
 
 	public function __construct()
 	{
@@ -12,17 +12,15 @@ class Main extends CI_Controller {
 	public function index()
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
-		$top_menu = $this->menus->top_menu;
 		
 		$left_menu = $this->dynamic_menus->get_menu(4);
 		
-		$menu = $this->menus->set_active($top_menu, 'main');
 		$data = array(
 			'title' => $settings->site_title,
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
-			'top_menu' => $top_menu,
+			'top_menu' => $this->menus->set_active($this->top_menu, 'main'),
 			'left_menu' => $left_menu
 		);
 		$this->load->view('client/main.php', $data);
