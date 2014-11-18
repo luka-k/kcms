@@ -19,14 +19,14 @@
 						</ul>
 					
 						<?php $tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="menu_edit" action="<?=base_url()?>menu_module/edit_menu/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="menu_edit" action="<?=base_url()?>admin/menu_module/edit_menu/"/>
 							<?php foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<div class="col_12">
-										<a href="<?=base_url()?>menu_module/menus/" class="btn small">Назад</a>
+										<a href="<?=base_url()?>admin/menu_module/menus/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onClick="document.forms['menu_edit'].submit()">Сохранить</a>
 										<?if($content->id):?>
-											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>menu_module/edit_menu/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
+											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>admin/menu_module/edit_menu/1'); document.forms['menu_edit'].submit()">Сохранить и выйти</a>
 										<?endif;?>
 									</div>
 									<?=$error;?>
@@ -38,7 +38,7 @@
 											<div>
 												Вы точно уверены что хотите удалалить - <strong><?=$content->name?></strong>?
 											</div><br/>
-											<a href="<?=base_url()?>admin/delete_item/<?=$content->id?>" class="button small">Удалить?</a>
+											<a href="<?=base_url()?>admin/menu_module/delete_menu/<?=$content->id?>" class="button small">Удалить?</a>
 											<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 										</div>
 									</div>
@@ -50,10 +50,10 @@
 										<?$editors_counter++?>
 									<?php endforeach?>
 									<div class="col_12">
-										<a href="<?=base_url()?>menu_module/menus/" class="btn small">Назад</a>
+										<a href="<?=base_url()?>admin/menu_module/menus/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onClick="document.forms['menu_edit'].submit()">Сохранить</a>
 										<?if($content->id):?>
-											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>menu_module/edit_menu/1'); document.forms['form1'].submit()">Сохранить и выйти</a>
+											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>admin/menu_module/edit_menu/1'); document.forms['menu_edit'].submit()">Сохранить и выйти</a>
 										<?endif;?>
 									</div>
 								</div>

@@ -1,36 +1,21 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Menu_module extends CI_Controller 
+class Menu_module extends Admin_Controller 
 {	
-	public $menu;
-	public $user_name;
-	public $user_id;
-	
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$user = $this->session->userdata('logged_in');
-		$role = $this->session->userdata('role');
-
-		if ((!$user)||($role <> "admin")) die(redirect(base_url().'registration/admin_enter'));	
-		
-		$this->menu = $this->menus->admin_menu;
-		$this->user_name = $this->session->userdata('user_name');
-		$this->user_id = $this->session->userdata('user_id');
 	}
 	
 	public function menus()
-	{
-		$this->menu = $this->menus->set_active($this->menu, "menus");
-		
+	{		
 		$data = array(
 			'title' => "Меню",
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
-			'menu' => $this->menu,
+			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE)
 		);	
@@ -40,13 +25,11 @@ class Menu_module extends CI_Controller
 			$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
 			$data['images'] = TRUE;
 		}
-		
 		$this->load->view("admin/menus", $data);
 	}
 	
 	public function menu($id = FALSE)
 	{
-		$this->menu = $this->menus->set_active($this->menu, "menus");
 		$editors = $this->dynamic_menus->editors;
 		$items_editors = $this->menus_items->editors;
 		
@@ -60,7 +43,6 @@ class Menu_module extends CI_Controller
 					$content->$item = "";
 				}
 			}
-			
 			$content->img = NULL;
 		}	
 		else
@@ -96,7 +78,7 @@ class Menu_module extends CI_Controller
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
-			'menu' => $this->menu,
+			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'type' => "dynamic_menus",
 			'editors' => $editors,
 			'content' => $content,
@@ -109,15 +91,11 @@ class Menu_module extends CI_Controller
 			'types' => $types,
 			'item_content' => $item_content
 		);	
-		//var_dump($data['selects']['link']);	
-		//var_dump($data['item_content']);
 		$this->load->view("admin/menu", $data);
 	}
 	
 	public function edit_menu($exit = FALSE)
 	{
-		$this->menu = $this->menus->set_active($this->menu, "menus");
-		
 		$editors = $this->dynamic_menus->editors;
 		$items_editors = $this->menus_items->editors;
 		
@@ -128,7 +106,7 @@ class Menu_module extends CI_Controller
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
-			'menu' => $this->menu,
+			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'type' => "dynamic_menus",
 			'editors' => $editors,
 			'content' => $content
@@ -167,12 +145,12 @@ class Menu_module extends CI_Controller
 				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
 		}
-		$exit == false ? redirect(base_url()."menu_module/menu/".$content->id) : redirect(base_url().'menu_module/menus');
+		$exit == false ? redirect(base_url()."admin/menu_module/menu/".$content->id) : redirect(base_url().'admin/menu_module/menus');
 	}
 	
 	public function delete_menu($id)
 	{
-		if($this->dynamic_menus->delete($id)) redirect(base_url().'menu_module/menus');
+		if($this->dynamic_menus->delete($id)) redirect(base_url().'admin/menu_module/menus');
 	}
 	
 	public function delete_img($id)
@@ -182,12 +160,12 @@ class Menu_module extends CI_Controller
 			"id" => $id
 		);
 		$item_id = $this->images->delete_img($object_info);
-		redirect(base_url().'menu_module/menu/'.$item_id);
+		redirect(base_url().'admin/menu_module/menu/'.$item_id);
 	}
 	
 	public function delete_item($id)
 	{
 		$menu = $this->menus_items->get_item_by(array("id" => $id));
-		if($this->menus_items->delete($id)) redirect(base_url().'menu_module/menu/'.$menu->menu_id);
+		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/'.$menu->menu_id);
 	}
 }
