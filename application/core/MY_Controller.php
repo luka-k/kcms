@@ -26,3 +26,22 @@ class Admin_Controller extends CI_Controller
 	}
 }
 
+class Client_Controller extends CI_Controller
+{
+	protected $top_menu;
+	protected $user_id;
+	protected $cart_items;
+	protected $total_price;
+	protected $total_qty;
+	
+	function __construct()
+	{
+		parent::__construct();
+				
+		$this->top_menu = $this->menus->top_menu;
+		$this->user_id = $this->session->userdata('user_id');
+		$this->cart_items = $this->cart->get_all();
+		$this->total_price = $this->cart->total_price();
+		$this->total_qty = $this->cart->total_qty();
+	}
+}

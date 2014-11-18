@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Catalog extends CI_Controller {
+class Catalog extends Client_Controller {
 
 	public function __construct()
 	{
@@ -17,19 +17,15 @@ class Catalog extends CI_Controller {
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
-		$top_menu = $this->menus->top_menu;
-		
-		$user_id = $this->session->userdata('user_id');
-		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'cart' => $this->cart->get_all(),
-			'total_price' => $this->cart->total_price(),
-			'total_qty' => $this->cart->total_qty(),
-			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($top_menu, 'catalog'),
+			'cart_items' => $this->cart_items,
+			'total_price' => $this->total_price,
+			'total_qty' => $this->total_qty,
+			'product_word' => end_maker("товар", $this->total_qty),
+			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
 			'url' => $url,
-			'user' => $this->users->get_item_by(array("id" => $user_id))
+			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 
 		$category = $this->categories->url_parse(2);
@@ -90,10 +86,6 @@ class Catalog extends CI_Controller {
 	{
 		$this->breadcrumbs->Add("catalog", "Корзина");
 		
-		$top_menu = $this->menus->top_menu;
-		
-		$user_id = $this->session->userdata('user_id');
-		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
@@ -104,16 +96,16 @@ class Catalog extends CI_Controller {
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart' => $this->cart->get_all(),
-			'total_price' => $this->cart->total_price(),
-			'total_qty' => $this->cart->total_qty(),
+			'cart_items' => $this->cart_items,
+			'total_price' => $this->total_price,
+			'total_qty' => $this->total_qty,
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
 			),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($top_menu, 'cart'),
-			'user' => $this->users->get_item_by(array("id" => $user_id))
+			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
+			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		$this->load->view('client/cart.php', $data);
 	}

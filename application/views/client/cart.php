@@ -7,7 +7,7 @@
 			<div id="main_content" class="col_8 clearfix">
 				<div class="col_12">
 					<h5>Корзина</h5>
-					<?if($cart <> NULL):?>
+					<?if($cart_items <> NULL):?>
 						<table>
 							<thead>
 								<th>№</th>
@@ -19,7 +19,7 @@
 							</thead>
 							<tbody>
 								<?$counter = 1?>
-								<?foreach($cart as $item_id => $item):?>
+								<?foreach($cart_items as $item_id => $item):?>
 									<tr id="<?=$item_id?>">
 										<td><?=$counter?></td>
 										<td><?=$item['name']?></td>
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 				<?endif;?>
-				<?if($cart <> NULL):?>
+				<?if($cart_items <> NULL):?>
 					<div class="col_12">
 						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
 							<div class="cart">

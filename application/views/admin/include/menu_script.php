@@ -3,7 +3,7 @@
 		var data = {};
 		data.id = id;
 		var json_str = JSON.stringify(data);
-		$.post("/admin_ajax/menu_item/", json_str, item_info_answer, "json");
+		$.post("/admin/admin_ajax/menu_item/", json_str, item_info_answer, "json");
 	}
 																
 	function item_info_answer(res){
@@ -37,7 +37,7 @@
 		//console.log(info);						
 		data.info = info;
 		var json_str = JSON.stringify(data);
-		$.post("/admin_ajax/edit_item/", json_str, update_menu, "json");
+		$.post("/admin/admin_ajax/edit_item/", json_str, update_menu, "json");
 	}
 								
 	function update_menu(res){

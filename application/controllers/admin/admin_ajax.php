@@ -3,8 +3,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Ajax controller for admin
 
-class Admin_ajax extends CI_Controller {
-
+class Admin_ajax extends Admin_Controller 
+{
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,17 +34,14 @@ class Admin_ajax extends CI_Controller {
 	{
 		$data = json_decode(file_get_contents('php://input', true));
 		$info = (array)$data->info;
-		//var_dump($info);
 		$info = $this->menus_items->editors_post($info);
-		//var_dump($info);
 		if($info->error == TRUE)
 		{
 			//Если валидация не прошла формируем сообщение об ошибке
-			$resultat['error'] = strip_tags(validation_errors());
+			$result['error'] = strip_tags(validation_errors());
 		}
 		else
 		{
-			$resultat['error'] = FALSE;
 			if($info->data->id == FALSE)
 			{
 				//Если id пустая создаем новый пункт в базе
@@ -57,17 +54,21 @@ class Admin_ajax extends CI_Controller {
 				$this->menus_items->insert($info->data);
 				$info->data->id = $this->db->insert_id();
 				
-				$resultat['after'] = $this->menus_items->get_item_by(array("parent_id" => $info->data->parent_id, "sort" => $max_sort));
-				$resultat['item'] = $info->data;
-				$resultat['base_url'] = base_url();
+				$result = array(
+					'error' => FALSE,
+					'after' => $this->menus_items->get_item_by(array("parent_id" => $info->data->parent_id, "sort" => $max_sort)),
+					'item' => $info->data,
+					'base_url' => base_url()
+				);
 			}
 			else
 			{
 				//Если id не пустая вносим изменения.
 				$this->menus_items->update($info->data->id, $info->data);
+				$result['error'] = FALSE;
 			}
 		} 
-		echo json_encode($resultat);
+		echo json_encode($result);
 	}
 	
 	public function menu_item(){

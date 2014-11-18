@@ -9,7 +9,7 @@
 				$.ajax({
 					data: data,
 					type: 'POST',
-					url: '/admin_ajax/sortable/'
+					url: '/admin/admin_ajax/sortable/'
 				});
 			}
 		});
@@ -25,7 +25,7 @@
 				$.ajax({
 					data: data,
 					type: 'POST',
-					url: '/admin_ajax/sortable/'
+					url: '/admin/admin_ajax/sortable/'
 				});
 			}
 		});
@@ -37,7 +37,7 @@
 		data.item_id = item_id;
 		data.sort = sort;
 		var json_str = JSON.stringify(data);
-		$.post ("/admin_ajax/change_sort/", json_str, update_items, "json");
+		$.post ("/admin/admin_ajax/change_sort/", json_str, update_items, "json");
 	}
 	
 	function update_items(res){
