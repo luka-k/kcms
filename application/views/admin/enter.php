@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<? require 'head.php' ?>
+	<? require 'include/head.php' ?>
 	<body>
 		<div id="page" class="grid flex">
 			<div class="col_12 center">
@@ -18,7 +18,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'footer.php' ?>
+		<? require 'include/footer.php' ?>
 	</body>
 </html>
 

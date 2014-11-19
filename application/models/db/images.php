@@ -158,10 +158,7 @@ class Images extends MY_Model
 		$this->db->update('images'); 
 		$this->db->set('is_cover', 1);
 		$this->db->where(array("object_type" => $object_info['object_type'], "id" => $cover_id));
-		if($this->db->update('images'))
-		{
-			return TRUE;
-		}
+		$this->db->update('images');
 	}
 	
 	public function delete_img($object_info)

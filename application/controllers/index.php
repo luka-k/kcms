@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Главная страница
+//main page controller
 
 class Index extends Client_Controller {
 
@@ -27,5 +27,5 @@ class Index extends Client_Controller {
 	}	
 }
 
-/* End of file main.php */
-/* Location: ./application/controllers/main.php */
+/* End of file index.php */
+/* Location: ./application/controllers/index.php */

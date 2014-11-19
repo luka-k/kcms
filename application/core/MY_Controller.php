@@ -1,7 +1,8 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Base admin class
+//
+//
 
 class Admin_Controller extends CI_Controller 
 {
@@ -26,6 +27,9 @@ class Admin_Controller extends CI_Controller
 	}
 }
 
+//
+//
+
 class Client_Controller extends CI_Controller
 {
 	protected $top_menu;
@@ -45,3 +49,6 @@ class Client_Controller extends CI_Controller
 		$this->total_qty = $this->cart->total_qty();
 	}
 }
+
+/* End of file MY_controller.php */
+/* Location: ./application/core/MY_controller.php */

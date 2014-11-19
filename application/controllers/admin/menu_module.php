@@ -1,6 +1,8 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//Menu_module class
+
 class Menu_module extends Admin_Controller 
 {	
 	public function __construct()
@@ -155,3 +157,6 @@ class Menu_module extends Admin_Controller
 		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/'.$menu->menu_id);
 	}
 }
+
+/* End of file menu_module.php */
+/* Location: ./application/controllers/admin/menu_module.php */

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-	<? require 'head.php' ?>
+	<?require 'include/head.php'?>
 	<body>
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
-			<? require 'include/top_menu.php' ?>
+			<?require 'include/top_menu.php'?>
 				<div  class="col_12 clearfix">
 					<div class="col_12 clearfix">
 						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/mails/edit_mails/"/>
@@ -47,6 +47,6 @@
 				</div>
 			</div>
 		</div>
-		<? require 'footer.php' ?>
+		<?require 'include/footer.php'?>
 	</body>
 </html>
