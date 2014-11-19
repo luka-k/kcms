@@ -55,23 +55,14 @@ class Users extends MY_Model
 	/*Проверка на существование регистрации на такой email*/		
 	public function get_user_email($email) 
 	{
-		//$sql = "SELECT email FROM users WHERE  email=?"; 
-		//$query = $this->db->query($sql, $email);
 		$email = $this->get_item_by(array('email' => $email));
-		if ($email) 
-		{
-			return $email->email;
-		} 
-		else 
-		{
-			return FALSE;
-		}
+		return $email = TRUE ? $email->email : FALSE;
 	}
 	
 	/*Изменение пароля*/	
 	public function insert_new_pass($email, $new_password, $secret)
-	{
-		$query = $this->db->query("UPDATE users SET password = ".$this->db->escape($new_password)." WHERE email=".$this->db->escape($email)." AND secret=".$this->db->escape($secret)."");	
-		return $query;
+	{		
+		$this->db->where(array("email" => $email, "secret" => $secret));
+		$this->db->update('users', array("password" => $new_password));
 	}
 }
