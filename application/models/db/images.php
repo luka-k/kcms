@@ -134,6 +134,11 @@ class Images extends MY_Model
 			{
 				$images->url = $this->get_url($images->url, $path);
 			}
+			else
+			{
+				$images = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' =>$is_cover));
+				if(!empty($images)) $images->url = $this->get_url($images->url, $path);
+			}
 		}
 		return $images;
 	}
