@@ -29,12 +29,14 @@
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error;?>
 									<?=validation_errors(); ?>
+									
 									<? require 'include/buttons.php' ?>
-									<!--popup on delete-->
+									
+									<!--delete popup-->
 									<div id="delete" style="display:none;">
 										<div class="pop-up">
 											<div>
-												Вы точно уверены что хотите удалалить - <strong><?=$content->name?></strong>?
+												Вы точно уверены что хотите удалить - <strong><?=$content->name?></strong>?
 											</div><br/>
 											<a href="<?=base_url()?>admin/content/delete_item/<?=$type?>/<?=$content->id?>" class="button small">Удалить?</a>
 											<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
@@ -47,6 +49,7 @@
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
 									<?endforeach?>
+									
 									<? require 'include/buttons.php' ?>				
 								</div>
 								<?$tab_counter++?>

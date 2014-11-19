@@ -28,7 +28,7 @@
 							<div id="delete-img" style="display:none;">
 								<div class="pop-up">
 									<div>
-										Вы точно уверены что хотите удалалить изображение?
+										Вы точно уверены что хотите удалить изображение?
 									</div><br/>
 									<?if($type == "dynamic_menus"):?>
 										<a href="<?=base_url()?>menu_module/delete_img/<?=$img_item->id?>" class="button small">Удалить?</a>

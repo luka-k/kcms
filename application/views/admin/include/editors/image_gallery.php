@@ -28,7 +28,7 @@
 							<div id="delete-<?=$img_item->id?>" style="display:none;">
 								<div class="pop-up">
 									<div>
-										Вы точно уверены что хотите удалалить изображение?
+										Вы точно уверены что хотите удалить изображение?
 									</div><br/>
 									<a href="<?=base_url()?>admin/content/delete_img/<?=$type?>/<?=$img_item->id?>" class="button small">Удалить?</a>
 									<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
