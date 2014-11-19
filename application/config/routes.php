@@ -50,19 +50,17 @@ $route['catalog'] = 'catalog/index';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 
-$route['cart'] = 'catalog/cart';
-
-/*
-$route['admin/(:any)'] = 'admin/$1';
-$route['menu_module/(:any)/(:any)'] = 'menu_module/$1/$2';
-$route['registration/(:any)'] = 'registration/$1';
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 
-
+$route['cart'] = 'catalog/cart';
 
 $route['order/(:any)/(:num)'] = 'order/$1/$2';
+
+/*
+
+
 $route['ajax/(:any)'] = 'ajax/$1';
 $route['admin_ajax/(:any)'] = 'admin_ajax/$1';
 $route['cart'] = 'catalog/cart';

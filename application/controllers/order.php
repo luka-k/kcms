@@ -51,7 +51,7 @@ class Order extends Client_Controller
 			$orders_products = array(
 				'order_id' => $order_id,
 				'product_id' => $item["id"],
-				'product_name' => $item["title"],
+				'product_name' => $item["name"],
 				'product_price' => $item["price"],
 				'order_qty' => $item["qty"]				
 			);
@@ -59,6 +59,6 @@ class Order extends Client_Controller
 		}
 	
 		$this->cart->clear();
-		redirect(base_url().'pages/cart');		
+		redirect(base_url().'cart');		
 	}
 }
