@@ -108,14 +108,7 @@ class Content extends Admin_Controller
 		
 		if($id == FALSE)
 		{	
-			$content = new stdClass();
-			foreach ($data['editors'] as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$content->$item = "";
-				}
-			}
+			$content = set_empty_fields($data['editors']);
 			$content->is_active = "1";
 			$data['content'] = $content;
 			$data['content']->img = NULL;

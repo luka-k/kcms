@@ -35,14 +35,7 @@ class Menu_module extends Admin_Controller
 		
 		if($id == FALSE)
 		{	
-			$content = new stdClass();
-			foreach ($editors as $tabs)
-			{
-				foreach ($tabs as $item => $value)
-				{
-					$content->$item = "";
-				}
-			}
+			$content = set_empty_fields($editors);
 			$content->img = NULL;
 		}	
 		else
@@ -56,14 +49,7 @@ class Menu_module extends Admin_Controller
 			$content->img = $this->images->get_images($object_info, "catalog_small");		
 		}
 		
-		$item_content = new stdClass();
-		foreach ($items_editors as $tabs)
-		{
-			foreach ($tabs as $item => $value)
-			{
-				$item_content->$item = "";
-			}
-		}
+		$item_content = set_empty_fields($item_editors);
 		$item_content->menu_id = $id;	
 		$item_content->parent_id = 0;
 		$item_content->img = NULL;

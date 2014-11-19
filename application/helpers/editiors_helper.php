@@ -24,5 +24,25 @@ function editors_field_exists($field, $editors)
 	return $field_name;
 }
 
+// set_empty_fields()
+// заполняет объект пустыми элеметнами с ключами взятыми c editors
+// для дальнейшей передачи в view при создании нового элемента
+//
+// $editors массив полей
+//
+// return $content - объект заполненый пустыми значениями
+function set_empty_fields($editors)
+{
+	$content = new stdClass();
+	foreach ($editors as $tabs)
+	{
+		foreach ($tabs as $item => $value)
+		{
+			$content->$item = "";
+		}
+	}
+	return $content;
+}
+
 /* End of file editiors_helper.php */
 /* Location: ./application/helpers/editors_helper.php */
