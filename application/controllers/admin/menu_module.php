@@ -51,7 +51,7 @@ class Menu_module extends Admin_Controller
 			$content->img = $this->images->get_images($object_info, "catalog_small");		
 		}
 		
-		$item_content = set_empty_fields($item_editors);
+		$item_content = set_empty_fields($items_editors);
 		$item_content->menu_id = $id;	
 		$item_content->parent_id = 0;
 		$item_content->img = NULL;
