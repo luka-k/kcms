@@ -223,7 +223,7 @@ class Content extends Admin_Controller
 			"id" => $id
 		);
 		$item_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/item/'.$object_type."/".$item_id);
+		redirect(base_url().'admin/content/item/'.$object_type."/".$item_id);
 	}
 	
 }
