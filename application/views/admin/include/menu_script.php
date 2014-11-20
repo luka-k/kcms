@@ -33,8 +33,7 @@
 		inputs.each(function () {
 			var element = $(this);
 			info[element.attr('name')] = element.val();
-		});	
-		//console.log(info);						
+		});							
 		data.info = info;
 		var json_str = JSON.stringify(data);
 		$.post("/admin/admin_ajax/edit_item/", json_str, update_menu, "json");
@@ -44,16 +43,17 @@
 		//console.log(res);
 		if(res.error == false){
 			clear_form();
-			
+			var item = res.item;
 			if(res.after){
 				var after = res.after;
-				var item = res.item;
-				
+			
 				$("#menus_items-"+after.id).after("<li id='menus_items-'"+item.id+">"+item.name+" <a href='#' class='edit' onclick=''><i class='icon-pencil icon-large'></i></a><a href='#' class='del' onclick=''><i class='icon-minus-sign icon-large'></i></a></li>");	
 				var edit_link = "item_info('"+item.id+"'); return false;";
 				var del_link = "delete_menu_item('"+res.base_url+"', '"+item.id+"', '"+item.name+"'); return false;"
 				$('a.edit').attr('onclick', edit_link);
 				$('a.del').attr('onclick', del_link);
+			}else{
+				$('.item-name-'+item.id).text(item.name);
 			}
 			$.fancybox.close("#item_info");
 		}else{

@@ -65,7 +65,10 @@ class Admin_ajax extends Admin_Controller
 			{
 				//Если id не пустая вносим изменения.
 				$this->menus_items->update($info->data->id, $info->data);
-				$result['error'] = FALSE;
+				$result = array(
+					'item' => $info->data,
+					'error' => FALSE
+				);
 			}
 		} 
 		echo json_encode($result);

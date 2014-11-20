@@ -1,5 +1,5 @@
 ﻿<div class="col_12">
-	<div class="col_12">Изменить размеры изображений на сайте</div>
+	<div class="col_12"><h6>Изменить размеры изображений на сайте</h6></div>
 		<div class="col_4 clearfix">
 			<div class="col_12">Большие Изображения</div>
 			<label for="w_1" class="col_3">ширина</label><input id="w_1" name="sizes[catalog_big-w]" class="col_6" type="text" name=""/> px</br>

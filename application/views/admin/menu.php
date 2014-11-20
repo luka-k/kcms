@@ -75,13 +75,13 @@
 								<?if(isset($menu_items)):?>
 									<ul id="sortable" class="menu-items">
 										<?foreach($menu_items as $item):?>
-											<li id="menus_items-<?=$item->id?>" <?if(!empty($item->childs)):?> class="down" <?endif;?>><?=$item->name?> 
+											<li id="menus_items-<?=$item->id?>" <?if(!empty($item->childs)):?> class="down" <?endif;?>><span class="item-name-<?=$item->id?>"><?=$item->name?></span>
 												<a href="#" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
 												<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 												<?if(!empty($item->childs)):?>
 													<ul id="sortable-1">
 														<?foreach($item->childs as $item_2):?>
-															<li id="menus_items-<?=$item_2->id?>"><?=$item_2->name?>
+															<li id="menus_items-<?=$item_2->id?>"><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
 																<a href="#" onclick="item_info('<?=$item_2->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
 																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 															</li>
