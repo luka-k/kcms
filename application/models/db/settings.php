@@ -16,6 +16,7 @@ class Settings extends MY_Model
 			'site_keywords' => array('Ключевые слова', 'text')
 		),
 		'Изображение' => array(
+			'resize_image' => array('Изменить размеры изображений', 'resize_images', ''),
 			'upload_image' => array('Изображение по умолчанию', 'image', 'img')
 		)
 	);

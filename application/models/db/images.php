@@ -14,7 +14,6 @@ class Images extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 		
 		$this->config->load('upload_config');
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
@@ -24,7 +23,6 @@ class Images extends MY_Model
 	{
 		//Подключаем настройки
 		$upload_path = $this->config->item('upload_path');
-		//$thumb_sizes = $this->config->item('thumb_size');
 		$thumb_config = $this->config->item('thumb_config');
 		
 		$img_info = $this->non_requrrent_info($img['name']);
@@ -91,6 +89,47 @@ class Images extends MY_Model
 			return FALSE;
 		}
 		return TRUE;
+	}
+	
+	public function resize($images, $sizes)
+	{
+		$upload_path = $this->config->item('upload_path');
+		$thumb_config = $this->config->item('thumb_config');
+		
+		foreach($sizes as $key => $value)
+		{
+			$size = explode("-", $key);
+			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
+		}	
+		
+		$thumb = new phpThumb();
+		foreach ($images as $image)
+		{
+			foreach($thumb_config as $path => $param)
+			{
+				unlink($upload_path."/".$path.$image->url);
+					
+				$thumb->resetObject();
+				$thumb->setSourceFilename($upload_path."/".$image->url);
+					
+				foreach($param as $parameter => $config)
+				{
+					$thumb->setParameter($parameter, $config);
+				}
+			
+				$upload_thumb_path = $upload_path."/".$path;
+				$output_filename = $upload_path."/".$path.$image->url;
+
+				if(!$thumb->GenerateThumbnail())
+				{
+					return FALSE;
+				}
+				else
+				{
+					if(!$thumb->RenderToFile($output_filename)) return FALSE;
+				}
+			}
+		}
 	}
 	
 	public function non_requrrent_info($img_name)
@@ -202,6 +241,4 @@ class Images extends MY_Model
 		$full_url = base_url().$full_url;
 		return $full_url;	
 	}
-	
-	
 }
