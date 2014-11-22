@@ -39,4 +39,31 @@ class Pages extends Client_Controller {
 		
 		$this->load->view($template, $data);
 	}
+	
+	// wishlist()
+	// вывод вишлиста
+	public function wishlist()
+	{
+		$left_menu = $this->dynamic_menus->get_menu(4);
+		
+		$wishlist = unserialize($this->input->cookie('wishlist'));
+
+		$data = array(
+			'title' => "wishlist",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'cart_items' => $this->cart_items,
+			'total_price' => $this->total_price,
+			'total_qty' => $this->total_qty,
+			'product_word' => end_maker("товар", $this->total_qty),
+			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'left_menu' => $left_menu,
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'wishlist' => $wishlist
+		);
+
+		$this->load->view('client/wishlist.php', $data);
+	}
 }

@@ -13,6 +13,7 @@ class Menus extends MY_Model
 			"main" => array("Главная", base_url(), "0"),
 			"catalog" => array("Каталог", base_url()."catalog", "0"),
 			"cart" => array("Корзина", base_url()."cart", "0"),
+			"wishlist" => array("Вишлист", base_url().'wishlist', "0")
 		);	
 
 		$this->admin_menu = array(

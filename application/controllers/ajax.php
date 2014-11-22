@@ -96,4 +96,36 @@ class Ajax extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	//wishlist
+	//
+	// add_to_wishlist() 
+	// добавляет в вишлист товар
+	public function add_to_wishlist()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$product = $this->products->get_item_by(array("id" => $info->id));
+		$item = array(
+			"id" => $product->id,
+			"name" => $product->name,
+			"article" => $product->article,
+			"price" => $product->price,
+			"img" => $this->images->get_images(array("object_type" => "products", "object_id" => $product->id), "catalog_small", "1")
+		);
+
+		$this->wishlist->insert((object)$item);
+		$data['message'] = "Ok";
+		echo json_encode($data);
+	}
+	
+	// delete_from_wishlist()  
+	// удаление из вишлиста
+	
+	public function delete_from_wishlist()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$this->wishlist->delete($info->id);
+		$data['message'] = "Ok";
+		echo json_encode($data);
+	}
 }

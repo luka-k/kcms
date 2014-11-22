@@ -54,6 +54,8 @@ $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 
+$route['wishlist'] = 'pages/wishlist';
+
 $route['cart'] = 'catalog/cart';
 
 $route['order/(:any)/(:num)'] = 'order/$1/$2';

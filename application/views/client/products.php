@@ -32,7 +32,8 @@
 								<?endif;?>
 							</div>
 							<div class="right">
-								<a href="#" class="button small red" onclick="add_to_cart(<?=$page->id?>)">В корзину</a>
+								<a href="#" class="button small red" onclick="add_to_cart(<?=$page->id?>); return false">В корзину</a>
+								<a href="#" class="button small green" onclick="add_to_wishlist('<?=$page->id?>'); return false">В вишлист</a>
 							</div>
 						</div>	
 				<?endforeach;?>

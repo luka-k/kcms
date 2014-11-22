@@ -14,5 +14,6 @@
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
 		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/kickstart.js"></script>  <!--kickstart js-->
 		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/cart.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/wishlist.js"></script>
 	</head>
 	<body>
