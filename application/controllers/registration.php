@@ -79,7 +79,7 @@ class Registration extends CI_Controller
 		} 
 		else 
 		{
-			redirect(base_url().'registration/cabinet');	
+			redirect(base_url().'cabinet');	
 		}	
 	}
 	
@@ -221,7 +221,7 @@ class Registration extends CI_Controller
 			$this->emails->send_mail($email->email, 'change_password', $message_info);			
 		}
 
-		$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');		
+		$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'cart');		
 	}
 			
 	/*----------Клиентская часть----------*/
@@ -252,7 +252,7 @@ class Registration extends CI_Controller
 		);
 		
 		
-		$this->load->view('client/register_user.php', $data);		
+		$this->load->view('client/register_user', $data);		
 	}
 	
 	public function edit_new_user()
@@ -317,72 +317,5 @@ class Registration extends CI_Controller
 				if($this->users->login($content->email, $content->password)) redirect(base_url().'registration/cabinet');
 			}
 		}			
-	}
-	
-	/*----------Личный кабинет----------*/
-	public function cabinet()
-	{
-		if (!$this->session->userdata('logged_in'))
-		{
-			redirect(base_url().'pages/cart');
-		}
-		else
-		{
-			$orders = $this->orders->get_list(array("user_id" => $this->session->userdata('user_id')));
-			
-			$orders_info = array();
-			foreach ($orders as $key => $order)
-			{	
-				$orders_info[$key] = new stdClass();	
-			
-				$date = new DateTime($order->date);
-			
-				$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
-			
-				$orders_info[$key] = (object)array(
-					"order_id" => $order->order_id,
-					"status" => $order->status_id,
-					"order_products" => $order_items,
-					"delivery_id" => $order->delivery_id,
-					"payment_id" => $order->payment_id,
-					"date" => date_format($date, 'Y-m-d'),
-					"name" => $order->user_name,
-					"phone" => $order->user_phone,
-					"email" => $order->user_email,
-					"address" => $order->user_address
-				);
-				
-				$status_id = $this->config->item('order_status');
-				foreach ($status_id as $value => $title)
-				{
-					if ($orders_info[$key]->status == $value) $orders_info[$key]->status = $title;
-				}
-			
-			}
-			
-			$user_id = $this->session->userdata('user_id');
-			$user = $this->users->get_item_by(array("id" => $user_id));
-				
-			$data = array(
-				'title' => "Личный кабинет",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
-				'error' => "",
-				'user_name' => $this->session->userdata('user_name'),
-				'user' => $user,
-				'top_menu' => $this->menus->top_menu,
-				'cart' => $this->cart->get_all(),
-				'total_price' => $this->cart->total_price(),
-				'total_qty' => $this->cart->total_qty(),
-				'orders' => $orders_info,
-				'selects' => array(
-					'delivery_id' => $this->config->item('method_delivery'),
-					'payment_id' => $this->config->item('method_pay')
-				),
-				'status_id' => $this->config->item('order_status')
-			);
-			$this->load->view('client/cabinet.php', $data);
-		}
 	}
 }

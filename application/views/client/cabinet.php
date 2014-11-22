@@ -10,6 +10,7 @@
 					
 					<?if($cart <> NULL):?>
 						<div class="col_8">
+							<h6>Корзина</h6>
 							<table>
 								<thead>
 									<th>№</th>
@@ -56,48 +57,80 @@
 										<?require "include/editors/select.php"?>
 									<?endforeach;?></br>
 									<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
-						</div>
-					</form>							
+								</div>
+							</form>							
 						</div>
 					<?endif;?>
 					
 					<?if(isset($orders)):?>
-						<h5>Заказы</h5>
-						<table>
-							<thead>
-								<th width="7%">Id</th>
-								<th width="10%">Статус</th>
-								<th width="30%">Товары</th>
-								<th width="5%">Дата</th>
-							</thead>
-							<tbody>
-							<?foreach ($orders as $order):?>
-								<tr>
-									<td><?=$order->order_id?></td>
-									<td><?=$order->status?></td>
-									<td>
-										<table>
-											<thead>
-												<th width="70%">Наименование</th>
-												<th width="15%">Цена</th>
-												<th width="15%">Количество</th>
-											</thead>
-											<tbody>
-												<?foreach($order->order_products as $product):?>
-													<tr>
-														<td><?=$product->product_name?></td>
-														<td><?=$product->product_price?></td>
-														<td><?=$product->order_qty?></td>
-													</tr>
-												<?endforeach;?>
-											<tbody>
-										</table>
-									</td>
-									<td><?=$order->date?></td>
-								</tr>
-							<?endforeach;?>
-							</tbody>
-						</table>
+						<div class="col_12">
+							<div class="col_8">
+								<h6>Ваши заказы</h6>
+								<table>
+									<thead>
+										<th width="7%">Id</th>
+										<th width="10%">Статус</th>
+										<th width="30%">Товары</th>
+										<th width="5%">Дата</th>
+									</thead>
+									<tbody>
+										<?foreach ($orders as $order):?>
+											<tr>
+												<td><?=$order->order_id?></td>
+												<td><?=$order->status?></td>
+												<td>
+													<table>
+														<thead>
+															<th width="70%">Наименование</th>
+															<th width="15%">Цена</th>
+															<th width="15%">Количество</th>
+														</thead>
+														<tbody>
+															<?foreach($order->order_products as $product):?>
+																<tr>
+																	<td><?=$product->product_name?></td>
+																	<td><?=$product->product_price?></td>
+																	<td><?=$product->order_qty?></td>
+																</tr>
+															<?endforeach;?>
+														</tbody>
+													</table>
+												</td>
+												<td><?=$order->date?></td>
+											</tr>
+										<?endforeach;?>
+									</tbody>
+								</table>
+							</div>
+							<div class="col_4">
+								<div class="col_12">
+									<div class="col_6">
+										<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
+									</div>
+								</div>
+								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="save_changes" action="<?=base_url()?>cabinet/update_info/personal"/>
+									<input type="hidden" name="id" value="<?=$user->id?>"/>
+									Имя:</br>
+									<input type="text" name="name" <?if($user->name):?>value="<?=$user->name?>"<?endif;?>/></br>
+									Email:</br>
+									<input type="text" name="email" <?if($user->email):?>value="<?=$user->email?>"<?endif;?>/></br>
+									Телефон:</br>
+									<input type="text" name="phone" <?if($user->phone):?>value="<?=$user->phone?>"<?endif;?>/></br>
+									Адрес:</br>
+									<input type="text" name="address" <?if($user->address):?>value="<?=$user->address?>"<?endif;?>/></br></br>
+									<a href="" class="small button" onclick="document.forms['save_changes'].submit();return false;">Сохранить изменения</a>
+								</form>
+								</br>
+								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="change_pass" action="<?=base_url()?>cabinet/update_info/pass"/>
+									<input type="hidden" name="id" value="<?=$user->id?>"/>
+									Новый пароль:</br>
+									<input type="password" name="password"/></br>
+									Повторите пароль:</br>
+									<input type="password" name="conf_password"/></br></br>
+									<a href="" class="small button" onclick="document.forms['change_pass'].submit(); return false;">Изменить пароль</a>
+								</form>
+							</div>
+						</div>	
 					<?endif;?>
 				</div>
 			</div>

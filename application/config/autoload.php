@@ -56,7 +56,8 @@ $autoload['libraries'] = array(
 	'form_validation', 
 	'database', 
 	'session',
-	'pagination', 
+	'pagination',
+	'email',
 	'cart',
 	'wishlist'
 );

@@ -49,7 +49,7 @@ class Pages extends Client_Controller {
 		$wishlist = unserialize($this->input->cookie('wishlist'));
 
 		$data = array(
-			'title' => "wishlist",
+			'title' => "вишлист",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",

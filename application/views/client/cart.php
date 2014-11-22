@@ -49,7 +49,7 @@
 				<?if($user <> false):?>
 					<div class="col_12">
 						<div class="col_6">
-							<a href="<?=base_url()?>/registration/cabinet">Личный кабинета</a>
+							<a href="<?=base_url()?>cabinet">Личный кабинет</a>
 						</div>
 						<div class="col_6">
 							<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
