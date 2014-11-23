@@ -20,7 +20,7 @@
 							<?if($page->img <> NULL):?>
 								<div>
 									<a href="<?=$page->full_url?>">
-										<img src="<?=$page->img[0]->url?>" />
+										<img src="<?=$page->img->url?>" />
 									</a>
 								</div>
 							<?endif;?>

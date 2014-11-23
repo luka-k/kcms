@@ -51,7 +51,6 @@ class Catalog extends Client_Controller {
 			if(isset($category->product))
 			{
 				$content = $this->products->prepare($category->product);
-				
 				$template = "client/product.php";
 			}
 			else
@@ -60,8 +59,7 @@ class Catalog extends Client_Controller {
 				if($content == NULL)
 				{
 					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					$content = $this->products->get_prepared_list($content);
-										
+					$content = $this->products->get_prepared_list($content);			
 					$template = "client/products.php";
 				}
 				else
