@@ -24,8 +24,6 @@ class Products extends MY_Model
 		)
 	);
 	
-	public $full_url = array();
-	
 	function __construct()
 	{
         parent::__construct();
@@ -34,12 +32,11 @@ class Products extends MY_Model
 	
 	public function get_url($url)
 	{
-		$this->categories->full_url = NULL;
 		$item = $this->products->get_item_by(array("url" => $url));
 		
-		$this->categories->make_full_url($item);
+		$item_full_url = $this->categories->make_full_url($item);
 		
-		$full_url = implode("/", array_reverse($this->categories->full_url));
+		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
 		return $full_url;		
 	}

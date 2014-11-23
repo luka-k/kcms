@@ -235,12 +235,13 @@ class Images extends MY_Model
 	
 	public function get_url($url, $path)
 	{
-		$this->full_url = NULL;
-		$this->full_url[] = $url;
-		$this->full_url[] = $path;
-		$this->full_url[] = "images";
-		$this->full_url[] = "download";
-		$full_url = implode("/", array_reverse($this->full_url));
+		$item_url = array();
+		$item_url = NULL;
+		$item_url[] = $url;
+		$item_url[] = $path;
+		$item_url[] = "images";
+		$item_url[] = "download";
+		$full_url = implode("/", array_reverse($item_url));
 		$full_url = base_url().$full_url;
 		return $full_url;	
 	}
