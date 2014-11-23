@@ -141,7 +141,7 @@ class Registration extends CI_Controller
 
 			if($user_email) 
 			{
-				$secret = md5($this->config->item('allowed_types'));
+				$secret = md5($this->config->item('secret'));
 				$email = $this->users->get_item_by(array('email' => $user_email));
 				$this->users->update($email->id, array('secret' => $secret));
 				$subject = 'Востановление пароля';
