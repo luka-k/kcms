@@ -16,7 +16,6 @@ class Images extends MY_Model
         parent::__construct();
 		
 		$this->config->load('upload_config');
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 	}
 	
 	public function upload_image($img, $object_info)
@@ -35,7 +34,9 @@ class Images extends MY_Model
 		{
 			return FALSE;
 		}
-				
+		
+		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';		
+		
 		$thumb = new phpThumb();
 		//Создаем миниатюры
 		foreach ($thumb_config as $thumb_dir_name => $configs) 
@@ -101,6 +102,8 @@ class Images extends MY_Model
 			$size = explode("-", $key);
 			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
 		}	
+		
+		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 		
 		$thumb = new phpThumb();
 		foreach ($images as $image)
