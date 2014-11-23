@@ -71,8 +71,7 @@ class Categories extends MY_Model
 			{
 				return $child;
 			}		
-		}
-		
+		}	
 	}
 	
 	public function get_url($url)

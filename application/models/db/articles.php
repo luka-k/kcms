@@ -67,26 +67,26 @@ class Articles extends MY_Model
 	
 	public function get_url($url)
 	{
-		$this->full_url = NULL;
 		$item = $this->get_item_by(array("url" => $url));
-		$this->make_full_url($item);
-		$full_url = implode("/", array_reverse($this->full_url));
+		$item_url = $this->make_full_url($item);
+		$full_url = implode("/", array_reverse($item_url));
 		$full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	
 	public function make_full_url($item)
 	{
-		$this->full_url[] = $item->url;
-		if ($item->parent_id <> 0)
+		$item_url = array();
+		$item_url[] = $item->url;
+		
+		while($item->parent_id <> 0)
 		{
-			$item = $this->get_item_by(array("id" => $item->parent_id));
-			$this->make_full_url($item);
+			$parent_id = $item->parent_id;
+			$item = $this->get_item_by(array("id" => $parent_id));
+			$item_url[] = $item->url;
 		}
-		else
-		{
-			$this->full_url[] = 'articles';
-		}
+		$item_url[] = 'articles';
+		return $item_url;
 	}	
 	
 	function prepare($item)
