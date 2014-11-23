@@ -166,7 +166,7 @@ class Registration extends CI_Controller
 						'error' => ""
 					);	
 					
-					$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');			
+					$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'cart');			
 				}
 			} 
 			else

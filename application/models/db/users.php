@@ -55,8 +55,10 @@ class Users extends MY_Model
 	/*Проверка на существование регистрации на такой email*/		
 	public function get_user_email($email) 
 	{
-		$email = $this->get_item_by(array('email' => $email));
-		return $email = TRUE ? $email->email : FALSE;
+	
+		$user = $this->get_item_by(array('email' => $email));
+		var_dump($user);
+		return !empty($user) ? $user->email : FALSE;
 	}
 	
 	/*Изменение пароля*/	
