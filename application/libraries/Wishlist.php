@@ -14,16 +14,31 @@ class CI_Wishlist {
 	public function insert($item)
 	{
 		$this->wishlist = unserialize($this->CI->input->cookie('wishlist'));
-		if(is_array($this->wishlist)&&array_key_exists($item->id, $this->wishlist))
+		if(is_array($this->wishlist)&&in_array($item, $this->wishlist))
 		{
 			return;
 		}
 		else
 		{
-			$this->wishlist[$item->id] = $item;
+			$this->wishlist[] = $item;
 		}
 		$this->safe_wishlist();
 	}
+	
+	public function get()
+	{
+		$wishlist_id = $this->CI->config->item('wishlist_id');
+		$wishlist = unserialize($this->CI->input->cookie('wishlist-'.$wishlist_id));
+
+		$wishlist_items = array();
+		
+		if($wishlist)foreach($wishlist as $item)
+		{
+			$wishlist_items[] = $this->CI->products->get_item_by(array("id" => $item));
+		}
+		return $this->CI->products->get_prepared_list($wishlist_items);
+	}
+	
 	
 	public function delete($id)
 	{

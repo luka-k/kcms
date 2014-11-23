@@ -46,8 +46,7 @@ class Pages extends Client_Controller {
 	{
 		$left_menu = $this->dynamic_menus->get_menu(4);
 		
-		$wishlist_id = $this->config->item('wishlist_id');
-		$wishlist = unserialize($this->input->cookie('wishlist-'.$wishlist_id));
+		$wishlist = $this->wishlist->get();
 
 		$data = array(
 			'title' => "вишлист",

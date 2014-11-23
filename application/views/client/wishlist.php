@@ -21,7 +21,7 @@
 							<div class="col_2"><img src="<?=$item->img->url?>" alt=""/></div>
 							<div class="col_3"><?=$item->name?></div>
 							<div class="col_2"><?=$item->article?></div>
-							<div class="col_2"><?=$item->price?></div>
+							<div class="col_2"><?=$item->price?><br/><span style="color:red"><?=$item->sale_price?></span></div>
 							<div class="col_1"><input type="text" size="1" name="qty" id="qty-<?=$item->id?>" placeholder = "1"/></div>
 							<div class="col_2">
 								<div><a href="#" onclick="add_to_cart('<?=$item->id?>', $('#qty-<?=$item->id?>').val()); return false">в корзину</a></div>
