@@ -57,7 +57,6 @@ class Users extends MY_Model
 	{
 	
 		$user = $this->get_item_by(array('email' => $email));
-		var_dump($user);
 		return !empty($user) ? $user->email : FALSE;
 	}
 	

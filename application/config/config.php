@@ -357,6 +357,10 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+//$secret secret word using for change password
+//
+//
+$config['secret'] = 'kcms';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

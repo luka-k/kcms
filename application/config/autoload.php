@@ -58,6 +58,7 @@ $autoload['libraries'] = array(
 	'session',
 	'pagination',
 	'email',
+	'mail',
 	'cart',
 	'wishlist'
 );
