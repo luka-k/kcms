@@ -362,5 +362,9 @@ $config['proxy_ips'] = '';
 //
 $config['secret'] = 'kcms';
 
+//$wishlist_id using for identification wish list in browser
+
+$config['wishlist'] = 'kcms';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

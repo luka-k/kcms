@@ -46,7 +46,8 @@ class Pages extends Client_Controller {
 	{
 		$left_menu = $this->dynamic_menus->get_menu(4);
 		
-		$wishlist = unserialize($this->input->cookie('wishlist'));
+		$wishlist_id = $this->config->item('wishlist_id');
+		$wishlist = unserialize($this->input->cookie('wishlist-'.$wishlist_id));
 
 		$data = array(
 			'title' => "вишлист",
@@ -58,7 +59,7 @@ class Pages extends Client_Controller {
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'top_menu' => $this->menus->set_active($this->top_menu, 'wishlist'),
 			'left_menu' => $left_menu,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'wishlist' => $wishlist

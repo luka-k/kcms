@@ -34,8 +34,9 @@ class CI_Wishlist {
 	
 	public function safe_wishlist()
 	{
+		$wishlist_id = $this->CI->config->item('wishlist_id');
 		$cookie = array(
-			'name'   => 'wishlist',
+			'name'   => 'wishlist-'.$wishlist_id,
 			'value'  => serialize($this->wishlist),
 			'expire' =>  "622080000"
 		);
