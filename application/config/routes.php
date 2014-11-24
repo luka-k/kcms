@@ -61,6 +61,8 @@ $route['cart'] = 'catalog/cart';
 
 $route['order/(:any)/(:num)'] = 'order/$1/$2';
 
+$route['search'] = 'search';
+
 /*
 
 
