@@ -67,7 +67,6 @@ class Content extends Admin_Controller
 	
 	public function item($type, $id = FALSE)
 	{
-		
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
 		$data = array(
@@ -112,6 +111,13 @@ class Content extends Admin_Controller
 			$content->is_active = "1";
 			$data['content'] = $content;
 			$data['content']->img = NULL;
+			$field_name = editors_field_exists('ch', $data['editors']);
+			if(!empty($field_name))
+			{
+				$this->config->load('characteristics_config');
+				$data['content']->ch_select = $this->config->item('characteristics_type');
+				$data['content']->characteristics = NULL;
+			}
 		}	
 		else
 		{			
@@ -120,7 +126,21 @@ class Content extends Admin_Controller
 				"object_type" => $type,
 				"object_id" => $data['content']->id
 			);
-			$data['content']->img = $this->images->get_images($object_info, "catalog_small");		
+			$data['content']->img = $this->images->get_images($object_info, "catalog_small");
+			$field_name = editors_field_exists('ch', $data['editors']);
+			if(!empty($field_name))
+			{
+				$this->config->load('characteristics_config');
+				$data['ch_select'] = $this->config->item('characteristics_type');
+				$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+				foreach($data['content']->characteristics as $characteristic)
+				{
+					foreach($data['ch_select'] as $key => $type)
+					{
+						if($characteristic->type == $key) $characteristic->name = $type;
+					}
+				}
+			}
 		}
 		$this->load->view('admin/edit_item.php', $data);	
 	}
@@ -224,5 +244,11 @@ class Content extends Admin_Controller
 		);
 		$item_id = $this->images->delete_img($object_info);
 		redirect(base_url().'admin/content/item/'.$object_type."/".$item_id);
+	}
+	
+	public function delete_characteristic($id)
+	{
+		$ch = $this->characteristics->get_item_by(array("id" => $id));
+		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/'.$ch->object_type."/".$ch->object_id."#tab_4");
 	}
 }

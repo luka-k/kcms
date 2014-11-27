@@ -21,6 +21,9 @@ class Products extends MY_Model
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
+		),
+		'Характеристики' => array(
+			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
 		)
 	);
 	

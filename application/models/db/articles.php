@@ -18,8 +18,6 @@ class Articles extends MY_Model
 		)
 	);
 	
-	public $full_url = array();
-	
 	function __construct()
 	{
         parent::__construct();
