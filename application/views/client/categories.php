@@ -63,6 +63,9 @@
 				</div>
 				<h5>Каталог продукции</h5>
 				<? require 'include/tree.php' ?>
+				<div>
+					<?require 'include/filters.php'?> 
+				</div>
 			</div>
 		</div>
 	</div>

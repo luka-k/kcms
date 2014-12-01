@@ -75,7 +75,7 @@
 	function add_ch_answer(res){
 		if(res.after){
 			var item = res.info;
-			$(".ch_item").last().after("<tr id='ch-"+item.id+"' class='ch_item'><td>"+item.name+"</td><td><input type='text' class='edit' value='"+item.value+"' onchange=''></td><td><a href='#' class='del' onclick=''>удалить</a></td></tr>");
+			$(".ch_item").last().after("<tr id='ch-"+item.id+"' class='ch_item'><td>"+item.name+"</td><td><input type='text' class='edit val-'"+item.id+" value='"+item.value+"' onchange=''></td><td><a href='#' class='del' onclick=''>удалить</a></td></tr>");
 			var onchange_link = "update_ch('"+item.id+"'); return false;";
 			var del_link = "delete_ch('"+res.base_url+"', '"+item.id+"', '"+item.name+"'); return false;"
 			$('input.edit').attr('onchange', onchange_link);

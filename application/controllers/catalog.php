@@ -17,6 +17,14 @@ class Catalog extends Client_Controller {
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
+		$this->config->load('characteristics_config');
+		//Тут наверно в последстивии понадобиться  
+		//придумать какуюнить умную функцию
+		//что бы отбирать характеристики товаров
+		//которые нужны в этой подкатегори
+		//$filters = $this->characteristics->filters;
+		$filters = $this->characteristics->get_filters();
+		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'cart_items' => $this->cart_items,
@@ -25,15 +33,16 @@ class Catalog extends Client_Controller {
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
 			'url' => $url,
+			'filters' => $filters,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
-
-		$category = $this->categories->url_parse(2);
-
-		if ($category == FALSE)
+		
+		$get = $this->input->get();
+		
+		if($get)
 		{
-			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
-			$content = $this->categories->get_prepared_list($content);
+			$content = $this->products->get_filtred((object)$get);
+			$content = $this->products->get_prepared_list($content);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -43,41 +52,62 @@ class Catalog extends Client_Controller {
 			$data['meta_description'] = $settings->site_description;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['content'] = $content;
-			
-			$this->load->view('client/categories.php', $data);			
+			$template = "client/products.php";
 		}
 		else
 		{
-			if(isset($category->product))
+			$category = $this->categories->url_parse(2);
+
+			if ($category == FALSE)
 			{
-				$content = $this->products->prepare($category->product);
-				$template = "client/product.php";
+				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+				$content = $this->categories->get_prepared_list($content);
+			
+				$settings = $this->settings->get_item_by(array('id' => 1));
+
+				$data['title'] = $settings->site_title;
+				$data['meta_title'] = $settings->site_title;
+				$data['meta_keywords'] = $settings->site_keywords;
+				$data['meta_description'] = $settings->site_description;
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				$data['content'] = $content;
+			
+				$template = 'client/categories.php';		
 			}
 			else
 			{
-				$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-				if($content == NULL)
+				if(isset($category->product))
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					$content = $this->products->get_prepared_list($content);			
-					$template = "client/products.php";
+					$content = $this->products->prepare($category->product);
+					$template = "client/product.php";
 				}
 				else
 				{
-					$content = $this->categories->get_prepared_list($content);
+					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					if($content == NULL)
+					{
+						$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+						$content = $this->products->get_prepared_list($content);			
+						$template = "client/products.php";
+					}
+					else
+					{
+						$content = $this->categories->get_prepared_list($content);
 					
-					$template = "client/categories.php";
+						$template = "client/categories.php";
+					}		
 				}		
-			}		
 
-			$data['title'] = $category->name;
-			$data['meta_title'] = $category->meta_title;
-			$data['meta_keywords'] = $category->meta_keywords;
-			$data['meta_description'] = $category->meta_description;
-			$data['content'] = $content;
-			$data['breadcrumbs'] = $this->breadcrumbs->get();
-			$this->load->view($template, $data);
+				$data['title'] = $category->name;
+				$data['meta_title'] = $category->meta_title;
+				$data['meta_keywords'] = $category->meta_keywords;
+				$data['meta_description'] = $category->meta_description;
+				$data['content'] = $content;
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				
+			}
 		}
+		$this->load->view($template, $data);
 	}
 	
 	public function cart()

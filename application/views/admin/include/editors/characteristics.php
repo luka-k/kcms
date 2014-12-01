@@ -23,16 +23,13 @@
 	
 	<div class="col_12">
 		<table>
-			<thead>
-				<th>Характеристика</th><th>Значение</th><th>Действие</th>
-			</thead>
 			<?foreach($content->characteristics as $characteristic):?>
 				<tr id="ch-<?=$characteristic->id?>" class="ch_item">
 					<td>
 						<?=$characteristic->name?>
 					</td>
 					<td>
-						<input type="text" value="<?=$characteristic->value?>" onchange="update_ch('<?=$characteristic->id?>')"/>
+						<input type="text" class="val-<?=$characteristic->id?>" value="<?=$characteristic->value?>" onchange="update_ch('<?=$characteristic->id?>')"/>
 					</td>
 					<td>
 						<a href="#" onclick="delete_ch('<?=base_url()?>', '<?=$characteristic->id?>', '<?=$characteristic->name?>'); return false;">Удалить</a>
