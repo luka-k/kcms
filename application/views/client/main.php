@@ -5,7 +5,6 @@
 		</div>
 		<div>
 			<div class="left col_3">
-				<? require 'include/left-menu.php'?>
 			</div>
 		</div>
 	</div>

@@ -21,7 +21,6 @@ class Articles extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 	
 	public function url_parse($segment_number, $parent = FALSE)
@@ -44,9 +43,10 @@ class Articles extends MY_Model
 			//то есть до 3 уровняя влодежости
 			//формируем статью.
 			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
-			if($segment_number == 4)
+			if($segment_number == 3)
 			{
 				$parent->article = $this->get_item_by(array('url' => $url));
+				$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id));
 				return $parent;
 			}
 			else
@@ -83,7 +83,7 @@ class Articles extends MY_Model
 			$item = $this->get_item_by(array("id" => $parent_id));
 			$item_url[] = $item->url;
 		}
-		$item_url[] = 'articles';
+		$item_url[] = 'category';
 		return $item_url;
 	}	
 	
@@ -92,5 +92,20 @@ class Articles extends MY_Model
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
 		return $item;
+	}
+	
+	function get_news_tree()
+	{
+		$news_tree = array();
+		$articles = $this->get_list(FALSE);
+		foreach($articles as $item)
+		{
+			if(substr_count( $item->url, "novosti"))
+			{
+				$news_tree[] = $item;
+			}
+		}
+		
+		return $news_tree;
 	}
 }

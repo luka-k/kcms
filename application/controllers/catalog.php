@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Catalog extends Client_Controller {
+class Catalog extends Client_Controller 
+{
 
 	public function __construct()
 	{

@@ -75,25 +75,17 @@ class Content extends Admin_Controller
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
-			'type' => $type
+			'type' => $type,
+			'selects' => array(
+				'article_parent_id' => $this->articles->get_news_tree(),
+			)
 		);
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			if($type == "products")
-			{
-				$data['tree'] = $this->categories->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->categories->get_tree(0, "parent_id")
-				);
-			}
-			else
-			{
-				$data['tree'] = $this->$type->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->$type->get_tree(0, "parent_id")
-				);
-			}
+			$data['tree'] = $this->$type->get_tree(0, "parent_id");
+			$data['selects']['parent_id'] = $this->$type->get_tree(0, "parent_id");
+			
 		}
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
@@ -108,39 +100,23 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{	
 			$content = set_empty_fields($data['editors']);
-			$content->is_active = "1";
 			$data['content'] = $content;
 			$data['content']->img = NULL;
-			$field_name = editors_field_exists('ch', $data['editors']);
-			if(!empty($field_name))
-			{
-				$this->config->load('characteristics_config');
-				$data['content']->ch_select = $this->config->item('characteristics_type');
-				$data['content']->characteristics = NULL;
-			}
 		}	
 		else
 		{			
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			
+			$field_name = editors_field_exists('news2article', $data['editors']);
+			if($field_name)
+			{
+				$data['content']->parents = $this->news2article->get_list(array("child_id" => $id));
+			}
 			$object_info = array(
 				"object_type" => $type,
 				"object_id" => $data['content']->id
 			);
 			$data['content']->img = $this->images->get_images($object_info, "catalog_small");
-			$field_name = editors_field_exists('ch', $data['editors']);
-			if(!empty($field_name))
-			{
-				$this->config->load('characteristics_config');
-				$data['ch_select'] = $this->config->item('characteristics_type');
-				$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
-				foreach($data['content']->characteristics as $characteristic)
-				{
-					foreach($data['ch_select'] as $key => $type)
-					{
-						if($characteristic->type == $key) $characteristic->name = $type;
-					}
-				}
-			}
 		}
 		$this->load->view('admin/edit_item.php', $data);	
 	}
@@ -156,27 +132,19 @@ class Content extends Admin_Controller
 			'user_id' => $this->user_id,
 			'editors' => $this->$type->editors,
 			'menu' => $this->menu,
-			'type' => $type
+			'type' => $type,
+			'selects' => array(
+				'article_parent_id' => $this->articles->get_news_tree(),
+			)
 		);
 		
 		$data['content'] = $this->$type->editors_post()->data;
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			if($type == "products")
-			{
-				$data['tree'] = $this->categories->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->categories->get_tree(0, "parent_id")
-				);
-			}
-			else
-			{
-				$data['tree'] = $this->$type->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->$type->get_tree(0, "parent_id")
-				);
-			}
+			$data['tree'] = $this->$type->get_tree(0, "parent_id");
+			$data['selects']['parent_id'] = $this->$type->get_tree(0, "parent_id");
+			
 		}
 		
 		if(($data['content']->id == FALSE)&&(isset($this->$type->new_editors)))
@@ -207,6 +175,28 @@ class Content extends Admin_Controller
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
 			}
+			
+			$field_name = editors_field_exists('news2article', $data['editors']);
+			if($field_name && is_array($this->input->post($field_name)))
+			{
+				$data["news2article"]->$field_name = $this->input->post($field_name);
+				$n2a = TRUE;
+			}
+			
+			if((isset($n2a))&&($n2a == TRUE))
+			{
+				foreach($data["news2article"]->$field_name  as $item)
+				{
+					if(!empty($item))
+					{
+						$news2article->$field_name = $item;
+						$news2article->child_id = $data['content']->id;
+						$this->db->insert('news2article', $news2article);
+					}
+				}
+			}
+			
+			//var_dump($field_name);
 			
 			$field_name = editors_field_exists('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения

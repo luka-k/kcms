@@ -118,19 +118,17 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array(
-	'db/products', 
-	'db/categories', 
 	'db/articles',
+	'db/news',
+	'db/news2article',
 	'db/settings', 
 	'db/users', 
 	'db/orders', 
-	'db/orders_customers', 
 	'db/orders_products', 
 	'db/images', 
 	'db/emails', 
 	'db/dynamic_menus',
 	'db/menus_items',
-	'db/characteristics',
 	'breadcrumbs', 
 	'url_model', 
 	'menus'

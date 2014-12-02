@@ -50,9 +50,9 @@ $route['catalog'] = 'catalog/index';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 
-$route['articles'] = 'pages/index';
-$route['articles/(:any)'] = 'pages/index/$1';
-$route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
+$route['category'] = 'pages/index';
+$route['category/(:any)'] = 'pages/index';
+//$route['category/(:any)/(:any)'] = 'pages/index';
 
 $route['wishlist'] = 'pages/wishlist';
 $route['cabinet'] = 'cabinet';
