@@ -84,39 +84,7 @@
 					
 					<div class="tabcontents rounded">
 						<div id="tab2" class="tabswitcher2 tab_content " >
-							<?php/* dynamic_sidebar( 'OnSingle' );*/ ?>
-			   
-			   <?php /*
-			   
-			   if (isset($_POST['wysija-email']))
-					{
-						mysql_query('INSERT INTO wp_wysija_user (email, firstname, status, created_at) VALUES ("'.$_POST['wysija-email'].'", "'.$_POST['wysija-email'].'", 1, '.time().');');
-						$q = mysql_query('SELECT * FROM wp_wysija_user ORDER BY user_id DESC LIMIT 0, 1;');
-						$r = mysql_fetch_assoc($q);
-						if ($_POST['lt-pro'])
-							$wpdb->insert('wp_wysija_user_list', array('list_id' => 6, 'user_id' => $r['user_id'], 'sub_date' => time()));
-						if ($_POST['cambr'])
-							$wpdb->insert('wp_wysija_user_list', array('list_id' => 3, 'user_id' => $r['user_id'], 'sub_date' => time()));
-						if ($_POST['pears'])
-							$wpdb->insert('wp_wysija_user_list', array('list_id' => 5, 'user_id' => $r['user_id'], 'sub_date' => time()));
-						if ($_POST['ielts'])
-							$wpdb->insert('wp_wysija_user_list', array('list_id' => 4, 'user_id' => $r['user_id'], 'sub_date' => time()));
-						
-						header('Location: /uspeshnaya-podpiska/');
-					}
-				*/?> 
-							<h3>Подписаться на новости</h3><br>
-							<form id="form-wysija-2" method="post" action="#wysija" class="widget_wysija">
-								<label for="lt-pro"><input type="checkbox" name="lt-pro" id="lt-pro" checked> LT-Pro</label>
-								<label for="cambr"><input type="checkbox" name="cambr" id="cambr"> Cambridge</label>
-								<label for="pears"><input type="checkbox" name="pears" id="pears"> Pearson</label>
-								<label for="ielts"><input type="checkbox" name="ielts" id="ielts"> IELTS</label>
-								<label style="width:100%"></label>
-								<br><br>
-								<input type="email" name="wysija-email" id="" placeholder="E-mail">
-								<button class="send_submit" onclick="$('#form-wysija-2').submit()" >Подписаться</button>
-							</form>
-							<br><br>
+							<? require 'include/subscribe.php'?>
 						</div>
 
 						<div id="tab1" class="tabswitcher2 tab_content ">

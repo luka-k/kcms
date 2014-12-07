@@ -113,8 +113,23 @@ class Admin_ajax extends Admin_Controller
 			$this->characteristics->update($info->id, $info);
 			$answer['message'] = 'ok';
 		}
-		
-		
+	
+		echo json_encode($answer);
+	}
+	
+	function subscribe()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$item = $this->subscribes->get_item_by(array("email" => $info->subscribe->email));
+		if(empty($item))
+		{
+			$this->subscribes->insert($info->subscribe);
+			$answer['message'] = "Поздравляем! Вы успешно подписались на наши новости.";
+		}
+		else
+		{
+			$answer['message'] = "Подписка на данный email уже оформлена";
+		}
 		
 		echo json_encode($answer);
 	}

@@ -186,4 +186,30 @@
 		
 		if (window.attachEvent) window.attachEvent("onload", cssmenuhover);
 	</script>
+	
+	<script>
+		function subscribe(){
+			var form = $('#subscribe-form'),
+			inputs = form.find('input.sub_input'),
+			data = {},
+			item = {};
+			
+			inputs.each(function () {
+				var element = $(this);
+				if(element.attr('type') == 'checkbox' && $(this).prop("checked")){
+					item[element.attr('name')] = element.val();
+				}
+				if(element.attr('name') == 'email'){
+					item[element.attr('name')] = element.val();
+				}
+			});
+			data.subscribe = item;
+			var json_str = JSON.stringify(data);
+			$.post ("/admin/admin_ajax/subscribe/", json_str, sub_answer, "json");
+		}
+		
+		function sub_answer(res){
+			$('.message').text(res.message);
+		}
+	</script>
 </head>

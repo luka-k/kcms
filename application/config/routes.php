@@ -56,6 +56,8 @@ $route['category/(:any)'] = 'pages/index';
 
 $route['contacts/feedback'] = 'pages/redirect_page';
 
+$route['subscribe'] = 'subscribe';
+
 $route['wishlist'] = 'pages/wishlist';
 $route['cabinet'] = 'cabinet';
 

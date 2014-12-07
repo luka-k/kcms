@@ -130,6 +130,7 @@ $autoload['model'] = array(
 	'db/dynamic_menus',
 	'db/menus_items',
 	'db/slider',
+	'db/subscribes',
 	'breadcrumbs', 
 	'url_model', 
 	'menus'

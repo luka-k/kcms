@@ -35,7 +35,6 @@ class Index extends Client_Controller {
 			'news_pearson' => array(),
 			'slider' => $slider
 		);
-		
 		$this->load->view('client/main.php', $data);
 	}	
 }
