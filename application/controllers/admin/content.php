@@ -207,7 +207,6 @@ class Content extends Admin_Controller
 				}
 			}
 			
-			//var_dump($field_name);
 			
 			$field_name = editors_field_exists('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
