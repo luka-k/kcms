@@ -43,7 +43,7 @@ class News extends MY_Model
 	{
 		//var_dump($item);
 		//$item->full_url = $this->get_url($item->url);
-		$item->img = $this->images->get_images(array("object_type" => "news", "object_id" => $item->id), "catalog_small", 1);
+		$item->img = $this->images->get_images(array("object_type" => "news", "object_id" => $item->id), "news", 1);
 		return $item;
 	}
 }

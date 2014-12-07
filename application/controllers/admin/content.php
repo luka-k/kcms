@@ -58,7 +58,7 @@ class Content extends Admin_Controller
 		
 		if(editors_field_exists('img', $this->$type->editors))
 		{
-			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
+			$data['content'] = $this->images->get_img_list($data['content'], $type, "news");
 			$data['images'] = TRUE;
 		}
 		
@@ -124,7 +124,7 @@ class Content extends Admin_Controller
 				"object_type" => $type,
 				"object_id" => $data['content']->id
 			);
-			$data['content']->img = $this->images->get_images($object_info, "catalog_small");
+			$data['content']->img = $this->images->get_images($object_info, "news");
 		}
 
 		$this->load->view('admin/edit_item.php', $data);	

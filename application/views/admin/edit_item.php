@@ -7,14 +7,14 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if(($type <> "users")and($type <> "settings")):?>
+					<?if($type <> "users" && $type <> "settings" && $type <> "slider"):?>
 						<div id="left_col" class="col_4 back">
 							<div id="left-menu">
 								<?require "include/{$type}_tree.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if(($type == "users")or($type == "settings")):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if($type == "users" || $type == "settings" || $type == "slider"):?>col_12<?else:?>col_8<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>

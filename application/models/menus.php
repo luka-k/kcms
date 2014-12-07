@@ -29,13 +29,7 @@ class Menus extends MY_Model
 				6 => array('Контакты', base_url()."admin/content/items/articles/6", 0)
 			)),
 			'news' => array('Новости', base_url()."admin/content/items/news/", 0,),
-			/*'categories' => array('Каталог', "#", 0, array(
-				0 => array('Категории', base_url()."admin/content/items/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/content/item/categories", 0),
-				2 => array('Товары', base_url()."admin/content/items/products", 0),
-				3 => array('Создать товар', base_url()."admin/content/item/products", 0)				
-			)),
-			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),*/
+			'slider' => array('Slider', base_url()."admin/content/items/slider/", 0,),
 			'settings' => array('Настройки', "#", 0, array(
 				0 => array('Настройки сайта', base_url()."admin/content/item/settings/1", 0),
 				1 => array('Письма', base_url()."admin/mails", 0),

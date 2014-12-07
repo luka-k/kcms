@@ -1,24 +1,20 @@
 <div id='tmpSlideshow' class="rounded">
-  <?php
-	/*$recent = new WP_Query("cat=64&showposts=20&orderby=name&order=ASC");
-	$counter = 0;
-	foreach ($recent->posts as $p)
-	{
-		$counter++;
-		*/?>
-		<div id="tmpSlide-<?/*= $counter*/?>" class="tmpSlide">
-		  <?/*= get_the_post_thumbnail($p->ID, 'full');*/ ?>
-		  <div class="tmpSlideCopy">
-			<?/*= $p->post_content */?>
-		  </div>
+
+	<?$counter = 1?>
+	<?foreach($slider as $slide):?>
+		<div id="tmpSlide-<?=$counter?>" class="tmpSlide">
+			<img width="640" height="350" src="<?=$slide->img->url?>" class="attachment-full wp-post-image" alt="019" />		  
+			
+			<div class="tmpSlideCopy">
+				<?=$slide->description?>
+			</div>
 		</div>
-		<?php/*
-	}*/
-	?>
-    <div id='tmpSlideshowControls'>
-      <div class='tmpSlideshowControl' id='tmpSlideshowControl-1'></div>
-      <div class='tmpSlideshowControl' id='tmpSlideshowControl-2'></div>
-      <div class='tmpSlideshowControl' id='tmpSlideshowControl-3'></div>
-      <div class='tmpSlideshowControl' id='tmpSlideshowControl-4'></div>
+		<?$counter++?>
+	<?endforeach;?>
+	
+	<div id='tmpSlideshowControls'>
+		<?for($i = 1; $i < $counter; $i++):?>
+			<div class='tmpSlideshowControl' id='tmpSlideshowControl-<?=$i?>'></div>
+		<?endfor;?>
 	</div>    
   </div> 

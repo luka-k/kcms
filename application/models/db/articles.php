@@ -103,7 +103,7 @@ class Articles extends MY_Model
 	{
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
-		$item->img = $this->images->get_images(array("object_type" => "articles", "object_id" => $item->id), "catalog_small", 1);
+		$item->img = $this->images->get_images(array("object_type" => "articles", "object_id" => $item->id), "lead", 1);
 		return $item;
 	}
 	

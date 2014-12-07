@@ -6,14 +6,14 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if($type <> "users"):?>
+					<?if($type <> "users" && $type <> "slider"):?>
 						<div id="left_col" class="col_4 back">
 							<div id="left-menu">
-								<?require "include/{$type}_tree.php"?>
+									<?require "include/{$type}_tree.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if($type == "users"):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if($type == "users" || $type == "slider"):?>col_12<?else:?>col_8<?endif;?> back">
 						<div class="col_12">						
 							<h6 class="col_8 left">Редактировать</h6> 
 							<div class="col_4 right">
@@ -50,7 +50,7 @@
 										<?else:?>
 											<td class="tb_9"><a href="<?=base_url()?>admin/content/item/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
-										<td class="tb_1"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_1"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->$name?>'); return false;"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
 									<?$count++?>
 								<?php endforeach ?>

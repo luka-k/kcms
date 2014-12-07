@@ -20,17 +20,22 @@ class Index extends Client_Controller {
 		$news_ielts = $this->news->get_news("novosti-ielts");
 		$news_ielts = $this->news->get_prepared_list($news_ielts);
 		
+		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->slider->get_prepared_list($slider);
+		
 		$data = array(
 			'title' => $settings->site_title,
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
-			'top_menu' => $this->top_menu,//$this->menus->set_active($this->top_menu, 'main')
+			'top_menu' => $this->top_menu,
 			'news_lt' => $news_lt,
 			'news_camb' => $news_camb,
 			'news_ielts' => $news_ielts,
-			'news_pearson' => array()
+			'news_pearson' => array(),
+			'slider' => $slider
 		);
+		
 		$this->load->view('client/main.php', $data);
 	}	
 }
