@@ -15,11 +15,35 @@ class News extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
+		),
+		'Изображение' => array(
+			'upload_image' => array('Добавить изображение к новости', 'image', 'img')
 		)
 	);
 	
 	function __construct()
 	{
         parent::__construct();
+	}
+	
+	function get_news($url)
+	{
+		$article = $this->articles->get_item_by(array("url" => $url));
+		$news_id = $this->news2article->get_list(array("article_parent_id" => $article->id));
+		
+		foreach($news_id as $item)
+		{
+			$news[] = $this->news->get_item_by(array("id" => $item->child_id));
+		}
+		
+		return $news;
+	}
+	
+	function prepare($item)
+	{
+		//var_dump($item);
+		//$item->full_url = $this->get_url($item->url);
+		$item->img = $this->images->get_images(array("object_type" => "news", "object_id" => $item->id), "catalog_small", 1);
+		return $item;
 	}
 }

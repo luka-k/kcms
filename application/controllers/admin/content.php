@@ -100,7 +100,15 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{	
 			$content = set_empty_fields($data['editors']);
+			
 			$data['content'] = $content;
+			
+			$field_name = editors_field_exists('news2article', $data['editors']);
+			if($field_name)
+			{
+				$data['content']->parents = array();
+			}
+			
 			$data['content']->img = NULL;
 		}	
 		else
@@ -118,6 +126,7 @@ class Content extends Admin_Controller
 			);
 			$data['content']->img = $this->images->get_images($object_info, "catalog_small");
 		}
+
 		$this->load->view('admin/edit_item.php', $data);	
 	}
 	
@@ -185,6 +194,8 @@ class Content extends Admin_Controller
 			
 			if((isset($n2a))&&($n2a == TRUE))
 			{
+				$this->db->where('child_id', $data['content']->id);
+				$this->db->delete('news2article');
 				foreach($data["news2article"]->$field_name  as $item)
 				{
 					if(!empty($item))

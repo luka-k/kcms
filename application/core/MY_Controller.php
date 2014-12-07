@@ -42,7 +42,17 @@ class Client_Controller extends CI_Controller
 	{
 		parent::__construct();
 				
-		$this->top_menu = $this->menus->top_menu;
+		$this->top_menu = $this->articles->get_prepared_list($this->articles->get_site_tree(0, "parent_id"));
+		foreach($this->top_menu as $key => $item)
+		{
+			if(isset($item->childs))
+			{
+				$item->childs = $this->articles->get_prepared_list($item->childs);
+			}
+		}
+		//Костыль походу дела
+		unset($this->top_menu[5]);
+
 		$this->user_id = $this->session->userdata('user_id');
 		$this->cart_items = $this->cart->get_all();
 		$this->total_price = $this->cart->total_price();

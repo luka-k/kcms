@@ -15,7 +15,13 @@ class Articles extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
-		)
+		),
+		'Руководитель раздела' => array(
+			'direction' => array('Направление', 'text', 'trim|htmlspecialchars'),
+			'lead_name' => array('Имя руководителя', 'text', 'trim|htmlspecialchars'),
+			'lead_email' => array('Почта руководителя', 'text', 'trim|htmlspecialchars'),
+			'upload_image' => array('Фотография', 'image', 'img')
+		),
 	);
 	
 	function __construct()
@@ -39,12 +45,18 @@ class Articles extends MY_Model
 			$this->add_active($child->id);
 			if($segment_number == 2) $url = "articles/".$url; 
 			$this->breadcrumbs->add($url, $child->name);
-			//если дошли до 4 сегмента url
-			//то есть до 3 уровняя влодежости
-			//формируем статью.
-			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
+			
+			
 			if($segment_number == 3)
 			{
+				$imp_url = explode("-", $url);
+				if($imp_url[0] == "novosti")
+				{
+					$article = $this->get_item_by(array("url" => $url));
+					$parent->news = $this->news->get_news($article->url);
+					$parent->news = $this->news->get_prepared_list($parent->news);
+				}
+
 				$parent->article = $this->get_item_by(array('url' => $url));
 				$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id));
 				return $parent;
@@ -91,6 +103,7 @@ class Articles extends MY_Model
 	{
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
+		$item->img = $this->images->get_images(array("object_type" => "articles", "object_id" => $item->id), "catalog_small", 1);
 		return $item;
 	}
 	
