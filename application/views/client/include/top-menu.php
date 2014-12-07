@@ -23,7 +23,7 @@
 	</div>
 	
 	<div id="cont">
-		<a href="/study/kontakty/"><img id="cont_img" src="<?=base_url()?>template/client/img/cont.png" alt=""/>Контакты</a>
+		<a href="<?=base_url()?>contacts/feedback"><img id="cont_img" src="<?=base_url()?>template/client/img/cont.png" alt=""/>Контакты</a>
 	</div>
 </div>
 

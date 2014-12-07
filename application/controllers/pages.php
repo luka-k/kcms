@@ -35,4 +35,12 @@ class Pages extends Client_Controller {
 		
 		$this->load->view("client/article.php", $data);
 	}
+	
+	//Думаю это костыль
+	//но подругому как сохранить url от предидушего варианта сайта не придумал пока
+	public function redirect_page()
+	{
+		$url = uri_string();
+		if ($url == "contacts/feedback") redirect(base_url()."category/kontakty/obratnaya-svyaz", 'location', 301);
+	}
 }

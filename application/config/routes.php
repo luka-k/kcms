@@ -54,6 +54,8 @@ $route['category'] = 'pages/index';
 $route['category/(:any)'] = 'pages/index';
 //$route['category/(:any)/(:any)'] = 'pages/index';
 
+$route['contacts/feedback'] = 'pages/redirect_page';
+
 $route['wishlist'] = 'pages/wishlist';
 $route['cabinet'] = 'cabinet';
 
