@@ -260,6 +260,11 @@ class Content extends Admin_Controller
 	//Удаление элемента
 	public function delete_item($type, $id)
 	{
+		if($type == "news")
+		{
+			$this->db->where('child_id', $id);
+			$this->db->delete('news2article'); 
+		}
 		if($this->$type->delete($id)) redirect(base_url().'admin/content/items/'.$type);
 	}
 	

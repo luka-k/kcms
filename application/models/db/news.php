@@ -43,7 +43,7 @@ class News extends MY_Model
 	function get_url($url)
 	{
 		$news = $this->get_item_by(array("url" => $url));
-		
+	
 		$page_url = uri_string();
 		//Если uri_string пустой, т.е. главная формируем урл
 		//если не пустой то берем его за основу.
