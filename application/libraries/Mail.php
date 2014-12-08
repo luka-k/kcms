@@ -14,6 +14,7 @@ class mail {
 		$config = array(
 			'protocol' => "mail",
 			'mailtype' => "html",
+			'charset' => "utf-8",
 			'wordwrap' => TRUE
 		);
 		$from = 'admin@admin.com';

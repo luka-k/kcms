@@ -178,6 +178,7 @@ class Content extends Admin_Controller
 				//Если id пустая создаем новую страницу в базе
 				$this->$type->insert($data['content']);
 				$data['content']->id = $this->db->insert_id();				
+				$send_mail = TRUE;
 			}
 			else
 			{
@@ -203,6 +204,34 @@ class Content extends Admin_Controller
 						$news2article->$field_name = $item;
 						$news2article->child_id = $data['content']->id;
 						$this->db->insert('news2article', $news2article);
+					}
+				}
+				
+				if(isset($send_mail))
+				{
+					$emails = array();
+					foreach ($data["news2article"]->article_parent_id as $article_id)
+					{
+						$article = $this->articles->get_item_by(array("id" => $article_id));					
+						$url = explode("-", $article->url, 2);
+
+						if($url[0] = "novosti")
+						{
+							$info = $this->subscribes->get_list(array($url[1] => 1));
+						}
+						foreach($info as $inf)
+						{
+							$emails[] = $inf->email;
+						}
+					}
+				
+					$emails =  array_unique($emails);
+				
+					foreach($emails as $email)
+					{
+						$subject = 'Опубликована новая новость на сайте Lt-pro';
+						$message = $data['content']->description;
+						$this->mail->send_mail($email, $subject, $message);
 					}
 				}
 			}

@@ -31,6 +31,7 @@ class News extends MY_Model
 		$article = $this->articles->get_item_by(array("url" => $url));
 		$news_id = $this->news2article->get_list(array("article_parent_id" => $article->id));
 		
+		$news = array();
 		foreach($news_id as $item)
 		{
 			$news[] = $this->news->get_item_by(array("id" => $item->child_id));
