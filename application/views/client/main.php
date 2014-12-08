@@ -24,7 +24,7 @@
 							<ul class="advanced-recent-posts">
 								<?foreach($news_lt as $item_lt):?>
 									<li>
-										<a href="<?=$item_lt->url?>" title="<?=$item_lt->name?>" >
+										<a href="<?=$item_lt->full_url?>" title="<?=$item_lt->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_lt->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_lt->name?>
 										</a>
 										<div class="magic"> 
@@ -39,7 +39,7 @@
 							<ul class="advanced-recent-posts">
 								<?foreach($news_camb as $item_camb):?>
 									<li>
-										<a href="<?=$item_camb->url?>" title="<?=$item_camb->name?>" >
+										<a href="<?=$item_camb->full_url?>" title="<?=$item_camb->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_camb->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_camb->name?>
 										</a>
 										<div class="magic"> 
@@ -54,7 +54,7 @@
 							<ul class="advanced-recent-posts">
 								<?foreach($news_ielts as $item_ielts):?>
 									<li>
-										<a href="<?=$item_ielts->url?>" title="<?=$item_ielts->name?>" >
+										<a href="<?=$item_ielts->full_url?>" title="<?=$item_ielts->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_ielts->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_ielts->name?>
 										</a>
 										<div class="magic"> 
@@ -66,9 +66,18 @@
 						</div>
 						<div id="view5" class="tabswitcher tab_content">
 							<h3 class="widget-title">Новости Pearson</h3>
-							<?foreach($news_pearson as $item_person):?>
-								<?=$item_person->name?>
-							<?endforeach;?>
+							<ul class="advanced-recent-posts">
+								<?foreach($news_pearson as $item_pearson):?>
+									<li>
+										<a href="<?=$item_pearson->full_url?>" title="<?=$item_pearson->name?>" >
+											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_pearson->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_pearson->name?>
+										</a>
+										<div class="magic"> 
+											<?=$item_pearson->description?>
+										</div>
+									</li>
+								<?endforeach;?>
+							</ul>
 						</div>
 					</div>
 				</div>

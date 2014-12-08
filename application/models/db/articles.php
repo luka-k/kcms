@@ -49,12 +49,21 @@ class Articles extends MY_Model
 			
 			if($segment_number == 3)
 			{
+				
 				$imp_url = explode("-", $url);
 				if($imp_url[0] == "novosti")
 				{
-					$article = $this->get_item_by(array("url" => $url));
-					$parent->news = $this->news->get_news($article->url);
-					$parent->news = $this->news->get_prepared_list($parent->news);
+					if($this->uri->segment($segment_number+1))
+					{
+						$parent->news_item = $this->news->get_item_by(array('url' => $this->uri->segment($segment_number+1)));
+						return $parent;
+					}
+					else
+					{
+						$article = $this->get_item_by(array("url" => $url));
+						$parent->news = $this->news->get_news($article->url);
+						$parent->news = $this->news->get_prepared_list($parent->news);
+					}
 				}
 
 				$parent->article = $this->get_item_by(array('url' => $url));
