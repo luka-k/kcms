@@ -45,7 +45,7 @@ $$.extend({
       this.Last = this.Counter - 1;
 
       if (this.Last < 1) {
-        this.Last = 4;
+        this.Last = 2;
       }
 
       $('div#tmpSlide-' + this.Last).fadeOut(

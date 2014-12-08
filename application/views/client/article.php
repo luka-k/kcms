@@ -18,15 +18,7 @@
 					
 						<div id="title_cont" class="rounded" <?= (true || $_SERVER['REQUEST_URI'] != '/ielts/pokupka-klyucha/' ? '' : 'style="width: 960px;"')?>>
 							<?if(empty($content->article)):?>
-								<?if(($type == "cambridge")||($type == "ielts")):?>
-									<h1>Регистрируйтесь он-лайн</h1>
-								<?elseif($type == "pearson"):?>
-									<h1>Всё об экзаменах Pearson и LCCI в видеопрезентациях</h1>
-								<?elseif($type == "study"):?>
-									<h1>Курсы подготовки.</h1>
-								<?elseif($type == "book-store"):?>
-									<h1>Магазин иностранной литературы «Книжный Дом», Bookhouse </h1>
-								<?endif;?>
+								<?=$content->name?>
 							<?elseif(isset($content->news_item)):?>
 								<h1><?=$content->news_item->name?></h1>
 							<?else:?>

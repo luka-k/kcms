@@ -147,8 +147,8 @@
 	
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/tabcontent.js"></script>
-	<!--<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.accordion.js"></script>-->
-	<!--<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easing.1.3.js"></script> -->  
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.accordion.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/slideshow.js"></script>   
 
 	<!--[if lt IE 9]>

@@ -17,4 +17,4 @@
 			<div class='tmpSlideshowControl' id='tmpSlideshowControl-<?=$i?>'></div>
 		<?endfor;?>
 	</div>    
-  </div> 
+</div> 
