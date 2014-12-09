@@ -46,13 +46,26 @@ class Content extends Admin_Controller
 			$type == "products" ? $data['tree'] = $this->categories->get_tree(0, "parent_id") : $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
+		if($type == "news")
+		{
+			$data['news_tree'] =$this->articles->get_news_tree();
+		}
+		
 		if($id == FALSE)
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			if($type == "news")
+			{
+				$article = $this->articles->get_item_by(array("id" => $id));
+				$data['content'] = $this->news->get_news($article->url);
+			}
+			else
+			{
+				$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			}
 			$data['sortable'] = TRUE;
 		}
 		
