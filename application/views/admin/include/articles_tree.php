@@ -1,7 +1,7 @@
 <h6>Статьи</h6>
 <ul class="tree">
 	<?foreach ($tree as $branch_1): ?>
-		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->menu_name?></a>
+		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->menu_name?></a><a href = "<?=base_url()?>admin/content/item/<?=$type?>/<?=$branch_1->id?>"><i class="icon-pencil"></i></a>
 			<?if(!empty($branch_1->childs)):?>
 				<ul class="<?=$branch_1->class?>">
 					<?foreach ($branch_1->childs as $branch_2): ?>
