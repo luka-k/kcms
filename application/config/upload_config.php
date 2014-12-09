@@ -6,19 +6,19 @@ $config['thumb_config'] = array(
 	"slider" => array(
 		'w' => 640,
 		'h' => 350,
-		"zc" => "с",
+		'far' => 1,
 		"bg" => "ffffff"
 	),
 	"news" => array(
 		'w' => 150,
 		'h' => 150,
-		"zc" => "с",
+		'far' => 1,
 		"bg" => "ffffff"	
 	),
 	"lead" => array(
 		'w' => 70,
 		'h' => 83,
-		"zc" => "l",
+		'far' => 1,
 		"bg" => "ffffff"	
 	)
 );

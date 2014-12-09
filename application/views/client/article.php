@@ -7,20 +7,19 @@
 			
 			<? require 'include/header.php'?>
 			<? require 'include/top-menu.php'?>
-			
 			<div id="main">
-				
 				<!--sidebar-->
+				<? require "include/breadcrumbs.php"?>
 				<? require "include/sidebar.php"?>
 				
 				<div id="right_cont">
 					<div id="content" class="rounded" <?= (true || $_SERVER['REQUEST_URI'] != '/ielts/pokupka-klyucha/' ? '' : 'style="width: 960px;"')?>>
 					
 						<div id="title_cont" class="rounded" <?= (true || $_SERVER['REQUEST_URI'] != '/ielts/pokupka-klyucha/' ? '' : 'style="width: 960px;"')?>>
-							<?if(empty($content->article)):?>
-								<?=$content->name?>
-							<?elseif(isset($content->news_item)):?>
+							<?if(isset($content->news_item)):?>
 								<h1><?=$content->news_item->name?></h1>
+							<?elseif(empty($content->article)):?>
+								<?=$content->name?>
 							<?else:?>
 								<h1><?=$content->article->name?></h1>
 							<?endif;?>

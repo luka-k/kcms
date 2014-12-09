@@ -23,7 +23,7 @@ class Breadcrumbs extends CI_Model
 		$output = array();
 		foreach ($bc as $i => $b)
 		{
-			$url = $url . $b['url'] . '/';
+			$url = $url.$b['url'] . '/';
 			if (!$b['name'])
 				continue;
 			$output[] = array(

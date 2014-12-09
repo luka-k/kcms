@@ -8,10 +8,10 @@ class Pages extends Client_Controller {
 	}
 	
 	public function index()
-	{		
+	{	
 		$page = $this->articles->url_parse(2);
 		$page = $this->articles->prepare($page);
-		//var_dump($page);
+		
 		
 		$type = $this->uri->segment(2);
 		$sub_type = $this->uri->segment(3);
@@ -32,7 +32,8 @@ class Pages extends Client_Controller {
 		$data['meta_description'] = $page->meta_description;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['content'] = $page;
-		
+		$data['breadcrumbs'] = $this->breadcrumbs->get();
+				
 		$this->load->view("client/article.php", $data);
 	}
 	
