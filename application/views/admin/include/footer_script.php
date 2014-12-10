@@ -111,6 +111,7 @@
 		$(this).next('ul').addClass('active');
 	});
 	
+	
 	tinymce.init({
 		selector: "textarea",
 		language : 'ru',
