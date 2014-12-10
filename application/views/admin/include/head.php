@@ -9,7 +9,22 @@
 		
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/kickstart.js"></script>  <!--kickstart js--> 	
-	<script type="text/javascript" src="<?=base_url()?>template/admin/js/tinymce/tinymce.min.js"></script>  <!--tinymce js-->
+	<script type="text/javascript" src="<?=base_url()?>template/admin/js/tinymce/45tinymce.min.js"></script>  <!--tinymce js-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script> <!--jquery-ui js-->
 	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script> <!--fancybox js-->
+	
+	
+	
+	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/ckeditor/ckeditor.js"></script>  <!--kickstart js--> 
+	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/filemanager/ajex.js"></script>  <!--kickstart js--> 
+	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/ckeditor/adapters/jquery.js"></script>  <!--kickstart js--> 
+	
+	<script>
+		jQuery(document).ready(function($){
+			//$('textarea.editor').ckeditor();	
+			var ckeditor = CKEDITOR.replace('editor');
+			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
+		});
+		
+	</script>
 </head>
