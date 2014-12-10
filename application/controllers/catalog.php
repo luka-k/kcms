@@ -12,8 +12,10 @@ class Catalog extends Client_Controller {
 		$url = base_url().uri_string();
 
 		$order = $this->input->get('order');
+		if(empty($order)) $order = "name";
 		
 		$direction = $this->input->get('direction');
+		if(empty($direction)) $direction = "acs";
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
@@ -38,7 +40,7 @@ class Catalog extends Client_Controller {
 		);
 		
 		$get = $this->input->get();
-		
+	
 		if($get)
 		{
 			$content = $this->products->get_filtred((object)$get);

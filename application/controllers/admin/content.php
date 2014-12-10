@@ -30,16 +30,8 @@ class Content extends Admin_Controller
 			'name' => $name
 		);	
 				
-		if ($this->db->field_exists('sort', $type))
-		{
-			$order = "sort";
-			$direction = "asc";
-		}
-		else
-		{
-			$order = FALSE;
-			$direction = FALSE;
-		}
+		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
+		$direction = "acs";
 		
 		if($this->db->field_exists('parent_id', $type))
 		{

@@ -494,42 +494,45 @@ class MY_Model extends CI_Model
 		{
 			if(!empty($item)) 
 			{
-				switch ($filters[$key][1])
+				if(isset($filters[$key]))
 				{
-					case "text":
-						$this->db->where(array("type" => $key, "value" => $item));
-						$values = $this->_update_values($values);
-						$counter++;
-						break;
-					case "multy":
-						$this->db->where("type", $key);
-						$this->db->where_in("value", $item);
-						$values = $this->_update_values($values);
-						$counter++;
-						break;
-					case "single":
-						$this->db->where(array("type" => $key, "value" => $item));
-						$values = $this->_update_values($values);
-						$counter++;
-						break;
-					case "interval":
-						if(!empty($item[0])&&!empty($item[1]))
-						{
-							$this->db->where("type", $key);
-							$where = "{$name} BETWEEN {$item[0]} AND {$item[1]}";
-							$this->db->where($where);
+					switch ($filters[$key][1])
+					{
+						case "text":
+							$this->db->where(array("type" => $key, "value" => $item));
 							$values = $this->_update_values($values);
 							$counter++;
-						}
-						elseif(!empty($item[0])||!empty($item[1]))
-						{
+							break;
+						case "multy":
 							$this->db->where("type", $key);
-							if(!empty($item[0])) $this->db->where("value >", $item[0]);
-							if(!empty($item[1])) $this->db->where("value <", $item[1]);
+							$this->db->where_in("value", $item);
 							$values = $this->_update_values($values);
 							$counter++;
-						}	
-						break;
+							break;
+						case "single":
+							$this->db->where(array("type" => $key, "value" => $item));
+							$values = $this->_update_values($values);
+							$counter++;
+							break;
+						case "interval":
+							if(!empty($item[0])&&!empty($item[1]))
+							{
+								$this->db->where("type", $key);
+								$where = "{$name} BETWEEN {$item[0]} AND {$item[1]}";
+								$this->db->where($where);
+								$values = $this->_update_values($values);
+								$counter++;
+							}
+							elseif(!empty($item[0])||!empty($item[1]))
+							{
+								$this->db->where("type", $key);
+								if(!empty($item[0])) $this->db->where("value >", $item[0]);
+								if(!empty($item[1])) $this->db->where("value <", $item[1]);
+								$values = $this->_update_values($values);
+								$counter++;
+							}	
+							break;
+					}
 				}
 			}
 		}
