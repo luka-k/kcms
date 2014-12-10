@@ -105,17 +105,6 @@
 			$('#ch-'+res.item_id).remove();
 		}
 	}
-
-	$('ul .down').mouseenter(function() {
-		$(this).find('ul:first').removeClass('noactive');
-		$(this).find('ul:first').addClass('active');
-	});
-	
-	$('ul .down').mouseleave(function() {
-		$(this).find('ul:first').removeClass('active');
-		$(this).find('ul:first').addClass('noactive');
-	});
-	
 	
 	tinymce.init({
 		selector: "textarea",
