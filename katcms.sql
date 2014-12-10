@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 12 2014 г., 22:51
+-- Время создания: Дек 10 2014 г., 15:43
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -46,7 +46,10 @@ CREATE TABLE IF NOT EXISTS `articles` (
 INSERT INTO `articles` (`id`, `parent_id`, `name`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`) VALUES
 (1, 0, 'Блог', 0, '', '', '', '', 'blog'),
 (3, 0, 'Новости', 0, '', '', '', '', 'novosti'),
-(4, 3, 'Первая новость', 0, '', '', '', '', 'pervaya-novost');
+(4, 5, 'Первая новость о компании', 0, '', '', '', '', 'pervaya-novost'),
+(5, 3, 'Новости компании', 0, '', '', '', '', 'novosti-kompanii'),
+(6, 3, 'Новости о товарах', 0, '', '', '', '', 'novosti-o-tovarah'),
+(7, 5, 'Вторая новость о компании', 0, '', '', '', '', 'vtoraya-novost-o-kompanii');
 
 -- --------------------------------------------------------
 
@@ -85,6 +88,31 @@ INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `characteristics`
+--
+
+CREATE TABLE IF NOT EXISTS `characteristics` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `object_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `object_id` int(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+
+--
+-- Дамп данных таблицы `characteristics`
+--
+
+INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`) VALUES
+(6, 'manufacturer', 'Hansa', 'products', 23),
+(47, 'manufacturer', 'Ariston', 'products', 19),
+(49, 'color', 'green', 'products', 21),
+(50, 'manufacturer', 'Hansa', 'products', 21);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `ci_sessions`
 --
 
@@ -103,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('b99dfab377b737da0de66e16f37ec52b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1415817933, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('16e475181db1b0bb7178d1637516083e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0', 1417428337, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -164,35 +192,14 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
-(23, 1, 'products', 14, '/n/o/no-photo-available.png'),
-(24, 1, 'products', 15, '/n/o/no-photo-available[1].png'),
-(25, 1, 'products', 16, '/n/o/no-photo-available[2].png'),
-(26, 1, 'products', 17, '/n/o/no-photo-available[3].png'),
-(27, 1, 'products', 18, '/n/o/no-photo-available[4].png'),
-(28, 1, 'products', 19, '/n/o/no-photo-available[5].png'),
-(29, 1, 'products', 20, '/n/o/no-photo-available[6].png'),
-(30, 1, 'products', 21, '/n/o/no-photo-available[7].png'),
-(31, 0, 'products', 21, '/n/o/no-photo-available[8].png'),
-(32, 1, 'products', 22, '/n/o/no-photo-available[9].png'),
-(33, 1, 'products', 23, '/n/o/no-photo-available[10].png'),
-(34, 1, 'products', 24, '/n/o/no-photo-available[11].png'),
-(35, 1, 'products', 25, '/n/o/no-photo-available[12].png'),
-(36, 1, 'products', 26, '/n/o/no-photo-available[13].png'),
-(38, 1, 'categories', 15, '/n/o/no-photo-available[14].png'),
-(44, 1, 'categories', 16, '/n/o/no-photo-available[18].png'),
-(47, 1, 'categories', 4, '/n/o/no-photo-available[15].png'),
-(51, 1, 'categories', 20, '/n/o/no-photo-available[17].png'),
-(52, 1, 'products', 29, '/n/o/no-photo-available[19].png'),
-(55, 1, 'categories', 7, '/n/o/no-photo-available[16].png'),
-(56, 1, 'categories', 8, '/n/o/no-photo-available[20].png'),
-(58, 1, 'categories', 12, '/n/o/no-photo-available[21].png');
+(1, 1, 'settings', 1, '/n/o/no-photo-available.png');
 
 -- --------------------------------------------------------
 
@@ -205,20 +212,20 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `menu_id` int(11) NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `sort` int(3) NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `link` text COLLATE utf8_unicode_ci NOT NULL,
+  `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `menus_items`
 --
 
-INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `description`, `link`) VALUES
-(1, 4, 'item-1', 0, 'описание-2', 'про-2'),
-(2, 4, 'item-2', 0, 'описание', 'про'),
-(3, 4, 'item-1-1', 1, 'описание', 'про'),
-(4, 4, 'item-1-2', 1, 'bla', 'bla_bla');
+INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
+(1, 4, 'Блог', 0, 0, '', 'articles', 'blog'),
+(2, 4, 'Новости', 0, 1, '', 'articles', 'novosti');
 
 -- --------------------------------------------------------
 
@@ -240,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
 
 --
 -- Дамп данных таблицы `orders`
@@ -249,7 +256,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
 (61, '541f01199a053', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-21 00:00:00', 3),
 (62, '541f012798fee', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 341, 4, 1, '2014-09-21 00:00:00', 2),
-(63, '541f017a477b3', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 2, '2014-09-21 00:00:00', 1);
+(63, '541f017a477b3', '30', 'Павел', 'luka_bass@inbox.ru', '8-950-123-45-67', 'street 123-45-6', 121, 1, 1, '2014-09-21 00:00:00', 1),
+(64, '546c8f19227b3', '', 'Павел', 'luka_bass_king@inbox.ru', '8-950-65-65', 'rudneva', 1800, 1, 3, '2014-11-19 00:00:00', 1),
+(65, '546c8f5ec26dd', '', 'Павел', 'luka_bass_king@inbox.ru', '8-950-65-65', 'rudneva', 1800, 1, 3, '2014-11-19 00:00:00', 1),
+(66, '546c906451bf7', '', 'Gfgfg', 'luka_bass_king@inbox.ru', '8-950-123-45-67', 'rudneva', 1800, 1, 2, '2014-11-19 00:00:00', 1),
+(67, '546ce23617866', '', 'Павел', 'luka_bass_king@inbox.ru', '8-950-123-45-67', 'rudneva', 1800, 1, 2, '2014-11-19 00:00:00', 1),
+(68, '54705f72adfa3', '27', 'admin', 'admin@admin.ru', '', '', 1300, 2, 1, '2014-11-22 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 --
 -- Дамп данных таблицы `orders_products`
@@ -298,7 +310,11 @@ INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `
 (25, '541f01199a053', 14, 'Товар 1 категории 1', '120.6', 1),
 (26, '541f012798fee', 14, 'Товар 1 категории 1', '120.6', 1),
 (27, '541f012798fee', 16, 'Товар 3 категории 1', '220.3', 1),
-(28, '541f017a477b3', 14, 'Товар 1 категории 1', '120.6', 1);
+(28, '541f017a477b3', 14, 'Товар 1 категории 1', '120.6', 1),
+(29, '546c8f5ec26dd', 21, 'Товар 1 подкатегории 2_2', '1800', 1),
+(30, '546c906451bf7', 21, 'Товар 1 подкатегории 2_2', '1800', 1),
+(31, '546ce23617866', 21, 'Товар 1 подкатегории 2_2', '1800', 1),
+(32, '54705f72adfa3', 23, 'Товар 2 подкатегории 2_2', '1300', 1);
 
 -- --------------------------------------------------------
 
@@ -312,6 +328,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `is_active` int(1) NOT NULL,
   `sort` int(11) NOT NULL,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `article` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `price` float NOT NULL DEFAULT '0',
   `discount` int(2) NOT NULL,
   `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -326,17 +343,16 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-1-podkategorii-2-1-1', ''),
-(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', ''),
-(19, 12, 1, 0, 'Товар 3 подкатегории 2_1_1', 0, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', ''),
-(20, 12, 1, 1, 'Товар 4 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
-(21, 8, 1, 0, 'Товар 1 подкатегории 2_2', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', ''),
-(22, 12, 1, 2, 'Товар 5 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
-(23, 8, 1, 1, 'Товар 2 подкатегории 2_2', 0, 0, '', '', '', 'tovar-2-podkategorii-2-2', ''),
-(24, 12, 1, 5, 'Товар 6 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
-(25, 12, 1, 6, 'Товар 7 подкатегории 2_1_1', 0, 0, '', '', '', '', ''),
-(26, 12, 1, 7, 'Товар 8 подкатегории 2_1_1', 0, 0, '', '', '', '', '');
+INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
+(17, 12, 1, 3, 'Товар 1 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-1-podkategorii-2-1-1', ''),
+(18, 12, 1, 4, 'Товар 2 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', ''),
+(19, 12, 1, 0, 'Товар 3 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', ''),
+(20, 12, 1, 1, 'Товар 4 подкатегории 2_1_1', '', 0, 0, '', '', '', '', ''),
+(21, 8, 1, 0, 'Товар 1 подкатегории 2_2', '321', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', ''),
+(23, 8, 1, 1, 'Товар 2 подкатегории 2_2', '123', 1300, 0, '', '', '', 'tovar-2-podkategorii-2-2', ''),
+(24, 12, 1, 5, 'Товар 6 подкатегории 2_1_1', '', 0, 0, '', '', '', '', ''),
+(25, 12, 1, 6, 'Товар 7 подкатегории 2_1_1', '', 0, 0, '', '', '', '', ''),
+(26, 12, 1, 7, 'Товар 8 подкатегории 2_1_1', '', 0, 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -390,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `role`, `secret`) VALUES
-(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', 'admin', '');
+(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45', '', 'admin', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
