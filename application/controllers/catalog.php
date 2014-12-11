@@ -11,8 +11,8 @@ class Catalog extends CI_Controller {
 	
 	public function index()
 	{
-		$order = $this->input->get('order');	
-		$direction = $this->input->get('direction');
+		$order = "name";	
+		$direction = "asc";
 		
 		$filter = $this->input->get('filter');
 		
@@ -63,7 +63,7 @@ class Catalog extends CI_Controller {
 		}
 		
 		$category = $this->url_model->url_parse(2);
-		//var_dump($category);	
+
 		if($filter)
 		{
 			
@@ -147,14 +147,13 @@ class Catalog extends CI_Controller {
 						}
 						
 						$this->db->where_in("id", $childs_id);
-						//$this->db->order_by($order, $direction);
+						$this->db->order_by($order, $direction);
 						$query = $this->db->get("products", $limit, $from);
 						$content = $query->result();
 						
 						
 						$this->db->where_in("id", $childs_id);
 						$query = $this->db->get("products");
-						$content = $query->result();
 						$total_rows = $this->db->count_all_results('products');
 						
 					}
