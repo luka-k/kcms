@@ -63,7 +63,7 @@ class Catalog extends CI_Controller {
 		}
 		
 		$category = $this->url_model->url_parse(2);
-				
+		//var_dump($category);	
 		if($filter)
 		{
 			
@@ -135,8 +135,35 @@ class Catalog extends CI_Controller {
 				}
 				else
 				{
-					$content = $this->products->get_list(array("parent_id" => $category->id), $from, $limit, $order, $direction);		
-					$total_rows = count($this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction));
+					if(count($this->uri->segment_array()) == 2)
+					{
+						$query = $this->db->get_where("category2category", array("category_parent_id" => $category->id));
+						$childs = $query->result();
+						
+						$childs_id = array();
+						foreach($childs as $item)
+						{
+							$childs_id[] = $item->child_id;
+						}
+						
+						$this->db->where_in("id", $childs_id);
+						//$this->db->order_by($order, $direction);
+						$query = $this->db->get("products", $limit, $from);
+						$content = $query->result();
+						
+						
+						$this->db->where_in("id", $childs_id);
+						$query = $this->db->get("products");
+						$content = $query->result();
+						$total_rows = $this->db->count_all_results('products');
+						
+					}
+					else
+					{
+						$content = $this->products->get_list(array("parent_id" => $category->id), $from, $limit, $order, $direction);		
+						$total_rows = count($this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction));
+					}
+					
 				}
 				$template = "client/categories.php";
 				
@@ -168,7 +195,6 @@ class Catalog extends CI_Controller {
 		}
 		
 		$pagination_config = $this->config->item('pagination');
-		
 		$pagination_config['per_page'] = $settings->pagination_page;
 		$pagination_config['total_rows'] = $total_rows;
 		
@@ -182,7 +208,6 @@ class Catalog extends CI_Controller {
 		}
 
 		$this->pagination->initialize($pagination_config);
-
 		$pagination = $this->pagination->create_links();
 		
 		$active_cart = $this->session->userdata('active_cart');

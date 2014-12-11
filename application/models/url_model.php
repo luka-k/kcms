@@ -10,7 +10,7 @@ class Url_model extends MY_Model
 	public function url_parse($segment_number, $category = FALSE)
 	{
 		$url = $this->uri->segment($segment_number);
-
+		
 		if (!$url) return FALSE;
 		
 		$child_category = $this->categories->get_item_by(array("url" => $url));
