@@ -105,11 +105,6 @@
 			$('#ch-'+res.item_id).remove();
 		}
 	}
-
-	$('ul .down a').mouseover(function() {
-		$(this).next('ul').removeClass('noactive');
-		$(this).next('ul').addClass('active');
-	});
 	
 	tinymce.init({
 		selector: "textarea",
