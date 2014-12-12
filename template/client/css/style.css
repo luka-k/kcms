@@ -763,9 +763,7 @@ text-align:center;
   font-size:14px;
   }
 
-.filter{
-height:510px;
-}
+
 
 .filter .input
   {
@@ -780,6 +778,15 @@ height:510px;
   font-weight:bold;
   font-size:14px;
   }
+
+.submit-btn{
+width:100px;
+margin-bottom:10px;
+padding:5px 10px;
+background:#7f8fa8;
+text-decoration:none;
+color:black;
+}
   
   
 /*-----Параметры----------*/

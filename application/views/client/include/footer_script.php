@@ -118,6 +118,6 @@
 		data.attributes_range = attributes_range;
 		data.attributes = attributes;
 		var json_str = JSON.stringify(data);
-		$.post ("/ajax/filter/", json_str, update_items_1, "json");
+		$.post("/ajax/filter/", json_str, update_items_1, "json");
 	}
 </script>

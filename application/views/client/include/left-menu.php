@@ -5,7 +5,7 @@
 			<?foreach($left_menu as $item_1):?>
 				<li class="accd">
 					<? if(!empty($item_1->childs)):?>
-						<input type="checkbox" class="parent_checked category-<?=$item_1->id?>"  value="<?=$item_1->id?>" onclick="filter('<?=$item_1->id?>')" 
+						<input type="checkbox" class="parent_checked category-<?=$item_1->id?>"  value="<?=$item_1->id?>" onclick="45filter('<?=$item_1->id?>')" 
 							<?if(!empty($parent_checked)):?>
 								<?foreach($parent_checked as $key => $item):?>
 									<?if($item == $item_1->id):?>checked<?endif;?>
@@ -18,7 +18,7 @@
 						<ul class="show">
 							<?foreach ($item_1->childs as $item_2):?>
 								<li>
-									<input type="checkbox" class="categories_checked" name="cetegories_checked" num="<?=$counter?>" parent="<?=$item_1->id?>" value="<?=$item_2->id?>" onclick="filter()" 
+									<input type="checkbox" class="categories_checked" name="cetegories_checked" num="<?=$counter?>" parent="<?=$item_1->id?>" value="<?=$item_2->id?>" onclick="45filter()" 
 									<?if(!empty($categories_checked)):?>
 										<?foreach($categories_checked as $key => $ch):?>
 											<?if($key == $counter):?>checked<?endif;?>

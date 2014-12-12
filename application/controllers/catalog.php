@@ -15,6 +15,7 @@ class Catalog extends CI_Controller {
 		$direction = "asc";
 		
 		$filter = $this->input->get('filter');
+		//var_dump($filter)
 		
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		
@@ -71,6 +72,7 @@ class Catalog extends CI_Controller {
 			$total_rows = $this->db->count_all_results('products');
 
 			$filters = $this->products->set_filters($filters);
+			$this->db->order_by($order, $direction);
 			$query = $this->db->get('products', $limit, $from);
 			$result = $query->result_array();
 			

@@ -29,87 +29,96 @@
 				<?endif;?>
 			</div>
 		</div>
-								
-		<div class="clearfix" style="margin-top:5px">
-			<div class="filter-titl">Производитель:</div>
-			<div class="help">i
-				<div class="popup-help">
-					Окно с подсказкой
+		<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form-2" class="filter-form-2" action="#" >		
+			<input type="hidden" name="filter" value="true"/>
+			<div class="clearfix" style="margin-top:5px;">
+				<div class="filter-titl">Производитель:</div>
+				<div class="help">i
+					<div class="popup-help">
+						Окно с подсказкой
+					</div>
 				</div>
-			</div>
 							
-			<div id="filt-2" class="filtr-noact" onclick="menu(2)">Kludi</div>
-									
-			<div class="filter-titl">Колекция/Серия:</div>
-			<div class="help">i
-				<div class="popup-help">
-				Окно с подсказкой
+				<div id="filt-2" class="filtr-noact" onclick="menu(2)">Kludi</div>
+				
+				<div class="filter-titl">Колекция/Серия:</div>
+				<div class="help">i
+					<div class="popup-help">
+						Окно с подсказкой
+					</div>
 				</div>
-			</div>
-			<div id="filt-2" class="filtr-noact" onclick="return false">balance</div>
+				
+				<div id="filt-2" class="filtr-noact" onclick="return false">balance</div>
+				
 				<input class="input" type="text" name="" />
+				
 				<div class="filter-titl">Артикул/Модель:</div>
 				<div class="help">i
 					<div class="popup-help">
 						Окно с подсказкой
 					</div>
 				</div>
+				
 				<input class="input" type="text" name="" />
-		</div>
-		<div class="clearfix" style="margin-top:10px">
-			<div class="filter-titl">Название товара:</div>
-			<div class="help">i
-				<div class="popup-help">
-					Окно с подсказкой
-				</div>
 			</div>
-			<div id="filt-2" class="filtr-noact" onclick="return false">Kludi Balance 2532255<div class="count">2</div></div>
-			<div class="filter-titl">Описание товара:</div>
-			<div class="help">i
-				<div class="popup-help">
-					Окно с подсказкой
+			
+			<div class="clearfix" style="margin-top:10px">
+				<div class="filter-titl">Название товара:</div>
+				<div class="help">i
+					<div class="popup-help">
+						Окно с подсказкой
+					</div>
 				</div>
-			</div>
-			<div id="filt-2" class="filtr-noact" onclick="return false">Сместиель для раковины</div>
-		</div>
-		<div class="clearfix" style="margin-top:5px">
-			<div class="help">i
-				<div class="popup-help">
-					Окно с подсказкой
+				<div id="filt-2" class="filtr-noact" onclick="return false">Kludi Balance 2532255<div class="count">2</div></div>
+				<div class="filter-titl">Описание товара:</div>
+				<div class="help">i
+					<div class="popup-help">
+						Окно с подсказкой
+					</div>
 				</div>
+				<div id="filt-2" class="filtr-noact" onclick="return false">Сместиель для раковины</div>
 			</div>
-			<div class="filter-titl">Характеристики:</div>
-			<div class="clearfix">
+			<div class="clearfix" style="margin-top:5px;">
+				<div class="help">i
+					<div class="popup-help">
+						Окно с подсказкой
+					</div>
+				</div>
+				<div class="filter-titl">Характеристики:</div>
+				<div class="clearfix">
 
-			<div class="filter">	
-				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form-2" class="filter-form-2" action="" >
-					<div class="filtr-razmer-1">Размеры(мм):</div>
-					<div class="filtr-razmer-2">от:</div>	
-					<div class="filtr-razmer-2">до:</div>
-					<div class="filtr-razmer-1">ширина:</div>
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="width" value="<?=$filters['attributes_range']['width']->from?>" onchange="filter()"/>
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="width" sort="to" value="<?=$filters['attributes_range']['width']->to?>" onchange="filter()"/>
-					<div class="filtr-razmer-1">высота(h):</div>	
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="height" value="<?=$filters['attributes_range']['height']->from?>" onchange="filter()"/>
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="height" value="<?=$filters['attributes_range']['height']->to?>" onchange="filter()"/>
-					<div class="filtr-razmer-1">глубина:</div>
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="depth" value="<?=$filters['attributes_range']['depth']->from?>" onchange="filter()"/>
-					<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="depth" value="<?=$filters['attributes_range']['depth']->to?>" onchange="filter()"/>
-					<div class="filter-titl">Цвет:</div>
-					<div class="help">i</div>
-					<input class="input attributes" type="text" range="false" name="color" value="<?=$filters['attributes']['color']?>" onchange="filter()"/>
-					<div class="filter-titl">Материал:</div>
-					<div class="help">i</div>
-					<input class="input attributes" type="text" range="false" name="material" value="<?=$filters['attributes']['material']?>" onchange="filter()"/>
-					<div class="filter-titl">Отделка:</div>
-					<div class="help">i</div>
-					<input class="input attributes" type="text" range="false" name="finishing" value="<?=$filters['attributes']['finishing']?>" onchange="filter()"/>
-					<div class="filter-titl">Разворот:</div>
-					<div class="help">i</div>
-					<input class="input attributes" type="text" range="false" name="turn" value="<?=$filters['attributes']['turn']?>" onchange="filter()"/>
-				</form>	
+					<div class="filter">	
+						<div class="filtr-razmer-1">Размеры(мм):</div>
+						<div class="filtr-razmer-2">от:</div>	
+						<div class="filtr-razmer-2">до:</div>
+						<div class="filtr-razmer-1">ширина:</div>
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="width" value="<?=$filters['attributes_range']['width']->from?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="width" value="<?=$filters['attributes_range']['width']->to?>" onchange="--filter()"/>
+						<div class="filtr-razmer-1">высота(h):</div>	
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="height" value="<?=$filters['attributes_range']['height']->from?>" onchange="filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="height" value="<?=$filters['attributes_range']['height']->to?>" onchange="--filter()"/>
+						<div class="filtr-razmer-1">глубина:</div>
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="depth" value="<?=$filters['attributes_range']['depth']->from?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="depth" value="<?=$filters['attributes_range']['depth']->to?>" onchange="--filter()"/>
+						<div class="filter-titl">Цвет:</div>
+						<div class="help">i</div>
+						<input class="input attributes" type="text" range="false" name="color" value="<?=$filters['attributes']['color']?>" onchange="--filter()"/>
+						<div class="filter-titl">Материал:</div>
+						<div class="help">i</div>
+						<input class="input attributes" type="text" range="false" name="material" value="<?=$filters['attributes']['material']?>" onchange="--filter()"/>
+						<div class="filter-titl">Отделка:</div>
+						<div class="help">i</div>
+						<input class="input attributes" type="text" range="false" name="finishing" value="<?=$filters['attributes']['finishing']?>" onchange="--filter()"/>
+						<div class="filter-titl">Разворот:</div>
+						<div class="help">i</div>
+						<input class="input attributes" type="text" range="false" name="turn" value="<?=$filters['attributes']['turn']?>" onchange="--filter()"/>
+					</div>
+				</div>
 			</div>
+			<div class="clearfix" style="margin-top:15px; padding-bottom:10px; text-align:center;">
+				<a href="#" class="submit-btn" onclick="filter()">Применить</a>
 			</div>
-		</div>
+		</form>	
 	</div>
+	
 </div><!-- .left-sidebar -->
