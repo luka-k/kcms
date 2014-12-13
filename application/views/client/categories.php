@@ -29,7 +29,7 @@
 															</div>
 															<div class="item clearfix">
 																<div class="item-name"><?=$item->name?></div>
-																<div class="item-d"><?=$item->name?></div>
+																<div class="item-d"><?=$item->article?></div>
 																<div class="item-color"><?=$item->color?></div>
 																<div class="left-col">Цена розничная:</div><div class="item-price"><?=$item->price?> руб.</div>
 																<?if(!empty($item->discount)):?>

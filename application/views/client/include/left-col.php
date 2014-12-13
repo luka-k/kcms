@@ -76,7 +76,7 @@
 					</div>
 				</div>
 				
-				<input class="input" type="text" name="" />
+				<input class="input" type="text" name="article" value="<?if(isset($filters['article'])):?><?=$filters['article']?><?endif;?>"/>
 			</div>
 			
 			<div class="clearfix" style="margin-top:10px">

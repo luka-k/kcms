@@ -9,6 +9,7 @@ class Products extends MY_Model
 			'manufacturer_id' => array('Производитель', 'select_3'),
 			'is_active' => array('Активна', 'checkbox'),
 			'name' => array('Заголовок', 'text', 'url'),
+			'article' => array('Ариткул', 'text'),
 			'price' => array('Цена', 'text'),
 			'discount' => array('Скидка', 'text'),
 			'location' => array('Наличие', 'text'),
@@ -76,6 +77,7 @@ class Products extends MY_Model
 		$this->range_filter("height", $filters['height_from'], $filters['height_to']);
 		$this->range_filter("depth", $filters['depth_from'], $filters['depth_to']);
 		
+		$this->attributes_filter("article", $filters['article']);
 		$this->attributes_filter("color", $filters['color']);
 		$this->attributes_filter("material", $filters['material']);
 		$this->attributes_filter("finishing", $filters['finishing']);
