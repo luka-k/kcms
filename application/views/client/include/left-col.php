@@ -65,9 +65,9 @@
 					</div>
 				</div>
 				
-				<div id="filt-2" class="filtr-noact" onclick="return false">balance</div>
+				<input class="input" type="text" name="collection" value="<?if(isset($filters['collection'])):?><?=$filters['collection']?><?endif;?>"/>
 				
-				<input class="input" type="text" name="" />
+				<input class="input" type="text" name="seria" value="<?if(isset($filters['seria'])):?><?=$filters['seria']?><?endif;?>"/>
 				
 				<div class="filter-titl">Артикул/Модель:</div>
 				<div class="help">i
@@ -86,14 +86,14 @@
 						Окно с подсказкой
 					</div>
 				</div>
-				<div id="filt-2" class="filtr-noact" onclick="return false">Kludi Balance 2532255<div class="count">2</div></div>
+				<input class="input" type="text" name="name" value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>"/>
 				<div class="filter-titl">Описание товара:</div>
 				<div class="help">i
 					<div class="popup-help">
 						Окно с подсказкой
 					</div>
 				</div>
-				<div id="filt-2" class="filtr-noact" onclick="return false">Сместиель для раковины</div>
+				<input class="input" type="text" name="description" value="<?if(isset($filters['description'])):?><?=$filters['description']?><?endif;?>"/>
 			</div>
 			<div class="clearfix" style="margin-top:5px;">
 				<div class="help">i
