@@ -14,8 +14,8 @@ class Catalog extends CI_Controller {
 		$order = "name";	
 		$direction = "asc";
 		
-		$filter = $this->input->get('filter');
-		//var_dump($filter)
+		$filters = $this->input->get();
+		//var_dump($filters);
 		
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		
@@ -49,12 +49,13 @@ class Catalog extends CI_Controller {
 			$limit = $settings->pagination_page;
 		}
 		
-		$filters = $this->session->userdata('filters');
-
+		//$filters = $this->session->userdata('filters');
+		
 		if(!empty($filters['categories_checked']))
 		{
 			foreach($filters['categories_checked'] as $key => $item)
 			{
+				
 				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
 			}
 		}
@@ -62,10 +63,10 @@ class Catalog extends CI_Controller {
 		{
 			$categories_ch = "";
 		}
-		
+		//var_dump($categories_ch);
 		$category = $this->url_model->url_parse(2);
 
-		if($filter)
+		if($filters['filter'])
 		{
 			
 			$this->products->set_filters($filters);
@@ -199,7 +200,7 @@ class Catalog extends CI_Controller {
 		$pagination_config['per_page'] = $settings->pagination_page;
 		$pagination_config['total_rows'] = $total_rows;
 		
-		if($filter)
+		if(isset($filters['filter']))
 		{
 			$pagination_config['base_url'] = base_url().uri_string()."?filter=true&pagination=true";
 		}
@@ -214,6 +215,10 @@ class Catalog extends CI_Controller {
 		$active_cart = $this->session->userdata('active_cart');
 		
 		$left_active = "filt-1";
+		
+		if(empty($filters['categories_checked'])) $filters['categories_checked'] = "";
+		if(empty($filters['manufacturer_checked'])) $filters['manufacturer_checked'] = "";
+		if(empty($filters['parent_checked'])) $filters['parent_checked'] = "";
 
 		$data = array(
 			'content' => $content,

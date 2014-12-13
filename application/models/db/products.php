@@ -68,26 +68,34 @@ class Products extends MY_Model
 	{
 		if(!empty($filters['categories_checked'])) $this->db->where_in('parent_id', $filters['categories_checked']);
 		if(!empty($filters['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filters['manufacturer_checked']);
+		$this->range_filter("width", $filters['width_from'], $filters['width_to']);
+		$this->range_filter("height", $filters['height_from'], $filters['height_to']);
+		$this->range_filter("depth", $filters['depth_from'], $filters['depth_to']);
 		
-		foreach($filters['attributes_range'] as $name => $item)
-		{
-			if(!empty($item->from)&&!empty($item->to))
-			{
-				$where = "{$name} BETWEEN {$item->from} AND {$item->to}";
-				$this->db->where($where);
-			}
-			else
-			{
-				!empty($item->from)?$this->db->where("{$name} >", $item->from):$filters['attributes_range'][$name]->from = "";
-				!empty($item->to)?$this->db->where("{$name} <", $item->to):$filters['attributes_range'][$name]->to = "";
-			}	
-		}
-		
-		foreach($filters['attributes'] as $name => $item)
-		{
-			!empty($item)?$this->db->where("{$name}", $item):$filters['color'] = "";
-		}
+		$this->attributes_filter("color", $filters['color']);
+		$this->attributes_filter("material", $filters['material']);
+		$this->attributes_filter("finishing", $filters['finishing']);
+		$this->attributes_filter("turn", $filters['turn']);
 		
 		return $filters;
+	}
+	
+	private function range_filter($param, $item_from, $item_to)
+	{
+		if(!empty($item_from)&&!empty($item_to))
+		{
+			$where = "{$param} BETWEEN {$item_from} AND {$item_to}";
+			$this->db->where($where);
+		}
+		else
+		{
+			if(!empty($item_from)) $this->db->where("{$param} >", $item_from);
+			if(!empty($item_to))$this->db->where("{$param} <", $item->to);
+		}	
+	}
+	
+	private function attributes_filter($param, $item)
+	{
+		if(!empty($item)) $this->db->where("{$param}", $item);
 	}
 }

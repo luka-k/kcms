@@ -34,50 +34,12 @@
 	function update_items_1(){
 		window.location.replace("/shop?filter=true");
 	}	
-
-	function filter(category_id){
+	
+	function sub_category(category_id){
 		var form = $('.filter-form'),
-		form_2 = $('.filter-form-2'),
 		categories_inputs = form.find('input.categories_checked'),
-		manufacturer_inputs = form.find('input.manufacturer_checked'),
 		parent_inputs = form.find('input.parent_checked'),
-		attributes_inputs = form_2.find('input.attributes'),
-		parent_checked = {},
-		categories_checked = {},
-		manufacturer_checked = {},
-		attributes = {},
-		attributes_range = {},
-		data = {},
-		item = {};
-		
-		var num = 0;
-		attributes_inputs.each(function () {
-			var element = $(this);
-			if (element.attr('range') == 'true'){
-				item[element.attr('sort')] = element.val();
-				attributes_range[element.attr('name')] = item;
-				num++;
-			}
-			
-			if (element.attr('range') == 'false'){
-				attributes[element.attr('name')] = element.val();
-			}
-			
-			if (num == 2){
-				item = {};
-				num = 0;
-			}
-			
-		});
-		
-		console.log(attributes_range);
-		
-		parent_inputs.each(function () {
-			var element = $(this);
-			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
-				parent_checked[element.val()] = element.val();
-			}
-		});	
+		parent_checked = {};
 		
 		categories_inputs.each(function () {
 			var element = $(this);
@@ -100,24 +62,5 @@
 				delete parent_checked[element.attr('parent')];
 			}
 		});
-		
-		manufacturer_inputs.each(function () {
-			var element = $(this);
-			
-			if (element.attr('type') == 'checkbox' && $(this).prop("checked")) {
-				if (element.attr('name') == 'manufacturer_checked'){
-					manufacturer_num = element.attr('num');
-					manufacturer_checked[manufacturer_num] = element.val();
-				}			
-			}
-		});
-		
-		data.parent_checked = parent_checked;
-		data.categories_checked = categories_checked;
-		data.manufacturer_checked = manufacturer_checked;
-		data.attributes_range = attributes_range;
-		data.attributes = attributes;
-		var json_str = JSON.stringify(data);
-		$.post("/ajax/filter/", json_str, update_items_1, "json");
 	}
 </script>

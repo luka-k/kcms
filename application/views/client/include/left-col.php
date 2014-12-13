@@ -28,8 +28,7 @@
 					<?endif;?>
 				<?endif;?>
 			</div>
-		</div>
-		<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form-2" class="filter-form-2" action="#" >		
+		</div>	
 			<input type="hidden" name="filter" value="true"/>
 			<div class="clearfix" style="margin-top:5px;">
 				<div class="filter-titl">Производитель:</div>
@@ -92,33 +91,33 @@
 						<div class="filtr-razmer-2">от:</div>	
 						<div class="filtr-razmer-2">до:</div>
 						<div class="filtr-razmer-1">ширина:</div>
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="width" value="<?=$filters['attributes_range']['width']->from?>" onchange="--filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="width" value="<?=$filters['attributes_range']['width']->to?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="width_from" value="<?if(isset($filters['width_from'])):?><?=$filters['width_from']?><?endif;?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="width_to" value="<?if(isset($filters['width_to'])):?><?=$filters['width_to']?><?endif;?>" onchange="--filter()"/>
 						<div class="filtr-razmer-1">высота(h):</div>	
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="height" value="<?=$filters['attributes_range']['height']->from?>" onchange="filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="height" value="<?=$filters['attributes_range']['height']->to?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="height_from" value="<?if(isset($filters['height_from'])):?><?=$filters['height_from']?><?endif;?>" onchange="filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="height_to" value="<?if(isset($filters['height_to'])):?><?=$filters['height_to']?><?endif;?>" onchange="--filter()"/>
 						<div class="filtr-razmer-1">глубина:</div>
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="from" name="depth" value="<?=$filters['attributes_range']['depth']->from?>" onchange="--filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" range="true" sort="to" name="depth" value="<?=$filters['attributes_range']['depth']->to?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="depth_from" value="<?if(isset($filters['depth_from'])):?><?=$filters['depth_from']?><?endif;?>" onchange="--filter()"/>
+						<input class="filtr-razmer-3 attributes" type="text" name="depth_to" value="<?if(isset($filters['depth_to'])):?><?=$filters['depth_to']?><?endif;?>" onchange="--filter()"/>
 						<div class="filter-titl">Цвет:</div>
 						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="color" value="<?=$filters['attributes']['color']?>" onchange="--filter()"/>
+						<input class="input attributes" type="text" range="false" name="color" value="<?if(isset($filters['color'])):?><?=$filters['color']?><?endif;?>" onchange="--filter()"/>
 						<div class="filter-titl">Материал:</div>
 						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="material" value="<?=$filters['attributes']['material']?>" onchange="--filter()"/>
+						<input class="input attributes" type="text" range="false" name="material" value="<?if(isset($filters['material'])):?><?=$filters['material']?><?endif;?>" onchange="--filter()"/>
 						<div class="filter-titl">Отделка:</div>
 						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="finishing" value="<?=$filters['attributes']['finishing']?>" onchange="--filter()"/>
+						<input class="input attributes" type="text" range="false" name="finishing" value="<?if(isset($filters['finishing'])):?><?=$filters['finishing']?><?endif;?>" onchange="--filter()"/>
 						<div class="filter-titl">Разворот:</div>
 						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="turn" value="<?=$filters['attributes']['turn']?>" onchange="--filter()"/>
+						<input class="input attributes" type="text" range="false" name="turn" value="<?if(isset($filters['turn'])):?><?=$filters['turn']?><?endif;?>" onchange="--filter()"/>
 					</div>
 				</div>
 			</div>
 			<div class="clearfix" style="margin-top:15px; padding-bottom:10px; text-align:center;">
-				<a href="#" class="submit-btn" onclick="filter()">Применить</a>
+				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
-		</form>	
+
 	</div>
 	
 </div><!-- .left-sidebar -->
