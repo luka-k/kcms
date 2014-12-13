@@ -38,7 +38,25 @@
 					</div>
 				</div>
 							
-				<div id="filt-2" class="filtr-noact" onclick="menu(2)">Kludi</div>
+				<div id="filt-2" class="filtr-noact" onclick="menu(2)">
+					<?if(empty($manufacturer_ch)):?>
+						Все производители
+					<?else:?>
+						<?=$manufacturer_ch[0]->name?>
+						<?if(count($manufacturer_ch) > 1):?>
+							<div class="count">
+								<?=count($manufacturer_ch)?>
+								<div class="popup-count">
+									<ul>
+										<?foreach($manufacturer_ch as $item):?>
+											<li><?=$item->name?></li>
+										<?endforeach;?>
+									</ul>
+								</div>
+							</div>
+						<?endif;?>
+					<?endif;?>
+				</div>
 				
 				<div class="filter-titl">Колекция/Серия:</div>
 				<div class="help">i

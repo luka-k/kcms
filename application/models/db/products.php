@@ -66,7 +66,11 @@ class Products extends MY_Model
 	
 	public function set_filters($filters)
 	{
-		if(!empty($filters['categories_checked'])) $this->db->where_in('parent_id', $filters['categories_checked']);
+		if(!empty($filters['categories_checked'])) 
+		{
+			$this->db->where_in('parent_id', $filters['categories_checked']);
+		}
+		
 		if(!empty($filters['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filters['manufacturer_checked']);
 		$this->range_filter("width", $filters['width_from'], $filters['width_to']);
 		$this->range_filter("height", $filters['height_from'], $filters['height_to']);

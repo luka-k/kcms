@@ -36,6 +36,9 @@ class Catalog extends CI_Controller {
 		$pagin = $this->input->get('pagination');
 		$total_rows = "";
 		
+		$url = current_url();
+		//var_dump($url);
+		
 		if($pagin)
 		{
 			$per_page = $this->input->get('per_page');
@@ -49,8 +52,6 @@ class Catalog extends CI_Controller {
 			$limit = $settings->pagination_page;
 		}
 		
-		//$filters = $this->session->userdata('filters');
-		
 		if(!empty($filters['categories_checked']))
 		{
 			foreach($filters['categories_checked'] as $key => $item)
@@ -63,7 +64,21 @@ class Catalog extends CI_Controller {
 		{
 			$categories_ch = "";
 		}
-		//var_dump($categories_ch);
+		
+		if(!empty($filters['manufacturer_checked']))
+		{
+			foreach($filters['manufacturer_checked'] as $key => $item)
+			{
+				
+				$manufacturer_ch[] = $this->manufacturer->get_item_by(array("id" => $item));		
+			}
+		}
+		else
+		{
+			$manufacturer_ch = "";
+		}
+		
+		
 		$category = $this->url_model->url_parse(2);
 
 		if($filters['filter'])
@@ -219,7 +234,11 @@ class Catalog extends CI_Controller {
 		if(empty($filters['categories_checked'])) $filters['categories_checked'] = "";
 		if(empty($filters['manufacturer_checked'])) $filters['manufacturer_checked'] = "";
 		if(empty($filters['parent_checked'])) $filters['parent_checked'] = "";
-
+		
+		//var_dump($filters['categories_checked']);
+		//var_dump($filters['manufacturer_checked']);
+		//var_dump($manufacturer);
+		
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,
@@ -233,6 +252,7 @@ class Catalog extends CI_Controller {
 			'left_active' => $left_active,
 			'categories_checked' => $filters['categories_checked'],
 			'categories_ch' => $categories_ch,
+			'manufacturer_ch' => $manufacturer_ch,
 			'manufacturer_checked' => $filters['manufacturer_checked'],
 			'filters' => $filters,
 			'parent_checked' => $filters['parent_checked'],
