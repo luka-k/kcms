@@ -24,8 +24,8 @@
 		
 		(function($){
 			$(window).load(function(){
-				$(".scroll-content").height($( window ).height() - 125);
-				$(".scroll-contentd").height($( window ).height() - 125);
+				$(".scroll-content").height($( window ).height() - 105);
+				$(".scroll-contentd").height($( window ).height() - 105);
 				$("#leftscroll").height($( "#leftscroll" ).height() + 0);
 				$("#good_page_scroll").height($( window ).height() - 115);
 				$(".scroll-content").mCustomScrollbar({

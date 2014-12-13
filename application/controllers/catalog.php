@@ -36,8 +36,7 @@ class Catalog extends CI_Controller {
 		$pagin = $this->input->get('pagination');
 		$total_rows = "";
 		
-		$url = current_url();
-		//var_dump($url);
+		$query_string = $_SERVER['QUERY_STRING'];
 		
 		if($pagin)
 		{
@@ -217,7 +216,7 @@ class Catalog extends CI_Controller {
 		
 		if(isset($filters['filter']))
 		{
-			$pagination_config['base_url'] = base_url().uri_string()."?filter=true&pagination=true";
+			$pagination_config['base_url'] = base_url().uri_string()."/?".$query_string."&filter=true&pagination=true";
 		}
 		else
 		{

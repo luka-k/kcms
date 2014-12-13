@@ -1,5 +1,5 @@
-<div class="scroll-contentd" id="leftscroll" style="height: 410px;">
-	<div id="filter" class="clearfix scroll-content"  style="height: 400px;overflow-y: hidden;">
+<div class="scroll-contentd" id="leftscroll" style="height: 550px;">
+	<div id="filter" class="clearfix scroll-content"  style="height: 500px; overflow-y: hidden;">
 		
 		<div class="clearfix" >
 			<div class="filter-titl">Группа товаров:</div>
@@ -30,7 +30,7 @@
 			</div>
 		</div>	
 			<input type="hidden" name="filter" value="true"/>
-			<div class="clearfix" style="margin-top:5px;">
+			<div class="clearfix" style="margin-top:3px;">
 				<div class="filter-titl">Производитель:</div>
 				<div class="help">i
 					<div class="popup-help">
@@ -67,8 +67,6 @@
 				
 				<input class="input" type="text" name="collection" value="<?if(isset($filters['collection'])):?><?=$filters['collection']?><?endif;?>"/>
 				
-				<input class="input" type="text" name="seria" value="<?if(isset($filters['seria'])):?><?=$filters['seria']?><?endif;?>"/>
-				
 				<div class="filter-titl">Артикул/Модель:</div>
 				<div class="help">i
 					<div class="popup-help">
@@ -79,7 +77,7 @@
 				<input class="input" type="text" name="article" value="<?if(isset($filters['article'])):?><?=$filters['article']?><?endif;?>"/>
 			</div>
 			
-			<div class="clearfix" style="margin-top:10px">
+			<div class="clearfix" style="margin-top:3px">
 				<div class="filter-titl">Название товара:</div>
 				<div class="help">i
 					<div class="popup-help">
@@ -95,13 +93,15 @@
 				</div>
 				<input class="input" type="text" name="description" value="<?if(isset($filters['description'])):?><?=$filters['description']?><?endif;?>"/>
 			</div>
-			<div class="clearfix" style="margin-top:5px;">
+			<div class="clearfix" style="margin-top:3px;">
+				<div class="clearfix">
 				<div class="help">i
 					<div class="popup-help">
 						Окно с подсказкой
 					</div>
 				</div>
 				<div class="filter-titl">Характеристики:</div>
+				</div>
 				<div class="clearfix">
 
 					<div class="filter">	
@@ -132,7 +132,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="clearfix" style="margin-top:15px; padding-bottom:10px; text-align:center;">
+			<div class="clearfix" style="margin-top:8px; padding-bottom:10px; text-align:center;">
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
 

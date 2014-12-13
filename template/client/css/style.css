@@ -605,15 +605,15 @@ h2.document-name a:hover {
 position:absolute;
 width:302px;
 margin-left:35px;
-padding:10px 0 0 0;
-font-size:12px;
+padding:5px 0 0 0;
+font-size:11px;
 }
   
 .filter-titl
   {
   float:left;
   width:220px;
-  margin:5px 0 0 0;
+  margin:3px 0 0 0;
   }
   
 .help{
@@ -647,27 +647,26 @@ display:block;
   {
   float:left;
   width:260px;
-  margin:3px 0;
-  padding:2px 5px;
+  margin:2px 0;
+  padding:1px 5px;
   border:1px solid #7f8fa8;
   color:#fd2020;
   font-weight:bold;
-  font-size:12px;
+  font-size:11px;
   cursor:pointer;
-
   }  
   
 .filtr-act
   {
   float:left;
   width:277px;
-  margin:3px 0;
-  padding:2px 5px;
+  margin:2px 0;
+  padding:1px 5px;
   border:1px solid #fd2020;
   border-right:1px solid #fff;
   color:#fd2020;
   font-weight:bold;
-  font-size:12px;
+  font-size:11px;
   cursor:pointer;
   } 
   
@@ -689,7 +688,7 @@ padding: 10px 0px 0 0px;
   float:right;
   padding:1px 3px;
   background:#c8c8c8;
-  font-size:12px;
+  font-size:11px;
   color:#000;
   border-radius:2px;
   }
@@ -714,11 +713,11 @@ display:block;
   {
   float:left;
   width:85px;
-  height:18px;
+  height:16px;
   margin:-1px 0 0 0;
-  padding:2px 5px;
+  padding:1px 5px;
   border:1px solid #7f8fa8;
-  font-size:12px;
+  font-size:11px;
   text-align:center;
   }  
   
@@ -726,11 +725,11 @@ display:block;
 position:relative;
 float:left;
 width:76px;
-height:18px;
+height:16px;
 margin:-1px 0 0 -1px;
-padding:2px 5px;
+padding:1px 5px;
 border:1px solid #7f8fa8;
-font-size:12px;
+font-size:11px;
 text-align:center;
 } 
   
@@ -738,14 +737,14 @@ text-align:center;
   {
   float:left;
   width:76px;
-  height:18px;
+  height:16px;
   margin:-1px 0 0 -1px;
-  padding:2px 5px;
+  padding:1px 5px;
   border:1px solid #7f8fa8;
   background:transparent;
   color:#fd2020;
   font-weight:bold;
-  font-size:12px;
+  font-size:11px;
   text-align:center;
   } 
   
@@ -753,14 +752,14 @@ text-align:center;
   {
   float:left;
   width:260px;
-  height:20px;
-  margin:2px 0 0 0;
+  height:18px;
+  margin:1px 0 0 0;
   padding:0 5px;
   background:transparent;
   border:1px solid #7f8fa8;
   color:#fd2020;
   font-weight:bold;
-  font-size:14px;
+  font-size:12px;
   }
 
 
@@ -804,8 +803,8 @@ color:black;
 #attribut
   {
   width:205px;
-min-height:200px;
-  margin:0;
+	min-height:200px;
+  margin:-10px 0 0 0;
   padding:5px 10px;
   border:1px #fd2020 solid;
   }
