@@ -18,7 +18,7 @@
 						<ul class="show">
 							<?foreach ($item_1->childs as $item_2):?>
 								<li>
-									<input type="checkbox" class="categories_checked" name="categories_checked[]" num="<?=$counter?>" parent="<?=$item_1->id?>" value="<?=$item_2->id?>" onclick="45filter()" 
+									<input type="checkbox" class="categories_checked" name="categories_checked[]" parent="<?=$item_1->id?>" value="<?=$item_2->id?>" 
 									<?if(!empty($categories_checked)):?>
 										<?foreach($categories_checked as $key => $ch):?>
 											<?if($ch == $item_2->id):?>checked<?endif;?>
