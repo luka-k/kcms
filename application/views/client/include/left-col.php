@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				
-				<input class="input" type="text" name="collection" value="<?if(isset($filters['collection'])):?><?=$filters['collection']?><?endif;?>"/>
+				<input id="collection" class="input" type="text" name="collection" value="<?if(isset($filters['collection'])):?><?=$filters['collection']?><?endif;?>" onkeypress="autocomp(this.id)"/>
 				
 				<div class="filter-titl">Артикул/Модель:</div>
 				<div class="help">i
@@ -74,7 +74,7 @@
 					</div>
 				</div>
 				
-				<input class="input" type="text" name="article" value="<?if(isset($filters['article'])):?><?=$filters['article']?><?endif;?>"/>
+				<input id="article" class="input" type="text" name="article" value="<?if(isset($filters['article'])):?><?=$filters['article']?><?endif;?>" onkeypress="autocomp(this.id)"/>
 			</div>
 			
 			<div class="clearfix" style="margin-top:3px">
@@ -84,14 +84,14 @@
 						Окно с подсказкой
 					</div>
 				</div>
-				<input class="input" type="text" name="name" value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>"/>
+				<input id="name" class="input" type="text" name="name" value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>" onkeypress="autocomp(this.id)"/>
 				<div class="filter-titl">Описание товара:</div>
 				<div class="help">i
 					<div class="popup-help">
 						Окно с подсказкой
 					</div>
 				</div>
-				<input class="input" type="text" name="description" value="<?if(isset($filters['description'])):?><?=$filters['description']?><?endif;?>"/>
+				<input id="description" class="input" type="text" name="description" value="<?if(isset($filters['description'])):?><?=$filters['description']?><?endif;?>" onkeypress="autocomp(this.id)"/>
 			</div>
 			<div class="clearfix" style="margin-top:3px;">
 				<div class="clearfix">

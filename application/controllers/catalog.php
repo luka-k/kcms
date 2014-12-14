@@ -15,7 +15,6 @@ class Catalog extends CI_Controller {
 		$direction = "asc";
 		
 		$filters = $this->input->get();
-		//var_dump($filters);
 		
 		$this->breadcrumbs->Add("catalog", "Каталог");
 		
@@ -76,11 +75,8 @@ class Catalog extends CI_Controller {
 		{
 			$manufacturer_ch = "";
 		}
-		
-		
-		$category = $this->url_model->url_parse(2);
 
-		if($filters['filter'])
+		if(isset($filters['filter']))
 		{
 			
 			$this->products->set_filters($filters);
@@ -107,31 +103,7 @@ class Catalog extends CI_Controller {
 		}
 		else
 		{
-			$filters = array(
-				'parent_checked' => "",
-				'categories_checked' => "",
-				'manufacturer_checked' => "",
-				'attributes_range' => array(
-					'width' => (object)array(
-						'from' => "",
-						'to' => ""
-					),
-					'height' => (object)array(
-						'from' => "",
-						'to' => ""
-					),
-					'depth' => (object)array(
-						'from' => "",
-						'to' => ""
-					)
-				),
-				'attributes' => array(
-					"color" => "",
-					"material" => "",
-					"finishing" => "",
-					"turn" => ""
-				)
-			);
+			$category = $this->url_model->url_parse(2);
 			if(isset($category->product))
 			{
 				$content = $category->product;
@@ -163,14 +135,12 @@ class Catalog extends CI_Controller {
 							$childs_id[] = $item->child_id;
 						}
 						
-						$this->db->where_in("id", $childs_id);
+						$this->db->where_in("parent_id", $childs_id);
 						$this->db->order_by($order, $direction);
 						$query = $this->db->get("products", $limit, $from);
 						$content = $query->result();
 						
-						
-						$this->db->where_in("id", $childs_id);
-						$query = $this->db->get("products");
+						$this->db->where_in("parent_id", $childs_id);
 						$total_rows = $this->db->count_all_results('products');
 						
 					}

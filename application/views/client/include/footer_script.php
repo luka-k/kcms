@@ -31,8 +31,8 @@
 		
 	}
 	
-	function update_items_1(){
-		window.location.replace("/shop?filter=true");
+	function update_items(){
+		
 	}	
 	
 	function sub_category(category_id){

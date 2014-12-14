@@ -166,4 +166,67 @@ class Ajax extends CI_Controller {
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}
+	
+	function autocomplete()
+	{
+		$data = json_decode(file_get_contents('php://input', true));	
+		$categories_checked = (array)$data->categories_checked;
+		if(!empty($categories_checked))
+		{
+			$this->db->where_in('parent_id', $categories_checked);
+		}
+		else
+		{
+			$segments = explode("/", $data->url);
+			$length = count($segments);
+			if($length > 2)
+			{
+				$url = $segments[$length-1];
+				$category = $this->categories->get_item_by(array("url" => $url));
+				$query = $this->db->get_where("category2category", array("child_id" => $category->id));
+				$category_id = $query->row()->category_parent_id;
+				
+				if($category_id == 0)
+				{
+					$this->db->where("category_parent_id", $category->id);
+					$query = $this->db->get("category2category");
+					$result = $query->result();
+					foreach($result as $items)
+					{
+						foreach ($items as $item)
+						{
+							if(!empty($item))
+							{
+								$categories_child[] = $item;
+							}
+						}
+					}
+					$this->db->where_in('parent_id', $categories_child);
+				}
+				else
+				{
+					$this->db->where("parent_id", $category->id);
+				}
+			}
+		}
+		$this->db->select($data->type);
+		$query = $this->db->get('products');
+		$result = $query->result();
+		
+		$available_tags = array();
+		foreach($result as $items)
+		{
+			foreach ($items as $item)
+			{
+				if(!empty($item))
+				{
+					$available_tags[] = $item;
+				}
+			}
+		}
+		$answer['type'] = $data->type;
+		$answer['available_tags'] = $available_tags;
+		
+		echo json_encode($answer);
+	}
 }

@@ -5,6 +5,8 @@
 	<meta content="http://brightbuild.ru/image/bb_house.jpg" property="og:image">-->
 		
 	<link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css" type="text/css">
+	<link href="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.min.css" rel="stylesheet" />
+	
 	<link href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
 	<script type="text/javascript">var current_id = 0;</script> 
 	
@@ -12,6 +14,7 @@
 	<!-- Add jQuery library -->
 		
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/accordion.js?v05"></script>
 	
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
@@ -89,5 +92,37 @@
 			$("#order").submit();
 		}
 		
+		function autocomp(type){
+			var form = $('.filter-form'),
+			categories_inputs = form.find('input.categories_checked'),
+			categories_checked = {},
+			data = {};
+
+			var num = 0;
+			categories_inputs.each(function () {
+				var element = $(this);
+				
+				if (element.attr('type') == 'checkbox' && element.prop("checked")) {
+						categories_checked[num] = element.val();
+						num++;
+				}
+			});
+
+			data.type = type;
+			data.url = window.location.pathname;
+			
+			data.categories_checked = categories_checked;
+			var json_str = JSON.stringify(data);
+			$.post ("/ajax/autocomplete/", json_str, autocomp_answer, "json");
+		}
+		
+		function autocomp_answer(res){
+			var availableTags = res.available_tags;
+			
+			$("#"+res.type).autocomplete({
+				source: availableTags
+			});
+		}
+	
 	</script>	
 </head>
