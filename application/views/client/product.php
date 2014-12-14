@@ -5,7 +5,7 @@
 	<body>
 		<div class="wrap">
 			<? require 'include/header.php'?>
-			
+			<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 			<div class="main">
 				<div class="middle">
 					<div class="container">
@@ -60,7 +60,6 @@
 								
 								<div class="left-sidebar-attr clearfix" >
 									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/" >
 										
 											<? require 'include/cart.php'?>
 										
@@ -70,7 +69,6 @@
 										
 											<? require 'include/filter.php'?>
 											
-										</form>
 									</div>
 								</div>
 							</div>
@@ -81,7 +79,7 @@
 					</div>
 				</div><!-- .middle-->
 			</div><!--/main-->
-			
+			</form>
 			<div class="footer"></div><!--/footer-->
 			
 		</div><!--/wrap-->

@@ -33,6 +33,11 @@ font-size: 100%;
 vertical-align: baseline;
 background: transparent;
 }
+
+ul, li{
+font-size:10px;
+}
+
 a:hover{
 text-decoration: none;
 }
@@ -827,8 +832,13 @@ color:black;
   display:block;
   }
   
+#attribut ul .accd{
+font-size:14px;
+}  
+  
 #attribut ul .accd ul
   {
+  font-size:12px;
   }
 
 #attribut ul .accd ul li
