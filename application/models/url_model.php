@@ -26,6 +26,12 @@ class Url_model extends MY_Model
 			$item = $this->$base->get_item_by(array("id" => $id));
 			$base = "categories";
 		}
+		elseif(($type == "items")and($base == "products"))
+		{
+			$base = "categories";
+			$item = $this->$base->get_item_by(array("id" => $id));
+			$this->$base->add_active($id);
+		}
 		else
 		{
 			$item = $this->$base->get_item_by(array("id" => $id));
