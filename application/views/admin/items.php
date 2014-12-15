@@ -43,12 +43,12 @@
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<a href="<?=base_url()?>admin/content/item/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
+													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_9"><a href="<?=base_url()?>admin/content/item/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_9"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_1"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-2x"></i></a></td>
 									</tr>
