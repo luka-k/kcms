@@ -9,10 +9,10 @@
 				<?require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
 					Сортировать: 
-					<a href="<?=$url?>.html?order=title&direction=asc">по возрастанию имени</a>&nbsp;
-					<a href="<?=$url?>.html?order=title&direction=desc">по убыванию имени</a>&nbsp;
-					<a href="<?=$url?>.html?order=sort&direction=asc">по возрастанию sort</a>&nbsp;
-					<a href="<?=$url?>.html?order=sort&direction=desc">по убыванию sort</a>&nbsp;				
+					<a href="<?=$url?>&order=name&direction=asc">по возрастанию имени</a>&nbsp;
+					<a href="<?=$url?>&order=name&direction=desc">по убыванию имени</a>&nbsp;
+					<a href="<?=$url?>&order=sort&direction=asc">по возрастанию sort</a>&nbsp;
+					<a href="<?=$url?>&order=sort&direction=desc">по убыванию sort</a>&nbsp;				
 				</div>
 				<?foreach($content as $category):?>
 					<div class="cat-item col_4">

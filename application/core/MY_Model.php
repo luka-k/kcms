@@ -484,11 +484,10 @@ class MY_Model extends CI_Model
 
 	//Велика вероятность что большая часть этой функции является большим костылем
 	//который появился от слабого владения sql, и легко заменяется более простыми запросами
-	function get_filtred($get, $limit = FALSE, $from = FALSE)
+	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
 		$filters = $this->characteristics->filters;
-		
 		$counter = 0;
 		foreach($get as $key => $item)
 		{
@@ -557,10 +556,10 @@ class MY_Model extends CI_Model
 		else
 		{
 			$this->db->where_in("id", $id);
+			$this->db->order_by($order, $direction); 
 			$query = $this->db->get($this->_table/*, $limit, $from*/);
 			$result = $query->result();
 			empty($result) ? $content = array() : $content = $result;
-			
 			return $content;
 		}
 	}

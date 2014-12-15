@@ -10,12 +10,18 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$url = base_url().uri_string();
-
-		$order = $this->input->get('order');
-		if(empty($order)) $order = "name";
 		
-		$direction = $this->input->get('direction');
-		if(empty($direction)) $direction = "acs";
+		$this->load->helper('url_helper');
+		
+		//функция get_filter_string убирает из строки запроса get параметры order и direction
+		//что бы в последствии правильно постройть ссылки на сортировку.
+		//возможно это костыль
+		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
+		$url = base_url().uri_string()."?".$query_string;
+		$get = $this->input->get();
+
+		!isset($get['order']) ? $order = "name" : $order = $get['order'];		
+		!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
@@ -39,11 +45,11 @@ class Catalog extends Client_Controller {
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		
-		$get = $this->input->get();
+		
 	
-		if($get)
+		if(isset($get['filter']))
 		{
-			$content = $this->products->get_filtred((object)$get);
+			$content = $this->products->get_filtred((object)$get, $order, $direction);
 			$content = $this->products->get_prepared_list($content);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));

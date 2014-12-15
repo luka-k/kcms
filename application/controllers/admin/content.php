@@ -72,20 +72,9 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			if($type == "products")
-			{
-				$data['tree'] = $this->categories->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->categories->get_tree(0, "parent_id")
-				);
-			}
-			else
-			{
-				$data['tree'] = $this->$type->get_tree(0, "parent_id");
-				$data['selects'] = array(
-					'parent_id' =>$this->$type->get_tree(0, "parent_id")
-				);
-			}
+			$type == "products" ? $tree = $this->categories->get_tree(0, "parent_id") : $tree = $this->$type->get_tree(0, "parent_id");
+			$data['tree'] = $tree;
+			$data['selects']['parent_id'] = $tree;
 		}
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
