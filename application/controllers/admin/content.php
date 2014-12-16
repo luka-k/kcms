@@ -263,7 +263,7 @@ class Content extends Admin_Controller
 			
 			isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
 
-			$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);		
+			$exit == false ? redirect(base_url().'admin/content/item/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);		
 		}	
 	}
 	
