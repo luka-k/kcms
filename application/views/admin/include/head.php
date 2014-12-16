@@ -17,11 +17,7 @@
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/ckeditor/adapters/jquery.js"></script>  <!--kickstart js--> 
 	
 	<script>
-		jQuery(document).ready(function($){
-			//$('textarea.editor').ckeditor();	
-			var ckeditor = CKEDITOR.replace('editor');
-			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
-		});
+		
 		
 	</script>
 </head>
