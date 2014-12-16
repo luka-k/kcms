@@ -16,7 +16,7 @@ class Pages extends Client_Controller {
 		$type = $this->uri->segment(2);
 		$sub_type = $this->uri->segment(3);
 		$parent_info = $this->articles->get_item_by(array("url" => $type));
-		$left_menu = $this->articles->get_list(array("parent_id" => $parent_info->id));
+		$left_menu = $this->articles->get_list(array("parent_id" => $parent_info->id), FALSE, FALSE, "sort", "asc");
 		$left_menu = $this->articles->get_prepared_list($left_menu);
 		
 		$data = array(
