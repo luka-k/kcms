@@ -41,15 +41,8 @@ class Content extends Admin_Controller
 			$direction = FALSE;
 		}
 		
-		if($this->db->field_exists('parent_id', $type))
-		{
-			$type == "products" ? $data['tree'] = $this->categories->get_tree(0, "parent_id") : $data['tree'] = $this->$type->get_tree(0, "parent_id");
-		}
-		
-		if($type == "news")
-		{
-			$data['news_tree'] =$this->articles->get_news_tree();
-		}
+		if($this->db->field_exists('parent_id', $type)) $data['tree'] = $this->$type->get_tree(0, "parent_id");
+		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
 		
 		if($id == FALSE)
 		{
@@ -100,6 +93,8 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $this->$type->get_tree(0, "parent_id");
 			
 		}
+		
+		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
 		{
