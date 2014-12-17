@@ -14,7 +14,7 @@
 				<div id="lead_title"><?=$content->direction?></div>
 				<img width="70" height="83" src="<?=$content->img->url?>"/>
 				<p>
-					<?=$content->lead_name?>
+					<?=$content->lead_name?><br/>
 					<a href="mailto:<?=$content->lead_email?>"><?=$content->lead_email?></a>
 				</p>
 			</div>

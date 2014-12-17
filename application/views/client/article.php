@@ -14,7 +14,6 @@
 				
 				<div id="right_cont">
 					<div id="content" class="rounded" <?= (true || $_SERVER['REQUEST_URI'] != '/ielts/pokupka-klyucha/' ? '' : 'style="width: 960px;"')?>>
-					
 						<div id="title_cont" class="rounded" <?= (true || $_SERVER['REQUEST_URI'] != '/ielts/pokupka-klyucha/' ? '' : 'style="width: 960px;"')?>>
 							<?if(isset($content->news_item)):?>
 								<h1><?=$content->news_item->name?></h1>
