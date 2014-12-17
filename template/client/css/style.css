@@ -1081,3 +1081,16 @@ position:relative;
 	background:#fff;
 	color:#969;
 }
+
+#content table {
+	position:relative;
+	background:#fff;
+	color:#969;
+	margin:0 auto;
+}
+
+#content table td{
+	background:#fff;
+	color:#969;
+	padding:8px;
+}
