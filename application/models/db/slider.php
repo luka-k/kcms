@@ -5,6 +5,7 @@ class Slider extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', 'name'),
+			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', '')
 		),
 		'Изображение' => array(

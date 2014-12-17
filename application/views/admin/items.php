@@ -34,7 +34,7 @@
 									<th class="tb_1">Действие</th>
 								</tr>
 							</thead>
-							<tbody <?if(isset($sortable)):?> id="sortable"<?endif?>>
+							<tbody <?if(isset($sortable)||$type == "slider"):?> id="sortable"<?endif?>>
 								<?$count = 1?>
 								<?php foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">

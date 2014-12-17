@@ -22,7 +22,7 @@ class Index extends Client_Controller {
 		$news_pearson = $this->news->get_news("novosti-pearson");
 		$news_pearson = $this->news->get_prepared_list($news_pearson);
 		
-		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
 		$slider = $this->slider->get_prepared_list($slider);
 		
 		$data = array(
