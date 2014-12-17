@@ -26,7 +26,19 @@ class Pages extends Client_Controller {
 			'sub_type' => $sub_type
 		);
 		
-		$data['title'] = $page->name;
+		if(isset($page->news_item))
+		{
+			$data['title'] = $page->news_item->name;
+		}
+		elseif(empty($page->article))
+		{
+			$data['title'] = $page->name;
+		}
+		else
+		{
+			$data['title'] = $page->article->name;
+		}
+
 		$data['meta_title'] = $page->meta_title;
 		$data['meta_keywords'] = $page->meta_keywords;
 		$data['meta_description'] = $page->meta_description;
