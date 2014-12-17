@@ -730,6 +730,7 @@ display:inline-block;
 .cont ul
   {
   margin-left:32px;
+  list-style:disc;
   }
   
 .cont ul.advanced-recent-posts
@@ -818,6 +819,33 @@ display:inline-block;
   -o-transition:  color 0.2s ease-in-out;
   -ms-transition:  color 0.2s ease-in-out;
   transition:  color 0.2s ease-in-out;
+  }
+  
+#content .cont .st-accordion ul ul{
+list-style:disc;
+}  
+  
+.st-accordion ul ul li{
+margin:5px 0;
+list-style:disc;
+height: auto;
+border:none;
+}
+
+.st-accordion ul ul li > a
+  {
+  outline:none;
+  display:inline;
+  font: normal 1em Verdana;
+  color:#fd7535;
+  line-height: 14px;
+  text-shadow: none;
+  text-decoration:underline;
+  -webkit-transition:  none;
+  -moz-transition:  none;
+  -o-transition:  none;
+  -ms-transition:  none;
+  transition:  none;
   }
 
 .st-accordion ul li > a:hover
@@ -1094,3 +1122,4 @@ position:relative;
 	color:#969;
 	padding:8px;
 }
+

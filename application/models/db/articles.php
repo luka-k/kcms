@@ -7,6 +7,8 @@ class Articles extends MY_Model
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'menu_name' => array('Заголовок в меню', 'text', 'trim|htmlspecialchars|autocomplete[name]'),
+			'not_list' => array('Не отображать в списке', 'checkbox', ''),
+			'not_left_menu' => array('Не отображать в левом меню', 'checkbox', ''),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', '')
@@ -68,7 +70,7 @@ class Articles extends MY_Model
 				}
 
 				$parent->article = $this->get_item_by(array('url' => $url));
-				$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id));
+				$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id, "not_list" => 0));
 				return $parent;
 			}
 			else
