@@ -29,19 +29,25 @@ class Pages extends Client_Controller {
 		if(isset($page->news_item))
 		{
 			$data['title'] = $page->news_item->name;
+			$data['meta_title'] = $page->news_item->meta_title;
+			$data['meta_keywords'] = $page->news_item->meta_keywords;
+			$data['meta_description'] = $page->news_item->meta_description;
 		}
 		elseif(empty($page->article))
 		{
 			$data['title'] = $page->name;
+			$data['meta_title'] = $page->meta_title;
+			$data['meta_keywords'] = $page->meta_keywords;
+			$data['meta_description'] = $page->meta_description;
 		}
 		else
 		{
 			$data['title'] = $page->article->name;
+			$data['meta_title'] = $page->article->meta_title;
+			$data['meta_keywords'] = $page->article->meta_keywords;
+			$data['meta_description'] = $page->article->meta_description;
 		}
 
-		$data['meta_title'] = $page->meta_title;
-		$data['meta_keywords'] = $page->meta_keywords;
-		$data['meta_description'] = $page->meta_description;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['content'] = $page;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
