@@ -10,6 +10,13 @@ class Pages extends Client_Controller {
 	public function index()
 	{	
 		$page = $this->articles->url_parse(2);
+		if($page == "404")
+		{
+			$page = $this->articles->get_item_by(array("url" => "study"));
+			
+			$page->description = "Sorry, this page is under construction.</br></br>Please, come again later"; 
+		}
+
 		$page = $this->articles->prepare($page);
 		
 		$type = $this->uri->segment(2);
@@ -59,5 +66,10 @@ class Pages extends Client_Controller {
 	{
 		$url = uri_string();
 		if ($url == "contacts/feedback") redirect(base_url()."category/kontakty/obratnaya-svyaz", 'location', 301);
+	}
+	
+	public function page_under_constract()
+	{
+		
 	}
 }
