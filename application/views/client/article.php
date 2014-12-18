@@ -49,7 +49,12 @@
 										<?foreach($content->accordeon as $bajan):?>
 											<li>
 												<a href="#"><?=$bajan->name?><span class="st-arrow">&nbsp;</span></a>
-												<div class="st-content"><?=$bajan->description?></div>  
+												<div class="st-content"><?=$bajan->description?>
+													<?if(!empty($bajan->full_description)):?>
+														<a href="<?=$bajan->full_url?>">далее...</a>
+													<?endif;?>												
+												</div>  
+												<div></div>
 											</li>
 										<?endforeach;?>
 									
@@ -57,6 +62,7 @@
 								</div>
 							<?elseif(!empty($content->article)):?>
 								<?=$content->article->description?>
+								<?=$content->article->full_description?>
 							<?else:?>
 								<?=$content->description?>
 							<?endif;?>

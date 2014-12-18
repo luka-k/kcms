@@ -11,7 +11,8 @@ class Articles extends MY_Model
 			'not_left_menu' => array('Не отображать в левом меню', 'checkbox', ''),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', '')
+			'description' => array('Текст', 'tiny', ''),
+			'full_description' => array('Полный текст', 'tiny-2', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -68,9 +69,18 @@ class Articles extends MY_Model
 						$parent->news = $this->news->get_prepared_list($parent->news);
 					}
 				}
-
-				$parent->article = $this->get_item_by(array('url' => $url));
-				$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id, "not_list" => 0));
+				
+				elseif($this->uri->segment($segment_number+1) <> FALSE)
+				{
+					$parent->article = $this->get_item_by(array('url' => $this->uri->segment($segment_number+1)));
+					$this->breadcrumbs->add($parent->article->url, $parent->article->name);
+				}
+				else
+				{
+					$parent->article = $this->get_item_by(array('url' => $url));
+					$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id, "not_list" => 0));
+					$parent->accordeon = $this->get_prepared_list($parent->accordeon);
+				}
 				return $parent;
 			}
 			else
