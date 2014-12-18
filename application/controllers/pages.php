@@ -12,7 +12,6 @@ class Pages extends Client_Controller {
 		$page = $this->articles->url_parse(2);
 		$page = $this->articles->prepare($page);
 		
-		
 		$type = $this->uri->segment(2);
 		$sub_type = $this->uri->segment(3);
 		$parent_info = $this->articles->get_item_by(array("url" => $type));
@@ -50,8 +49,7 @@ class Pages extends Client_Controller {
 
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['content'] = $page;
-		$data['breadcrumbs'] = $this->breadcrumbs->get();
-				
+		$data['breadcrumbs'] = $this->breadcrumbs->get();	
 		$this->load->view("client/article.php", $data);
 	}
 	

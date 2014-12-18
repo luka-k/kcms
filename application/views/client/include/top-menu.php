@@ -19,7 +19,7 @@
 	
 	<div id="lang">
 		<a href="/"><img src="<?=base_url()?>template/client/img/rus.png" alt=""/></a>
-		<a href="/study/page-is-under-construction/"><img src="<?=base_url()?>template/client/img/eng.png" alt=""/></a>
+		<a href="<?=base_url()?>category/study/page-is-under-construction/"><img src="<?=base_url()?>template/client/img/eng.png" alt=""/></a>
 	</div>
 	
 	<div id="cont">

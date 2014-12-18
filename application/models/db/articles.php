@@ -69,7 +69,6 @@ class Articles extends MY_Model
 						$parent->news = $this->news->get_prepared_list($parent->news);
 					}
 				}
-				
 				elseif($this->uri->segment($segment_number+1) <> FALSE)
 				{
 					$parent->article = $this->get_item_by(array('url' => $this->uri->segment($segment_number+1)));
