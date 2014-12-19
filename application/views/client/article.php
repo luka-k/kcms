@@ -27,16 +27,17 @@
 						<div class="cont">
 							<?if(!empty($content->news_item)):?>
 								<?=$content->news_item->description?>
+								<?=$content->news_item->full_description?>
 							<?elseif(!empty($content->news)):?>
 								<div id="advancedrecentposts-9" class="widget_advancedrecentposts widget">
 									<h3 class="widget-title">  </h3>
 									<ul class="advanced-recent-posts">
 										<?foreach($content->news as $news_item):?>
-											<li>
+											<li class="news-item">
 												<a href="<?=$news_item->full_url?>" title="<?=$news_item->name?>" >
 													<img width="50" height="50" class="recent-posts-thumb" src="<?=$news_item->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /><?=$news_item->name?>
 												</a>
-												<div class="magic"> 
+												<div class="magic news-text"> 
 													<?=$news_item->description?>
 												</div>
 											</li>

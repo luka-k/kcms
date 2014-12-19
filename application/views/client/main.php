@@ -23,11 +23,11 @@
 							<h3 class="widget-title">Новости LT-PRO</h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_lt as $item_lt):?>
-									<li>
+									<li class="news-item">
 										<a href="<?=$item_lt->full_url?>" title="<?=$item_lt->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_lt->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_lt->name?>
 										</a>
-										<div class="magic"> 
+										<div class="magic news-text"> 
 											<?=$item_lt->description?>
 										</div>
 									</li>
@@ -38,11 +38,11 @@
 							<h3 class="widget-title">Новости Cambridge</h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_camb as $item_camb):?>
-									<li>
+									<li class="news-item">
 										<a href="<?=$item_camb->full_url?>" title="<?=$item_camb->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_camb->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_camb->name?>
 										</a>
-										<div class="magic"> 
+										<div class="magic news-text"> 
 											<?=$item_camb->description?>
 										</div>
 									</li>
@@ -53,11 +53,11 @@
 							<h3 class="widget-title">Новости IELTS</h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_ielts as $item_ielts):?>
-									<li>
+									<li class="news-item">
 										<a href="<?=$item_ielts->full_url?>" title="<?=$item_ielts->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_ielts->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_ielts->name?>
 										</a>
-										<div class="magic"> 
+										<div class="magic news-text"> 
 											<?=$item_ielts->description?>
 										</div>
 									</li>
@@ -68,11 +68,11 @@
 							<h3 class="widget-title">Новости Pearson</h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_pearson as $item_pearson):?>
-									<li>
+									<li class="news-item">
 										<a href="<?=$item_pearson->full_url?>" title="<?=$item_pearson->name?>" >
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_pearson->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_pearson->name?>
 										</a>
-										<div class="magic"> 
+										<div class="magic news-text"> 
 											<?=$item_pearson->description?>
 										</div>
 									</li>

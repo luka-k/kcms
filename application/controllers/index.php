@@ -13,13 +13,13 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
-		$news_lt = $this->news->get_news("novosti-lt-pro");
+		$news_lt = $this->news->get_news("novosti-lt-pro", 3);
 		$news_lt = $this->news->get_prepared_list($news_lt);
-		$news_camb = $this->news->get_news("novosti-cambridge");
+		$news_camb = $this->news->get_news("novosti-cambridge", 3);
 		$news_camb = $this->news->get_prepared_list($news_camb);
-		$news_ielts = $this->news->get_news("novosti-ielts");
+		$news_ielts = $this->news->get_news("novosti-ielts", 3);
 		$news_ielts = $this->news->get_prepared_list($news_ielts);
-		$news_pearson = $this->news->get_news("novosti-pearson");
+		$news_pearson = $this->news->get_news("novosti-pearson", 3);
 		$news_pearson = $this->news->get_prepared_list($news_pearson);
 		
 		$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");

@@ -111,6 +111,6 @@
 		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
 		
 		var ckeditor_2 = CKEDITOR.replace('editor_2');
-		AjexFileManager.init({returnTo: 'ckeditor_2', editor: ckeditor_2});
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
 	});
 </script>

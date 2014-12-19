@@ -8,7 +8,8 @@ class News extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'article_parent_id' => array('Раздел', 'n2a', 'news2article'),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', '')
+			'description' => array('Описание', 'tiny', ''),
+			'full_description' => array('Описание', 'tiny-2', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -26,17 +27,29 @@ class News extends MY_Model
         parent::__construct();
 	}
 	
-	function get_news($url)
+	function get_news($url, $limit = FALSE)
 	{
 		$article = $this->articles->get_item_by(array("url" => $url));
-		$news_id = $this->news2article->get_list(array("article_parent_id" => $article->id));
+		//$news_id = $this->news2article->get_list(array("article_parent_id" => $article->id));
 		
-		$news = array();
+		$this->db->select("child_id");
+		$query = $this->db->get_where("news2article", array("article_parent_id" => $article->id));
+		$news_id = $query->result();
+
+		$id = array();
 		foreach($news_id as $item)
 		{
-			$news[] = $this->news->get_item_by(array("id" => $item->child_id));
+			$id[] = $item->child_id;
 		}
 		
+		$this->db->where_in("id", $id);
+		$counter = $this->db->count_all_results("news");
+		$this->db->where_in("id", $id);
+		// Знаю что это ересь и надо по дате но я этот момент проебал
+		// сейчас покажем так на каникулах даш достуцпы переделаю по дате
+		$this->db->order_by("id", "desc");
+		$limit == FALSE ? $query = $this->db->get("news") : $query = $this->db->get("news", $limit, 0);
+		$news = $query->result();
 		return $news;
 	}
 	
