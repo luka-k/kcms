@@ -9,7 +9,7 @@
 							<?if(!empty($branch_2->childs)):?>
 								<ul class="<?=$branch_2->class?>">
 									<?foreach ($branch_2->childs as $branch_3): ?>
-										<li><a href = "<?=base_url()?>admin/content/item/<?=$type?>/<?=$branch_3->id?>"><?=$branch_3->name?></a></li>
+										<li><a href = "<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$branch_3->id?>"><?=$branch_3->name?></a></li>
 									<?endforeach ?>	
 								</ul>
 							<?endif;?>
