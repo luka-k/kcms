@@ -30,6 +30,9 @@ class Catalog extends Client_Controller {
 		//$filters = $this->characteristics->get_filters();
 		
 		$left_menu = $this->categories->get_site_tree(0, "parent_id");
+		$new_products = $this->products->get_list(array("is_new" => 1));
+		
+		$settings = $this->settings->get_item_by(array("id" => 1));
 
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
@@ -37,15 +40,15 @@ class Catalog extends Client_Controller {
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'top_menu' => $this->top_menu->items,
 			'left_menu' => $left_menu,
 			'url' => $url,
 			//'filters' => $filters,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id))
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'new_products' => $this->products->get_prepared_list($new_products),
+			'settings' => $settings
 		);
 		
-		
-	
 		if(isset($get['filter']))
 		{
 			$content = $this->products->get_filtred((object)$get, $order, $direction);
@@ -64,14 +67,10 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$category = $this->categories->url_parse(2);
-			
-			
-			//var_dump($left_menu);
 
 			if ($category == FALSE)
 			{
 				$good_buy = $this->products->get_list(array("is_good_buy" => 1));
-				$new_products = $this->products->get_list(array("is_new" => 1));
 			
 				$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -81,15 +80,14 @@ class Catalog extends Client_Controller {
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 				$data['good_buy'] = $this->products->get_prepared_list($good_buy);
-				$data['new_products'] = $this->products->get_prepared_list($new_products);
-			
+
 				$template = 'client/products.php';		
 			}
 			else
 			{
 				if(isset($category->product))
 				{
-					$content = $this->products->prepare($category->product);
+					$content = $this->products->prepare_product($category->product);
 					$template = "client/product.php";
 				}
 				elseif(isset($category->products))

@@ -11,6 +11,7 @@ class Products extends MY_Model
 			'is_new' => array('Новинка', 'checkbox', 'integer'),
 			'is_good_buy' => array('Выгодное предложение', 'checkbox', 'integer'),
 			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
+			'warrant' => array('Гарантия', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
 			'description' => array('Описание', 'tiny', '')
@@ -62,4 +63,13 @@ class Products extends MY_Model
 		$item = $this->set_sale_price($item);
 		return $item;		
 	}
+	
+	function prepare_product($item)
+	{
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_big");
+		$item->full_url = $this->get_url($item->url);
+		$item = $this->set_sale_price($item);
+		return $item;		
+	}
+	
 }
