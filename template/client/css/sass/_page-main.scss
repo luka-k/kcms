@@ -1,0 +1,188 @@
+@charset "UTF-8";
+/* ==========================================================================
+ * promo
+ * ========================================================================== */
+
+.promo{
+  position: relative;
+  margin: -50px 0 40px;
+  height: 352px;
+  overflow: hidden;
+
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0px;
+    height: 40px;
+    background: url(../images/bg/white.png) 50% 0 no-repeat;
+    background-size: cover;
+    z-index: 50;
+  }
+  
+  &__slider{
+    @include list;
+  }
+
+  &__slide{
+    position: relative;
+  }
+
+  &__image-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+  }
+
+  &__image{
+    height: 100%;
+    vertical-align: top;
+  }
+
+  &__wrap{
+    position: relative;
+    padding: 70px 0 0 490px;
+    color: #fff;
+    height: 352px;
+    text-shadow: 0 0 10px rgba(0,0,0,.5);
+    font-style: italic;
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__title{
+    display: block;
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 1;    
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    text-decoration: none;
+  }
+
+  &__desc{
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .bx-wrapper{
+    position: relative;
+  }
+
+  .bx-pager{
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .bx-pager-item{
+    display: inline-block;
+    margin: 0 5px;
+  }
+  .bx-pager-link{
+    display: inline-block;
+    text-indent: -9999px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    &:hover,
+    &.active{
+      background: $red;
+    } 
+  }
+}
+
+
+/* ==========================================================================
+ * main-catalog-nav
+ * ========================================================================== */
+
+.main-catalog-nav{
+  margin: 0 0 53px 0;
+  
+  &__wrap{
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 0 40px 0;
+  }
+  
+  &__titles{
+    margin: 0 0 38px;
+  }
+ 
+  &__columns{
+    
+  }
+
+  &__list{
+    @include list;
+    //columns: 2;
+    //width: 720px;
+    display: inline-block;
+    vertical-align: top;
+    &:first-child{
+      width: 362px;
+    }
+  }
+
+  &__item{
+    padding: 0 20px 12px 0; 
+    vertical-align: top;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-size: 17px;
+    position: relative;
+  }
+
+  &__href{
+    //position: relative;
+    span{
+      color: #999999;
+    }
+  }
+}
+
+
+/* ==========================================================================
+ * main-videos
+ * ========================================================================== */
+
+.main-videos{
+  padding: 60px 0 10px;
+  background: #e0e0e0;
+  position: relative;
+  &:before{
+    background: url(../images/bg/grey.png) 50% 0 no-repeat;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 40px;
+    top: -40px;
+  }
+
+  &__list{
+    @include justify;
+  }
+
+  &__item{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 30px 0;
+  }
+}
+
+

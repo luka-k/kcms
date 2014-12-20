@@ -10,14 +10,14 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$url = base_url().uri_string();
-		
+
 		$this->load->helper('url_helper');
 		
 		//функция get_filter_string убирает из строки запроса get параметры order и direction
 		//что бы в последствии правильно постройть ссылки на сортировку.
 		//возможно это костыль
 		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
-		$url = base_url().uri_string()."?".$query_string;
+		$link_url = base_url().uri_string()."?".$query_string;
 		$get = $this->input->get();
 
 		!isset($get['order']) ? $order = "name" : $order = $get['order'];		
@@ -26,13 +26,11 @@ class Catalog extends Client_Controller {
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$this->config->load('characteristics_config');
-		//Тут наверно в последстивии понадобиться  
-		//придумать какуюнить умную функцию
-		//что бы отбирать характеристики товаров
-		//которые нужны в этой подкатегори
 		//$filters = $this->characteristics->filters;
-		$filters = $this->characteristics->get_filters();
+		//$filters = $this->characteristics->get_filters();
 		
+		$left_menu = $this->categories->get_site_tree(0, "parent_id");
+
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'cart_items' => $this->cart_items,
@@ -40,8 +38,9 @@ class Catalog extends Client_Controller {
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'left_menu' => $left_menu,
 			'url' => $url,
-			'filters' => $filters,
+			//'filters' => $filters,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		
@@ -65,11 +64,14 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$category = $this->categories->url_parse(2);
+			
+			
+			//var_dump($left_menu);
 
 			if ($category == FALSE)
 			{
-				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
-				$content = $this->categories->get_prepared_list($content);
+				$good_buy = $this->products->get_list(array("is_good_buy" => 1));
+				$new_products = $this->products->get_list(array("is_new" => 1));
 			
 				$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -78,9 +80,10 @@ class Catalog extends Client_Controller {
 				$data['meta_keywords'] = $settings->site_keywords;
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				$data['content'] = $content;
+				$data['good_buy'] = $this->products->get_prepared_list($good_buy);
+				$data['new_products'] = $this->products->get_prepared_list($new_products);
 			
-				$template = 'client/categories.php';		
+				$template = 'client/products.php';		
 			}
 			else
 			{
@@ -89,21 +92,10 @@ class Catalog extends Client_Controller {
 					$content = $this->products->prepare($category->product);
 					$template = "client/product.php";
 				}
-				else
+				elseif(isset($category->products))
 				{
-					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					if($content == NULL)
-					{
-						$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-						$content = $this->products->get_prepared_list($content);			
-						$template = "client/products.php";
-					}
-					else
-					{
-						$content = $this->categories->get_prepared_list($content);
-					
-						$template = "client/categories.php";
-					}		
+					$content = $this->products->get_prepared_list($category->products);
+					$template = "client/products.php";	
 				}		
 
 				$data['title'] = $category->name;

@@ -5,6 +5,7 @@ class Articles extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
+			'date' => array('Дата', 'hidden', 'set_date'),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
@@ -91,6 +92,9 @@ class Articles extends MY_Model
 	{
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
+		$item_date = new DateTime($item->date);
+		$item_date = date_format($item_date, 'd.m.Y');
+		$item->date = $item_date;
 		return $item;
 	}
 }

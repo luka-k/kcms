@@ -98,4 +98,11 @@ public function run($group = '')
 		
 		return $str;
 	}
+	
+	public function set_date($field)
+	{
+		if(empty($_POST[$field])) $str = date("Y-m-d");
+		
+		return $str;
+	}
 }

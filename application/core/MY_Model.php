@@ -391,6 +391,12 @@ class MY_Model extends CI_Model
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
 	{
 		$branches = $this->get_list(array($parent_id_field => $parent_id));
+		foreach($branches as $branch)
+		{
+			$branch->count_sub_products =(count($this->categories->get_sub_products($branch->id)));
+		}
+		$branches = $this->get_prepared_list($branches);
+
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);

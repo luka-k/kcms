@@ -30,6 +30,8 @@ class Categories extends MY_Model
 		)
 	);
 	
+	private $sub_products= array();
+	
 	function __construct()
 	{
         parent::__construct();
@@ -69,9 +71,33 @@ class Categories extends MY_Model
 			}
 			else 
 			{
+				$child->products = $this->get_sub_products($child->id);
 				return $child;
 			}		
 		}	
+	}
+	
+	public function get_sub_products($id)
+	{
+		$this->sub_products = array();
+		$this->_sub_products($id);	
+		return $this->sub_products;
+	}
+	
+	//Возвращает товары из всех подкатегорий категории
+	function _sub_products($id)
+	{
+		$sub_categories = $this->categories->get_list(array("parent_id" => $id));
+		
+		if($sub_categories )foreach($sub_categories as $item)
+		{
+			$sub_products = $this->products->get_list(array("parent_id" => $item->id, "is_active" => 1));
+			if($sub_products) foreach($sub_products as $product_item)
+			{
+				$this->sub_products[] = $product_item;
+			}
+			$this->_sub_products($item->id);
+		}
 	}
 	
 	public function get_url($url)
