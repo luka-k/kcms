@@ -92,9 +92,12 @@ class Articles extends MY_Model
 	{
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
-		$item_date = new DateTime($item->date);
-		$item_date = date_format($item_date, 'd.m.Y');
-		$item->date = $item_date;
+		if(!empty($item->date))
+		{
+			$item_date = new DateTime($item->date);
+			$item_date = date_format($item_date, 'd.m.Y');
+			$item->date = $item_date;
+		}
 		return $item;
 	}
 }

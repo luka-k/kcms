@@ -14,6 +14,9 @@ class Index extends Client_Controller {
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		$slider = $this->slider->get_list(FALSE);
 		
+		$top_menu = $this->dynamic_menus->get_menu(1);
+		//var_dump($top_menu->items);
+		
 		$good_buy = $this->products->get_list(array("is_good_buy" => 1));
 		$new_products = $this->products->get_list(array("is_new" => 1));
 		$last_news = $this->articles->get_list(array("parent_id" => 1));
@@ -27,7 +30,7 @@ class Index extends Client_Controller {
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
-			'top_menu' => $this->top_menu,
+			'top_menu' => $top_menu->items,
 			'slider' => $this->slider->get_prepared_list($slider),
 			'good_buy' => $this->products->get_prepared_list($good_buy),
 			'new_products' => $this->products->get_prepared_list($new_products),

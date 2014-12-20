@@ -5,15 +5,15 @@
 			<ul class="menu-nav">
 				<?foreach($top_menu as $item):?>
 					<li class="menu-nav__item">
-						<a href="<?=$item[1]?>" class="menu-nav__href <?if ($item[2] == 1):?>фсешму<?endif;?>"><?=$item[0]?></a>
+						<a href="<?=$item->full_url?>" class="menu-nav__href"><?=$item->name?></a>
 						
 						<!--Sub menu first level-->
-						<?php if(!empty($item[3])):?>
+						<?php if(!empty($item->childs)):?>
 							<ul class="menu-nav-level-2">
-								<?foreach($item[3] as $sub_item_1):?>
+								<?foreach($item->childs as $sub_item_1):?>
 									<li class="menu-nav-level-2__item">
-										<a href="<?=$sub_item_1[1]?>" class="menu-nav-level-2__href"><?=$sub_item_1[0]?></a>
-										<?php if(!empty($sub_item_1[3])):?>
+										<a href="<?=$sub_item_1->full_url?>" class="menu-nav-level-2__href" ><?=$sub_item_1->name?></a>
+										<?php if(!empty($sub_item_1->childs)):?>
 											<ul class="menu-nav-level-3">
 												<?foreach($sub_item_1[3] as $sub_item_2):?>
 													<li class="menu-nav-level-3__item">
