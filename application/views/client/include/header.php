@@ -25,9 +25,12 @@
 		<div class="header__cart">
 			<a href="cart.html" class="header-cart">
 				<span class="header-cart__amount">
-					<span>2</span> товара <br />
-					на сумму <span>15000 р.</span>
-					<!-- Корзина пуста -->
+					<?if(empty($cart_items)):?>
+						Корзина пуста
+					<?else:?>
+						<span>2</span> товара <br />
+						на сумму <span>15000 р.</span>
+					<?endif;?>
 				</span> <!-- /.header-cart__cost -->
 			</a> <!-- /.header-cart -->
 		</div> <!-- /.header__cart -->
