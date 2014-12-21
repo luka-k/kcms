@@ -24,5 +24,6 @@ function delete_item(item_id){
 function update_items(res){		
 	$('#total_qty').text(res['total_qty']);
 	$('#total_price').text(res['total_price']);
-	$('#'+item_id).text(res['item_total']);
+	$('.total_price').text(res['total_price']);
+	$('#'+res['item_id']).text(res['item_total']);
 }

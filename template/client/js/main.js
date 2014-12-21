@@ -198,6 +198,7 @@
       if (action === '+'){
       
         $target.val( ++curValue );
+		
       
       }else{
         
@@ -206,10 +207,12 @@
         $target.val( --curValue );
 
       }
-
+	  var item_id = $amountButtons.attr('item_id');
+	  console.log(document.getElementById('qty-'+item_id).value);
+	  update_cart(item_id, document.getElementById('qty-'+item_id).value);
+	  
       return false;
     });
-
   };
 
   //Показываем дополнительные поля при оформлении заказа

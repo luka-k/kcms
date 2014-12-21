@@ -23,13 +23,13 @@
 		</div> <!-- /.header__login -->
 		
 		<div class="header__cart">
-			<a href="cart.html" class="header-cart">
+			<a href="<?=base_url()?>cart/" class="header-cart">
 				<span class="header-cart__amount">
 					<?if(empty($cart_items)):?>
 						Корзина пуста
 					<?else:?>
-						<span>2</span> товара <br />
-						на сумму <span>15000 р.</span>
+						<span id="total_qty"><?=$total_qty?></span> товара <br />
+						на сумму <span><span id="total_price"><?=$total_price?></span> р.</span>
 					<?endif;?>
 				</span> <!-- /.header-cart__cost -->
 			</a> <!-- /.header-cart -->

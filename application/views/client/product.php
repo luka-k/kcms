@@ -91,7 +91,7 @@
 						
 						<div class="product-main-info__buttons skew">
 							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
+								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$item->id?>'); return false;">Купить</button>
 							</div> <!-- /.product-main-info__button -->
 							
 							<div class="product-main-info__button">
@@ -269,7 +269,7 @@
 								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
 								
 								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
+									<button class="button button--normal fancybox" data-fancybox-href="#to-cart" >Купить</button>
 								</div> <!-- /.catalog-item__button -->
 							</div> <!-- /.catalog-item__bottom -->
 						</div> <!-- /.catalog-item -->
@@ -297,7 +297,7 @@
 									<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$item->id?>'); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

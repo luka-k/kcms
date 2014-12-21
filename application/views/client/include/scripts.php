@@ -27,3 +27,4 @@
 
 <!-- main script -->
 <script src="<?=base_url()?>template/client/js/main.js"></script>	
+<script src="<?=base_url()?>template/client/js/cart.js"></script>

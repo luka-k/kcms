@@ -112,6 +112,8 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->Add("catalog", "Корзина");
 		
+		$this->input->post('amount');
+		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
@@ -122,7 +124,7 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart_items' => $this->cart_items,
+			'cart_items' =>	$this->products->get_prepared_list($this->cart_items),
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'selects' => array(
@@ -130,9 +132,10 @@ class Catalog extends Client_Controller {
 				'payment_id' => $this->config->item('method_pay')
 			),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
+			'top_menu' => $this->top_menu->items,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
+		
 		$this->load->view('client/cart.php', $data);
 	}
 }

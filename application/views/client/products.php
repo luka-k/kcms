@@ -102,7 +102,7 @@
 											<div class="catalog-item__price"><?=$good_item->price?></div> <!-- /.catalog-item__price -->
 									
 											<div class="catalog-item__button">
-												<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
+												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$good_item->id?>'); return false;">Купить</button>
 											</div> <!-- /.catalog-item__button -->
 										</div> <!-- /.catalog-item__bottom -->
 									</div> <!-- /.catalog-item -->
@@ -130,7 +130,7 @@
 											<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
 									
 											<div class="catalog-item__button">
-												<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
+												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$new_item->id?>'); return false;">Купить</button>
 											</div> <!-- /.catalog-item__button -->
 										</div> <!-- /.catalog-item__bottom -->
 									</div> <!-- /.catalog-item -->
@@ -139,57 +139,48 @@
 						</div> <!-- /.catalog__list -->
 					<?else:?>
 						<div class="catalog">
-						<div class="catalog__sort catalog-sort">
-							<a href="#price" class="catalog-sort__href active">По цене</a>
-							<a href="#price" class="catalog-sort__href">По наименованию</a>
-						</div> <!-- /.catalog__sort catalog-sort-->
+							<div class="catalog__sort catalog-sort">
+								<a href="#price" class="catalog-sort__href active">По цене</a>
+								<a href="#price" class="catalog-sort__href">По наименованию</a>
+							</div> <!-- /.catalog__sort catalog-sort-->
 						
-						<h1 class="catalog__subtitle">Колесные диски</h1>
+							<h1 class="catalog__subtitle">Колесные диски</h1>
 						
-						<div class="catalog__list">
-							
-							<?foreach($content as $item):?>
-								<div class="catalog__item">
-									<div class="catalog-item">
-										<div class="catalog-item__image-box">
-											<a href="<?=$item->full_url?>"><img src="<?=$item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-										</div> <!-- /.catalog-item__image-box -->
+							<div class="catalog__list">
+								<?foreach($content as $item):?>
+									<div class="catalog__item">
+										<div class="catalog-item">
+											<div class="catalog-item__image-box">
+												<a href="<?=$item->full_url?>"><img src="<?=$item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
 										
-										<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
+											<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
 										
-										<div class="catalog-item__desc">
-											<p><?=$item->description?></p>
-										</div> <!-- /.catalog-item__desc -->
+											<div class="catalog-item__desc">
+												<p><?=$item->description?></p>
+											</div> <!-- /.catalog-item__desc -->
 										
-										<div class="catalog-item__bottom skew">
-											<div class="catalog-item__price"><?=$item->price?></div> <!-- /.catalog-item__price -->
+											<div class="catalog-item__bottom skew">
+												<div class="catalog-item__price"><?=$item->price?></div> <!-- /.catalog-item__price -->
 											
-											<div class="catalog-item__button">
-												<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-											</div> <!-- /.catalog-item__button -->
-										</div> <!-- /.catalog-item__bottom -->
-									</div> <!-- /.catalog-item -->
-								</div> <!-- /.catalog__item -->
-							<?endforeach;?>
-						</div> <!-- /.catalog__list -->
-
-                            <div class="catalog__load load-link">
-                                
-                                <a href="#load" class="load-link__href">Еще товары</a>
-
-                            </div> <!-- /.catalog__load -->
-                        
-                        </div> <!-- /.catalog -->
+												<div class="catalog-item__button">
+													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$item->id?>'); return false;">Купить</button>
+												</div> <!-- /.catalog-item__button -->
+											</div> <!-- /.catalog-item__bottom -->
+										</div> <!-- /.catalog-item -->
+									</div> <!-- /.catalog__item -->
+								<?endforeach;?>
+							</div> <!-- /.catalog__list -->
+						
+							<div class="catalog__load load-link">
+								<a href="#load" class="load-link__href">Еще товары</a>
+							</div> <!-- /.catalog__load -->
+						</div> <!-- /.catalog -->
 					<?endif;?>
-
-                    </div> <!-- /.page-catalog__products -->
-
-                </div> <!-- /.page-catalog__content -->
-
-        
-            </div> <!-- /.page-catalog__wrap wrap -->
-        
-        </div> <!-- /.page-catalog -->
+				</div> <!-- /.page-catalog__products -->
+			</div> <!-- /.page-catalog__content -->
+	</div> <!-- /.page-catalog__wrap wrap -->
+</div> <!-- /.page-catalog -->
         
 	<div class="text-about" id="text-about">
 		<div class="text-about__wrap wrap">
