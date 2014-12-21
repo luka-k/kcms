@@ -21,7 +21,7 @@
 	<div class="page page-cart">
 		<div class="page__wrap wrap">
 			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
-			
+			<?if(!empty($cart_items)):?>
 			<div class="page-cart__products">
 				<table class="cart-table">
 					<tbody>
@@ -80,7 +80,7 @@
 				<div class="cart-order">
 					<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
 					
-					<form action="#" class="form" method="post">
+					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
 						<div class="cart-order__form">
 							<div class="form__line skew">
 								<input type="text" class="form__input required" name="name" placeholder="Имя" />
@@ -94,17 +94,20 @@
 							
 							<div class="cart-order__extra hidden" id="extra">
 								<div class="form__line skew">
-									<textarea name="message" class="form__textarea" placeholder="Адрес доставки"></textarea>
+									<textarea name="address" class="form__textarea" placeholder="Адрес доставки"></textarea>
 								</div> <!-- /.form__line -->
 							</div> <!-- /.cart-order__extra -->
 							
 							<div class="form__button cart-order__button skew">
-								<button class="button button--normal button--auto-width">Оформить заказ</button>
+								<button type="submit" class="button button--normal button--auto-width">Оформить заказ</button>
 							</div> <!-- /.form__button -->
 						</div> <!-- /.cart-order__form -->
 					</form> <!-- /.form -->
 				</div> <!-- /.cart-order -->
 			</div> <!-- /.page-cart__order -->
+			<?else:?>
+				Корзина пуста
+			<?endif;?>
 		</div> <!-- /.page__wrap wrap -->
 	</div> <!-- /.page -->
 
