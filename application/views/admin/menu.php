@@ -83,7 +83,7 @@
 														<?foreach($item->childs as $item_2):?>
 															<li id="menus_items-<?=$item_2->id?>"><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
 																<a href="#" onclick="item_info('<?=$item_2->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
-																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_2->id?>', '<?=$item_2->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 															</li>
 														<?endforeach;?>
 													</ul>
