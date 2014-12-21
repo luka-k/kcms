@@ -58,7 +58,8 @@ class Menu_module extends Admin_Controller
 		
 		//Задаем типы ссылок на которые может ссылаться пункт меню
 		$types = array(
-			"Статьи" => "articles"
+			"Статьи" => "articles",
+			"Ссылка" => "link"
 		);
 		
 		$data = array(
@@ -115,6 +116,7 @@ class Menu_module extends Admin_Controller
 			}
 			else
 			{
+				var_dump($content);
 				//Если id не пустая вносим изменения.
 				$this->dynamic_menus->update($content->id, $content);
 			}	

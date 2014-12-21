@@ -80,6 +80,12 @@ class Categories extends MY_Model
 	public function get_sub_products($id)
 	{
 		$this->sub_products = array();
+		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1));
+		if($sub_products) foreach($sub_products as $product_item)
+		{
+			$this->sub_products[] = $product_item;
+		}
+		
 		$this->_sub_products($id);	
 		return $this->sub_products;
 	}

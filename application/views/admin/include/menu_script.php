@@ -28,12 +28,19 @@
 		var form = $('.edit_item'),
 		inputs = form.find('.menu_items'),
 		data = {},
-		info = {};
+		info = {},
+		type;
 								
 		inputs.each(function () {
 			var element = $(this);
 			info[element.attr('name')] = element.val();
-		});							
+			if(element.attr('name') == "item_type"){
+				
+				type = element.val();
+			}
+		});	
+		info[form.find('#field-'+type).attr('name')] = form.find('#field-'+type).val();
+		
 		data.info = info;
 		var json_str = JSON.stringify(data);
 		$.post("/admin/admin_ajax/edit_item/", json_str, update_menu, "json");
@@ -63,7 +70,7 @@
 	
 	function delete_menu_item(base_url, item_id, item_name){
 		var href;
-		href = base_url+"menu_module/delete_item/"+item_id;
+		href = base_url+"admin/menu_module/delete_item/"+item_id;
 		$('#item_name').text(item_name);
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
@@ -80,5 +87,19 @@
 				element.val(val);
 			}
 		});	
+	}
+	
+	function menu_type(type)
+	{
+		$('.select_url').css("display", "none");
+		
+		var form = $('.edit_item'),
+		inputs = form.find('.select_url');
+		inputs.each(function (){ 
+			var element = $(this);
+			element.hidden=true;
+		});
+		$('#field-'+type).css("display", "inline");
+		$('#field-'+type).hidden=false;
 	}
 </script>

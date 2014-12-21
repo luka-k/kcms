@@ -20,8 +20,16 @@ class Menus_items extends MY_Model
 		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$base = $b->item_type;
-			$branches[$i] = $this->$base->prepare($b);
+			
+			if($b->item_type == "articles")
+			{
+				$base = $b->item_type;
+				$branches[$i] = $this->$base->prepare($b);
+			}
+			elseif($b->item_type == "link")
+			{
+				$branches[$i]->full_url = $b->url;
+			}
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);
 		}		
 		return $branches;

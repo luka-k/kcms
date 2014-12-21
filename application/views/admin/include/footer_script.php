@@ -51,7 +51,7 @@
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
 	}
-	
+		
 	function slider(id){
 		$("#"+id).slideToggle().toggleClass('noactive');
 	}
