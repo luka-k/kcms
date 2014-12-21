@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 21 2014 г., 15:10
+-- Время создания: Дек 22 2014 г., 03:37
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -38,20 +38,28 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Дамп данных таблицы `articles`
 --
 
 INSERT INTO `articles` (`id`, `date`, `parent_id`, `name`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`) VALUES
-(1, '0000-00-00', 0, 'Новости', 0, '', '', '', '', 'novosti'),
-(2, '2014-12-20', 1, 'Заголовок новости', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est quaerat ab et, maxime quo, maiores! Hic est explicabo porro eligendi doloribus veniam inventore asperiores deleniti nesciunt, delectus qui, aliquid eos.</p>\r\n', '', '', '', 'zagolovok-novosti'),
+(1, '2014-12-22', 5, 'Новости', 0, '', '', '', '', 'novosti'),
+(2, '2014-12-22', 1, 'Выставки', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est quaerat ab et, maxime quo, maiores! Hic est explicabo porro eligendi doloribus veniam inventore asperiores deleniti nesciunt, delectus qui, aliquid eos.</p>\r\n', '', '', '', 'vystavki'),
 (3, '2014-12-21', 0, 'Поддержка клиентов', 0, '', '', '', '', 'podderzhka-klientov'),
 (4, '2014-12-21', 0, 'Где купить', 0, '', '', '', '', 'gde-kupit'),
 (5, '2014-12-21', 0, 'О нас', 0, '', '', '', '', 'o-nas'),
 (6, '2014-12-21', 0, 'Контакты', 0, '', '', '', '', 'kontakty'),
-(7, '2014-12-21', 3, 'Авторезированные сервис центры', 0, '', '', '', '', 'avtorezirovannye-servis-centry');
+(7, '2014-12-21', 3, 'Авторезированные сервис центры', 0, '', '', '', '', 'avtorezirovannye-servis-centry'),
+(8, '2014-12-22', 1, 'Внедорожные мероприятия', 0, '', '', '', '', 'vnedorozhnye-meropriyatiya'),
+(9, '2014-12-22', 5, 'История компании', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam doloribus tempore libero maxime voluptates voluptatem, ut beatae neque reprehenderit nulla perferendis doloremque, molestiae rem omnis dolorum officia suscipit, ea repellat!</p>\r\n', '', '', '', 'istoriya-kompanii'),
+(10, '2014-12-22', 5, 'Производства', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'proizvodstva'),
+(11, '2014-12-22', 5, 'Политика качества', 0, '', '', '', '', 'politika-kachestva'),
+(12, '2014-12-22', 5, 'ЧА.ВО. / FAQ', 0, '', '', '', '', 'cha-vo-faq'),
+(13, '2014-12-22', 5, 'Работа с магазином', 0, '', '', '', '', 'rabota-s-magazinom'),
+(14, '2014-12-22', 2, 'Название мероприятия', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
+(15, '2014-12-22', 8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'lorem-ipsum-dolor-sit-amet-consectetur-adipisicing-elit');
 
 -- --------------------------------------------------------
 
@@ -118,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('fdaa9c884c7348f271a338b9924941a9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419159896, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('cc66454381f25ab25f6399f9f320ad06', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419204805, 'a:6:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -206,18 +214,28 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Дамп данных таблицы `menus_items`
 --
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(1, 1, 'Поддержка клиентов', 0, 1, '', 'articles', 'podderzhka-klientov'),
-(2, 1, 'Где купить', 0, 2, '', 'articles', 'gde-kupit'),
-(3, 1, 'О нас', 0, 3, '', 'articles', 'o-nas'),
-(4, 1, 'Контакты', 0, 4, '', 'articles', 'kontakty'),
-(5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry');
+(2, 1, 'Где купить', 0, 1, '', 'articles', 'gde-kupit'),
+(3, 1, 'О нас', 0, 2, '', 'articles', 'o-nas'),
+(4, 1, 'Контакты', 0, 3, '', 'articles', 'kontakty'),
+(5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry'),
+(6, 1, 'Регистрация и вход', 1, 2, '', 'link', 'йцукен'),
+(7, 1, 'Поддержка клиентов', 0, 0, '', 'link', ''),
+(8, 1, 'Авторезированные сервис центры', 7, 1, '', 'link', '123'),
+(11, 1, 'Новости', 3, 1, '', 'articles', 'novosti'),
+(12, 1, 'История компании', 3, 2, '', 'articles', 'istoriya-kompanii'),
+(13, 1, 'Производства', 3, 4, '', 'articles', 'proizvodstva'),
+(14, 1, 'Политика качества', 3, 5, '', 'articles', 'politika-kachestva'),
+(15, 1, 'ЧА.ВО. / FAQ', 3, 6, '', 'articles', 'cha-vo-faq'),
+(16, 1, 'Работа с магазином', 3, 7, '', 'articles', 'rabota-s-magazinom'),
+(17, 1, 'Выставки', 11, 1, '', 'articles', 'vystavki'),
+(18, 1, 'Внедорожные мероприятия', 11, 2, '', 'articles', 'vnedorozhnye-meropriyatiya');
 
 -- --------------------------------------------------------
 
@@ -239,7 +257,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
+(1, '5496df73c1bf2', '', 'Павел', '', '85555555', '', 10500, 0, 0, '2014-12-21 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +280,14 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `orders_products`
+--
+
+INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
+(1, '5496df73c1bf2', 1, 'Диск колесный', '10500', 1);
 
 -- --------------------------------------------------------
 

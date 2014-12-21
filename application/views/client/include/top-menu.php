@@ -15,9 +15,9 @@
 										<a href="<?=$sub_item_1->full_url?>" class="menu-nav-level-2__href" ><?=$sub_item_1->name?></a>
 										<?php if(!empty($sub_item_1->childs)):?>
 											<ul class="menu-nav-level-3">
-												<?foreach($sub_item_1[3] as $sub_item_2):?>
+												<?foreach($sub_item_1->childs as $sub_item_2):?>
 													<li class="menu-nav-level-3__item">
-														<a href="<?=$sub_item_2[1]?>" class="menu-nav-level-3__href"><?=$sub_item_2[0]?></a>
+														<a href="<?=$sub_item_2->full_url?>" class="menu-nav-level-3__href"><?=$sub_item_2->name?></a>
 													</li> <!-- /.menu-nav-level-3__item -->
 												<?endforeach;?>
 											</ul> <!-- /.menu-nav-level-3 -->

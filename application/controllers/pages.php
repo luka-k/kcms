@@ -9,25 +9,40 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$left_menu = $this->dynamic_menus->get_menu(4);
+		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
+		$level_2 = $this->menus_items->menu_tree(1, $root->id);
+	
+		$page = $this->articles->url_parse(2);
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu,
-			'left_menu' => $left_menu,
+			'top_menu' => $this->top_menu->items,
+			'level_2' => $this->articles->get_prepared_list($level_2)
 		);
 		
-		$page = $this->articles->url_parse(2);
-		if(isset($page->article))
+		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
+		if($sub_level) 
 		{
-			$content = $page->article;
-			$template="client/article.php";
-		}		
+			$level_3 = $this->menus_items->menu_tree(1, $sub_level->id);
+			$data['level_3'] = $this->articles->get_prepared_list($level_3);
+		}
+		
+		if(isset($page->articles))
+		{
+			$data['content'] = $page;
+		}
 		else
 		{
-			$content = $this->articles->get_list(array("parent_id" => $page->id));
-			$content = $this->articles->get_prepared_list($content);
-			$template="client/articles.php";
+			$data['content'] = $page;
+		}
+		
+		if($sub_level->url == "novosti")
+		{
+			$sub_template = "news";
+		}
+		else
+		{
+			$sub_template = "page";
 		}
 		
 		$data['title'] = $page->name;
@@ -35,11 +50,12 @@ class Pages extends Client_Controller {
 		$data['meta_keywords'] = $page->meta_keywords;
 		$data['meta_description'] = $page->meta_description;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['content'] = $content;
-		
+		$data['sub_template'] = $sub_template;
+
+		$template="client/about_us.php";
 		$this->load->view($template, $data);
 	}
-	
+
 	// wishlist()
 	// вывод вишлиста
 	public function wishlist()
