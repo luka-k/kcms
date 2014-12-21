@@ -15,6 +15,7 @@
 
 	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/breadcrumbs.php'?>
 	
 	<div class="page page-product" id="product">
 		<div class="page__wrap wrap">
