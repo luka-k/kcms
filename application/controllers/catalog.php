@@ -117,6 +117,10 @@ class Catalog extends Client_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
+		if($this->cart_items)
+		{
+			$this->cart_items = $this->products->get_prepared_list($this->cart_items);
+		}
 
 		$data = array(
 			'title' => "Корзина",
@@ -124,7 +128,7 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart_items' =>	$this->products->get_prepared_list($this->cart_items),
+			'cart_items' =>	$this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'selects' => array(

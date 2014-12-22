@@ -9,7 +9,7 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart">
-		<form action="<?=base_url()?>catalog/cart" class="form" method="post"> <!-- method="get" only for demo -->
+		<form action="<?=base_url()?>cart" class="form" method="post"> <!-- method="get" only for demo -->
 			<div class="form__line modal-cart__line skew">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
 				<input type="text" class="form__input modal-cart__input required" name="amount" placeholder="" value="1" />
