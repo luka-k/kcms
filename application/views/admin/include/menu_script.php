@@ -9,7 +9,7 @@
 	function item_info_answer(res){
 		$('#validation_error').text("");
 		$.fancybox.open("#item_info");
-		//console.log(item);
+
 		var form = $('.edit_item');
 		if(res.item != ""){
 			for (var key in res.item) {
@@ -18,7 +18,11 @@
 				if(element.attr('type') != 'radio'){
 					element.val(val);
 				}
+				if(key == "item_type"){
+					var type = res.item[key];
+				}
 			}
+			menu_type(type);
 		}else{
 			clear_form();		
 		}
@@ -97,9 +101,9 @@
 		inputs = form.find('.select_url');
 		inputs.each(function (){ 
 			var element = $(this);
-			element.hidden=true;
+			element.disabled=true;
 		});
 		$('#field-'+type).css("display", "inline");
-		$('#field-'+type).hidden=false;
+		document.getElementById('field-'+type).disabled=false;
 	}
 </script>

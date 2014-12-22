@@ -30,7 +30,7 @@ class Menu_module extends Admin_Controller
 		$this->load->view("admin/menus", $data);
 	}
 	
-	public function menu($id = FALSE)
+	public function menu($acting, $id = FALSE)
 	{
 		$editors = $this->dynamic_menus->editors;
 		$items_editors = $this->menus_items->editors;
@@ -65,6 +65,7 @@ class Menu_module extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать меню",
 			'error' => "",
+			'items_error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menus->set_active($this->menu, "menus"),
@@ -80,62 +81,84 @@ class Menu_module extends Admin_Controller
 			'types' => $types,
 			'item_content' => $item_content
 		);	
-		$this->load->view("admin/menu", $data);
-	}
-	
-	public function edit_menu($exit = FALSE)
-	{
-		$editors = $this->dynamic_menus->editors;
-		$items_editors = $this->menus_items->editors;
 		
-		$content = $this->dynamic_menus->editors_post()->data;
-		
-		$data = array(
-			'title' => "Редактировать меню",
-			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menus->set_active($this->menu, "menus"),
-			'type' => "dynamic_menus",
-			'editors' => $editors,
-			'content' => $content
-		);
-
-		if($this->dynamic_menus->editors_post()->error == TRUE)
+		if($acting == "edit")
 		{
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('admin/menu', $data);			
+			$this->load->view("admin/menu", $data);
 		}
-		else
+		elseif($acting == "save")
 		{
-			if($content->id == FALSE)
+			$content = $this->dynamic_menus->editors_post()->data;
+			if($this->dynamic_menus->editors_post()->error == TRUE)
 			{
-				//Если id пустая создаем новую страницу в базе
-				$this->dynamic_menus->insert($content);
-				$content->id = $this->db->insert_id();				
+				//Если валидация не прошла выводим сообщение об ошибке
+				$data['items_error'] = validation_errors();
+				$this->load->view('admin/menu', $data);			
 			}
 			else
 			{
-				var_dump($content);
-				//Если id не пустая вносим изменения.
-				$this->dynamic_menus->update($content->id, $content);
-			}	
+				if($content->id == FALSE)
+				{
+					//Если id пустая создаем новую страницу в базе
+					$this->dynamic_menus->insert($content);
+					$content->id = $this->db->insert_id();				
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->dynamic_menus->update($content->id, $content);
+				}	
 			
-			$field_name = editors_field_exists('img', $editors);
-			if(!empty($field_name))
-			{
-				$object_info = array(
-					"object_type" => "dynamic_menus",
-					"object_id" => $content->id
-				);
+				$field_name = editors_field_exists('img', $editors);
+				if(!empty($field_name))
+				{
+					$object_info = array(
+						"object_type" => "dynamic_menus",
+						"object_id" => $content->id
+					);
 		
-				$cover_id = $this->input->post("cover_id");
-				if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
+					$cover_id = $this->input->post("cover_id");
+					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
 				
-				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+				}
+				redirect(base_url().'admin/menu_module/menu/edit/'.$content->id);
 			}
 		}
-		$exit == false ? redirect(base_url()."admin/menu_module/menu/".$content->id) : redirect(base_url().'admin/menu_module/menus');
+		elseif($acting == "save_item")
+		{
+			$info = $this->input->post();
+			$info = $this->menus_items->editors_post($info);
+
+			if($info->error == TRUE)
+			{
+				//Если валидация не прошла формируем сообщение об ошибке
+				$data['items_error'] = strip_tags(validation_errors());
+				$this->load->view("admin/menu", $data);
+			}
+			else
+			{
+				if($info->data->id == FALSE)
+				{
+					//Если id пустая создаем новый пункт в базе
+					$this->db->where("parent_id", $info->data->parent_id);
+					$this->db->select_max('sort');
+					$query = $this->db->get('menus_items');
+					$max_sort = $query->row()->sort;
+				
+					$info->data->sort = $max_sort+1;
+					$this->menus_items->insert($info->data);
+					$info->data->id = $this->db->insert_id();
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->menus_items->update($info->data->id, $info->data);
+					
+				}
+				redirect(base_url().'admin/menu_module/menu/edit/'.$info->data->menu_id);
+			} 
+		}
 	}
 	
 	public function delete_menu($id)
@@ -156,7 +179,7 @@ class Menu_module extends Admin_Controller
 	public function delete_item($id)
 	{
 		$menu = $this->menus_items->get_item_by(array("id" => $id));
-		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/'.$menu->menu_id);
+		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/edit/'.$menu->menu_id);
 	}
 }
 
