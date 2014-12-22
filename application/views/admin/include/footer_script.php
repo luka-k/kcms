@@ -30,6 +30,23 @@
 			}
 		});
 	});
+	
+	
+	$(function() {
+		$('#sortable-2').sortable({cursor:'move'});
+		$('#sortable-2').sortable({cursorAt:{left:5}})
+		$('#sortable-2').sortable({
+			axis: 'y',
+			update: function (event, ui) {
+				var data = $(this).sortable('serialize');
+				$.ajax({
+					data: data,
+					type: 'POST',
+					url: '/admin/admin_ajax/sortable/'
+				});
+			}
+		});
+	});
 
 	function change_sort(type, item_id, sort){
 		data = new Object();

@@ -77,6 +77,16 @@
 															<li id="menus_items-<?=$item_2->id?>"><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
 																<a href="#" onclick="item_info('<?=$item_2->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
 																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_2->id?>', '<?=$item_2->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																<?if(!empty($item_2->childs)):?>
+																	<ul id="sortable-2">
+																		<?foreach($item_2->childs as $item_3):?>
+																			<li id="menus_items-<?=$item_3->id?>"><span class="item-name-<?=$item_3->id?>"><?=$item_3->name?></span>
+																				<a href="#" onclick="item_info('<?=$item_3->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
+																				<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_3->id?>', '<?=$item_3->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																			</li>
+																		<?endforeach;?>
+																	</ul>
+																<?endif;?>
 															</li>
 														<?endforeach;?>
 													</ul>
