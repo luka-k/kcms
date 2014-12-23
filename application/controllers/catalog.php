@@ -30,7 +30,7 @@ class Catalog extends Client_Controller {
 		//$filters = $this->characteristics->get_filters();
 		
 		$left_menu = $this->categories->get_site_tree(0, "parent_id");
-		$new_products = $this->products->get_list(array("is_new" => 1));
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 
@@ -45,7 +45,6 @@ class Catalog extends Client_Controller {
 			'url' => $url,
 			//'filters' => $filters,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'new_products' => $this->products->get_prepared_list($new_products),
 			'settings' => $settings
 		);
 		
@@ -70,7 +69,7 @@ class Catalog extends Client_Controller {
 
 			if ($category == FALSE)
 			{
-				$good_buy = $this->products->get_list(array("is_good_buy" => 1));
+				$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3);
 			
 				$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -88,7 +87,7 @@ class Catalog extends Client_Controller {
 				if(isset($category->product))
 				{
 					$content = $this->products->prepare_product($category->product);
-					
+					$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
 					$template = "client/product.php";
 				}
 				elseif(isset($category->products))
@@ -102,6 +101,7 @@ class Catalog extends Client_Controller {
 				$data['meta_title'] = $category->meta_title;
 				$data['meta_keywords'] = $category->meta_keywords;
 				$data['meta_description'] = $category->meta_description;
+				$data['new_products'] = $this->products->get_prepared_list($new_products);
 				$data['content'] = $content;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 			}
