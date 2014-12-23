@@ -9,18 +9,22 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		$level_2 = $this->menus_items->menu_tree(1, $root->id);
-	
 		$page = $this->articles->url_parse(2);
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu->items,
-			'level_2' => $this->articles->get_prepared_list($level_2)
+			'top_menu' => $this->top_menu->items
 		);
 		
+		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
+		if($root)
+		{
+			$level_2 = $this->menus_items->menu_tree(1, $root->id);
+			$data['level_2'] = $this->articles->get_prepared_list($level_2);
+		}
+		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
+				
 		if($sub_level) 
 		{
 			$level_3 = $this->menus_items->menu_tree(1, $sub_level->id);

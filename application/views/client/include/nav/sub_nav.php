@@ -1,3 +1,4 @@
+<?if(isset($level_2)):?>
 <div class="page__nav">
 	<ul class="page-nav">	
 		<?foreach($level_2 as $item):?>
@@ -7,3 +8,4 @@
 		<?endforeach;?>
 	</ul> <!-- /.page-nav -->
 </div> <!-- /.page__nav -->
+<?endif;?>
