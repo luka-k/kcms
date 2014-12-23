@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 22 2014 г., 03:37
+-- Время создания: Дек 23 2014 г., 12:17
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `categories`
@@ -88,7 +88,13 @@ CREATE TABLE IF NOT EXISTS `categories` (
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
 (1, 1, 0, 'Колёсные диски', '', '', '', 'kolyosnye-diski', 0, ''),
 (2, 1, 0, 'Диски колёсные легкосплавные', '', '', '', 'diski-kolyosnye-legkosplavnye', 1, ''),
-(3, 1, 0, 'Диски колёсные штампованные', '', '', '', 'diski-kolyosnye-shtampovannye', 1, '');
+(3, 1, 0, 'Диски колёсные штампованные', '', '', '', 'diski-kolyosnye-shtampovannye', 1, ''),
+(4, 1, 0, 'Автоаксессуары', '', '', '', 'avtoaksessuary', 0, ''),
+(5, 1, 0, 'Дефляторы', '', '', '', 'deflyatory', 4, ''),
+(6, 1, 0, 'Канистры', '', '', '', 'kanistry', 4, ''),
+(7, 1, 0, 'Проекторы', '', '', '', 'proektory', 4, ''),
+(8, 1, 0, 'Ремонт шин', '', '', '', 'remont-shin', 4, ''),
+(9, 1, 0, 'Системы крепления', '', '', '', 'sistemy-krepleniya', 4, '');
 
 -- --------------------------------------------------------
 
@@ -126,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('cc66454381f25ab25f6399f9f320ad06', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419204805, 'a:6:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
+('f25079308be567add4adad444f0b05f4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419322426, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -187,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -196,7 +202,13 @@ CREATE TABLE IF NOT EXISTS `images` (
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
 (1, 1, 'slider', 1, '/1/./1.jpg'),
 (4, 0, 'products', 1, '/2/-/2-470x470.jpg'),
-(5, 1, 'products', 1, '/1/[/1[1].jpg');
+(5, 1, 'products', 1, '/1/[/1[1].jpg'),
+(6, 1, 'products', 2, '/1/[/1[2].jpg'),
+(7, 0, 'products', 2, '/1/-/1-470x470.jpg'),
+(8, 1, 'products', 3, '/1/-/1-100x100.jpg'),
+(9, 0, 'products', 3, '/2/-/2-470x470[1].jpg'),
+(10, 1, 'products', 4, '/2/-/2-470x470[2].jpg'),
+(11, 1, 'products', 5, '/2/./2.jpg');
 
 -- --------------------------------------------------------
 
@@ -214,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -234,8 +246,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (14, 1, 'Политика качества', 3, 5, '', 'articles', 'politika-kachestva'),
 (15, 1, 'ЧА.ВО. / FAQ', 3, 6, '', 'articles', 'cha-vo-faq'),
 (16, 1, 'Работа с магазином', 3, 7, '', 'articles', 'rabota-s-magazinom'),
-(17, 1, 'Выставки', 11, 1, '', 'articles', 'vystavki'),
-(18, 1, 'Внедорожные мероприятия', 11, 2, '', 'articles', 'vnedorozhnye-meropriyatiya');
+(17, 1, 'Выставки', 11, 0, '', 'articles', 'vystavki'),
+(18, 1, 'Внедорожные мероприятия', 11, 1, '', 'articles', 'vnedorozhnye-meropriyatiya');
 
 -- --------------------------------------------------------
 
@@ -313,14 +325,18 @@ CREATE TABLE IF NOT EXISTS `products` (
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `is_new`, `is_good_buy`, `sort`, `name`, `article`, `warrant`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`) VALUES
-(1, 3, 1, 1, 1, 0, 'Диск колесный', 'dr001', '2', 15000, 30, '', '', '', 'disk-kolesnyj', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n');
+(1, 3, 1, 1, 1, 0, 'Диск колесный', 'dr001', '2', 15000, 30, '', '', '', 'disk-kolesnyj', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
+(2, 6, 1, 1, 0, 0, 'Канистра', 'к456', '2', 1000, 0, '', '', '', 'kanistra', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
+(3, 8, 1, 1, 1, 0, 'Набор для ремонта шин', 'sh678', '2', 1200, 10, '', '', '', 'nabor-dlya-remonta-shin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
+(4, 8, 1, 1, 1, 0, 'Набор для ремонта безкамерных шин', 'sh456', '1', 1500, 0, '', '', '', 'nabor-dlya-remonta-bezkamernyh-shin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
+(5, 7, 1, 1, 1, 0, 'Проектор', 'pr236', '2', 5000, 20, '', '', '', 'proektor', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n');
 
 -- --------------------------------------------------------
 
