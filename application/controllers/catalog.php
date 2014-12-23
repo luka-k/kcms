@@ -88,11 +88,13 @@ class Catalog extends Client_Controller {
 				if(isset($category->product))
 				{
 					$content = $this->products->prepare_product($category->product);
+					
 					$template = "client/product.php";
 				}
 				elseif(isset($category->products))
 				{
-					$content = $this->products->get_prepared_list($category->products);
+					$category->products = $this->products->get_prepared_list($category->products);
+					$content = $category;
 					$template = "client/products.php";	
 				}		
 
@@ -102,7 +104,6 @@ class Catalog extends Client_Controller {
 				$data['meta_description'] = $category->meta_description;
 				$data['content'] = $content;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				
 			}
 		}
 		$this->load->view($template, $data);

@@ -145,10 +145,10 @@
 								<a href="#price" class="catalog-sort__href">По наименованию</a>
 							</div> <!-- /.catalog__sort catalog-sort-->
 						
-							<h1 class="catalog__subtitle">Колесные диски</h1>
+							<h1 class="catalog__subtitle"><?=$content->name?></h1>
 						
 							<div class="catalog__list">
-								<?foreach($content as $item):?>
+								<?foreach($content->products as $item):?>
 									<div class="catalog__item">
 										<div class="catalog-item">
 											<div class="catalog-item__image-box">
