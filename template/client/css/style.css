@@ -718,7 +718,7 @@ span
 
     vertical-align: middle;
 }
-.header-cart__amount span
+.header-cart__amount span.red
 {
     font-weight: 700;
 

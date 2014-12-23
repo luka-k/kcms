@@ -37,6 +37,9 @@ function update_items(res){
 	$('.product_word').text(res['product_word']);
 	$('#'+res['item_id']).text(res['item_total']);
 	
+	$('#cart-empty').attr("style", "display:none");
+	$('#cart-full').attr("style", "display:inline");
+	
 	$('#input_qty').attr("value", res['item_qty']);	
 	$('#input_item_id').attr("value", res['item_id']);	
 }
