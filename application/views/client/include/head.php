@@ -8,7 +8,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
 
     <!-- Стили popup -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/js/fancybox/jquery.fancybox.css?v=2.1.5" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/fancybox/jquery.fancybox.css?v=2.1.5" />
 
     <link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
     <link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css">

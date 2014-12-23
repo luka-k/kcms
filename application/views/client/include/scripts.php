@@ -10,7 +10,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <!-- Скрипт popup -->
-<script src="<?=base_url()?>template/client/js/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script src="<?=base_url()?>template/client/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 <!-- Обработка и валидация форм -->
 <script src="<?=base_url()?>template/client/js/vendor/jquery.form.min.js"></script>
