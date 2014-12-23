@@ -48,7 +48,7 @@
 								<td>
 									<form action="#" class="form cart-amount skew" method="post">
 										<button type="button"  class="button button--normal cart-amount__button" item_id="<?=$item_id?>">-</button>
-										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="1" disabled/>
+										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
 										<button type="button" class="button button--normal cart-amount__button" item_id="<?=$item_id?>">+</button>
 									</form> <!-- /.cart-amount -->
 								</td>

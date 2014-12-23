@@ -121,7 +121,8 @@ class Catalog extends Client_Controller {
 		{
 			$this->cart_items = $this->products->get_prepared_list($this->cart_items);
 		}
-
+		
+		//var_dump($this->cart_items);
 		$data = array(
 			'title' => "Корзина",
 			'meta_title' => $settings->site_title,
