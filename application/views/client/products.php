@@ -103,7 +103,7 @@
 											<div class="catalog-item__price"><?=$good_item->price?></div> <!-- /.catalog-item__price -->
 									
 											<div class="catalog-item__button">
-												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$good_item->id?>'); return false;">Купить</button>
+												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$good_item->id?>', '<?=$good_item->name?>'); return false;">Купить</button>
 											</div> <!-- /.catalog-item__button -->
 										</div> <!-- /.catalog-item__bottom -->
 									</div> <!-- /.catalog-item -->
@@ -131,7 +131,7 @@
 											<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
 									
 											<div class="catalog-item__button">
-												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$new_item->id?>'); return false;">Купить</button>
+												<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>'); return false;">Купить</button>
 											</div> <!-- /.catalog-item__button -->
 										</div> <!-- /.catalog-item__bottom -->
 									</div> <!-- /.catalog-item -->
@@ -165,7 +165,7 @@
 												<div class="catalog-item__price"><?=$item->price?></div> <!-- /.catalog-item__price -->
 											
 												<div class="catalog-item__button">
-													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$item->id?>'); return false;">Купить</button>
+													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$item->id?>', '<?=$item->name?>'); return false;">Купить</button>
 												</div> <!-- /.catalog-item__button -->
 											</div> <!-- /.catalog-item__bottom -->
 										</div> <!-- /.catalog-item -->

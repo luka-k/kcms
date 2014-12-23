@@ -79,7 +79,7 @@ class Catalog extends Client_Controller {
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 				$data['good_buy'] = $this->products->get_prepared_list($good_buy);
-
+				$data['new_products'] = $this->products->get_prepared_list($new_products);
 				$template = 'client/products.php';		
 			}
 			else

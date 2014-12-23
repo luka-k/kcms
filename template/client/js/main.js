@@ -44,15 +44,14 @@
     $('.fancyimage').fancybox({
       maxWidth: 900
     });
-
+	
     $('.js-close-fancybox').on('click', function(){
       $.fancybox.close();
       return false;
     });
 
   };
-
-
+  
 /* ==========================================================================
  * Слайдеры
  * ========================================================================== */
@@ -210,7 +209,6 @@
 	  
 	  var item_id = $(this).attr('item_id');
 	  update_cart(item_id, document.getElementById('qty-'+item_id).value);
-	  
       return false;
     });
   };
@@ -441,3 +439,16 @@
   });
   
 }());
+
+function fancy_to_cart(item_id, name){
+	$('.fancy_product_name').text(name);
+	add_to_cart(item_id, 1);
+}
+
+function from_fancy_to_cart(){
+	var name_input = document.getElementById('input_qty');
+	var qty = name_input.value;
+	var item_id_input = document.getElementById('input_item_id');
+	var item_id = item_id_input.value;
+	update_cart(item_id, qty, 'cart');
+}

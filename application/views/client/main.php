@@ -22,7 +22,7 @@
 			<div class="main-catalog-nav__titles inline-categories">
 				<ul class="inline-categories__list skew">
 					<li class="inline-categories__item">
-						<a href="catalog.html" class="inline-categories__href active">По применяемости</a>
+						<a href="<?=base_url()?>catalog/" class="inline-categories__href active">По применяемости</a>
 					</li> <!-- /.inline-categories__item -->
 					<li class="inline-categories__item">
 						<a href="<?=base_url()?>catalog/" class="inline-categories__href">Каталог</a>
@@ -81,7 +81,7 @@
 									<div class="catalog-item__price"><?=$good_item->price?></div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$good_item->id?>'); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$good_item->id?>', '<?=$good_item->name?>'); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->
@@ -110,7 +110,7 @@
 									<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="add_to_cart('<?=$new_item->id?>'); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>'); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

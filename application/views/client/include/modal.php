@@ -1,6 +1,6 @@
 <div class="modal modal--to-cart" id="to-cart">
 	<div class="modal__title block-title">
-		Товар "<span>Диск колесный</span>"
+		Товар "<span class="fancy_product_name"></span>"
 		<br /> добавлен в корзину
 	</div> <!-- /.modal__title block-title -->
 	
@@ -9,15 +9,16 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart">
-		<form action="<?=base_url()?>cart" class="form" method="post"> <!-- method="get" only for demo -->
+		<form action="#" class="form" class="to_cart" method="post"> <!-- method="get" only for demo -->
 			<div class="form__line modal-cart__line skew">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" class="form__input modal-cart__input required" name="amount" placeholder="" value="1" />
+				<input type="text" id="input_qty" class="form__input modal-cart__input required qty" name="amount" placeholder="" value="" />
+				<input type="hidden" id="input_item_id" value=""/>
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button modal-cart__button skew">
 				<button type="button" class="button button--normal button--auto-width js-close-fancybox">Вернуться к покупкам</button>
-				<button type="submit" class="button button--normal button--grey button--auto-width">В корзину &rarr;</button>
+				<button type="button" class="button button--normal button--grey button--auto-width" onclick="from_fancy_to_cart(); return false;">В корзину &rarr;</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
 	</div> <!-- /.modal__cart -->
