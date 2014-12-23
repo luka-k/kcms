@@ -28,7 +28,7 @@
 					<?if(empty($cart_items)):?>
 						Корзина пуста
 					<?else:?>
-						<span id="total_qty"><?=$total_qty?></span> товара <br />
+						<span id="total_qty"><?=$total_qty?></span> <span class="product_word"><?=$product_word?></span> <br />
 						на сумму <span><span id="total_price"><?=$total_price?></span> р.</span>
 					<?endif;?>
 				</span> <!-- /.header-cart__cost -->

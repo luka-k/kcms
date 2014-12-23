@@ -35,7 +35,7 @@
 						</tr>
 						
 						<?foreach($cart_items as $item_id => $item):?>
-							<tr>
+							<tr id="cart-<?=$item_id?>">
 								<td>
 									<img src="<?=$item->img->url?>" alt="image" width="100" class="cart-table__image" />
 								</td>
