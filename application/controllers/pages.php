@@ -31,18 +31,15 @@ class Pages extends Client_Controller {
 			$data['level_3'] = $this->articles->get_prepared_list($level_3);
 		}
 		
-		if(isset($page->articles))
-		{
-			$data['content'] = $page;
-		}
-		else
-		{
-			$data['content'] = $page;
-		}
+		//var_dump($page);
+		
+
+		$data['content'] = $page;
+
 		
 		if($sub_level->url == "novosti")
 		{
-			$sub_template = "news";
+			$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
 		}
 		else
 		{
@@ -56,7 +53,7 @@ class Pages extends Client_Controller {
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['sub_template'] = $sub_template;
 
-		$template="client/about_us.php";
+		$template="client/articles.php";
 		$this->load->view($template, $data);
 	}
 

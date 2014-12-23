@@ -19,7 +19,15 @@ class Index extends Client_Controller {
 		
 		$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 4);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
-		$last_news = $this->articles->get_list(array("parent_id" => 1), FALSE, 4);
+		
+		$news_sub = $this->articles->get_list(array("parent_id" => 1), FALSE, 4);
+		foreach($news_sub as $level)
+		{
+			$sub_level_id[] = $level->id;
+		}
+		$this->db->where_in("parent_id", $sub_level_id);
+		$query = $this->db->get("articles");
+		$last_news = $query->result();
 		
 		$video = $this->video->get_list(array("is_main" => 1));
 		
