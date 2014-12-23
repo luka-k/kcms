@@ -207,8 +207,8 @@
         $target.val( --curValue );
 
       }
-	  var item_id = $amountButtons.attr('item_id');
-	  console.log(document.getElementById('qty-'+item_id).value);
+	  
+	  var item_id = $(this).attr('item_id');
 	  update_cart(item_id, document.getElementById('qty-'+item_id).value);
 	  
       return false;
