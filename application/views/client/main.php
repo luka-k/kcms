@@ -138,7 +138,7 @@
 				<?foreach($last_news as $news_item):?>
 					<li class="last-news__item">
 						<div class="last-news__date"><?=$news_item->date?></div> <!-- /.last-news__date -->
-						<a href="#" class="last-news__name"><?=$news_item->name?></a>
+						<a href="<?=$news_item->full_url?>" class="last-news__name"><?=$news_item->name?></a>
 						
 						<div class="last-news__desc">
 							<p><?=$news_item->description?></p>
