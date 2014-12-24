@@ -3,48 +3,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Управление пользователями
 
-class Registration extends CI_Controller 
+class Account extends Client_Controller 
 {	
 	public function __construct()
 	{
 		parent::__construct();
 		
 		$this->config->load('order_config');
-	}
-	
-	public function admin_enter()
-	{
-		$data = array(
-			'title' => "Вход",
-			'meta_title' => "Вход",
-			'error' => " "
-		);
-		$this->load->view('admin/enter.php', $data);
-	}
-	
-	
-	/*Авторизация пользователя*/	
-	public function do_admin_enter()
-	{
-		$data = array(
-			'title' => "Вход",
-			'meta_title' => "Вход",
-			'error' => " "
-		);
-		
-		$email = $this->input->post('email');
-		$password = md5($this->input->post('password'));			
-		$authdata = $this->users->login($email, $password);
-
-		if (!$authdata['logged_in'])
-		{
-			$data['error'] = "Данные не верны. Повторите ввод";		
-			$this->load->view('admin/enter.php', $data);	
-		} 
-		else 
-		{
-			redirect(base_url().'admin');	
-		}	
 	}
 	
 	/*Авторизация покупателя*/	
@@ -70,8 +35,8 @@ class Registration extends CI_Controller
 					'method_delivery' => $this->config->item('method_delivery'),
 					'method_pay' => $this->config->item('method_pay')
 				),
-				'top_menu' => $this->menus->top_menu,
-				'user' => $this->users->get_item_by(array("id" => $user_id))
+				'top_menu' => $this->top_menu->items,
+				'user' => $this->user
 			);
 			
 			$data['error'] = "Данные не верны. Повторите ввод";		
@@ -94,7 +59,7 @@ class Registration extends CI_Controller
 			);
 		$this->session->unset_userdata($authdata);
 		
-		$role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'pages/cart');
+		redirect(base_url().'cart');
 	}
 	
 	/*Вывод формы востановления пароля*/
@@ -224,57 +189,34 @@ class Registration extends CI_Controller
 		$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'cart');		
 	}
 			
-	/*----------Клиентская часть----------*/
-	
-	public function register_user()
+	public function registration()
 	{
-		$menu = $this->menus->top_menu;	
-
-		$editors = $this->users->new_editors;
-		$user = new stdClass();
-		foreach ($editors as $tabs)
-		{
-			foreach ($tabs as $item => $value)
-			{
-				$user->$item = "";
-			}
-		}		
-	
+		$reg = $this->input->get('reg');
 		$data = array(
 			'title' => "Регистрация",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
-			'menu' => $menu,
-			'editors' => $editors,
-			'content' => $user
+			'top_menu' => $this->top_menu->items,
+			'reg' => $reg
 		);
 		
-		
-		$this->load->view('client/register_user', $data);		
+		$this->load->view('client/registration', $data);		
 	}
 	
-	public function edit_new_user()
+	public function new_user()
 	{
-		$menu = $this->menus->top_menu;
-		
-		$editors = $this->users->new_editors;
-		$post = $this->input->post();
-		
-		$content = $this->$type->editors_post()->data;
-
 		$data = array(
 			'title' => "Регистрация",
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
-			'menu' => $menu,
-			'editors' => $editors,
-			'content' => $content
-		);			
-		
+			'top_menu' => $this->top_menu->items,
+			'reg' => "true"
+		);	
+			
 		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
 		$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
 					
@@ -285,36 +227,39 @@ class Registration extends CI_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('client/register_user.php', $data);			
+			$this->load->view('client/registration', $data);			
 		}
 		else
 		{	
+			$user = (object)$this->input->post();
 			//Если id пустой то добавляем нового пользователя
-			if (!$this->users->non_requrrent(array('name'=>$data['content']->name)))
+			if (!$this->users->non_requrrent(array('name'=>$user->name)))
 			{
 				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-				$this->load->view('client/register_user.php', $data);	
+				$this->load->view('client/registration', $user);	
 			} 
-			elseif (!$this->users->non_requrrent(array('email'=>$data['content']->email)))
+			elseif (!$this->users->non_requrrent(array('email'=>$user->email)))
 			{
 				$data['error'] ="Такой email уже зарегистрирован";
-				$this->load->view('client/register_user.php', $data);						
+				$this->load->view('client/registration', $user);						
 			} 
 			else 
 			{	
-				$pass = $content->conf_password;
-				$data['content']->role = "customer";
-				$this->users->insert($data['content']);
+				$pass = $user->conf_password;
+				$user->role = "customer";
+				$user->password = md5($user->password);
+				unset($user->conf_password);
+				$this->users->insert($user);
 				
 				$message_info = array(
-					"user_name" => $content->name,
-					"login" => $content->email,
+					"user_name" => $user->name,
+					"login" => $user->email,
 					"password" => $pass
 				);
 				
-				$this->emails->send_mail($content->email, 'registration', $message_info);				
+				$this->emails->send_mail($user->email, 'registration', $message_info);				
 				
-				if($this->users->login($content->email, $content->password)) redirect(base_url().'registration/cabinet');
+				if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 			}
 		}			
 	}
