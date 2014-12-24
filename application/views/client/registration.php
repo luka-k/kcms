@@ -17,7 +17,7 @@
 	<? require 'include/top-menu.php'?>
 
 	<div class="page page-about">
-		<div class="page__wrap wrap">
+		<div class="page-cart__order">
 			<h1 class="page__title"><?if($reg):?>Регистрация<?else:?>Войти<?endif;?></h1>
 
 			<div class="cart-order__form">
@@ -57,7 +57,7 @@
 						</div> <!-- /.form__line -->
 						
 						<div class="form__button skew">
-							<button type="submit" class="button button--normal button--auto-width"  onclick="document.forms['registr_form'].submit(); return false;">Регистрация</button>
+							<button type="submit" class="button button--normal button--auto-width" >Регистрация</button>
 						</div> <!-- /.form__button -->
 						
 					</form>
