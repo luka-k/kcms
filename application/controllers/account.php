@@ -15,16 +15,10 @@ class Account extends Client_Controller
 	/*Авторизация покупателя*/	
 	public function do_enter()
 	{
-		$authdata = array(
-			'user_id' => '',
-			'user_name' => '',
-			'logged_in' => ''
-			);
-		$this->session->unset_userdata($authdata);
 		$email = $this->input->post('login');
 		$password = md5($this->input->post('password'));			
 		$authdata = $this->users->login($email, $password);
-
+		
 		if (!$authdata['logged_in'])
 		{	
 			$user_id = $this->session->userdata('user_id');

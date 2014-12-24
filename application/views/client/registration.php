@@ -24,15 +24,15 @@
 				<div class="<?if($reg):?>hidden<?endif;?>" style="margin-bottom:20px;">
 					<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">
 						<div class="form__line skew">
-							<input type="text" class="form__input required" name="email" placeholder="E-mail" />
+							<input type="text" class="form__input required" name="email" placeholder="E-mail" autocomplete="off"/>
 						</div> <!-- /.form__line -->
 							
 						<div class="form__line skew">
-							<input type="password" class="form__input required" name="password" placeholder="Пароль" />
+							<input type="password" class="form__input required" name="password" placeholder="Пароль" autocomplete="off"/>
 						</div> <!-- /.form__line -->
 							
 						<div class="form__button skew">
-							<button type="submit" class="button button--normal button--auto-width" onclick="document.forms['enter_form'].submit(); return false;">Войти</button>
+							<button type="submit" class="button button--normal button--auto-width" >Войти</button>
 						</div> <!-- /.form__button -->
 					</form>
 				</div>
