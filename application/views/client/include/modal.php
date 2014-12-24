@@ -9,7 +9,7 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart">
-		<form action="#" class="form" class="to_cart" method="post"> <!-- method="get" only for demo -->
+		<form action="#" class="form to_cart" method="post"> <!-- method="get" only for demo -->
 			<div class="form__line modal-cart__line skew">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
 				<input type="text" id="input_qty" class="form__input modal-cart__input required qty" name="amount" placeholder="" value="" />
@@ -32,13 +32,13 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__form">
-		<form action="#" class="form" method="post">
+		<form action="#" class="form" id="callback_form" method="post">
 			<div class="form__line skew">
-				<input type="text" class="form__input required" name="name" placeholder="Имя" />
+				<input type="text" id="callback_name" class="form__input required" name="name" placeholder="Имя" />
 			</div> <!-- /.form__line -->
 			
 			<div class="form__line skew">
-				<input type="tel" class="form__input required" name="phone" placeholder="Телефон" />
+				<input type="tel" id="call" class="form__input required" name="phone" placeholder="Телефон" />
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button skew">

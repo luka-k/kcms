@@ -396,7 +396,7 @@
  * ========================================================================== */
 
   app.alaxOptions = {
-    url: "ajax/contact.php",
+    url: "/ajax/index",
     timeout: 3000,
     datatype: 'json',
     success: function showResponse(responseText, statusText, xhr, $form)  { 
@@ -419,11 +419,12 @@
     $.extend($.validator.messages, _this.validateMessages );
     $('form').each(function() {
       $(this).validate({
-        //errorPlacement: function(error, element) {},
-        //submitHandler: function(form) {
-         // _this.submitForm(form);
-        //}
-      });
+			errorPlacement: function(error, element) {},
+			submitHandler: function(form) {
+			_this.submitForm(form);
+        }
+		
+      }); 
     });
   };
 
@@ -439,6 +440,10 @@
   });
   
 }());
+
+/*=========================================================================
+ *Мои скрипты
+ *========================================================================= */
 
 function fancy_to_cart(item_id, name){
 	$('.fancy_product_name').text(name);
