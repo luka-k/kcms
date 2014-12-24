@@ -15,6 +15,12 @@ class Account extends Client_Controller
 	/*Авторизация покупателя*/	
 	public function do_enter()
 	{
+		$authdata = array(
+			'user_id' => '',
+			'user_name' => '',
+			'logged_in' => ''
+			);
+		$this->session->unset_userdata($authdata);
 		$email = $this->input->post('login');
 		$password = md5($this->input->post('password'));			
 		$authdata = $this->users->login($email, $password);
@@ -24,23 +30,17 @@ class Account extends Client_Controller
 			$user_id = $this->session->userdata('user_id');
 	
 			$data = array(
-				'title' => "Корзина",
+				'title' => "Регистрация",
 				'meta_title' => "",
 				'meta_keywords' => "",
 				'meta_description' => "",
-				'cart' => $this->cart->get_all(),
-				'total_price' => $this->cart->total_price(),
-				'total_qty' => $this->cart->total_qty(),
-				'selects' => array(
-					'method_delivery' => $this->config->item('method_delivery'),
-					'method_pay' => $this->config->item('method_pay')
-				),
+				'error' => "",
 				'top_menu' => $this->top_menu->items,
-				'user' => $this->user
-			);
+				'reg' => ""
+			);	
 			
 			$data['error'] = "Данные не верны. Повторите ввод";		
-			$this->load->view('client/cart.php', $data);	
+			$this->load->view('client/registration', $data);	
 		} 
 		else 
 		{

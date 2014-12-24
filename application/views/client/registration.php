@@ -22,7 +22,7 @@
 
 			<div class="cart-order__form">
 				<div class="<?if($reg):?>hidden<?endif;?>" style="margin-bottom:20px;">
-					<form action="<?=base_url()?>cabinet" id="enter_form" method="post">
+					<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">
 						<div class="form__line skew">
 							<input type="text" class="form__input required" name="email" placeholder="E-mail" />
 						</div> <!-- /.form__line -->
