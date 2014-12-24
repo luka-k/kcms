@@ -33,27 +33,36 @@ class Pages extends Client_Controller {
 		
 		//var_dump($page);
 		
-
+		
 		$data['content'] = $page;
 
-		
-		if($sub_level->url == "novosti")
+		if($page == "404")
 		{
-			$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
+			$settings = $this->settings->get_item_by(array("id" => 1));
+			$data['title'] = "Страница не найдена";
+			$data['meta_title'] = $settings->site_title;
+			$data['meta_keywords'] = $settings->site_keywords;
+			$data['meta_description'] = $settings->site_description;
+			$template="client/404.php";
 		}
 		else
 		{
-			$sub_template = "page";
+			if($sub_level->url == "novosti")
+			{
+				$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
+			}
+			else
+			{
+				$sub_template = "page";
+			}
+			$data['title'] = $page->name;
+			$data['meta_title'] = $page->meta_title;
+			$data['meta_keywords'] = $page->meta_keywords;
+			$data['meta_description'] = $page->meta_description;
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
+			$data['sub_template'] = $sub_template;
+			$template="client/articles.php";
 		}
-		
-		$data['title'] = $page->name;
-		$data['meta_title'] = $page->meta_title;
-		$data['meta_keywords'] = $page->meta_keywords;
-		$data['meta_description'] = $page->meta_description;
-		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['sub_template'] = $sub_template;
-
-		$template="client/articles.php";
 		$this->load->view($template, $data);
 	}
 

@@ -47,6 +47,7 @@ class Categories extends MY_Model
 		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
 		if(!$child)
 		{
+			
 			$product = $this->products->get_item_by(array('url' => $url));
 			if ($product)
 			{
@@ -72,7 +73,9 @@ class Categories extends MY_Model
 			else 
 			{
 				$child->products = $this->get_sub_products($child->id);
+				var_dump($child);
 				return $child;
+				
 			}		
 		}	
 	}

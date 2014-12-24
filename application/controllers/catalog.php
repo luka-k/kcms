@@ -66,44 +66,56 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$category = $this->categories->url_parse(2);
-
-			if ($category == FALSE)
-			{
-				$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3);
 			
-				$settings = $this->settings->get_item_by(array('id' => 1));
-
-				$data['title'] = $settings->site_title;
+			if($category == "404")
+			{
+				$settings = $this->settings->get_item_by(array("id" => 1));
+				$data['title'] = "Страница не найдена";
 				$data['meta_title'] = $settings->site_title;
 				$data['meta_keywords'] = $settings->site_keywords;
 				$data['meta_description'] = $settings->site_description;
-				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				$data['good_buy'] = $this->products->get_prepared_list($good_buy);
-				$data['new_products'] = $this->products->get_prepared_list($new_products);
-				$template = 'client/products.php';		
+				$template="client/404.php";
 			}
 			else
 			{
-				if(isset($category->product))
+				if ($category == FALSE)
 				{
-					$content = $this->products->prepare_product($category->product);
-					$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
-					$template = "client/product.php";
-				}
-				elseif(isset($category->products))
-				{
-					$category->products = $this->products->get_prepared_list($category->products);
-					$content = $category;
-					$template = "client/products.php";	
-				}		
+					$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3);
+			
+					$settings = $this->settings->get_item_by(array('id' => 1));
 
-				$data['title'] = $category->name;
-				$data['meta_title'] = $category->meta_title;
-				$data['meta_keywords'] = $category->meta_keywords;
-				$data['meta_description'] = $category->meta_description;
-				$data['new_products'] = $this->products->get_prepared_list($new_products);
-				$data['content'] = $content;
-				$data['breadcrumbs'] = $this->breadcrumbs->get();
+					$data['title'] = $settings->site_title;
+					$data['meta_title'] = $settings->site_title;
+					$data['meta_keywords'] = $settings->site_keywords;
+					$data['meta_description'] = $settings->site_description;
+					$data['breadcrumbs'] = $this->breadcrumbs->get();
+					$data['good_buy'] = $this->products->get_prepared_list($good_buy);
+					$data['new_products'] = $this->products->get_prepared_list($new_products);
+					$template = 'client/products.php';		
+				}
+				else
+				{
+					if(isset($category->product))
+					{
+						$content = $this->products->prepare_product($category->product);
+						$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
+						$template = "client/product.php";
+					}
+					elseif(isset($category->products))
+					{
+						$category->products = $this->products->get_prepared_list($category->products);
+						$content = $category;
+						$template = "client/products.php";	
+					}		
+
+					$data['title'] = $category->name;
+					$data['meta_title'] = $category->meta_title;
+					$data['meta_keywords'] = $category->meta_keywords;
+					$data['meta_description'] = $category->meta_description;
+					$data['new_products'] = $this->products->get_prepared_list($new_products);
+					$data['content'] = $content;
+					$data['breadcrumbs'] = $this->breadcrumbs->get();
+				}
 			}
 		}
 		$this->load->view($template, $data);
