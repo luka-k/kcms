@@ -17,8 +17,8 @@
 		
 		<div class="header__login">
 			<div class="header-login">
-				<a href="<?=base_url()?>account/registration" class="header-login__href header-login__enter">Вход</a>
-				<a href="<?=base_url()?>account/registration?reg=true" class="header-login__href header-login__register">Регистрация</a>
+				<a href="<?=base_url()?>account/registration?activity=enter" class="header-login__href header-login__enter">Вход</a>
+				<a href="<?=base_url()?>account/registration?activity=reg" class="header-login__href header-login__register">Регистрация</a>
 			</div> <!-- /.header-login -->
 		</div> <!-- /.header__login -->
 		

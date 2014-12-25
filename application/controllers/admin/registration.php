@@ -73,15 +73,14 @@ class Registration extends CI_Controller
 	/*Востановление пароля*/	
 	public function restore_password_mail()
 	{
+		$data = array(
+			'title' => "Востановление пароля",
+			'meta_title' => "Востановление пароля",
+			'error' => "Не правильно введен e-mail"
+		);
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
 		if($this->form_validation->run() == FALSE)
 		{
-			$data = array(
-				'title' => "Востановление пароля",
-				'meta_title' => "Востановление пароля",
-				'error' => "Не правильно введен e-mail"
-			);
-
 			$this->load->view('admin/restore_form', $data);	
         } 
 		else 
@@ -98,34 +97,15 @@ class Registration extends CI_Controller
 				
 				if (!$this->mail->send_mail($user_email, $subject, $message))
 				{
-				
-					$data = array(
-						'title' => 'Востановление пароля',
-						'meta_title' => "Востановление пароля",
-						'error' => "Не удалось отправить письмо для востановления пароля"
-					);
-
 					$this->load->view('admin/restore_form', $data);	
 				}
 				else
 				{					
-					$data = array(
-						'title' => "Вход",
-						'meta_title' => "Вход",
-						'error' => ""
-					);	
-					
 					redirect(base_url().'admin');			
 				}
 			} 
 			else
 			{
-				$data = array(
-					'title' => "Востановление пароля",
-					'meta_title' => "Востановление пароля",
-					'error' => "E-mail не зарегистрирован в системе. Введите правильный e-mail и повторите попытку."
-				);
-
 				$this->load->view('admin/restore_form', $data);	
 			}
 		}
