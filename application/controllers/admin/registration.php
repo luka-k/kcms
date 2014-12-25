@@ -1,9 +1,9 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Óïğàâëåíèå ïîëüçîâàòåëÿìè
+// Ğ£Ğ¿Ñ€Ğ°Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»ÑĞ¼Ğ¸
 
-class Registration extends Admin_Controller 
+class Registration extends CI_Controller 
 {	
 	public function __construct()
 	{
@@ -11,22 +11,22 @@ class Registration extends Admin_Controller
 		$this->config->load('order_config');
 	}
 	
-	public function admin_enter()
+	public function login()
 	{
 		$data = array(
-			'title' => "Âõîä",
-			'meta_title' => "Âõîä",
+			'title' => "Ğ’Ñ…Ğ¾Ğ´",
+			'meta_title' => "Ğ’Ñ…Ğ¾Ğ´",
 			'error' => " "
 		);
-		$this->load->view('admin/enter.php', $data);
+		$this->load->view('admin/login.php', $data);
 	}
 	
-	/*Àâòîğèçàöèÿ ïîëüçîâàòåëÿ*/	
+	/*ĞĞ²Ñ‚Ğ¾Ñ€Ğ¸Ğ·Ğ°Ñ†Ğ¸Ñ Ğ¿Ğ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»Ñ*/	
 	public function do_enter()
 	{
 		$data = array(
-			'title' => "Âõîä",
-			'meta_title' => "Âõîä",
+			'title' => "Ğ’Ñ…Ğ¾Ğ´",
+			'meta_title' => "Ğ’Ñ…Ğ¾Ğ´",
 			'error' => " "
 		);
 		
@@ -36,8 +36,8 @@ class Registration extends Admin_Controller
 
 		if (!$authdata['logged_in'])
 		{
-			$data['error'] = "Äàííûå íå âåğíû. Ïîâòîğèòå ââîä";		
-			$this->load->view('admin/enter.php', $data);	
+			$data['error'] = "Ğ”Ğ°Ğ½Ğ½Ñ‹Ğµ Ğ½Ğµ Ğ²ĞµÑ€Ğ½Ñ‹. ĞŸĞ¾Ğ²Ñ‚Ğ¾Ñ€Ğ¸Ñ‚Ğµ Ğ²Ğ²Ğ¾Ğ´";		
+			$this->load->view('admin/login.php', $data);	
 		} 
 		else 
 		{
@@ -45,8 +45,8 @@ class Registration extends Admin_Controller
 		}	
 	}
 	
-	//Âûõîä
-	public function do_exit()
+	//Ğ’Ñ‹Ñ…Ğ¾Ğ´
+	public function logout()
 	{
 		$role = $this->session->userdata('role');
 		$authdata = array(
@@ -59,41 +59,30 @@ class Registration extends Admin_Controller
 		redirect(base_url().'admin');
 	}
 	
-	/*Âûâîä ôîğìû âîñòàíîâëåíèÿ ïàğîëÿ*/
-	public function forgot_pass()
+	/*Ğ’Ñ‹Ğ²Ğ¾Ğ´ Ñ„Ğ¾Ñ€Ğ¼Ñ‹ Ğ²Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ñ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ*/
+	public function restore_password()
 	{
 		$data = array(
-			'title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-			'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
+			'title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+			'meta_title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
 			'error' => " "
 		);
-		$this->load->view('admin/forgot_form.php', $data);			
+		$this->load->view('admin/restore_form', $data);			
 	}
 	
-	/*Âûâîä ôîğìû âîñòàíîâëåíèÿ ïàğîëÿ*/
-	public function forgot_pass()
-	{
-		$data = array(
-			'title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-			'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-			'error' => " "
-		);
-		$this->load->view('admin/forgot_form.php', $data);			
-	}
-	
-	/*Âîñòàíîâëåíèå ïàğîëÿ*/	
-	public function forgot_password()
+	/*Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ*/	
+	public function restore_password_mail()
 	{
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
 		if($this->form_validation->run() == FALSE)
 		{
 			$data = array(
-				'title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-				'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-				'error' => "Íå ïğàâèëüíî ââåäåí e-mail"
+				'title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+				'meta_title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+				'error' => "ĞĞµ Ğ¿Ñ€Ğ°Ğ²Ğ¸Ğ»ÑŒĞ½Ğ¾ Ğ²Ğ²ĞµĞ´ĞµĞ½ e-mail"
 			);
 
-			$this->load->view('admin/forgot_form.php', $data);	
+			$this->load->view('admin/restore_form', $data);	
         } 
 		else 
 		{
@@ -104,46 +93,59 @@ class Registration extends Admin_Controller
 				$secret = md5($this->config->item('secret'));
 				$email = $this->users->get_item_by(array('email' => $user_email));
 				$this->users->update($email->id, array('secret' => $secret));
-				$subject = 'Âîñòàíîâëåíèå ïàğîëÿ';
-				$message = 'Ïåğåéäèòå ïî ññûëêå äëÿ èçìåíåíèÿ ïàğîëÿ '.base_url()."registration/reset_password.html?email=$user_email&secret=$secret";
+				$subject = 'Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ';
+				$message = 'ĞŸĞµÑ€ĞµĞ¹Ğ´Ğ¸Ñ‚Ğµ Ğ¿Ğ¾ ÑÑÑ‹Ğ»ĞºĞµ Ğ´Ğ»Ñ Ğ¸Ğ·Ğ¼ĞµĞ½ĞµĞ½Ğ¸Ñ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ '.base_url()."admin/registration/new_password?email=$user_email&secret=$secret";
 				
 				if (!$this->mail->send_mail($user_email, $subject, $message))
 				{
 				
 					$data = array(
-						'title' => 'Âîñòàíîâëåíèå ïàğîëÿ',
-						'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-						'error' => "Íå óäàëîñü îòïğàâèòü ïèñüìî äëÿ âîñòàíîâëåíèÿ ïàğîëÿ"
+						'title' => 'Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ',
+						'meta_title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+						'error' => "ĞĞµ ÑƒĞ´Ğ°Ğ»Ğ¾ÑÑŒ Ğ¾Ñ‚Ğ¿Ñ€Ğ°Ğ²Ğ¸Ñ‚ÑŒ Ğ¿Ğ¸ÑÑŒĞ¼Ğ¾ Ğ´Ğ»Ñ Ğ²Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ñ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ"
 					);
 
-					$this->load->view('admin/forgot_form.php', $data);	
+					$this->load->view('admin/restore_form', $data);	
 				}
 				else
 				{					
 					$data = array(
-						'title' => "Âõîä",
-						'meta_title' => "Âõîä",
+						'title' => "Ğ’Ñ…Ğ¾Ğ´",
+						'meta_title' => "Ğ’Ñ…Ğ¾Ğ´",
 						'error' => ""
 					);	
 					
-					$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'cart');			
+					redirect(base_url().'admin');			
 				}
 			} 
 			else
 			{
 				$data = array(
-					'title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-					'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-					'error' => "E-mail íå çàğåãèñòğèğîâàí â ñèñòåìå. Ââåäèòå ïğàâèëüíûé e-mail è ïîâòîğèòå ïîïûòêó."
+					'title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+					'meta_title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+					'error' => "E-mail Ğ½Ğµ Ğ·Ğ°Ñ€ĞµĞ³Ğ¸ÑÑ‚Ñ€Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½ Ğ² ÑĞ¸ÑÑ‚ĞµĞ¼Ğµ. Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ¿Ñ€Ğ°Ğ²Ğ¸Ğ»ÑŒĞ½Ñ‹Ğ¹ e-mail Ğ¸ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€Ğ¸Ñ‚Ğµ Ğ¿Ğ¾Ğ¿Ñ‹Ñ‚ĞºÑƒ."
 				);
 
-				$this->load->view('admin/forgot_form.php', $data);	
+				$this->load->view('admin/restore_form', $data);	
 			}
 		}
 	}
+	
+	/*Ğ’Ñ‹Ğ²Ğ¾Ğ´ Ñ„Ğ¾Ñ€Ğ¼Ñ‹ ÑĞ±Ñ€Ğ¾ÑĞ° Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ*/
+	public function new_password()
+	{
+		$data = array(
+			'title' => "Ğ¡Ğ±Ñ€Ğ¾Ñ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+			'meta_title' => "Ğ¡Ğ±Ñ€Ğ¾Ñ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+			'error' => " ",
+			'email' => $this->input->get('email'),
+			'secret' => $this->input->get('secret')
+		);	
+		$this->load->view('admin/new_password', $data);
+	}
 		
-	/*Ñìåíà ïàğîëÿ*/
-	public function change_pwd() 
+	/*Ğ¡Ğ¼ĞµĞ½Ğ° Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ*/
+	public function change_password() 
 	{
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
 		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
@@ -151,14 +153,14 @@ class Registration extends Admin_Controller
 		if($this->form_validation->run() == FALSE)
 		{
 			$data = array(
-				'title' => "Âîñòàíîâëåíèå ïàğîëÿ",
-				'meta_title' => "Âîñòàíîâëåíèå ïàğîëÿ",
+				'title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
+				'meta_title' => "Ğ’Ğ¾ÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ¾Ğ»Ñ",
 				'error' => "",
 				'email' => $this->input->get('email'),
 				'secret' => $this->input->get('secret')
 			);	
 			
-			$this->load->view('admin/new_pass.php', $data);
+			$this->load->view('admin/new_password', $data);
 		} 
 		else 
 		{
@@ -181,6 +183,6 @@ class Registration extends Admin_Controller
 			$this->emails->send_mail($email->email, 'change_password', $message_info);			
 		}
 
-		$email->role == "admin" ? redirect(base_url().'admin') : redirect(base_url().'cart');		
+		redirect(base_url().'admin');		
 	}
 }

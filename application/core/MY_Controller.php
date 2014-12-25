@@ -17,7 +17,7 @@ class Admin_Controller extends CI_Controller
 		$user = $this->session->userdata('logged_in');
 		$role = $this->session->userdata('role');
 
-		if ((!$user)||($role <> "admin")) die(redirect(base_url().'registration/admin_enter'));	
+		if ((!$user)||($role <> "admin")) die(redirect(base_url().'admin/registration/login'));	
 		
 		$this->menu = $this->menus->admin_menu;
 		$this->user_name = $this->session->userdata('user_name');
