@@ -1,167 +1,129 @@
-<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
 <? require 'include/head.php' ?>
 
-<body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
-	
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/slider.php'?>
-	
-	<div class="main-catalog-nav" id="main-catalog-nav">
-		<div class="main-catalog-nav__wrap wrap">
-			<div class="main-catalog-nav__titles inline-categories">
-				<ul class="inline-categories__list skew">
-					<li class="inline-categories__item">
-						<a href="<?=base_url()?>catalog/" class="inline-categories__href active">По применяемости</a>
-					</li> <!-- /.inline-categories__item -->
-					<li class="inline-categories__item">
-						<a href="<?=base_url()?>catalog/" class="inline-categories__href">Каталог</a>
-					</li> <!-- /.inline-categories__item -->
-				</ul> <!-- /.inline-categories__inner -->
-			</div> <!-- /.main-catalog-nav__titles -->
-			
-			<div class="main-catalog-nav__columns">
-				<ul class="main-catalog-nav__list">
-					<li class="main-catalog-nav__item">
-						<a href="catalog.html" class="main-catalog-nav__href">AVT <span>("Quatro Crazy")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-					
-					<li class="main-catalog-nav__item">
-						<a href="catalog.html" class="main-catalog-nav__href">Водный транспорт <span>("Mission Naval")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-					
-					<li class="main-catalog-nav__item">
-						<a href="catalog.html" class="main-catalog-nav__href">Туризм <span>("Country side")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
-				
-				<ul class="main-catalog-nav__list">
-					<li class="main-catalog-nav__item">
-						<a href="catalog.html" class="main-catalog-nav__href">Тяжелое бездорожье и внедорожный спорт <span>("Mission Impossible")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-					
-					<li class="main-catalog-nav__item">
-						<a href="catalog.html" class="main-catalog-nav__href">Промышленность <span>("Mission SOS")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
-			</div> <!-- /.main-catalog-nav__columns -->
-		</div> <!-- /.main-catalog-nav__wrap wrap -->
-	</div> <!-- /.main-catalog-nav -->
-        
-	<div class="main-catalog" id="main-catalog">
-		<div class="main-catalog__wrap wrap">
-			<div class="catalog">
-				<h2 class="catalog__subtitle">Выгодное предложение</h2>
-				
-				<div class="catalog__list catalog__list--border-bottom">
-					<?foreach($good_buy as $good_item):?>	
-						<div class="catalog__item">
-							<div class="catalog-item">
-								<div class="catalog-item__image-box">
-									<a href="<?=$good_item->full_url?>"><img src="<?=$good_item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-								</div> <!-- /.catalog-item__image-box -->
-								
-								<a href="<?=$good_item->full_url?>" class="catalog-item__name"><?=$good_item->name?></a>
-								
-								<div class="catalog-item__desc">
-									<p><?=$good_item->description?></p>
-								</div> <!-- /.catalog-item__desc -->
-								
-								<div class="catalog-item__bottom skew">
-									<div class="catalog-item__price"><?=$good_item->price?></div> <!-- /.catalog-item__price -->
-									
-									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$good_item->id?>', '<?=$good_item->name?>'); return false;">Купить</button>
-									</div> <!-- /.catalog-item__button -->
-								</div> <!-- /.catalog-item__bottom -->
-							</div> <!-- /.catalog-item -->
-						</div> <!-- /.catalog__item -->
-					<?endforeach;?>
-				</div> <!-- /.catalog__list -->
-				
-				<h2 class="catalog__subtitle">Новинки</h2>
-				
-				<div class="catalog__list">
-				
-					<?foreach($new_products as $new_item):?>	
-						<div class="catalog__item">
-							<div class="catalog-item">
-								<div class="catalog-item__image-box">
-									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-								</div> <!-- /.catalog-item__image-box -->
-								
-								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
-								
-								<div class="catalog-item__desc">
-									<p><?=$new_item->description?></p>
-								</div> <!-- /.catalog-item__desc -->
-								
-								<div class="catalog-item__bottom skew">
-									<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
-									
-									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>'); return false;">Купить</button>
-									</div> <!-- /.catalog-item__button -->
-								</div> <!-- /.catalog-item__bottom -->
-							</div> <!-- /.catalog-item -->
-						</div> <!-- /.catalog__item -->
-					<?endforeach;?>
-				</div> <!-- /.catalog__list -->
-			</div> <!-- /.catalog -->
-		</div> <!-- /.main-catalog__wrap wrap -->
-	</div> <!-- /.main-catalog -->
+		<div id="body">
+			<div id="wrapper" class="clearfix">
 
-	<div class="text-about text-about--main" id="text-about">
-		<div class="text-about__wrap wrap">
-			<h2 class="text-about__title block-title">Продукция от компании &laquo;redBTR&raquo;</h2>
-			<div class="text-about__text">
-				<?=$settings->description?>
-			</div> <!-- /.text-about__text -->
-		</div> <!-- /.text-about__wrap wrap -->
-	</div> <!-- /.text-about -->
-	
-	<div class="last-news" id="last-news">
-		<div class="last-news__wrap wrap">
-			<h2 class="last-news__title">Новости</h2>
-			
-			<ul class="last-news__list">
-				<?foreach($last_news as $news_item):?>
-					<li class="last-news__item">
-						<div class="last-news__date"><?=$news_item->date?></div> <!-- /.last-news__date -->
-						<a href="<?=$news_item->full_url?>" class="last-news__name"><?=$news_item->name?></a>
-						
-						<div class="last-news__desc">
-							<?=$news_item->description?>
-						</div> <!-- /.last-news__desc -->
-					</li> <!-- /.last-news__item -->
-				<?endforeach;?>
-			</ul> <!-- /.last-news__list -->
-		</div> <!-- /.last-news__wrap wrap -->
-	</div> <!-- /.last-news -->
-	
-	<div class="main-videos" id="main-videos">
-		<div class="main-videos__wrap wrap">
-			<div class="main-videos__list">
-				<?foreach($video as $video_item):?>
-					<div class="main-videos__item"><?=$video_item->link?></div> <!-- /.main-videos__item -->
-				<?endforeach;?>
-			</div> <!-- /.main-videos__list -->
-		</div> <!-- /.main-videos__wrap wrap -->
-	</div> <!-- /.main-videos -->
+				<header class="grid clearfix">
+					<div class="logo col_4">
+						<a href=""><img src="img/logo.png" alt=""/></a>
+						<div class="slogan" >Запчасти cummins из первых рук</div>
+					</div>
+					<div class="header-info col_4">
+						<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
+						<div class="work-time">звонок по России бесплатно</div>
+					</div>
+					<div class="cart col_4">
+						<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
+						<div class="clearfix">
+							<div class="cart-btn">&nbsp;</div>
+							<div class="cart-info"><span class="cart-qty">0</span> товаров на сумму <span class="cart-total">0</span> рублей</div>
+						</div>
+					</div>				
+				</header>
+				
+				<div id="menu" class="grid clearfix">
+					<nav>
+						<ul>
+							<li><a href="">Главная</a></li>
+							<li><a href="/articles/info/about/">Информация</a></li>
+							<li><a href="/">Каталог</a></li>
+							<li><a href="/articles/info/delivery/">Оплата и доставка</a></li>
+							<li><a href="/articles/info/contacts/">Контакты</a></li>
+						</ul>
+					</nav>
+					<form action="/search/" id="searchform" method="get">
+						<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
+					</form>
+				</div>
+				
+				<div id="category" class="grid clearfix">
+					<div class="cat-item col_4" id="category1">
+						<a href="/catalog/cummins-isf-2-8" class="plashka"><img src="img/category-1.png" alt=""/></a>
+						<div class="item-name"><a href="/catalog/cummins-isf-2-8">Cummins ISF2.8</a></div>
+					</div>
+					<div class="cat-item col_4" id="category2">
+						<a href="/catalog/cummins-isf-3-8" class="plashka"><img src="img/category-2.png" alt=""/></a>
+						<div class="item-name"><a href="/catalog/cummins-isf-3-8" >Cummins ISF3.8</a></div>
+					</div>
+					<div class="cat-item col_4" id="category3">
+						<a href="" onclick="return swap2isbe()" class="plashka"><img src="img/category-3.png" alt=""/></a>
+						<div class="item-name"><a href="" onclick="return swap2isbe()" >Cummins ISBe</a></div>
+					</div>
+				</div>
+				<script type="text/javascript">
+				function swap2isbe()
+				{
+					$('#category3').hide();
+					$('#category1').html('\
+						<a href="/catalog/cummins-isbe-4-5" class="plashka"><img src="img/category-1.png" alt=""/></a>\
+						<div class="item-name"><a href="/catalog/cummins-isbe-4-5">Cummins ISBe 4.5</a></div>');
+					$('#category2').html('\
+						<a href="/catalog/cummins-isbe-6-7" class="plashka"><img src="img/category-2.png" alt=""/></a>\
+						<div class="item-name"><a href="/catalog/cummins-isbe-6-7">Cummins ISBe 6.7</a></div>');
+					return false;
+				}
+				</script>
+				<div id="main" class="grid clearfix">
+					<div class="special clearfix">
+						<div class="col_12 text-1">СПЕЦИАЛЬНЫЕ ТОВАРЫ</div>
+						<? foreach ($products_special as $s) : ?>
+						<div class="special-item col_3">
+							<div class="special-pl">&nbsp;</div>
+							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->url ?>" alt=""/></a>
+							<div class="item-footer">
+								<div class="special-name"><?= $s->name ?></div>
+								<div class="price col_6"><?= $s->price ?> руб.</div><div class="btn col_6"><button class="red-btn square">купить</button></div>
+							</div>
+						</div>
+						<? endforeach ?>
+					</div>
+					<div class="mid-main clearfix">
+						<div class="banner col_3">
+							<div class="text-1">СПЕЦПРЕДЛОЖЕНИЯ</div>
+							<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
+							<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
+							<img src="img/banner.png" alt/>
+						</div>
+						<div class="news col_3">
+							<div class="text-1">НОВОСТИ</div><br>
+							<? foreach ($news as $el) : ?>
+							<div class="news-item">
+								
+								<div class="news-title"><span class="news-date"><?= $el->date?></span> <a href="<?= $el->full_url?>"><?= $el->name?></a></div>
+							</div>
+							<? endforeach ?>
+						</div>
+						<div class="blog col_6">
+							<div class="text-1">СТАТЬИ</div>
+							<? foreach ($articles as $el) : ?>
+							<div class="blog-item">
+								<div class="blog-date"><?= $el->date?></div>
+								<div class="blog-title"><a href="<?= $el->full_url?>"><?= $el->name?></a></div>
+								<div class="blog-text">
+									<?= $el->description_short?>
+								</div>
+							</div>
+							<? endforeach ?>
+						</div>
+					</div>
+				</div>
+				<div id="main-2" class="grid clearfix">
+					<div class="video col_3">
+						<div class="text-1">Видео</div>
+						<? foreach ($videos as $v) : ?>
+						<div class="video-item">
+							<iframe width="100%" src="http://www.youtube.com/embed/<?= $v->video ?>" frameborder="0" allowfullscreen></iframe>
+							<span class="title"><?= $v->name ?></span> <span class="time"></span>
+						</div>
+						<? endforeach ?>
+					</div>
+					<? $content = $this->articles->get_item_by(array('url' => '/')); ?>
+					<div class="info col_9">
+						<div class="text-1"><?= $content->name ?></div>
+							<?= $content->description ?>
+					</div>
+				</div>
+				
 
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
-	<? require 'include/scripts.php'?>
-	
-    </body>
-</html>
+
+<? require 'include/footer.php' ?>

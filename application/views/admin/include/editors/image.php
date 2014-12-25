@@ -1,6 +1,6 @@
 <?if($content->img == NULL):?>
-	<div class="col_12 clearfix">
-		<div class="col_2">Добавить фотографии</div>
+	<div class="col_12">
+		<div class="col_3">Добавить фотографии</div>
 		<div class="col_4"><input type="file" id="<?=$name?>[]" name="<?=$name?>" /></div>
 		<input type="hidden" name="upload_image" value="upload_image"/>
 	</div>

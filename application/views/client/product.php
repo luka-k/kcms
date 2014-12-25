@@ -1,326 +1,211 @@
-﻿<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
+﻿<? require 'include/head.php' ?>
 
-<? require 'include/head.php' ?>
+	<div id="body">
 
-<body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
-
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
-	
-	<div class="page page-product" id="product">
-		<div class="page__wrap wrap">
-			<div class="page-product__top">
-				<div class="page-product__images product-images">
-					<div class="product-images__big-image-box">
-						<a href="<?=$content->img[0]->url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[0]->url?>" 
-                                    width="470" 
-                                    height="470" 
-                                    alt="image" 
-                                    class="product-images__big-image"/>
-						</a>
-						
-						<a href="<?=$content->img[1]->url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[1]->url?>" 
-                                    width="470" 
-                                    height="470" 
-                                    alt="image" 
-                                    class="product-images__big-image"/>
-						</a>
-					</div> <!-- /.product-images__big-image-box -->
-					
-					<div class="product-images__thumbs">
-						<ul class="product-images-thumbs">
-							<?foreach($content->img as $images):?>
-								<li class="product-images-thumbs__item">
-									<a  href="<?=$images->url?>"
-										data-full-image="<?=$images->url?>"
-										class="product-images-thumbs__href">
-											<img src="<?=$images->url?>" alt="image" class="product-images-thumbs__image" />
-									</a>
-								</li> <!-- /.product-images-thumbs__item -->
-							<?endforeach;?>
-						</ul> <!-- /.product-images-thumbs -->
-					</div> <!-- /.product-images__thumbs -->
-				</div> <!-- /.product__images .product-images -->
+		<div id="wrapper" class="clearfix">
 			
-				<div class="page-product__main-info product-main-info">
-					<h1 class="product-main-info__title">Диск колесный</h1>
-					<div class="product-main-info__desc"><?=$content->name?></div> <!-- /.product-main-info__desc -->
-						<ul class="product-main-info__characteristics">
-							<li class="product-main-info__characteristic">
-								<strong>Артикул</strong> <?=$content->article?>
-							</li> <!-- /.product-main-info__characteristic -->
+				<header class="grid clearfix">
+					<div class="logo col_4">
+						<a href=""><img src="img/logo.png" alt=""/></a>
+						<div class="slogan" >Запчасти cummins из первых рук</div>
+					</div>
+					<div class="header-info col_4">
+						<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
+						<div class="work-time">звонок по России бесплатно</div>
+					</div>
+					<div class="cart col_4">
+						<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
+						<div class="clearfix">
+							<div class="cart-btn">&nbsp;</div>
+							<div class="cart-info"><span class="cart-qty">0</span> товаров на сумму <span class="cart-total">0</span> рублей</div>
+						</div>
+					</div>				
+				</header>
+				
+				<div id="menu" class="grid clearfix">
+					<nav>
+						<ul>
+							<li><a href="">Главная</a></li>
+							<li><a href="/articles/info/about/">Информация</a></li>
+							<li><a href="/">Каталог</a></li>
+							<li><a href="/articles/info/delivery/">Оплата и доставка</a></li>
+							<li><a href="/articles/info/contacts/">Контакты</a></li>
+						</ul>
+					</nav>
+					<form action="/search/" id="searchform" method="get">
+						<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
+					</form>
+				</div>
+				<div id="main-3" class="grid clearfix">
+					<div id="left-col" class="col_3">
+						<div class="left-col">
+							<div class="name-cat">
+								<?= $main_category->name ?>
+							</div>
+							<nav>
+								<ul>
+									<? foreach ($tree as $s) : $s = $this->categories->prepare($s);?>
+									<li>
+										<a href="<?= $s->full_url ?>"><?= $s->name ?></a>
+										<? if ($this->uri->segment(3) == $s->url) : ?>
+										<ul class="active">
+											<? $screens = $this->categories->get_prepared_list($s->childs);
+											$names = array();
+											foreach ($screens as $i => $scr)
+											{
+												if ($screens[$i]->caption)
+													$screens[$i]->name = $screens[$i]->caption;
+												$names[] = $screens[$i]->name;
+											}
+											array_multisort($names, $screens);
+											foreach ($screens as $scr) : ?>
+											<li><a <?= $scr->url == $this->uri->segment(4) ? 'class="active"' : '' ?> href="<?= $scr->full_url?>"><?= $scr->name ?></a></li>
+											<? endforeach ?>
+										</ul>
+										<? endif ?>
+									</li>
+									<? endforeach ?>
+								</ul>
+							</nav>
+						</div>
+						<aside>
+							<div class="text-1" style="color: white;padding-top: 20px;">СПЕЦПРЕДЛОЖЕНИЯ</div>
+							<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
+							<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
+							<img src="img/banner.png" alt=""/>
+							<!--
+							<div class="news clearfix">
+								<div class="col_12">
+									<div class="text-1">НОВОСТИ</div>
+									<? foreach ($news as $el) : ?>
+									<div class="news-item">
+										<div class="news-date"><?= $el->date?></div>
+										<div class="news-title"><a href="<?= $el->url?>"><?= $el->name?></a></div>
+									</div>
+									<? endforeach ?>
+								</div>
+							</div>
 							
-							<li class="product-main-info__characteristic">
-								<strong>Гарантия</strong> <?=$content->warrant?> года
-							</li> <!-- /.product-main-info__characteristic -->
-						</ul> <!-- /.product-main-info__characteristics -->
-						
-						<div class="product-main-info__text">
-							<?=$content->description?>
-						</div> <!-- /.product-main-info__text -->
-						
-						<div class="product-main-info__price">
-							<div class="product-price">
-								<?if(isset($content->sale_price)):?>
-									<!-- Цена со скидкой -->
-									<div class="product-price__old">
-										Старая цена: <span><?=$content->price?>р.</span>
-									</div> <!-- /.product-price__old -->
+							<div class="blog clearfix">
+								<div class="col_12">
+									<div class="text-1">СТАТЬИ</div>
+									<? foreach ($articles as $el) : ?>
+									<div class="blog-item">
+										<div class="blog-date"><?= $el->date?></div>
+										<div class="blog-title"><a href="<?= $el->url?>"><?= $el->name?></a></div>
+									</div>
+									<? endforeach ?>
+								</div>
+							</div>
+							
+							<div class="video clearfix">
+								<div class="col_12">
+									<div class="text-1">Видео</div>
+									<? foreach ($videos as $v) : ?>
+									<div class="video-item">
+										<iframe width="100%" src="http://www.youtube.com/embed/<?= $v->video ?>" frameborder="0" allowfullscreen></iframe>
+										<span class="title"><?= $v->name ?></span> <span class="time"></span>
+									</div>
+									<? endforeach ?>
 									
-									<div class="product-price__new">
-										Новая цена: <span><?=$content->sale_price?>р.</span>
-									</div> <!-- /.product-price__new -->
-								<?else:?>
-									<div class="product-price__normal">
-										Цена: <span><?=$content->price?> р.</span>
-									</div> --> <!-- /.product-price__normal -->
-                                <?endif;?>
-							</div> <!-- /.catalog-item-price -->
-						</div> <!-- /.product-main-info__price -->
+								</div>
+							</div>
+							-->
+						</aside>
+					</div>
+					<div id="content" class="col_9">
+						<div class="breadcrumb">
+							<? foreach ($breadcrumbs as $b): ?>
+								<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 
+							<? endforeach ?>
+						</div>
+						<h3 class="title col_12"><?= $product->name ?></h3>
 						
-						<div class="product-main-info__buttons skew">
-							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$content->id?>', '<?=$content->name?>'); return false;">Купить</button>
-							</div> <!-- /.product-main-info__button -->
-							
-							<div class="product-main-info__button">
-								<button class="button button--normal button--grey fancybox" data-fancybox-href="#callback">Быстрый заказ</button>
-							</div> <!-- /.product-main-info__button -->
-							
-						</div> <!-- /.product-main-info__buttons -->
-						
-						<div class="product-main-info__match skew">
-							<button class="button button--normal button--s button--grey">Добавить к сравнению</button>
-						</div> <!-- /.product-main-info__match -->
-				</div> <!-- /.product__main-info -->
-			</div> <!-- /.product__top -->
-			
-			<div class="page-product__extra-info product-extra-info">
-				<div class="product-extra-info__tabs-box">
-					<div class="product-extra-info__tabs skew">
-						
-						<div class="product-extra-info__tab-box">
-							<a href="#tab1" class="product-extra-info__tab active">Описание</a>
-						</div> <!-- /.product-extra-info__tab-box -->
-						
-						<div class="product-extra-info__tab-box">
-							<a href="#tab2" class="product-extra-info__tab">Видео</a>
-						</div> <!-- /.product-extra-info__tab-box -->
-						
-						<div class="product-extra-info__tab-box">
-							<a href="#tab3" class="product-extra-info__tab">Технические характеристики</a>
-						</div> <!-- /.product-extra-info__tab-box-->
-						
-						<div class="product-extra-info__tab-box">
-							<a href="#tab4" class="product-extra-info__tab">Расходные материалы</a>
-						</div> <!-- /.product-extra-info__tab-box -->
-					</div> <!-- /.product-extra-info__tabs -->
-				</div> <!-- /.product-extra-info__tabs-box -->
-				
-				<div class="product-extra-info__blocks">
-					<div class="product-extra-info__block" id="tab1">
-						<div class="product-extra-info__text">
-							<?=$content->description?>
-						</div> <!-- /.product-extra-info__text -->
-					</div> <!-- /.product-extra-info__block -->
+						<div class="col_12">
+							<div id="gallery" class="clearfix col_5">
+								<div id="box">
+									<a href='<?= $product->img->url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->img->url ?>" class="picture" /></a>
+								</div>
+								<? if (count($product->imgs) > 1) : ?>
+								<div class="slider">
+									<div name="prev" class="navy prev-slide"></div>
+									<div name="next" class="navy next-slide"></div>
+									<div class="slide-list">
+										<div class="slide-wrap">
+											<? foreach ($product->imgs as $img): ?>
+											<div class="slide-item" class="col_4">
+												<div >
+													<a href='<?= $img->url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->url?>' "><img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->url?>" alt="" /></a>
+												</div>
+											</div>
+											<? endforeach ?>
+										</div>
+									</div>
+								</div>
+								<? endif?>
+							</div>
 					
-					<div class="product-extra-info__block" id="tab2">
-						<div class="product-extra-info__video">
-							<iframe width="470" height="264" src="//www.youtube.com/embed/3bt1BjUm9mw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-						</div> <!-- /.product-extra-info__text -->
-					</div> <!-- /.product-extra-info__block -->
-					
-					<div class="product-extra-info__block" id="tab3">
-						<div class="product-extra-info__table">
-							<table class="info-table">
-								<tbody>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-								</tbody>
-							</table> <!-- /.info-table -->
-						</div> <!-- /.product-extra-info__table -->
-					</div> <!-- /.product-extra-info__block -->
-					
-					<div class="product-extra-info__block" id="tab4">
-						<div class="product-extra-info__text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
-						</div> <!-- /.product-extra-info__text -->
-					</div> <!-- /.product-extra-info__block -->
-				</div> <!-- /.product-extra-info__blocks -->
-			</div> <!-- /.product__extra-info .product-extra-info -->
-			
-			<div class="product__catalog catalog">
-				<h2 class="catalog__subtitle">рекомендуемые товары</h2>
-				
-				<div class="catalog__list catalog__list--border-bottom">
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->
+							<div class="product-info clearfix col_7">
+								<div class="product-info-top clearfix">
+										<div style="float:left; margin-right:20px;">Артикул <span><?= $product->sku ?></span></div>
+								</div>
+								<div style="background:#d6d6d6; padding:20px; margin-bottom:10px;">
+									<div class="product-info-middle clearfix">
+										<div class="left">
+											<? if ($product->price) : ?>
+											Цена: <span class="price"><?= $product->price ?> руб.</span>
+											<? else : ?>
+											Под заказ
+											<? endif ?>
+										</div>							
+									</div>
+									<div class="set clearfix">
+										<div class="col_3">Количество</div>
+										<div class="col_9">
+											<span class="btn plusminus">-</span>
+											<input type="text" class="inpt square" size=1 value="1">
+											<span class="btn plusminus">+</span>
+											<button class="square red-btn" onclick=" $(this).addClass('green-btn');$(this).removeClass('red-btn');$(this).html('Добавлено');add_to_cart('<?= $product->name ?>', '<?= $product->price ?>', '<?= $product->id ?>', 1); return false;">В корзину</button>
+										</div>
+									</div>
+								</div>
+								<div class="description">
+									<h6>Описание</h6>
+									<?= $product->description_short ?>
+								</div>
+							</div>
 
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->                        
-            
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->                       
+						</div>
+						
+					</div>
+
+					<? if ($product->recommended1 || $product->recommended2 || $product->recommended3) : ?>
+					<div id="content-2" class="col_9">
+						<div class="new clearfix">
+							<div class="col_12 text-1">Рекомендуемые товары</div>
+								<? $recommended = array($product->recommended1, $product->recommended2, $product->recommended3);
+								foreach ($recommended as $r) : if ($r) : ?>
+								<? $p = $this->products->Prepare ($this->products->get_item($r)); ?>
+								<div class="new-item col_4">
+									<a href="/product/<?= $p->url ?>" class="plashka"><img src="<?= $p->image_main->url?>" alt=""/></a>
+									<div class="item-footer">
+										<div class="new-name"><?= $p->name?></div>
+										<div class="price col_6"><?= $p->price ?> руб.</div><div class="btn col_6"><button class="red-btn square" onclick="$(this).addClass('green-btn');$(this).removeClass('red-btn');$(this).html('Добавлено'); add_to_cart('<?= $r->name ?>', '<?= $r->price ?>', '<?= $r->id ?>', 1); return false;">купить</button></div>
+									</div>
+								</div>
+								<?endif; endforeach; ?>
+						</div>
+					</div>
+					<? endif ?>
 					
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart" >Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->
-				</div> <!-- /.catalog__list -->
-				
-				<h2 class="catalog__subtitle">Новинки</h2>
-				
-				<div class="catalog__list">
-				
-					<?foreach($new_products as $new_item):?>	
-						<div class="catalog__item">
-							<div class="catalog-item">
-								<div class="catalog-item__image-box">
-									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-								</div> <!-- /.catalog-item__image-box -->
-								
-								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
-								
-								<div class="catalog-item__desc">
-									<p><?=$new_item->description?></p>
-								</div> <!-- /.catalog-item__desc -->
-								
-								<div class="catalog-item__bottom skew">
-									<div class="catalog-item__price"><?=$new_item->price?></div> <!-- /.catalog-item__price -->
-									
-									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>'); return false;">Купить</button>
-									</div> <!-- /.catalog-item__button -->
-								</div> <!-- /.catalog-item__bottom -->
-							</div> <!-- /.catalog-item -->
-						</div> <!-- /.catalog__item -->
-					<?endforeach;?>
-				</div> <!-- /.catalog__list -->
-			</div> <!-- /.product__catalog .catalog -->
-		</div> <!-- /.product__wrap wrap -->
-	</div> <!-- /.product -->
+					<div id="content-3" class="col_9">
 
-	<div class="text-about" id="text-about">
-		<div class="text-about__wrap wrap">
-			<h2 class="text-about__title block-title">Продукция от компании &laquo;redBTR&raquo;</h2>
-			<div class="text-about__text">
-				<?=$settings->description?>
-			</div> <!-- /.text-about__text -->
-		</div> <!-- /.text-about__wrap wrap -->
-	</div> <!-- /.text-about -->
-		
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?> 
-	<? require 'include/scripts.php'?>
+					<div class="col_12">
+						<div class="text-1"><?= $product->name ?></div>
+							<p><?= $product->description ?></p>
+					</div>
+					</div>
+				</div>
 
-    </body>
-</html>
+
+<? require 'include/footer.php' ?>

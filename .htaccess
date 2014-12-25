@@ -1,4 +1,12 @@
+
+php_value upload_max_filesize 150M
+php_value max_execution_time 8000
+php_value post_max_size 150M
+php_value max_input_time 8000
+php_value memory_limit 500M
+
+
 RewriteEngine on
-RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
+RewriteCond $1 !^(index\.php|images|uploads|download|css|img|fancybox|js|template|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 RedirectPermanent /main /

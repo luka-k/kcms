@@ -184,8 +184,3 @@ list-style-image:url('../img/option_2.png');
 .menu-items .down, .menu-items .down-1{
 list-style-image:url('../img/option_1.png');
 }
-
-#field-link{
-display:none;
-}
-

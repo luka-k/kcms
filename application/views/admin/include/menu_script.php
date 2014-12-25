@@ -9,7 +9,7 @@
 	function item_info_answer(res){
 		$('#validation_error').text("");
 		$.fancybox.open("#item_info");
-
+		//console.log(item);
 		var form = $('.edit_item');
 		if(res.item != ""){
 			for (var key in res.item) {
@@ -18,11 +18,7 @@
 				if(element.attr('type') != 'radio'){
 					element.val(val);
 				}
-				if(key == "item_type"){
-					var type = res.item[key];
-				}
 			}
-			menu_type(type);
 		}else{
 			clear_form();		
 		}
@@ -32,19 +28,12 @@
 		var form = $('.edit_item'),
 		inputs = form.find('.menu_items'),
 		data = {},
-		info = {},
-		type;
+		info = {};
 								
 		inputs.each(function () {
 			var element = $(this);
 			info[element.attr('name')] = element.val();
-			if(element.attr('name') == "item_type"){
-				
-				type = element.val();
-			}
-		});	
-		info[form.find('#field-'+type).attr('name')] = form.find('#field-'+type).val();
-		
+		});							
 		data.info = info;
 		var json_str = JSON.stringify(data);
 		$.post("/admin/admin_ajax/edit_item/", json_str, update_menu, "json");
@@ -74,7 +63,7 @@
 	
 	function delete_menu_item(base_url, item_id, item_name){
 		var href;
-		href = base_url+"admin/menu_module/delete_item/"+item_id;
+		href = base_url+"menu_module/delete_item/"+item_id;
 		$('#item_name').text(item_name);
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
@@ -91,19 +80,5 @@
 				element.val(val);
 			}
 		});	
-	}
-	
-	function menu_type(type)
-	{
-		$('.select_url').css("display", "none");
-		
-		var form = $('.edit_item'),
-		inputs = form.find('.select_url');
-		inputs.each(function (){ 
-			var element = $(this);
-			element.disabled=true;
-		});
-		$('#field-'+type).css("display", "inline");
-		document.getElementById('field-'+type).disabled=false;
 	}
 </script>

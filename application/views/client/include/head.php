@@ -1,19 +1,20 @@
-<head>
-	<meta charset="utf-8">
-	<title><?=$title?></title>
-	<meta name="description" content="<?=$meta_description?>">
-    <meta name="viewport" content="width=1000">
-	
-	<!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
-
-    <!-- Стили popup -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/fancybox/jquery.fancybox.css?v=2.1.5" />
-
-    <link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
-    <link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css">
-	
-	<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-</head>
+<html>
+	<head>
+		<title><?=$title?></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="keywords" content="<?=$meta_keywords?>" />
+		<meta name="description" content="<?=$meta_description?>" />
+		<base href="<?= base_url() ?>" />
+		
+		<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
+		<link rel="stylesheet" type="text/css" href="css/responsive.css" media="all" />   
+		
+		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,500,400italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
+	</head>
+	<body>

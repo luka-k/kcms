@@ -1,7 +1,6 @@
 <div class="filters">
 	<h5>Фильтры</h5>
 	<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filters" class="filters" action="<?=base_url()?>catalog" >
-		<input type="hidden" name="filter" value="true"/>
 		<div class="col_12">
 			<div class="col_12">
 				<a href="" class="button small" onclick="document.forms['filters'].submit(); return false;">Применить</a>
