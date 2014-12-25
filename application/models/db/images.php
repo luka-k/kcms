@@ -165,7 +165,7 @@ class Images extends MY_Model
 			{
 				if(!empty($item))
 				{
-					$images = $this->_get_urls($images);
+					$images[$key] = $this->_get_urls($item);
 				}
 			}
 		}
@@ -192,15 +192,28 @@ class Images extends MY_Model
 	//в шаблоне соответственно нужно указывать
 	//например для миниатюры которая лежит в папке catalog_small
 	//$item->img->catalog_small_url;
-	private function _get_urls($images)
+	private function _get_urls($image)
 	{
 		$thumb_config = $this->config->item('thumb_config');
 		foreach($thumb_config as $path => $config)
 		{
 			$url_name = $path."_url";
-			if(!empty($images)) $images->$url_name = $this->get_url($images->url, $path);
+			if(!empty($image)) $image->$url_name = $this->get_url($image->url, $path);
 		}
-		return $images;
+		return $image;
+	}
+	
+	public function get_img_list($info, $object_type)
+	{
+		foreach($info as $key => $item)
+		{
+			$object_info =array (
+				"object_type" => $object_type,
+				"object_id" => $info[$key]->id
+			);
+			$info[$key]->img = $this->images->get_images($object_info, '1');
+		}
+		return $info;
 	}
 	
 	public function set_cover($object_info, $cover_id)
@@ -232,7 +245,8 @@ class Images extends MY_Model
 				"object_type" => $object_info['object_type'],
 				"object_id" => $img->object_id
 			);
-			$images = $this->get_images($object_info, "catalog_small");
+			$images = $this->get_images($object_info);
+
 			if($images) $this->set_cover($object_info, $images[0]->id);
 		}	
 		return $img->object_id;

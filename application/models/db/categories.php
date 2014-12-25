@@ -73,7 +73,6 @@ class Categories extends MY_Model
 			else 
 			{
 				$child->products = $this->get_sub_products($child->id);
-				var_dump($child);
 				return $child;
 				
 			}		

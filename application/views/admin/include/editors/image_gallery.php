@@ -21,7 +21,7 @@
 				<?foreach($content->img as $img_item):?>
 					<tr>
 						<td class="tb_1"><?=$counter?></td>
-						<td class="tb_5"><img src="<?=$img_item->url?>"/></td>
+						<td class="tb_5"><img src="<?=$img_item->catalog_small_url?>"/></td>
 						<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
 						<td class="tb_2"><a href="#delete-<?=$img_item->id?>" class="lightbox">Удалить</a></td>
 						<!--popup on delete-->

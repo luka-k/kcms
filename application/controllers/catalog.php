@@ -145,10 +145,6 @@ class Catalog extends Client_Controller {
 			'cart_items' =>	$this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay')
-			),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
 			'top_menu' => $this->top_menu->items,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))

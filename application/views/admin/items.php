@@ -43,7 +43,7 @@
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->url?>" /></a>
+													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->catalog_small_url?>" /></a>
 												<?endif;?>
 											</td>
 											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>

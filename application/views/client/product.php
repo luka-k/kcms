@@ -28,7 +28,7 @@
                                     alt="image" 
                                     class="product-images__big-image"/>
 						</a>
-						
+						<?if(isset($content->img[1])):?>
 						<a href="<?=$content->img[1]->catalog_big_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
 							<img    src="<?=$content->img[1]->catalog_big_url?>" 
                                     width="470" 
@@ -36,6 +36,7 @@
                                     alt="image" 
                                     class="product-images__big-image"/>
 						</a>
+						<?endif;?>
 					</div> <!-- /.product-images__big-image-box -->
 					
 					<div class="product-images__thumbs">
@@ -54,7 +55,7 @@
 				</div> <!-- /.product__images .product-images -->
 			
 				<div class="page-product__main-info product-main-info">
-					<h1 class="product-main-info__title">Диск колесный</h1>
+					<h1 class="product-main-info__title"><?=$content->name?></h1>
 					<div class="product-main-info__desc"><?=$content->name?></div> <!-- /.product-main-info__desc -->
 						<ul class="product-main-info__characteristics">
 							<li class="product-main-info__characteristic">
@@ -84,7 +85,7 @@
 								<?else:?>
 									<div class="product-price__normal">
 										Цена: <span><?=$content->price?> р.</span>
-									</div> --> <!-- /.product-price__normal -->
+									</div> <!-- /.product-price__normal -->
                                 <?endif;?>
 							</div> <!-- /.catalog-item-price -->
 						</div> <!-- /.product-main-info__price -->
