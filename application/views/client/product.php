@@ -16,22 +16,21 @@
 	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
 	<? require 'include/breadcrumbs.php'?>
-	
 	<div class="page page-product" id="product">
 		<div class="page__wrap wrap">
 			<div class="page-product__top">
 				<div class="page-product__images product-images">
 					<div class="product-images__big-image-box">
-						<a href="<?=$content->img[0]->url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[0]->url?>" 
+						<a href="<?=$content->img[0]->catalog_big_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
+							<img    src="<?=$content->img[0]->catalog_big_url?>" 
                                     width="470" 
                                     height="470" 
                                     alt="image" 
                                     class="product-images__big-image"/>
 						</a>
 						
-						<a href="<?=$content->img[1]->url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[1]->url?>" 
+						<a href="<?=$content->img[1]->catalog_big_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
+							<img    src="<?=$content->img[1]->catalog_big_url?>" 
                                     width="470" 
                                     height="470" 
                                     alt="image" 
@@ -43,10 +42,10 @@
 						<ul class="product-images-thumbs">
 							<?foreach($content->img as $images):?>
 								<li class="product-images-thumbs__item">
-									<a  href="<?=$images->url?>"
-										data-full-image="<?=$images->url?>"
+									<a  href="<?=$images->catalog_big_url?>"
+										data-full-image="<?=$images->catalog_big_url?>"
 										class="product-images-thumbs__href">
-											<img src="<?=$images->url?>" alt="image" class="product-images-thumbs__image" />
+											<img src="<?=$images->catalog_small_url?>" alt="image" class="product-images-thumbs__image" />
 									</a>
 								</li> <!-- /.product-images-thumbs__item -->
 							<?endforeach;?>
@@ -280,12 +279,11 @@
 				<h2 class="catalog__subtitle">Новинки</h2>
 				
 				<div class="catalog__list">
-				
 					<?foreach($new_products as $new_item):?>	
 						<div class="catalog__item">
 							<div class="catalog-item">
 								<div class="catalog-item__image-box">
-									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
 								</div> <!-- /.catalog-item__image-box -->
 								
 								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>

@@ -156,7 +156,7 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $path, $is_cover = FALSE)
+	public function get_images($object_info, $is_cover = FALSE)
 	{
 		if ($is_cover == FALSE)
 		{
@@ -165,7 +165,7 @@ class Images extends MY_Model
 			{
 				if(!empty($item))
 				{
-					$images[$key]->url = $this->get_url($item->url, $path);
+					$images = $this->_get_urls($images);
 				}
 			}
 		}
@@ -174,28 +174,33 @@ class Images extends MY_Model
 			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
 			if(!empty($images))
 			{
-				$images->url = $this->get_url($images->url, $path);
+				$images = $this->_get_urls($images);
 			}
 			else
 			{
 				$images = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' =>$is_cover));
-				if(!empty($images)) $images->url = $this->get_url($images->url, $path);
+				$images = $this->_get_urls($images);
 			}
 		}
 		return $images;
 	}
 	
-	public function get_img_list($info, $object_type, $path)
+	//Делая галерею в карточке товара я понял что надо переписать
+	//вывод картинок. в галрее нужны сразу и миниатюры и большая фотография
+	//поэтому переписал функцию get_images и добавил _get_urls
+	//что бы соответсвено возвращались пути ко всем вариантам изображений
+	//в шаблоне соответственно нужно указывать
+	//например для миниатюры которая лежит в папке catalog_small
+	//$item->img->catalog_small_url;
+	private function _get_urls($images)
 	{
-		foreach($info as $key => $item)
+		$thumb_config = $this->config->item('thumb_config');
+		foreach($thumb_config as $path => $config)
 		{
-			$object_info =array (
-				"object_type" => $object_type,
-				"object_id" => $info[$key]->id
-			);
-			$info[$key]->img = $this->images->get_images($object_info, $path, '1');
+			$url_name = $path."_url";
+			if(!empty($images)) $images->$url_name = $this->get_url($images->url, $path);
 		}
-		return $info;
+		return $images;
 	}
 	
 	public function set_cover($object_info, $cover_id)

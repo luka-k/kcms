@@ -62,7 +62,7 @@ class Products extends MY_Model
 		{
 			$item = (object)$item;
 		}
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_mid", 1);
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
 		$item->full_url = $this->get_url($item->url);
 		$item = $this->set_sale_price($item);
 		return $item;		
@@ -70,7 +70,7 @@ class Products extends MY_Model
 	
 	function prepare_product($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_big");
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
 		$item->full_url = $this->get_url($item->url);
 		$item = $this->set_sale_price($item);
 		return $item;		

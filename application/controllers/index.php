@@ -51,7 +51,7 @@ class Index extends Client_Controller {
 			'video' => $this->video->get_prepared_list($video),
 			'settings' => $settings
 		);
-		//var_dump($data['good_buy']);
+
 		$this->load->view('client/main.php', $data);
 	}	
 }

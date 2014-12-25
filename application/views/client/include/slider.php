@@ -3,7 +3,7 @@
 		<?foreach($slider as $slide):?>
 			<li class="promo__slide">
 				<div class="promo__image-box">
-					<img src="<?=$slide->img->url?>" alt="promo" class="promo__image" />
+					<img src="<?=$slide->img->slider_url?>" alt="promo" class="promo__image" />
 				</div> <!-- /.promo__image-box -->
 			
 				<div class="promo__wrap wrap">

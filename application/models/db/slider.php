@@ -21,7 +21,7 @@ class Slider extends MY_Model
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'slider', 'object_id' => $item->id), "slider", 1);
+		$item->img = $this->images->get_images(array('object_type' => 'slider', 'object_id' => $item->id), 1);
 		return $item;		
 	}
 }

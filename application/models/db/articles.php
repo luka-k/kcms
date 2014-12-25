@@ -76,60 +76,6 @@ class Articles extends MY_Model
 				}
 				
 			}
-
-			//если дошли до 4 сегмента url
-			//то есть до 3 уровняя влодежости
-			//формируем статью.
-			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
-			/*if($segment_number == 3)
-			{
-				$level
-				
-				/*if($url == "novosti")
-				{
-					$child->sub_news = $this->get_list(array('parent_id' => $child->id));
-					if(!empty($child->news))
-					{
-						$child->sub_news = $this->get_prepared_list($child->sub_news);
-					}
-					if($this->uri->segment($segment_number+2))
-					{
-					
-					}
-					elseif($this->uri->segment($segment_number+2))
-					{
-						
-					}
-					else
-					{
-						$news = $array();
-						foreach()
-					}
-					return $child;
-				}
-				else
-				{
-					$parent->article = $this->get_item_by(array('url' => $url));
-					$parent->articles = $this->get_list(array('parent_id' => $parent->article->id));
-					if(!empty($parent->articles))
-					{
-						$parent->articles = $this->get_prepared_list($parent->article);
-					}
-				}
-				
-				return $parent;
-			}
-			else
-			{
-				if ($this->uri->segment($segment_number+1))
-				{
-					return $this->url_parse($segment_number + 1, $child);
-				}
-				else 
-				{
-					return $child;
-				}
-			}*/
 		}
 	}
 	
@@ -159,7 +105,6 @@ class Articles extends MY_Model
 	
 	function prepare($item)
 	{
-		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
 		if(!empty($item->date))
 		{
