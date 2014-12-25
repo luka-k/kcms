@@ -11,46 +11,42 @@ class Catalog extends Client_Controller {
 	{
 		$url = base_url().uri_string();
 
-		$this->load->helper('url_helper');
+		$order = $this->input->get('order');
 		
-		//функция get_filter_string убирает из строки запроса get параметры order и direction
-		//что бы в последствии правильно постройть ссылки на сортировку.
-		//возможно это костыль
-		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
-		$link_url = base_url().uri_string()."?".$query_string;
-		$get = $this->input->get();
-
-		!isset($get['order']) ? $order = "name" : $order = $get['order'];		
-		!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
+		$direction = $this->input->get('direction');
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$this->config->load('characteristics_config');
+		//Тут наверно в последстивии понадобиться  
+		//придумать какуюнить умную функцию
+		//что бы отбирать характеристики товаров
+		//которые нужны в этой подкатегори
 		//$filters = $this->characteristics->filters;
-		//$filters = $this->characteristics->get_filters();
+		$filters = $this->characteristics->get_filters();
 		
-		$left_menu = $this->categories->get_site_tree(0, "parent_id");
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
+		$main_category = $this->categories->get_item_by(array('url' => $this->uri->segment(2)));
 		
-		$settings = $this->settings->get_item_by(array("id" => 1));
-
 		$data = array(
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'tree' => $this->categories->get_site_tree($main_category->id, "parent_id"),
+			'main_category' => $main_category,
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->top_menu->items,
-			'left_menu' => $left_menu,
+			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
 			'url' => $url,
-			//'filters' => $filters,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'settings' => $settings
+			'filters' => $filters,
+			'news' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 3), 0, 3, 'date', 'desc')),
+			'articles' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 1), 0, 3, 'id', 'desc')),
+			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		
-		if(isset($get['filter']))
+		$get = $this->input->get();
+		
+		if($get)
 		{
-			$content = $this->products->get_filtred((object)$get, $order, $direction);
+			$content = $this->products->get_filtred((object)$get);
 			$content = $this->products->get_prepared_list($content);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
@@ -66,56 +62,64 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$category = $this->categories->url_parse(2);
-			
-			if($category == "404")
+			if ($category == FALSE)
 			{
-				$settings = $this->settings->get_item_by(array("id" => 1));
-				$data['title'] = "Страница не найдена";
+				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+				$content = $this->categories->get_prepared_list($content);
+			
+				$settings = $this->settings->get_item_by(array('id' => 1));
+
+				$data['title'] = $settings->site_title;
 				$data['meta_title'] = $settings->site_title;
 				$data['meta_keywords'] = $settings->site_keywords;
 				$data['meta_description'] = $settings->site_description;
-				$template="client/404.php";
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				$data['content'] = $content;
+			
+				$template = 'client/categories.php';		
 			}
 			else
 			{
-				if ($category == FALSE)
+				if(isset($category->product))
 				{
-					$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3);
-			
-					$settings = $this->settings->get_item_by(array('id' => 1));
-
-					$data['title'] = $settings->site_title;
-					$data['meta_title'] = $settings->site_title;
-					$data['meta_keywords'] = $settings->site_keywords;
-					$data['meta_description'] = $settings->site_description;
-					$data['breadcrumbs'] = $this->breadcrumbs->get();
-					$data['good_buy'] = $this->products->get_prepared_list($good_buy);
-					$data['new_products'] = $this->products->get_prepared_list($new_products);
-					$template = 'client/products.php';		
+					$content = $this->products->prepare($category->product);
+					$template = "client/product.php";
+					$data['product'] = $content;
 				}
 				else
 				{
-					if(isset($category->product))
+					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					$content = $this->categories->get_prepared_list($content);
+					$names = array();
+					foreach ($content as $i=>$c)
 					{
-						$content = $this->products->prepare_product($category->product);
-						$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
-						$template = "client/product.php";
+						$level = count(explode('/', $c->full_url));
+						$names[] = $level < 6 ? $c->name : $c->caption;
+						if ($level > 6 && $content[$i]->caption) 
+							$content[$i]->name = $content[$i]->caption;
 					}
-					elseif(isset($category->products))
+					array_multisort($names, $content);
+					$template = "client/categories.php";	
+					$products = $this->products->get_prepared_list($this->products->get_list(array('parent_id' => $category->id)));
+					foreach ($content as $c)
 					{
-						$category->products = $this->products->get_prepared_list($category->products);
-						$content = $category;
-						$template = "client/products.php";	
-					}		
-
-					$data['title'] = $category->name;
-					$data['meta_title'] = $category->meta_title;
-					$data['meta_keywords'] = $category->meta_keywords;
-					$data['meta_description'] = $category->meta_description;
-					$data['new_products'] = $this->products->get_prepared_list($new_products);
-					$data['content'] = $content;
-					$data['breadcrumbs'] = $this->breadcrumbs->get();
+						$products = array_merge($products, $this->products->get_prepared_list($this->products->get_list(array('parent_id' => $c->id))));
+					}
+				
 				}
+				$data['title'] = $category->name;
+				$data['current_category'] = $category;
+				$data['products'] = $products;
+				$parent_category =  $this->categories->get_item($category->parent_id);
+				$data['parent_category'] = $parent_category ? $this->categories->prepare($parent_category) : false;
+				$data['meta_title'] = $category->meta_title;
+				$data['meta_keywords'] = $category->meta_keywords;
+				$data['meta_description'] = $category->meta_description;
+				$data['subcategories'] = $content;
+				if ($this->uri->segment(4) && $category && !isset($category->product))
+					$data['subcategories'][] = $this->categories->prepare($category);
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				
 			}
 		}
 		$this->load->view($template, $data);
@@ -125,24 +129,17 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->Add("catalog", "Корзина");
 		
-		$this->input->post('amount');
-		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
-		if($this->cart_items)
-		{
-			$this->cart_items = $this->products->get_prepared_list($this->cart_items);
-		}
-		
-		//var_dump($this->cart_items);
+
 		$data = array(
 			'title' => "Корзина",
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart_items' =>	$this->cart_items,
+			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'selects' => array(
@@ -150,10 +147,9 @@ class Catalog extends Client_Controller {
 				'payment_id' => $this->config->item('method_pay')
 			),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->top_menu->items,
+			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
-		
 		$this->load->view('client/cart.php', $data);
 	}
 }

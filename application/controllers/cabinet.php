@@ -57,7 +57,7 @@ class Cabinet extends Client_Controller {
 			'meta_description' => "",
 			'error' => "",
 			'user' => $this->user,
-			'top_menu' => $this->top_menu->items,
+			'top_menu' => $this->top_menu,
 			'cart' => $this->cart->get_all(),
 			'total_price' => $this->cart->total_price(),
 			'total_qty' => $this->cart->total_qty(),

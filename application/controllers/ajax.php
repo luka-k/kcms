@@ -22,8 +22,8 @@ class Ajax extends CI_Controller {
 	
 	public function add_to_cart()
 	{
-		$info = json_decode(file_get_contents('php://input', true));
-		$product = $this->products->get_item_by(array("id" => $info->item_id));
+		$id = json_decode(file_get_contents('php://input', true));
+		$product = $this->products->get_item_by(array("id" => $id->item_id));
 		
 		if(!empty($product->discount))
 		{
@@ -33,19 +33,15 @@ class Ajax extends CI_Controller {
 		$cart_item = array(
 			"id" => $product->id,
 			"name" => $product->name,
-			"url" => $product->url,
 			"price" => $product->price,
-			"qty" => $info->qty
+			"qty" => 1
 		);
 		
-		$item_id = $this->cart->insert($cart_item);
+		$this->cart->insert($cart_item);
 		
 		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();
-		$data['product_word'] = end_maker("товар", $data['total_qty']);
-		$data['item_id'] = $item_id;
-		$item = $this->cart->get($item_id);
-		$data['item_qty'] = $item['qty'];
+		
 		echo json_encode($data);
 	}
 	
@@ -56,9 +52,7 @@ class Ajax extends CI_Controller {
 		$item = $this->cart->get($info->item_id);
 		$data['item_total'] = $item['item_total'];
  		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_price'] = $this->cart->total_price();
-		$data['item_id'] = $info->item_id;	
-		$data['product_word'] = end_maker("товар", $data['total_qty']);		
+		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
 	}
 	
@@ -70,8 +64,6 @@ class Ajax extends CI_Controller {
 		
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		
-		$data['item_id'] = $info->item_id;
-		$data['product_word'] = end_maker("товар", $data['total_qty']);
 		echo json_encode($data);
 	}
 	
