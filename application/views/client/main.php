@@ -68,7 +68,7 @@
 						<div class="catalog__item">
 							<div class="catalog-item">
 								<div class="catalog-item__image-box">
-									<a href="<?=$good_item->full_url?>"><img src="<?=$good_item->img->catalog_small_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+									<a href="<?=$good_item->full_url?>"><img src="<?=$good_item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
 								</div> <!-- /.catalog-item__image-box -->
 								
 								<a href="<?=$good_item->full_url?>" class="catalog-item__name"><?=$good_item->name?></a>
@@ -97,7 +97,7 @@
 						<div class="catalog__item">
 							<div class="catalog-item">
 								<div class="catalog-item__image-box">
-									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_small_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+									<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
 								</div> <!-- /.catalog-item__image-box -->
 								
 								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>

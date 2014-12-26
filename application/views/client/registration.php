@@ -72,7 +72,7 @@
 					</form>
 				</div> <!-- /.cart-order__extra -->		
 
-				<div class="cart-order__extra <?if($activity <> "restore"):?>hidden<?endif;?>">
+				<div class="<?if($activity <> "restore"):?>hidden<?endif;?>">
 					<form action="<?=base_url()?>/account/restore_password_mail" id="reset_form" method="post">
 						
 						<div class="form__line skew">
@@ -85,7 +85,7 @@
 					</form>
 				</div>
 				
-				<div class="cart-order__extra <?if($activity <> "new"):?>hidden<?endif;?>">
+				<div class="<?if($activity <> "new"):?>hidden<?endif;?>">
 					<form action="<?=base_url()?>account/change_password" id="new_pass_form" method="post">
 						<input type="hidden" name="user_email" value="<?if(isset($email)):?><?=$email?><?endif;?>"/>
 						<input type="hidden" name="secret" value="<?if(isset($secret)):?><?=$secret?><?endif;?>"/>
