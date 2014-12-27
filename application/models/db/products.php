@@ -14,7 +14,8 @@ class Products extends MY_Model
 			'warrant' => array('Гарантия', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
-			'description' => array('Описание', 'tiny', '')
+			'short_description' => array('Краткое описание', 'tiny', ''),
+			'description' => array('Описание', 'tiny-2', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

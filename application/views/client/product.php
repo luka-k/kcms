@@ -68,7 +68,7 @@
 						</ul> <!-- /.product-main-info__characteristics -->
 						
 						<div class="product-main-info__text">
-							<?=$content->description?>
+							<?=$content->short_description?>
 						</div> <!-- /.product-main-info__text -->
 						
 						<div class="product-main-info__price">
@@ -290,7 +290,7 @@
 								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
 								
 								<div class="catalog-item__desc">
-									<p><?=$new_item->description?></p>
+									<p><?=$new_item->short_description?></p>
 								</div> <!-- /.catalog-item__desc -->
 								
 								<div class="catalog-item__bottom skew">

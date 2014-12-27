@@ -123,10 +123,12 @@
 		}
 	}
 	
-	jQuery(document).ready(function($){
-			//$('textarea.editor').ckeditor();	
+	jQuery(document).ready(function($){	
 			var ckeditor = CKEDITOR.replace('editor');
 			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
+			
+			var ckeditor_2 = CKEDITOR.replace('editor_2');
+			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
 		});
 
 </script>

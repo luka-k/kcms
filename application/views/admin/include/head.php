@@ -15,9 +15,4 @@
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/ckeditor/ckeditor.js"></script>  <!--kickstart js--> 
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/filemanager/ajex.js"></script>  <!--kickstart js--> 
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/ckeditor/adapters/jquery.js"></script>  <!--kickstart js--> 
-	
-	<script>
-		
-		
-	</script>
 </head>
