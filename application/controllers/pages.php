@@ -17,23 +17,12 @@ class Pages extends Client_Controller {
 		);
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		if($root)
-		{
-			$level_2 = $this->menus_items->menu_tree(1, $root->id);
-			$data['level_2'] = $this->articles->get_prepared_list($level_2);
-		}
+		if($root) $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
 		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
 				
-		if($sub_level) 
-		{
-			$level_3 = $this->menus_items->menu_tree(1, $sub_level->id);
-			$data['level_3'] = $this->articles->get_prepared_list($level_3);
-		}
-		
-		//var_dump($page);
-		
-		
+		if($sub_level) $data['level_3'] = $this->menus_items->menu_tree(1, $sub_level->id);
+
 		$data['content'] = $page;
 
 		if($page == "404")
@@ -64,6 +53,26 @@ class Pages extends Client_Controller {
 			$template="client/articles.php";
 		}
 		$this->load->view($template, $data);
+	}
+	
+	public function dealers()
+	{
+		//
+		$this->breadcrumbs->Add("articles/gde-kupit", "Где купить");
+		$this->breadcrumbs->Add("dealers", "Как стать дилером");
+		$data = array(
+			'title' => "Дилеры",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'top_menu' => $this->top_menu->items
+		);
+		
+		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
+		if($root) $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
+		
+		$this->load->view("client/dealers", $data);
 	}
 
 	// wishlist()

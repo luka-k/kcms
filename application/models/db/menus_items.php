@@ -28,7 +28,7 @@ class Menus_items extends MY_Model
 			}
 			elseif($b->item_type == "link")
 			{
-				$branches[$i]->full_url = "/".$b->url;
+				$branches[$i]->full_url = base_url().$b->url;
 			}
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);
 		}		

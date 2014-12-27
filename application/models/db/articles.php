@@ -91,21 +91,25 @@ class Articles extends MY_Model
 	public function make_full_url($item)
 	{
 		$item_url = array();
-		$item_url[] = $item->url;
-		
-		while($item->parent_id <> 0)
+		if(!empty($item)) 
 		{
-			$parent_id = $item->parent_id;
-			$item = $this->get_item_by(array("id" => $parent_id));
+		
 			$item_url[] = $item->url;
+		
+			while($item->parent_id <> 0)
+			{
+				$parent_id = $item->parent_id;
+				$item = $this->get_item_by(array("id" => $parent_id));
+				$item_url[] = $item->url;
+			}
+			$item_url[] = 'articles';
 		}
-		$item_url[] = 'articles';
 		return $item_url;
 	}	
 	
 	function prepare($item)
 	{
-		$item->full_url = $this->get_url($item->url);
+		if(!empty($item)) $item->full_url = $this->get_url($item->url);
 		if(!empty($item->date))
 		{
 			$item_date = new DateTime($item->date);

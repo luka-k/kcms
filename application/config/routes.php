@@ -50,7 +50,7 @@ $route['catalog'] = 'catalog/index';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 
-
+$route['articles/gde-kupit/dealers'] = 'pages/dealers';
 
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
