@@ -312,7 +312,7 @@
 		<div class="text-about__wrap wrap">
 			<h2 class="text-about__title block-title">Продукция от компании &laquo;redBTR&raquo;</h2>
 			<div class="text-about__text">
-				<?=$settings->description?>
+				<?=$content->description?>
 			</div> <!-- /.text-about__text -->
 		</div> <!-- /.text-about__wrap wrap -->
 	</div> <!-- /.text-about -->
