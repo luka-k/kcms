@@ -33,8 +33,8 @@
 		
 		<div class="menu__search">
 			<div class="menu-search">
-				<form action="#" class="form" method="post">
-					<input type="text" class="form__input menu-search__input" name="s" placeholder="Поиск" />
+				<form action="<?=base_url()?>search" class="form" method="get">
+					<input type="text" class="form__input menu-search__input" name="name" placeholder="Поиск" />
 					<button class="button menu-search__button">Поиск</button>
 				</form> <!-- /.form -->
 			</div> <!-- /.menu-search -->

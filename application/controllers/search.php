@@ -9,12 +9,11 @@ class Search extends Client_Controller {
 	
 	public function index()
 	{
-	
 		$this->breadcrumbs->add("catalog", "Каталог");
 		$this->breadcrumbs->add("", "Поиск");
 		
-		$name = $this->input->get('name');
-		$this->db->like('name', $name);
+		$search = $this->input->get();
+		$this->db->like('name', $search['name']);
 		$query = $this->db->get('products');
 		
 		$products = array();
@@ -24,21 +23,25 @@ class Search extends Client_Controller {
 		}	
 		
 		$settings = $this->settings->get_item_by(array('id' => 1));
+		$left_menu = $this->categories->get_site_tree(0, "parent_id");
 
 		$data = array(
-			'title' => $settings->site_title,
+			'title' => "Поиск",
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
-			'breadcrumbs' => $this->breadcrumbs->get(),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'top_menu' => $this->top_menu->items,
+			'left_menu' => $left_menu,
+			'url' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'search' => $this->products->get_prepared_list($products)
+			'settings' => $settings,
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'content' => $this->products->get_prepared_list($products)
 		);
 		$this->load->view("client/search", $data);
 	}
