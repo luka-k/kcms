@@ -19,7 +19,7 @@
 	
 	
 	
-	<div class="page page-about">
+	<div class="page page-<?if($sub_template == "news" || $sub_template == "single-news"):?>news<?else:?>about<?endif;?>">
 		<div class="page__wrap wrap">
 			<? require 'include/nav/sub_nav.php'?>
 			
