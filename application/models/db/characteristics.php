@@ -3,10 +3,7 @@
 class Characteristics extends MY_Model
 {
 	public $filters = array(
-		'color' => array("Цвет", "text"),
-		'manufacturer' => array("Производитель", "multy"),
-		'width' => array("Ширина", "interval"),
-		'height' => array("Высота", "interval")
+		'use' => array("По применению", "select")
 	);
 	
 	function __construct()
@@ -18,7 +15,7 @@ class Characteristics extends MY_Model
 	{
 		foreach($this->filters as $type => $item)
 		{
-			if($item[1] == "multy" || $item[1] == "single")
+			if($item[1] == "multy" || $item[1] == "single" || $item[1] == "select")
 			{
 				$this->db->distinct();
 				$this->db->select("value");

@@ -26,9 +26,10 @@
 			<div class="page-catalog__content">
 				<div class="page-catalog__filter">
 					<div class="catalog-filter">
-						<form action="#" class="form" method="post">
+						<form action="<?=base_url()?>catalog" class="form" method="get">
+							<input type="hidden" name="filter" value="true">
 							<div class="catalog-filter__top">
-								<div class="form__line catalog-filter__line">
+								<!--<div class="form__line catalog-filter__line">
 									<span class="form__select-arrow">
 										<span class="form__select-box">
 											<select class="form__select" name="by_name">
@@ -40,43 +41,42 @@
 									</span>
 								</div> <!-- /.form__line -->
 								
-								<div class="form__line catalog-filter__line">
-									<span class="form__select-arrow">
-										<span class="form__select-box">
-											<select class="form__select" name="by_name">
-												<option value="">По применению</option>
-												<option value="">Применение 1</option>
-												<option value="">Применение 2</option>
-											</select>
-										</span>
-									</span>
-								</div> <!-- /.form__line -->
+								<?foreach($filters as $key => $item):?>
+									<?require "include/filters/{$item->editor}.php"?>
+								<?endforeach;?>
+								
 							</div> <!-- /.catalog-filter__top -->
 							
 							<div class="catalog-filter__range">
 								<div class="catalog-range">
 									<div class="catalog-range__scale">
 										<div class="catalog-range__from">
-											Цена: от <span data-range-from>1000</span>
+											Цена: от <span data-range-from><?=$min_price?></span>
 										</div> <!-- /.catalog-range__from -->
 										
 										<div class="catalog-range__to">
-											до <span data-range-to>10000</span>
+											до <span data-range-to><?=$max_price?></span>
 										</div> <!-- /.catalog-range__to -->
 									</div> <!-- /.catalog-slider__scale -->
 									
-									<div class="catalog-range__slider" data-range-slider="true" data-range-min="1000" data-range-max="10000"></div> <!-- /.catalog-range__slider -->
+									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>"></div> <!-- /.catalog-range__slider -->
+									<input type="hidden" id="price_from" name="price_from" value="<?=$min_price?>"/>
+									<input type="hidden" id="price_to" name="price_to" value="<?=$max_price?>"/>
 								</div> <!-- /.catalog-range -->
 							</div> <!-- /.catalog-filter__range -->
 							
 							<div class="form__line catalog-filter__checkbox">
 								<div class="form__checkbox checkbox">
 									<label class="checkbox__label">
-										<input type="checkbox" name="whatever" class="checkbox__input" value="" />
+										<input type="checkbox" name="is_active" class="checkbox__input" <?if($filters_checked['is_active'] == 1):?>checked<?endif;?> value="1" />
 										<span class="checkbox__text">В наличии</span>
 									</label>
 								</div> <!-- /.radio -->
 							</div> <!-- /.form__line -->
+							
+							<div class="form__button page-form__button skew">
+								<button class="button button--normal button--auto-width">Подобрать</button>
+							</div> <!-- /.form__button -->
 						</form> <!-- /.form -->
 					</div> <!-- /.catalog-filter -->
 				</div> <!-- /.page-catalog__filter -->
@@ -173,7 +173,7 @@
 								<?endforeach;?>
 							</div> <!-- /.catalog__list -->
 						
-							<div class="catalog__load load-link">
+							<!--<div class="catalog__load load-link">
 								<a href="#load" class="load-link__href">Еще товары</a>
 							</div> <!-- /.catalog__load -->
 						</div> <!-- /.catalog -->
@@ -187,7 +187,7 @@
 		<div class="text-about__wrap wrap">
 			<h2 class="text-about__title block-title">Продукция от компании &laquo;redBTR&raquo;</h2>
 			<div class="text-about__text">
-				<?if(isset($content)):?>
+				<?if(isset($content->description)):?>
 					<?=$content->description?>
 				<?else:?>
 					<?=$settings->description?>

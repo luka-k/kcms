@@ -197,6 +197,6 @@ class Content extends Admin_Controller
 	public function delete_characteristic($id)
 	{
 		$ch = $this->characteristics->get_item_by(array("id" => $id));
-		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/'.$ch->object_type."/".$ch->object_id."#tab_4");
+		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
 	}
 }

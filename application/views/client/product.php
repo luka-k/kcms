@@ -101,7 +101,7 @@
 							
 						</div> <!-- /.product-main-info__buttons -->
 						
-						<div class="product-main-info__match skew">
+						<!--<div class="product-main-info__match skew">
 							<button class="button button--normal button--s button--grey">Добавить к сравнению</button>
 						</div> <!-- /.product-main-info__match -->
 				</div> <!-- /.product__main-info -->
@@ -185,7 +185,7 @@
 			</div> <!-- /.product__extra-info .product-extra-info -->
 			
 			<div class="product__catalog catalog">
-				<h2 class="catalog__subtitle">рекомендуемые товары</h2>
+				<!--<h2 class="catalog__subtitle">рекомендуемые товары</h2>
 				
 				<div class="catalog__list catalog__list--border-bottom">
 					<div class="catalog__item">
@@ -194,88 +194,23 @@
 								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
 							</div> <!-- /.catalog-item__image-box -->
 							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
+							<!--<a href="product.html" class="catalog-item__name">Диск колесный</a>
 							
 							<div class="catalog-item__desc">
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
 							</div> <!-- /.catalog-item__desc -->
 							
-							<div class="catalog-item__bottom skew">
+							<!--<div class="catalog-item__bottom skew">
 								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
 								
-								<div class="catalog-item__button">
+								<!--<div class="catalog-item__button">
 									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
 								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->
+							<!--</div> <!-- /.catalog-item__bottom -->
+						<!--</div> <!-- /.catalog-item -->
+					<!--</div> <!-- /.catalog__item -->
 
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->                        
-            
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->                       
-					
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
-							
-							<a href="product.html" class="catalog-item__name">Диск колесный</a>
-							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
-							
-							<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
-								
-								<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart" >Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							</div> <!-- /.catalog-item__bottom -->
-						</div> <!-- /.catalog-item -->
-					</div> <!-- /.catalog__item -->
-				</div> <!-- /.catalog__list -->
+				<!--</div> <!-- /.catalog__list -->
 				
 				<h2 class="catalog__subtitle">Новинки</h2>
 				

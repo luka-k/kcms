@@ -153,9 +153,13 @@
       step: step,
       range: true,
       values: [ min, max ],
-      slide: function( event, ui ) {
-        $rangeFrom.html( ui.values[ 0 ] );
+      stop: function( event, ui ) {
+		$rangeFrom.html( ui.values[ 0 ] );
         $rangeTo.html( ui.values[ 1 ] );
+		var price_from = ui.values[ 0 ];
+		var price_to = ui.values[ 1 ];
+		$('#price_from').val(price_from);
+		$('#price_to').val(price_to);
       }
     });  
 

@@ -509,7 +509,7 @@ class MY_Model extends CI_Model
 							$values = $this->_update_values($values);
 							$counter++;
 							break;
-						case "multy":
+						case "select":
 							$this->db->where("type", $key);
 							$this->db->where_in("value", $item);
 							$values = $this->_update_values($values);
@@ -542,6 +542,7 @@ class MY_Model extends CI_Model
 				}
 			}
 		}
+
 		
 		if($counter > 1)
 		{
@@ -554,21 +555,24 @@ class MY_Model extends CI_Model
 		else
 		{
 			$id = $values;
-		}
+		}		
 
-		if(empty($id))
+		if(!empty($id)) $this->db->where_in("id", $id);
+		$this->db->order_by($order, $direction); 
+			
+		//Если указан пункт в наличии 
+		if(isset($get->is_active)) $this->db->where("is_active", 1);
+
+		if(isset($get->price_from) && isset($get->price_to))
 		{
-			return $content = array();
+			$where = "price BETWEEN {$get->price_from} AND {$get->price_to}";
+			$this->db->where($where);
 		}
-		else
-		{
-			$this->db->where_in("id", $id);
-			$this->db->order_by($order, $direction); 
-			$query = $this->db->get($this->_table/*, $limit, $from*/);
-			$result = $query->result();
-			empty($result) ? $content = array() : $content = $result;
-			return $content;
-		}
+			
+		$query = $this->db->get($this->_table/*, $limit, $from*/);
+		$result = $query->result();
+		empty($result) ? $content = array() : $content = $result;
+		return $content;
 	}
 	
 	

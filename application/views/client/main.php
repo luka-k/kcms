@@ -30,31 +30,31 @@
 				</ul> <!-- /.inline-categories__inner -->
 			</div> <!-- /.main-catalog-nav__titles -->
 			
-			<div class="main-catalog-nav__columns">
+			<!--<div class="main-catalog-nav__columns">
 				<ul class="main-catalog-nav__list">
 					<li class="main-catalog-nav__item">
 						<a href="catalog.html" class="main-catalog-nav__href">AVT <span>("Quatro Crazy")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
 					
-					<li class="main-catalog-nav__item">
+					<!--<li class="main-catalog-nav__item">
 						<a href="catalog.html" class="main-catalog-nav__href">Водный транспорт <span>("Mission Naval")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
 					
-					<li class="main-catalog-nav__item">
+					<!--<li class="main-catalog-nav__item">
 						<a href="catalog.html" class="main-catalog-nav__href">Туризм <span>("Country side")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
+			<!--	</ul> <!-- /.main-catalog-nav__list -->
 				
-				<ul class="main-catalog-nav__list">
+				<!--<ul class="main-catalog-nav__list">
 					<li class="main-catalog-nav__item">
 						<a href="catalog.html" class="main-catalog-nav__href">Тяжелое бездорожье и внедорожный спорт <span>("Mission Impossible")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
 					
-					<li class="main-catalog-nav__item">
+					<!--<li class="main-catalog-nav__item">
 						<a href="catalog.html" class="main-catalog-nav__href">Промышленность <span>("Mission SOS")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
-			</div> <!-- /.main-catalog-nav__columns -->
+				<!--</ul> <!-- /.main-catalog-nav__list -->
+			<!--</div> <!-- /.main-catalog-nav__columns -->
 		</div> <!-- /.main-catalog-nav__wrap wrap -->
 	</div> <!-- /.main-catalog-nav -->
         

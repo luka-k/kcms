@@ -83,9 +83,9 @@
 							</div> <!-- /.news-item -->
 						<?endforeach;?>
 
-                        <div class="news__load load-link">
+                        <!--<div class="news__load load-link">
 							<a href="#load" class="load-link__href">Еще новости</a>
-						</div> <!-- /.news__load -->
+						</div>--> <!-- /.news__load -->
 					</div> <!-- /.page-news__content -->
 
 

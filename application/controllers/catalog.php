@@ -19,20 +19,32 @@ class Catalog extends Client_Controller {
 		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
 		$link_url = base_url().uri_string()."?".$query_string;
 		$get = $this->input->get();
-
+		
 		!isset($get['order']) ? $order = "name" : $order = $get['order'];		
 		!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$this->config->load('characteristics_config');
-		//$filters = $this->characteristics->filters;
-		//$filters = $this->characteristics->get_filters();
+		$filters = $this->characteristics->filters;
+		$filters = $this->characteristics->get_filters();
 		
+		!empty($get['use']) ? $filters_checked['use'] = $get['use'] : $filters_checked['use'] = "";
+		isset($get['is_active']) ? $filters_checked['is_active'] = $get['is_active'] : $filters_checked['is_active'] = "";
+
 		$left_menu = $this->categories->get_site_tree(0, "parent_id");
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$this->db->select_max('price');
+		$query = $this->db->get('products');
+		$max_price = $query->row()->price;
+		
+		$this->db->select_min('price');
+		$query = $this->db->get('products');
+		$min_price = $query->row()->price;
+
 
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
@@ -43,16 +55,22 @@ class Catalog extends Client_Controller {
 			'top_menu' => $this->top_menu->items,
 			'left_menu' => $left_menu,
 			'url' => $url,
-			//'filters' => $filters,
+			'filters' => $filters,
+			'filters_checked' => $filters_checked,
+			'min_price' => $min_price,
+			'max_price' => $max_price,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'settings' => $settings
 		);
 		
 		if(isset($get['filter']))
 		{
-			$content = $this->products->get_filtred((object)$get, $order, $direction);
-			$content = $this->products->get_prepared_list($content);
-			
+			$this->breadcrumbs->add("", "Поиск");
+			$category = new stdClass();
+			$category->name = "Результаты поиска";
+			$category->products = $this->products->get_filtred((object)$get, $order, $direction);
+			$category->products = $this->products->get_prepared_list($category->products);
+
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
 			$data['title'] = $settings->site_title;
@@ -60,7 +78,7 @@ class Catalog extends Client_Controller {
 			$data['meta_keywords'] = $settings->site_keywords;
 			$data['meta_description'] = $settings->site_description;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
-			$data['content'] = $content;
+			$data['content'] = $category;
 			$template = "client/products.php";
 		}
 		else
