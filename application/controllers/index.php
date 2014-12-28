@@ -44,6 +44,7 @@ class Index extends Client_Controller {
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $top_menu->items,
+			'select_item' => "",
 			'slider' => $this->slider->get_prepared_list($slider),
 			'good_buy' => $this->products->get_prepared_list($good_buy),
 			'new_products' => $this->products->get_prepared_list($new_products),

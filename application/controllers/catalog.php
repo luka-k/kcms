@@ -55,6 +55,7 @@ class Catalog extends Client_Controller {
 			'top_menu' => $this->top_menu->items,
 			'left_menu' => $left_menu,
 			'url' => $url,
+			'select_item' => "",
 			'filters' => $filters,
 			'filters_checked' => $filters_checked,
 			'min_price' => $min_price,
@@ -165,6 +166,7 @@ class Catalog extends Client_Controller {
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
 			'top_menu' => $this->top_menu->items,
+			'select_item' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		

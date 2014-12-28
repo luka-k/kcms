@@ -10,10 +10,12 @@ class Pages extends Client_Controller {
 	public function index()
 	{
 		$page = $this->articles->url_parse(2);
-		
+		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
+		var_dump($select_item);
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu->items
+			'top_menu' => $this->top_menu->items,
+			'select_item' => $select_item
 		);
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
@@ -57,7 +59,7 @@ class Pages extends Client_Controller {
 	
 	public function dealers()
 	{
-		//
+		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
 		$this->breadcrumbs->Add("articles/gde-kupit", "Где купить");
 		$this->breadcrumbs->Add("dealers", "Как стать дилером");
 		$data = array(
@@ -66,7 +68,8 @@ class Pages extends Client_Controller {
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'top_menu' => $this->top_menu->items
+			'top_menu' => $this->top_menu->items,
+			'select_item' => $select_item
 		);
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));

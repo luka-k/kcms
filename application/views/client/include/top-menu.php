@@ -5,7 +5,7 @@
 			<ul class="menu-nav">
 				<?foreach($top_menu as $item):?>
 					<li class="menu-nav__item">
-						<a href="<?=$item->full_url?>" class="menu-nav__href"><?=$item->name?></a>
+						<a href="<?=$item->full_url?>" class="menu-nav__href <?if($select_item == $item->url):?>active<?endif;?>"><?=$item->name?></a>
 						
 						<!--Sub menu first level-->
 						<?php if(!empty($item->childs)):?>
