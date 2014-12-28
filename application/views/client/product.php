@@ -119,11 +119,11 @@
 							<a href="#tab2" class="product-extra-info__tab">Видео</a>
 						</div> <!-- /.product-extra-info__tab-box -->
 						
-						<div class="product-extra-info__tab-box">
+						<!--<div class="product-extra-info__tab-box">
 							<a href="#tab3" class="product-extra-info__tab">Технические характеристики</a>
 						</div> <!-- /.product-extra-info__tab-box-->
 						
-						<div class="product-extra-info__tab-box">
+						<!--<div class="product-extra-info__tab-box">
 							<a href="#tab4" class="product-extra-info__tab">Расходные материалы</a>
 						</div> <!-- /.product-extra-info__tab-box -->
 					</div> <!-- /.product-extra-info__tabs -->
@@ -142,7 +142,7 @@
 						</div> <!-- /.product-extra-info__text -->
 					</div> <!-- /.product-extra-info__block -->
 					
-					<div class="product-extra-info__block" id="tab3">
+					<!--<div class="product-extra-info__block" id="tab3">
 						<div class="product-extra-info__table">
 							<table class="info-table">
 								<tbody>
@@ -172,15 +172,15 @@
 									</tr>
 								</tbody>
 							</table> <!-- /.info-table -->
-						</div> <!-- /.product-extra-info__table -->
-					</div> <!-- /.product-extra-info__block -->
+						<!--</div> <!-- /.product-extra-info__table -->
+					<!--</div> <!-- /.product-extra-info__block -->
 					
-					<div class="product-extra-info__block" id="tab4">
+					<!--<div class="product-extra-info__block" id="tab4">
 						<div class="product-extra-info__text">
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
 						</div> <!-- /.product-extra-info__text -->
-					</div> <!-- /.product-extra-info__block -->
+					<!--</div> <!-- /.product-extra-info__block -->
 				</div> <!-- /.product-extra-info__blocks -->
 			</div> <!-- /.product__extra-info .product-extra-info -->
 			
