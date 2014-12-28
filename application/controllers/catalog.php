@@ -26,7 +26,7 @@ class Catalog extends Client_Controller {
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$this->config->load('characteristics_config');
-		$filters = $this->characteristics->filters;
+		
 		$filters = $this->characteristics->get_filters();
 		
 		!empty($get['use']) ? $filters_checked['use'] = $get['use'] : $filters_checked['use'] = "";

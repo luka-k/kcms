@@ -15,7 +15,6 @@ class Index extends Client_Controller {
 		$slider = $this->slider->get_list(FALSE);
 		
 		$top_menu = $this->dynamic_menus->get_menu(1);
-		//var_dump($top_menu->items);
 		
 		$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 4);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
