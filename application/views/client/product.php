@@ -245,7 +245,7 @@
 
 	<div class="text-about" id="text-about">
 		<div class="text-about__wrap wrap">
-			<h2 class="text-about__title block-title">Продукция от компании &laquo;redBTR&raquo;</h2>
+			<h2 class="text-about__title block-title"></h2>
 			<div class="text-about__text">
 				<?=$content->description?>
 			</div> <!-- /.text-about__text -->
