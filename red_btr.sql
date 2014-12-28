@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 29 2014 г., 00:33
+-- Время создания: Дек 29 2014 г., 01:05
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
 (1, 1, 0, 'Колёсные диски', '', '', '', 'kolyosnye-diski', 0, ''),
-(2, 1, 0, 'Диски колёсные легкосплавные', '', '', '', 'diski-kolyosnye-legkosplavnye', 1, ''),
+(2, 1, 1, 'Диски колёсные легкосплавные', '', '', '', 'diski-kolyosnye-legkosplavnye', 1, ''),
 (3, 1, 0, 'Диски колёсные штампованные', '', '', '', 'diski-kolyosnye-shtampovannye', 1, ''),
 (4, 1, 0, 'Автоаксессуары', '', '', '', 'avtoaksessuary', 0, ''),
 (5, 1, 0, 'Дефляторы', '', '', '', 'deflyatory', 4, ''),
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('a040bc4dcd74171fbdb0b75f2aee79d8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419798508, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('f6d562088df2a581c07429b3d5e116b8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419800346, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -247,21 +247,21 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 --
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(2, 1, 'Где купить', 0, 1, '', 'articles', 'gde-kupit'),
-(3, 1, 'О нас', 0, 2, '', 'articles', 'o-nas'),
+(2, 1, 'Где купить', 0, 2, '', 'articles', 'gde-kupit'),
+(3, 1, 'О нас', 0, 0, '', 'articles', 'o-nas'),
 (4, 1, 'Контакты', 0, 3, '', 'articles', 'kontakty'),
 (5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry'),
 (6, 1, 'Регистрация и вход', 1, 2, '', 'link', 'йцукен'),
-(7, 1, 'Поддержка клиентов', 0, 0, '', 'articles', 'podderzhka-klientov'),
+(7, 1, 'Поддержка клиентов', 0, 1, '', 'articles', 'podderzhka-klientov'),
 (8, 1, 'Авторизованные сервис центры', 7, 1, '', 'articles', 'avtorizovannye-servis-centry'),
-(11, 1, 'Новости', 3, 1, '', 'articles', 'novosti'),
-(12, 1, 'История компании', 3, 2, '', 'articles', 'istoriya-kompanii'),
-(13, 1, 'Производства', 3, 4, '', 'articles', 'proizvodstva'),
-(14, 1, 'Политика качества', 3, 5, '', 'articles', 'politika-kachestva'),
-(15, 1, 'ЧА.ВО. / FAQ', 3, 6, '', 'articles', 'cha-vo-faq'),
-(16, 1, 'Работа с магазином', 3, 7, '', 'articles', 'rabota-s-magazinom'),
-(17, 1, 'Выставки', 11, 0, '', 'articles', 'vystavki'),
-(18, 1, 'Внедорожные мероприятия', 11, 1, '', 'articles', 'vnedorozhnye-meropriyatiya'),
+(11, 1, 'Новости', 3, 0, '', 'articles', 'novosti'),
+(12, 1, 'История компании', 3, 1, '', 'articles', 'istoriya-kompanii'),
+(13, 1, 'Производства', 3, 2, '', 'articles', 'proizvodstva'),
+(14, 1, 'Политика качества', 3, 3, '', 'articles', 'politika-kachestva'),
+(15, 1, 'ЧА.ВО. / FAQ', 3, 4, '', 'articles', 'cha-vo-faq'),
+(16, 1, 'Работа с магазином', 3, 5, '', 'articles', 'rabota-s-magazinom'),
+(17, 1, 'Выставки', 11, 1, '', 'articles', 'vystavki'),
+(18, 1, 'Внедорожные мероприятия', 11, 0, '', 'articles', 'vnedorozhnye-meropriyatiya'),
 (19, 1, 'Как стать дилером', 2, 1, '', 'link', 'articles/gde-kupit/dealers');
 
 -- --------------------------------------------------------
