@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 29 2014 г., 01:05
+-- Время создания: Дек 29 2014 г., 11:09
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('f6d562088df2a581c07429b3d5e116b8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419800346, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('606476cb77d7db32cf4d123ae52282e9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419836628, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -247,12 +247,12 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 --
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(2, 1, 'Где купить', 0, 2, '', 'articles', 'gde-kupit'),
-(3, 1, 'О нас', 0, 0, '', 'articles', 'o-nas'),
+(2, 1, 'Где купить', 0, 1, '', 'articles', 'gde-kupit'),
+(3, 1, 'О нас', 0, 2, '', 'articles', 'o-nas'),
 (4, 1, 'Контакты', 0, 3, '', 'articles', 'kontakty'),
 (5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry'),
 (6, 1, 'Регистрация и вход', 1, 2, '', 'link', 'йцукен'),
-(7, 1, 'Поддержка клиентов', 0, 1, '', 'articles', 'podderzhka-klientov'),
+(7, 1, 'Поддержка клиентов', 0, 0, '', 'articles', 'podderzhka-klientov'),
 (8, 1, 'Авторизованные сервис центры', 7, 1, '', 'articles', 'avtorizovannye-servis-centry'),
 (11, 1, 'Новости', 3, 0, '', 'articles', 'novosti'),
 (12, 1, 'История компании', 3, 1, '', 'articles', 'istoriya-kompanii'),
