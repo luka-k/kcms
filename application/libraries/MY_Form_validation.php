@@ -99,9 +99,9 @@ public function run($group = '')
 		return $str;
 	}
 	
-	public function set_date($field)
+	public function set_date($str)
 	{
-		if(empty($_POST[$field])) $str = date("Y-m-d");
+		if(empty($str)) $str = date("Y-m-d");
 		
 		return $str;
 	}

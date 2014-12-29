@@ -35,6 +35,8 @@ class Index extends Client_Controller {
 		$query = $this->db->get("articles");
 		$last_news = $query->result();
 		
+		var_dump($last_news);
+		
 		$video = $this->video->get_list(array("is_main" => 1));
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));

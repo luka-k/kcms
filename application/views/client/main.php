@@ -67,7 +67,7 @@
 								<a href="<?=$good_item->full_url?>" class="catalog-item__name"><?=$good_item->name?></a>
 								
 								<div class="catalog-item__desc">
-									<p><?=$good_item->short_description?></p>
+									<?=$good_item->short_description?>
 								</div> <!-- /.catalog-item__desc -->
 								
 								<div class="catalog-item__bottom skew">
@@ -96,7 +96,7 @@
 								<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
 								
 								<div class="catalog-item__desc">
-									<p><?=$new_item->short_description?></p>
+									<?=$new_item->short_description?>
 								</div> <!-- /.catalog-item__desc -->
 								
 								<div class="catalog-item__bottom skew">
