@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 29 2014 г., 11:18
+-- Время создания: Дек 29 2014 г., 18:23
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -61,7 +61,11 @@ INSERT INTO `articles` (`id`, `date`, `parent_id`, `name`, `sort`, `description`
 (14, '2014-12-22', 2, 'Название мероприятия', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
 (15, '2014-12-22', 8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'lorem-ipsum-dolor-sit-amet-consectetur-adipisicing-elit'),
 (16, '2014-12-29', 2, 'Название мероприятия 2', 0, '<p>Текст пробной новости</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
-(17, '2014-12-29', 8, 'Мероприятие три', 0, '<p>Текст пробной новости</p>\r\n', '', '', '', 'meropriyatie-tri');
+(17, '2014-12-29', 8, 'Мероприятие три', 0, '<p>Текст пробной новости</p>\r\n', '', '', '', 'meropriyatie-tri'),
+(18, '2014-12-29', 13, 'Информация', 0, '', '', '', '', 'informaciya'),
+(19, '2014-12-29', 13, 'Оформление заказа', 0, '', '', '', '', 'oformlenie-zakaza'),
+(20, '2014-12-29', 13, 'Информация о доставке', 0, '', '', '', '', 'informaciya-o-dostavke'),
+(21, '2014-12-29', 13, 'Дисконтная система', 0, '', '', '', '', 'diskontnaya-sistema');
 
 -- --------------------------------------------------------
 
@@ -146,7 +150,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4e27608f237ad9e74545ad6bf90ca372', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419837439, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('27f33a50c3eaf3c625567a1165e4aa1a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419861556, ''),
+('4ea1ed0f47f9e09526fdb93ff8c7370b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419862946, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -242,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -264,7 +269,11 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (16, 1, 'Работа с магазином', 3, 5, '', 'articles', 'rabota-s-magazinom'),
 (17, 1, 'Выставки', 11, 1, '', 'articles', 'vystavki'),
 (18, 1, 'Внедорожные мероприятия', 11, 0, '', 'articles', 'vnedorozhnye-meropriyatiya'),
-(19, 1, 'Как стать дилером', 2, 1, '', 'link', 'articles/gde-kupit/dealers');
+(19, 1, 'Как стать дилером', 2, 1, '', 'link', 'articles/gde-kupit/dealers'),
+(20, 1, 'Информация', 16, 1, '', 'articles', 'informaciya'),
+(21, 1, 'Оформление заказа', 16, 2, '', 'articles', ''),
+(22, 1, 'Информация о доставке', 16, 3, '', 'articles', 'informaciya-o-dostavke'),
+(24, 1, 'Дисконтная система', 16, 4, '', 'articles', 'diskontnaya-sistema');
 
 -- --------------------------------------------------------
 
