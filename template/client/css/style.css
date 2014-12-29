@@ -783,6 +783,7 @@ span
 .menu-nav__item:hover .menu-nav-level-2
 {
     display: block;
+	
 }
 .menu-nav__href
 {
@@ -819,13 +820,13 @@ span
 
     margin: 0;
     padding: 0;
-    padding: 5px 10px;
+    padding: 12px 10px;
 
     list-style: none;
 
     color: #fff;
     background: #181413;
-	
+	text-transform:uppercase;
     *zoom: 1;
 }
 .menu-nav-level-2:before,
@@ -852,12 +853,18 @@ span
 {
     margin: 0;
     padding: 0;
-    padding: 3px 0 3px 15px;
+    padding: 5px 0 5px 15px;
 
     list-style: none;
-
+	text-transform:capitalize;
     *zoom: 1;
 }
+
+.menu-nav-level-3 li
+{
+	padding-bottom:2px;
+}
+
 .menu-nav-level-3:before,
 .menu-nav-level-3:after
 {
@@ -869,6 +876,7 @@ span
 {
     clear: both;
 }
+
 
 .menu-search
 {
