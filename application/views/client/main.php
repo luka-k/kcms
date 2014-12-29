@@ -31,29 +31,22 @@
 			</div> <!-- /.main-catalog-nav__titles -->
 			
 			<div class="main-catalog-nav__columns">
-				<ul class="main-catalog-nav__list">
-					<li class="main-catalog-nav__item">
-						<a href="http://kcms/catalog?filter=true&use=AVT+(Quatro+Crazy)" class="main-catalog-nav__href">AVT <span>("Quatro Crazy")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
+				<?$counter = 1?>
+				<?$line = ceil(count($catalog_by_filter)/2)?>
+				<?foreach($catalog_by_filter as $name => $link):?>
+					<?if($counter == 1):?><ul class="main-catalog-nav__list"><?endif;?>
+						<li class="main-catalog-nav__item">
+							<a href="<?=$link?>" class="main-catalog-nav__href"><?=$name?></a>
+						</li> <!-- /.main-catalog-nav__item -->
+					<?if($counter == $line):?></ul><?$counter = 0?><?endif;?>
+					<?$counter++?>
+				<?endforeach;?>
+
 					
-					<li class="main-catalog-nav__item">
-						<a href="http://kcms/catalog?filter=true&use=Водный+транспорт+(Mission+Naval)" class="main-catalog-nav__href">Водный транспорт <span>("Mission Naval")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-					
-					<li class="main-catalog-nav__item">
-						<a href="http://kcms/catalog?filter=true&use=Туризм+(Country+side)" class="main-catalog-nav__href">Туризм <span>("Country side")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
-				
-				<ul class="main-catalog-nav__list">
-					<li class="main-catalog-nav__item">
-						<a href="http://kcms/catalog?filter=true&use=Тяжелое+бездорожье+и+внедорожный+спорт+(Mission+Impossible)" class="main-catalog-nav__href">Тяжелое бездорожье и внедорожный спорт <span>("Mission Impossible")</span></a>
-					</li> <!-- /.main-catalog-nav__item -->
-					
-					<li class="main-catalog-nav__item">
+					<!--<li class="main-catalog-nav__item">
 						<a href="http://kcms/catalog?filter=true&use=Промышленность+(Mission+SOS)" class="main-catalog-nav__href">Промышленность <span>("Mission SOS")</span></a>
 					</li> <!-- /.main-catalog-nav__item -->
-				</ul> <!-- /.main-catalog-nav__list -->
+
 			</div> <!-- /.main-catalog-nav__columns -->
 		</div> <!-- /.main-catalog-nav__wrap wrap -->
 	</div> <!-- /.main-catalog-nav -->

@@ -16,6 +16,12 @@ class Index extends Client_Controller {
 		
 		$top_menu = $this->dynamic_menus->get_menu(1);
 		
+		$filters = $this->characteristics->get_filters();
+		foreach($filters['use']->values as $item)
+		{
+			$catalog_by_filter[$item] = base_url()."catalog?filter=true&use=".str_replace(" ", "+", $item);
+		}
+		
 		$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 4);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
 		
@@ -45,6 +51,7 @@ class Index extends Client_Controller {
 			'top_menu' => $top_menu->items,
 			'select_item' => "",
 			'slider' => $this->slider->get_prepared_list($slider),
+			'catalog_by_filter' => $catalog_by_filter,
 			'good_buy' => $this->products->get_prepared_list($good_buy),
 			'new_products' => $this->products->get_prepared_list($new_products),
 			'last_news' => $this->articles->get_prepared_list($last_news),
