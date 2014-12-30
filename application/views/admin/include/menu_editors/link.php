@@ -1,6 +1,6 @@
 ﻿<div class="col_12">
-	<label for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></label>
-	<select id="lbl_<?=$editors_counter?>" class="menu_items <?=$name?>" name="<?=$name?>" class="col_8">
+	<label class="col_3"><?=$edit[0]?></label>
+	<select id="field-articles" class="<?=$name?> select_url" name="<?=$name?>" class="col_8" <?if($item_content <> "articles"):?>disabled<?endif;?>>
 		<option label="" value="">Выберите содержимое</option>
 		<?foreach ($selects[$name] as $select):?>
 			<option <?if(!empty($select->childs)):?>class="option-1-ch"<?else:?>class="option-1"<?endif;?> value="<?=$select->url?>" <?php if ($item_content->$name == $select->url):?>selected<?php endif; ?><?php if ($item_content->url == $select->url):?>disabled<?php endif; ?>>
@@ -23,4 +23,6 @@
 				<?endif;?>
 		<?endforeach;?>
 	</select>
+	
+	<input id="field-link" class="menu_items <?=$name?> select_url" name="<?=$name?>" class="col_8" <?if($item_content <> "link"):?>disabled<?endif;?>/>
 </div>

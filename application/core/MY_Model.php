@@ -390,10 +390,14 @@ class MY_Model extends CI_Model
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id), 0, 0, 'name');
+		$branches = $this->get_list(array($parent_id_field => $parent_id));
+
+		$branches = $this->get_prepared_list($branches);
+
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
+			
 			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
 		}		
 		return $branches;
@@ -438,6 +442,7 @@ class MY_Model extends CI_Model
 		{
 			$editors = $this->editors;
 		}
+		
 		foreach ($editors as $edit)
 		{
 			foreach ($edit as $key => $value)
@@ -449,7 +454,6 @@ class MY_Model extends CI_Model
 						'label' => $value[0],
 						'rules' => $value[2]);
 				}
-		
 				if ($this->db->field_exists($key, $this->_table))
 				{
 					$return->data->$key = $post[$key];
@@ -458,16 +462,17 @@ class MY_Model extends CI_Model
 		}
 		$this->form_validation->set_rules($validation_config);
 		
-		if(/*$this->form_validation->run()*/true)
+		if($this->form_validation->run())
 		{
 			unset($return->data);
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
 				{
+				
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						$return->data->$key = htmlspecialchars_decode($post[$key]);
+						$return->data->$key = htmlspecialchars_decode(set_value($key));
 					}		
 				}
 			}
@@ -483,11 +488,10 @@ class MY_Model extends CI_Model
 
 	//Велика вероятность что большая часть этой функции является большим костылем
 	//который появился от слабого владения sql, и легко заменяется более простыми запросами
-	function get_filtred($get, $limit = FALSE, $from = FALSE)
+	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
 		$filters = $this->characteristics->filters;
-		
 		$counter = 0;
 		foreach($get as $key => $item)
 		{
@@ -502,7 +506,7 @@ class MY_Model extends CI_Model
 							$values = $this->_update_values($values);
 							$counter++;
 							break;
-						case "multy":
+						case "select":
 							$this->db->where("type", $key);
 							$this->db->where_in("value", $item);
 							$values = $this->_update_values($values);
@@ -535,6 +539,7 @@ class MY_Model extends CI_Model
 				}
 			}
 		}
+
 		
 		if($counter > 1)
 		{
@@ -547,21 +552,24 @@ class MY_Model extends CI_Model
 		else
 		{
 			$id = $values;
-		}
+		}		
 
-		if(empty($id))
-		{
-			return $content = array();
-		}
-		else
-		{
-			$this->db->where_in("id", $id);
-			$query = $this->db->get($this->_table/*, $limit, $from*/);
-			$result = $query->result();
-			empty($result) ? $content = array() : $content = $result;
+		if(!empty($id)) $this->db->where_in("id", $id);
+		$this->db->order_by($order, $direction); 
 			
-			return $content;
+		//Если указан пункт в наличии 
+		if(isset($get->is_active)) $this->db->where("is_active", 1);
+
+		if(isset($get->price_from) && isset($get->price_to))
+		{
+			$where = "price BETWEEN {$get->price_from} AND {$get->price_to}";
+			$this->db->where($where);
 		}
+			
+		$query = $this->db->get($this->_table/*, $limit, $from*/);
+		$result = $query->result();
+		empty($result) ? $content = array() : $content = $result;
+		return $content;
 	}
 	
 	

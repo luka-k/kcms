@@ -7,14 +7,14 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if(($type <> "users")and($type <> "settings")):?>
-						<div id="left_col" class="col_4 back">
+					<?if(($type <> "users")&&($type <> "settings")&&($type <> "slider")&&($type <> "video")):?>
+						<div id="left_col" class="col_3 back">
 							<div id="left-menu">
 								<?require "include/{$type}_tree.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if(($type == "users")or($type == "settings")):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if(($type == "users")||($type == "settings")||($type == "slider")||($type == "video")):?>col_12<?else:?>col_9<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>
@@ -24,7 +24,7 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/edit_item/<?=$type?>"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/item/save/<?=$type?>/<?=$content->id?>"/>
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error;?>

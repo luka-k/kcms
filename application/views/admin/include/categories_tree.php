@@ -2,12 +2,12 @@
 <ul class="tree">
 	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>">Все категории</a></li>
 	<?foreach ($tree as $branch_1): ?>
-		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->name?></a>
+		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->name?></a><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$branch_1->id?>"><i class="icon-pencil"></i></a>
 			<?if(!empty($branch_1->childs)):?>
 				<ul class="<?=$branch_1->class?>">
 					<?foreach ($branch_1->childs as $branch_2): ?>
 						<li <?if(!empty($branch_2->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_2->id?>"><?=$branch_2->name?></a>
-							<?if(!empty($branch_2->childs) && $this->uri->segment(4)!='categories'):?>
+							<?if(!empty($branch_2->childs)):?>
 								<ul class="<?=$branch_2->class?>">
 									<?foreach ($branch_2->childs as $branch_3): ?>
 										<li><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_3->id?>"><?=$branch_3->name?></a></li>

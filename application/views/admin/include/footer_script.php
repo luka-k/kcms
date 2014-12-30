@@ -30,6 +30,23 @@
 			}
 		});
 	});
+	
+	
+	$(function() {
+		$('#sortable-2').sortable({cursor:'move'});
+		$('#sortable-2').sortable({cursorAt:{left:5}})
+		$('#sortable-2').sortable({
+			axis: 'y',
+			update: function (event, ui) {
+				var data = $(this).sortable('serialize');
+				$.ajax({
+					data: data,
+					type: 'POST',
+					url: '/admin/admin_ajax/sortable/'
+				});
+			}
+		});
+	});
 
 	function change_sort(type, item_id, sort){
 		data = new Object();
@@ -51,7 +68,7 @@
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
 	}
-	
+		
 	function slider(id){
 		$("#"+id).slideToggle().toggleClass('noactive');
 	}
@@ -106,12 +123,12 @@
 		}
 	}
 	
-	tinymce.init({
-		selector: "textarea",
-		language : 'ru',
-		plugins:[
-			"advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste",
-		],
-		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-	});
+	jQuery(document).ready(function($){	
+			var ckeditor = CKEDITOR.replace('editor');
+			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
+			
+			var ckeditor_2 = CKEDITOR.replace('editor_2');
+			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+		});
+
 </script>

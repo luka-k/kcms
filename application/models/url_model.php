@@ -10,9 +10,23 @@ class Url_model extends MY_Model
 	public function admin_url_parse()
 	{
 		$type = $this->uri->segment(3);
-		$base = $this->uri->segment(4);
-		$id = $this->uri->segment(5);
-		if(($type == "item" || $type == "items")and($base == "products"))
+		if($type == "item")
+		{
+			$base = $this->uri->segment(5);
+			$id = $this->uri->segment(6);
+		}
+		else
+		{
+			$base = $this->uri->segment(4);
+			$id = $this->uri->segment(5);
+		}
+
+		if(($type == "item")and($base == "products"))
+		{
+			$item = $this->$base->get_item_by(array("id" => $id));
+			$base = "categories";
+		}
+		elseif(($type == "items")and($base == "products"))
 		{
 			$base = "categories";
 			$item = $this->$base->get_item_by(array("id" => $id));
@@ -23,6 +37,7 @@ class Url_model extends MY_Model
 			$item = $this->$base->get_item_by(array("id" => $id));
 			$this->$base->add_active($id);
 		}
+		
 		if (!empty($item))
 		{
 			$parent_id = $item->parent_id;
@@ -32,7 +47,7 @@ class Url_model extends MY_Model
 				$item = $this->$base->get_item_by(array("id" => $parent_id));
 				$this->$base->add_active($item->parent_id);
 				$parent_id = $item->parent_id;
-			}
+			}	
 			return TRUE;
 		}	
 		else

@@ -92,17 +92,16 @@ class Images extends MY_Model
 		return TRUE;
 	}
 	
-	public function resize($images)
+	public function resize($images, $sizes)
 	{
 		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		/*	print_r($sizes);
 		foreach($sizes as $key => $value)
 		{
 			$size = explode("-", $key);
 			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
-		}	*/
+		}	
 		
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 		
@@ -114,7 +113,7 @@ class Images extends MY_Model
 				unlink($upload_path."/".$path.$image->url);
 					
 				$thumb->resetObject();
-				$thumb->setSourceFilename($upload_path."/".iconv('utf-8', 'windows-1251', $image->url));
+				$thumb->setSourceFilename($upload_path."/".$image->url);
 					
 				foreach($param as $parameter => $config)
 				{
@@ -126,31 +125,12 @@ class Images extends MY_Model
 
 				if(!$thumb->GenerateThumbnail())
 				{
-					echo 'fail1'.$upload_path."/".$image->url;
-					//return FALSE;
+					return FALSE;
 				}
 				else
 				{
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					if(!$thumb->RenderToFile($output_filename))
-					{
-						echo 'fail2'.$output_filename;
-						//return FALSE;
-					}
+					if(!$thumb->RenderToFile($output_filename)) return FALSE;
 				}
-				echo '+'; 
-				
 			}
 		}
 	}
@@ -176,16 +156,16 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $path, $is_cover = FALSE)
+	public function get_images($object_info, $is_cover = FALSE)
 	{
 		if ($is_cover == FALSE)
 		{
-			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
+			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
 			foreach($images as $key => $item)
 			{
 				if(!empty($item))
 				{
-					$images[$key]->url = $this->get_url($item->url, $path);
+					$images[$key] = $this->_get_urls($item);
 				}
 			}
 		}
@@ -194,18 +174,39 @@ class Images extends MY_Model
 			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
 			if(!empty($images))
 			{
-				$images->url = $this->get_url($images->url, $path);
+				$images = $this->_get_urls($images);
 			}
 			else
 			{
 				$images = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' =>$is_cover));
-				if(!empty($images)) $images->url = $this->get_url($images->url, $path);
+				$images = $this->_get_urls($images);
 			}
 		}
 		return $images;
 	}
 	
-	public function get_img_list($info, $object_type, $path)
+	//Делая галерею в карточке товара я понял что надо переписать
+	//вывод картинок. в галрее нужны сразу и миниатюры и большая фотография
+	//поэтому переписал функцию get_images и добавил _get_urls
+	//что бы соответсвено возвращались пути ко всем вариантам изображений
+	//в шаблоне соответственно нужно указывать
+	//например для миниатюры которая лежит в папке catalog_small
+	//$item->img->catalog_small_url;
+	private function _get_urls($image)
+	{
+		$thumb_config = $this->config->item('thumb_config');
+		foreach($thumb_config as $path => $config)
+		{
+			$url_name = $path."_url";
+			if(!empty($image)) $image->$url_name = $this->get_url($image->url, $path);
+		}
+		//Путь к полному изображению
+		
+		if(!empty($image)) $image->full_url = $this->get_url($image->url);
+		return $image; 
+	}
+	
+	public function get_img_list($info, $object_type)
 	{
 		foreach($info as $key => $item)
 		{
@@ -213,7 +214,7 @@ class Images extends MY_Model
 				"object_type" => $object_type,
 				"object_id" => $info[$key]->id
 			);
-			$info[$key]->img = $this->images->get_images($object_info, $path, '1');
+			$info[$key]->img = $this->images->get_images($object_info, '1');
 		}
 		return $info;
 	}
@@ -247,18 +248,19 @@ class Images extends MY_Model
 				"object_type" => $object_info['object_type'],
 				"object_id" => $img->object_id
 			);
-			$images = $this->get_images($object_info, "catalog_small");
+			$images = $this->get_images($object_info);
+
 			if($images) $this->set_cover($object_info, $images[0]->id);
 		}	
 		return $img->object_id;
 	}
 	
-	public function get_url($url, $path)
+	public function get_url($url, $path = FALSE)
 	{
 		$item_url = array();
 		$item_url = NULL;
 		$item_url[] = $url;
-		$item_url[] = $path;
+		if($path) $item_url[] = $path;
 		$item_url[] = "images";
 		$item_url[] = "download";
 		$full_url = implode("/", array_reverse($item_url));
