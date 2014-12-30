@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 29 2014 г., 18:23
+-- Время создания: Дек 30 2014 г., 23:04
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -150,8 +150,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('27f33a50c3eaf3c625567a1165e4aa1a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419861556, ''),
-('4ea1ed0f47f9e09526fdb93ff8c7370b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419862946, 'a:4:{s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('2eed43f5136b47377bdcbfa720e7dc6e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419966204, 'a:1:{s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}}');
 
 -- --------------------------------------------------------
 
@@ -212,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -220,16 +219,12 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
 (1, 1, 'slider', 1, '/1/./1.jpg'),
-(13, 0, 'products', 4, '/2/[/2[1].jpg'),
-(14, 1, 'products', 4, '/1/[/1[3].jpg'),
-(15, 0, 'products', 1, '/1/[/1[1].jpg'),
-(16, 1, 'products', 1, '/2/[/2[2].jpg'),
-(18, 0, 'products', 2, '/2/[/2[3].jpg'),
-(19, 1, 'products', 2, '/1/[/1[2].jpg'),
-(20, 0, 'products', 3, '/2/[/2[4].jpg'),
-(21, 1, 'products', 3, '/1/[/1[4].jpg'),
-(22, 0, 'products', 5, '/2/./2.jpg'),
-(25, 1, 'products', 5, '/1/[/1[5].jpg');
+(29, 0, 'products', 1, '/2/[/2[2].jpg'),
+(30, 1, 'products', 1, '/1/[/1[1].jpg'),
+(31, 1, 'products', 2, '/1/[/1[2].jpg'),
+(32, 1, 'products', 3, '/2/[/2[3].jpg'),
+(34, 1, 'products', 5, '/2/./2.jpg'),
+(35, 1, 'products', 4, '/2/[/2[1].jpg');
 
 -- --------------------------------------------------------
 
@@ -377,6 +372,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `admin_email` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `main_title` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -392,8 +388,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `description`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'RedBTR', 'admin@admin.ru', 'admin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>', '', '', 0, '', 2, 6, 1);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `main_title`, `description`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
+(1, 'RedBTR', 'admin@admin.ru', 'admin', 'Продукция от компании redBTR', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>', '', '', 0, '', 2, 6, 1);
 
 -- --------------------------------------------------------
 
