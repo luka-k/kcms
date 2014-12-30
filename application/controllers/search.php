@@ -36,11 +36,13 @@ class Search extends Client_Controller {
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $this->top_menu->items,
+			'select_item' => "",
 			'left_menu' => $left_menu,
 			'url' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'settings' => $settings,
 			'breadcrumbs' => $this->breadcrumbs->get(),
+			'search' => $search['name'],
 			'content' => $this->products->get_prepared_list($products)
 		);
 		$this->load->view("client/search", $data);
