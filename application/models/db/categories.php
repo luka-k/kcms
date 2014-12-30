@@ -17,7 +17,8 @@ class Categories extends MY_Model
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'is_active' => array('Активен', 'checkbox', 'integer'),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', '')
+			'description' => array('Описание', 'tiny', ''),
+			'caption' => array('Подпись скринов', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -30,15 +31,13 @@ class Categories extends MY_Model
 		)
 	);
 	
-	private $sub_products= array();
-	
 	function __construct()
 	{
         parent::__construct();
 		$this->load->database();
 	}
 	
-	public function url_parse($segment_number, $parent = FALSE)
+	public function url_parse($segment_number, $parent = FALSE, $level = 0)
 	{
 		$url = $this->uri->segment($segment_number);
 		
@@ -47,11 +46,10 @@ class Categories extends MY_Model
 		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
 		if(!$child)
 		{
-			
 			$product = $this->products->get_item_by(array('url' => $url));
 			if ($product)
 			{
-				$this->breadcrumbs->add($url, $product->name);
+				$this->breadcrumbs->add($url, ($level == 2 && $product->caption) ? $product->caption : $product->name);
 				$parent->product = $product;
 				return $parent;
 			}
@@ -63,55 +61,22 @@ class Categories extends MY_Model
 		else
 		{
 			$this->add_active($child->id);
-			$this->breadcrumbs->add($url, $child->name);
+			$this->breadcrumbs->add($url, ($level == 2 && $child->caption) ? $child->caption : $child->name);
 			$child->parent = $parent;
 		
 			if ($this->uri->segment($segment_number+1))
 			{
-				return $this->url_parse($segment_number + 1, $child);
+				return $this->url_parse($segment_number + 1, $child, $level+1);
 			}
 			else 
 			{
-				$child->products = $this->get_sub_products($child->id);
-				var_dump($child);
 				return $child;
-				
 			}		
 		}	
 	}
 	
-	public function get_sub_products($id)
+	public function get_url($item)
 	{
-		$this->sub_products = array();
-		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1));
-		if($sub_products) foreach($sub_products as $product_item)
-		{
-			$this->sub_products[] = $product_item;
-		}
-		
-		$this->_sub_products($id);	
-		return $this->sub_products;
-	}
-	
-	//Возвращает товары из всех подкатегорий категории
-	function _sub_products($id)
-	{
-		$sub_categories = $this->categories->get_list(array("parent_id" => $id));
-		
-		if($sub_categories )foreach($sub_categories as $item)
-		{
-			$sub_products = $this->products->get_list(array("parent_id" => $item->id, "is_active" => 1));
-			if($sub_products) foreach($sub_products as $product_item)
-			{
-				$this->sub_products[] = $product_item;
-			}
-			$this->_sub_products($item->id);
-		}
-	}
-	
-	public function get_url($url)
-	{
-		$item = $this->get_item_by(array("url" => $url));
 		$item_full_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
@@ -122,7 +87,7 @@ class Categories extends MY_Model
 	{
 		$item_url = array();
 		$item_url[] = $item->url;
-		while($item->parent_id <> 0)
+		while($item->parent_id <> 0) 
 		{
 			$parent_id = $item->parent_id;
 			$item = $this->get_item_by(array("id" => $parent_id));
@@ -135,7 +100,7 @@ class Categories extends MY_Model
 	function prepare($item)
 	{
 		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "catalog_mid", "1");
-		$item->full_url = $this->get_url($item->url);
+		$item->full_url = $this->get_url($item);
 		return $item;
 	}
 }

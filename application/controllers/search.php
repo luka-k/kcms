@@ -13,14 +13,17 @@ class Search extends Client_Controller {
 		$this->breadcrumbs->add("catalog", "Каталог");
 		$this->breadcrumbs->add("", "Поиск");
 		
-		$name = $this->input->get('name');
+		$name = $this->input->get('q');
 		$this->db->like('name', $name);
 		$query = $this->db->get('products');
 		
 		$products = array();
+		$pnames = array();
 		foreach ($query->result() as $row)
 		{
-			$products[] = $row;
+			if (!$pnames[$row->name])
+				$products[] = $row;
+			$pnames[$row->name] = 1;
 		}	
 		
 		$settings = $this->settings->get_item_by(array('id' => 1));
@@ -38,8 +41,8 @@ class Search extends Client_Controller {
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'search' => $this->products->get_prepared_list($products)
+			'products' => $this->products->get_prepared_list($products)
 		);
-		$this->load->view("client/search", $data);
+		$this->load->view("client/products", $data);
 	}
 }

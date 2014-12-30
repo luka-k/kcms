@@ -13,10 +13,10 @@ class Admin_images extends Admin_Controller
 	{
 		$images= $this->images->get_list(FALSE);
 		
-		$sizes = $this->input->post('sizes');
-
-		$this->images->resize($images, $sizes);
+		$sizes = $this->config->item('thumb_config');
 		
+		$this->images->resize($images);
+		die('ok'); 
 		redirect(base_url()."admin/content/item/settings/1");
 	}
 	

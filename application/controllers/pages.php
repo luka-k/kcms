@@ -9,63 +9,37 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$page = $this->articles->url_parse(2);
+		$left_menu = $this->dynamic_menus->get_menu(4);
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu->items
+			'top_menu' => $this->top_menu,
+			'left_menu' => $left_menu,
 		);
 		
-		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		if($root)
+		$page = $this->articles->url_parse(2);
+		if(isset($page->id))
 		{
-			$level_2 = $this->menus_items->menu_tree(1, $root->id);
-			$data['level_2'] = $this->articles->get_prepared_list($level_2);
-		}
-		
-		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
-				
-		if($sub_level) 
-		{
-			$level_3 = $this->menus_items->menu_tree(1, $sub_level->id);
-			$data['level_3'] = $this->articles->get_prepared_list($level_3);
-		}
-		
-		//var_dump($page);
-		
-		
-		$data['content'] = $page;
-
-		if($page == "404")
-		{
-			$settings = $this->settings->get_item_by(array("id" => 1));
-			$data['title'] = "Страница не найдена";
-			$data['meta_title'] = $settings->site_title;
-			$data['meta_keywords'] = $settings->site_keywords;
-			$data['meta_description'] = $settings->site_description;
-			$template="client/404.php";
-		}
+			$content = $page;
+			$template="client/article.php";
+		}		
 		else
 		{
-			if($sub_level->url == "novosti")
-			{
-				$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
-			}
-			else
-			{
-				$sub_template = "page";
-			}
-			$data['title'] = $page->name;
-			$data['meta_title'] = $page->meta_title;
-			$data['meta_keywords'] = $page->meta_keywords;
-			$data['meta_description'] = $page->meta_description;
-			$data['breadcrumbs'] = $this->breadcrumbs->get();
-			$data['sub_template'] = $sub_template;
+			$content = $this->articles->get_list(array("parent_id" => $page->id));
+			$content = $this->articles->get_prepared_list($content);
 			$template="client/articles.php";
 		}
+		
+		$data['title'] = $page->name;
+		$data['meta_title'] = $page->meta_title;
+		$data['meta_keywords'] = $page->meta_keywords;
+		$data['meta_description'] = $page->meta_description;
+		$data['breadcrumbs'] = $this->breadcrumbs->get();
+		$data['content'] = $content;
+		
 		$this->load->view($template, $data);
 	}
-
+	
 	// wishlist()
 	// вывод вишлиста
 	public function wishlist()

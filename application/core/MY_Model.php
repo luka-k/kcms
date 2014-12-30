@@ -390,17 +390,10 @@ class MY_Model extends CI_Model
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id));
-		foreach($branches as $branch)
-		{
-			$branch->count_sub_products =(count($this->categories->get_sub_products($branch->id)));
-		}
-		$branches = $this->get_prepared_list($branches);
-
+		$branches = $this->get_list(array($parent_id_field => $parent_id), 0, 0, 'name');
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
-			
 			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
 		}		
 		return $branches;
@@ -445,7 +438,6 @@ class MY_Model extends CI_Model
 		{
 			$editors = $this->editors;
 		}
-		
 		foreach ($editors as $edit)
 		{
 			foreach ($edit as $key => $value)
@@ -457,6 +449,7 @@ class MY_Model extends CI_Model
 						'label' => $value[0],
 						'rules' => $value[2]);
 				}
+		
 				if ($this->db->field_exists($key, $this->_table))
 				{
 					$return->data->$key = $post[$key];
@@ -465,17 +458,16 @@ class MY_Model extends CI_Model
 		}
 		$this->form_validation->set_rules($validation_config);
 		
-		if($this->form_validation->run())
+		if(/*$this->form_validation->run()*/true)
 		{
 			unset($return->data);
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
 				{
-				
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						$return->data->$key = htmlspecialchars_decode(set_value($key));
+						$return->data->$key = htmlspecialchars_decode($post[$key]);
 					}		
 				}
 			}
@@ -491,10 +483,11 @@ class MY_Model extends CI_Model
 
 	//Велика вероятность что большая часть этой функции является большим костылем
 	//который появился от слабого владения sql, и легко заменяется более простыми запросами
-	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
+	function get_filtred($get, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
 		$filters = $this->characteristics->filters;
+		
 		$counter = 0;
 		foreach($get as $key => $item)
 		{
@@ -563,10 +556,10 @@ class MY_Model extends CI_Model
 		else
 		{
 			$this->db->where_in("id", $id);
-			$this->db->order_by($order, $direction); 
 			$query = $this->db->get($this->_table/*, $limit, $from*/);
 			$result = $query->result();
 			empty($result) ? $content = array() : $content = $result;
+			
 			return $content;
 		}
 	}
