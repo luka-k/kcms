@@ -30,7 +30,7 @@
 			<?if($sub_template == "single-news"):?>
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<img src="images/calendar.png" alt="calendar" />
+						<!--<img src="images/calendar.png" alt="calendar" />-->
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">
@@ -69,7 +69,7 @@
 				
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<img src="images/calendar.png" alt="calendar" />
+						<!--<img src="images/calendar.png" alt="calendar" />-->
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">
