@@ -21,7 +21,9 @@
 	
 	<div class="page page-<?if($sub_template == "news" || $sub_template == "single-news"):?>news<?else:?>about<?endif;?>">
 		<div class="page__wrap wrap">
-			<? require 'include/nav/sub_nav.php'?>
+			<?if(isset($level_2)):?>
+				<? require 'include/nav/sub_nav.php'?>
+			<?endif;?>
 			
 			<h1 class="page__title"><?=$content->name?></h1>
 			

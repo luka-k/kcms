@@ -17,8 +17,9 @@ class Pages extends Client_Controller {
 			'select_item' => $select_item
 		);
 		
-		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		if($root) $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
+		$url = $this->uri->segment(2);
+		$root = $this->menus_items->get_item_by(array("url" => $url));
+		if($root && $url <> "podderzhka-klientov") $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
 		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
 				
