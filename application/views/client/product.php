@@ -21,7 +21,7 @@
 			<div class="page-product__top">
 				<div class="page-product__images product-images">
 					<div class="product-images__big-image-box">
-						<a href="<?=$content->img[0]->catalog_big_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
+						<a href="<?=$content->img[0]->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
 							<img    src="<?=$content->img[0]->catalog_big_url?>" 
                                     width="470" 
                                     height="470" 
@@ -29,7 +29,7 @@
                                     class="product-images__big-image"/>
 						</a>
 						<?if(isset($content->img[1])):?>
-						<a href="<?=$content->img[1]->catalog_big_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
+						<a href="<?=$content->img[1]->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
 							<img    src="<?=$content->img[1]->catalog_big_url?>" 
                                     width="470" 
                                     height="470" 
@@ -44,7 +44,7 @@
 							<?foreach($content->img as $images):?>
 								<li class="product-images-thumbs__item">
 									<a  href="<?=$images->catalog_big_url?>"
-										data-full-image="<?=$images->catalog_big_url?>"
+										data-full-image="<?=$images->full_url?>"
 										class="product-images-thumbs__href">
 											<img src="<?=$images->catalog_small_url?>" alt="image" class="product-images-thumbs__image" />
 									</a>

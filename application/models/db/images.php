@@ -160,7 +160,7 @@ class Images extends MY_Model
 	{
 		if ($is_cover == FALSE)
 		{
-			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']));
+			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
 			foreach($images as $key => $item)
 			{
 				if(!empty($item))
@@ -200,7 +200,10 @@ class Images extends MY_Model
 			$url_name = $path."_url";
 			if(!empty($image)) $image->$url_name = $this->get_url($image->url, $path);
 		}
-		return $image;
+		//Путь к полному изображению
+		
+		if(!empty($image)) $image->full_url = $this->get_url($image->url);
+		return $image; 
 	}
 	
 	public function get_img_list($info, $object_type)
@@ -252,12 +255,12 @@ class Images extends MY_Model
 		return $img->object_id;
 	}
 	
-	public function get_url($url, $path)
+	public function get_url($url, $path = FALSE)
 	{
 		$item_url = array();
 		$item_url = NULL;
 		$item_url[] = $url;
-		$item_url[] = $path;
+		if($path) $item_url[] = $path;
 		$item_url[] = "images";
 		$item_url[] = "download";
 		$full_url = implode("/", array_reverse($item_url));
