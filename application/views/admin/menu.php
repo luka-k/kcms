@@ -74,7 +74,7 @@
 												<?if(!empty($item->childs)):?>
 													<ul id="sortable-1">
 														<?foreach($item->childs as $item_2):?>
-															<li id="menus_items-<?=$item_2->id?>"><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
+															<li id="menus_items-<?=$item_2->id?>" <?if(!empty($item_2->childs)):?> class="down" <?endif;?> ><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
 																<a href="#" onclick="item_info('<?=$item_2->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
 																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_2->id?>', '<?=$item_2->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 																<?if(!empty($item_2->childs)):?>
