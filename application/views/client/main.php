@@ -116,7 +116,7 @@
 
 	<div class="text-about text-about--main" id="text-about">
 		<div class="text-about__wrap wrap">
-			<h2 class="text-about__title block-title"></h2>
+			<h2 class="text-about__title block-title"><?=$settings->main_title?></h2>
 			<div class="text-about__text">
 				<?=$settings->description?>
 			</div> <!-- /.text-about__text -->
