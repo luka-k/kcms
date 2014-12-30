@@ -37,14 +37,27 @@ class Catalog extends Client_Controller {
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
-		$this->db->select_max('price');
-		$query = $this->db->get('products');
-		$max_price = $query->row()->price;
+		if(empty($get['price_to']))
+		{		
+			$this->db->select_max('price');
+			$query = $this->db->get('products');
+			$max_price = $query->row()->price;
+		}
+		else
+		{
+			$max_price = $get['price_to'];
+		}
 		
-		$this->db->select_min('price');
-		$query = $this->db->get('products');
-		$min_price = $query->row()->price;
-
+		if(empty($get['price_from']))
+		{
+			$this->db->select_min('price');
+			$query = $this->db->get('products');
+			$min_price = $query->row()->price;
+		}
+		else
+		{
+			$min_price = $get['price_from'];
+		}
 
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
