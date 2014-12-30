@@ -3,6 +3,10 @@
 class Characteristics extends MY_Model
 {
 	public $filters = array(
+		'color' => array("Цвет", "text"),
+		'manufacturer' => array("Производитель", "multy"),
+		'width' => array("Ширина", "interval"),
+		'height' => array("Высота", "interval")
 	);
 	
 	function __construct()
@@ -12,8 +16,6 @@ class Characteristics extends MY_Model
 	
 	public function get_filters()
 	{
-		if (!$this->filters)
-			return false;
 		foreach($this->filters as $type => $item)
 		{
 			if($item[1] == "multy" || $item[1] == "single")

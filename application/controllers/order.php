@@ -19,15 +19,16 @@ class Order extends Client_Controller
 		$new_order = array(
 			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
-			'user_email' => $orders_info['email'],
 			'user_phone' => $orders_info['phone'],
-			'user_address' => $orders_info['address'],
 			'total' => $total_price,
-			'delivery_id' => $orders_info['delivery_id'],
-			'payment_id' => $orders_info['payment_id'],
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);
+		
+		if(isset($orders_info['address']))
+		{
+			$new_order['user_address'] = $orders_info['address'];
+		}
 		
 		if(isset($orders_info['id']))
 		{
@@ -59,6 +60,6 @@ class Order extends Client_Controller
 		}
 	
 		$this->cart->clear();
-		redirect(base_url().'cart');		
+		redirect(base_url().'cart/');		
 	}
 }

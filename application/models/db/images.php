@@ -92,17 +92,16 @@ class Images extends MY_Model
 		return TRUE;
 	}
 	
-	public function resize($images)
+	public function resize($images, $sizes)
 	{
 		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		/*	print_r($sizes);
 		foreach($sizes as $key => $value)
 		{
 			$size = explode("-", $key);
 			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
-		}	*/
+		}	
 		
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 		
@@ -114,7 +113,7 @@ class Images extends MY_Model
 				unlink($upload_path."/".$path.$image->url);
 					
 				$thumb->resetObject();
-				$thumb->setSourceFilename($upload_path."/".iconv('utf-8', 'windows-1251', $image->url));
+				$thumb->setSourceFilename($upload_path."/".$image->url);
 					
 				foreach($param as $parameter => $config)
 				{
@@ -126,31 +125,12 @@ class Images extends MY_Model
 
 				if(!$thumb->GenerateThumbnail())
 				{
-					echo 'fail1'.$upload_path."/".$image->url;
-					//return FALSE;
+					return FALSE;
 				}
 				else
 				{
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					$names = explode('/', $output_filename);
-					unset ($names[count($names)-1]);
-					mkdir(implode('/', $names), '0755');
-					if(!$thumb->RenderToFile($output_filename))
-					{
-						echo 'fail2'.$output_filename;
-						//return FALSE;
-					}
+					if(!$thumb->RenderToFile($output_filename)) return FALSE;
 				}
-				echo '+'; 
-				
 			}
 		}
 	}

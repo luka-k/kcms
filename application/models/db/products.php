@@ -5,18 +5,16 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
+			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'parent_id' => array('Категория', 'select', 'integer'),
 			'is_active' => array('Активна', 'checkbox', 'integer'),
-			'new' => array('Новинка', 'checkbox', "null"),
-			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'sku' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
-			'number' => array('Номер на скриншоте', 'text', 'trim|required|htmlspecialchars'),
-			'weight' => array('Вес', 'text', 'trim|required|htmlspecialchars'),
-			'manufacturer' => array('Производитель', 'text', 'trim|required|htmlspecialchars'),
+			'is_new' => array('Новинка', 'checkbox', 'integer'),
+			'is_good_buy' => array('Выгодное предложение', 'checkbox', 'integer'),
+			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
+			'warrant' => array('Гарантия', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
-			'description' => array('Описание', 'tiny', 'trim|htmlspecialchars'),
-			'description_short' => array('Краткое описание', 'tiny', 'trim|htmlspecialchars')
+			'description' => array('Описание', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -26,6 +24,9 @@ class Products extends MY_Model
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
+		),
+		'Характеристики' => array(
+			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
 		)
 	);
 	
@@ -35,9 +36,9 @@ class Products extends MY_Model
 		$this->load->database();
 	}
 	
-	public function get_url($item)
+	public function get_url($url)
 	{
-		//$item = $this->products->get_item_by(array("url" => $url));
+		$item = $this->products->get_item_by(array("url" => $url));
 		
 		$item_full_url = $this->categories->make_full_url($item);
 		
@@ -57,10 +58,22 @@ class Products extends MY_Model
 	
 	function prepare($item)
 	{
+		if(!is_object($item)) 
+		{
+			$item = (object)$item;
+		}
 		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_mid", 1);
-		$item->imgs = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_mid", false);
-		$item->full_url = $this->get_url($item);
+		$item->full_url = $this->get_url($item->url);
 		$item = $this->set_sale_price($item);
 		return $item;		
 	}
+	
+	function prepare_product($item)
+	{
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_big");
+		$item->full_url = $this->get_url($item->url);
+		$item = $this->set_sale_price($item);
+		return $item;		
+	}
+	
 }

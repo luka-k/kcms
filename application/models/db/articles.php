@@ -5,12 +5,11 @@ class Articles extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
+			'date' => array('Дата', 'hidden', 'set_date'),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'date' => array('Дата', 'text', 'trim|htmlspecialchars'),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', ''),
-			'description_short' => array('Краткое описание', 'tiny', '')
+			'description' => array('Описание', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -42,13 +41,82 @@ class Articles extends MY_Model
 			$this->add_active($child->id);
 			if($segment_number == 2) $url = "articles/".$url; 
 			$this->breadcrumbs->add($url, $child->name);
+			
+			if ($this->uri->segment($segment_number+1))
+			{
+				return $this->url_parse($segment_number + 1, $child);
+			}
+			else 
+			{
+				$sub_level = $this->get_list(array("parent_id" => $child->id));
+				if($sub_level)
+				{
+					if($segment_number == 3)
+					{
+						$child->articles = array();
+						foreach($sub_level as $item)
+						{
+							$sub_items = $this->get_list(array("parent_id" => $item->id));
+							if(!empty($sub_items))foreach($sub_items as $article)
+							{
+								$child->articles[] = $article;
+							}
+						}
+						$child->articles = $this->get_prepared_list($child->articles);
+					}
+					elseif($segment_number == 4)
+					{
+						$child->articles = $this->get_prepared_list($sub_level);
+					}
+					return $child;
+				}
+				else
+				{
+					return $child;
+				}
+				
+			}
+
 			//если дошли до 4 сегмента url
 			//то есть до 3 уровняя влодежости
 			//формируем статью.
 			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
-			if($segment_number == 4)
+			/*if($segment_number == 3)
 			{
-				$parent->article = $this->get_item_by(array('url' => $url));
+				$level
+				
+				/*if($url == "novosti")
+				{
+					$child->sub_news = $this->get_list(array('parent_id' => $child->id));
+					if(!empty($child->news))
+					{
+						$child->sub_news = $this->get_prepared_list($child->sub_news);
+					}
+					if($this->uri->segment($segment_number+2))
+					{
+					
+					}
+					elseif($this->uri->segment($segment_number+2))
+					{
+						
+					}
+					else
+					{
+						$news = $array();
+						foreach()
+					}
+					return $child;
+				}
+				else
+				{
+					$parent->article = $this->get_item_by(array('url' => $url));
+					$parent->articles = $this->get_list(array('parent_id' => $parent->article->id));
+					if(!empty($parent->articles))
+					{
+						$parent->articles = $this->get_prepared_list($parent->article);
+					}
+				}
+				
 				return $parent;
 			}
 			else
@@ -61,7 +129,7 @@ class Articles extends MY_Model
 				{
 					return $child;
 				}
-			}
+			}*/
 		}
 	}
 	
@@ -76,7 +144,6 @@ class Articles extends MY_Model
 	
 	public function make_full_url($item)
 	{
-		if (!$item) return array();
 		$item_url = array();
 		$item_url[] = $item->url;
 		
@@ -94,6 +161,12 @@ class Articles extends MY_Model
 	{
 		//var_dump($item);
 		$item->full_url = $this->get_url($item->url);
+		if(!empty($item->date))
+		{
+			$item_date = new DateTime($item->date);
+			$item_date = date_format($item_date, 'd.m.Y');
+			$item->date = $item_date;
+		}
 		return $item;
 	}
 }
