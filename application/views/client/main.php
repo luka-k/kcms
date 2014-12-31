@@ -69,9 +69,9 @@
 						<? foreach ($products_special as $s) : ?>
 						<div class="special-item col_3">
 							<div class="special-pl">&nbsp;</div>
-							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->url ?>" alt=""/></a>
+							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->catalog_small_url ?>" alt=""/></a>
 							<div class="item-footer">
-								<div class="special-name"><?= $s->name ?></div>
+								<div class="special-name"><a href="<?= $s->full_url ?>" ><?= $s->name ?></a></div>
 								<div class="price col_6"><?= $s->price ?> руб.</div><div class="btn col_6"><button class="red-btn square">купить</button></div>
 							</div>
 						</div>
@@ -88,7 +88,6 @@
 							<div class="text-1">НОВОСТИ</div><br>
 							<? foreach ($news as $el) : ?>
 							<div class="news-item">
-								
 								<div class="news-title"><span class="news-date"><?= $el->date?></span> <a href="<?= $el->full_url?>"><?= $el->name?></a></div>
 							</div>
 							<? endforeach ?>
@@ -110,20 +109,19 @@
 				<div id="main-2" class="grid clearfix">
 					<div class="video col_3">
 						<div class="text-1">Видео</div>
-						<? foreach ($videos as $v) : ?>
-						<div class="video-item">
-							<iframe width="100%" src="http://www.youtube.com/embed/<?= $v->video ?>" frameborder="0" allowfullscreen></iframe>
-							<span class="title"><?= $v->name ?></span> <span class="time"></span>
-						</div>
-						<? endforeach ?>
+						<?if(isset($videos)):?>
+							<? foreach ($videos as $v) : ?>
+							<div class="video-item">
+								<iframe width="100%" src="http://www.youtube.com/embed/<?= $v->video ?>" frameborder="0" allowfullscreen></iframe>
+								<span class="title"><?= $v->name ?></span> <span class="time"></span>
+							</div>
+							<? endforeach ?>
+						<?endif;?>
 					</div>
-					<? $content = $this->articles->get_item_by(array('url' => '/')); ?>
 					<div class="info col_9">
 						<div class="text-1"><?= $content->name ?></div>
 							<?= $content->description ?>
 					</div>
 				</div>
 				
-
-
 <? require 'include/footer.php' ?>

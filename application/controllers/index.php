@@ -24,8 +24,11 @@ class Index extends Client_Controller {
 			'top_menu' => $this->menus->set_active($this->top_menu, 'main'),
 			'left_menu' => $left_menu,
 			'news' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 3), 0, 5, 'id', 'desc')),
-			'articles' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 1), 0, 5, 'id', 'desc'))
+			'articles' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 1), 0, 5, 'id', 'desc')),
+			'content' => $this->articles->get_item_by(array('url' => '/'))
+			//'video' => $this->articles-get_list(array())
 		);
+		//var_dump($data['products_special']);
 		$this->load->view('client/main.php', $data);
 	}	
 }
