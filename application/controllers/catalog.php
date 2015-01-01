@@ -86,6 +86,12 @@ class Catalog extends Client_Controller {
 				{
 					$content = $this->products->prepare($category->product);
 					$template = "client/product.php";
+					
+					//Временый момент - убрать ворнинг на странице
+					$content->recommended1 = FALSE;
+					$content->recommended2 = FALSE;
+					$content->recommended3 = FALSE;
+					
 					$data['product'] = $content;
 				}
 				else
@@ -107,12 +113,12 @@ class Catalog extends Client_Controller {
 					{
 						$products = array_merge($products, $this->products->get_prepared_list($this->products->get_list(array('parent_id' => $c->id))));
 					}
-				
+					$data['products'] = $products;
 				}
-				
+
 				$data['title'] = $category->name;
 				$data['current_category'] = $category;
-				$data['products'] = $products;
+				
 				$parent_category =  $this->categories->get_item($category->parent_id);
 				$data['parent_category'] = $parent_category ? $this->categories->prepare($parent_category) : false;
 				$data['meta_title'] = $category->meta_title;

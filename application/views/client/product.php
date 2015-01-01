@@ -179,7 +179,7 @@
 						
 					</div>
 
-					<? if ($product->recommended1 || $product->recommended2 || $product->recommended3) : ?>
+					<?if ($product->recommended1 || $product->recommended2 || $product->recommended3) : ?>
 					<div id="content-2" class="col_9">
 						<div class="new clearfix">
 							<div class="col_12 text-1">Рекомендуемые товары</div>
