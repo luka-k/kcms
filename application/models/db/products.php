@@ -11,7 +11,7 @@ class Products extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'sku' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
 			'number' => array('Номер на скриншоте', 'text', 'trim|required|htmlspecialchars'),
-			'weight' => array('Вес', 'text', 'trim|required|htmlspecialchars'),
+			'weight' => array('Вес', 'text', 'trim|htmlspecialchars'),
 			'manufacturer' => array('Производитель', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),

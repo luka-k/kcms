@@ -3,38 +3,8 @@
 		<div id="body">
 			<div id="wrapper" class="clearfix">
 
-				<header class="grid clearfix">
-					<div class="logo col_4">
-						<a href=""><img src="img/logo.png" alt=""/></a>
-						<div class="slogan" >Запчасти cummins из первых рук</div>
-					</div>
-					<div class="header-info col_4">
-						<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
-						<div class="work-time">звонок по России бесплатно</div>
-					</div>
-					<div class="cart col_4">
-						<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
-						<div class="clearfix">
-							<div class="cart-btn">&nbsp;</div>
-							<div class="cart-info"><span class="cart-qty">0</span> товаров на сумму <span class="cart-total">0</span> рублей</div>
-						</div>
-					</div>				
-				</header>
-				
-				<div id="menu" class="grid clearfix">
-					<nav>
-						<ul>
-							<li><a href="">Главная</a></li>
-							<li><a href="/articles/info/about/">Информация</a></li>
-							<li><a href="/">Каталог</a></li>
-							<li><a href="/articles/info/delivery/">Оплата и доставка</a></li>
-							<li><a href="/articles/info/contacts/">Контакты</a></li>
-						</ul>
-					</nav>
-					<form action="/search/" id="searchform" method="get">
-						<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
-					</form>
-				</div>
+				<? require 'include/header.php' ?>
+				<? require 'include/top-menu.php' ?>
 				
 				<div id="category" class="grid clearfix">
 					<div class="cat-item col_4" id="category1">
@@ -69,9 +39,9 @@
 						<? foreach ($products_special as $s) : ?>
 						<div class="special-item col_3">
 							<div class="special-pl">&nbsp;</div>
-							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->catalog_small_url ?>" alt=""/></a>
+							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->catalog_mid_url ?>" alt=""/></a>
 							<div class="item-footer">
-								<div class="special-name"><a href="<?= $s->full_url ?>" ><?= $s->name ?></a></div>
+								<div class="special-name"><?= $s->name ?></div>
 								<div class="price col_6"><?= $s->price ?> руб.</div><div class="btn col_6"><button class="red-btn square">купить</button></div>
 							</div>
 						</div>

@@ -42,6 +42,8 @@ class Catalog extends Client_Controller {
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		
+		//var_dump($data['tree']);
+		
 		$get = $this->input->get();
 		
 		if($get)
@@ -75,7 +77,7 @@ class Catalog extends Client_Controller {
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 				$data['content'] = $content;
-			
+				
 				$template = 'client/categories.php';		
 			}
 			else
@@ -107,6 +109,7 @@ class Catalog extends Client_Controller {
 					}
 				
 				}
+				
 				$data['title'] = $category->name;
 				$data['current_category'] = $category;
 				$data['products'] = $products;
