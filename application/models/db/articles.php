@@ -92,8 +92,11 @@ class Articles extends MY_Model
 	
 	function prepare($item)
 	{
-		//var_dump($item);
-		$item->full_url = $this->get_url($item->url);
+		if(!is_object($item)) $item = (object)$item;
+		if(isset($item->id))
+		{
+			$item->full_url = $this->get_url($item->url);
+		}
 		return $item;
 	}
 }

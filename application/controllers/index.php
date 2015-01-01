@@ -12,7 +12,7 @@ class Index extends Client_Controller {
 	public function index()
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
-		
+
 		$left_menu = $this->dynamic_menus->get_menu(4);
 		
 		$data = array(
