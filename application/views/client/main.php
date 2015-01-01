@@ -42,7 +42,7 @@
 							<a href="<?= $s->full_url ?>" class="plashka"><img src="<?= $s->img->catalog_mid_url ?>" alt=""/></a>
 							<div class="item-footer">
 								<div class="special-name"><?= $s->name ?></div>
-								<div class="price col_6"><?= $s->price ?> руб.</div><div class="btn col_6"><button class="red-btn square">купить</button></div>
+								<div class="price col_6"><?= $s->price ?> руб.</div><div class="btn col_6"><button class="red-btn square" onclick="add_to_cart('<?=$content->id?>'); return false">купить</button></div>
 							</div>
 						</div>
 						<? endforeach ?>

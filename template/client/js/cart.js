@@ -1,6 +1,15 @@
 function add_to_cart(item_id){
 	data = new Object();
+	if(document.getElementById('product_qty'))
+	{
+		var qty = document.getElementById('product_qty').value;
+		data.qty = qty;
+	}else{
+		data.qty = 1;
+	}
+	
 	data.item_id = item_id;
+	
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/add_to_cart/", json_str, update_items, "json");
 }
@@ -22,7 +31,8 @@ function delete_item(item_id){
 }
 
 function update_items(res){		
-	$('#total_qty').text(res['total_qty']);
-	$('#total_price').text(res['total_price']);
-	$('#'+item_id).text(res['item_total']);
+	$('.total_qty').text(res['total_qty']);
+	$('.total_price').text(res['total_price']);
+	$('.product_word').text(res['product_word']);
+	//$('#'+item_id).text(res['item_total']);
 }

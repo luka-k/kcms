@@ -16,5 +16,20 @@
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+		
+		<script>
+			function change_qty(action){
+				var target = document.getElementById('product_qty');
+				curValue = target.value;
+				console.log(curValue);
+				
+				if (action === '+'){
+					target.value = ++curValue;
+				}else{
+					if (curValue > 1) target.value = --curValue;
+				}
+			}
+		</script>
 	</head>
 	<body>
