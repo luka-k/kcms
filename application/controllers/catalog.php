@@ -141,6 +141,8 @@ class Catalog extends Client_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
+		
+		if($this->cart_items) $this->cart_items = $this->products->get_prepared_list($this->cart_items);
 
 		$data = array(
 			'title' => "Корзина",
@@ -151,10 +153,10 @@ class Catalog extends Client_Controller {
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay')
-			),
+			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'delivery_id' => $this->config->item('method_delivery'),
+			'payment_id' => $this->config->item('method_pay'),
+			'city_id' => $this->config->item('city_id'),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))

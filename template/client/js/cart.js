@@ -27,12 +27,25 @@ function delete_item(item_id){
 	data = new Object();
 	data.item_id = item_id;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/delete_item/", json_str, update_items, "json");
+	$.post ("/ajax/delete_item/", json_str, delete_answer, "json");
 }
 
 function update_items(res){		
 	$('.total_qty').text(res['total_qty']);
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);
-	//$('#'+item_id).text(res['item_total']);
+	$('#'+res['item_id']).text(res['item_total']);
+}
+
+function delete_answer(res){
+	$('.total_qty').text(res['total_qty']);
+	$('.total_price').text(res['total_price']);
+	$('.product_word').text(res['product_word']);
+	$('#'+res['item_id']).text(res['item_total']);
+	if(res['total_qty'] == "0"){
+		$("table").remove('.cart-table');
+		$("div").remove('.page-cart__order');
+		$('#cart').text("Корзина пуста");
+	}
+	$("tr").remove('#cart-'+res['item_id']);
 }

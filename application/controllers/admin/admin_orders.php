@@ -47,6 +47,7 @@ class Admin_orders extends Admin_Controller
 			$orders_info[$key] = (object)array(
 				"order_id" => $order->order_id,
 				"status_id" => $order->status_id,
+				"city_id" => $order->city_id,
 				"order_products" => $order_items,
 				"delivery_id" => $order->delivery_id,
 				"payment_id" => $order->payment_id,
@@ -54,7 +55,8 @@ class Admin_orders extends Admin_Controller
 				"name" => $order->user_name,
 				"phone" => $order->user_phone,
 				"email" => $order->user_email,
-				"address" => $order->user_address
+				"address" => $order->user_address,
+				"message" => $order->message
 			);
 		}
 		
@@ -68,6 +70,7 @@ class Admin_orders extends Admin_Controller
 				'payment_id' => $this->config->item('method_pay'),
 				'status_id' => $this->config->item('order_status')
 			),
+			'city_id' => $this->config->item('city_id'),
 			'menu' => $this->menu
 		);	
 		

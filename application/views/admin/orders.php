@@ -75,7 +75,7 @@
 											<select id="delivery_id"  name="delivery_id" class="col_12" onchange="change_field('<?=$order_item->order_id?>', this.options[this.selectedIndex].value, this.id)">
 												<?php foreach ($selects['delivery_id'] as $key => $title): ?>
 													<option value="<?=$key?>" <?if($key == $order_item->delivery_id):?>selected="selected"<?endif;?> >
-														<?=$title?>
+														<?=$title[0]?>
 													</option>
 												<?php endforeach ?>										
 											</select>											
@@ -87,6 +87,14 @@
 												<div>Телефон - <?=$order_item->phone?></div>
 												<div>e-mail - <?=$order_item->email?></div>
 												<div>Адресс - <?=$order_item->address?></div>
+												<div>Сообщение - <?=$order_item->message?></div>
+												<div>
+													<?foreach($city_id as $key => $c_i):?>
+														<?if($order_item->city_id == $key):?>
+															Город - <?=$c_i?>
+														<?endif;?>
+													<?endforeach;?>
+												</div>
 											</div>
 										</td>
 

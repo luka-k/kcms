@@ -22,9 +22,11 @@ class Order extends Client_Controller
 			'user_email' => $orders_info['email'],
 			'user_phone' => $orders_info['phone'],
 			'user_address' => $orders_info['address'],
+			'message' => $orders_info['message'],
 			'total' => $total_price,
 			'delivery_id' => $orders_info['delivery_id'],
 			'payment_id' => $orders_info['payment_id'],
+			'city_id' => $orders_info['city_id'],
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);

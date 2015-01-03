@@ -10,7 +10,7 @@
 	<div class="cart col_4">
 		<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
 		<div class="clearfix">
-			<div class="cart-btn">&nbsp;</div>
+			<a href="<?=base_url()?>cart" class="cart-btn" >&nbsp;</a>
 			<div class="cart-info"><span class="total_qty"><?=$total_qty?></span> <span class="product_word"><?=$product_word?></span> на сумму <span class="total_price"><?=$total_price?></span> рублей</div>
 		</div>
 	</div>				
