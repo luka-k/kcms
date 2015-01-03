@@ -1,5 +1,9 @@
 <div class="breadcrumb">
-	<? foreach ($breadcrumbs as $b): ?>
-		<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 
-	<? endforeach ?>
+	<? foreach ($breadcrumbs as $link):?>
+		<?if($link['last'] == FALSE):?>
+			<a href="<?=$link["url"]?>"><?=$link["name"]?></a> >
+		<?else:?>
+			<?=$link["name"]?>
+		<?endif;?>
+	<? endforeach?>
 </div>
