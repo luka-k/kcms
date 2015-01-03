@@ -9,6 +9,7 @@ class Admin_Controller extends CI_Controller
 	protected $menu;
 	protected $user_name;
 	protected $user_id;
+	protected $available_tags = array();
 
 	public function __construct()
 	{

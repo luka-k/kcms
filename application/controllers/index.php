@@ -32,7 +32,7 @@ class Index extends Client_Controller {
 			'content' => $this->articles->get_item_by(array('url' => '/'))
 			//'video' => $this->articles-get_list(array())
 		);
-		//var_dump($data['products_special']);
+		//var_dump($data['available_tags']);
 		$this->load->view('client/main.php', $data);
 	}	
 }

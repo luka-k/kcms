@@ -9,6 +9,6 @@
 		</ul>
 	</nav>
 	<form action="/search/" id="searchform" method="get">
-		<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
+		<input type="text" id="search_input" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию" onkeypress="autocomp();"/>
 	</form>
 </div>
