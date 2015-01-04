@@ -77,6 +77,23 @@ class Pages extends Client_Controller {
 		
 		$this->load->view("client/dealers", $data);
 	}
+	
+	public function contacts()
+	{
+		$this->breadcrumbs->Add("articles/kontakty", "Контакты");
+		$data = array(
+			'title' => "Контакты",
+			'meta_title' => "",
+			'meta_keywords' => "",
+			'meta_description' => "",
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'top_menu' => $this->top_menu->items,
+			'select_item' => "articles/kontakty",
+			'settings' => $this->settings->get_item_by(array("id" => 1))
+		);
+		
+		$this->load->view("client/contacts", $data);
+	}
 
 	// wishlist()
 	// вывод вишлиста
