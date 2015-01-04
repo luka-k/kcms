@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 30 2014 г., 23:04
+-- Время создания: Янв 04 2015 г., 17:07
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('2eed43f5136b47377bdcbfa720e7dc6e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1419966204, 'a:1:{s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}}');
+('8902826303c291ef7840ed480e219c44', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1420376328, 'a:5:{s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:6:{s:2:"id";s:1:"1";s:4:"name";s:25:"Диск колесный";s:3:"url";s:13:"disk-kolesnyj";s:5:"price";i:10500;s:3:"qty";s:1:"1";s:10:"item_total";i:10500;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:6:{s:2:"id";s:1:"3";s:4:"name";s:39:"Набор для ремонта шин";s:3:"url";s:23:"nabor-dlya-remonta-shin";s:5:"price";i:1080;s:3:"qty";i:1;s:10:"item_total";i:1080;}}s:9:"total_qty";i:2;s:10:"cart_total";i:11580;}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
 (2, 1, 'Где купить', 0, 1, '', 'articles', 'gde-kupit'),
 (3, 1, 'О нас', 0, 2, '', 'articles', 'o-nas'),
-(4, 1, 'Контакты', 0, 3, '', 'articles', 'kontakty'),
+(4, 1, 'Контакты', 0, 3, '', 'link', 'articles/kontakty'),
 (5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry'),
 (6, 1, 'Регистрация и вход', 1, 2, '', 'link', 'йцукен'),
 (7, 1, 'Поддержка клиентов', 0, 0, '', 'articles', 'podderzhka-klientov'),
@@ -284,20 +284,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `user_email` text COLLATE utf8_unicode_ci NOT NULL,
   `user_phone` text COLLATE utf8_unicode_ci NOT NULL,
   `user_address` text COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `city_id` int(1) NOT NULL,
   `total` int(11) NOT NULL,
   `delivery_id` int(11) NOT NULL,
   `payment_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Дамп данных таблицы `orders`
---
-
-INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
-(1, '5496df73c1bf2', '', 'Павел', '', '85555555', '', 10500, 0, 0, '2014-12-21 00:00:00', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -313,14 +308,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Дамп данных таблицы `orders_products`
---
-
-INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(1, '5496df73c1bf2', 1, 'Диск колесный', '10500', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -389,7 +377,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `main_title`, `description`, `site_description`, `site_keywords`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'RedBTR', 'admin@admin.ru', 'admin', 'Продукция от компании redBTR', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>', '', '', 0, '', 2, 6, 1);
+(1, 'RedBTR', 'info@redBTR.ru', 'admin', 'Продукция от компании redBTR', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>', '', '', 0, '', 2, 6, 1);
 
 -- --------------------------------------------------------
 
