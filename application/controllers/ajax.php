@@ -124,4 +124,16 @@ class Ajax extends CI_Controller {
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}
+	
+	function autocomplete()
+	{
+		$products = $this->products->get_list(FALSE);
+		foreach($products as $p)
+		{
+			$available_tags[] = $p->name;
+		}
+		$answer['available_tags'] = $available_tags;
+		
+		echo json_encode($answer);
+	}
 }

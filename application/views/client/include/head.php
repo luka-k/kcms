@@ -11,12 +11,15 @@
 		<link rel="stylesheet" type="text/css" href="css/responsive.css" media="all" />   
 		
 		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+			
+		<link href="<?=base_url()?>template/client/js/ui/jquery-ui.min.css" rel="stylesheet" />
 		
 		<link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,500,400italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.min.js"></script>
 		
 		<script>
 			function change_qty(action, item_id){
@@ -40,5 +43,22 @@
 			}
 
 		</script>
+	
+		<script>
+			function autocomp(){
+				var data = {};
+				data.r = " ";
+				var json_str = JSON.stringify(data);
+				$.post("/ajax/autocomplete/", json_str, autocomp_answer, 'json');
+			}
+		
+			function autocomp_answer(res){
+				var availableTags = res.available_tags;
+		
+				$("#search_input").autocomplete({
+					source: availableTags
+				});
+			}
+</script>
 	</head>
 	<body>
