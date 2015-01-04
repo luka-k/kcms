@@ -141,8 +141,8 @@
 					<?else:?>
 						<div class="catalog">
 							<div class="catalog__sort catalog-sort">
-								<a href="#price" class="catalog-sort__href active">По цене</a>
-								<a href="#price" class="catalog-sort__href">По наименованию</a>
+								<a href="<?=$order_price['link']?>" class="catalog-sort__href <?if($order_price['active'] == TRUE):?>active<?endif;?> <?if($order_price['icon'] <> FALSE):?><?=$order_price['icon']?><?endif;?>">По цене</a>
+								<a href="<?=$order_name['link']?>" class="catalog-sort__href <?if($order_name['active'] == TRUE):?>active<?endif;?> <?if($order_name['icon'] <> FALSE):?><?=$order_name['icon']?><?endif;?>">По наименованию</a>
 							</div> <!-- /.catalog__sort catalog-sort-->
 						
 							<h1 class="catalog__subtitle"><?=$content->name?></h1>

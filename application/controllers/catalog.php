@@ -20,8 +20,83 @@ class Catalog extends Client_Controller {
 		$link_url = base_url().uri_string()."?".$query_string;
 		$get = $this->input->get();
 		
-		!isset($get['order']) ? $order = "name" : $order = $get['order'];		
-		!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
+		//!isset($get['order']) ? $order = "name" : $order = $get['order'];		
+		//!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
+		
+		if(!isset($get['order']))
+		{
+			$order = "name";
+			$direction = "acs";
+
+			$order_price = array(
+				"link" => $link_url."&order=price&direction=asc",
+				"active" => FALSE,
+				"icon" => FALSE
+			);
+			
+			$order_name = array(
+				"link" => $link_url."&order=name&direction=asc",
+				"active" => FALSE,
+				"icon" => FALSE
+			);
+			
+		}
+		else
+		{
+			$order = $get['order'];
+			$direction = $get['direction'];
+			
+			if($order == "name")
+			{
+				$order_price = array(
+					"link" => $link_url."&order=price&direction=asc",
+					"active" => FALSE,
+					"icon" => FALSE
+				);
+				if($direction == "asc")
+				{				
+					$order_name = array(
+						"link" => $link_url."&order=name&direction=desc",
+						"active" => TRUE,
+						"icon" => "asc"
+					);
+				}
+				else
+				{
+					$order_name = array(
+						"link" => $link_url."&order=name&direction=asc",
+						"active" => TRUE,
+						"icon" => "desc"
+					);
+				}
+			}
+			elseif($order == "price")
+			{
+				$order_name = array(
+					"link" => $link_url."&order=name&direction=asc",
+					"active" => FALSE,
+					"icon" => FALSE
+				);
+				
+				if($direction == "asc")
+				{				
+					$order_price = array(
+						"link" => $link_url."&order=price&direction=desc",
+						"active" => TRUE,
+						"icon" => "asc"
+					);
+				}
+				else
+				{
+					$order_price = array(
+						"link" => $link_url."&order=price&direction=asc",
+						"active" => TRUE,
+						"icon" => "desc"
+					);
+				}
+			}
+		}
+
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
@@ -69,6 +144,8 @@ class Catalog extends Client_Controller {
 			'left_menu' => $left_menu,
 			'url' => $url,
 			'select_item' => "",
+			'order_price' => $order_price,
+			'order_name' => $order_name,
 			'filters' => $filters,
 			'filters_checked' => $filters_checked,
 			'min_price' => $min_price,
@@ -112,7 +189,7 @@ class Catalog extends Client_Controller {
 			{
 				if ($category == FALSE)
 				{
-					$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3);
+					$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3, $order, $direction);
 			
 					$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -136,6 +213,24 @@ class Catalog extends Client_Controller {
 					elseif(isset($category->products))
 					{
 						$category->products = $this->products->get_prepared_list($category->products);
+						
+						//Сортировка продуктов полученных функцией url_parse
+						
+						foreach ($category->products as $key => $row) 
+						{
+							if($order == "name")
+							{
+								$volume[$key]  = $row->name;
+							}
+							elseif($order == "price")
+							{
+								$volume[$key]  = $row->price;
+							}
+						}
+						
+						$direction == "asc" ? $sort = SORT_ASC : $sort = SORT_DESC;
+						array_multisort($volume, $sort, $category->products);
+						
 						$content = $category;
 						$template = "client/products.php";	
 					}		

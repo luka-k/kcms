@@ -2633,6 +2633,17 @@ span
 
     margin: 0 0 0 25px;
 }
+
+.catalog-sort__href.asc{
+	padding-right:10px;
+	background:url('../images/asc.png') no-repeat center right;
+}
+
+.catalog-sort__href.desc{
+	padding-right:10px;
+	background:url('../images/desc.png') no-repeat center right;
+}
+
 .catalog-sort__href:hover,
 .catalog-sort__href.active
 {
