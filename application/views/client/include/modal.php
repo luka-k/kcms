@@ -32,7 +32,7 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__form">
-		<form action="#" class="form validate_ajax" id="callback_form" method="post">
+		<form action="#" class="form" where="validate_ajax" id="callback_form" method="post">
 			<div class="form__line skew">
 				<input type="text" id="callback_name" class="form__input required" name="name" placeholder="Имя" />
 			</div> <!-- /.form__line -->

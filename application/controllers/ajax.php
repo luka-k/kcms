@@ -15,8 +15,18 @@ class Ajax extends CI_Controller {
 	{
 		$post = $this->input->post();
 		$admin_email = $this->config->item('admin_email');
-		$subject = 'Запрос на обратный звонок';
-		$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
+		
+		if(isset($post['dealer']))
+		{
+			$subject = 'Запрос о сотруднечестве';
+			$message = 'Клиент '.$post['name'].' предлагает сотруднечество </br> Контактные данные:</br> Телефон:'.$post['phone'].'E-mail: '.$post['email'];
+			$message .= '</br> К письму добавлен коментарий:</br>'.$post['message'];
+		}
+		else
+		{
+			$subject = 'Запрос на обратный звонок';
+			$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
+		}
 		($this->mail->send_mail($admin_email, $subject, $message));
 	}
 	

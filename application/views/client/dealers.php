@@ -26,7 +26,8 @@
 			<div class="page__content"><!-- тут может быть текст --></div> <!-- /.page__content -->
 			
 			<div class="page__form">
-				<form action="#" class="form" method="post">
+				<form action="#" class="form" where="validate_ajax" method="post">
+					<input type="hidden" name="dealer" value="true"/>
 					<div class="page-form">
 						<div class="page-form__block">
 							<div class="form__line page-form__line skew">

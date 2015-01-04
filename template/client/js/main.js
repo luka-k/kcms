@@ -422,21 +422,20 @@
     var _this = this;
     $.extend($.validator.messages, _this.validateMessages );
     $('form').each(function() {
-	
-	if($(this).attr('class') == "validate_ajax"){
+	console.log($(this).attr('where'));
+	if($(this).attr('where') === "validate_ajax"){
       $(this).validate({
 			errorPlacement: function(error, element) {},
 			submitHandler: function(form) {
-			_this.submitForm(form);
-        }
+				_this.submitForm(form);
+			}
       }); 
 	  }else{
 	   $(this).validate({
 			errorPlacement: function(error, element) {}
-      });
-	 
-	  
+		});
 	  }
+	  
     });
   };
 
