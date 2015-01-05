@@ -41,6 +41,12 @@ class Pages extends Client_Controller {
 			if($sub_level->url == "novosti")
 			{
 				$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
+				
+				foreach ($data['content']->articles as $key => $row) 
+				{
+					$volume[$key]  = $row->date;
+				}
+				array_multisort($volume, SORT_DESC, $data['content']->articles);
 			}
 			else
 			{
