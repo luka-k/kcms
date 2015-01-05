@@ -35,6 +35,9 @@
 						<h1 class="catalog__subtitle">Поиск</h1>
 						
 						<div class="catalog__list">
+						<?if(empty($content)):?>
+							Поиск не дал результата.
+						<?else:?>
 							<?foreach($content as $item):?>
 								<div class="catalog__item">
 									<div class="catalog-item">
@@ -58,11 +61,8 @@
 									</div> <!-- /.catalog-item -->
 								</div> <!-- /.catalog__item -->
 							<?endforeach;?>
+						<?endif;?>
 						</div> <!-- /.catalog__list -->
-						
-						<div class="catalog__load load-link">
-							<a href="#load" class="load-link__href">Еще товары</a>
-						</div> <!-- /.catalog__load -->
 					</div> <!-- /.catalog -->
 				</div> <!-- /.page-catalog__products -->
 			</div> <!-- /.page-catalog__content -->
