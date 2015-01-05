@@ -1,41 +1,8 @@
 <script>
 	$(function() {
-		$('#sortable').sortable({cursor:'move'});
-		$('#sortable').sortable({cursorAt:{left:5}})
-		$('#sortable').sortable({
-			axis: 'y',
-			update: function (event, ui) {
-				var data = $(this).sortable('serialize');
-				$.ajax({
-					data: data,
-					type: 'POST',
-					url: '/admin/admin_ajax/sortable/'
-				});
-			}
-		});
-	});
-	
-	$(function() {
-		$('#sortable-1').sortable({cursor:'move'});
-		$('#sortable-1').sortable({cursorAt:{left:5}})
-		$('#sortable-1').sortable({
-			axis: 'y',
-			update: function (event, ui) {
-				var data = $(this).sortable('serialize');
-				$.ajax({
-					data: data,
-					type: 'POST',
-					url: '/admin/admin_ajax/sortable/'
-				});
-			}
-		});
-	});
-	
-	
-	$(function() {
-		$('#sortable-2').sortable({cursor:'move'});
-		$('#sortable-2').sortable({cursorAt:{left:5}})
-		$('#sortable-2').sortable({
+		$('.sortable').sortable({cursor:'move'});
+		$('.sortable').sortable({cursorAt:{left:5}})
+		$('.sortable').sortable({
 			axis: 'y',
 			update: function (event, ui) {
 				var data = $(this).sortable('serialize');

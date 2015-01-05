@@ -20,7 +20,7 @@
 								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>" class="button small">Создать</a>
 							</div>			
 						</div>
-						<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
+						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
 									<th class="tb_1">Номер</th>
@@ -34,7 +34,7 @@
 									<th class="tb_1">Действие</th>
 								</tr>
 							</thead>
-							<tbody <?if(isset($sortable)):?> id="sortable"<?endif?>>
+							<tbody <?if(isset($sortable)):?> class="sortable"<?endif?>>
 								<?$count = 1?>
 								<?php foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
