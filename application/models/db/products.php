@@ -11,9 +11,9 @@ class Products extends MY_Model
 			'is_new' => array('Новинка', 'checkbox', 'integer'),
 			'is_good_buy' => array('Выгодное предложение', 'checkbox', 'integer'),
 			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
-			'warrant' => array('Гарантия', 'text', 'trim|required|htmlspecialchars'),
+			'warrant' => array('Гарантия<br/><i>Пример: 1 год</i>', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
-			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
+			'discount' => array('Скидка<br/><i>В процентах</i>', 'text', 'trim|htmlspecialchars|max_length[2]'),
 			'short_description' => array('Краткое описание', 'tiny', ''),
 			'description' => array('Описание', 'tiny-2', '')
 		),

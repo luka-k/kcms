@@ -63,7 +63,7 @@
 							</li> <!-- /.product-main-info__characteristic -->
 							
 							<li class="product-main-info__characteristic">
-								<strong>Гарантия</strong> <?=$content->warrant?> года
+								<strong>Гарантия</strong> <?=$content->warrant?>
 							</li> <!-- /.product-main-info__characteristic -->
 						</ul> <!-- /.product-main-info__characteristics -->
 						
