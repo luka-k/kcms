@@ -2,7 +2,7 @@
 
 class Cabinet extends Client_Controller {
 
-	public $orders; 
+	public $user_orders; 
 	public $user;
 	public $orders_info = array();
 	
@@ -14,9 +14,9 @@ class Cabinet extends Client_Controller {
 		
 		$this->user = $this->users->get_item_by(array('id' => $this->user_id));
 		
-		$this->orders = $this->orders->get_list(array("user_id" => $this->user_id));
+		$this->user_orders = $this->orders->get_list(array("user_id" => $this->user_id));
 		
-		foreach ($this->orders as $key => $order)
+		foreach ($this->user_orders as $key => $order)
 		{	
 			$this->orders_info[$key] = new stdClass();	
 			
@@ -27,7 +27,7 @@ class Cabinet extends Client_Controller {
 			$this->orders_info[$key] = (object)array(
 				"order_id" => $order->order_id,
 				"status" => $order->status_id,
-				"order_products" => $order_items,
+				"order_products" => $this->orders->get_prepared_list($order_items),
 				'selects' => array(
 					'delivery_id' => $this->config->item('method_delivery'),
 					'payment_id' => $this->config->item('method_pay')
@@ -58,6 +58,7 @@ class Cabinet extends Client_Controller {
 			'error' => "",
 			'user' => $this->user,
 			'top_menu' => $this->top_menu->items,
+			'select_item' => "",
 			'cart' => $this->cart->get_all(),
 			'total_price' => $this->cart->total_price(),
 			'total_qty' => $this->cart->total_qty(),
@@ -68,7 +69,7 @@ class Cabinet extends Client_Controller {
 			),
 			'status_id' => $this->config->item('order_status')
 		);
-			
+
 		$this->load->view('client/cabinet.php', $data);
 	}
 	

@@ -8,7 +8,6 @@ class Account extends Client_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
 		$this->config->load('order_config');
 	}
 	
@@ -29,6 +28,7 @@ class Account extends Client_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
+				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
 				'activity' => "enter"
 			);	
@@ -45,7 +45,6 @@ class Account extends Client_Controller
 	//Выход
 	public function do_exit()
 	{
-		$role = $this->session->userdata('role');
 		$authdata = array(
 			'user_id' => '',
 			'user_name' => '',
@@ -53,7 +52,7 @@ class Account extends Client_Controller
 			);
 		$this->session->unset_userdata($authdata);
 		
-		redirect(base_url().'cart');
+		redirect(base_url());
 	}
 	
 	/*Вывод формы востановления пароля*/
@@ -65,6 +64,7 @@ class Account extends Client_Controller
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
 			'activity' => "restore"
 		);
@@ -81,6 +81,7 @@ class Account extends Client_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
+				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
 				'activity' => "restore"
 			);
@@ -127,6 +128,7 @@ class Account extends Client_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
+				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
 				'email' => $this->input->get('email'),
 				'secret' => $this->input->get('secret'),
@@ -149,6 +151,7 @@ class Account extends Client_Controller
 				'meta_keywords' => "",
 				'meta_description' => "",
 				'error' => "",
+				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
 				'activity' => "restore"
 			);
@@ -188,7 +191,9 @@ class Account extends Client_Controller
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
+			'select_item' => "",
 			'activity' => $activity
 		);
 		
@@ -203,6 +208,7 @@ class Account extends Client_Controller
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
 			'reg' => "true"
 		);	

@@ -39,6 +39,14 @@ class Orders extends MY_Model
 		}
 	}	
 	
+	function prepare($item)
+	{
+		if(!is_object($item)) $item = (object)$item;
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->product_id), 1);
+		if(isset($item->url)) $item->full_url = $this->get_url($item->url);
+		return $item;		
+	}
+	
 }
 
 /* End of file news.php */

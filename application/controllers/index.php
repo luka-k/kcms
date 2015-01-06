@@ -44,6 +44,7 @@ class Index extends Client_Controller {
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,

@@ -12,6 +12,7 @@ class Pages extends Client_Controller {
 		$page = $this->articles->url_parse(2);
 		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
 		$data = array(
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => $select_item
@@ -73,6 +74,7 @@ class Pages extends Client_Controller {
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => $select_item
@@ -92,6 +94,7 @@ class Pages extends Client_Controller {
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => "articles/kontakty",
@@ -114,6 +117,7 @@ class Pages extends Client_Controller {
 			'meta_title' => "",
 			'meta_keywords' => "",
 			'meta_description' => "",
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
@@ -121,7 +125,6 @@ class Pages extends Client_Controller {
 			'product_word' => end_maker("товар", $this->total_qty),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'wishlist'),
 			'left_menu' => $left_menu,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'wishlist' => $wishlist
 		);
 

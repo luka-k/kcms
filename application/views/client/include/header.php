@@ -17,8 +17,13 @@
 		
 		<div class="header__login">
 			<div class="header-login">
-				<a href="<?=base_url()?>account/registration?activity=enter" class="header-login__href header-login__enter">Вход</a>
-				<a href="<?=base_url()?>account/registration?activity=reg" class="header-login__href header-login__register">Регистрация</a>
+				<?if(empty($user)):?>
+					<a href="<?=base_url()?>account/registration?activity=enter" class="header-login__href header-login__enter">Вход</a>
+					<a href="<?=base_url()?>account/registration?activity=reg" class="header-login__href header-login__register">Регистрация</a>
+				<?else:?>
+					Добро пожаловать, <br/><a href="<?=base_url()?>cabinet" class="header-login__register"><?=$user->name?></a>
+					<a href="<?=base_url()?>account/do_exit" class="header-login__register" style="float:right;">выход</a>
+				<?endif;?>
 			</div> <!-- /.header-login -->
 		</div> <!-- /.header__login -->
 		

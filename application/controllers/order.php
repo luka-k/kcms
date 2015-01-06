@@ -41,7 +41,7 @@ class Order extends Client_Controller
 				"order_id" => $order_id,
 				"user_name" => $user->name
 			);
-			$this->emails->send_mail($orders_info['email'], 'customer_order', $message_info);
+			$this->emails->send_mail($user->email, 'customer_order', $message_info);
 			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 		}
 		

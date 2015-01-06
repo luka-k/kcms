@@ -82,19 +82,20 @@
 					
 					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
 						<div class="cart-order__form">
+							<input type="hidden" name="id"  value="<?if($user->id):?><?=$user->id?><?endif;?>"/>
 							<div class="form__line skew">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" />
+								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
 							</div> <!-- /.form__line -->
 							
 							<div class="form__line skew">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" />
+								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if($user->phone):?><?=$user->phone?><?endif;?>" />
 							</div> <!-- /.form__line -->
 							
 							<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
 							
 							<div class="cart-order__extra hidden" id="extra">
 								<div class="form__line skew">
-									<textarea name="address" class="form__textarea" placeholder="Адрес доставки"></textarea>
+									<textarea name="address" class="form__textarea" placeholder="Адрес доставки" value="<?if($user->address):?><?=$user->address?><?endif;?>"></textarea>
 								</div> <!-- /.form__line -->
 							</div> <!-- /.cart-order__extra -->
 							

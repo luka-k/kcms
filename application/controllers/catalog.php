@@ -135,6 +135,7 @@ class Catalog extends Client_Controller {
 		}
 
 		$data = array(
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'cart_items' => $this->cart_items,
 			'total_price' => $this->total_price,
@@ -268,6 +269,7 @@ class Catalog extends Client_Controller {
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'cart_items' =>	$this->cart_items,
 			'total_price' => $this->total_price,
