@@ -8,11 +8,11 @@
 			
 				<div class="promo__wrap wrap">
 					<a href="#" class="promo__title">
-						Заголовок рекламной акции
+						<?=$slide->name?>
 					</a> <!-- /.promo__title -->
 				
 					<a href="#" class="promo__desc">
-						Краткое описание условий акции с переходом на страницу с полным текстом
+						<?=$slide->description?>
 					</a>
 				</div> <!-- /.promo__wrap wrap -->
 			</li> <!-- /.promo__slide -->

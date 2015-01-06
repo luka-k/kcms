@@ -12,7 +12,7 @@ class Index extends Client_Controller {
 	public function index()
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
-		$slider = $this->slider->get_list(FALSE);
+		$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
 		
 		$top_menu = $this->dynamic_menus->get_menu(1);
 		

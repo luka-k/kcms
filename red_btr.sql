@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 04 2015 г., 17:07
+-- Время создания: Янв 07 2015 г., 03:20
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -58,7 +58,7 @@ INSERT INTO `articles` (`id`, `date`, `parent_id`, `name`, `sort`, `description`
 (11, '2014-12-22', 5, 'Политика качества', 0, '', '', '', '', 'politika-kachestva'),
 (12, '2014-12-22', 5, 'ЧА.ВО. / FAQ', 0, '', '', '', '', 'cha-vo-faq'),
 (13, '2014-12-22', 5, 'Работа с магазином', 0, '', '', '', '', 'rabota-s-magazinom'),
-(14, '2014-12-22', 2, 'Название мероприятия', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
+(14, '2014-12-23', 2, 'Название мероприятия', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
 (15, '2014-12-22', 8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia nesciunt similique eaque, ab ad quae molestiae fugit tempora aut. Magni, explicabo quam ratione praesentium veritatis distinctio aliquid dignissimos voluptatum repellendus.</p>\r\n', '', '', '', 'lorem-ipsum-dolor-sit-amet-consectetur-adipisicing-elit'),
 (16, '2014-12-29', 2, 'Название мероприятия 2', 0, '<p>Текст пробной новости</p>\r\n', '', '', '', 'nazvanie-meropriyatiya'),
 (17, '2014-12-29', 8, 'Мероприятие три', 0, '<p>Текст пробной новости</p>\r\n', '', '', '', 'meropriyatie-tri'),
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('8902826303c291ef7840ed480e219c44', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1420376328, 'a:5:{s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:6:{s:2:"id";s:1:"1";s:4:"name";s:25:"Диск колесный";s:3:"url";s:13:"disk-kolesnyj";s:5:"price";i:10500;s:3:"qty";s:1:"1";s:10:"item_total";i:10500;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:6:{s:2:"id";s:1:"3";s:4:"name";s:39:"Набор для ремонта шин";s:3:"url";s:23:"nabor-dlya-remonta-shin";s:5:"price";i:1080;s:3:"qty";i:1;s:10:"item_total";i:1080;}}s:9:"total_qty";i:2;s:10:"cart_total";i:11580;}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:4:"role";s:5:"admin";s:9:"logged_in";b:1;}');
+('c0fb39f7a8e318ce4585551a5458cb24', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0', 1420586347, 'a:5:{s:4:"role";s:5:"admin";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}s:7:"user_id";s:2:"27";s:9:"user_name";s:5:"admin";s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -224,7 +224,8 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUE
 (31, 1, 'products', 2, '/1/[/1[2].jpg'),
 (32, 1, 'products', 3, '/2/[/2[3].jpg'),
 (34, 1, 'products', 5, '/2/./2.jpg'),
-(35, 1, 'products', 4, '/2/[/2[1].jpg');
+(35, 1, 'products', 4, '/2/[/2[1].jpg'),
+(36, 1, 'slider', 2, '/1/[/1[3].jpg');
 
 -- --------------------------------------------------------
 
@@ -259,11 +260,11 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (11, 1, 'Новости', 3, 0, '', 'articles', 'novosti'),
 (12, 1, 'История компании', 3, 1, '', 'articles', 'istoriya-kompanii'),
 (13, 1, 'Производства', 3, 2, '', 'articles', 'proizvodstva'),
-(14, 1, 'Политика качества', 3, 3, '', 'articles', 'politika-kachestva'),
-(15, 1, 'ЧА.ВО. / FAQ', 3, 4, '', 'articles', 'cha-vo-faq'),
-(16, 1, 'Работа с магазином', 3, 5, '', 'articles', 'rabota-s-magazinom'),
-(17, 1, 'Выставки', 11, 1, '', 'articles', 'vystavki'),
-(18, 1, 'Внедорожные мероприятия', 11, 0, '', 'articles', 'vnedorozhnye-meropriyatiya'),
+(14, 1, 'Политика качества', 3, 4, '', 'articles', 'politika-kachestva'),
+(15, 1, 'ЧА.ВО. / FAQ', 3, 5, '', 'articles', 'cha-vo-faq'),
+(16, 1, 'Работа с магазином', 3, 3, '', 'articles', 'rabota-s-magazinom'),
+(17, 1, 'Выставки', 11, 0, '', 'articles', 'vystavki'),
+(18, 1, 'Внедорожные мероприятия', 11, 1, '', 'articles', 'vnedorozhnye-meropriyatiya'),
 (19, 1, 'Как стать дилером', 2, 1, '', 'link', 'articles/gde-kupit/dealers'),
 (20, 1, 'Информация', 16, 1, '', 'articles', 'informaciya'),
 (21, 1, 'Оформление заказа', 16, 2, '', 'articles', ''),
@@ -292,7 +293,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `message`, `city_id`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
+(1, '54ac559438167', '27', 'admin', '', '8-950-123-45', '', '', 0, 10500, 0, 0, '2015-01-07 00:00:00', 1),
+(4, '54ac6b870208d', '27', 'admin', '', '8-950-123-45-56', '', '', 0, 10500, 0, 0, '2015-01-07 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +317,15 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `orders_products`
+--
+
+INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
+(1, '54ac559438167', 1, 'Диск колесный', '10500', 1),
+(2, '54ac6b870208d', 1, 'Диск колесный', '10500', 1);
 
 -- --------------------------------------------------------
 
@@ -346,7 +363,7 @@ INSERT INTO `products` (`id`, `parent_id`, `is_active`, `is_new`, `is_good_buy`,
 (1, 3, 1, 1, 1, 0, 'Диск колесный', 'dr001', '2', 15000, 30, '', '', '', '', 'disk-kolesnyj', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
 (2, 6, 1, 1, 0, 0, 'Канистра', 'к456', '2', 1000, 0, '', '', '', '', 'kanistra', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
 (3, 8, 0, 1, 1, 0, 'Набор для ремонта шин', 'sh678', '2', 1200, 10, '', '', '', '', 'nabor-dlya-remonta-shin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
-(4, 8, 1, 1, 1, 0, 'Набор для ремонта безкамерных шин', 'sh456', '1', 1500, 0, '', '', '', '', 'nabor-dlya-remonta-bezkamernyh-shin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
+(4, 8, 1, 1, 1, 1, 'Набор для ремонта безкамерных шин', 'sh456', '1', 1500, 0, '', '', '', '', 'nabor-dlya-remonta-bezkamernyh-shin', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n'),
 (5, 7, 1, 1, 1, 0, 'Проектор', 'pr236', '2', 5000, 20, '', '', '', '', 'proektor', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita . Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>\r\n');
 
 -- --------------------------------------------------------
@@ -387,19 +404,21 @@ INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `main_t
 
 CREATE TABLE IF NOT EXISTS `slider` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `link` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `is_active` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `slider`
 --
 
-INSERT INTO `slider` (`id`, `name`, `description`, `link`, `is_active`) VALUES
-(1, 'Заголовок рекламной акции', '<p>Краткое описание условий акции с переходом на страницу с полным текстом</p>\r\n', '#', 1);
+INSERT INTO `slider` (`id`, `sort`, `name`, `description`, `link`, `is_active`) VALUES
+(1, 0, 'Заголовок рекламной акции-1', '<p>Краткое описание условий акции с переходом на страницу с полным текстом</p>\r\n', '#', 1),
+(2, 0, 'Заголовок рекламной акции-2', '<p>Краткое описание условий акции с переходом на страницу с полным текстом</p>\r\n', '', 1);
 
 -- --------------------------------------------------------
 
@@ -425,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `role`, `secret`) VALUES
-(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45', '', 'admin', ''),
+(27, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45-56', '', 'admin', ''),
 (30, 'Павел', 'fae0b27c451c728867a567e8c1bb4e53', 'luka@mail.ru', '', '', 'customer', 'f556de45badbca0264ee68f418a42265');
 
 -- --------------------------------------------------------
