@@ -20,6 +20,9 @@
 	
 	<div class="page page-cart">
 		<div class="page__wrap wrap">
+		<?if(!empty($action)):?>
+			Ваш заказ успешно оформлен.
+		<?else:?>
 			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
 			<?if(!empty($cart_items)):?>
 			<div class="page-cart__products">
@@ -109,6 +112,7 @@
 			<?else:?>
 				Корзина пуста
 			<?endif;?>
+		<?endif;?>
 		</div> <!-- /.page__wrap wrap -->
 	</div> <!-- /.page -->
 

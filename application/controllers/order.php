@@ -60,6 +60,6 @@ class Order extends Client_Controller
 		}
 	
 		$this->cart->clear();
-		redirect(base_url().'cart/');		
+		redirect(base_url().'cart?action=order');		
 	}
 }

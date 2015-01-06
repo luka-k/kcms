@@ -262,8 +262,7 @@ class Catalog extends Client_Controller {
 		{
 			$this->cart_items = $this->products->get_prepared_list($this->cart_items);
 		}
-		
-		//var_dump($this->cart_items);
+
 		$data = array(
 			'title' => "Корзина",
 			'meta_title' => $settings->site_title,
@@ -277,9 +276,9 @@ class Catalog extends Client_Controller {
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'user' => $this->users->get_item_by(array("id" => $this->user_id))
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'action' => $this->input->get('action')
 		);
-		
 		$this->load->view('client/cart.php', $data);
 	}
 }
