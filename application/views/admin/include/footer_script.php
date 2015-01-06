@@ -90,6 +90,13 @@
 		}
 	}
 	
+	$(function(){
+		$( ".datepicker" ).datepicker();
+		$( ".datepicker" ).datepicker( "option", $.datepicker.regional["ru"]);
+		$( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd");
+		$( ".datepicker" ).datepicker( "setDate", $(".datepicker").attr('date') );
+	});
+	
 	jQuery(document).ready(function($){	
 			var ckeditor = CKEDITOR.replace('editor');
 			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});

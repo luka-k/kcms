@@ -6,7 +6,7 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'date' => array('Дата', 'text', 'set_date'),
+			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', '')
