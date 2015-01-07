@@ -7,7 +7,7 @@
 		<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
 		<div class="work-time">звонок по России бесплатно</div>
 	</div>
-	<div class="cart col_4">
+	<div id="cart-top" class="cart col_4">
 		<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
 		<div class="clearfix">
 			<a href="<?=base_url()?>cart" class="cart-btn" >&nbsp;</a>
@@ -15,3 +15,12 @@
 		</div>
 	</div>				
 </header>
+
+<script>
+var aside = document.getElementById('cart-top'),
+    t0 = aside.getBoundingClientRect().top - document.documentElement.getBoundingClientRect().top; // отступ от верхнего края окна браузера до элемента
+    // window.pageYOffset - прокрутка веб-документа
+window.addEventListener('scroll', function(e) {
+  aside.className = (t0 < window.pageYOffset ? 'cart-top col_4' : 'cart col_4');
+}, false);
+</script>
