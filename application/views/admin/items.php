@@ -17,7 +17,7 @@
 						<div class="col_12">						
 							<h6 class="col_8 left">Редактировать</h6> 
 							<div class="col_4 right">
-								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>" class="button small">Создать</a>
+								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small">Создать</a>
 							</div>			
 						</div>
 						<table  id="sort" cellspacing="2" cellpadding="2" >

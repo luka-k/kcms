@@ -40,10 +40,12 @@ class Content extends Admin_Controller
 		
 		if($id == FALSE)
 		{
+			
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 		}
 		else
 		{
+			$data["parent_id"] = $id;
 			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
@@ -53,7 +55,7 @@ class Content extends Admin_Controller
 			$data['content'] = $this->images->get_img_list($data['content'], $type);
 			$data['images'] = TRUE;
 		}
-		
+
 		$this->load->view('admin/items.php', $data);
 	}
 	
@@ -91,7 +93,14 @@ class Content extends Admin_Controller
 			if($id == FALSE)
 			{	
 				$content = set_empty_fields($data['editors']);
+				
+				if($this->db->field_exists('parent_id', $type))
+				{
+					$parent_id = $this->input->get('parent_id');
+					$content->parent_id = $parent_id;
+				}
 				$content->is_active = "1";
+
 				$data['content'] = $content;
 				$data['content']->img = NULL;
 				$field_name = editors_field_exists('ch', $data['editors']);
