@@ -1,0 +1,1 @@
+ALTER TABLE slider ADD COLUMN sort INT
