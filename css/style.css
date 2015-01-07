@@ -83,12 +83,16 @@ color:#fff;
 position:relative;
 float:right;
 min-width:300px;
+width:20%;
 height:29px;
 margin:0;
 padding:3px 20px 0 40px;
 border:1px solid #2d2d2d;
 background:#222222 url(../img/cart.png) 10px center no-repeat;
 font-weight:medium;
+white-space:nowrap;
+text-overflow: ellipsis;
+overflow:hidden;
 }
 
 .cart .cart-btn{

@@ -163,7 +163,7 @@
 									<td><a href="<?= $p->full_url ?>"><?= $p->name ?></a></td>
 									<td><? if ($p->price) : ?>на&nbsp;складе<? else : ?> под заказ<? endif?></td>
 									<td><? if ($p->price) : ?><?= $p->price ?>&nbsp;р.<? endif?></td>
-									<td><button class="red-btn square" onclick=" $(this).addClass('green-btn');$(this).removeClass('red-btn');$(this).html('Добавлено'); add_to_cart('<?=$p->id ?>', 1); return false;"><? if ($p->price) : ?>купить<? else : ?>заказать<? endif?></button></td>
+									<td><button class="red-btn square" onclick="fancy_to_cart('<?=$s->id?>', '<?=$s->name?>'); return false;"><? if ($p->price) : ?>купить<? else : ?>заказать<? endif?></button></td>
 								</tr>
 								<? endforeach ?>
 							</tbody>
@@ -179,5 +179,5 @@
 					<? endif ?>
 				</div>
 
-
+<? require 'include/modal.php' ?>
 <? require 'include/footer.php' ?>
