@@ -59,7 +59,7 @@
 										</div> <!-- /.catalog-range__to -->
 									</div> <!-- /.catalog-slider__scale -->
 									
-									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>"></div> <!-- /.catalog-range__slider -->
+									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>" data-min-value="<?=$min_value?>" data-max-value="<?=$max_value?>"></div> <!-- /.catalog-range__slider -->
 									<input type="hidden" id="price_from" name="price_from" value="<?=$min_price?>"/>
 									<input type="hidden" id="price_to" name="price_to" value="<?=$max_price?>"/>
 								</div> <!-- /.catalog-range -->

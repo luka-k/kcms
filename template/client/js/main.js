@@ -145,14 +145,17 @@
         $rangeTo = $('[data-range-to]'),
         min = $rangeSlider.data('range-min'),
         max = $rangeSlider.data('range-max'),
+		min_value = $rangeSlider.data('min-value'),
+        max_value = $rangeSlider.data('max-value'),
         step = parseInt( (max - min) / 10 );
-
+	
+	console.log(min_value);
     $rangeSlider.slider({
       min: min,
       max: max,
       step: step,
       range: true,
-      values: [ min, max ],
+      values: [ min_value, max_value ],
       stop: function( event, ui ) {
 		$rangeFrom.html( ui.values[ 0 ] );
         $rangeTo.html( ui.values[ 1 ] );

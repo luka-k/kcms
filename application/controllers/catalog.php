@@ -112,27 +112,16 @@ class Catalog extends Client_Controller {
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
-		if(empty($get['price_to']))
-		{		
-			$this->db->select_max('price');
-			$query = $this->db->get('products');
-			$max_price = $query->row()->price;
-		}
-		else
-		{
-			$max_price = $get['price_to'];
-		}
-		
-		if(empty($get['price_from']))
-		{
-			$this->db->select_min('price');
-			$query = $this->db->get('products');
-			$min_price = $query->row()->price;
-		}
-		else
-		{
-			$min_price = $get['price_from'];
-		}
+		$this->db->select_max('price');
+		$query = $this->db->get('products');
+		$max_price = $query->row()->price;
+		empty($get['price_to']) ? $max_value = $max_price : $max_value = $get['price_to'];
+
+		$this->db->select_min('price');
+		$query = $this->db->get('products');
+		$min_price = $query->row()->price;
+
+		empty($get['price_from']) ? $min_value = $min_price : $min_value = $get['price_from'];
 
 		$data = array(
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
@@ -151,6 +140,8 @@ class Catalog extends Client_Controller {
 			'filters_checked' => $filters_checked,
 			'min_price' => $min_price,
 			'max_price' => $max_price,
+			'min_value' => $min_value,
+			'max_value' => $max_value,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'settings' => $settings
 		);
