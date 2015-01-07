@@ -23,6 +23,8 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.pack.js"></script> <!--fancybox js-->
 		
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
+		
 		<script>
 			function change_qty(action, item_id){
 				if(item_id != false){
