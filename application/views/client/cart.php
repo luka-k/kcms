@@ -85,7 +85,11 @@
 			
 			<div id="content" class="col_9 clearfix">
 				<? require 'include/breadcrumbs.php'?>	
-				
+				<?if(!empty($action)):?>
+					<div id="cart" style="padding:10px 20px;">
+						<div class="title-2">Ваш заказ успешно оформлен.</div>
+					</div>
+				<?else:?>
 				<?if($cart_items):?>
 					<div class="title col_12">Ваши заказы</div>
 					<div id="cart">
@@ -181,6 +185,7 @@
 					<div id="cart" style="padding:10px 20px;">
 						<div class="title-2">Корзина пуста</div>
 					</div>
+				<?endif;?>
 				<?endif;?>
 			</div>
 

@@ -159,7 +159,8 @@ class Catalog extends Client_Controller {
 			'city_id' => $this->config->item('city_id'),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
 			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
-			'user' => $this->users->get_item_by(array("id" => $this->user_id))
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'action' => $this->input->get('action')
 		);
 		$this->load->view('client/cart.php', $data);
 	}
