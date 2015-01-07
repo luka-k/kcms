@@ -15,12 +15,3 @@
 		</div>
 	</div>				
 </header>
-
-<script>
-var aside = document.getElementById('cart-top'),
-    t0 = aside.getBoundingClientRect().top - document.documentElement.getBoundingClientRect().top; // отступ от верхнего края окна браузера до элемента
-    // window.pageYOffset - прокрутка веб-документа
-window.addEventListener('scroll', function(e) {
-  aside.className = (t0 < window.pageYOffset ? 'cart-top col_4' : 'cart col_4');
-}, false);
-</script>

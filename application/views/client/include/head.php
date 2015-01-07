@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.js"></script>
 		<script type="text/javascript" src="js/kickstart.js"></script>                            <!-- KICKSTART -->
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.pack.js"></script> <!--fancybox js-->
 		
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
@@ -63,6 +63,14 @@
 					source: availableTags
 				});
 			}
+</script>
+<script>
+var aside = document.getElementById('cart-top'),
+    t0 = aside.getBoundingClientRect().top - document.documentElement.getBoundingClientRect().top; // отступ от верхнего края окна браузера до элемента
+    // window.pageYOffset - прокрутка веб-документа
+window.addEventListener('scroll', function(e) {
+  aside.className = (t0 < window.pageYOffset ? 'cart-top col_4' : 'cart col_4');
+}, false);
 </script>
 	</head>
 	<body>
