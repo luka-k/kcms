@@ -59,9 +59,9 @@
 			<?elseif($sub_template == "news"):?>
 				<div class="page-news__categories inline-categories">
 					<ul class="inline-categories__list skew">
-						<?foreach($level_3 as $item):?>
+						<?foreach($level_3->items as $item):?>
 							<li class="inline-categories__item">
-								<a href="<?=$item->full_url?>" class="inline-categories__href"><?=$item->name?></a>
+								<a href="<?=$item->full_url?>" class="inline-categories__href <?if($level_3->active == $item->url):?>active<?endif;?>"><?=$item->name?></a>
 							</li> <!-- /.inline-categories__item -->
                         <?endforeach;?>
 					</ul> <!-- /.inline-categories__inner -->

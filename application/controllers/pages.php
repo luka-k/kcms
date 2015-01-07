@@ -20,11 +20,21 @@ class Pages extends Client_Controller {
 		
 		$url = $this->uri->segment(2);
 		$root = $this->menus_items->get_item_by(array("url" => $url));
-		if($root && $url <> "podderzhka-klientov") $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
+		if($root && $url <> "podderzhka-klientov")
+		{
+			$level_2->items = $this->menus_items->menu_tree(1, $root->id);
+			$level_2->active = $this->uri->segment(3);
+			$data['level_2'] = $level_2;
+		}
 		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
 				
-		if($sub_level) $data['level_3'] = $this->menus_items->menu_tree(1, $sub_level->id);
+		if($sub_level)
+		{	
+			$level_3->items = $this->menus_items->menu_tree(1, $sub_level->id);
+			$level_3->active = $this->uri->segment(4);
+			$data['level_3'] = $level_3;
+		}
 
 		$data['content'] = $page;
 
@@ -67,6 +77,7 @@ class Pages extends Client_Controller {
 	public function dealers()
 	{
 		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
+		
 		$this->breadcrumbs->Add("articles/gde-kupit", "Где купить");
 		$this->breadcrumbs->Add("dealers", "Как стать дилером");
 		$data = array(
@@ -81,7 +92,12 @@ class Pages extends Client_Controller {
 		);
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		if($root) $data['level_2'] = $this->menus_items->menu_tree(1, $root->id);
+		if($root) 
+		{
+			$level_2->items = $this->menus_items->menu_tree(1, $root->id);
+			$level_2->active = "articles/gde-kupit/dealers";
+			$data['level_2'] = $level_2;
+		}
 		
 		$this->load->view("client/dealers", $data);
 	}
