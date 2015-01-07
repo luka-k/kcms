@@ -57,11 +57,6 @@ jQuery(document).ready(function($){
 		});
 	});
 
-	// lightbox links
-	$('a.lightbox').fancybox({
-		overlayOpacity: 0.2,
-		overlayColor: '#000'
-	});
 
 	/*---------------------------------
 		Tabs

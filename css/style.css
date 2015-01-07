@@ -190,6 +190,7 @@ font-size:16px;
 box-shadow:none;
 -webkit-box-shadow:none;
 -moz-box-shadow:none;
+text-decoration:none;
 }
 .green-btn {
 padding:7px 14px 10px 14px;
@@ -1268,4 +1269,43 @@ text-transform:uppercase;
 font-weight:normal;
 color:#000;
 text-align:left;
+}
+
+/* ==========================================================================
+ * modal
+ * ========================================================================== */
+.modal
+{
+    display: none;
+    padding: 30px;
+    text-align: center;
+}
+
+.modal--to-cart
+{
+    max-width: 470px;
+}
+.modal__title
+{
+   font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.modal-cart__label
+{
+    display: inline-block;
+
+    margin: 0 10px 0;
+}
+.modal-cart__input
+{
+    width: 30px;
+    padding-left: 0;
+	margin-bottom:10px;
+    text-align: center;
+}
+
+.fancybox-skin
+{
+    border-radius: 0;
 }
