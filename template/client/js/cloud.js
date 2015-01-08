@@ -256,17 +256,7 @@
                     zoomDiv.append(format('<div class="cloud-zoom-title">%0</div>', sImg.attr('title'))).find(':last').css('opacity', opts.titleOpacity);
                 }
 
-                // Fix ie6 select elements wrong z-index bug. Placing an iFrame over the select element solves the issue...		
-                if ($.browser.msie && $.browser.version < 7) {
-                    $ie6Fix = $('<iframe frameborder="0" src="#"></iframe>').css({
-                        position: "absolute",
-                        left: xPos,
-                        top: yPos,
-                        zIndex: 99,
-                        width: w,
-                        height: h
-                    }).insertBefore(zoomDiv);
-                }
+
 
                 zoomDiv.fadeIn(500);
 
