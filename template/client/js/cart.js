@@ -1,5 +1,6 @@
 function add_to_cart(item_id){
 	data = new Object();
+	
 	if(document.getElementById('product_qty'))
 	{
 		var qty = document.getElementById('product_qty').value;
@@ -9,7 +10,7 @@ function add_to_cart(item_id){
 	}
 	
 	data.item_id = item_id;
-	
+	console.log(data.item_id);
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/add_to_cart/", json_str, update_items, "json");
 }
