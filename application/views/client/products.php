@@ -1,70 +1,48 @@
 <? require 'include/head.php' ?>
-
 	<div id="body">
-
 		<div id="wrapper" class="clearfix">
+			<? require 'include/header.php' ?>
+			<? require 'include/top-menu.php' ?>
 			
-				<header class="grid clearfix">
-					<div class="logo col_4">
-						<a href=""><img src="img/logo.png" alt=""/></a>
-						<div class="slogan" >Запчасти cummins из первых рук</div>
+			<div id="main-3" class="grid clearfix">
+			<div id="left-col" class="col_3">
+				<div class="left-col">
+					<div class="name-cat">
+						<?= $main_category->name ?>
 					</div>
-					<div class="header-info col_4">
-						<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
-						<div class="work-time">звонок по России бесплатно</div>
-					</div>
-					<div class="cart col_4">
-						<div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div>
-						<div class="clearfix">
-							<div class="cart-btn">&nbsp;</div>
-							<div class="cart-info"><span class="cart-qty">0</span> товаров на сумму <span class="cart-total">0</span> рублей</div>
-						</div>
-					</div>				
-				</header>
-				
-				<div id="menu" class="grid clearfix">
+					
 					<nav>
 						<ul>
-							<li><a href="">Главная</a></li>
-							<li><a href="/page/about/">Информация</a></li>
-							<li><a href="/">Каталог</a></li>
-							<li><a href="/page/delivery/">Оплата и доставка</a></li>
-							<li><a href="/page/contacts/">Контакты</a></li>
-						</ul>
-					</nav>
-					<form action="/search/" id="searchform" method="get">
-						<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
-					</form>
-				</div>
-				<div id="main-3" class="grid clearfix">
-					<div id="left-col" class="col_3">
-						<div class="left-col">
-							<div class="name-cat">
-								<?= $engine ?>
-							</div>
-							<nav>
-								<ul>
-									<? foreach ($systems as $s) : ?>
-									<li>
-										<a href="/catalog/<?= $this->uri->segment(2) . '/' . $s->url ?>"><?= $s->name ?></a>
-										<? if ($this->uri->segment(3) == $s->url) : ?>
+							<? foreach($tree as $s):?>
+								<li>
+									<a href="<?= $s->full_url ?>"><?= $s->name ?></a>
+									<? if ($this->uri->segment(3) == $s->url) : ?>
 										<ul class="active">
-											<? foreach ($screens as $scr) : ?>
-											<li><a href="/catalog/<?= $this->uri->segment(2) . '/' . $s->url . '/' . $scr->url?>"><?= $scr->description ?></a></li>
+											<? $screens = $s->childs;
+											$names = array();
+											foreach ($screens as $i => $scr)
+											{
+												if ($screens[$i]->caption)
+													$screens[$i]->name = $screens[$i]->caption;
+												$names[] = $screens[$i]->name;
+											}
+											array_multisort($names, $screens);
+											foreach ($screens as $scr) : ?>
+											<li><a <?= $scr->url == $this->uri->segment(4) ? 'class="active"' : '' ?> href="<?= $scr->full_url?>"><?= $scr->name ?></a></li>
 											<? endforeach ?>
 										</ul>
-										<? endif ?>
-									</li>
-									<? endforeach ?>
-								</ul>
-							</nav>
-						</div>
-						<aside>
-							<div class="text-1" style="color: white;padding-top: 20px;">СПЕЦПРЕДЛОЖЕНИЯ</div>
-							<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
-							<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
-							<img src="img/banner.png" alt=""/>
-							
+									<? endif ?>
+								</li>
+							<? endforeach ?>
+						</ul>
+					</nav>
+				</div>
+				<aside>
+					<div class="text-1" style="color: white;padding-top: 20px;">СПЕЦПРЕДЛОЖЕНИЯ</div>
+					<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
+					<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
+					<img src="img/banner.png" alt=""/>
+							<!--
 							<div class="news clearfix">
 								<div class="col_12">
 									<div class="text-1">НОВОСТИ</div>
@@ -101,9 +79,11 @@
 									
 								</div>
 							</div>
-						</aside>
-					</div>
-					<div id="content" class="col_9">
+							-->
+				</aside>
+			</div>
+			
+				<div id="content" class="col_9">
 						<div class="breadcrumb">
 							<? foreach ($breadcrumbs as $b): ?>
 								<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 

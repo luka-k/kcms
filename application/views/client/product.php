@@ -93,7 +93,7 @@
 				<div class="col_12">
 					<div id="gallery" class="clearfix col_5">
 						<div id="box">
-							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
+							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'fancybox cloud-zoom' title="" rel="">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
 						</div>
 						
 						<? if (count($product->imgs) > 1) : ?>
