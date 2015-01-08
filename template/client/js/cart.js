@@ -39,10 +39,15 @@ function delete_item(item_id){
 	$.post ("/ajax/delete_item/", json_str, delete_answer, "json");
 }
 
-function fancy_to_cart(item_id, name){
+function fancy_to_cart(item_id, name, action){
 	$('.fancy_product_name').text(name);
-	add_to_cart(item_id, 1);
-	$.fancybox.open("#to-cart");
+	if(action === "buy"){
+		add_to_cart(item_id, 1);
+		$.fancybox.open("#to-cart");
+	}else{
+		$('#order_item_id').attr("value", item_id);
+		$.fancybox.open("#to-order");
+	}
 }
 
 function from_fancy_to_cart(){
@@ -75,3 +80,5 @@ function delete_answer(res){
 	}
 	$("tr").remove('#cart-'+res['item_id']);
 }
+
+

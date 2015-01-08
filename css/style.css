@@ -1353,3 +1353,11 @@ text-align:left;
 {
     border-radius: 0;
 }
+
+#order-modal input, #order-modal textarea{
+	width:100%;
+}
+
+#order-modal textarea{
+height:120px;
+}

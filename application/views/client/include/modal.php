@@ -1,7 +1,3 @@
-<script>
-
-</script>
-
 <div class="modal modal--to-cart" id="to-cart">
 	<div class="modal__title block-title">
 		Товар "<span class="fancy_product_name"></span>"
@@ -25,5 +21,36 @@
 				<button type="button" class="button green-btn square" onclick="from_fancy_to_cart();return false;">В корзину &rarr;</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
+	</div> <!-- /.modal__cart -->
+</div> <!-- /.modal -->
+
+
+<div class="modal modal--to-cart" id="to-order">
+	<div class="modal__title block-title">
+		Заказ товара - "<span class="fancy_product_name"></span>"
+	</div> <!-- /.modal__title block-title -->
+	
+	<div class="modal__text">
+		<p></p>
+	</div> <!-- /.modal__text -->
+	
+	<div class="modal__cart modal-cart" >
+		<form action="order/edit_order?action=order" class="form" id="to_order" method="post"> <!-- method="get" only for demo -->
+			<input type="hidden" id="order_item_id" name="item_id"/>
+			<div id="order-modal" class="col_12">
+				<label for="text1">Имя</label><br/>	
+				<input id="text1" type="text" name="name" class="square"/><br/>	
+				<label for="text2">Эл. почта</label><br/>	
+				<input id="text2" type="text" name="email" class="square"/><br/>	
+				<label for="text1">Телефон</label><br/>	
+				<input id="text1" type="text" name="phone" class="square"/><br/>
+				<label for="textarea1">Коментарии</label><br/>	
+				<textarea id="textarea1" placeholder="При необходимости оставте коментарий" name="message" class="square"/></textarea>								
+			</div>
+			<div class="form__button modal-cart__button">
+				<button type="button" class="button green-btn square" onclick="document.forms['to_order'].submit(); return false;">Заказать &rarr;</button>
+			</div> <!-- /.form__button -->
+		</form> <!-- /.form -->
+
 	</div> <!-- /.modal__cart -->
 </div> <!-- /.modal -->

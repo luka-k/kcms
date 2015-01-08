@@ -129,7 +129,7 @@
 						</table>
 					</div>
 					<div id="cart-info" class="page-cart__order clearfix">
-						<form action="<?=base_url()?>order/edit_order" class="order_form" method="post">
+						<form action="<?=base_url()?>order/edit_order?action=order_from_cart" class="order_form" method="post">
 							<div class="title-2">Информация о покупателе</div>
 							<div class="col_6" style="margin-right:3.22222222%;">
 								<label for="text1">Имя</label><br/>	

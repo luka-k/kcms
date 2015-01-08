@@ -10,6 +10,10 @@ class Order extends Client_Controller
 	
 	public function edit_order()
 	{
+		$action = $this->input->get('action');
+		
+		if($action == "order_from_cart")
+		{
 		$orders_info = $this->input->post();
 		$cart_items = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
@@ -61,6 +65,33 @@ class Order extends Client_Controller
 		}
 	
 		$this->cart->clear();
+		}
+		else
+		{
+			$orders_info = $this->input->post();
+			$order_id = uniqid();
+			$new_order = array(
+				'order_id' => $order_id,
+				'user_name' => $orders_info['name'],
+				'user_email' => $orders_info['email'],
+				'user_phone' => $orders_info['phone'],
+				'message' => $orders_info['message'],
+				'date' => date("Y-m-d"),
+				'status_id' => 0
+			);
+			
+			$this->orders->insert($new_order);
+			
+			$product = $this->products->get_item_by(array("id" => $orders_info['item_id']));
+			$orders_products = array(
+				'order_id' => $order_id,
+				'product_id' => $product->id,
+				'product_name' => $product->name,
+				'product_price' => "-",
+				'order_qty' => ""				
+			);
+			$this->orders_products->insert($orders_products);
+		}
 		redirect(base_url().'cart?action=order');		
 	}
 }
