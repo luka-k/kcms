@@ -98,7 +98,7 @@
 							
 							<div class="cart-order__extra hidden" id="extra">
 								<div class="form__line skew">
-									<textarea name="address" class="form__textarea" placeholder="Адрес доставки" value="<?if($user->address):?><?=$user->address?><?endif;?>"></textarea>
+									<textarea name="address" class="form__textarea" placeholder="Адрес доставки" value=""><?if($user->address):?><?=$user->address?><?endif;?></textarea>
 								</div> <!-- /.form__line -->
 							</div> <!-- /.cart-order__extra -->
 							

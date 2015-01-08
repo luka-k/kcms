@@ -78,7 +78,7 @@
 				</div> <!-- /.form__line -->
 				
 				<div class="form__line skew">
-					<textarea name="address" class="form__textarea" placeholder="Адрес доставки" value="<?if($user->address):?><?=$user->address?><?endif;?>"></textarea>
+					<textarea name="address" class="form__textarea" placeholder="Адрес доставки" value=""><?if($user->address):?><?=$user->address?><?endif;?></textarea>
 				</div> <!-- /.form__line -->
 				
 				<div class="form__button cart-order__button skew">
@@ -92,11 +92,11 @@
 				<input type="hidden" name="id"  value="<?=$user->id?>"/>
 				
 				<div class="form__line skew">
-					<input type="password" class="form__input required" name="password" autocomplete="off" placeholder="Пароль" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
+					<input type="text" class="form__input required" name="password" autocomplete="off" placeholder="Пароль" value=""/>
 				</div> <!-- /.form__line -->
 				
 				<div class="form__line skew">
-					<input type="password" class="form__input required" name="conf_password" autocomplete="off" placeholder="Повторите" value="<?if($user->email):?><?=$user->email?><?endif;?>" />
+					<input type="text" class="form__input required" name="conf_password" autocomplete="off" placeholder="Повторите" value="" />
 				</div> <!-- /.form__line -->
 				
 				<div class="form__button cart-order__button skew">

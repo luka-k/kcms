@@ -81,7 +81,25 @@
 									<a href="<?=$item->full_url?>"><?=$item->name?></a>
 								</h3> <!-- /.news-item__title -->
 
-								<div class="news-item__text"><?=$item->description?></div> <!-- /.news-item__text -->
+								<div class="news-item__text">
+								
+								
+							<?
+							$desc = strip_tags($item->description);
+							$desc_arr = explode(' ', $desc);
+							$desc = '';
+							for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+							{
+								$desc .= $desc_arr[$i].' ';
+							}
+							if ($i >= 19)
+								$desc .= '...';
+							echo $desc;
+							?>
+								
+								
+								
+								</div> <!-- /.news-item__text -->
 							</div> <!-- /.news-item -->
 						<?endforeach;?>
 
