@@ -6,8 +6,9 @@
 		
 		<div class="header__phone">
 			<div class="header-phone">
-				<div class="header-phone__number">+7 (812) <span>999 99 99</span></div> <!-- /.header-phone__number -->
-				<div class="header-phone__time">время работы: пн-пт 8:00-18:00</div> <!-- /.header-phone__time -->
+				<? $filials = $this->filials->get_list(FALSE);?>
+				<div class="header-phone__number"><?= $filials[0]->phone?></div> <!-- /.header-phone__number -->
+				<div class="header-phone__time"><?= $filials[0]->caption?></div> <!-- /.header-phone__time -->
 				
 				<div class="header-phone__callback">
 					<a href="#callback" class="header-phone__callback-link fancybox">Обратный звонок</a>

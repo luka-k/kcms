@@ -120,7 +120,7 @@ $autoload['language'] = array();
 $autoload['model'] = array(
 	'db/products', 
 	'db/categories', 
-	'db/articles',
+	'db/articles', 
 	'db/settings', 
 	'db/users', 
 	'db/orders', 
@@ -132,6 +132,7 @@ $autoload['model'] = array(
 	'db/menus_items',
 	'db/characteristics',
 	'db/slider',
+	'db/filials',
 	'db/video',
 	'breadcrumbs', 
 	'url_model', 

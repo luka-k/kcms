@@ -28,30 +28,19 @@
 			<div class="contacts-info">
 			
 				<div class="contacts-info__item">
-					<div class="contacts-info__copy">redBTR &copy; 2014</div> <!-- /.contacts-info__copy -->
-					<a href="mailto:info@redBTR.ru" class="contacts-info__email"><?=$settings->admin_email?></a>
+					<div class="contacts-info__copy">redBTR &copy; 2015</div> <!-- /.contacts-info__copy -->
+					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
 				</div> <!-- /.contacts-info__item -->
 				
+				<? $filials = $this->filials->get_list(FALSE);
+				foreach ($filials as $f):?>
 				<div class="contacts-info__item">
 					<div class="contacts-info-phone">
-						<div class="contacts-info-phone__city">Санкт-петербург</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">+7 (812) <span>999 99 99</span></div> <!-- /.contacts-info-phone__number -->
+						<div class="contacts-info-phone__city"><?= $f->name?></div> <!-- /.contacts-info-phone__city -->
+						<div class="contacts-info-phone__number"><?= $f->phone?></div> <!-- /.contacts-info-phone__number -->
 					</div> <!-- /.contacts-info-phone -->
 				</div> <!-- /.contacts-info__item -->
-				
-				<div class="contacts-info__item">
-					<div class="contacts-info-phone">
-						<div class="contacts-info-phone__city">Япония</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">+7 (812) <span>999 99 99</span></div> <!-- /.contacts-info-phone__number -->
-					</div> <!-- /.contacts-info-phone -->
-				</div> <!-- /.contacts-info__item -->
-				
-				<div class="contacts-info__item">
-					<div class="contacts-info-phone">
-						<div class="contacts-info-phone__city">Китай</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">+7 (812) <span>999 99 99</span></div> <!-- /.contacts-info-phone__number -->
-					</div> <!-- /.contacts-info-phone -->
-				</div> <!-- /.contacts-info__item -->
+				<? endforeach ?>
 			</div> <!-- /.contacts-info -->
 		</div> <!-- /.page-contacts__contacts --> 
 		

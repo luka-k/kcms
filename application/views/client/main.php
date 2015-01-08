@@ -134,7 +134,18 @@
 						<a href="<?=$news_item->full_url?>" class="last-news__name"><?=$news_item->name?></a>
 						
 						<div class="last-news__desc">
-							<?=$news_item->description?>
+							<?
+							$desc = strip_tags($news_item->description);
+							$desc_arr = explode(' ', $desc);
+							$desc = '';
+							for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+							{
+								$desc .= $desc_arr[$i].' ';
+							}
+							if ($i >= 19)
+								$desc .= '...';
+							echo $desc;
+							?>
 						</div> <!-- /.last-news__desc -->
 					</li> <!-- /.last-news__item -->
 				<?endforeach;?>
@@ -146,9 +157,10 @@
 		<div class="main-videos__wrap wrap">
 			<div class="main-videos__list">
 				<?foreach($video as $video_item):?>
-					<div class="main-videos__item"><?=$video_item->link?></div> <!-- /.main-videos__item -->
+					<div class="main-videos__item"><iframe width="470" height="264" src="//www.youtube.com/embed/<?=$video_item->link?>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div> <!-- /.main-videos__item -->
 				<?endforeach;?>
 			</div> <!-- /.main-videos__list -->
+		<center><a href="/videos" style="text-decoration: underline;">Все видео</a></center><br><br><br>
 		</div> <!-- /.main-videos__wrap wrap -->
 	</div> <!-- /.main-videos -->
 
