@@ -135,10 +135,11 @@
 							<?=$content->description?>
 						</div> <!-- /.product-extra-info__text -->
 					</div> <!-- /.product-extra-info__block -->
-					
 					<div class="product-extra-info__block" id="tab2">
 						<div class="product-extra-info__video">
-							<iframe width="470" height="264" src="//www.youtube.com/embed/3bt1BjUm9mw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+							<?if(!empty($content->video)):?>
+								<iframe width="470" height="264" src="//www.youtube.com/embed/<?=$content->video?>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+							<?endif;?>
 						</div> <!-- /.product-extra-info__text -->
 					</div> <!-- /.product-extra-info__block -->
 					

@@ -14,6 +14,7 @@ class Products extends MY_Model
 			'warrant' => array('Гарантия<br/><i>Пример: 1 год</i>', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка<br/><i>В процентах</i>', 'text', 'trim|htmlspecialchars|max_length[2]'),
+			'video' => array('Видео', 'text', ''),
 			'short_description' => array('Краткое описание', 'tiny', ''),
 			'description' => array('Описание', 'tiny-2', '')
 		),
