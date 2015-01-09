@@ -53,7 +53,7 @@ class Index extends Client_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$data = array(
-			'title' => $settings->site_title,
+			'title' => $settings->site_title."|Главная",
 			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
