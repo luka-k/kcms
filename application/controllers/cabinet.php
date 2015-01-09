@@ -67,7 +67,9 @@ class Cabinet extends Client_Controller {
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
 			),
-			'status_id' => $this->config->item('order_status')
+			'status_id' => $this->config->item('order_status'),
+			'settings' => $this->settings->get_item_by(array('id' => 1)),
+			'filials' => $this->filials->get_list(FALSE)
 		);
 
 		$this->load->view('client/cabinet.php', $data);

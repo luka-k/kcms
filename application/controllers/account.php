@@ -30,7 +30,8 @@ class Account extends Client_Controller
 				'error' => "",
 				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
-				'activity' => "enter"
+				'activity' => "enter",
+				'filials' => $this->filials->get_list(FALSE)
 			);	
 			
 			$data['error'] = "Данные не верны. Повторите ввод";		
@@ -66,7 +67,8 @@ class Account extends Client_Controller
 			'error' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
-			'activity' => "restore"
+			'activity' => "restore",
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		
 		$this->load->view('client/registration', $data);	
@@ -83,7 +85,8 @@ class Account extends Client_Controller
 				'error' => "",
 				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
-				'activity' => "restore"
+				'activity' => "restore",
+				'filials' => $this->filials->get_list(FALSE)
 			);
 			
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
@@ -132,7 +135,8 @@ class Account extends Client_Controller
 				'top_menu' => $this->top_menu->items,
 				'email' => $this->input->get('email'),
 				'secret' => $this->input->get('secret'),
-				'activity' => "new"
+				'activity' => "new",
+				'filials' => $this->filials->get_list(FALSE)
 			);	
 		$this->load->view('client/registration', $data);
 	}
@@ -153,7 +157,8 @@ class Account extends Client_Controller
 				'error' => "",
 				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 				'top_menu' => $this->top_menu->items,
-				'activity' => "restore"
+				'activity' => "restore",
+				'filials' => $this->filials->get_list(FALSE)
 			);
 			
 			$this->load->view('admin/new_password', $data);
@@ -194,7 +199,8 @@ class Account extends Client_Controller
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'activity' => $activity
+			'activity' => $activity,
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		
 		$this->load->view('client/registration', $data);		
@@ -210,7 +216,8 @@ class Account extends Client_Controller
 			'error' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
-			'reg' => "true"
+			'reg' => "true",
+			'filials' => $this->filials->get_list(FALSE)
 		);	
 			
 		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');

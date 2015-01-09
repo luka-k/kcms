@@ -58,7 +58,8 @@ class Videos extends Client_Controller {
 			'new_products' => $this->products->get_prepared_list($new_products),
 			'last_news' => $this->articles->get_prepared_list($last_news),
 			'video' => $this->video->get_prepared_list($video),
-			'settings' => $settings
+			'settings' => $settings,
+			'filials' => $this->filials->get_list(FALSE)
 		);
 
 		$this->load->view('client/video.php', $data);

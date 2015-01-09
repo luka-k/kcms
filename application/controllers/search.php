@@ -43,7 +43,8 @@ class Search extends Client_Controller {
 			'settings' => $settings,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'search' => $search['name'],
-			'content' => $this->products->get_prepared_list($products)
+			'content' => $this->products->get_prepared_list($products),
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		$this->load->view("client/search", $data);
 	}

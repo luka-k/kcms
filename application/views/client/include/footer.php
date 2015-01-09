@@ -31,16 +31,14 @@
 					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
 				</div> <!-- /.contacts-info__item -->
 				
-				<? $filials = $this->filials->get_list(FALSE);
-				foreach ($filials as $f):?>
-				
-				<div class="contacts-info__item">
-					<div class="contacts-info-phone contacts-info-phone--footer">
-						<div class="contacts-info-phone__city"><?= $f->name?></div> <!-- /.contacts-info-phone__city -->
+				<?foreach ($filials as $f):?>
+					<div class="contacts-info__item">
+						<div class="contacts-info-phone contacts-info-phone--footer">
+							<div class="contacts-info-phone__city"><?= $f->name?></div> <!-- /.contacts-info-phone__city -->
 						
-						<div class="contacts-info-phone__number"><?= $f->phone?></div> <!-- /.contacts-info-phone__number -->
-					</div> <!-- /.contacts-info-phone -->
-				</div> <!-- /.contacts-info__item -->
+							<div class="contacts-info-phone__number"><?= $f->phone?></div> <!-- /.contacts-info-phone__number -->
+						</div> <!-- /.contacts-info-phone -->
+					</div> <!-- /.contacts-info__item -->
 				<? endforeach ?>
 			</div> <!-- /.contacts-info -->
 		</div> <!-- /.footer__contacts -->

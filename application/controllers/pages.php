@@ -15,8 +15,11 @@ class Pages extends Client_Controller {
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'top_menu' => $this->top_menu->items,
-			'select_item' => $select_item
+			'select_item' => $select_item,
+			'settings' => $this->settings->get_item_by(array('id' => 1)),
+			'filials' => $this->filials->get_list(FALSE)
 		);
+
 		
 		$url = $this->uri->segment(2);
 		$root = $this->menus_items->get_item_by(array("url" => $url));
@@ -88,7 +91,8 @@ class Pages extends Client_Controller {
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'top_menu' => $this->top_menu->items,
-			'select_item' => $select_item
+			'select_item' => $select_item,
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
@@ -114,7 +118,8 @@ class Pages extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'top_menu' => $this->top_menu->items,
 			'select_item' => "articles/kontakty",
-			'settings' => $this->settings->get_item_by(array("id" => 1))
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		
 		$this->load->view("client/contacts", $data);

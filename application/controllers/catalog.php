@@ -143,7 +143,8 @@ class Catalog extends Client_Controller {
 			'min_value' => $min_value,
 			'max_value' => $max_value,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'settings' => $settings
+			'settings' => $settings,
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		
 		if(isset($get['filter']))
@@ -268,7 +269,9 @@ class Catalog extends Client_Controller {
 			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'action' => $this->input->get('action')
+			'action' => $this->input->get('action'),
+			'settings' => $this->settings->get_item_by(array('id' => 1)),
+			'filials' => $this->filials->get_list(FALSE)
 		);
 		$this->load->view('client/cart.php', $data);
 	}
