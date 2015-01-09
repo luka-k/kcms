@@ -59,6 +59,7 @@
 				</div>
 			</div>
 		</div>
+		<? require "include/ch_script.php" ?>
 		<? require 'include/footer_script.php' ?>
 		<? require 'include/footer.php' ?>
 	</body>

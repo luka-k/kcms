@@ -123,6 +123,30 @@ class Ajax extends CI_Controller {
 		echo json_encode($data);
 	}
 	
+	function autocomplete()
+	{
+		$data = json_decode(file_get_contents('php://input', true));	
+		
+		$this->db->select("value");
+		$query = $this->db->get_where('characteristics', array("type" => $data->type));
+		$result = $query->result();
+		
+		$available_tags = array();
+		foreach($result as $items)
+		{
+			foreach ($items as $item)
+			{
+				if(!empty($item))
+				{
+					$available_tags[] = $item;
+				}
+			}
+		}
+		$answer['available_tags'] = $available_tags;
+		
+		echo json_encode($answer);
+	}
+	
 	//wishlist
 	//
 	// add_to_wishlist() 
