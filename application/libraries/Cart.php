@@ -41,8 +41,8 @@ class CI_Cart {
 	
 	public function insert_item($item = array())
 	{
-		isset($item['options']) && count($item['options']) > 0 ? $item_id = md5($item['id'].implode('_', $item['options'])) : $item_id = md5($item['id']);
 		
+		isset($item['options']) && count($item['options']) > 0 ? $item_id = md5($item['id'].implode('_', $item['options'])) : $item_id = md5($item['id']);
 		if(array_key_exists($item_id, $this->cart_contents['items']))
 		{
 			$this->cart_contents['items'][$item_id]['qty'] += $item['qty']; 
@@ -78,6 +78,7 @@ class CI_Cart {
 		unset($this->cart_contents['cart_total']);
 		$total_qty = 0;
 		$cart_total = 0;
+		
 		foreach($this->cart_contents['items'] as $item)
 		{
 			$cart_total += $item['price']*$item['qty'];
@@ -85,6 +86,7 @@ class CI_Cart {
 		}
 		$this->cart_contents['total_qty'] = $total_qty;
 		$this->cart_contents['cart_total'] = $cart_total; 
+
 		$this->CI->session->set_userdata(array('cart_contents' => $this->cart_contents));
 	}
 	

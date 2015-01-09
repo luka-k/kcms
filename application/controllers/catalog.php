@@ -26,7 +26,7 @@ class Catalog extends Client_Controller {
 		$filters = $this->characteristics->get_filters();
 		
 		$main_category = $this->categories->get_item_by(array('url' => $this->uri->segment(2)));
-		
+
 		$data = array(
 			'tree' => $this->categories->get_site_tree($main_category->id, "parent_id"),
 			'main_category' => $main_category,

@@ -4,13 +4,14 @@ function add_to_cart(item_id){
 	if(document.getElementById('product_qty'))
 	{
 		var qty = document.getElementById('product_qty').value;
+		
 		data.qty = qty;
 	}else{
 		data.qty = 1;
 	}
 	
 	data.item_id = item_id;
-	console.log(data.item_id);
+	
 	var json_str = JSON.stringify(data);
 	$.post ("/ajax/add_to_cart/", json_str, update_items, "json");
 }
@@ -42,7 +43,8 @@ function delete_item(item_id){
 function fancy_to_cart(item_id, name, action){
 	$('.fancy_product_name').text(name);
 	if(action === "buy"){
-		add_to_cart(item_id, 1);
+		add_to_cart(item_id);
+		$('#input_item_id').attr("value", item_id);
 		$.fancybox.open("#to-cart");
 	}else{
 		$('#order_item_id').attr("value", item_id);
@@ -55,6 +57,7 @@ function from_fancy_to_cart(){
 	var qty = name_input.value;
 	var item_id_input = document.getElementById('input_item_id');
 	var item_id = item_id_input.value;
+	console.log(item_id);
 	update_cart(item_id, qty, 'cart');
 }
 
@@ -69,6 +72,7 @@ function update_items(res){
 }
 
 function delete_answer(res){
+	
 	$('.total_qty').text(res['total_qty']);
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);

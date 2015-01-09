@@ -23,9 +23,8 @@ class Ajax extends CI_Controller {
 	public function add_to_cart()
 	{
 		$id = json_decode(file_get_contents('php://input', true));
-		
+
 		$product = $this->products->get_item_by(array("id" => $id->item_id));
-		
 		if(!empty($product->discount)) $product->price = $product->price*(100 - $product->discount)/100;
 		
 		$cart_item = array(
@@ -36,6 +35,7 @@ class Ajax extends CI_Controller {
 		);
 
 		$item_id = $this->cart->insert($cart_item);
+		
 		$item = $this->cart->get($item_id);
 		
 		$data['total_qty'] = $this->cart->total_qty();
@@ -43,7 +43,6 @@ class Ajax extends CI_Controller {
 		$data['product_word'] = end_maker("товар", $data['total_qty']);
 		$data['item_id'] = $item_id;
 		$data['item_qty'] = $item['qty'];
-		
 		echo json_encode($data);
 	}
 	
