@@ -35,6 +35,19 @@ class Index extends Client_Controller {
 		$query = $this->db->get("articles");
 		$last_news = $query->result();
 		
+		foreach($last_news as $news_item)
+		{
+			$desc = strip_tags($news_item->description);
+			$desc_arr = explode(' ', $desc);
+			$desc = '';
+			for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+			{
+				$desc .= $desc_arr[$i].' ';
+			}
+			if ($i >= 19) $desc .= '...';
+			$news_item->description = $desc;			
+		}
+		
 		$video = $this->video->get_list(array("is_main" => 1));
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));

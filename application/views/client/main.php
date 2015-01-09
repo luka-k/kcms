@@ -134,18 +134,7 @@
 						<a href="<?=$news_item->full_url?>" class="last-news__name"><?=$news_item->name?></a>
 						
 						<div class="last-news__desc">
-							<?
-							$desc = strip_tags($news_item->description);
-							$desc_arr = explode(' ', $desc);
-							$desc = '';
-							for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
-							{
-								$desc .= $desc_arr[$i].' ';
-							}
-							if ($i >= 19)
-								$desc .= '...';
-							echo $desc;
-							?>
+							<?=$news_item->description?>
 						</div> <!-- /.last-news__desc -->
 					</li> <!-- /.last-news__item -->
 				<?endforeach;?>
