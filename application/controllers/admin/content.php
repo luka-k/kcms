@@ -86,6 +86,8 @@ class Content extends Admin_Controller
 			$data['editors'] = $this->$type->editors;
 		}
 		
+		//var_dump($data['editors']);
+		
 		if($acting == "edit")
 		{
 			if($id == FALSE)
@@ -130,7 +132,7 @@ class Content extends Admin_Controller
 		elseif($acting == "save")
 		{
 			$data['content'] = $this->$type->editors_post()->data;
-			
+		
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке
