@@ -40,6 +40,7 @@ class Articles extends MY_Model
 		{
 			$this->add_active($child->id);
 			if($segment_number == 2) $url = "articles/".$url; 
+			
 			$this->breadcrumbs->add($url, $child->name);
 			
 			if ($this->uri->segment($segment_number+1))

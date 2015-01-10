@@ -9,7 +9,9 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$page = $this->articles->url_parse(2);
+		$settings = $this->settings->get_item_by(array("id" => 1));
+
+		$page = $this->menus_items->url_parse(2);
 		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
 		$data = array(
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
@@ -43,7 +45,6 @@ class Pages extends Client_Controller {
 
 		if($page == "404")
 		{
-			$settings = $this->settings->get_item_by(array("id" => 1));
 			$data['title'] = "Страница не найдена";
 			$data['meta_title'] = $settings->site_title;
 			$data['meta_keywords'] = $settings->site_keywords;
@@ -66,10 +67,12 @@ class Pages extends Client_Controller {
 			{
 				$sub_template = "page";
 			}
-			$data['title'] = $page->name;
-			$data['meta_title'] = $page->meta_title;
-			$data['meta_keywords'] = $page->meta_keywords;
-			$data['meta_description'] = $page->meta_description;
+			
+			isset($page->name) ? $data['title'] = $page->name : $data['title'] = $settings->site_title;
+			isset($page->meta_title) ? $data['meta_title'] = $page->meta_title : $data['meta_title'] = $settings->site_title;
+			isset($page->meta_keywords) ? $data['meta_keywords'] = $page->meta_keywords : $data['meta_keywords'] = $settings->site_keywords;
+			isset($page->meta_description) ? $data['meta_description'] = $page->meta_description : $data['meta_description'] = $settings->site_description;
+
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['sub_template'] = $sub_template;
 			$template="client/articles.php";
