@@ -85,40 +85,40 @@
 					
 					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
 						<div class="cart-order__form">
-							<input type="hidden" name="id"  value="<?if($user->id):?><?=$user->id?><?endif;?>"/>
+							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 							<div class="form__line skew">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
+								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
 							</div> <!-- /.form__line -->
 							
 							<div class="form__line skew">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if($user->phone):?><?=$user->phone?><?endif;?>" />
+								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
 							</div> <!-- /.form__line -->
 							
 							<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
 							
 							<div class="cart-order__extra hidden" id="extra">
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="city" placeholder="Город" value="<?if($user->city):?><?=$user->city?><?endif;?>" />
+									<input type="text" class="form__input" name="city" placeholder="Город" value="<?if(isset($user->city)):?><?=$user->city?><?endif;?>" />
 								</div> <!-- /.form__line -->
 				
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="street" placeholder="Улица" value="<?if($user->street):?><?=$user->street?><?endif;?>" />
+									<input type="text" class="form__input" name="street" placeholder="Улица" value="<?if(isset($user->street)):?><?=$user->street?><?endif;?>" />
 								</div> <!-- /.form__line -->
 				
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="house" placeholder="Дом" value="<?if($user->house):?><?=$user->house?><?endif;?>" />
+									<input type="text" class="form__input" name="house" placeholder="Дом" value="<?if(isset($user->house)):?><?=$user->house?><?endif;?>" />
 								</div> <!-- /.form__line -->
 				
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="building" placeholder="Корпус" value="<?if($user->building):?><?=$user->building?><?endif;?>" />
+									<input type="text" class="form__input" name="building" placeholder="Корпус" value="<?if(isset($user->building)):?><?=$user->building?><?endif;?>" />
 								</div> <!-- /.form__line -->
 				
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="apartment" placeholder="Квартира" value="<?if($user->apartment):?><?=$user->apartment?><?endif;?>" />
+									<input type="text" class="form__input" name="apartment" placeholder="Квартира" value="<?if(isset($user->apartment)):?><?=$user->apartment?><?endif;?>" />
 								</div> <!-- /.form__line -->
 				
 								<div class="form__line skew">
-									<input type="text" class="form__input" name="zip_code" placeholder="Индекс" value="<?if($user->zip_code):?><?=$user->zip_code?><?endif;?>" />
+									<input type="text" class="form__input" name="zip_code" placeholder="Индекс" value="<?if(isset($user->zip_code)):?><?=$user->zip_code?><?endif;?>" />
 									</div> <!-- /.form__line -->
 							</div> <!-- /.cart-order__extra -->
 							

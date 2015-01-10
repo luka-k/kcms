@@ -15,9 +15,7 @@ class Order extends Client_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$order_id = uniqid();
 		$new_order = array(
-			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
 			'total' => $total_price,
@@ -30,7 +28,11 @@ class Order extends Client_Controller
 			$new_order['user_address'] = $orders_info['address'];
 		}
 		
-		if(isset($orders_info['id']))
+		$this->orders->insert($new_order);
+		
+		$order_id = $this->db->insert_id();
+		
+		if(!empty($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];
 			$user = $this->users->get_item_by(array("id" => $orders_info['id']));
@@ -44,8 +46,6 @@ class Order extends Client_Controller
 			$this->emails->send_mail($user->email, 'customer_order', $message_info);
 			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 		}
-		
-		$this->orders->insert($new_order);
 		
 		foreach($cart_items as $item)
 		{
