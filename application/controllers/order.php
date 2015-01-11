@@ -88,7 +88,7 @@ class Order extends Client_Controller
 				'product_id' => $product->id,
 				'product_name' => $product->name,
 				'product_price' => "-",
-				'order_qty' => ""				
+				'order_qty' => 1				
 			);
 			$this->orders_products->insert($orders_products);
 		}

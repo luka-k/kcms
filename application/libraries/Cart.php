@@ -92,7 +92,8 @@ class CI_Cart {
 	public function get_all()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		return array_reverse($this->cart_contents['items']);
+		if(!empty($this->cart_contents['items'])) array_reverse($this->cart_contents['items']);
+		return $this->cart_contents['items'];
 	}
 	
 	public function get($item_id)
