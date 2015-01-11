@@ -29,7 +29,7 @@ class Ajax extends CI_Controller {
 		
 		$cart_item = array(
 			"id" => $product->id,
-			"name" => $product->name,
+			"name" => str_replace ( "\\" , "/", $product->name),
 			"price" => $product->price,
 			"qty" => $id->qty
 		);
