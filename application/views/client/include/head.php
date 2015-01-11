@@ -37,9 +37,15 @@
 				var availableTags = res.available_tags;
 		
 				$("#search_input").autocomplete({
-					source: availableTags
+					source: availableTags,
+					select: function( event, ui ) {
+						$('.search').val(ui.item.value);
+						$('#searchform').submit();
+					}
 				});
 			}
+			
+
 </script>
 	</head>
 	<body>
