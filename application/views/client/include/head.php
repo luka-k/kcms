@@ -26,29 +26,6 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
 
 		<script>
-			function change_qty(action, item_id){
-				if(item_id != false){
-					var target = document.getElementById('qty-'+item_id);
-				}else{
-					var target = document.getElementById('product_qty');
-				}
-				
-				curValue = target.value;
-				
-				if (action === '+'){
-					target.value = ++curValue;
-				}else{
-					if (curValue > 1) target.value = --curValue;
-				}
-				
-				if(item_id != false){
-					update_cart(item_id, curValue);
-				}
-			}
-
-		</script>
-	
-		<script>
 			function autocomp(){
 				var data = {};
 				data.r = " ";

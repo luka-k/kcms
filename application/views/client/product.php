@@ -135,7 +135,7 @@
 									<span class="btn plusminus" onclick="change_qty('-', false); return false;">-</span>
 									<input type="text" id="product_qty" class="inpt square" size=1 value="1" disabled />
 									<span class="btn plusminus" onclick="change_qty('+', false); return false;">+</span>
-									<button class="square red-btn" onclick="fancy_to_cart('<?=$product->id?>', '<?=$product->name?>'); return false;">В корзину</button>
+									<button class="square red-btn" onclick="fancy_to_cart('<?=$product->id?>', '<?=$product->name?>', <? if ($product->price) : ?>'buy'<?else:?>'order'<?endif;?>, document.getElementById('product_qty').value); return false;">В корзину</button>
 								</div>
 							</div>
 						</div>

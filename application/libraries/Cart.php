@@ -41,7 +41,6 @@ class CI_Cart {
 	
 	public function insert_item($item = array())
 	{
-		
 		isset($item['options']) && count($item['options']) > 0 ? $item_id = md5($item['id'].implode('_', $item['options'])) : $item_id = md5($item['id']);
 		if(array_key_exists($item_id, $this->cart_contents['items']))
 		{

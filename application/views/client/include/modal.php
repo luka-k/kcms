@@ -9,18 +9,19 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart" >
-		<form action="#" class="form to_cart" id="to_cart" method="post"> <!-- method="get" only for demo -->
+	<!--	<form action="#" class="form to_cart" id="to_cart" method="post"> <!-- method="get" only for demo -->
 			<div class="form__line modal-cart__line">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="input_qty" class="form__input modal-cart__input square required qty" name="amount" placeholder="" value="" />
 				<input type="hidden" id="input_item_id" value=""/>
+				<input type="text" id="input_qty" class="form__input modal-cart__input square required qty" onchange="update_cart(document.getElementById('input_item_id').value, this.value); return false;" name="amount" placeholder="" value="" />
 			</div> <!-- /.form__line -->
-			
-			<div class="form__button modal-cart__button">
-				<button type="button" class="button js-close-fancybox red-btn square" onclick="$.fancybox.close();">Вернуться к покупкам</button>
-				<button type="button" class="button green-btn square" onclick="from_fancy_to_cart();return false;">В корзину &rarr;</button>
-			</div> <!-- /.form__button -->
-		</form> <!-- /.form -->
+		<!--</form> <!-- /.form -->
+		
+		<div class="form__button modal-cart__button">
+			<button type="button" class="button js-close-fancybox red-btn square" onclick="$.fancybox.close();">Вернуться к покупкам</button>
+			<button type="button" class="button green-btn square" onclick="document.location.replace('/cart/');">В корзину &rarr;</button>
+		</div> <!-- /.form__button -->
+		
 	</div> <!-- /.modal__cart -->
 </div> <!-- /.modal -->
 
