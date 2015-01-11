@@ -37,7 +37,15 @@ class Orders extends MY_Model
 		{
 			$this->db->where($this->_primary_key, $id)->update($this->_table);
 		}
-	}	
+	}
+
+	function get_order_id()
+	{
+		$this->db->select_max('order_id');
+		$query = $this->db->get('orders');
+		$order_id = $query->row()->order_id;
+		return $order_id + 1;
+	}
 	
 	function prepare($item)
 	{

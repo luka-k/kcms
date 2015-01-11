@@ -15,7 +15,10 @@ class Order extends Client_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
+		$order_id = $this->orders->get_order_id();
+		
 		$new_order = array(
+			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
 			'total' => $total_price,
@@ -30,7 +33,7 @@ class Order extends Client_Controller
 		
 		$this->orders->insert($new_order);
 		
-		$order_id = $this->db->insert_id();
+		
 		
 		if(!empty($orders_info['id']))
 		{
