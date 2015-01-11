@@ -86,7 +86,7 @@
 												<div>Имя - <?=$order_item->name?></div>
 												<div>Телефон - <?=$order_item->phone?></div>
 												<div>e-mail - <?=$order_item->email?></div>
-												<div>Адресс - <?=$order_item->address?></div>
+												<div>Адрес - <?=$order_item->address?></div>
 												<div>Сообщение - <?=$order_item->message?></div>
 												<div>
 													<?foreach($city_id as $key => $c_i):?>

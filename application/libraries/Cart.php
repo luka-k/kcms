@@ -92,7 +92,7 @@ class CI_Cart {
 	public function get_all()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		return $this->cart_contents['items'];
+		return array_reverse($this->cart_contents['items']);
 	}
 	
 	public function get($item_id)
