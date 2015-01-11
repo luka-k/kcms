@@ -35,20 +35,20 @@ class Order extends Client_Controller
 			'status_id' => 1
 		);
 		
-		if(isset($orders_info['id']))
-		{
-			$new_order['user_id'] = $orders_info['id'];
-			$user = $this->users->get_item_by(array("id" => $orders_info['id']));
-			$settings = $this->settings->get_item_by(array("id" => 1));
+		$settings = $this->settings->get_item_by(array("id" => 1));
 			
-			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
-			$message_info = array(
-				"order_id" => $order_id,
-				"user_name" => $user->name
-			);
+		$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+		$message_info = array(
+			"order_id" => $order_id,
+			"user_name" => $orders_info['name']
+		);
+
+		if(!empty($orders_info['email']))
+		{
 			$this->emails->send_mail($orders_info['email'], 'customer_order', $message_info);
-			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 		}
+		
+		$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 		
 		$this->orders->insert($new_order);
 		
