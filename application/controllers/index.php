@@ -32,6 +32,7 @@ class Index extends Client_Controller {
 		}
 		$this->db->where_in("parent_id", $sub_level_id);
 		$this->db->limit(4);
+		$this->db->order_by('date', 'desc');
 		$query = $this->db->get("articles");
 		$last_news = $query->result();
 		

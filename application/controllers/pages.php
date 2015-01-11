@@ -59,7 +59,9 @@ class Pages extends Client_Controller {
 				
 				foreach ($data['content']->articles as $key => $row) 
 				{
-					$volume[$key]  = $row->date;
+					$date = new DateTime($row->date);
+					$date->format('Y-m-d H:i:s');
+					$volume[$key]  = $date;
 				}
 				array_multisort($volume, SORT_DESC, $data['content']->articles);
 			}
