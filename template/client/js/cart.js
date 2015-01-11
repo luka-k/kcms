@@ -65,14 +65,12 @@ function delete_item(item_id){
 }
 
 function update_items(res){		
-	console.log(res);
-
 	$('.total_qty').text(res['total_qty']);
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);
 	$('#'+res['item_id']).text(res['item_total']);
-	
-	$('#input_qty').attr("value", res['item_qty']);	
+	console.log(res['item_qty']);
+	$('#input_qty').val(res['item_qty']);	
 	$('#input_item_id').attr("value", res['item_id']);
 }
 

@@ -55,6 +55,7 @@ class Ajax extends CI_Controller {
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();	
 		$data['item_id'] = $info->item_id;	
+		$data['item_qty'] = $item->item_qty;	
 		echo json_encode($data);
 	}
 	
