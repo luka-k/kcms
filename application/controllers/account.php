@@ -208,6 +208,7 @@ class Account extends Client_Controller
 	
 	public function new_user()
 	{
+		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
 			'meta_title' => "",
@@ -216,19 +217,21 @@ class Account extends Client_Controller
 			'error' => "",
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'top_menu' => $this->top_menu->items,
-			'reg' => "true",
+			'select_item' => "",
+			'activity' => "reg",
 			'filials' => $this->filials->get_list(FALSE)
-		);	
+		);
 			
-		$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-		$this->form_validation->set_rules( 'name','Name','trim|xss_clean|required|min_length[4]|max_length[25]|callback_username_not_exists');	
+		$this->form_validation->set_rules('email', 'e-mail', 'trim|xss_clean|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]|is_unique[users.name]');	
 					
-		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
-		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
+		$this->form_validation->set_rules('conf_password',  'Confirm password',  'min_length[3]|matches[password]');
 					
 		//Валидация формы
 		if($this->form_validation->run() == FALSE)
 		{
+			$data['error'] = validation_errors();
 			//Если валидация не прошла выводим сообщение об ошибке
 			$this->load->view('client/registration', $data);			
 		}

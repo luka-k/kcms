@@ -27,7 +27,7 @@
 					Востановление пароля
 				<?endif;?>
 			</h1>
-
+			<?=$error?>
 			<div class="cart-order__form">
 				<div class="<?if($activity <> "enter"):?>hidden<?endif;?>" style="margin-bottom:20px;">
 					<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">

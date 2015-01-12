@@ -44,15 +44,16 @@ function update_items(res){
 }
 
 function delete_answer(res){
-	$('#total_qty').text(res['total_qty']);
-	$('#total_price').text(res['total_price']);
-	$('.total_price').text(res['total_price']);
-	$('.product_word').text(res['product_word']);
-	$('#'+res['item_id']).text(res['item_total']);
 	if(res['total_qty'] == "0"){
 		$("table").remove('.cart-table');
 		$("div").remove('.page-cart__order');
 		$('.page-cart__products').text("Корзина пуста");
 	}
+	$('#total_qty').text(res['total_qty']);
+	$('#total_price').text(res['total_price']);
+	$('.total_price').text(res['total_price']);
+	$('.product_word').text(res['product_word']);
+	$('#'+res['item_id']).text(res['item_total']);
+	
 	$("tr").remove('#cart-'+res['item_id']);
 }
