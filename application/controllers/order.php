@@ -32,25 +32,26 @@ class Order extends Client_Controller
 		if(!empty($orders_info['building'])) $user_address .= ' к.'.$orders_info['building'];
 		if(!empty($orders_info['apartment'])) $user_address .= ' кв.'.$orders_info['apartment'];
 		
-		$new_order['user_address'] = $user_address;
-		$this->orders->insert($new_order);
-		
-		
-		
+		$settings = $this->settings->get_item_by(array("id" => 1));
+			
+		$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+		$message_info = array(
+			"order_id" => $order_id,
+			"user_name" => $orders_info['name']
+		);
+			
 		if(!empty($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];
 			$user = $this->users->get_item_by(array("id" => $orders_info['id']));
-			$settings = $this->settings->get_item_by(array("id" => 1));
 			
-			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
-			$message_info = array(
-				"order_id" => $order_id,
-				"user_name" => $user->name
-			);
 			$this->emails->send_mail($user->email, 'customer_order', $message_info);
-			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 		}
+		
+		$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
+		
+		$new_order['user_address'] = $user_address;
+		$this->orders->insert($new_order);
 		
 		foreach($cart_items as $item)
 		{

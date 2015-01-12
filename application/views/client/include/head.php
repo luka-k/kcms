@@ -16,4 +16,28 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+	
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.js"></script>
+	<link href="<?=base_url()?>template/client/js/ui/jquery-ui.min.css" rel="stylesheet" />
+	
+	<script>
+		function autocomp(){
+			var data = {};
+			data.r = " ";
+			var json_str = JSON.stringify(data);
+			$.post("/ajax/autocomplete/", json_str, autocomp_answer, 'json');
+		}
+		
+		function autocomp_answer(res){
+			var availableTags = res.available_tags;
+		
+			$("#search_input").autocomplete({
+				source: availableTags,
+				select: function( event, ui ) {
+					$('.search').val(ui.item.value);
+					$('#searchform').submit();
+				}
+			});
+		}
+	</script>
 </head>

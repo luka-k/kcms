@@ -223,7 +223,7 @@ class Account extends Client_Controller
 		);
 			
 		$this->form_validation->set_rules('email', 'e-mail', 'trim|xss_clean|valid_email|is_unique[users.email]');
-		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]|is_unique[users.name]');	
+		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]');	
 					
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
 		$this->form_validation->set_rules('conf_password',  'Confirm password',  'min_length[3]|matches[password]');

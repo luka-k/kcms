@@ -125,22 +125,10 @@ class Ajax extends CI_Controller {
 	
 	function autocomplete()
 	{
-		$data = json_decode(file_get_contents('php://input', true));	
-		
-		$this->db->select("value");
-		$query = $this->db->get_where('characteristics', array("type" => $data->type));
-		$result = $query->result();
-		
-		$available_tags = array();
-		foreach($result as $items)
+		$products = $this->products->get_list(FALSE);
+		foreach($products as $p)
 		{
-			foreach ($items as $item)
-			{
-				if(!empty($item))
-				{
-					$available_tags[] = $item;
-				}
-			}
+			$available_tags[] = $p->name;
 		}
 		$answer['available_tags'] = $available_tags;
 		

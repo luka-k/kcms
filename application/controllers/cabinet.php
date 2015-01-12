@@ -13,9 +13,8 @@ class Cabinet extends Client_Controller {
 		$this->config->load('order_config');
 		
 		$this->user = $this->users->get_item_by(array('id' => $this->user_id));
-		
 		$this->user_orders = $this->orders->get_list(array("user_id" => $this->user_id));
-		
+
 		foreach ($this->user_orders as $key => $order)
 		{	
 			$this->orders_info[$key] = new stdClass();	
