@@ -30,6 +30,7 @@ class Menus extends MY_Model
 			)),
 			'slider' => array('Слайдер', base_url()."admin/content/items/slider", 0),
 			'video' => array('Видео', base_url()."admin/content/items/video", 0),
+			'filials' => array('Филиалы', base_url()."admin/content/items/filials", 0),
 			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),
 			'settings' => array('Настройки', "#", 0, array(
 				0 => array('Настройки сайта', base_url()."admin/content/item/edit/settings/1", 0),
