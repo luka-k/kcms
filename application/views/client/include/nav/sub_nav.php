@@ -3,7 +3,7 @@
 	<ul class="page-nav">	
 		<?foreach($level_2->items as $item):?>
 			<li class="page-nav__item">
-				<a href="<?=$item->full_url?>" class="page-nav__href <?if($level_2->active == $item->url):?>active<?endif;?>"><?=$item->name?></a>
+				<a href="<?=$item->full_url?>" class="page-nav__href <?if($item->url && $level_2->active == $item->url):?>active<?endif;?>"><?=$item->name?></a>
 			</li> <!-- /.page-nav__item -->
 		<?endforeach;?>
 	</ul> <!-- /.page-nav -->

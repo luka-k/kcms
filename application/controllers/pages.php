@@ -25,7 +25,7 @@ class Pages extends Client_Controller {
 		
 		$url = $this->uri->segment(2);
 		$root = $this->menus_items->get_item_by(array("url" => $url));
-		if($root && $url <> "podderzhka-klientov")
+		if($root)
 		{
 			$level_2->items = $this->menus_items->menu_tree(1, $root->id);
 			$level_2->active = $this->uri->segment(3);
