@@ -9,18 +9,18 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart">
-		<form action="#" class="form to_cart" method="post"> <!-- method="get" only for demo -->
+
 			<div class="form__line modal-cart__line skew">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="input_qty" class="form__input modal-cart__input required qty" name="amount" placeholder="" value="" />
+				<input type="text" id="input_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('input_item_id').value, this.value); return false;" placeholder="" value="" />
 				<input type="hidden" id="input_item_id" value=""/>
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button modal-cart__button skew">
 				<button type="button" class="button button--normal button--auto-width js-close-fancybox">Вернуться к покупкам</button>
-				<button type="button" class="button button--normal button--grey button--auto-width" onclick="from_fancy_to_cart(); return false;">В корзину &rarr;</button>
+				<button type="button" class="button button--normal button--grey button--auto-width" onclick="document.location.replace('/cart/');">В корзину &rarr;</button>
 			</div> <!-- /.form__button -->
-		</form> <!-- /.form -->
+
 	</div> <!-- /.modal__cart -->
 </div> <!-- /.modal -->
 
