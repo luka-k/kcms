@@ -55,15 +55,22 @@ class Pages extends Client_Controller {
 		{
 			if($sub_level->url == "novosti")
 			{
-				$this->uri->segment(5) ? $sub_template = "single-news" : $sub_template = "news";
-				
-				foreach ($data['content']->articles as $key => $row) 
+				if($this->uri->segment(5))
 				{
-					$date = new DateTime($row->date);
-					$date->format('Y-m-d H:i:s');
-					$volume[$key]  = $date;
+					$sub_template = "single-news";
 				}
-				array_multisort($volume, SORT_DESC, $data['content']->articles);
+				else
+				{
+					$sub_template = "news";
+				
+					foreach ($data['content']->articles as $key => $row) 
+					{
+						$date = new DateTime($row->date);
+						$date->format('Y-m-d H:i:s');
+						$volume[$key]  = $date;
+					}
+					array_multisort($volume, SORT_DESC, $data['content']->articles);
+				}
 			}
 			else
 			{

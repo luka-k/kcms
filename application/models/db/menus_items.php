@@ -65,10 +65,12 @@ class Menus_items extends MY_Model
 		if(!$url) return FALSE;
 		
 		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-		
+	
 		if(!$child)
 		{
-			return '404';
+			$child =$this->articles->get_item_by(array("url" => $url));
+			
+			return $child ? $this->articles->prepare($child) : '404';
 		}
 		else
 		{
