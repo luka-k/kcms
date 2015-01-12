@@ -86,6 +86,7 @@
 					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
 						<div class="cart-order__form">
 							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
+							<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
 							<div class="form__line skew">
 								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
 							</div> <!-- /.form__line -->

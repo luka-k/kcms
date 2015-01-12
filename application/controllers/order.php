@@ -21,20 +21,17 @@ class Order extends Client_Controller
 			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
+			'user_email' => $orders_info['email'],
 			'total' => $total_price,
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);
 		
-		/*if(isset($orders_info['address']))
-		{
-			$new_order['user_address'] = $orders_info['address'];
-		}*/
 		$user_address = $orders_info['zip_code']." ".$orders_info['city'].' '.$orders_info['street'];
 		if(!empty($orders_info['house'])) $user_address .= ' д.'.$orders_info['house'];
 		if(!empty($orders_info['building'])) $user_address .= ' к.'.$orders_info['building'];
 		if(!empty($orders_info['apartment'])) $user_address .= ' кв.'.$orders_info['apartment'];
-		//$new_order['user_address'] = $orders_info['zip_code']." ".$orders_info['city'].' '.$orders_info['street'].' д.'.$orders_info['house'].' к.'.$orders_info['building'].' кв.'.$orders_info['apartment'];
+		
 		$new_order['user_address'] = $user_address;
 		$this->orders->insert($new_order);
 		
