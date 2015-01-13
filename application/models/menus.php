@@ -9,12 +9,6 @@ class Menus extends MY_Model
     function __construct()
 	{
         parent::__construct();
-		$this->top_menu = array(
-			"clients" => array("Поддержка клиентов", base_url(), "0"),
-			"buy" => array("Где купить", base_url()."catalog", "0"),
-			"about" => array("О нас", base_url()."cart", "0"),
-			"contacts" => array("Контакты", base_url().'wishlist', "0")
-		);	
 
 		$this->admin_menu = array(
 			'main' => array("Главная", base_url()."admin", 0),
@@ -31,13 +25,12 @@ class Menus extends MY_Model
 			'slider' => array('Слайдер', base_url()."admin/content/items/slider", 0),
 			'video' => array('Видео', base_url()."admin/content/items/video", 0),
 			'filials' => array('Филиалы', base_url()."admin/content/items/filials", 0),
+			'dealers' => array('Дилеры', base_url()."admin/content/items/dealers", 0),
 			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),
 			'settings' => array('Настройки', "#", 0, array(
 				0 => array('Настройки сайта', base_url()."admin/content/item/edit/settings/1", 0),
-				1 => array('Письма', base_url()."admin/mails", 0),
-			)),
-			'menus' => array('Меню', "#", 0, array(
-				0 => array("Верхнее меню", base_url()."admin/menu_module/menu/edit/1", 0,)
+				1 => array("Верхнее меню", base_url()."admin/menu_module/menu/edit/1", 0,),
+				2 => array('Письма', base_url()."admin/mails", 0),
 			)),
 			'users' => array('Пользователи', base_url()."admin/content/items/users", 0)
 		);		

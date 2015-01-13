@@ -158,4 +158,23 @@ class Ajax extends CI_Controller {
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}
+	
+	public function dealers()
+	{
+		$dealers_list = $this->dealers->get_list(FALSE);
+		
+		$dealers = array();
+		
+		foreach($dealers_list as $dealer)
+		{
+			//if(array_key_exists ( $dealer->region , $dealers ))
+			
+			$dealers[$dealer->region][] = $dealer->name;
+		}
+		
+		
+		$data = (object)$dealers;
+		
+		echo json_encode($data);
+	}
 }

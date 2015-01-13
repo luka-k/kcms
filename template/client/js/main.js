@@ -235,166 +235,60 @@
  * ========================================================================== */
 
   app.dealersMap = function(){
+  	
+	$.post( "/ajax/dealers/", function(res) {
 
-    var $dealersMap = $('.page-dealers__map');
+		var dealers = JSON.parse(res);
+		var $dealersMap = $('.page-dealers__map');
 
-    if ($dealersMap.length == 0) return;
+		if ($dealersMap.length == 0) return;
 
-    /*
-        CH = Chukotka Autonomous Okrug
-        KA = Kamchatka Krai
-        MA = Magadan Oblast
-        SA = Sakha Republic
-        AM = Amur Oblast
-        PR = Primorsky Krai
-        EU = Jewish Autonomous Oblast
-        HA = Khabarovsk Krai
-        SH = Sakhalin Oblast
-        OM = Omsk Oblast
-        NV = Novosibirsk Oblast
-        AL = Altai Krai
-        LT = Altai Republic
-        TV = Tuva Republic
-        HK = Republic of Khakassia
-        KM = Kemerovo Oblast
-        TM = Tomsk Oblast
-        ZB = Zabaykalsky Krai
-        BR = Buryat Republic
-        IR = Irkutsk Oblast
-        KR = Krasnoyarsk Krai
-        YA = Yamalo-Nenets Autonomous Okrug
-        HT = Khanty–Mansi Autonomous Okrug
-        TU = Tyumen Oblast
-        KU = Kurgan Oblast
-        CL = Chelyabinsk Oblast
-        SV = Sverdlovsk Oblast
-        AR = Arkhangelsk Oblast
-        NE = Nenets Autonomous Okrug
-        KO = Komi Republic
-        MU = Murmansk Oblast
-        VO = Vologda Oblast
-        NO = Novgorod Oblast
-        PS = Pskov Oblast
-        LE = Leningrad Oblast
-        KL = Republic of Karelia
-        KN = Kaliningrad Oblast
-        DA = Republic of Dagestan
-        ST = Stavropol Krai
-        SO = Republic of North Ossetia–Alania
-        KB = Kabardino-Balkar Republic
-        KH = Karachay–Cherkess Republic
-        CC = Chechen Republic
-        IN = Republic of Ingushetia         
-        AD = Republic of Adygea
-        KS = Krasnodar Krai
-        RO = Rostov Oblast
-        KK = Republic of Kalmykia
-        AS = Astrakhan Oblast
-        VL = Volgograd Oblast
-        TR = Tver Oblast
-        SM = Smolensk Oblast
-        BN = Bryansk Oblast
-        KY = Kursk Oblast
-        BL = Belgorod Oblast
-        OR = Oryol Oblast
-        KJ = Kaluga Oblast
-        TL = Tula Oblast
-        LP = Lipetsk Oblast
-        MC = Moscow Oblast
-        RZ = Ryazan Oblast
-        TB = Tambov Oblast
-        VM = Vladimir Oblast
-        IV = Ivanovo Oblast
-        YR = Yaroslavl Oblast
-        KT = Kostroma Oblast
-        NN = Nizhny Novgorod Oblast
-        MR = Republic of Mordovia
-        PZ = Penza Oblast
-        SR = Saratov Oblast
-        SS = Samara Oblast
-        OB = Orenburg Oblast
-        BS = Republic of Bashkortostan
-        UL = Ulyanovsk Oblast
-        CU = Chuvash Republic
-        TA = Republic of Tatarstan
-        ML = Mari El Republic
-        UD = Udmurt Republic
-        KI = Kirov Oblast
-        PE = Perm Krai
-        VN = Voronezh Oblast
-    */
+		var data_obj = dealers;
 
-    var data_obj = {
-        'no': ['RedBTR'],
-        'kr': ['RedBTR'],
-        'ha': ['RedBTR'],
-        'ka': ['RedBTR'],
-        'mc': ['RedBTR'],
-        'ht': ['RedBTR'],
-        'ko': ['RedBTR'],
-        'ki': ['RedBTR'],
-        'iv': ['RedBTR'],
-        'kt': ['RedBTR'],
-        'vm': ['RedBTR'],
-        'tl': ['RedBTR'],
-        'sm': ['RedBTR'],
-        'kj': ['RedBTR'],
-        'yr': ['RedBTR'],
-        'tr': ['RedBTR'],
-        'ps': ['RedBTR'],
-        'le': ['RedBTR'],
-        'vo': ['RedBTR'],
-        'ar': ['RedBTR'],
-        'kl': ['RedBTR'],
-        'mu': ['RedBTR'],
-        'sa': ['RedBTR']
-    };
+		var colorRegion = '#cccccc', // Цвет всех регионов
+			focusRegion = '#cccccc', // Цвет подсветки регионов при наведении на объекты из списка
+			selectRegion = '#535353', // Цвет изначально подсвеченных регионов
 
-    var colorRegion = '#cccccc', // Цвет всех регионов
-        focusRegion = '#cccccc', // Цвет подсветки регионов при наведении на объекты из списка
-        selectRegion = '#535353', // Цвет изначально подсвеченных регионов
+			iso,
+			highlighted_states = {};
 
-        iso,
-        highlighted_states = {};
+		// Массив подсвечиваемых регионов, указанных в массиве data_obj
+		for(iso in data_obj){
+			highlighted_states[iso] = selectRegion;
+		}
 
-    // Массив подсвечиваемых регионов, указанных в массиве data_obj
-    for(iso in data_obj){
-        highlighted_states[iso] = selectRegion;
-    }
-
-    $dealersMap.vectorMap({
-        map: 'russia',
-        backgroundColor: '#ffffff',
-        borderColor: '#ffffff',
-        borderWidth: 2,
-        color: colorRegion,
-        colors: highlighted_states,         
-        hoverOpacity: 0.7,          
-        enableZoom: true,
-        showTooltip: true,          
+		$dealersMap.vectorMap({
+			map: 'russia',
+			backgroundColor: '#ffffff',
+			borderColor: '#ffffff',
+			borderWidth: 2,
+			color: colorRegion,
+			colors: highlighted_states,         
+			hoverOpacity: 0.7,          
+			enableZoom: true,
+			showTooltip: true,          
         
-        // Отображаем объекты если они есть
-        onLabelShow: function(event, label, code){
-            var list_obj,
-                ob,
-                name = '<strong>'+label.text()+'</strong><br>';          
+			// Отображаем объекты если они есть
+			onLabelShow: function(event, label, code){
+				var list_obj,
+					ob,
+					name = '<strong>'+label.text()+'</strong><br>';          
             
-            if(data_obj[code]){
-                list_obj = '<ul>';
-                for(ob in data_obj[code]){                  
-                    list_obj += '<li>'+data_obj[code][ob]+'</li>';
-                }
-                list_obj += '</ul>';
-            }else{
-                list_obj = '';
-            }               
-            label.html(name + list_obj);                
-            list_obj = '';              
-        },          
-
-  
-    }); 
-
+				if(data_obj[code]){
+					list_obj = '<ul>';
+					for(ob in data_obj[code]){                  
+						list_obj += '<li>'+data_obj[code][ob]+'</li>';
+					}
+					list_obj += '</ul>';
+				}else{
+					list_obj = '';
+				}               
+				label.html(name + list_obj);                
+				list_obj = '';              
+			},          
+		}); 
+	});
+ 
   };
 
 
@@ -425,7 +319,6 @@
     var _this = this;
     $.extend($.validator.messages, _this.validateMessages );
     $('form').each(function() {
-	console.log($(this).attr('where'));
 	if($(this).attr('where') === "validate_ajax"){
       $(this).validate({
 			errorPlacement: function(error, element) {},

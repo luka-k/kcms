@@ -88,6 +88,12 @@ class Content extends Admin_Controller
 			$data['editors'] = $this->$type->editors;
 		}
 		
+		if($type == "dealers")
+		{
+			$this->config->load('dealers_config');
+			$data['selects']['region'] = $this->config->item('region');
+		}
+		
 		if($acting == "edit")
 		{
 			if($id == FALSE)
