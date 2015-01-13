@@ -111,7 +111,7 @@ class Pages extends Client_Controller {
 		if($root) 
 		{
 			$level_2->items = $this->menus_items->menu_tree(1, $root->id);
-			$level_2->active = "articles/gde-kupit/dealers";
+			$level_2->active = "dealers";
 			$data['level_2'] = $level_2;
 		}
 		
