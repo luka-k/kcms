@@ -17,17 +17,26 @@
 	<? require 'include/top-menu.php'?>
 	<? require 'include/breadcrumbs.php'?>
 	
-	
-	
 	<div class="page page-<?if($sub_template == "news" || $sub_template == "single-news"):?>news<?else:?>about<?endif;?>">
 		<div class="page__wrap wrap">
 			<?if(isset($level_2)):?>
 				<? require 'include/nav/sub_nav.php'?>
 			<?endif;?>
 			
-			<h1 class="page__title"><?=$content->name?></h1>
-			
+	
 			<?if($sub_template == "single-news"):?>
+				<h1 class="page__title">Новости</h1>
+				
+				<div class="page-news__categories inline-categories">
+					<ul class="inline-categories__list skew">
+						<?foreach($level_3->items as $item):?>
+							<li class="inline-categories__item">
+								<a href="<?=$item->full_url?>" class="inline-categories__href <?if($level_3->active == $item->url):?>active<?endif;?>"><?=$item->name?></a>
+							</li> <!-- /.inline-categories__item -->
+                        <?endforeach;?>
+					</ul> <!-- /.inline-categories__inner -->
+				</div> <!-- /.page-news__categories -->
+				
 				<div class="page__content">
 					<div class="page-news__calendar">
 						<!--<img src="images/calendar.png" alt="calendar" />-->
@@ -57,6 +66,8 @@
 
 		        </div> <!-- /.page__content -->
 			<?elseif($sub_template == "news"):?>
+				<h1 class="page__title">Новости</h1>
+				
 				<div class="page-news__categories inline-categories">
 					<ul class="inline-categories__list skew">
 						<?foreach($level_3->items as $item):?>
@@ -82,23 +93,7 @@
 								</h3> <!-- /.news-item__title -->
 
 								<div class="news-item__text">
-								
-								
-							<?
-							$desc = strip_tags($item->description);
-							$desc_arr = explode(' ', $desc);
-							$desc = '';
-							for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
-							{
-								$desc .= $desc_arr[$i].' ';
-							}
-							if ($i >= 19)
-								$desc .= '...';
-							echo $desc;
-							?>
-								
-								
-								
+									<?=$item->description?>
 								</div> <!-- /.news-item__text -->
 							</div> <!-- /.news-item -->
 						<?endforeach;?>
@@ -112,6 +107,7 @@
 
 		        </div> <!-- /.page__content -->
 			<?else:?>
+				<h1 class="page__title"><?=$content->name?></h1>
 				<div class="page__content">
 					<?=$content->description?>
 				</div> <!-- /.page__content -->

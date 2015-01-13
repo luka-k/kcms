@@ -68,8 +68,19 @@ class Pages extends Client_Controller {
 						$date = new DateTime($row->date);
 						$date->format('Y-m-d H:i:s');
 						$volume[$key]  = $date;
+						
+						$desc = strip_tags($row->description);
+						$desc_arr = explode(' ', $desc);
+						$desc = '';
+						for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+						{
+							$desc .= $desc_arr[$i].' ';
+						}
+						if ($i >= 19) $desc .= '...';
+						$row->description = $desc;
 					}
 					array_multisort($volume, SORT_DESC, $data['content']->articles);
+					
 				}
 			}
 			else
