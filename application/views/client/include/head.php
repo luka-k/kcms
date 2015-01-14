@@ -17,8 +17,7 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.js"></script>
-	<link href="<?=base_url()?>template/client/js/ui/jquery-ui.min.css" rel="stylesheet" />
+	
 	
 	<script>
 		function autocomp(){
@@ -38,6 +37,6 @@
 					$('#searchform').submit();
 				}
 			});
-		}
+		}		
 	</script>
 </head>

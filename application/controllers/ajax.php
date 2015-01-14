@@ -177,4 +177,26 @@ class Ajax extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	public function selected_days(){
+		
+		$article = $this->articles->get_item_by(array("url" => "novosti"));
+		$sub_level = $this->articles->get_list(array("parent_id" => $article->id));
+		$selected_dates = array();
+		foreach($sub_level as $item)
+		{
+			$sub_items = $this->articles->get_list(array("parent_id" => $item->id));
+
+			if(!empty($sub_items))foreach($sub_items as $a)
+			{
+				$item_date = new DateTime($a->date);
+				$item_date = date_format($item_date, 'm/d/Y');
+				if(!in_array ( $a->date , $selected_dates)) $selected_dates[] = $item_date;
+			}
+		}
+	
+		$data = $selected_dates;
+		
+		echo json_encode($data);
+	}
 }

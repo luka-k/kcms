@@ -99,7 +99,7 @@ class Menus_items extends MY_Model
 							foreach($sub_level as $item)
 							{
 								$sub_items = $this->articles->get_list(array("parent_id" => $item->id));
-								//var_dump($sub_items);
+
 								if(!empty($sub_items))foreach($sub_items as $a)
 								{
 									$child->articles[] = $a;

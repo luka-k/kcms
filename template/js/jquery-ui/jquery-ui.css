@@ -310,7 +310,7 @@ button.ui-button::-moz-focus-inner {
 	padding: 0;
 }
 .ui-datepicker {
-	width: 17em;
+	width: 100%;
 	padding: .2em .2em 0;
 	display: none;
 }
@@ -401,6 +401,7 @@ button.ui-button::-moz-focus-inner {
 	padding: .2em .6em .3em .6em;
 	width: auto;
 	overflow: visible;
+	
 }
 .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
 	float: left;
@@ -474,6 +475,8 @@ button.ui-button::-moz-focus-inner {
 	border-right-width: 0;
 	border-left-width: 1px;
 }
+
+
 .ui-dialog {
 	overflow: hidden;
 	position: absolute;
@@ -1222,4 +1225,11 @@ body .ui-tooltip {
 	opacity: .2;
 	filter: Alpha(Opacity=20); /* support: IE8 */
 	border-radius: 5px;
+}
+
+
+.highlight .ui-state-default{
+	background: #515151;
+	border:none;
+	color: #fff;
 }

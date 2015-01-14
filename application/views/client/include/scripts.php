@@ -19,8 +19,9 @@
 <!-- Slider -->
 <script src="<?=base_url()?>template/client/js/bxslider/jquery.bxslider.min.js"></script>
 
-<!-- UI -->
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/ru.js"></script> <!--fancybox js-->
+<link href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" rel="stylesheet" />
 
 <script type="text/javascript" src="http://ajaxs.ru/demo/jq/jqvmap/jqvmap/js/jquery.vmap.js"></script>
 <script type="text/javascript" src="http://ajaxs.ru/demo/jq/jqvmap/jqvmap/js/maps/jquery.vmap.russia.js"></script>

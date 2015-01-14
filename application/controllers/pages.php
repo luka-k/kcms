@@ -55,6 +55,7 @@ class Pages extends Client_Controller {
 		{
 			if($sub_level->url == "novosti")
 			{
+			
 				if($this->uri->segment(5))
 				{
 					$sub_template = "single-news";
@@ -62,6 +63,9 @@ class Pages extends Client_Controller {
 				else
 				{
 					$sub_template = "news";
+					
+					$select_date = $this->input->get('date');
+					//var_dump(empty($select_date));
 				
 					foreach ($data['content']->articles as $key => $row) 
 					{
@@ -81,6 +85,16 @@ class Pages extends Client_Controller {
 					}
 					array_multisort($volume, SORT_DESC, $data['content']->articles);
 					
+					if(!empty($select_date))
+					{
+						$selected_news = array();
+						foreach ($data['content']->articles as $item)
+						{
+							if($item->date == $select_date) $selected_news[] = $item;
+						}
+						
+						$data['content']->articles = $selected_news;
+					}
 				}
 			}
 			else
