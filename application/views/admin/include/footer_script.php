@@ -90,6 +90,24 @@
 		}
 	}
 	
+	function advanced(type, item_id, check)
+	{
+		var data = {},
+		value;
+		
+		if(check == true){
+			value = 1;
+		}else{
+			value = 0;
+		}
+		
+		data.type = type;
+		data.id = item_id;
+		data.value = value;
+		var json_str = JSON.stringify(data);
+		$.post("/admin/admin_ajax/advanced/", json_str);
+	}
+	
 	$(function(){
 		$( ".datepicker" ).datepicker();
 		$( ".datepicker" ).datepicker( "option", $.datepicker.regional["ru"]);
@@ -98,11 +116,10 @@
 	});
 	
 	jQuery(document).ready(function($){	
-			var ckeditor = CKEDITOR.replace('editor');
-			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
+		var ckeditor = CKEDITOR.replace('editor');
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
 			
-			var ckeditor_2 = CKEDITOR.replace('editor_2');
-			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
-		});
+		var ckeditor_2 = CKEDITOR.replace('editor_2');			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+	});
 
 </script>

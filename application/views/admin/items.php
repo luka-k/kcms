@@ -31,14 +31,14 @@
 									<?else:?>
 										<th class="tb_9">Имя</th>
 									<?endif;?>
-									<th class="tb_1">Действие</th>
+									<th class="tb_1">&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody <?if(isset($sortable) || $type == "slider"):?> class="sortable"<?endif?>>
-								<?$count = 1?>
+								<?$counter = 1?>
 								<?php foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
-										<td class="tb_1"><?=$count?></td>
+										<td class="tb_1"><?=$counter?></td>
 										
 										<?if(isset($images)):?>
 											<td class="tb_3">
@@ -48,11 +48,19 @@
 											</td>
 											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_9"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
-										<td class="tb_1"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-2x"></i></a></td>
+										<td class="tb_3">
+											<div class="col_12"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;">удалить</a></div>
+											<?if($type == "products"):?>
+												<div class="col_2"><input type="checkbox" id="new_<?=$counter?>" onchange="advanced('new', '<?=$item->id?>', this.checked);" <?if($item->is_new == 1):?>checked<?endif;?>/></div>
+												<div class="col_10"><label for="new_<?=$counter?>">новинка</label></div>
+												<div class="col_2"><input type="checkbox" id="special_<?=$counter?>" onchange="advanced('special', '<?=$item->id?>',  this.checked);" <?if($item->is_good_buy == 1):?>checked<?endif;?>/></div>
+												<div class="col_10"><label for="special_<?=$counter?>">выгодное предложение</label></div>
+											<?endif;?>
+										</td>
 									</tr>
-									<?$count++?>
+									<?$counter++?>
 								<?php endforeach ?>
 								
 								<?require 'include/delete_popup.php'?>

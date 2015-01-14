@@ -113,9 +113,22 @@ class Admin_ajax extends Admin_Controller
 			$this->characteristics->update($info->id, $info);
 			$answer['message'] = 'ok';
 		}
-		
-		
-		
+			
 		echo json_encode($answer);
+	}
+	
+	public function advanced()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		
+		if($info->type == "new")
+		{
+			$this->products->update($info->id, array("is_new" => $info->value));
+		}
+		elseif($info->type == "special")
+		{
+			$this->products->update($info->id, array("is_good_buy" => $info->value));
+		}
 	}
 }
