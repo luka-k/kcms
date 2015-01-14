@@ -15,7 +15,7 @@
 			
 		<link href="<?=base_url()?>template/client/js/ui/jquery-ui.min.css" rel="stylesheet" />
 		
-		<!--<link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,500,400italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>-->
+		<link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,500,400italic&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
 		
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
