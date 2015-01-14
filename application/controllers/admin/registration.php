@@ -46,7 +46,7 @@ class Registration extends Admin_Controller
 	}
 	
 	//Выход
-	public function do_exit()
+	public function logout()
 	{
 		$role = $this->session->userdata('role');
 		$authdata = array(
@@ -57,17 +57,6 @@ class Registration extends Admin_Controller
 		$this->session->unset_userdata($authdata);
 		
 		redirect(base_url().'admin');
-	}
-	
-	/*Вывод формы востановления пароля*/
-	public function forgot_pass()
-	{
-		$data = array(
-			'title' => "Востановление пароля",
-			'meta_title' => "Востановление пароля",
-			'error' => " "
-		);
-		$this->load->view('admin/forgot_form.php', $data);			
 	}
 	
 	/*Вывод формы востановления пароля*/
