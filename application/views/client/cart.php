@@ -135,16 +135,16 @@
 								<label for="text1">Имя</label><br/>	
 								<input id="text1" type="text" name="name" class="validate square"/><br/>	
 								<label for="text2">Эл. почта</label><br/>	
-								<input id="text2" type="text" name="email" class="square"//><br/>	
+								<input id="text2" type="text" name="email" class="validate square"//><br/>	
 								<label for="textarea1">Адрес доставки</label><br/>	
-								<textarea id="textarea1" placeholder="Введите адрес"  name="address" class="square"/></textarea>
+								<textarea id="textarea1" placeholder="Введите адрес"  name="address" class="validate square"/></textarea>
 							</div>
 							<div class="col_6">
 								<label for="text1">Телефон</label><br/>	
 								<input id="text1" type="text" name="phone" class="validate square"/><br/>	
 								<label for="text2">Местоположение</label><br/>	
-								<select id="select1" name="city_id" size="1" class="select">
-									<option>Необходимо выбрать</option>
+								<select id="select1" name="city_id" size="1" class="validate select">
+									<option value="">Необходимо выбрать</option>
 									<?foreach($city_id as $value => $c_i):?>
 										<option value="<?=$value?>"><?=$c_i?></option>
 									<?endforeach;?>

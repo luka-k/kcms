@@ -1361,3 +1361,7 @@ text-align:left;
 #order-modal textarea{
 height:120px;
 }
+
+textarea.error, select.error{
+border:1px solid red;
+}

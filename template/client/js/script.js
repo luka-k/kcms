@@ -1,5 +1,5 @@
 function validation (element, errorClass) {
-	var input = element.find('input.validate'),
+	var input = element.find('.validate'),
 	isError = false;
 
 	input.on('focus', function () {
@@ -9,7 +9,7 @@ function validation (element, errorClass) {
 		
 	input.each(function () {
 		var el = $(this);
-		
+		console.log(el.val());
 		if (el.val() == "") {
             el.addClass(errorClass);
             isError = true;
