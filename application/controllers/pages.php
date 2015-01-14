@@ -15,9 +15,11 @@ class Pages extends Client_Controller {
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'top_menu' => $this->top_menu,
 			'left_menu' => $left_menu,
+			'type' => $this->uri->segment(2)
 		);
 		
 		$page = $this->articles->url_parse(2);
+
 		if(isset($page->id))
 		{
 			$content = $page;

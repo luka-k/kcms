@@ -33,6 +33,7 @@ class Articles extends MY_Model
 		if(!$url) return FALSE;
 		
 		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
+		
 		if(!$child)
 		{
 			return '404';
@@ -40,15 +41,22 @@ class Articles extends MY_Model
 		else
 		{
 			$this->add_active($child->id);
-			if($segment_number == 2) $url = "articles/".$url; 
+			if($segment_number == 2) 
+			{
+				$url = "articles/".$url; 
+				
+				$articles = $this->articles->get_list(array("parent_id" => $child->id));
+				$child->articles = $this->get_prepared_list($articles);
+			}
 			$this->breadcrumbs->add($url, $child->name);
 			//если дошли до 4 сегмента url
 			//то есть до 3 уровняя влодежости
 			//формируем статью.
 			//собственно для любого уровня вложенности можно ввсети передаваемый параметр
-			if($segment_number == 4)
+			if($segment_number == 3)
 			{
 				$parent->article = $this->get_item_by(array('url' => $url));
+				
 				return $parent;
 			}
 			else

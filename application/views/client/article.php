@@ -83,11 +83,44 @@
 								<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 
 							<? endforeach ?>
 						</div>
-						<h3 class="title col_12"><?= $content->name ?></h3>
+						
 						
 
 					<div class="col_12">
-							<p><?= $content->description ?></p>
+						<?if(isset($content->article)):?>
+							<h3 class="title col_12"><?= $content->article->name ?></h3>
+							<div class="col_12"><?= $content->article->description ?></div>
+							
+							<!--Оп оп говно код)))-->
+							<?if($type == "novosti" || $type == "articles"):?>
+							<div class="col_12">
+								<h3 class="title col_12">Другие <?if($type == "novosti"):?>новости<?else:?>статьи<?endif;?></h3>
+								<div class="col_12">
+								<?$counter = 1?>
+								<?$line = ceil((count($content->articles)-1)/2)?>
+								<?foreach($content->articles as $article):?>
+									<?if($article->name <> $content->article->name):?>
+									<?if($counter == 1):?><ul class="col_6"><?endif;?>
+										<li>
+											<a href="<?=$article->full_url?>"><?=$article->name?></a>
+											<div><?=$article->description_short?></div>
+										</li>
+										<?if($counter == $line):?></ul><?$counter = 0?><?endif;?>
+										<?$counter++?>
+									<?endif?>
+									
+								<?endforeach;?>
+								</div>
+							</div>	
+							<?endif;?>
+						<?else:?>
+							<h3 class="title col_12"><?= $content->name ?></h3>
+							<ul>
+								<?foreach($content->articles as $article):?>
+									<li><a href="<?=$article->full_url?>"><?=$article->name?></a></li>
+								<?endforeach;?>
+							</ul>
+						<?endif;?>
 					</div>
 						
 					</div>
