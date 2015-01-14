@@ -11,6 +11,7 @@ class Order extends Client_Controller
 	public function edit_order()
 	{
 		$action = $this->input->get('action');
+		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		if($action == "order_from_cart")
 		{
@@ -35,7 +36,7 @@ class Order extends Client_Controller
 			'status_id' => 1
 		);
 		
-		$settings = $this->settings->get_item_by(array("id" => 1));
+		
 			
 		$subject = 'Заказ в интернет-магазине '.$settings->site_title;
 		$message_info = array(
@@ -81,6 +82,19 @@ class Order extends Client_Controller
 			);
 			
 			$this->orders->insert($new_order);
+			
+			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+			$message_info = array(
+				"order_id" => $order_id,
+				"user_name" => $orders_info['name']
+			);
+
+			if(!empty($orders_info['email']))
+			{
+				$this->emails->send_mail($orders_info['email'], 'customer_order', $message_info);
+			}
+			
+			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
 			
 			$product = $this->products->get_item_by(array("id" => $orders_info['item_id']));
 			$orders_products = array(
