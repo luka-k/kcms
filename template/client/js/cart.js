@@ -14,8 +14,6 @@ function fancy_to_cart(item_id, name, action, qty){
 	if(qty == false){
 		qty = 1; 
 	}
-	console.log(item_id);
-	console.log(qty);
 	if(action === "buy"){
 		add_to_cart(item_id, qty);
 		$('#input_item_id').attr("value", item_id);
@@ -28,8 +26,6 @@ function fancy_to_cart(item_id, name, action, qty){
 	
 function update_cart(item_id, qty){
 	data = new Object();
-	console.log(item_id);
-	console.log(qty);
 	data.item_id = item_id;
 	data.qty = qty;
 	var json_str = JSON.stringify(data);
@@ -69,7 +65,6 @@ function update_items(res){
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);
 	$('#'+res['item_id']).text(res['item_total']);
-	console.log(res['item_qty']);
 	$('#input_qty').val(res['item_qty']);	
 	$('#input_item_id').attr("value", res['item_id']);
 }
