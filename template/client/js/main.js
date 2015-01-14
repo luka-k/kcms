@@ -383,4 +383,4 @@ $(function() {
 	
 	$( ".datepicker" ).datepicker( "option", $.datepicker.regional["ru"]);
 });
-
+	
