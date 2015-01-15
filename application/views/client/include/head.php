@@ -6,12 +6,12 @@
 		<meta name="description" content="<?=$meta_description?>" />
 		<base href="<?= base_url() ?>" />
 		
-		<link rel="stylesheet" type="text/css" href="/css/kickstart.css" media="all" />                  <!-- KICKSTART -->
-		<link rel="stylesheet" type="text/css" href="/css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
-		<link rel="stylesheet" type="text/css" href="/css/responsive.css" media="all" />   
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/responsive.css" media="all" />   
 		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
 		
-		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="<?=base_url()?>template/client/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 			
 		<link href="<?=base_url()?>template/client/js/ui/jquery-ui.min.css" rel="stylesheet" />
 		
