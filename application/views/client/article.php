@@ -4,38 +4,8 @@
 
 		<div id="wrapper" class="clearfix">
 			
-				<header class="grid clearfix">
-					<div class="logo col_4">
-						<a href=""><img src="img/logo.png" alt=""/></a>
-						<div class="slogan" >Запчасти cummins из первых рук</div>
-					</div>
-					<div class="header-info col_4">
-						<div class="phone"><span class="phone-code">8(800)</span>700-56-47</div>
-						<div class="work-time">звонок по России бесплатно</div>
-					</div>
-					<div class="cart col_4">
-						<!-- <div class="enter"><a href="">Вход</a> | <a href="">Регистрация</a></div> -->
-						<div class="clearfix">
-							<div class="cart-btn">&nbsp;</div>
-							<div class="cart-info"><span class="cart-qty">0</span> товаров на сумму <span class="cart-total">0</span> рублей</div>
-						</div>
-					</div>				
-				</header>
-				
-				<div id="menu" class="grid clearfix">
-					<nav>
-						<ul>
-							<li><a href="">Главная</a></li>
-							<li><a href="/articles/info/about/">Информация</a></li>
-							<li><a href="/">Каталог</a></li>
-							<li><a href="/articles/info/delivery/">Оплата и доставка</a></li>
-							<li><a href="/articles/info/contacts/">Контакты</a></li>
-						</ul>
-					</nav>
-					<form action="/search/" id="searchform" method="get">
-						<input type="text" name="q" class="search square" value="<?= isset($_GET['q']) ? $_GET['q'] : '' ?>" placeholder="Поиск по номеру или именованию"/>
-					</form>
-				</div>
+				<? require 'include/header.php' ?>
+				<? require 'include/top-menu.php' ?>
 				<div id="main-3" class="grid clearfix">
 					<div id="left-col" class="col_3">
 						<div class="left-col">

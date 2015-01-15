@@ -12,6 +12,10 @@ class Pages extends Client_Controller {
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'top_menu' => $this->top_menu->items,
+			'cart_items' => $this->cart_items,
+			'total_price' => $this->total_price,
+			'total_qty' => $this->total_qty,
+			'product_word' => end_maker("товар", $this->total_qty),
 			'type' => $this->uri->segment(2)
 		);
 		
