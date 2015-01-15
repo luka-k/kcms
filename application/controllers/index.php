@@ -13,7 +13,6 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 
-		$left_menu = $this->dynamic_menus->get_menu(4);
 		
 		$data = array(
 			'title' => $settings->site_title,
@@ -25,14 +24,12 @@ class Index extends Client_Controller {
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
 			'products_special' => $this->products->get_prepared_list($this->products->get_list(array('new' => 1), 0, 4, 'id', 'desc')),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'main'),
-			'left_menu' => $left_menu,
+			'top_menu' => $this->top_menu->items,
 			'news' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 3), 0, 5, 'date', 'desc')),
 			'articles' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 1), 0, 5, 'date', 'desc')),
 			'content' => $this->articles->get_item_by(array('url' => '/'))
 			//'video' => $this->articles-get_list(array())
 		);
-		//var_dump($data['available_tags']);
 		$this->load->view('client/main.php', $data);
 	}	
 }

@@ -70,7 +70,7 @@ class Registration extends CI_Controller
 					'method_delivery' => $this->config->item('method_delivery'),
 					'method_pay' => $this->config->item('method_pay')
 				),
-				'top_menu' => $this->menus->top_menu,
+				'top_menu' => $this->top_menu->items,
 				'user' => $this->users->get_item_by(array("id" => $user_id))
 			);
 			
@@ -246,7 +246,7 @@ class Registration extends CI_Controller
 			'meta_keywords' => "",
 			'meta_description' => "",
 			'error' => "",
-			'menu' => $menu,
+			'top_menu' => $this->top_menu->items,
 			'editors' => $editors,
 			'content' => $user
 		);

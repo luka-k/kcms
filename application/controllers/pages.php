@@ -9,12 +9,9 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$left_menu = $this->dynamic_menus->get_menu(4);
-		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu,
-			'left_menu' => $left_menu,
+			'top_menu' => $this->top_menu->items,
 			'type' => $this->uri->segment(2)
 		);
 		
@@ -46,8 +43,7 @@ class Pages extends Client_Controller {
 	// вывод вишлиста
 	public function wishlist()
 	{
-		$left_menu = $this->dynamic_menus->get_menu(4);
-		
+
 		$wishlist = $this->wishlist->get();
 
 		$data = array(

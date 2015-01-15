@@ -43,7 +43,7 @@ class Client_Controller extends CI_Controller
 	{
 		parent::__construct();
 				
-		$this->top_menu = $this->menus->top_menu;
+		$this->top_menu = $this->dynamic_menus->get_menu(4);
 		$this->user_id = $this->session->userdata('user_id');
 		$this->cart_items = $this->cart->get_all();
 		$this->total_price = $this->cart->total_price();

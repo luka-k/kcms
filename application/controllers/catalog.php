@@ -34,7 +34,7 @@ class Catalog extends Client_Controller {
 			'total_price' => $this->total_price,
 			'total_qty' => $this->total_qty,
 			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
+			'top_menu' => $this->top_menu->items,
 			'url' => $url,
 			'filters' => $filters,
 			'news' => $this->articles->get_prepared_list($this->articles->get_list(array('parent_id' => 3), 0, 3, 'date', 'desc')),
@@ -158,7 +158,7 @@ class Catalog extends Client_Controller {
 			'payment_id' => $this->config->item('method_pay'),
 			'city_id' => $this->config->item('city_id'),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
+			'top_menu' => $this->top_menu->items,
 			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'action' => $this->input->get('action')
 		);

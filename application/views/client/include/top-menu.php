@@ -1,11 +1,9 @@
 <div id="menu" class="grid clearfix">
 	<nav>
 		<ul>
-			<li><a href="">Главная</a></li>
-			<li><a href="/articles/info/about/">Информация</a></li>
-			<li><a href="/">Каталог</a></li>
-			<li><a href="/articles/info/delivery/">Оплата и доставка</a></li>
-			<li><a href="/articles/info/contacts/">Контакты</a></li>
+			<?foreach($top_menu as $item):?>
+				<li><a href="<?=$item->full_url?>"><?=$item->name?></a></li>
+			<?endforeach;?>
 		</ul>
 	</nav>
 	<form action="/search/" id="searchform" method="get">
