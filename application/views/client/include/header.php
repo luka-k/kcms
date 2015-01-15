@@ -1,8 +1,6 @@
-
-
 <header class="grid clearfix">
 	<div class="logo col_4">
-		<a href=""><img src="img/logo.png" alt=""/></a>
+		<a href=""><img src="<?=base_url()?>template/client/img/logo.png" alt=""/></a>
 		<div class="slogan" >Запчасти cummins из первых рук</div>
 	</div>
 	<div class="header-info col_4">

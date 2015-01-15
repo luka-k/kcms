@@ -8,15 +8,15 @@
 				
 				<div id="category" class="grid clearfix">
 					<div class="cat-item col_4" id="category1">
-						<a href="/catalog/cummins-isf-2-8" class="plashka"><img src="img/category-1.png" alt=""/></a>
+						<a href="/catalog/cummins-isf-2-8" class="plashka"><img src="<?=base_url()?>template/client/img/category-1.png" alt=""/></a>
 						<div class="item-name"><a href="/catalog/cummins-isf-2-8">Cummins ISF2.8</a></div>
 					</div>
 					<div class="cat-item col_4" id="category2">
-						<a href="/catalog/cummins-isf-3-8" class="plashka"><img src="img/category-2.png" alt=""/></a>
+						<a href="/catalog/cummins-isf-3-8" class="plashka"><img src="<?=base_url()?>template/client/img/category-2.png" alt=""/></a>
 						<div class="item-name"><a href="/catalog/cummins-isf-3-8" >Cummins ISF3.8</a></div>
 					</div>
 					<div class="cat-item col_4" id="category3">
-						<a href="" onclick="return swap2isbe()" class="plashka"><img src="img/category-3.png" alt=""/></a>
+						<a href="" onclick="return swap2isbe()" class="plashka"><img src="<?=base_url()?>template/client/img/category-3.png" alt=""/></a>
 						<div class="item-name"><a href="" onclick="return swap2isbe()" >Cummins ISBe</a></div>
 					</div>
 				</div>

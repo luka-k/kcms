@@ -19,7 +19,7 @@
 		
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
-		<script type="text/javascript" src="js/kickstart.js"></script>                            <!-- KICKSTART -->
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/kickstart.js"></script>                            <!-- KICKSTART -->
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/ui/jquery-ui.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.pack.js"></script> <!--fancybox js-->
