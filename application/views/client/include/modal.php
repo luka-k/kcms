@@ -36,20 +36,20 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart" >
-		<form action="order/edit_order?action=order" class="form" id="to_order" method="post"> <!-- method="get" only for demo -->
+		<form action="/order/edit_order?action=order" class="fast_order" id="to-order" method="post"> <!-- method="get" only for demo -->
 			<input type="hidden" id="order_item_id" name="item_id"/>
 			<div id="order-modal" class="col_12">
 				<label for="text1">Имя</label><br/>	
-				<input id="text1" type="text" name="name" class="square"/><br/>	
+				<input id="text1" type="text" name="name" class="validate square"/><br/>	
 				<label for="text2">Эл. почта</label><br/>	
-				<input id="text2" type="text" name="email" class="square"/><br/>	
+				<input id="text2" type="text" name="email" class="validate square"/><br/>	
 				<label for="text1">Телефон</label><br/>	
-				<input id="text1" type="text" name="phone" class="square"/><br/>
+				<input id="text1" type="text" name="phone" class="validate square"/><br/>
 				<label for="textarea1">Коментарии</label><br/>	
 				<textarea id="textarea1" placeholder="При необходимости оставте коментарий" name="message" class="square"/></textarea>								
 			</div>
 			<div class="form__button modal-cart__button">
-				<button type="button" class="button green-btn square" onclick="document.forms['to_order'].submit(); return false;">Заказать &rarr;</button>
+				<button type="button" class="button green-btn square" onclick="validate_form('to-order');">Заказать &rarr;</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
 

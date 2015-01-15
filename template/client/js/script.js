@@ -9,7 +9,6 @@ function validation (element, errorClass) {
 		
 	input.each(function () {
 		var el = $(this);
-		console.log(el.val());
 		if (el.val() == "") {
             el.addClass(errorClass);
             isError = true;
