@@ -48,14 +48,7 @@
 						</aside>
 					</div>
 					<div id="content" class="col_9">
-						<div class="breadcrumb">
-							<? foreach ($breadcrumbs as $b): ?>
-								<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 
-							<? endforeach ?>
-						</div>
-						
-						
-
+						<? require 'include/breadcrumbs.php' ?>
 					<div class="col_12">
 						<?if(isset($content->article)):?>
 							<h3 class="title col_12"><?= $content->article->name ?></h3>
