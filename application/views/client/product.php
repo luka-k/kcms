@@ -89,8 +89,8 @@
 				<? require 'include/breadcrumbs.php'?>
 				
 				<h3 class="title col_12"><?= $product->name ?></h3>
-				
 				<div class="col_12">
+					<?if(!empty($product->imgs)):?>
 					<div id="gallery" class="clearfix col_5">
 						<div id="box">
 							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
@@ -114,8 +114,8 @@
 							</div>
 						<? endif?>
 					</div>
-					
-					<div class="product-info clearfix col_7">
+					<?endif?>
+					<div class="product-info clearfix <?if(!empty($product->imgs)):?>col_7<?else:?>col_12<?endif?>">
 						<div class="product-info-top clearfix">
 							<div style="float:left; margin-right:20px;">Артикул <span><?= $product->sku ?></span></div>
 						</div>

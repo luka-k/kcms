@@ -156,16 +156,33 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $is_cover = FALSE)
+	public function get_images($object_info, $is_cover = FALSE, $location = FALSE)
 	{
+	
 		if ($is_cover == FALSE)
 		{
 			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
+			
+			$thumb_config = $this->config->item('thumb_config');
+
 			foreach($images as $key => $item)
 			{
 				if(!empty($item))
 				{
-					$images[$key] = $this->_get_urls($item);
+					if($lacation = "product")
+					{
+						$filename = $this->get_url($item->url);
+						$img_info = getimagesize($filename);
+				
+						if($img_info['0'] < $thumb_config['catalog_mid']['w'])
+						{
+							unset($images[$key]);
+						}
+						else
+						{
+							$images[$key] = $this->_get_urls($item);
+						}
+					}
 				}
 			}
 		}
