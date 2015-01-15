@@ -724,7 +724,8 @@ filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=#000000, s
 
 #content .cat-item img{
 width:95%;
-height:150px;
+/*max-height:150px; */
+max-height:auto; 
 }
 
 #content .cat-item .item-name{

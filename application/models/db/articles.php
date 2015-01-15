@@ -45,7 +45,7 @@ class Articles extends MY_Model
 			{
 				$url = "articles/".$url; 
 				
-				$articles = $this->articles->get_list(array("parent_id" => $child->id));
+				$articles = $this->articles->get_list(array("parent_id" => $child->id), FALSE, FALSE, "date", "desc");
 				$child->articles = $this->get_prepared_list($articles);
 			}
 			$this->breadcrumbs->add($url, $child->name);

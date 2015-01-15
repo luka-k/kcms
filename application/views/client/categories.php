@@ -96,6 +96,7 @@
 									<div class="item-name" style="color: white;"><?= $s->caption ? $s->caption : $s->name ?></div>
 								</div>
 								<div class="cat-item_ col_12 " style="height: 650px; text-align: center;" >
+								
 									<img src="<?= $s->img->catalog_mid_url?>" alt=""/>
 								</div>
 								
