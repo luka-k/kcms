@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title><?=$title?></title>
+		<title><?=$meta_title ? $meta_title : $title?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="keywords" content="<?=$meta_keywords?>" />
 		<meta name="description" content="<?=$meta_description?>" />

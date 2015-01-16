@@ -159,7 +159,7 @@ class Catalog extends Client_Controller {
 				
 				$parent_category =  $this->categories->get_item($category->parent_id);
 				$data['parent_category'] = $parent_category ? $this->categories->prepare($parent_category) : false;
-				$data['meta_title'] = $category->meta_title;
+				$data['meta_title'] = $category->meta_title ? $category->meta_title : $category->caption;
 				$data['meta_keywords'] = $category->meta_keywords;
 				$data['meta_description'] = $category->meta_description;
 
