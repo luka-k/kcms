@@ -135,22 +135,22 @@
 								<label for="text1">Имя</label><br/>	
 								<input id="text1" type="text" name="name" class="validate square"/><br/>	
 								<label for="text2">Эл. почта</label><br/>	
-								<input id="text2" type="text" name="email" class="validate square"//><br/>	
+								<input id="text2" type="text" name="email" class="square"//><br/>	
 								<label for="textarea1">Адрес доставки</label><br/>	
-								<textarea id="textarea1" placeholder="Введите адрес"  name="address" class="validate square"/></textarea>
+								<textarea id="textarea1" placeholder="Введите адрес"  name="address" class="square"/></textarea>
 							</div>
 							<div class="col_6">
 								<label for="text1">Телефон</label><br/>	
 								<input id="text1" type="text" name="phone" class="validate square"/><br/>	
 								<label for="text2">Местоположение</label><br/>	
-								<select id="select1" name="city_id" size="1" class="validate select">
+								<select id="select1" name="city_id" size="1" class="select">
 									<option value="">Необходимо выбрать</option>
 									<?foreach($city_id as $value => $c_i):?>
 										<option value="<?=$value?>"><?=$c_i?></option>
 									<?endforeach;?>
 								</select><br/>
-								<label for="textarea1">Коментарии</label><br/>	
-								<textarea id="textarea1" placeholder="При необходимости оставте коментарий" name="message" class="square"/></textarea>
+								<label for="textarea1">Комментарии</label><br/>	
+								<textarea id="textarea1" placeholder="При необходимости оставьте комментарий" name="message" class="square"/></textarea>
 							</div>
 							<div style="width:100%; position:relative; float:left;" class="clearfix">
 								<div id="dostavka-info" class="col_6" style="margin-right:3.22222222%;">
