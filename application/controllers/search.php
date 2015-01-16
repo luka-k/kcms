@@ -16,7 +16,9 @@ class Search extends Client_Controller {
 		
 		$name = $this->input->get('q');
 		
-		$product = $this->products->get_item_by(array("name" => $name));
+		$p_name = explode ( " - " , $name, 2);
+		
+		$product = $this->products->get_item_by(array("name" => $p_name[1]));
 		
 		if(!empty($product))
 		{
