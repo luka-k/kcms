@@ -13,8 +13,8 @@ class Settings extends MY_Model
 			'offline_text' => array('Оффлайн сообщение', 'text')*/
 		),
 		'SEO' => array(
-			'site_description' => array('Описание сайта', 'text'),
-			'site_keywords' => array('Ключевые слова', 'text')
+			'site_description' => array('Описание сайта', 'text', ''),
+			'site_keywords' => array('Ключевые слова', 'text', '')
 		),
 		'Изображение' => array(
 			'upload_image' => array('Изображение по умолчанию', 'image', 'img'),
