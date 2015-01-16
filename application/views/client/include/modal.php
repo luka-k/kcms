@@ -36,7 +36,7 @@
 	</div> <!-- /.modal__text -->
 	
 	<div class="modal__cart modal-cart" >
-		<form action="/order/edit_order?action=order" class="fast_order" id="to-order" method="post"> <!-- method="get" only for demo -->
+		<form action="<?=base_url()?>order/edit_order?action=order" id="fast-order" class="to-order" method="post"> <!-- method="get" only for demo -->
 			<input type="hidden" id="order_item_id" name="item_id"/>
 			<div id="order-modal" class="col_12">
 				<label for="text1">Имя</label><br/>	
@@ -49,7 +49,7 @@
 				<textarea id="textarea1" placeholder="При необходимости оставте коментарий" name="message" class="square"/></textarea>								
 			</div>
 			<div class="form__button modal-cart__button">
-				<button type="button" class="button green-btn square" onclick="validate_form('to-order');">Заказать &rarr;</button>
+				<button type="button" class="button green-btn square" onclick="validate_form('fast-order');">Заказать &rarr;</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
 

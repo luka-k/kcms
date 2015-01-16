@@ -14,7 +14,7 @@ function validation (element, errorClass) {
             isError = true;
         }
     });
-
+		
    return isError;
 }
 
@@ -22,7 +22,7 @@ function validate_form(form_id){
 	var errorClass = 'error';
 
 	if (validation($("#"+form_id), errorClass)) return false;
-	
+
 	$("#"+form_id).submit();
 }
 
