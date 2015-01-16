@@ -27,9 +27,10 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
 
 		<script>
-			function autocomp(){
+			function autocomp(value){
 				var data = {};
-				data.r = " ";
+				data.value = value;
+				
 				var json_str = JSON.stringify(data);
 				$.post("/ajax/autocomplete/", json_str, autocomp_answer, 'json');
 			}

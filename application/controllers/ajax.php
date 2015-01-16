@@ -126,7 +126,15 @@ class Ajax extends CI_Controller {
 	
 	function autocomplete()
 	{
-		$products = $this->products->get_list(FALSE);
+		$info = json_decode(file_get_contents('php://input', true));
+		$this->db->like('name', $info->value);
+		$query = $this->db->get('products', 10);
+		
+		$products = array();
+		foreach ($query->result() as $row)
+		{
+			$products[] = $row;
+		}	
 		
 		foreach($products as $p)
 		{
