@@ -86,16 +86,18 @@ class Catalog extends Client_Controller {
 			{
 				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 				$content = $this->categories->get_prepared_list($content);
-			
+				
 				$settings = $this->settings->get_item_by(array('id' => 1));
-
+			
 				$data['title'] = $settings->site_title;
 				$data['meta_title'] = $settings->site_title;
 				$data['meta_keywords'] = $settings->site_keywords;
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 				$data['content'] = $content;
-				
+				$data['subcategories'] = $content;
+				$data['products'] = FALSE;
+				$data['current_category']->description = FALSE;
 				$template = 'client/categories.php';		
 			}
 			else
@@ -160,6 +162,7 @@ class Catalog extends Client_Controller {
 				$data['meta_title'] = $category->meta_title;
 				$data['meta_keywords'] = $category->meta_keywords;
 				$data['meta_description'] = $category->meta_description;
+
 				$data['subcategories'] = $content;
 				if ($this->uri->segment(4) && $category && !isset($category->product))
 					$data['subcategories'][] = $this->categories->prepare($category);
