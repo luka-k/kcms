@@ -50,8 +50,8 @@ class Search extends Client_Controller {
 		
 			
 			$this->db->like('name', $name);
-			$total_rows = $this->db->count_all('products');
-
+			$total_rows = $this->db->count_all_results('products');
+			
 			$this->db->like('name', $name);
 			$query = $this->db->get('products', $limit, $from);
 		
