@@ -5,6 +5,8 @@ class Catalog extends Client_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->config->load('pagination_config');
 	}
 	
 	public function index()
@@ -42,16 +44,34 @@ class Catalog extends Client_Controller {
 			'user' => $this->users->get_item_by(array("id" => $this->user_id))
 		);
 		
+		$settings = $this->settings->get_item_by(array('id' => 1));
+		
+		$pagin = $this->input->get('pagination');
+		$total_rows = "";
+		
+		if($pagin)
+		{
+			$per_page = $this->input->get('per_page');
+			if($per_page == "") $per_page = 0;
+			$from_p = $per_page;
+		}
+		else
+		{
+			$from_p = 0;
+		}
+		
+		$limit_p = $settings->pagination_page;
+		
 		//var_dump($data['tree']);
 		
 		$get = $this->input->get();
 		
-		if($get)
+		if(isset($get["filter"]))
 		{
 			$content = $this->products->get_filtred((object)$get);
 			$content = $this->products->get_prepared_list($content);
 			
-			$settings = $this->settings->get_item_by(array('id' => 1));
+			
 
 			$data['title'] = $settings->site_title;
 			$data['meta_title'] = $settings->site_title;
@@ -113,9 +133,27 @@ class Catalog extends Client_Controller {
 					{
 						$products = array_merge($products, $this->products->get_prepared_list($this->products->get_list(array('parent_id' => $c->id))));
 					}
-					$data['products'] = $products;
+					$total_rows = count($products);
+					
+					$limit_pr = array();
+					foreach($products as $key => $p)
+					{
+						$to = (int)$from_p + (int)$limit_p;
+						
+						if($key >= $from_p && $key < $to) $limit_pr[] = $p;
+					}
+					$data['products'] = $limit_pr;
 				}
-
+				
+				
+				$pagination_config = $this->config->item('pagination');
+				$pagination_config['per_page'] = $settings->pagination_page;
+				$pagination_config['total_rows'] = $total_rows;
+				$pagination_config['base_url'] = base_url().uri_string()."?pagination=true";
+				$this->pagination->initialize($pagination_config);
+				$pagination = $this->pagination->create_links();
+				$data['pagination'] = $pagination;
+				
 				$data['title'] = $category->name;
 				$data['current_category'] = $category;
 				

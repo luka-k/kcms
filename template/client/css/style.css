@@ -838,7 +838,11 @@ text-decoration:none;
 color:#111;
 }
 
-#content-2 .page-nav a.active{
+#content-2 .page-nav .active {
+display:inline-block;
+margin:0 5px;
+padding:0 5px;
+text-decoration:none;
 background:#434343;
 color:#fff;
 }

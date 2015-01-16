@@ -135,6 +135,7 @@
 					
 					<div id="content-2" class="col_9">
 					<? if ($products): ?>
+						
 						<table cellspacing="0" cellpadding="0">
 							<thead>
 								<tr>
@@ -170,7 +171,7 @@
 							</tbody>
 						</table>
 						
-						<? require 'include/pagination.php'?>
+						<?=$pagination?>
 						
 					<? endif ?>
 						<div class="col_12">
