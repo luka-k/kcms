@@ -45,8 +45,8 @@
 				<input id="text2" type="text" name="email" class="validate square"/><br/>	
 				<label for="text1">Телефон</label><br/>	
 				<input id="text1" type="text" name="phone" class="validate square"/><br/>
-				<label for="textarea1">Коментарии</label><br/>	
-				<textarea id="textarea1" placeholder="При необходимости оставьте коментарий" name="message" class="square"/></textarea>								
+				<label for="textarea1">Комментарии</label><br/>	
+				<textarea id="textarea1" placeholder="При необходимости оставьте комментарий" name="message" class="square"/></textarea>								
 			</div>
 			<div class="form__button modal-cart__button">
 				<button type="button" class="button green-btn square" onclick="validate_form('to-order');">Заказать &rarr;</button>
