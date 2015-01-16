@@ -90,12 +90,12 @@
 				
 				<h3 class="title col_12"><?= $product->name ?></h3>
 				<div class="col_12">
-					<?if(!empty($product->imgs)):?>
+<?var_dump($product->img)?>
 					<div id="gallery" class="clearfix col_5">
 						<div id="box">
-							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
+							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="<?if($product->img->zoom == "off"):?>zoomWidth: 0, zoomWidth: 0<?endif;?>">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
 						</div>
-						
+
 						<? if (count($product->imgs) > 1) : ?>
 							<div class="slider">
 								<div name="prev" class="navy prev-slide"></div>
@@ -114,8 +114,8 @@
 							</div>
 						<? endif?>
 					</div>
-					<?endif?>
-					<div class="product-info clearfix <?if(!empty($product->imgs)):?>col_7<?else:?>col_12<?endif?>">
+
+					<div class="product-info clearfix col_7">
 						<div class="product-info-top clearfix">
 							<div style="float:left; margin-right:20px;">Артикул <span><?= $product->sku ?></span></div>
 						</div>

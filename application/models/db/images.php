@@ -158,12 +158,10 @@ class Images extends MY_Model
 	
 	public function get_images($object_info, $is_cover = FALSE, $location = FALSE)
 	{
-	
+		$thumb_config = $this->config->item('thumb_config');
 		if ($is_cover == FALSE)
 		{
 			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
-			
-			$thumb_config = $this->config->item('thumb_config');
 
 			foreach($images as $key => $item)
 			{
@@ -176,13 +174,14 @@ class Images extends MY_Model
 				
 						if($img_info['0'] < $thumb_config['catalog_mid']['w'])
 						{
-							unset($images[$key]);
+							$images[$key]->zoom = "off";
 						}
 						else
 						{
-							$images[$key] = $this->_get_urls($item);
+							$images[$key]->zoom = "on";
 						}
 					}
+					$images[$key] = $this->_get_urls($item);
 				}
 			}
 		}
@@ -191,6 +190,20 @@ class Images extends MY_Model
 			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
 			if(!empty($images))
 			{
+				if($lacation = "product")
+				{
+					$filename = $this->get_url($images->url);
+					$img_info = getimagesize($filename);
+				
+					if($img_info['0'] < $thumb_config['catalog_mid']['w'])
+					{
+						$images->zoom = "off";
+					}
+					else
+					{
+						$images->zoom = "on";
+					}
+				}
 				$images = $this->_get_urls($images);
 			}
 			else
