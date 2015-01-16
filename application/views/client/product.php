@@ -90,7 +90,6 @@
 				
 				<h3 class="title col_12"><?= $product->name ?></h3>
 				<div class="col_12">
-<?var_dump($product->img)?>
 					<div id="gallery" class="clearfix col_5">
 						<div id="box">
 							<a href='<?= $product->img->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="<?if($product->img->zoom == "off"):?>zoomWidth: 0, zoomWidth: 0<?endif;?>">  <img src="<?= $product->img->catalog_big_url ?>" class="picture" /></a>
