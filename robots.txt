@@ -1,0 +1,10 @@
+User-agent: Yandex
+Disallow: /cart
+Disallow: /admin
+Host: autocummins.ru
+
+User-agent: *
+Disallow: /cart
+Disallow: /admin
+
+Sitemap: http://autocummins.ru/sitemap.xml
