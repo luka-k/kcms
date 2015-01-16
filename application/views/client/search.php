@@ -1,26 +1,125 @@
 <? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/header.php'?>
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12">
-			<div id="main_content" class="col_8">
-				<? require 'include/breadcrumbs.php'?> 
-				<div class="col_12">
-					<?foreach($search as $item):?>
-						<div class="col_12">
-							<div class="col_5">
-								<a href="<?=$item->full_url?>"><?=$item->name?></a>
-							</div>
-						</div>
-					<?endforeach;?>
+	<div id="body">
+		<div id="wrapper" class="clearfix">
+			<? require 'include/header.php' ?>
+			<? require 'include/top-menu.php' ?>
+			
+			<div id="main-3" class="grid clearfix">
+			<div id="left-col" class="col_3">
+				<div class="left-col">
+					<div class="name-cat">
+						<?= $main_category->name ?>
+					</div>
+					
+					<nav>
+						<ul>
+							<? foreach($tree as $s):?>
+								<li>
+									<a href="<?= $s->full_url ?>"><?= $s->name ?></a>
+									<? if ($this->uri->segment(3) == $s->url) : ?>
+										<ul class="active">
+											<? $screens = $s->childs;
+											$names = array();
+											foreach ($screens as $i => $scr)
+											{
+												if ($screens[$i]->caption)
+													$screens[$i]->name = $screens[$i]->caption;
+												$names[] = $screens[$i]->name;
+											}
+											array_multisort($names, $screens);
+											foreach ($screens as $scr) : ?>
+											<li><a <?= $scr->url == $this->uri->segment(4) ? 'class="active"' : '' ?> href="<?= $scr->full_url?>"><?= $scr->name ?></a></li>
+											<? endforeach ?>
+										</ul>
+									<? endif ?>
+								</li>
+							<? endforeach ?>
+						</ul>
+					</nav>
 				</div>
+				<aside>
+					<div class="text-1" style="color: white;padding-top: 20px;">СПЕЦПРЕДЛОЖЕНИЯ</div>
+					<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
+					<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
+					<img src="img/banner.png" alt=""/>
+							<!--
+							<div class="news clearfix">
+								<div class="col_12">
+									<div class="text-1">НОВОСТИ</div>
+									<? foreach ($news as $el) : ?>
+									<div class="news-item">
+										<div class="news-date"><?= $el->date?></div>
+										<div class="news-title"><a href="<?= $el->url?>"><?= $el->name?></a></div>
+									</div>
+									<? endforeach ?>
+								</div>
+							</div>
+							
+							<div class="blog clearfix">
+								<div class="col_12">
+									<div class="text-1">СТАТЬИ</div>
+									<? foreach ($articles as $el) : ?>
+									<div class="blog-item">
+										<div class="blog-date"><?= $el->date?></div>
+										<div class="blog-title"><a href="<?= $el->url?>"><?= $el->name?></a></div>
+									</div>
+									<? endforeach ?>
+								</div>
+							</div>
+							
+							<div class="video clearfix">
+								<div class="col_12">
+									<div class="text-1">Видео</div>
+									<? foreach ($videos as $v) : ?>
+									<div class="video-item">
+										<iframe width="100%" src="http://www.youtube.com/embed/<?= $v->video ?>" frameborder="0" allowfullscreen></iframe>
+										<span class="title"><?= $v->name ?></span> <span class="time"></span>
+									</div>
+									<? endforeach ?>
+									
+								</div>
+							</div>
+							-->
+				</aside>
 			</div>
-			<div class="col_4">
-				<h5>Каталог продукции</h5>
-				<? require 'include/tree.php' ?>
+			
+				<div id="content" class="col_9">
+					<? require 'include/breadcrumbs.php'?>
+					<div class="search">
+						<table cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<?= ($this->uri->segment(4) ? '<th>№ на рис.</th>': '') ?>
+									<th>Артикул</th>
+									<th>Наименование</th>
+									<th>Наличие</th>
+									<th>Цена</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<? foreach ($products as $p) : ?>
+								<tr>
+									<?= ($this->uri->segment(4) ? '<td>№ '.$p->number.'</td>': '') ?>
+									<td><?= $p->sku ?></td>
+									<td><a href="<?= $p->full_url ?>"><?= $p->name ?></a></td>
+									<td>на&nbsp;складе</td>
+									<td><?= $p->price ?>&nbsp;р.</td>
+									<td><button class="red-btn square">купить</button></td>
+								</tr>
+								<? endforeach ?>
+							</tbody>
+						</table>
+						<?=$pagination?>
+					</div>
+				</div>
+
+				
+				<? require 'include/footer.php' ?>
+
 			</div>
 		</div>
 	</div>
-<? require 'include/footer.php' ?>
+	</body>
+</html>
+		

@@ -71,8 +71,6 @@ class Catalog extends Client_Controller {
 			$content = $this->products->get_filtred((object)$get);
 			$content = $this->products->get_prepared_list($content);
 			
-			
-
 			$data['title'] = $settings->site_title;
 			$data['meta_title'] = $settings->site_title;
 			$data['meta_keywords'] = $settings->site_keywords;

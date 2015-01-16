@@ -372,6 +372,8 @@ color:#1f6996;
 }
 
 #social{
+display:block;
+clear:both;
 margin:0 auto;
 padding:9px 0;
 background: url('../img/soc.png') repeat #fff;
@@ -826,11 +828,27 @@ background:#e9e9e9;
 padding:10px;
 }
 
-#content-2 .page-nav{
+.search table{
+color:#111111;
+}
+
+.search table a{
+color:#7f0c12;
+}
+
+.search thead{
+background:#e9e9e9;
+}
+
+.search thead th{
+padding:10px;
+}
+
+#content-2 .page-nav, .search .page-nav{
 margin-bottom:30px;
 }
 
-#content-2 .page-nav a{
+#content-2 .page-nav a, .search .page-nav a{
 display:inline-block;
 margin:0 5px;
 padding:0 5px;
@@ -838,7 +856,7 @@ text-decoration:none;
 color:#111;
 }
 
-#content-2 .page-nav .active {
+#content-2 .page-nav .active, .search .page-nav .active{
 display:inline-block;
 margin:0 5px;
 padding:0 5px;

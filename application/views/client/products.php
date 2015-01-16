@@ -84,11 +84,7 @@
 			</div>
 			
 				<div id="content" class="col_9">
-						<div class="breadcrumb">
-							<? foreach ($breadcrumbs as $b): ?>
-								<a href="<?= $b['url']?>"><?= $b['name'] ?></a> > 
-							<? endforeach ?>
-						</div>
+						<? require 'include/breadcrumbs.php'?>
 						<div class="cat">
 							<div class="clearfix">
 								<? $ii = 0; foreach ($subcategories as $s) : if (!$s->name) continue; $ii++;?>
