@@ -113,7 +113,7 @@ class Catalog extends Client_Controller {
 					$content->recommended3 = FALSE;
 					
 					$data['product'] = $content;
-					$data['meta_title'] = $content->meta_title;
+					$data['meta_title'] = $content->meta_title ? $content->meta_title : $content->name;
 					$data['meta_keywords'] = $content->meta_keywords;
 					$data['meta_description'] = $content->meta_description; 
 				}
