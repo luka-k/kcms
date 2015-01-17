@@ -144,6 +144,9 @@
 						</div>
 					</div>
 				</div>
+				<div style="margin: 20px;">
+					<p><?= $product->description ?></p>
+				</div>
 			</div>
 			
 			<?if ($product->recommended1 || $product->recommended2 || $product->recommended3) : ?>
@@ -165,13 +168,6 @@
 					</div>
 					<? endif ?>
 					
-					<div id="content-3" class="col_9">
-
-					<div class="col_12">
-						<div class="text-1"><?= $product->name ?></div>
-							<p><?= $product->description ?></p>
-					</div>
-					</div>
 				</div>
 <? require 'include/modal.php' ?>
 <? require 'include/product_script.php' ?>
