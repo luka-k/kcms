@@ -1,5 +1,11 @@
 <? require 'include/head.php' ?>
-
+<script>
+	jQuery(document).ready(function($){
+		element = document.getElementById('left-col');
+		var height = element.offsetHeight;
+		document.getElementById('content').style.height = height;
+	});
+</script>
 	<div id="body">
 
 		<div id="wrapper" class="clearfix">
@@ -47,7 +53,7 @@
 							
 						</aside>
 					</div>
-					<div id="content" class="col_9">
+					<div id="content" class="col_9" >
 						<? require 'include/breadcrumbs.php' ?>
 					<div class="col_12">
 						<?if(isset($content->article)):?>
