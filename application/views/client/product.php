@@ -145,7 +145,7 @@
 					</div>
 				</div>
 				<div style="margin: 20px;">
-					<p><?= $product->description ?></p>
+					<p><?= html_entity_decode($product->description) ?></p>
 				</div>
 			</div>
 			

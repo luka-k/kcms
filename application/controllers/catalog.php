@@ -113,6 +113,9 @@ class Catalog extends Client_Controller {
 					$content->recommended3 = FALSE;
 					
 					$data['product'] = $content;
+					$data['meta_title'] = $content->meta_title;
+					$data['meta_keywords'] = $content->meta_keywords;
+					$data['meta_description'] = $content->meta_description; 
 				}
 				else
 				{
@@ -159,10 +162,12 @@ class Catalog extends Client_Controller {
 				
 				$parent_category =  $this->categories->get_item($category->parent_id);
 				$data['parent_category'] = $parent_category ? $this->categories->prepare($parent_category) : false;
-				$data['meta_title'] = $category->meta_title ? $category->meta_title : $category->caption;
-				$data['meta_keywords'] = $category->meta_keywords;
-				$data['meta_description'] = $category->meta_description;
-
+				if (!isset($category->product))
+				{
+					$data['meta_title'] = $category->meta_title ? $category->meta_title : $category->caption;
+					$data['meta_keywords'] = $category->meta_keywords;
+					$data['meta_description'] = $category->meta_description;
+				}
 				$data['subcategories'] = $content;
 				if ($this->uri->segment(4) && $category && !isset($category->product))
 					$data['subcategories'][] = $this->categories->prepare($category);
