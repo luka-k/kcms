@@ -51,7 +51,7 @@
 			jQuery(document).ready(function($){
 				element = document.getElementById('left-col');
 				var height = element.offsetHeight;
-				if (!document.getElementById('content-2'))
+				if (!document.getElementById('content-2') && document.getElementById('content').offsetHeight < height)
 					document.getElementById('content').style.height = height;
 			});
 		</script>
