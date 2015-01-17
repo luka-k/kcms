@@ -71,7 +71,7 @@
 									<?if($article->name <> $content->article->name):?>
 									<?if($counter == 1):?><ul class="col_6"><?endif;?>
 										<li>
-											<a href="<?=$article->full_url?>"><?=$article->name?></a>
+											<a href="<?=$article->full_url?>" style="color:#000;"><?=$article->name?></a>
 											<div><?=$article->description_short?></div>
 										</li>
 										<?if($counter == $line):?></ul><?$counter = 0?><?endif;?>
@@ -86,7 +86,7 @@
 							<h3 class="title col_12"><?= $content->name ?></h3>
 							<ul>
 								<?foreach($content->articles as $article):?>
-									<li><a href="<?=$article->full_url?>"><?=$article->name?></a></li>
+									<li><a href="<?=$article->full_url?>"  style="color:#000;"><?=$article->name?></a></li>
 								<?endforeach;?>
 							</ul>
 						<?endif;?>
