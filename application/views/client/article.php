@@ -1,11 +1,4 @@
 <? require 'include/head.php' ?>
-<script>
-	jQuery(document).ready(function($){
-		element = document.getElementById('left-col');
-		var height = element.offsetHeight;
-		document.getElementById('content').style.height = height;
-	});
-</script>
 	<div id="body">
 
 		<div id="wrapper" class="clearfix">

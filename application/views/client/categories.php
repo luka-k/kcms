@@ -44,6 +44,7 @@
 							<h6>"Клуб Газелистов России" <a href="http://www.gazelleclub.ru" target="_blank">www.gazelleclub.ru</a></h6>
 							<p>Скидка 7% от цены заявленной на сайте всем участникам Клуба Газелистов России.</p>
 							<img src="img/banner.png" alt=""/>
+							<div style="height: 120px;"></div>
 							<!--
 							<div class="news clearfix">
 								<div class="col_12">
