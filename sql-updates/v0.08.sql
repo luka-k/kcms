@@ -1,0 +1,1 @@
+ALTER TABLE `orders` MODIFY `city_id` INT(10);
