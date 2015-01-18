@@ -91,7 +91,9 @@ class Content extends Admin_Controller
 		if($type == "dealers")
 		{
 			$this->config->load('dealers_config');
-			$data['selects']['region'] = $this->config->item('region');
+			$region = $this->config->item('region');
+			asort($region);
+			$data['selects']['region'] = $region;
 		}
 		
 		if($acting == "edit")
