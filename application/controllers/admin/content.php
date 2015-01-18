@@ -19,6 +19,8 @@ class Content extends Admin_Controller
 		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
 		//что не всегда удобно.
 		$name = editors_field_exists('name', $this->$type->editors);
+		
+		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
 		$data = array(
 			'title' => "Страницы",
@@ -26,10 +28,12 @@ class Content extends Admin_Controller
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
+			'left_column' => $left_column,
 			'type' => $type,
 			'name' => $name
 		);	
-				
+
+		
 		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
 		$direction = "acs";
 		
@@ -40,7 +44,6 @@ class Content extends Admin_Controller
 		
 		if($id == FALSE)
 		{
-			
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 		}
 		else
@@ -63,12 +66,15 @@ class Content extends Admin_Controller
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
+		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
+		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
+			'left_column' => $left_column,
 			'type' => $type
 		);
 		

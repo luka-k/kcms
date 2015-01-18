@@ -30,6 +30,13 @@ class Categories extends MY_Model
 		)
 	);
 	
+	//items_tree - дерево для списка элементов
+	//item_tree - дерево для страницы редактирования элемента
+	public $admin_left_column = array(
+		"items_tree" => "categories_tree",
+		"item_tree" => "categories_tree",
+	);
+	
 	private $sub_products= array();
 	
 	function __construct()

@@ -6,14 +6,14 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if($type <> "users" && $type <> "slider" && $type <> "video" && $type <> "filials" && $type <> "dealers"):?>
-						<div id="left_col" class="col_4 back">
+					<?if($left_column <> "off"):?>
+						<div id="left_col" class="col_3 back">
 							<div id="left-menu">
-								<?require "include/{$type}_tree.php"?>
+								<?require "include/{$left_column['items_tree']}.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if($type == "users" || $type == "slider" || $type == "video" || $type == "filials" || $type == "dealers"):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back">
 						<div class="col_12">						
 							<h6 class="col_8 left">Редактировать</h6> 
 							<div class="col_4 right">

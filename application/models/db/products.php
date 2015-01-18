@@ -32,6 +32,13 @@ class Products extends MY_Model
 		)
 	);
 	
+	//items_tree - дерево для списка элементов
+	//item_tree - дерево для страницы редактирования элемента
+	public $admin_left_column = array(
+		"items_tree" => "products_tree",
+		"item_tree" => "products_tree",
+	);
+	
 	function __construct()
 	{
         parent::__construct();
