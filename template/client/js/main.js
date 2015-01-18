@@ -359,12 +359,14 @@ $(function() {
 	$.post( "/ajax/selected_days/", function(res) {
 	
 		events = JSON.parse(res);
-		
+
 		$( ".datepicker" ).datepicker({
 			beforeShowDay: function(date) {
-				var result = [true, '', null];
+				var result = [false, '', null];
+				
 				var matching = $.grep(events, function(event) {
 					var day = new Date(event);
+					
 					return day.valueOf() === date.valueOf();
 				});
 				
@@ -380,6 +382,7 @@ $(function() {
 		});
 	
 	});
+	
 	
 	$( ".datepicker" ).datepicker( "option", $.datepicker.regional["ru"]);
 });

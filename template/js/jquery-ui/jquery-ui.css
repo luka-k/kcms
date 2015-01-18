@@ -309,12 +309,21 @@ button.ui-button::-moz-focus-inner {
 	border: 0;
 	padding: 0;
 }
+
 .ui-datepicker {
 	width: 100%;
 	padding: .2em .2em 0;
 	display: none;
+	font-family: 'Myriad Pro', sans-serif;
 }
+
+.ui-datepicker-group{
+	width:100%;
+}
+
 .ui-datepicker .ui-datepicker-header {
+	width: 100%;
+	
 	position: relative;
 	padding: .2em 0;
 }
@@ -377,7 +386,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-datepicker td {
 	border: 0;
-	padding: 1px;
+	padding: 1px;	
 }
 .ui-datepicker td span,
 .ui-datepicker td a {
@@ -833,7 +842,7 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-family: 'Myriad Pro', sans-serif;
 	font-size: 1.1em;
 }
 .ui-widget .ui-widget {
@@ -843,7 +852,7 @@ body .ui-tooltip {
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-family: 'Myriad Pro', sans-serif;
 	font-size: 1em;
 }
 .ui-widget-content {
@@ -1229,7 +1238,16 @@ body .ui-tooltip {
 
 
 .highlight .ui-state-default{
-	background: #515151;
+	background: #cc3b26;
 	border:none;
 	color: #fff;
 }
+
+.ui-datepicker-today .ui-state-highlight {
+	background:#515151;
+	color: #fff;
+	border:1px solid #515151;
+}
+
+
+

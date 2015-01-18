@@ -194,6 +194,7 @@ class Ajax extends CI_Controller {
 				if(!in_array ( $a->date , $selected_dates)) $selected_dates[] = $item_date;
 			}
 		}
+		$selected_dates[] = date('m/d/Y'); 
 	
 		$data = $selected_dates;
 		
