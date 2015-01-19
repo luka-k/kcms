@@ -11,6 +11,9 @@ class MY_Model extends CI_Model
 	function __construct()
     {
         parent::__construct();
+		
+		$this->load->database();
+		
         $this->_table = strtolower(get_class($this));
     }
 	

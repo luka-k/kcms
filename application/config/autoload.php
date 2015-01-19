@@ -135,6 +135,8 @@ $autoload['model'] = array(
 	'db/filials',
 	'db/video',
 	'db/dealers',
+	'db/users_groups',
+	'db/users2users_groups',
 	'breadcrumbs', 
 	'url_model', 
 	'menus'

@@ -33,7 +33,8 @@ class Menus extends MY_Model
 				2 => array('Письма', base_url()."admin/mails", 0),
 			)),
 			'users' => array('Пользователи', "#", 0, array(
-				0 => array('Пользователи', base_url()."admin/users_module/", 0)
+				0 => array('Пользователи', base_url()."admin/users_module/", 0),
+				1 => array('Группы пользователей', base_url()."admin/content/items/users_groups/", 0)
 			))
 		);		
 	}

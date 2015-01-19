@@ -6,9 +6,8 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden', 'trim'),
-			//'last_name' => array('Фамилия', 'text', 'trim|htmlspecialchars|name'),
 			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
-			//'patronymic' => array('Отчество', 'text', 'trim|htmlspecialchars|name'),
+			'group_parent_id' => array('Группа', 'u2u_g', 'users2users_groups'),
 			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email')
 		)
 	);

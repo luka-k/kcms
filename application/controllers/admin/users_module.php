@@ -47,7 +47,10 @@ class Users_module extends Admin_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menus->set_active($this->menu, "users"),
 			//'left_column' => $left_column,
-			'name' => $name
+			'name' => $name,
+			'selects' => array(
+				'group_parent_id' => $this->users_groups->get_list(FALSE)
+			),
 		);	
 		
 		if(($id == FALSE)&&(isset($this->users->new_editors)))
@@ -59,22 +62,29 @@ class Users_module extends Admin_Controller
 			$data['editors'] = $this->users->editors;
 		}
 		
+		$field_name = editors_field_exists('users2users_groups', $data['editors']);
+		
 		if($acting == "edit")
 		{
 			if($id == FALSE)
 			{
 				$content = set_empty_fields($data['editors']);
-				
+				if($field_name) $content->parents = array();
+
 				$data['content'] = $content;
+				
 				$data['content']->img = NULL;
 			}
 			else
 			{
-				$data['content'] = $this->users->get_item_by(array('id' => $id));
+				$content = $this->users->get_item_by(array('id' => $id));
+				if($field_name) $content->parents = $this->users2users_groups->get_list(array("child_id" => $id));
+				
 				$object_info = array(
 					"object_type" => "user",
-					"object_id" => $data['content']->id
+					"object_id" => $content->id
 				);
+				$data['content'] = $content;
 				$data['content']->img = $this->images->get_images($object_info);
 			}
 			
@@ -119,7 +129,29 @@ class Users_module extends Admin_Controller
 				
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
-
+				
+				$field_name = editors_field_exists('users2users_groups', $data['editors']);
+				if($field_name && is_array($this->input->post($field_name)))
+				{
+					$data["users2users_groups"]->$field_name = $this->input->post($field_name);
+					$u2u_g = TRUE;
+				}
+			
+				if((isset($u2u_g))&&($u2u_g == TRUE))
+				{
+					$this->db->where('child_id', $data['content']->id);
+					$this->db->delete('users2users_groups');
+					foreach($data["users2users_groups"]->$field_name  as $item)
+					{
+						if(!empty($item))
+						{
+							$users2users_groups->$field_name = $item;
+							$users2users_groups->child_id = $data['content']->id;
+							$this->db->insert('users2users_groups', $users2users_groups);
+						}
+					}
+				}
+				
 				$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
 			}
 		}
