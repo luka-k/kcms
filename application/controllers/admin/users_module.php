@@ -1,0 +1,127 @@
+<?php 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Users_module extends Admin_Controller 
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+	
+	public function index($group = FALSE)
+	{
+		$name = editors_field_exists('name', $this->users->editors);
+		
+		$this->db->field_exists('sort', "users") ? $order = "sort" : $order = "name";
+		$direction = "acs"; 
+		
+		$data = array(
+			'title' => "Пользователи",
+			'error' => "",
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menus->set_active($this->menu, "users"),
+			//'left_column' => $left_column,
+			'name' => $name,
+			'content' => $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction)
+		);	
+		
+		if(editors_field_exists('img', $this->dynamic_menus->editors))
+		{
+			$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
+			$data['images'] = TRUE;
+		}	
+
+		$this->load->view('admin/users.php', $data);
+	}	
+	
+	public function edit($id = FALSE, $acting = "edit", $exit = FALSE)
+	{
+		$name = editors_field_exists('name', $this->users->editors);
+		
+		$data = array(
+			'title' => "Пользователи",
+			'error' => "",
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
+			'menu' => $this->menus->set_active($this->menu, "users"),
+			//'left_column' => $left_column,
+			'name' => $name
+		);	
+		
+		if(($id == FALSE)&&(isset($this->users->new_editors)))
+		{
+			$data['editors'] = $this->users->new_editors;
+		}
+		else
+		{
+			$data['editors'] = $this->users->editors;
+		}
+		
+		if($acting == "edit")
+		{
+			if($id == FALSE)
+			{
+				$content = set_empty_fields($data['editors']);
+				
+				$data['content'] = $content;
+				$data['content']->img = NULL;
+			}
+			else
+			{
+				$data['content'] = $this->users->get_item_by(array('id' => $id));
+				$object_info = array(
+					"object_type" => "user",
+					"object_id" => $data['content']->id
+				);
+				$data['content']->img = $this->images->get_images($object_info);
+			}
+			
+			$this->load->view('admin/user.php', $data);
+		}
+		elseif($acting == "save")
+		{
+			$data['content'] = $this->users->editors_post()->data;
+
+			if($this->users->editors_post()->error == TRUE)
+			{
+				//Если валидация не прошла выводим сообщение об ошибке
+				$this->load->view('admin/user.php', $data);			
+			}
+			else
+			{			
+				//Если валидация прошла успешно проверяем переменную id
+				if($id == FALSE)
+				{
+					//Если id пустая создаем новую страницу в базе
+					$this->users->insert($data['content']);
+					$data['content']->id = $this->db->insert_id();				
+				}
+				else
+				{
+					//Если id не пустая вносим изменения.
+					$this->users->update($data['content']->id, $data['content']);
+				}
+			
+				$field_name = editors_field_exists('img', $data['editors']);
+				//Получаем id эдитора который предназначен для загрузки изображения
+				//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
+				if(!empty($field_name))
+				{
+					$object_info = array(
+						"object_type" => "users",
+						"object_id" => $data['content']->id
+					);
+		
+					$cover_id = $this->input->post("cover_id");
+					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
+				
+					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+				}
+
+				$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
+			}
+		}
+	}
+}

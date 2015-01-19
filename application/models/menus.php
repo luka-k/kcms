@@ -32,7 +32,9 @@ class Menus extends MY_Model
 				1 => array("Верхнее меню", base_url()."admin/menu_module/menu/edit/1", 0,),
 				2 => array('Письма', base_url()."admin/mails", 0),
 			)),
-			'users' => array('Пользователи', base_url()."admin/content/items/users", 0)
+			'users' => array('Пользователи', "#", 0, array(
+				0 => array('Пользователи', base_url()."admin/users_module/", 0)
+			))
 		);		
 	}
 	

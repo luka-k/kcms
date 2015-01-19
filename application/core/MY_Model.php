@@ -437,7 +437,7 @@ class MY_Model extends CI_Model
 		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
 		
-		if(empty($post['id'])&&(isset($this->new_editors)))
+		if(empty($_POST['id'])&&(isset($this->new_editors)))
 		{
 			$editors = $this->new_editors;
 		}
