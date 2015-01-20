@@ -9,29 +9,69 @@ class Users_module extends Admin_Controller
 		parent::__construct();
 	}
 	
-	public function index($group = FALSE)
+	public function index()
 	{
 		$name = editors_field_exists('name', $this->users->editors);
-		
 		$this->db->field_exists('sort', "users") ? $order = "sort" : $order = "name";
 		$direction = "acs"; 
-		
+
+		$filters = $this->input->post();
+		if($filters['groups'] == "false") $filters['groups'] = array();
+
 		$data = array(
 			'title' => "Пользователи",
 			'error' => "",
 			'user_name' => $this->user_name,
 			'user_id' => $this->user_id,
 			'menu' => $this->menus->set_active($this->menu, "users"),
-			//'left_column' => $left_column,
 			'name' => $name,
-			'content' => $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction)
-		);	
-		
-		if(editors_field_exists('img', $this->dynamic_menus->editors))
+			'groups' => $this->users_groups->get_list(FALSE),
+			'filters' => $filters,
+			'content' => new stdClass()
+		);
+
+		if($filters)
 		{
-			$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
-			$data['images'] = TRUE;
-		}	
+			
+			if(!empty($filters['groups']))
+			{
+				$users_id = array();
+				foreach($filters['groups'] as $group)
+				{
+					$id_by_group = $this->users2users_groups->get_list(array("group_parent_id" => $group['id']));
+					foreach($id_by_group as $item)
+					{
+						$users_id[] = $item->child_id;
+					}
+				}
+				!empty($users_id) ? $this->db->where_in('id', $users_id) : $this->load->view('admin/users.php', $data);
+			}
+			
+			if($filters['name'])
+			{
+				$user = $this->users->get_item_by(array("name" => $filters['name']));
+				$user ? redirect(base_url()."admin/users_module/edit/".$user->id."/edit") : $this->db->like('name', $filters['name']);
+			}
+			
+			if($filters['email'])
+			{
+				$user = $this->users->get_item_by(array("email" => $filters['email']));
+				$user ? redirect(base_url()."admin/users_module/edit/".$user->id."/edit") : $this->db->like('email', $filters['email']);
+			}
+			
+			$query = $this->db->get("users");
+			$data['content'] = $query->result();
+		}
+		else
+		{
+			$data['content'] = $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction);
+		
+			if(editors_field_exists('img', $this->dynamic_menus->editors))
+			{
+				$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
+				$data['images'] = TRUE;
+			}	
+		}
 
 		$this->load->view('admin/users.php', $data);
 	}	

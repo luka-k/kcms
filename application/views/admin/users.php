@@ -8,7 +8,31 @@
 				<div  class="col_12 clearfix">
 					<div id="left_col" class="col_3 back">
 						<div id="left-menu">
-							<!--Место для фильтров по пользователям-->
+							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="users_filters" action="<?=base_url()?>admin/users_module/"/>
+								<h6>Найти пользователей</h6>
+								<!--Место для фильтров по пользователям-->
+								<div class="col_12 clearfix">
+									<div><b>По группе</b></div>
+									<?$counter = 1?>
+									<input type="hidden" name="groups" value="false"/>
+									<?foreach($groups as $g):?>
+										<div class="col_1"><input type="checkbox" name="groups[]" id="group_<?=$counter?>" <?foreach($filters['groups'] as $gr):?> <?if($gr == $g->id):?>checked<?endif;?> <?endforeach;?> value="<?=$g->id?>"/></div>
+										<div class="col_11"><label for="group_<?=$counter?>"><?=$g->name?></label></div>
+										<?$counter++?>
+									<?endforeach;?>
+								</div>
+								<div class="col_12">
+									<div><b>По имени</b></div>
+									<input type="text" name="name" class="col_12" value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>"/>
+								</div>
+								<div class="col_12">
+									<div><b>По email</b></div>
+									<input type="text" name="email" class="col_12" value="<?if(isset($filters['email'])):?><?=$filters['email']?><?endif;?>"/>
+								</div>
+								<div class="col_12 center">
+									<button class="small">Найти</button>
+								</div>
+							</form>
 						</div>
 					</div>
 					<div id="right_col" class="col_9 back">

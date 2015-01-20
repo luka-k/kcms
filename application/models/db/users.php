@@ -73,4 +73,11 @@ class Users extends MY_Model
 		$this->db->where(array("email" => $email, "secret" => $secret));
 		$this->db->update('users', array("password" => $new_password));
 	}
+	
+	public function group_list($group_id)
+	{
+		
+	}
+	
+	
 }
