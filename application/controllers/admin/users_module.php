@@ -16,7 +16,7 @@ class Users_module extends Admin_Controller
 		$direction = "acs"; 
 
 		$filters = $this->input->post();
-		if($filters['groups'] == "false") $filters['groups'] = array();
+		
 
 		$data = array(
 			'title' => "Пользователи",
@@ -26,14 +26,13 @@ class Users_module extends Admin_Controller
 			'menu' => $this->menus->set_active($this->menu, "users"),
 			'name' => $name,
 			'groups' => $this->users_groups->get_list(FALSE),
-			'filters' => $filters,
 			'content' => new stdClass()
 		);
-
+		
 		if($filters)
 		{
 			
-			if(!empty($filters['groups']))
+			if($filters['groups'] <> "false")
 			{
 				$users_id = array();
 				foreach($filters['groups'] as $group)
@@ -72,6 +71,9 @@ class Users_module extends Admin_Controller
 				$data['images'] = TRUE;
 			}	
 		}
+		
+		if($filters['groups'] == "false" || !isset($filters['groups'])) $filters['groups'] = array();
+		$data['filters'] = $filters;
 
 		$this->load->view('admin/users.php', $data);
 	}	

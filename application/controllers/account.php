@@ -221,6 +221,8 @@ class Account extends Client_Controller
 			'activity' => "reg",
 			'filials' => $this->filials->get_list(FALSE)
 		);
+		
+		///var_dump($this->input->post());
 			
 		$this->form_validation->set_rules('email', 'e-mail', 'trim|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]');	
@@ -238,24 +240,33 @@ class Account extends Client_Controller
 		else
 		{	
 			$user = (object)$this->input->post();
+			
 			//Если id пустой то добавляем нового пользователя
 			if (!$this->users->non_requrrent(array('name'=>$user->name)))
 			{
 				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-				$this->load->view('client/registration', $user);	
+				$this->load->view('client/registration', $data);	
 			} 
 			elseif (!$this->users->non_requrrent(array('email'=>$user->email)))
 			{
 				$data['error'] ="Такой email уже зарегистрирован";
-				$this->load->view('client/registration', $user);						
+				$this->load->view('client/registration', $data);						
 			} 
 			else 
 			{	
 				$pass = $user->conf_password;
-				$user->role = "customer";
+				
 				$user->password = md5($user->password);
 				unset($user->conf_password);
 				$this->users->insert($user);
+				
+				$user_id = $this->db->insert_id();
+				$group = $this->users_groups->get_item_by(array("name" => "customers"));
+				
+				$users2users_groups->group_parent_id =$group->id;
+				$users2users_groups->child_id = $user_id;
+				$this->db->insert('users2users_groups', $users2users_groups);
+
 				
 				$message_info = array(
 					"user_name" => $user->name,
