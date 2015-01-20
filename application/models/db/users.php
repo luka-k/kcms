@@ -45,9 +45,15 @@ class Users extends MY_Model
 			$authdata = array(
 				'user_id' => $login->id,
 				'user_name' => $login->name,
-				'role' => $login->role,
 				'logged_in' => TRUE
 				);		
+			$u2u_g = $this->users2users_groups->get_list(array("child_id" => $login->id));
+
+			foreach($u2u_g as $g)
+			{
+				$group = $this->users_groups->get_item_by(array("id" => $g->group_parent_id));
+				$authdata['group'][] = $group->name;
+			}
 			$this->session->set_userdata($authdata);
 		}
 		return $authdata;	

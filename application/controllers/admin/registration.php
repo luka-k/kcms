@@ -33,8 +33,9 @@ class Registration extends CI_Controller
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));			
 		$authdata = $this->users->login($email, $password);
+		$group = (array)$this->session->userdata('group');
 
-		if (!$authdata['logged_in'])
+		if ((!$authdata['logged_in'])||(!in_array("admin", $group)))
 		{
 			$data['error'] = "Данные не верны. Повторите ввод";		
 			$this->load->view('admin/login.php', $data);	
@@ -52,7 +53,8 @@ class Registration extends CI_Controller
 		$authdata = array(
 			'user_id' => '',
 			'user_name' => '',
-			'logged_in' => ''
+			'logged_in' => '',
+			'group' => ''
 			);
 		$this->session->unset_userdata($authdata);
 		

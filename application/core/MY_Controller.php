@@ -15,9 +15,9 @@ class Admin_Controller extends CI_Controller
 		parent::__construct();
 		
 		$user = $this->session->userdata('logged_in');
-		$role = $this->session->userdata('role');
-
-		if ((!$user)||($role <> "admin")) die(redirect(base_url().'admin/registration/login'));	
+		$group = (array)$this->session->userdata('group');
+		
+		if ((!$user)||(!in_array("admin", $group))) die(redirect(base_url().'admin/registration/login'));	
 		
 		$this->menu = $this->menus->admin_menu;
 		$this->user_name = $this->session->userdata('user_name');
