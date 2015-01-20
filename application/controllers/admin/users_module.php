@@ -198,4 +198,14 @@ class Users_module extends Admin_Controller
 			}
 		}
 	}
+	
+	public function delete_user($id)
+	{
+		if($this->users->delete($id)) 
+		{
+			$this->db->where('child_id', $id);
+			$this->db->delete('users2users_groups');
+			redirect(base_url().'admin/users_module/');
+		}
+	}
 }

@@ -35,6 +35,14 @@
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
 	}
+	
+	function delete_user(base_url, item_id, item_name){
+		var href;
+		href = base_url+"admin/users_module/delete_user/"+item_id;
+		$('#item_name').text(item_name);
+		$('.delete_button').attr('href', href);
+		$.fancybox.open("#delete_item");
+	}
 		
 	function slider(id){
 		$("#"+id).slideToggle().toggleClass('noactive');

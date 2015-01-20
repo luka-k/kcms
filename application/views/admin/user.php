@@ -44,7 +44,7 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/user/edit/<?=$user_id?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
+										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user_id?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
 										<?if((!empty($content->id))):?>
 											<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
@@ -58,7 +58,7 @@
 										<div>
 											Вы точно уверены что хотите удалить - <strong><?=$content->name?></strong>?
 										</div><br/>
-										<a href="<?=base_url()?>admin/content/delete_item/users/<?=$content->id?>" class="button small">Удалить?</a>
+										<a href="<?=base_url()?>admin/users_module/delete_user/<?=$content->id?>" class="button small">Удалить?</a>
 										<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 									</div>
 								</div>
