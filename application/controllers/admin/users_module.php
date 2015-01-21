@@ -74,6 +74,11 @@ class Users_module extends Admin_Controller
 		
 		if($filters['groups'] == "false" || !isset($filters['groups'])) $filters['groups'] = array();
 		$data['filters'] = $filters;
+		
+		foreach($data['content'] as $key => $user)
+		{
+			
+		}
 
 		$this->load->view('admin/users.php', $data);
 	}	

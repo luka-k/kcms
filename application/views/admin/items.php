@@ -36,19 +36,35 @@
 							</thead>
 							<tbody <?if(isset($sortable) || $type == "slider"):?> class="sortable"<?endif?>>
 								<?$counter = 1?>
-								<?php foreach ($content as $item): ?>
+								<? foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
 										<td class="tb_1"><?=$counter?></td>
 										
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->catalog_small_url?>" /></a>
+													<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+														0<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->catalog_small_url?>" /></a>
+													<?else:?>
+														<img src="<?=$item->img->catalog_small_url?>" />
+													<?endif;?>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_7">
+												<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a>
+												<?else:?>
+													<?=$item->$name?> <i>(редактирование запрещено)</i>
+												<?endif;?>
+											</td>
 										<?else:?>
-											<td class="tb_7"><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a></td>
+											<td class="tb_7">
+												<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a>
+												<?else:?>
+													<?=$item->$name?> <i>(редактирование запрещено)</i>
+												<?endif;?>
+											</td>
 										<?endif;?>	
 										<td class="tb_3">
 											<div class="col_12"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;">удалить</a></div>
@@ -61,7 +77,7 @@
 										</td>
 									</tr>
 									<?$counter++?>
-								<?php endforeach ?>
+								<? endforeach ?>
 								
 								<?require 'include/delete_popup.php'?>
 							</tbody>
