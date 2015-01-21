@@ -74,9 +74,18 @@ class Users extends MY_Model
 		$this->db->update('users', array("password" => $new_password));
 	}
 	
+	//Вывод списока пользователей по id группы 
 	public function group_list($group_id)
 	{
+		$users_id = $this->users2users_groups->get_list(array("group_parent_id" => $group_id));
 		
+		$users = array();
+		foreach($users_id as $item)
+		{
+			$users[] = $this->get_item_by(array("id" => $item->child_id));
+		}
+		
+		return $users;
 	}
 	
 	
