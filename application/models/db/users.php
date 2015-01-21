@@ -88,5 +88,10 @@ class Users extends MY_Model
 		return $users;
 	}
 	
-	
+	//Проверка принадлежности пользователя к группе
+	public function in_group($user_id, $group_id)
+	{
+		$user = $this->users2users_groups->get_item_by(array("group_parent_id" => $group_id, "child_id" => $user_id));
+		return $user ? TRUE : FALSE;
+	}
 }

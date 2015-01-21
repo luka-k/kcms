@@ -81,7 +81,7 @@ class Users_module extends Admin_Controller
 	public function edit($id = FALSE, $acting = "edit", $exit = FALSE)
 	{	
 		$name = editors_field_exists('name', $this->users->editors);
-		
+				
 		$data = array(
 			'title' => "Пользователи",
 			'error' => "",
