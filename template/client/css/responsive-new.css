@@ -1,0 +1,407 @@
+/*---------------------------------
+	Responsive Grid Media Queries - 1280, 1024, 768, 480
+	1280-1024 	- desktop (default grid)
+	1024-768 	- tablet landscape
+	768-480 	- tablet 
+	480-less 	- phone landscape & smaller
+-----------------------------------*/
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+	.logo{
+	/*border:1px solid red;*/
+	}
+	
+	.cart{
+	min-width:280px;
+	}
+
+	.cart .cart-info{
+	min-width:240px;
+	font-size:14px;
+	}
+	
+	.soc-seti .pod-text{
+	width:65%;
+	}
+	
+	.podpiska .pod-text{
+	width:45%;
+	}
+
+	/*.cart .cart-btn{
+	position:relative;
+	float:right;
+	width:33px;
+	height:29px;
+	margin:0;
+	background:url(../img/cart-btn.png) center no-repeat;
+	}*/
+	
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+
+	body{
+	background:#000;
+	}
+	
+	.logo{
+	/*border:1px solid green;*/
+	}
+	
+	.logo .slogan{
+	font-size:12px;
+	}
+	
+	.header-info{
+		font-size:12px;
+	}
+	
+	.header-info .phone{
+		font-size:18px;
+	}
+	
+	.contact .phone{
+	font-size:12px;
+	}
+
+	.cart{
+	min-width:210px;
+	}
+
+	.cart .cart-info{
+	min-width:180px;
+	padding:6px 5px 0 30px;
+	background:#222222 url(../img/cart.png) 5px center no-repeat;
+	font-size:10px;
+	}	
+	
+	.podpiska{
+	min-width:50%;
+	float:right;
+	}
+	
+	.soc-seti .pod-text{
+	float:none;
+	width:100%;
+	padding:0 0 5px 0;
+	text-align:left;
+	}
+	
+	.podpiska .pod-text{
+	float:none;
+	width:100%;
+	padding:0 0 5px 0;
+	text-align:right;
+	}
+	
+	#cart .tbl-col-4 .inpt{
+		width:24px;
+		height:24px;
+	}
+
+	#cart .tbl-col-4 .plusminus{
+		width:24px;
+		height:24px;
+		font-size:14px;
+	}
+	
+	.red-btn {
+		font-size:12px;
+		padding:7px 10px 10px 10px;
+	}
+	
+	.special .special-item .price{
+		font-size:12px;
+	}
+	
+	#content-2 table{
+		font-size:12px;
+	}
+	
+	#content-2 table a{
+		font-size:12px;
+	}
+}
+
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+
+	body{
+	background:#000;
+	}
+
+	.logo{
+	/*border:1px solid blue;*/
+	text-align:center;
+	}
+	
+	.logo .slogan{
+	max-width:100%;
+	text-align:center;
+	font-size:12px;
+	}
+	
+	.cart{
+	text-align:center;
+	}
+	
+	.cart .cart-info{
+	float:none;
+	width:355px;
+	margin:0;
+	}
+	
+	.cart .cart-btn{
+	float:right;
+	width:80px;
+	margin:0;
+	z-index:100;
+	}
+	
+	#social .soc-seti{
+	text-align:center;
+	}
+	
+	.soc-seti .pod-text{
+	float:left;
+	text-align:left;
+	}
+	
+	.podpiska{
+	min-width:100%;
+	float:none;
+	text-align:center;
+	}
+	
+	.podpiska .pod-text{
+	float:none;
+	width:100%;
+	padding-top:0;
+	text-align:center;
+	}
+	
+	.footer-menu ul li{
+	margin-right:10px;
+	float:left;
+	}
+	
+	.footer-menu ul li.titl a{
+	font-size:16px;
+	}
+	
+	.contact{
+	text-align:center;
+	}
+	
+	.contact .town, .contact .phone, .contact .town, .contact .phone {
+	margin-right:10px;
+	float:left;
+	}
+	
+	.contact .phone{
+	font-size:16px;
+	}
+	
+	#menu .search{
+		width:90%;
+	}	
+	
+	aside img{
+		width:100%;
+	}
+
+	aside .news, aside .blog, aside .video{
+		width:100%;
+	}
+	
+	#content, #content-2, #content-3{
+		width:100%;
+		margin:10px 0;
+		padding:10px;
+		background:#fff;
+	}
+	
+	#content-2 table{
+		font-size:12px;
+	}
+	
+	#cart table{
+		font-size:12px;
+	}
+	
+	#cart .tbl-col-4 .inpt{
+		width:20px;
+		height:20px;
+		font-size:16px;
+	}
+
+	#cart .tbl-col-4 .btn{
+		width:20px;
+		height:20px;
+		font-size:14px;
+	}
+	
+	#content .cat-item img{
+		width:95%;
+		height:auto;
+	}
+	
+	#cart .tbl-col-4 .inpt{
+		width:20px;
+		height:20px;
+	}
+
+	#cart .tbl-col-4 .plusminus{
+		width:20px;
+		height:20px;
+		font-size:12px;
+	}
+	
+	.red-btn {
+		font-size:12px;
+		padding:7px 10px 10px 10px;
+	}
+	
+	.special .special-item .price{
+		font-size:12px;
+	}
+}
+
+@media all and (max-width: 480px) {
+
+	body{
+	background:#000;
+	}
+
+	.logo{
+	/*border:1px solid blue;*/
+	text-align:center;
+	}
+	
+	.logo .slogan{
+	max-width:100%;
+	text-align:center;
+	font-size:12px;
+	}
+	
+	.cart{
+	text-align:center;
+	}
+	
+	.cart .cart-info{
+	float:none;
+	width:280px;
+	margin:0;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	}
+	
+	.cart .cart-btn{
+	float:right;
+	width:80px;
+	margin:0;
+	z-index:100;
+	}
+	
+	#social .soc-seti{
+	text-align:center;
+	}
+	
+	.soc-seti .pod-text{
+	float:left;
+	text-align:left;
+	}
+	
+	.podpiska{
+	min-width:100%;
+	float:none;
+	text-align:center;
+	}
+	
+	.podpiska .pod-text{
+	float:none;
+	width:100%;
+	padding-top:0;
+	text-align:center;
+	}
+	
+	.footer-menu ul li{
+	margin-right:10px;
+	float:left;
+	}
+	
+	.footer-menu ul li.titl a{
+	font-size:16px;
+	}
+	
+	.contact{
+	text-align:center;
+	}
+	
+	.contact .town, .contact .phone, .contact .town, .contact .phone {
+	margin-right:10px;
+	float:left;
+	}
+	
+	.contact .phone{
+	font-size:16px;
+	}
+	
+	#menu .search{
+		width:90%;
+	}	
+	
+	aside img{
+		width:100%;
+	}
+
+	aside .news, aside .blog, aside .video{
+		width:100%;
+	}
+	
+	#content, #content-2, #content-3{
+		width:100%;
+		margin:10px 0;
+		padding:10px;
+		background:#fff;
+	}
+	
+	#content-2 table{
+		font-size:8px;
+	}
+	
+	#content-2 table .red-btn, #content-2 table .grey-btn{
+		margin:0;
+		padding:3px;
+		font-size:8px;
+	}
+	
+	#cart table{
+		font-size:10px;
+	}
+	
+	.red-btn {
+		font-size:14px;
+	}
+	
+	.grey-btn {
+		font-size:14px;
+	}
+	
+	#content .cat-item img{
+		width:95%;
+		height:auto;
+	}
+	
+	#cart .tbl-col-4 .inpt{
+		width:16px;
+		height:16px;
+	}
+
+	#cart .tbl-col-4 .plusminus{
+		width:16px;
+		height:16px;
+		font-size:10px;
+	}
+}

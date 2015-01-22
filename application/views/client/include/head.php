@@ -8,7 +8,7 @@
 		
 		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
-		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/responsive.css" media="all" />   
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/responsive-new.css" media="all" />   
 		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
 		
 		<link href="<?=base_url()?>template/client/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -47,12 +47,17 @@
 				});
 			}
 			
-
+		</script>
+		
+		
+		<script>
 			jQuery(document).ready(function($){
 				element = document.getElementById('left-col');
-				var height = element.offsetHeight;
-				if (!document.getElementById('content-2') && document.getElementById('content').offsetHeight < height)
-					document.getElementById('content').style.height = height;
+				if(element){
+					var height = element.offsetHeight;
+					if (!document.getElementById('content-2') && document.getElementById('content').offsetHeight < height)
+						document.getElementById('content').style.height = height;
+				}
 			});
 		</script>
 	</head>
