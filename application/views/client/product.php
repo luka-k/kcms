@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>
 	<? require 'include/product_script.php'?>
@@ -36,17 +36,19 @@
 															</div>
 															<div class="item clearfix">
 																<div class="item-name"><?=$content->name?></div>
-																<div class="item-d"><?=$content->name?></div>
+																<div class="item-d"><?=$content->description?></div>
 																<div class="item-color"><?=$content->color?></div>
-																<div class="left-col">Цена розничная:</div><div class="item-price"><?=$content->price?> руб.</div>
+																<div class="left-col">Цена розничная:</div><div class="item-price"><?=$content->price?> евро.</div>
 																<?if(!empty($content->discount)):?>
-																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$content->sale_price?> р. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$content->discount?>%</span></span></div>
+																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$content->sale_price?> евро. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$content->discount?>%</span></span></div>
 																<?endif;?>	
 																<div>
-																	ОПИСАНИЕ ХАРАКТЕРИСТИКИ И ТД!!!!!<br/>
-																	Описание описание описание <br/>
-																	Описание описание описание <br/>
-																	Описание описание описание <br/>
+																	<?= $content->width ? 'Ширина: '.$content->width.'<br>' : ''?>
+																	<?= $content->height ? 'Высота: '.$content->height.'<br>' : ''?>
+																	<?= $content->depth ? 'Глубина: '.$content->height.'<br>' : ''?>
+																	<?= $content->material ? 'Материал: '.$content->material.'<br>' : ''?>
+																	<?= $content->finishing ? 'Отделка: '.$content->finishing.'<br>' : ''?>
+																	<?= $content->turn ? 'Разворот: '.$content->turn.'<br>' : ''?>
 																</div>
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$content->location?></div>
 																<div class="item-buy" onclick="add_to_cart('<?=$content->id?>', 1); return false">Купить</div>

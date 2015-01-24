@@ -27,17 +27,24 @@ class Images extends MY_Model
 		//$thumb_sizes = $this->config->item('thumb_size');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		$img_info = $this->non_requrrent_info($img['name']);
-		
-		//Формируем путь для загрузки оригинала изображения
-		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
-	
-		//Загружаем оригинал
-		if(!move_uploaded_file($img["tmp_name"], $temp_path))
+		if (is_array($img))
 		{
-			return FALSE;
+			$img_info = $this->non_requrrent_info($img['name']);
+			
+			//Формируем путь для загрузки оригинала изображения
+			$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
+		
+			//Загружаем оригинал
+			if(!move_uploaded_file($img["tmp_name"], $temp_path))
+			{
+				return FALSE;
+			}
+		} else {
+			$temp_path = $img;
+			$t = explode('/', $img);
+			$img_info = $this->non_requrrent_info($t[count($t)-1]);
 		}
-				
+		
 		$thumb = new phpThumb();
 		//Создаем миниатюры
 		foreach ($thumb_config as $thumb_dir_name => $configs) 
@@ -46,7 +53,6 @@ class Images extends MY_Model
 			
 			//Задаем имя файла с которого делаем миниатюру.
 			$thumb->setSourceFilename($temp_path);
-		
 			//Устанавливаем параметры
 			foreach($configs as $parameter => $config)
 			{
@@ -56,7 +62,6 @@ class Images extends MY_Model
 			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
 			
 			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
-
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
 			{

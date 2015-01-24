@@ -31,48 +31,176 @@ class Admin extends CI_Controller
 	}
 	
 	
+	
+	public function load1COffers()
+	{
+		$xmlstr = file_get_contents('1c/offers.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		$i = 0;
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		$c = 0; 
+		$total = 0;
+		foreach($xml->ПакетПредложений->Предложения->Предложение as $el)
+		{
+			$total++;
+			$name = (string) $el->Наименование;
+			$product = $this->products->get_item_by(array('name' => $name));
+			if (!$product)
+			{
+				echo $name."\n";
+				continue;
+			}
+			$price = (string) $el->Цены->Цена->ЦенаЗаЕдиницу;
+			$this->products->update($product->id, array('price' => $price));
+		}
+	}
+	
 	public function load1C()
 	{
 		$xmlstr = file_get_contents('1c/import.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		$i = 0;
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		$c = 0; 
+		$total = 0;
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
+			$total++;
+			//if ($total > 20) die('done');
 			$manufacturer = (string) $el->Изготовитель->ОфициальноеНаименование;
 			$name = (string) $el->Наименование;
+			echo $total.': '.$name."\n";
+			$sku = (string) $el->Артикул;
+			$cat1 = array();
+			$images = array();
+			$data = array('article' => $sku);
 			
-			// TODO: fix
-			$categoryName = explode('.', $name);
-			$categoryName = trim($categoryName[1]);
-			$categoryName = explode(' ', $categoryName);
-			$categoryName = $categoryName[0];
-			// ~TODO
-			
-			if ($categoryName)
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
 			{
-				$category = $this->categories->get_item_by(array('name' => $categoryName));
+				switch ((string) $param->Наименование)
+				{
+					case 'Группа товаров 1':
+						$cat1 = explode(';', (string) $param->Значение);
+						break;
+					case 'Группа товаров 2':
+						$cat2 = (string) $param->Значение;
+						break;
+					case 'Полное наименование':
+						$data['name'] = (string) $param->Значение;
+						break;
+					case 'Коллекция/Серия1':
+						$data['collection'] = (string) $param->Значение;
+						break;
+					case 'Ширина':
+						$data['width'] = (string) $param->Значение;
+						break;
+					case 'Высота':
+						$data['height'] = (string) $param->Значение;
+						break;
+					case 'Глубина':
+						$data['depth'] = (string) $param->Значение;
+						break;
+					case 'Цвет':
+						$data['color'] = (string) $param->Значение;
+						break;
+					case 'Описание':
+						$data['description'] = (string) $param->Значение;
+						break;
+					case 'Материал':
+						$data['material'] = (string) $param->Значение;
+						break;
+					case 'Отделка':
+						$data['finishing'] = (string) $param->Значение;
+						break;
+					case 'Разворот':
+						$data['turn'] = (string) $param->Значение;
+						break;
+					case 'Файл':
+						$images[] = '1c/'. ( (string) $param->Значение);
+						break;
+				}
+			}
+			if ( $this->products->get_item_by(array('name' => $data['name']))) continue;
+			 
+			echo "start inserting...\n";
+			
+			$_manufacturer = $this->manufacturer->get_item_by(array('name' => $manufacturer));
+			if (!$_manufacturer)
+			{
+				$this->manufacturer->insert(array('name' => $manufacturer, 'url' => slug($manufacturer)));
+				$_manufacturer = $this->manufacturer->get_item($this->db->insert_id());
+			}
+			echo "manufacturer_id=".$_manufacturer->id."\n";
+				
+			if ($cat2)
+			{
+				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $categoryName));
+					$this->categories->insert(array('name' => $cat2, 'url' => slug($cat2)));
 					$category = $this->categories->get_item($this->db->insert_id());
-					$category2category->category_parent_id = 1;
-					$category2category->child_id = $category->id;
-					$this->db->insert('category2category', $category2category);
 				}
-				$this->products->insert(array(
-					'name' => $name,
-					'parent_id' => $category->id,
-					'is_active' => 1,
-					'price' => rand(500, 1000) * 10,
-					'url' => slug($name)
-				));
+				
+				foreach ($cat1 as $c1)
+				{
+					$c1 = trim($c1);
+					if (!$c1) continue;
+					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
+					if (!$parentcategory)
+					{
+						$this->categories->insert(array('name' => $c1, 'url' => slug($c1)));
+						$pid = $this->db->insert_id();
+						$parentcategory = $this->categories->get_item($pid);
+					
+						$category2category = array(
+							'category_parent_id' => 0,
+							'child_id' => $pid
+						); 
+						
+						if (!$this->db->get_where('category2category', $category2category)->result())				
+							$this->db->insert('category2category', $category2category);
+						
+					}
+					
+					$category2category = array(
+						'category_parent_id' => $parentcategory->id,
+						'child_id' => $category->id
+					);
+					
+					if (!$this->db->get_where('category2category', $category2category)->result())				
+						$this->db->insert('category2category', $category2category);
+				}
+			
+				$data['parent_id'] = $category->id;
+				$data['is_active'] = 1;
+				$data['price'] = 0;
+				$data['manufacturer_id'] = $_manufacturer->id;
+				$data['url'] = slug($data['name']);
+				$this->products->insert($data);
 				$product_id = $this->db->insert_id();
-				$this->images->insert(array(
-					'url' => '/i/t/item-1.jpg',
-					'is_cover' => '1',
-					'object_type' => 'products',
-					'object_id' => $product_id
-				));
+				
+				
+				
+				foreach ($images as $i => $im)
+				{
+					$newim = str_replace('.file', '.tiff', $im);
+					if (file_exists('/home/admin/web/shop.brightbuild.ru/public_html/'.$im))
+						rename ('/home/admin/web/shop.brightbuild.ru/public_html/'.$im, '/home/admin/web/shop.brightbuild.ru/public_html/'.$newim);
+					$jpg = str_replace('.tiff', '.jpg', '/home/admin/web/shop.brightbuild.ru/public_html/'.$newim);
+					if (!file_exists($jpg))
+					{
+						$tiff = new Imagick('/home/admin/web/shop.brightbuild.ru/public_html/'.$newim);
+						
+						//$tiff->thumbnailImage(100, 100);
+						$tiff->setImageFormat('jpg');
+						$tiff->setCompressionQuality(97);
+						$tiff->writeImage($jpg);
+					}
+					
+					$this->images->upload_image($jpg, array('object_type' => 'products', 'object_id' => $product_id, 'is_cover' => ($i == 0 ? 1 : 0)));
+				}
+				
+				//die('ok');
 					
 			}
 		}

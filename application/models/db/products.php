@@ -93,6 +93,8 @@ class Products extends MY_Model
 	
 	private function range_filter($param, $item_from, $item_to)
 	{
+		$item_from = trim($item_from);
+		$item_to = trim($item_to);
 		if(!empty($item_from)&&!empty($item_to))
 		{
 			$where = "{$param} BETWEEN {$item_from} AND {$item_to}";
@@ -101,7 +103,7 @@ class Products extends MY_Model
 		else
 		{
 			if(!empty($item_from)) $this->db->where("{$param} >", $item_from);
-			if(!empty($item_to))$this->db->where("{$param} <", $item->to);
+			if(!empty($item_to))$this->db->where("{$param} <", $item_to);
 		}	
 	}
 	

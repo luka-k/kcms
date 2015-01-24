@@ -31,9 +31,9 @@
 																<div class="item-name"><?=$item->name?></div>
 																<div class="item-d"><?=$item->article?></div>
 																<div class="item-color"><?=$item->color?></div>
-																<div class="left-col">Цена розничная:</div><div class="item-price"><?=$item->price?> руб.</div>
+																<div class="left-col">Цена розничная:</div><div class="item-price"><?=$item->price?> евро.</div>
 																<?if(!empty($item->discount)):?>
-																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$item->sale_price?> р. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$item->discount?>%</span></span></div>
+																	<div class="left-col">Цена покупки:</div><div class="item-total "><?=$item->sale_price?> евро. <span class="item-sale-1">Скидка: <span class="item-sale-2"><?=$item->discount?>%</span></span></div>
 																<?endif;?>	
 																<div class="item-place left-col">Наличие:</div><div class="right-col"><?=$item->location?></div>
 																<div class="item-buy" onclick="add_to_cart('<?=$item->id?>', 1); return false">Купить</div><a href="<?=$item->full_url?>" class="item-more">Подробнее</a>
