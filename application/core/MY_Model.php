@@ -439,17 +439,10 @@ class MY_Model extends CI_Model
 	{
 		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
-		
-		if(empty($_POST['id'])&&(isset($this->new_editors)))
-		{
-			$editors = $this->new_editors;
-		}
-		else
-		{
-			$editors = $this->editors;
-		}
-		
-		foreach ($editors as $edit)
+
+		$editors = $this->editors;
+
+		foreach ($editors as $type => $edit)
 		{
 			foreach ($edit as $key => $value)
 			{
@@ -461,8 +454,16 @@ class MY_Model extends CI_Model
 						'rules' => $value[2]);
 				}
 				if ($this->db->field_exists($key, $this->_table))
-				{
-					$return->data->$key = $post[$key];
+				{	
+					if($key == "password" && empty($_POST[$key])) 
+					{	
+						
+						unset($editors[$type][$key]);
+					}
+					else
+					{ 
+						$return->data->$key = $_POST[$key];
+					}
 				}
 			}
 		}
@@ -475,11 +476,10 @@ class MY_Model extends CI_Model
 			{
 				foreach ($edit as $key => $value)
 				{
-				
 					if ($this->db->field_exists($key, $this->_table))
 					{
 						$return->data->$key = htmlspecialchars_decode(set_value($key));
-					}		
+					}						
 				}
 			}
 			$return->error = FALSE;
@@ -488,7 +488,7 @@ class MY_Model extends CI_Model
 		{
 			$return->error = TRUE;
 		}
-		
+		//var_dump($return);
 		return $return;
 	}	
 } 
