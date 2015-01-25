@@ -67,6 +67,7 @@ $route['order/(:any)/(:num)'] = 'order/$1/$2';
 
 $route['search'] = 'search';
 
+$route['404_override'] = 'pages/page_404';
 /*
 
 

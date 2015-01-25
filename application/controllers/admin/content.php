@@ -76,6 +76,7 @@ class Content extends Admin_Controller
 			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'left_column' => $left_column,
+			'editors' => $this->$type->editors,
 			'type' => $type
 		);
 		
@@ -84,16 +85,6 @@ class Content extends Admin_Controller
 			$type == "products" ? $tree = $this->categories->get_tree(0, "parent_id") : $tree = $this->$type->get_tree(0, "parent_id");
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
-		}
-		
-				
-		if(($id == FALSE)&&(isset($this->$type->new_editors)))
-		{
-			$data['editors'] = $this->$type->new_editors;
-		}
-		else
-		{
-			$data['editors'] = $this->$type->editors;
 		}
 		
 		if($type == "emails")

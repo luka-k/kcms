@@ -8,18 +8,8 @@ class Users extends MY_Model
 			'secret' => array('secret', 'hidden', 'trim'),
 			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
 			'group_parent_id' => array('Группа', 'u2u_g', 'users2users_groups'),
-			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email')
-		)
-	);
-	
-	public $new_editors = array(
-		'Основное' => array(
-			'id' => array('id', 'hidden', ''),
-			'secret' => array('secret', 'hidden', 'trim'),
-			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars'),
 			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email'),
-			'password' => array('Пароль', 'pass', 'trim|required|matches[conf_password]|md5'),
-			'conf_password' => array('Повторите пароль', 'pass', 'trim|required|min_length[3]|md5')
+			'password' => array('Пароль', 'pass', 'trim|md5')
 		)
 	);
 	

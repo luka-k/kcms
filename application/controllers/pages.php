@@ -45,11 +45,7 @@ class Pages extends Client_Controller {
 
 		if($page == "404")
 		{
-			$data['title'] = "Страница не найдена";
-			$data['meta_title'] = $settings->site_title;
-			$data['meta_keywords'] = $settings->site_keywords;
-			$data['meta_description'] = $settings->site_description;
-			$template="client/404.php";
+			redirect(base_url()."pages/page_404");
 		}
 		else
 		{
@@ -160,6 +156,26 @@ class Pages extends Client_Controller {
 		);
 		
 		$this->load->view("client/contacts", $data);
+	}
+	
+	public function page_404()
+	{
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$data = array(
+			'title' => "Страница не найдена",
+			'meta_title' => $settings->site_title,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
+			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'top_menu' => $this->top_menu->items,
+			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array('id' => 1)),
+			'filials' => $this->filials->get_list(FALSE)
+		);
+		
+		$this->load->view("client/404", $data);
 	}
 
 	// wishlist()

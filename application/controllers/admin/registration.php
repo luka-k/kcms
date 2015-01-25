@@ -31,7 +31,7 @@ class Registration extends CI_Controller
 		);
 		
 		$email = $this->input->post('email');
-		$password = md5($this->input->post('password'));			
+		$password = /*md5(*/$this->input->post('password')/*)*/;			
 		$authdata = $this->users->login($email, $password);
 		$group = (array)$this->session->userdata('group');
 

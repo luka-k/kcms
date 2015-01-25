@@ -297,7 +297,7 @@
  * ========================================================================== */
 
   app.alaxOptions = {
-    url: "/ajax/index",
+    url: "/ajax/callback/",
     timeout: 3000,
     datatype: 'json',
     success: function showResponse(responseText, statusText, xhr, $form)  { 

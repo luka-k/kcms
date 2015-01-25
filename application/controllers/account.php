@@ -8,7 +8,6 @@ class Account extends Client_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->config->load('order_config');
 	}
 	
 	/*Авторизация покупателя*/	
