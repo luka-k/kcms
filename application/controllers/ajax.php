@@ -8,34 +8,39 @@ class Ajax extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->config->load('order_config');
 	}
 
-	function index()
+	function callback()
 	{
 		$post = $this->input->post();
 		$admin_email = $this->config->item('admin_email');
-		
-		if(isset($post['dealer']))
+		if($post)
 		{
-			$subject = 'Запрос о сотруднечестве';
-			$message = 'Клиент '.$post['name'].' предлагает сотруднечество </br> Контактные данные:</br> Телефон:'.$post['phone'].'E-mail: '.$post['email'];
-			$message .= '</br> К письму добавлен коментарий:</br>'.$post['message'];
+			if(isset($post['dealer']))
+			{
+				$subject = 'Запрос о сотруднечестве';
+				$message = 'Клиент '.$post['name'].' предлагает сотруднечество </br> Контактные данные:</br> Телефон:'.$post['phone'].'E-mail: '.$post['email'];
+				$message .= '</br> К письму добавлен коментарий:</br>'.$post['message'];
+			}
+			else
+			{
+				$subject = 'Запрос на обратный звонок';
+				$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
+				if(isset($post['email']))
+				{
+					$message .= '</br> E-mail:'.$post['email'];
+				}
+				if(isset($post['message']))
+				{
+					$message .= '</br> К письму приложен коментарий :</br>'.$post['message'];
+				}
+			}
+			($this->mail->send_mail($admin_email, $subject, $message));
 		}
 		else
 		{
-			$subject = 'Запрос на обратный звонок';
-			$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
-			if(isset($post['email']))
-			{
-				$message .= '</br> E-mail:'.$post['email'];
-			}
-			if(isset($post['message']))
-			{
-				$message .= '</br> К письму приложен коментарий :</br>'.$post['message'];
-			}
+			redirect(base_url()."pages/page_404");
 		}
-		($this->mail->send_mail($admin_email, $subject, $message));
 	}
 	
 	public function add_to_cart()
@@ -95,6 +100,7 @@ class Ajax extends CI_Controller {
 	
 	public function change_field()
 	{
+		$this->config->load('order_config');
 		$info = json_decode(file_get_contents('php://input', true));
 
 		$this->orders->update($info->order_id, array("{$info->type}" => $info->value));
