@@ -1,8 +1,8 @@
 <script>
 	$(function() {
-		$('.sortable').sortable({cursor:'move'});
-		$('.sortable').sortable({cursorAt:{left:5}})
 		$('.sortable').sortable({
+			cursor:'move',
+			cursorAt:{left:5},
 			axis: 'y',
 			update: function (event, ui) {
 				var data = $(this).sortable('serialize');
@@ -117,10 +117,11 @@
 	}
 	
 	$(function(){
-		$( ".datepicker" ).datepicker();
-		$( ".datepicker" ).datepicker( "option", $.datepicker.regional["ru"]);
-		$( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd");
-		$( ".datepicker" ).datepicker( "setDate", $(".datepicker").attr('date') );
+		$( ".datepicker" ).datepicker({
+			dateFormat:"yy-mm-dd",
+			setDate: $(".datepicker").attr('date')
+		});
+
 	});
 	
 	jQuery(document).ready(function($){	

@@ -152,7 +152,7 @@ class Catalog extends Client_Controller {
 			$this->breadcrumbs->add("", "Поиск");
 			$category = new stdClass();
 			$category->name = "Результаты поиска";
-			$category->products = $this->products->get_filtred((object)$get, $order, $direction);
+			$category->products = $this->characteristics->get_filtred((object)$get, $order, $direction);
 			$category->products = $this->products->get_prepared_list($category->products);
 
 			$settings = $this->settings->get_item_by(array('id' => 1));

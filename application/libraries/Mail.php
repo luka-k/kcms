@@ -11,13 +11,11 @@ class mail {
 
 	function send_mail($to, $subject, $message)
 	{
-		$config = array(
-			'protocol' => "mail",
-			'mailtype' => "html",
-			'wordwrap' => TRUE
-		);
-		$from = 'admin@admin.com';
-		$who = 'Admin';
+		$config = $this->CI->config->item('config');
+		
+		$settings = $this->CI->settings->get_item_by(array("id" => 1));
+		$from = $settings->admin_email;
+		$who = $settings->admin_name;
 
 		$this->CI->email->initialize($config);
 		$this->CI->email->from($from, $who);

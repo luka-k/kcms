@@ -14,7 +14,6 @@ class Images extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		
 		$this->config->load('upload_config');
 	}
 	
@@ -258,7 +257,6 @@ class Images extends MY_Model
 	public function get_url($url, $path = FALSE)
 	{
 		$item_url = array();
-		$item_url = NULL;
 		$item_url[] = $url;
 		if($path) $item_url[] = $path;
 		$item_url[] = "images";

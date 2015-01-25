@@ -22,8 +22,6 @@ class Admin_Controller extends CI_Controller
 		$this->menu = $this->menus->admin_menu;
 		$this->user_name = $this->session->userdata('user_name');
 		$this->user_id = $this->session->userdata('user_id');
-		
-		$this->config->load('emails_config');
 	}
 }
 

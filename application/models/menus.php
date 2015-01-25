@@ -1,6 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//Модель работы с изображениями
 class Menus extends MY_Model 
 {
 	public $top_menu = array();

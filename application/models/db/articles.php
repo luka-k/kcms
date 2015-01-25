@@ -29,7 +29,6 @@ class Articles extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 	
 	public function url_parse($segment_number, $parent = FALSE)

@@ -41,4 +41,95 @@ class Characteristics extends MY_Model
 		}
 		return $filters;
 	}
+	
+	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
+	{
+		$values = array();
+		$filters = $this->filters;
+		$counter = 0;
+		foreach($get as $key => $item)
+		{
+			if(!empty($item)) 
+			{
+				if(isset($filters[$key]))
+				{
+					switch ($filters[$key][1])
+					{
+						case "text":
+							$this->db->where(array("type" => $key, "value" => $item));
+							$counter++;
+							break;
+						case "select":
+							$this->db->where("type", $key);
+							$this->db->where_in("value", $item);
+							$counter++;
+							break;
+						case "single":
+							$this->db->where(array("type" => $key, "value" => $item));
+							$counter++;
+							break;
+						case "interval":
+							if(!empty($item[0])&&!empty($item[1]))
+							{
+								$this->db->where("type", $key);
+								$where = "{$name} BETWEEN {$item[0]} AND {$item[1]}";
+								$this->db->where($where);
+								$counter++;
+							}
+							elseif(!empty($item[0])||!empty($item[1]))
+							{
+								$this->db->where("type", $key);
+								if(!empty($item[0])) $this->db->where("value >", $item[0]);
+								if(!empty($item[1])) $this->db->where("value <", $item[1]);
+								$counter++;
+							}	
+							break;
+					}
+					$values = $this->_update_values($values);
+				}
+			}
+		}
+
+		
+		if($counter > 1)
+		{
+			$values = array_count_values($values);
+			foreach($values as $key => $counter)
+			{
+				if($counter > 1) $id[] = $key;
+			}
+		}
+		else
+		{
+			$id = $values;
+		}		
+
+		if(!empty($id)) $this->db->where_in("id", $id);
+		$this->db->order_by($order, $direction); 
+			
+		//Если указан пункт в наличии 
+		if(isset($get->is_active)) $this->db->where("is_active", 1);
+
+		if(isset($get->price_from) && isset($get->price_to))
+		{
+			$where = "price BETWEEN {$get->price_from} AND {$get->price_to}";
+			$this->db->where($where);
+		}
+			
+		$query = $this->db->get("products"/*, $limit, $from*/);
+		$result = $query->result();
+		empty($result) ? $content = array() : $content = $result;
+		return $content;
+	}
+	
+	
+	private function _update_values($values)
+	{
+		$query = $this->db->get('characteristics');
+		foreach($query->result_array() as $result)
+		{
+			$values[] = $result['object_id'];
+		}
+		return $values;
+	}
 }

@@ -311,6 +311,13 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-datepicker {
+	width: 20%;
+	padding: .2em .2em 0;
+	display: none;
+	font-family: 'Myriad Pro', sans-serif;
+}
+
+.page-news__calendar.ui-datepicker {
 	width: 100%;
 	padding: .2em .2em 0;
 	display: none;
