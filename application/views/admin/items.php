@@ -43,7 +43,7 @@
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+													<?if(!isset($item->is_edit)||($item->is_edit == 1)):?>
 														0<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->img->catalog_small_url?>" /></a>
 													<?else:?>
 														<img src="<?=$item->img->catalog_small_url?>" />
@@ -51,7 +51,7 @@
 												<?endif;?>
 											</td>
 											<td class="tb_7">
-												<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+												<?if(!isset($item->is_edit)||($item->is_edit == 1)):?>
 													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a>
 												<?else:?>
 													<?=$item->$name?> <i>(редактирование запрещено)</i>
@@ -59,7 +59,7 @@
 											</td>
 										<?else:?>
 											<td class="tb_7">
-												<?if(isset($item->is_edit)&&($item->is_edit == 1)):?>
+												<?if(!isset($item->is_edit)||($item->is_edit == 1)):?>
 													<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><?=$item->$name?></a>
 												<?else:?>
 													<?=$item->$name?> <i>(редактирование запрещено)</i>
@@ -67,7 +67,13 @@
 											</td>
 										<?endif;?>	
 										<td class="tb_3">
-											<div class="col_12"><a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->name?>'); return false;">удалить</a></div>
+											<div class="col_12">
+												<?if(!isset($item->type)||($item->type == 2)):?>
+													<a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->$name?>'); return false;">удалить</a>
+												<?else:?>
+													&nbsp;
+												<?endif?>
+											</div>
 											<?if($type == "products"):?>
 												<div class="col_2"><input type="checkbox" id="new_<?=$counter?>" onchange="advanced('new', '<?=$item->id?>', this.checked);" <?if($item->is_new == 1):?>checked<?endif;?>/></div>
 												<div class="col_10"><label for="new_<?=$counter?>">новинка</label></div>

@@ -111,7 +111,7 @@ class Ajax extends CI_Controller {
 			"user_name" => $order->user_name,
 			"order_status" => $status
 		);
-		$this->emails->send_mail($order->user_email, 'change_order_status', $message_info);
+		$this->emails->send_system_mail($order->user_email, 3, $message_info);
 		
 		switch ($info->type) 
 		{

@@ -11,7 +11,7 @@ class Menus extends MY_Model
         parent::__construct();
 
 		$this->admin_menu = array(
-			'main' => array("Главная", base_url()."admin", 0),
+			'main' => array("<i class='icon-home'></i>", base_url()."admin", 0),
 			'articles' => array("Статьи", "#", 0, array(
 				0 => array('Все статьи', base_url()."admin/content/items/articles", 0),
 				1 => array('Новости', base_url()."admin/content/items/articles/1", 0)
@@ -29,8 +29,12 @@ class Menus extends MY_Model
 			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),
 			'settings' => array('Настройки', "#", 0, array(
 				0 => array('Настройки сайта', base_url()."admin/content/item/edit/settings/1", 0),
-				1 => array("Верхнее меню", base_url()."admin/menu_module/menu/edit/1", 0,),
-				2 => array('Письма', base_url()."admin/mails", 0),
+				1 => array("Верхнее меню", base_url()."admin/menu_module/menu/edit/1", 0,)
+			)),
+			'emails' => array('Рассылки', "#", 0, array(
+				0 => array("Шаблоны", base_url()."admin/content/items/emails/2", 0),
+				1 => array("Рассылки", base_url()."admin/mailouts_module/", 0),
+				2 => array("Системные письма", base_url()."admin/content/items/emails/1", 0)
 			)),
 			'users' => array('Пользователи', "#", 0, array(
 				0 => array('Пользователи', base_url()."admin/users_module/", 0),

@@ -4,7 +4,7 @@
 		<option <?php if ($content->$name == 0):?>selected<?php endif; ?> value="0">Без категории</option>
 		<?php foreach ($selects[$name] as $select): ?>
 			<option <?php if(!empty($select->childs)):?>class="option-1-ch"<?else:?>class="option-1"<?endif;?> value="<?=$select->id?>" <?php if ($content->$name == $select->id):?>selected<?php endif; ?><?php if ($content->id == $select->id):?>disabled<?php endif; ?>>
-				<?=$select->name?>
+				<?=$select->$name?>
 			</option>
 				<?php if(!empty($select->childs)):?>
 					<?php foreach ($select->childs as $select_2): ?>

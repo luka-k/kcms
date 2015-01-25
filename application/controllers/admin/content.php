@@ -34,7 +34,7 @@ class Content extends Admin_Controller
 		);	
 
 		
-		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
+		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = $name;
 		$direction = "acs";
 		
 		if($this->db->field_exists('parent_id', $type))
@@ -48,8 +48,9 @@ class Content extends Admin_Controller
 		}
 		else
 		{
+			$type == "emails" ? $parent = "type" : $parent = "parent_id";
 			$data["parent_id"] = $id;
-			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
 		
@@ -85,6 +86,7 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $tree;
 		}
 		
+				
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
 		{
 			$data['editors'] = $this->$type->new_editors;
@@ -92,6 +94,11 @@ class Content extends Admin_Controller
 		else
 		{
 			$data['editors'] = $this->$type->editors;
+		}
+		
+		if($type == "emails")
+		{
+			$data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		}
 		
 		if($type == "dealers")
@@ -114,6 +121,8 @@ class Content extends Admin_Controller
 					$content->parent_id = $parent_id;
 				}
 				$content->is_active = "1";
+				
+				if($type == "emails") $content->type = 2;
 
 				$data['content'] = $content;
 				$data['content']->img = NULL;
@@ -191,6 +200,7 @@ class Content extends Admin_Controller
 				}
 				
 				isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
+				if($type == "emails") $p_id = $data['content']->type;
 
 				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);
 
