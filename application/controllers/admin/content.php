@@ -68,6 +68,7 @@ class Content extends Admin_Controller
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
+		$name = editors_field_exists('name', $this->$type->editors);
 		
 		$data = array(
 			'title' => "Редактировать",
@@ -77,6 +78,7 @@ class Content extends Admin_Controller
 			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
+			'name' => $name,
 			'type' => $type
 		);
 		
