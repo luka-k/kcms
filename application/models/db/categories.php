@@ -138,8 +138,11 @@ class Categories extends MY_Model
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
-		if(!empty($item))$item->full_url = $this->get_url($item);
-		return $item;
+		if(!empty($item))
+		{
+			$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
+			$item->full_url = $this->get_url($item);
+			return $item;
+		}
 	}
 }

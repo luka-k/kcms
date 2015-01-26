@@ -115,13 +115,16 @@ class Articles extends MY_Model
 	
 	function prepare($item)
 	{
-		if(!empty($item)) $item->full_url = $this->get_url($item);
-		if(!empty($item->date))
+		if(!empty($item))
 		{
-			$item_date = new DateTime($item->date);
-			$item_date = date_format($item_date, 'd.m.Y');
-			$item->date = $item_date;
+			$item->full_url = $this->get_url($item);
+			if(!empty($item->date))
+			{
+				$item_date = new DateTime($item->date);
+				$item_date = date_format($item_date, 'd.m.Y');
+				$item->date = $item_date;
+			}
+			return $item;
 		}
-		return $item;
 	}
 }

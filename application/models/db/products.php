@@ -64,19 +64,25 @@ class Products extends MY_Model
 	
 	function prepare($item)
 	{
-		if(!is_object($item)) $item = (object)$item;
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
-		if(isset($item->url)) $item->full_url = $this->get_url($item);
-		$item = $this->set_sale_price($item);
-		return $item;		
+		if(!empty($item))
+		{
+			if(!is_object($item)) $item = (object)$item;
+			$item->full_url = $this->get_url($item);
+			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
+			$item = $this->set_sale_price($item);
+			return $item;
+		}			
 	}
 	
 	function prepare_product($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
-		$item->full_url = $this->get_url($item);
-		$item = $this->set_sale_price($item);
-		return $item;		
+		if(!empty($item))
+		{
+			$item->full_url = $this->get_url($item);
+			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
+			$item = $this->set_sale_price($item);
+			return $item;
+		}			
 	}
 	
 }
