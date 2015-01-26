@@ -59,6 +59,8 @@ class Content extends Admin_Controller
 			$data['content'] = $this->images->get_img_list($data['content'], $type);
 			$data['images'] = TRUE;
 		}
+		
+		if($type == "slider") $data['sortable'] = TRUE;
 
 		$this->load->view('admin/items.php', $data);
 	}
