@@ -42,7 +42,7 @@ class Characteristics extends MY_Model
 		return $filters;
 	}
 	
-	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
+	function get_filtered_products($get, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
 		$filters = $this->filters;
