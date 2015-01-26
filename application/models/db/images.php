@@ -23,7 +23,7 @@ class Images extends MY_Model
 		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		$img_info = $this->non_requrrent_info($img['name']);
+		$img_info = $this->get_unique_info($img['name']);
 		
 		//Формируем путь для загрузки оригинала изображения
 		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
@@ -134,7 +134,7 @@ class Images extends MY_Model
 		}
 	}
 	
-	public function non_requrrent_info($img_name)
+	public function get_unique_info($img_name)
 	{
 		$image = explode(".", $img_name);
 		//Чистим от лишних символов и транлитируем имя файла.
@@ -143,7 +143,7 @@ class Images extends MY_Model
 		$url = make_upload_path($img_name, NULL).$img_name;
 	
 		$count = 1;
-		while(!($this->non_requrrent(array("url" => $url))))
+		while(!($this->is_unique(array("url" => $url))))
 		{
 			$img_name = $image[0]."[".$count."]".".".$image[1];
 			$url = make_upload_path($img_name, NULL).$img_name;
