@@ -63,7 +63,7 @@ class Content extends Admin_Controller
 		$this->load->view('admin/items.php', $data);
 	}
 	
-	public function item($acting, $type, $id = FALSE, $exit = FALSE)
+	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
 		
@@ -100,7 +100,7 @@ class Content extends Admin_Controller
 			$data['selects']['region'] = $region;
 		}
 		
-		if($acting == "edit")
+		if($action == "edit")
 		{
 			if($id == FALSE)
 			{	
@@ -150,7 +150,7 @@ class Content extends Admin_Controller
 			}
 			$this->load->view('admin/edit_item.php', $data);
 		}
-		elseif($acting == "save")
+		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post()->data;
 			
@@ -198,7 +198,7 @@ class Content extends Admin_Controller
 				//$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type);		
 			}
 		}
-		if($acting == "copy")
+		if($action == "copy")
 		{
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
 			

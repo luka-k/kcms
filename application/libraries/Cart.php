@@ -22,7 +22,7 @@ class CI_Cart {
 		if (isset($items['id']))
 		{
 			$item_id = $this->insert_item($items);
-			$this->safe_cart();
+			$this->save_cart();
 			return $item_id;
 		}
 		elseif(is_array($items))
@@ -31,7 +31,7 @@ class CI_Cart {
 			{
 				if (is_array($item) && isset($item['id'])) $this->insert_item($item);
 			}
-			$this->safe_cart();
+			$this->save_cart();
 		}	
 		else
 		{
@@ -69,10 +69,10 @@ class CI_Cart {
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		$this->cart_contents['items'][$item_id]['qty'] = $qty;
 		$this->cart_contents['items'][$item_id]['item_total'] = ($this->cart_contents['items'][$item_id]['price'] * $qty);
-		$this->safe_cart();
+		$this->save_cart();
 	}
 	
-	public function safe_cart()
+	public function save_cart()
 	{
 		unset($this->cart_contents['total_qty']);
 		unset($this->cart_contents['cart_total']);
@@ -126,7 +126,7 @@ class CI_Cart {
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		unset($this->cart_contents['items'][$item_id]);
-		$this->safe_cart();
+		$this->save_cart();
 	}
 	
 	public function clear()

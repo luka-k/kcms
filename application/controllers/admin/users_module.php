@@ -83,7 +83,7 @@ class Users_module extends Admin_Controller
 		$this->load->view('admin/users.php', $data);
 	}	
 	
-	public function edit($id = FALSE, $acting = "edit", $exit = FALSE)
+	public function edit($id = FALSE, $action = "edit", $exit = FALSE)
 	{	
 		$name = editors_field_exists('name', $this->users->editors);
 				
@@ -111,7 +111,7 @@ class Users_module extends Admin_Controller
 		
 		$field_name = editors_field_exists('users2users_groups', $data['editors']);
 		
-		if($acting == "edit")
+		if($action == "edit")
 		{
 			if($id == FALSE)
 			{
@@ -137,7 +137,7 @@ class Users_module extends Admin_Controller
 			
 			$this->load->view('admin/user.php', $data);
 		}
-		elseif($acting == "save")
+		elseif($action == "save")
 		{
 			$data['content'] = $this->users->editors_post()->data;
 

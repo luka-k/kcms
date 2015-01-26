@@ -30,7 +30,7 @@ class Menu_module extends Admin_Controller
 		$this->load->view("admin/menus", $data);
 	}
 	
-	public function menu($acting, $id = FALSE)
+	public function menu($action, $id = FALSE)
 	{
 		$editors = $this->dynamic_menus->editors;
 		$items_editors = $this->menus_items->editors;
@@ -82,11 +82,11 @@ class Menu_module extends Admin_Controller
 			'item_content' => $item_content
 		);	
 		
-		if($acting == "edit")
+		if($action == "edit")
 		{
 			$this->load->view("admin/menu", $data);
 		}
-		elseif($acting == "save")
+		elseif($action == "save")
 		{
 			$content = $this->dynamic_menus->editors_post()->data;
 			if($this->dynamic_menus->editors_post()->error == TRUE)
@@ -125,7 +125,7 @@ class Menu_module extends Admin_Controller
 				redirect(base_url().'admin/menu_module/menu/edit/'.$content->id);
 			}
 		}
-		elseif($acting == "save_item")
+		elseif($action == "save_item")
 		{
 			$info = $this->input->post();
 			$info = $this->menus_items->editors_post($info);
