@@ -114,9 +114,8 @@ class Categories extends MY_Model
 		}
 	}
 	
-	public function get_url($url)
+	public function get_url($item)
 	{
-		$item = $this->get_item_by(array("url" => $url));
 		$item_full_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
@@ -140,7 +139,7 @@ class Categories extends MY_Model
 	function prepare($item)
 	{
 		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
-		$item->full_url = $this->get_url($item->url);
+		if(!empty($item))$item->full_url = $this->get_url($item);
 		return $item;
 	}
 }

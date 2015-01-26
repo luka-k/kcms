@@ -44,10 +44,8 @@ class Products extends MY_Model
         parent::__construct();
 	}
 	
-	public function get_url($url)
+	public function get_url($item)
 	{
-		$item = $this->products->get_item_by(array("url" => $url));
-		
 		$item_full_url = $this->categories->make_full_url($item);
 		
 		$full_url = implode("/", array_reverse($item_full_url));
@@ -68,7 +66,7 @@ class Products extends MY_Model
 	{
 		if(!is_object($item)) $item = (object)$item;
 		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
-		if(isset($item->url)) $item->full_url = $this->get_url($item->url);
+		if(isset($item->url)) $item->full_url = $this->get_url($item);
 		$item = $this->set_sale_price($item);
 		return $item;		
 	}
@@ -76,7 +74,7 @@ class Products extends MY_Model
 	function prepare_product($item)
 	{
 		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
-		$item->full_url = $this->get_url($item->url);
+		$item->full_url = $this->get_url($item);
 		$item = $this->set_sale_price($item);
 		return $item;		
 	}

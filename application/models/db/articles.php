@@ -86,9 +86,8 @@ class Articles extends MY_Model
 		}
 	}
 	
-	public function get_url($url)
+	public function get_url($item)
 	{
-		$item = $this->get_item_by(array("url" => $url));
 		$item_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_url));
 		$full_url = base_url().$full_url;
@@ -116,7 +115,7 @@ class Articles extends MY_Model
 	
 	function prepare($item)
 	{
-		if(!empty($item)) $item->full_url = $this->get_url($item->url);
+		if(!empty($item)) $item->full_url = $this->get_url($item);
 		if(!empty($item->date))
 		{
 			$item_date = new DateTime($item->date);
