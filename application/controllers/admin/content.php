@@ -198,6 +198,33 @@ class Content extends Admin_Controller
 				//$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type);		
 			}
 		}
+		if($acting == "copy")
+		{
+			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			
+			$field_name = editors_field_exists('ch', $data['editors']);
+			if(!empty($field_name))	$characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			
+			$data['content']->id = NULL;
+			$data['content']->url = "";
+			
+			foreach($data['content'] as $key => $value)
+			{
+				if(!$this->db->field_exists($key, $type)) unset($data['content']->$key);
+			}
+			
+			$this->$type->insert($data['content']);
+			$new_id = $this->db->insert_id();
+			
+			if(is_array($characteristics)) foreach($characteristics as $ch)
+			{
+				$ch->id = NULL;
+				$ch->object_id = $new_id;
+				$this->characteristics->insert($ch);
+			}
+			
+			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
+		}
 	}
 		
 	//Удаление элемента

@@ -16,7 +16,6 @@
 	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
 	<? require 'include/breadcrumbs.php'?>
-	
 	<div class="page page-catalog" id="page-catalog">
 		<div class="page-wrap wrap">
 			<div class="page-catalog__nav">
