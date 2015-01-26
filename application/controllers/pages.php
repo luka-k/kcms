@@ -98,10 +98,10 @@ class Pages extends Client_Controller {
 				$sub_template = "page";
 			}
 			
-			isset($page->name) ? $data['title'] = $page->name : $data['title'] = $settings->site_title;
-			isset($page->meta_title) ? $data['meta_title'] = $page->meta_title : $data['meta_title'] = $settings->site_title;
-			isset($page->meta_keywords) ? $data['meta_keywords'] = $page->meta_keywords : $data['meta_keywords'] = $settings->site_keywords;
-			isset($page->meta_description) ? $data['meta_description'] = $page->meta_description : $data['meta_description'] = $settings->site_description;
+			$data['title'] = isset($page->name) ?  $page->name : $settings->site_title;
+			$data['meta_title'] = isset($page->meta_title) ?  $page->meta_title : $settings->site_title;
+			$data['meta_keywords'] = isset($page->meta_keywords) ?  $page->meta_keywords : $settings->site_keywords;
+			$data['meta_description'] = isset($page->meta_description) ? $page->meta_description : $settings->site_description;
 
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['sub_template'] = $sub_template;
