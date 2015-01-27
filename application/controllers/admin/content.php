@@ -44,6 +44,7 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 		}
 		else
 		{
@@ -58,8 +59,6 @@ class Content extends Admin_Controller
 			$data['content'] = $this->images->get_img_list($data['content'], $type);
 			$data['images'] = TRUE;
 		}
-		
-		if($type == "slider") $data['sortable'] = TRUE;
 
 		$this->load->view('admin/items.php', $data);
 	}

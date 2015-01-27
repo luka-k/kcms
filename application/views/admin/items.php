@@ -34,7 +34,7 @@
 									<th class="tb_1">&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody <?if(isset($sortable)):?> class="sortable"<?endif?>>
+							<tbody class="<?if($sortable):?>sortable<?endif?>">
 								<?$counter = 1?>
 								<? foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
