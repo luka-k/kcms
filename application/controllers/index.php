@@ -55,15 +55,6 @@ class Index extends Client_Controller {
 		
 		$data = array(
 			'title' => $settings->site_title."|Главная",
-			'meta_title' => $settings->site_title,
-			'meta_keywords' => $settings->site_keywords,
-			'meta_description' => $settings->site_description,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'cart_items' => $this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
-			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $top_menu->items,
 			'select_item' => "",
 			'slider' => $this->slider->get_prepared_list($slider),
 			'catalog_by_filter' => $catalog_by_filter,
@@ -72,8 +63,9 @@ class Index extends Client_Controller {
 			'last_news' => $this->articles->get_prepared_list($last_news),
 			'video' => $this->video->get_prepared_list($video),
 			'settings' => $settings,
-			'filials' => $this->filials->get_list(FALSE)
 		);
+		
+		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view('client/main.php', $data);
 	}	

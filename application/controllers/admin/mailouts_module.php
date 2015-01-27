@@ -17,8 +17,7 @@ class Mailouts_module extends Admin_Controller
 		$data = array(
 			'title' => "Рассылка",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'templates' => $this->emails->get_list(array("type" => 2)),
 			'mailouts' => array_reverse($mailouts)

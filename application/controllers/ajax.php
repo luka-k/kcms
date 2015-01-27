@@ -55,6 +55,7 @@ class Ajax extends CI_Controller {
 		
 		$cart_item = array(
 			"id" => $product->id,
+			"parent_id" => $product->parent_id,
 			"name" => $product->name,
 			"url" => $product->url,
 			"price" => $product->price,

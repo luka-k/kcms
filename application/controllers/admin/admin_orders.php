@@ -60,15 +60,14 @@ class Admin_orders extends Admin_Controller
 		
 		$data = array(
 			'title' => "Заказы",			
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
+			'menu' => $this->menu,
 			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay'),
 				'status_id' => $this->config->item('order_status')
-			),
-			'menu' => $this->menu
+			)
 		);	
 		
 		$this->load->view('admin/orders.php', $data);

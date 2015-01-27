@@ -16,23 +16,18 @@ class Account extends Client_Controller
 		$email = $this->input->post('login');
 		$password = md5($this->input->post('password'));			
 		$authdata = $this->users->login($email, $password);
-		
+
 		if (!$authdata['logged_in'])
 		{	
-			$user_id = $this->session->userdata('user_id');
-	
 			$data = array(
 				'title' => "Регистрация",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
 				'error' => "",
-				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-				'top_menu' => $this->top_menu->items,
+				'select_item' => "",
 				'activity' => "enter",
-				'filials' => $this->filials->get_list(FALSE)
 			);	
 			
+			$data = array_merge($this->standart_data, $data);
+
 			$data['error'] = "Данные не верны. Повторите ввод";		
 			$this->load->view('client/registration', $data);	
 		} 
@@ -46,9 +41,9 @@ class Account extends Client_Controller
 	public function do_exit()
 	{
 		$authdata = array(
-			'user_id' => '',
-			'user_name' => '',
-			'logged_in' => ''
+			'user' => '',
+			'logged_in' => '',
+			'user_groups' => ''
 			);
 		$this->session->unset_userdata($authdata);
 		
@@ -60,15 +55,12 @@ class Account extends Client_Controller
 	{
 		$data = array(
 			'title' => "Регистрация",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'error' => "",
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'top_menu' => $this->top_menu->items,
-			'activity' => "restore",
-			'filials' => $this->filials->get_list(FALSE)
+			'select_item' => "",
+			'activity' => "restore"
 		);
+		
+		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view('client/registration', $data);	
 	}
@@ -77,16 +69,13 @@ class Account extends Client_Controller
 	public function restore_password_mail()
 	{
 		$data = array(
-				'title' => "Регистрация",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
-				'error' => "",
-				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-				'top_menu' => $this->top_menu->items,
-				'activity' => "restore",
-				'filials' => $this->filials->get_list(FALSE)
-			);
+			'title' => "Регистрация",
+			'error' => "",
+			'select_item' => "",
+			'activity' => "restore"
+		);
+		
+		$data = array_merge($this->standart_data, $data);
 			
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
 		if($this->form_validation->run() == FALSE)
@@ -125,18 +114,15 @@ class Account extends Client_Controller
 	public function new_password()
 	{
 		$data = array(
-				'title' => "Регистрация",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
-				'error' => "",
-				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-				'top_menu' => $this->top_menu->items,
-				'email' => $this->input->get('email'),
-				'secret' => $this->input->get('secret'),
-				'activity' => "new",
-				'filials' => $this->filials->get_list(FALSE)
-			);	
+			'title' => "Регистрация",
+			'error' => "",
+			'email' => $this->input->get('email'),
+			'secret' => $this->input->get('secret'),
+			'select_item' => "",
+			'activity' => "new"
+		);	
+		$data = array_merge($this->standart_data, $data);
+		
 		$this->load->view('client/registration', $data);
 	}
 		
@@ -150,15 +136,10 @@ class Account extends Client_Controller
 		{
 			$data = array(
 				'title' => "Регистрация",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
 				'error' => "",
-				'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-				'top_menu' => $this->top_menu->items,
-				'activity' => "restore",
-				'filials' => $this->filials->get_list(FALSE)
+				'activity' => "restore"
 			);
+			$data = array_merge($this->standart_data, $data);
 			
 			$this->load->view('admin/new_password', $data);
 		} 
@@ -191,16 +172,11 @@ class Account extends Client_Controller
 		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'error' => "",
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'activity' => $activity,
-			'filials' => $this->filials->get_list(FALSE)
+			'activity' => $activity
 		);
+		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view('client/registration', $data);		
 	}
@@ -210,18 +186,11 @@ class Account extends Client_Controller
 		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'error' => "",
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'activity' => "reg",
-			'filials' => $this->filials->get_list(FALSE)
+			'activity' => "reg"
 		);
-		
-		///var_dump($this->input->post());
+		$data = array_merge($this->standart_data, $data);
 			
 		$this->form_validation->set_rules('email', 'e-mail', 'trim|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]');	
@@ -241,12 +210,12 @@ class Account extends Client_Controller
 			$user = (object)$this->input->post();
 			
 			//Если id пустой то добавляем нового пользователя
-			if (!$this->users->non_requrrent(array('name'=>$user->name)))
+			if (!$this->users->is_unique(array('name'=>$user->name)))
 			{
 				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
 				$this->load->view('client/registration', $data);	
 			} 
-			elseif (!$this->users->non_requrrent(array('email'=>$user->email)))
+			elseif (!$this->users->is_unique(array('email'=>$user->email)))
 			{
 				$data['error'] ="Такой email уже зарегистрирован";
 				$this->load->view('client/registration', $data);						
@@ -273,7 +242,7 @@ class Account extends Client_Controller
 					"password" => $pass
 				);
 				
-				$this->emails->send_mail($user->email, 'registration', $message_info);				
+				$this->emails->send_system_mail($user->email, 4, $message_info);				
 				
 				if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 			}

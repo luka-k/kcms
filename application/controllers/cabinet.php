@@ -3,7 +3,6 @@
 class Cabinet extends Client_Controller {
 
 	public $user_orders; 
-	public $user;
 	public $orders_info = array();
 	
 	public function __construct()
@@ -11,9 +10,9 @@ class Cabinet extends Client_Controller {
 		parent::__construct();
 		if (!$this->session->userdata('logged_in')) die(redirect(base_url().'cart'));
 		$this->config->load('order_config');
-		
-		$this->user = $this->users->get_item_by(array('id' => $this->user_id));
-		$this->user_orders = $this->orders->get_list(array("user_id" => $this->user_id));
+		$user = $this->session->userdata('user');
+
+		$this->user_orders = $this->orders->get_list(array("user_id" => $user->id));
 
 		foreach ($this->user_orders as $key => $order)
 		{	
@@ -51,25 +50,17 @@ class Cabinet extends Client_Controller {
 	{
 		$data = array(
 			'title' => "Личный кабинет",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'error' => "",
-			'user' => $this->user,
-			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'cart' => $this->cart->get_all(),
-			'total_price' => $this->cart->total_price(),
-			'total_qty' => $this->cart->total_qty(),
 			'orders' => $this->orders_info,
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
 			),
 			'status_id' => $this->config->item('order_status'),
-			'settings' => $this->settings->get_item_by(array('id' => 1)),
-			'filials' => $this->filials->get_list(FALSE)
+			'settings' => $this->settings->get_item_by(array('id' => 1))
 		);
+		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view('client/cabinet.php', $data);
 	}
@@ -86,7 +77,6 @@ class Cabinet extends Client_Controller {
 
 		$this->users->update($user->id, $user);
 		redirect(base_url().'cabinet');
-
 	}
 	
 }

@@ -7,21 +7,19 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin_Controller extends CI_Controller 
 {
 	protected $menu;
-	protected $user_name;
-	protected $user_id;
+	protected $user;
 
 	public function __construct()
 	{
 		parent::__construct();
 		
-		$user = $this->session->userdata('logged_in');
-		$group = (array)$this->session->userdata('group');
+		$is_logged = $this->session->userdata('logged_in');
+		$user_groups = (array)$this->session->userdata('user_groups');
 		
-		if ((!$user)||(!in_array("admin", $group))) die(redirect(base_url().'admin/registration/login'));	
+		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
 		
 		$this->menu = $this->menus->admin_menu;
-		$this->user_name = $this->session->userdata('user_name');
-		$this->user_id = $this->session->userdata('user_id');
+		$this->user = (array)$this->session->userdata('user');
 	}
 }
 
@@ -30,21 +28,26 @@ class Admin_Controller extends CI_Controller
 
 class Client_Controller extends CI_Controller
 {
-	protected $top_menu;
-	protected $user_id;
-	protected $cart_items;
-	protected $total_price;
-	protected $total_qty;
+	protected $standart_data = array();
 	
 	function __construct()
 	{
 		parent::__construct();
 				
-		$this->top_menu = $this->dynamic_menus->get_menu(1);
-		$this->user_id = $this->session->userdata('user_id');
-		$this->cart_items = $this->cart->get_all();
-		$this->total_price = $this->cart->total_price();
-		$this->total_qty = $this->cart->total_qty();
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$this->standart_data = array(
+			'meta_title' => $settings->site_title,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
+			"top_menu" => $this->dynamic_menus->get_menu(1)->items,
+			"user" => $this->session->userdata('user'),
+			"cart_items" => $this->cart->get_all(),
+			"total_price" => $this->cart->total_price(),
+			"total_qty" => $this->cart->total_qty(),
+			'product_word' => end_maker("товар", $this->cart->total_qty()),
+			'filials' => $this->filials->get_list(FALSE)
+		);
 	}
 }
 

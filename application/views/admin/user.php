@@ -16,7 +16,7 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/<?=$user_id?>/save/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/"/>
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error?>
@@ -25,7 +25,7 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user_id?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
+										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
 										<?if((!empty($content->id))):?>
 											<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
@@ -44,12 +44,12 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user_id?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
+										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
 										<?if((!empty($content->id))):?>
 											<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
 										<?endif;?>
-									</div>			
+									</div>		
 								</div>
 								
 								<!--delete popup-->

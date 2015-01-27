@@ -21,8 +21,7 @@ class Users_module extends Admin_Controller
 		$data = array(
 			'title' => "Пользователи",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menus->set_active($this->menu, "users"),
 			'name' => $name,
 			'groups' => $this->users_groups->get_list(FALSE),
@@ -74,11 +73,6 @@ class Users_module extends Admin_Controller
 		
 		if($filters['groups'] == "false" || !isset($filters['groups'])) $filters['groups'] = array();
 		$data['filters'] = $filters;
-		
-		foreach($data['content'] as $key => $user)
-		{
-			
-		}
 
 		$this->load->view('admin/users.php', $data);
 	}	
@@ -90,10 +84,8 @@ class Users_module extends Admin_Controller
 		$data = array(
 			'title' => "Пользователи",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menus->set_active($this->menu, "users"),
-			//'left_column' => $left_column,
 			'name' => $name,
 			'selects' => array(
 				'group_parent_id' => $this->users_groups->get_list(FALSE)

@@ -15,8 +15,7 @@ class Menu_module extends Admin_Controller
 		$data = array(
 			'title' => "Меню",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE)
@@ -50,6 +49,7 @@ class Menu_module extends Admin_Controller
 			);
 			$content->img = $this->images->get_images($object_info, "catalog_small");		
 		}
+		3
 		
 		$item_content = set_empty_fields($items_editors);
 		$item_content->menu_id = $id;	

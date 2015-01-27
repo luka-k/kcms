@@ -124,13 +124,7 @@ class Catalog extends Client_Controller {
 		empty($get['price_from']) ? $min_value = $min_price : $min_value = $get['price_from'];
 
 		$data = array(
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'cart_items' => $this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
-			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->top_menu->items,
 			'left_menu' => $left_menu,
 			'url' => $url,
 			'select_item' => "",
@@ -142,10 +136,10 @@ class Catalog extends Client_Controller {
 			'max_price' => $max_price,
 			'min_value' => $min_value,
 			'max_value' => $max_value,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
-			'settings' => $settings,
-			'filials' => $this->filials->get_list(FALSE)
+			'settings' => $settings
 		);
+		
+		$data = array_merge($this->standart_data, $data);
 		
 		if(isset($get['filter']))
 		{
@@ -250,29 +244,17 @@ class Catalog extends Client_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('order_config');
-		if($this->cart_items)
-		{
-			$this->cart_items = $this->products->get_prepared_list($this->cart_items);
-		}
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->get_prepared_list($this->standart_data['cart_items']);
 
 		$data = array(
 			'title' => "Корзина",
-			'meta_title' => $settings->site_title,
-			'meta_keywords' => $settings->site_keywords,
-			'meta_description' => $settings->site_description,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart_items' =>	$this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
-			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->top_menu->items,
 			'select_item' => "",
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'action' => $this->input->get('action'),
-			'settings' => $this->settings->get_item_by(array('id' => 1)),
-			'filials' => $this->filials->get_list(FALSE)
+			'settings' => $this->settings->get_item_by(array('id' => 1))
 		);
+		
+		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/cart.php', $data);
 	}
 }

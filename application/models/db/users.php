@@ -22,27 +22,28 @@ class Users extends MY_Model
 	public function login($e_email, $e_pass)
 	{	
 		$authdata = array(
-			'user_id' => " ",
-			'user_name' => " ",
-			'role' => " ",
+			'user' => " ",
+			'user_groups' => "",
 			'logged_in' => 0
 			);
 	
 		if($this->get_count(array('email' => $e_email, 'password' => $e_pass)) == 1)
 		{
-			$login = $this->get_item_by(array('email' => $e_email, 'password' => $e_pass));
+			$user = $this->get_item_by(array('email' => $e_email, 'password' => $e_pass));
+
 			$authdata = array(
-				'user_id' => $login->id,
-				'user_name' => $login->name,
+				'user' => $user,
 				'logged_in' => TRUE
 				);		
-			$u2u_g = $this->users2users_groups->get_list(array("child_id" => $login->id));
+			$u2u_g = $this->users2users_groups->get_list(array("child_id" => $user->id));
 
+			
 			foreach($u2u_g as $g)
 			{
 				$group = $this->users_groups->get_item_by(array("id" => $g->group_parent_id));
-				$authdata['group'][] = $group->name;
+				$authdata['user_groups'][] = $group->name;
 			}
+			
 			$this->session->set_userdata($authdata);
 		}
 		return $authdata;	
