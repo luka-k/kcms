@@ -21,7 +21,6 @@ class Images extends MY_Model
 	{
 		//Подключаем настройки
 		$upload_path = $this->config->item('upload_path');
-		$thumb_config = $this->config->item('thumb_config');
 		
 		$img_info = $this->get_unique_info($img['name']);
 		
@@ -29,66 +28,23 @@ class Images extends MY_Model
 		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
 	
 		//Загружаем оригинал
-		if(!move_uploaded_file($img["tmp_name"], $temp_path))
-		{
-			return FALSE;
-		}
+		if(!move_uploaded_file($img["tmp_name"], $temp_path)) return FALSE;
 		
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';		
-		
-		$thumb = new phpThumb();
 		//Создаем миниатюры
-		foreach ($thumb_config as $thumb_dir_name => $configs) 
-		{
-			$thumb->resetObject();
-			
-			//Задаем имя файла с которого делаем миниатюру.
-			$thumb->setSourceFilename($temp_path);
-		
-			//Устанавливаем параметры
-			foreach($configs as $parameter => $config)
-			{
-				$thumb->setParameter($parameter, $config);
-			}
-			
-			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
-			
-			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
+		//$this->generate_thumbs($upload_path, $temp_path, $img_info);
+		if(!$this->generate_thumbs($upload_path, $temp_path, $img_info) == FALSE) return FALSE;
 
-			//Генерируем миниатюры
-			if(!$thumb->GenerateThumbnail())
-			{
-				return FALSE;
-			}
-			else
-			{
-				//Загружаем миниатюры в соответствующую папку
-				if(!$thumb->RenderToFile($output_filename))
-				{
-					return FALSE;
-				}
-			}
-		}
 		//Добавляем информацию о загруженой картинке в базу
 		foreach ($object_info as $field => $info)
 		{
 			$data[$field] = $info;
 		}
-		//$data['title'] = $img_name[0];
+
 		$data['url'] = $img_info->url;
-		if($this->get_images($object_info, 'catalog_mid') == FALSE)
-		{
-			$data['is_cover'] = 1;
-		}
-		else
-		{
-			$data['is_cover'] = 0;
-		}
-		if(!$this->insert($data))
-		{
-			return FALSE;
-		}
-		return TRUE;
+		
+		$data['is_cover'] = $this->get_images($object_info, 'catalog_mid') ? 0 : 1;
+
+		return $this->insert($data) ? TRUE : FALSE;
 	}
 	
 	public function resize($images, $sizes)
@@ -130,6 +86,47 @@ class Images extends MY_Model
 				{
 					if(!$thumb->RenderToFile($output_filename)) return FALSE;
 				}
+			}
+		}
+	}
+	
+	// function generate_thumb() - генерирует миниатюры для изображения
+	// $upload_path - путь куда загружаем
+	// $temp_path - путь к загруженой картинке для которой создаются миниатюры.
+	// $action - по умолчанию "new"; для замены изображений в папках миниатюр необходимо указать "replace"
+	public function generate_thumbs($upload_path, $temp_path, $img_info, $action = "new")
+	{
+		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';		
+		
+		$thumb = new phpThumb();
+		//Создаем миниатюры
+		$thumb_config = $this->config->item('thumb_config');
+		foreach ($thumb_config as $thumb_dir_name => $configs) 
+		{
+			$thumb->resetObject();
+			
+			//Задаем имя файла с которого делаем миниатюру.
+			$thumb->setSourceFilename($temp_path);
+		
+			//Устанавливаем параметры
+			foreach($configs as $parameter => $value)
+			{
+				$thumb->setParameter($parameter, $value);
+			}
+			
+			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
+			
+			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
+
+			//Генерируем миниатюры
+			if(!$thumb->GenerateThumbnail())
+			{
+				return FALSE;
+			}
+			else
+			{
+				//Загружаем миниатюры в соответствующую папку
+				if(!$thumb->RenderToFile($output_filename))	return FALSE;
 			}
 		}
 	}

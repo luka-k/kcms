@@ -187,7 +187,6 @@ class Content extends Admin_Controller
 		
 					$cover_id = $this->input->post("cover_id");
 					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
-				
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
 				

@@ -1,6 +1,6 @@
 ﻿<div class="col_12">
 	<div class="col_3">Добавить фотографии</div>
-	<div class="col_4"><input type="file" id="pic[]" name="<?=$name?>" /></div>
+	<div class="col_4"><input type="file" id="<?=$edit_name?>" name="<?=$edit_name?>" /></div>
 	<input type="hidden" name="upload_image" value="upload_image"/>
 </div>
 

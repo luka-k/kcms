@@ -35,7 +35,7 @@
 														
 									<!--editors-->
 									<?$editors_counter = 1?>
-									<?foreach($edits as $name => $edit):?>
+									<?foreach($edits as $edit_name => $edit):?>
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
 									<?endforeach?>
