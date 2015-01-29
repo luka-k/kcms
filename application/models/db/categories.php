@@ -44,47 +44,6 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
-	public function url_parse($segment_number, $parent = FALSE)
-	{
-		$url = $this->uri->segment($segment_number);
-		
-		if(!$url) return FALSE;
-		
-		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-		if(!$child)
-		{
-			
-			$product = $this->products->get_item_by(array('url' => $url));
-			if ($product)
-			{
-				$this->breadcrumbs->add($url, $product->name);
-				$parent->product = $product;
-				return $parent;
-			}
-			else
-			{
-				return '404';
-			}
-		}
-		else
-		{
-			$this->add_active($child->id);
-			$this->breadcrumbs->add($url, $child->name);
-			$child->parent = $parent;
-		
-			if ($this->uri->segment($segment_number+1))
-			{
-				return $this->url_parse($segment_number + 1, $child);
-			}
-			else 
-			{
-				$child->products = $this->get_sub_products($child->id);
-				return $child;
-				
-			}		
-		}	
-	}
-	
 	public function get_sub_products($id)
 	{
 		$this->sub_products = array();

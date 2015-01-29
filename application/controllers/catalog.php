@@ -161,7 +161,7 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{
-			$category = $this->categories->url_parse(2);
+			$category = $this->url->url_parse(2);
 			
 			if($category == "404")
 			{

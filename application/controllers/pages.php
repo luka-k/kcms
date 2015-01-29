@@ -11,7 +11,8 @@ class Pages extends Client_Controller {
 	{
 		$settings = $this->settings->get_item_by(array("id" => 1));
 
-		$content = $this->menus_items->url_parse(2);
+		$content = $this->url->url_parse(2);
+
 		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
 		
 		$url = $this->uri->segment(2);
