@@ -24,99 +24,45 @@ class Images extends MY_Model
 		
 		$img_info = $this->get_unique_info($img['name']);
 		
-		//Формируем путь для загрузки оригинала изображения
-		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
-	
+		$img_path = $upload_path . $img_info->url;
+
 		//Загружаем оригинал
-		if(!move_uploaded_file($img["tmp_name"], $temp_path)) return FALSE;
+		if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
 		
 		//Создаем миниатюры
-		//$this->generate_thumbs($upload_path, $temp_path, $img_info);
-		if(!$this->generate_thumbs($upload_path, $temp_path, $img_info) == FALSE) return FALSE;
+		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
 
-		//Добавляем информацию о загруженой картинке в базу
-		foreach ($object_info as $field => $info)
-		{
-			$data[$field] = $info;
-		}
-
-		$data['url'] = $img_info->url;
-		
-		$data['is_cover'] = $this->get_images($object_info, 'catalog_mid') ? 0 : 1;
-
-		return $this->insert($data) ? TRUE : FALSE;
-	}
-	
-	public function resize($images, $sizes)
-	{
-		$upload_path = $this->config->item('upload_path');
-		$thumb_config = $this->config->item('thumb_config');
-		
-		foreach($sizes as $key => $value)
-		{
-			$size = explode("-", $key);
-			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
-		}	
-		
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
-		
-		$thumb = new phpThumb();
-		foreach ($images as $image)
-		{
-			foreach($thumb_config as $path => $param)
-			{
-				unlink($upload_path."/".$path.$image->url);
-					
-				$thumb->resetObject();
-				$thumb->setSourceFilename($upload_path."/".$image->url);
-					
-				foreach($param as $parameter => $config)
-				{
-					$thumb->setParameter($parameter, $config);
-				}
-			
-				$upload_thumb_path = $upload_path."/".$path;
-				$output_filename = $upload_path."/".$path.$image->url;
-
-				if(!$thumb->GenerateThumbnail())
-				{
-					return FALSE;
-				}
-				else
-				{
-					if(!$thumb->RenderToFile($output_filename)) return FALSE;
-				}
-			}
-		}
+		$ans = $this->img_to_base($object_info['object_type'], $object_info['object_id'], $img_info ->url);
+		return $ans;
 	}
 	
 	// function generate_thumb() - генерирует миниатюры для изображения
-	// $upload_path - путь куда загружаем
-	// $temp_path - путь к загруженой картинке для которой создаются миниатюры.
-	// $action - по умолчанию "new"; для замены изображений в папках миниатюр необходимо указать "replace"
-	public function generate_thumbs($upload_path, $temp_path, $img_info, $action = "new")
+	// $img_path - путь к картинке
+	public function generate_thumbs($img_path)
 	{
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';		
+		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
+		
+		$upload_path = $this->config->item('upload_path');
+		$thumb_config = $this->config->item('thumb_config');
+		
+		$image_name = array_reverse(explode("/", $img_path));
 		
 		$thumb = new phpThumb();
 		//Создаем миниатюры
-		$thumb_config = $this->config->item('thumb_config');
 		foreach ($thumb_config as $thumb_dir_name => $configs) 
 		{
 			$thumb->resetObject();
 			
 			//Задаем имя файла с которого делаем миниатюру.
-			$thumb->setSourceFilename($temp_path);
+			$thumb->setSourceFilename($img_path);
 		
 			//Устанавливаем параметры
 			foreach($configs as $parameter => $value)
 			{
 				$thumb->setParameter($parameter, $value);
 			}
-			
-			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
-			
-			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
+
+			$output_filename = $upload_path."/".make_upload_path($image_name[0], $thumb_dir_name).$image_name[0];
 
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
@@ -129,6 +75,35 @@ class Images extends MY_Model
 				if(!$thumb->RenderToFile($output_filename))	return FALSE;
 			}
 		}
+	}
+	
+	public function img_to_base($object_type, $object_id, $img_url)
+	{
+		$data = array(
+			"object_type" => $object_type,
+			"object_id" => $object_id,
+			"url" => $img_url
+		);
+
+		$data['is_cover'] = $this->get_images(array("object_type" => $object_type, "object_id" => $object_id)) ? 0 : 1;
+		return $this->insert($data) ? TRUE : FALSE;
+	}
+	
+	public function resize_all()
+	{
+		$images= $this->images->get_list(FALSE);
+		foreach ($images as $image)
+		{
+			$upload_path = $this->config->item('upload_path');
+			$thumb_config = $this->config->item('thumb_config');
+			
+			foreach($thumb_config as $path => $param)
+			{
+				unlink($upload_path."/".$path.$image->url);
+			}
+			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) return FALSE;
+		}
+		return TRUE;
 	}
 	
 	public function get_unique_info($img_name)

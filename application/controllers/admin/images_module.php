@@ -1,7 +1,7 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Admin_images extends Admin_Controller 
+class Images_module extends Admin_Controller 
 {
 
 	public function __construct()
@@ -9,13 +9,21 @@ class Admin_images extends Admin_Controller
 		parent::__construct();
 	}
 	
-	public function rethumb()
+	public function rethumb($action)
 	{
+		if (isset($_FILES['import_images'])&&($_FILES['import_images']['error'] <> 4))
+		{
+			var_dump($_FILES['import_images']);
+		}
+		else
+		{
+			echo "fuck";
+		}
+		
 		$images= $this->images->get_list(FALSE);
 		
-		$sizes = $this->input->post('sizes');
 
-		$this->images->resize($images, $sizes);
+		$this->images->resize($images);
 		
 		redirect(base_url()."admin/content/item/settings/1");
 	}
