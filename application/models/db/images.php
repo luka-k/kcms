@@ -62,8 +62,8 @@ class Images extends MY_Model
 			{
 				$thumb->setParameter($parameter, $value);
 			}
-
-			$output_filename = $upload_path."/".make_upload_path($image_name[0], $thumb_dir_name).$image_name[0];
+			
+			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
 
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
@@ -84,10 +84,10 @@ class Images extends MY_Model
 		{
 			$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
 			$this->db->set($data);
+			
+			$this->db->insert($this->_table);
+			return $this->db->insert_id();
 		}
-		
-		$this->db->insert($this->_table);
-		return $this->db->insert_id();
 	}
 	
 	public function resize_all()
