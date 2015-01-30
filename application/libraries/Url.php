@@ -7,7 +7,6 @@ class CI_Url {
 	public function __construct()
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->library('session');
 	}
 	
 	public function catalog_url_parse($segment_number, $parent = FALSE)
