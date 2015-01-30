@@ -31,9 +31,10 @@ class Images extends MY_Model
 		
 		//Создаем миниатюры
 		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
+		
+		$object_info['url'] = $img_info ->url;
 
-		$ans = $this->img_to_base($object_info['object_type'], $object_info['object_id'], $img_info ->url);
-		return $ans;
+		return $this->insert($object_info);
 	}
 	
 	// function generate_thumb() - генерирует миниатюры для изображения
@@ -77,16 +78,16 @@ class Images extends MY_Model
 		}
 	}
 	
-	public function img_to_base($object_type, $object_id, $img_url)
+	public function insert($data)
 	{
-		$data = array(
-			"object_type" => $object_type,
-			"object_id" => $object_id,
-			"url" => $img_url
-		);
-
-		$data['is_cover'] = $this->get_images(array("object_type" => $object_type, "object_id" => $object_id)) ? 0 : 1;
-		return $this->insert($data) ? TRUE : FALSE;
+		if ($data)
+		{
+			$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
+			$this->db->set($data);
+		}
+		
+		$this->db->insert($this->_table);
+		return $this->db->insert_id();
 	}
 	
 	public function resize_all()
