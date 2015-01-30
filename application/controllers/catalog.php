@@ -161,9 +161,9 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{
-			$category = $this->url->url_parse(2);
-			
-			if($category == "404")
+			$category = $this->url->catalog_url_parse(2);
+
+			if($category == FALSE)
 			{
 				$settings = $this->settings->get_item_by(array("id" => 1));
 				$data['title'] = "Страница не найдена";
@@ -174,7 +174,7 @@ class Catalog extends Client_Controller {
 			}
 			else
 			{
-				if ($category == FALSE)
+				if ($category == "root")
 				{
 					$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 3, $order, $direction);
 			

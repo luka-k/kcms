@@ -13,62 +13,49 @@ class CI_Url {
 	{
 		$url = $this->CI->uri->segment($segment_number);
 		
-		if(!$url) return FALSE;
+		if(!$url)
+		{
+			return $segment_number == 2 ? "root" : FALSE;
+		}
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
 		if(!$child)
 		{
-			$product = $this->CI->products->get_item_by(array('url' => $url));
-			if ($product)
-			{
-				$this->CI->breadcrumbs->add($url, $product->name);
-				$parent->product = $product;
-				return $parent;
-			}
-			else
-			{
-				return '404';
-			}
+			$child = $parent;
+			$child->product = $this->CI->products->get_item_by(array('url' => $url));
+			if(!$child->product) return FALSE;
+				
+			$this->CI->breadcrumbs->add($url, $child->product->name);
 		}
 		else
 		{
-			//$this->CI->categories->add_active($child->id);
 			$this->CI->breadcrumbs->add($url, $child->name);
 			$child->parent = $parent;
 		
-			if ($this->CI->uri->segment($segment_number+1))
-			{
-				return $this->CI->url_parse($segment_number + 1, $child);
-			}
-			else 
-			{
-				$child->products = $this->CI->categories->get_sub_products($child->id);
-				return $child;
-			}		
+			if ($this->CI->uri->segment($segment_number+1)) return $this->catalog_url_parse($segment_number + 1, $child);
+
+			$child->products = $this->CI->categories->get_sub_products($child->id);
+
 		}	
+		return $child;
 	}
 	
 	public function url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-		
+
 		if(!$url) return FALSE;
 		
 		$child = $this->CI->menus_items->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-	
+		
 		if(!$child)
 		{
 			$child =$this->CI->articles->get_item_by(array("url" => $url));
-			
-			if($child)
-			{
-				$this->CI->breadcrumbs->add($url, $child->name);
-				return $this->CI->articles->prepare($child);
-			}
-			else
-			{
-				'404';
-			}	
+
+			if(!$child) return FALSE;
+
+			$this->CI->breadcrumbs->add($url, $child->name);
+			return $this->CI->articles->prepare($child);
 		}
 		else
 		{

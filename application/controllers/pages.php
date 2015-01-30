@@ -31,7 +31,7 @@ class Pages extends Client_Controller {
 			$level_3->active = $this->uri->segment(4);
 		}
 
-		if($content == "404")
+		if(!$content)
 		{
 			redirect(base_url()."pages/page_404");
 		}
