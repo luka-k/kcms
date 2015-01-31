@@ -92,7 +92,7 @@
 						
 						<div class="product-main-info__buttons skew">
 							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$content->id?>', '<?=$content->name?>'); return false;">Купить</button>
+								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$content->id?>', '<?=$content->name?>', 1); return false;">Купить</button>
 							</div> <!-- /.product-main-info__button -->
 							
 							<div class="product-main-info__button">

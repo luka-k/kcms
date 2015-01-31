@@ -140,7 +140,6 @@ $autoload['model'] = array(
 	'db/users_groups',
 	'db/users2users_groups',
 	'breadcrumbs', 
-	'url_model', 
 	'menus'
 );
 

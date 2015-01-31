@@ -128,6 +128,7 @@ class Pages extends Client_Controller {
 			'title' => "Дилеры",
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'select_item' => $select_item,
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'level_2' => $level_2,
 		);
 		$data = array_merge($this->standart_data, $data);

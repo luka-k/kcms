@@ -23,6 +23,7 @@ class Account extends Client_Controller
 				'title' => "Регистрация",
 				'error' => "",
 				'select_item' => "",
+				'settings' => $this->settings->get_item_by(array("id" => 1)),
 				'activity' => "enter",
 			);	
 			
@@ -57,6 +58,7 @@ class Account extends Client_Controller
 			'title' => "Регистрация",
 			'error' => "",
 			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'activity' => "restore"
 		);
 		
@@ -72,6 +74,7 @@ class Account extends Client_Controller
 			'title' => "Регистрация",
 			'error' => "",
 			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'activity' => "restore"
 		);
 		
@@ -174,6 +177,7 @@ class Account extends Client_Controller
 			'title' => "Регистрация",
 			'error' => "",
 			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'activity' => $activity
 		);
 		$data = array_merge($this->standart_data, $data);
@@ -188,6 +192,7 @@ class Account extends Client_Controller
 			'title' => "Регистрация",
 			'error' => "",
 			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'activity' => "reg"
 		);
 		$data = array_merge($this->standart_data, $data);
