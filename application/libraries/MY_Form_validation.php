@@ -5,6 +5,11 @@ class MY_Form_validation extends CI_Form_validation {
 	public function __construct()
     {
         parent::__construct();
+		
+		$this->set_message('is_unique', 'Пользователь с таким %s уже существует');
+		$this->set_message('min_length', '%s должно быть не меньще %s символов');
+		$this->set_message('max_length', '%s должно быть не больше %s символов');
+		$this->set_message('matches', 'Пароли не совпадают');
     }
 	
 public function run($group = '')
@@ -95,6 +100,13 @@ public function run($group = '')
 	public function substituted($str, $field)
 	{
 		if(empty($str)) $str = slug($_POST[$field]);
+		
+		return $str;
+	}
+	
+	public function set_date($str)
+	{
+		if(empty($str)) $str = date("Y-m-d");
 		
 		return $str;
 	}
