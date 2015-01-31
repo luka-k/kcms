@@ -23,7 +23,7 @@
 						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
-									<th class="tb_1">Номер</th>
+									<th class="tb_1">&nbsp;</th>
 
 									<?if(isset($images)):?>
 										<th class="tb_3">Фотография</th>

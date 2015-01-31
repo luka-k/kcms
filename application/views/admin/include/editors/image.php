@@ -1,7 +1,7 @@
 <?if($content->img == NULL):?>
-	<div class="col_12">
-		<div class="col_3">Добавить фотографии</div>
-		<div class="col_4"><input type="file" id="<?=$name?>[]" name="<?=$name?>" /></div>
+	<div class="col_12 clearfix">
+		<div class="col_2">Добавить фотографии</div>
+		<div class="col_4"><input type="file" id="<?=$edit_name?>[]" name="<?=$edit_name?>" /></div>
 		<input type="hidden" name="upload_image" value="upload_image"/>
 	</div>
 <?else:?>
@@ -21,7 +21,7 @@
 				<?foreach($content->img as $img_item):?>
 					<tr>
 						<td class="tb_1"><?=$counter?></td>
-						<td class="tb_5"><img src="<?=$img_item->url?>"/></td>
+						<td class="tb_5"><img src="<?=$img_item->catalog_small_url?>"/></td>
 						<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
 						<td class="tb_2"><a href="#delete-img" class="lightbox">Удалить</a></td>
 						<!--popup on delete-->
