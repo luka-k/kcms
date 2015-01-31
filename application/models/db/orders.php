@@ -19,27 +19,16 @@ class Orders extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 
 	function update($id, $data = FALSE)
 	{
-		if (!$id)
-		{	
-			return FALSE;
-		}
+		if (!$id) return FALSE;
 		
-		if ($data)
-		{
-			$this->db->where($this->_primary_key, $id)->update($this->_table, $data);
-		}
-		else
-		{
-			$this->db->where($this->_primary_key, $id)->update($this->_table);
-		}
+		$data ? $this->db->where($this->_primary_key, $id)->update($this->_table, $data) : $this->db->where($this->_primary_key, $id)->update($this->_table);
 	}	
 	
 }
 
-/* End of file news.php */
-/* Location: ./application/models/db/news.php */
+/* End of file Orders.php */
+/* Location: ./application/models/db/Orders.php */
