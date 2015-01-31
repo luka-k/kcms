@@ -19,18 +19,14 @@
 						</ul>
 					
 						<?php $tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="menu_edit" action="<?=base_url()?>admin/menu_module/edit_menu/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="menu_edit" action="<?=base_url()?>admin/menu_module/menu/save/"/>
 							<?php foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<div class="col_12">
 										<a href="<?=base_url()?>admin/menu_module/menus/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onClick="document.forms['menu_edit'].submit()">Сохранить</a>
-										<?if($content->id):?>
-											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>admin/menu_module/edit_menu/1'); document.forms['menu_edit'].submit()">Сохранить и выйти</a>
-										<?endif;?>
 									</div>
 									<?=$error;?>
-									<?=validation_errors(); ?>
 
 									<!--popup on delete-->
 									<div id="delete" style="display:none;">
@@ -45,16 +41,13 @@
 														
 									<!--editors-->
 									<?php $editors_counter = 1?>
-									<?php foreach($edits as $name => $edit):?>
+									<?php foreach($edits as $edit_name => $edit):?>
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
 									<?php endforeach?>
 									<div class="col_12">
 										<a href="<?=base_url()?>admin/menu_module/menus/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onClick="document.forms['menu_edit'].submit()">Сохранить</a>
-										<?if($content->id):?>
-											<a href="#" class="btn small" onClick="document.forms['menu_edit'].setAttribute('action', '<?=base_url()?>admin/menu_module/edit_menu/1'); document.forms['menu_edit'].submit()">Сохранить и выйти</a>
-										<?endif;?>
 									</div>
 								</div>
 								<?$tab_counter++?>
@@ -70,20 +63,30 @@
 									<a href="#" onclick="item_info(''); return false;" class="button small">Создать</a>
 								</div>
 							</div>
-							
+							<div style="color:red"><?=$items_error?></div>
 							<div id="menu_items">
 								<?if(isset($menu_items)):?>
-									<ul id="sortable" class="menu-items">
+									<ul class="menu-items sortable">
 										<?foreach($menu_items as $item):?>
 											<li id="menus_items-<?=$item->id?>" <?if(!empty($item->childs)):?> class="down" <?endif;?>><span class="item-name-<?=$item->id?>"><?=$item->name?></span>
 												<a href="#" onclick="item_info('<?=$item->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
 												<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
 												<?if(!empty($item->childs)):?>
-													<ul id="sortable-1">
+													<ul class="sortable">
 														<?foreach($item->childs as $item_2):?>
-															<li id="menus_items-<?=$item_2->id?>"><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
+															<li id="menus_items-<?=$item_2->id?>" <?if(!empty($item_2->childs)):?> class="down" <?endif;?> ><span class="item-name-<?=$item_2->id?>"><?=$item_2->name?></span>
 																<a href="#" onclick="item_info('<?=$item_2->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
-																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_2->id?>', '<?=$item_2->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																<?if(!empty($item_2->childs)):?>
+																	<ul class="sortable">
+																		<?foreach($item_2->childs as $item_3):?>
+																			<li id="menus_items-<?=$item_3->id?>"><span class="item-name-<?=$item_3->id?>"><?=$item_3->name?></span>
+																				<a href="#" onclick="item_info('<?=$item_3->id?>'); return false;"><i class="icon-pencil icon-large"></i></a>
+																				<a href="#" onclick="delete_menu_item('<?=base_url()?>', '<?=$item_3->id?>', '<?=$item_3->name?>'); return false;"><i class="icon-minus-sign icon-large"></i></a>
+																			</li>
+																		<?endforeach;?>
+																	</ul>
+																<?endif;?>
 															</li>
 														<?endforeach;?>
 													</ul>
@@ -96,8 +99,8 @@
 							
 							<div id="item_info" style="display:none;">
 								<div class="pop-up">
-									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="#">
-										<a href="#" class="btn small" onclick="edit_item()">Сохранить</a>
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="<?=base_url()?>admin/menu_module/menu/save_item/<?=$content->id?>">
+										<a href="#" class="btn small" onclick="document.forms['edit_item'].submit()">Сохранить</a>
 										<div style="margin-top:5px; color:red;">
 											<span id="validation_error"></span>
 										</div>

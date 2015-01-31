@@ -6,7 +6,7 @@
 			<?foreach ($selects[$edit_name] as $select): ?>
 					<tr>
 						<td class="tb_1"><input type="checkbox" name="<?=$name?>[]" <?foreach($content->parents as $parent):?> <?if($parent->group_parent_id == $select->id):?>checked<?endif;?> <?endforeach;?> value="<?=$select->id?>"/></td>
-						<td class="tb_11"><label for="lbl_<?=$editors_counter?>"><?=$select->edit_name?></label></td>
+						<td class="tb_11"><label for="lbl_<?=$editors_counter?>"><?=$select->$edit_name?></label></td>
 					</tr>
 			<?endforeach;?>	
 		</table>
