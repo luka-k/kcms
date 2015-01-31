@@ -60,8 +60,8 @@ $autoload['libraries'] = array(
 	'email',
 	'mail',
 	'cart',
-	'wishlist'//,
-	//'url'
+	'wishlist',
+	'url'
 );
 
 
@@ -134,8 +134,7 @@ $autoload['model'] = array(
 	'db/dynamic_menus',
 	'db/menus_items',
 	'db/characteristics',
-	'breadcrumbs', 
-	'url_model', 
+	'breadcrumbs',
 	'menus'
 );
 

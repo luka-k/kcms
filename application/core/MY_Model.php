@@ -384,7 +384,7 @@ class MY_Model extends CI_Model
 	
 	public function get_tree($parent_id, $parent_id_field)
 	{
-		$this->url_model->admin_url_parse();
+		$this->url->admin_url_parse();
 		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
 	}
 	
