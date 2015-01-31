@@ -7,14 +7,14 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if(($type <> "users")and($type <> "settings")):?>
-						<div id="left_col" class="col_4 back">
+					<?if($left_column <> "off"):?>
+						<div id="left_col" class="col_3 back">
 							<div id="left-menu">
-								<?require "include/{$type}_tree.php"?>
+								<?require "include/{$left_column['item_tree']}.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if(($type == "users")or($type == "settings")):?>col_12<?else:?>col_8<?endif;?> back">
+					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>
@@ -31,17 +31,7 @@
 									<?=validation_errors(); ?>
 									
 									<? require 'include/buttons.php' ?>
-									
-									<!--delete popup-->
-									<div id="delete" style="display:none;">
-										<div class="pop-up">
-											<div>
-												Вы точно уверены что хотите удалить - <strong><?=$content->name?></strong>?
-											</div><br/>
-											<a href="<?=base_url()?>admin/content/delete_item/<?=$type?>/<?=$content->id?>" class="button small">Удалить?</a>
-											<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
-										</div>
-									</div>
+									<? require 'include/delete_popup.php'?>
 														
 									<!--editors-->
 									<?$editors_counter = 1?>
@@ -59,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		<? require 'include/ch_script.php' ?>
+		<? require "include/ch_script.php" ?>
 		<? require 'include/footer_script.php' ?>
 		<? require 'include/footer.php' ?>
 	</body>

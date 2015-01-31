@@ -1,6 +1,6 @@
 <div>
 	<div>
-		Держи письмицо, чувак
+		<?=$subject?>
 	</div>
 	<div>
 		<?=$message?>
