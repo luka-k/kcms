@@ -32,7 +32,6 @@ class Products extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 	
 	//items_tree - дерево для списка элементов
@@ -42,10 +41,8 @@ class Products extends MY_Model
 		"item_tree" => "products_tree",
 	);
 	
-	public function get_url($url)
+	public function get_url($item)
 	{
-		$item = $this->products->get_item_by(array("url" => $url));
-		
 		$item_full_url = $this->categories->make_full_url($item);
 		
 		$full_url = implode("/", array_reverse($item_full_url));
@@ -64,9 +61,24 @@ class Products extends MY_Model
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), "catalog_mid", 1);
-		$item->full_url = $this->get_url($item->url);
-		$item = $this->set_sale_price($item);
-		return $item;		
+		if(!empty($item))
+		{
+			if(!is_object($item)) $item = (object)$item;
+			$item->full_url = $this->get_url($item);
+			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
+			$item = $this->set_sale_price($item);
+			return $item;
+		}			
+	}
+	
+	function prepare_product($item)
+	{
+		if(!empty($item))
+		{
+			$item->full_url = $this->get_url($item);
+			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
+			$item = $this->set_sale_price($item);
+			return $item;
+		}			
 	}
 }
