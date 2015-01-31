@@ -123,6 +123,8 @@ $autoload['model'] = array(
 	'db/articles',
 	'db/settings', 
 	'db/users', 
+	'db/users_groups',
+	'db/users2users_groups',
 	'db/orders', 
 	'db/orders_customers', 
 	'db/orders_products', 

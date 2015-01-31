@@ -19,8 +19,7 @@ class Index extends Admin_Controller
 			'title' => "Главная",
 			'meta_title' => "Главная",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu
 		);
 		
