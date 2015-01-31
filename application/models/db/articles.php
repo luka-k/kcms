@@ -18,6 +18,11 @@ class Articles extends MY_Model
 		)
 	);
 	
+	public $admin_left_column = array(
+		"items_tree" => "articles_tree",
+		"item_tree" => "articles_tree",
+	);
+	
 	function __construct()
 	{
         parent::__construct();

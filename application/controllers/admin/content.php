@@ -19,12 +19,15 @@ class Content extends Admin_Controller
 		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
 		//что не всегда удобно.
 		$name = editors_field_exists('name', $this->$type->editors);
+		
+		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
+			'left_column' => $left_column,
 			'type' => $type,
 			'name' => $name
 		);	
@@ -40,10 +43,13 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			$type == "emails" ? $parent = "type" : $parent = "parent_id";
+			$data["parent_id"] = $id;
+			$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
 		
@@ -56,16 +62,20 @@ class Content extends Admin_Controller
 		$this->load->view('admin/items.php', $data);
 	}
 	
-	public function item($acting, $type, $id = FALSE, $exit = FALSE)
+	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
+		
+		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
+		$name = editors_field_exists('name', $this->$type->editors);
 		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
+			'left_column' => $left_column,
+			'editors' => $this->$type->editors,
 			'type' => $type
 		);
 		
@@ -76,29 +86,34 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $tree;
 		}
 		
-		if(($id == FALSE)&&(isset($this->$type->new_editors)))
+		if($type == "emails")
 		{
-			$data['editors'] = $this->$type->new_editors;
-		}
-		else
-		{
-			$data['editors'] = $this->$type->editors;
+			$data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		}
 		
-		if($acting == "edit")
+		if($action == "edit")
 		{
 			if($id == FALSE)
 			{	
-				$content = set_empty_fields($data['editors']);
-				$content->is_active = "1";
-				$data['content'] = $content;
+				$data['content'] = set_empty_fields($data['editors']);
+				
+				if($this->db->field_exists('parent_id', $type))
+				{
+					$parent_id = $this->input->get('parent_id');
+					$data['content']->parent_id = $parent_id;
+				}
+				
+				$data['content']->is_active = "1";
 				$data['content']->img = NULL;
+				
+				if($type == "emails") $data['content']->type = 2;
+				
 				$field_name = editors_field_exists('ch', $data['editors']);
 				if(!empty($field_name))
 				{
 					$this->config->load('characteristics_config');
 					$data['content']->ch_select = $this->config->item('characteristics_type');
-					$data['content']->characteristics = NULL;
+					$data['content']->characteristics = array();
 				}
 			}	
 			else
@@ -124,16 +139,16 @@ class Content extends Admin_Controller
 					}
 				}
 			}
-			$this->load->view('admin/edit_item.php', $data);
+			$this->load->view('admin/item.php', $data);
 		}
-		elseif($acting == "save")
+		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post()->data;
 			
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке
-				$this->load->view('admin/edit_item.php', $data);			
+				$this->load->view('admin/item.php', $data);			
 			}
 			else
 			{			
@@ -162,16 +177,41 @@ class Content extends Admin_Controller
 		
 					$cover_id = $this->input->post("cover_id");
 					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
-				
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
 				
 				isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
-
-				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);
-
-				//$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type);		
+				if($type == "emails") $p_id = $data['content']->type;
+				
+				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
 			}
+		}
+		if($action == "copy")
+		{
+			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			
+			$field_name = editors_field_exists('ch', $data['editors']);
+			if(!empty($field_name))	$characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			
+			$data['content']->id = NULL;
+			$data['content']->url = "";
+			
+			foreach($data['content'] as $key => $value)
+			{
+				if(!$this->db->field_exists($key, $type)) unset($data['content']->$key);
+			}
+			
+			$this->$type->insert($data['content']);
+			$new_id = $this->db->insert_id();
+			
+			if(is_array($characteristics)) foreach($characteristics as $ch)
+			{
+				$ch->id = NULL;
+				$ch->object_id = $new_id;
+				$this->characteristics->insert($ch);
+			}
+			
+			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}
 	}
 		
@@ -190,12 +230,12 @@ class Content extends Admin_Controller
 			"id" => $id
 		);
 		$item_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/content/item/'.$object_type."/".$item_id);
+		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id);
 	}
 	
 	public function delete_characteristic($id)
 	{
 		$ch = $this->characteristics->get_item_by(array("id" => $id));
-		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/'.$ch->object_type."/".$ch->object_id."#tab_4");
+		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
 	}
 }
