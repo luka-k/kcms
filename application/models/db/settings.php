@@ -7,9 +7,7 @@ class Settings extends MY_Model
 			'id' => array('id', 'hidden', ''),
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
-			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars')/*,
-			'site_offline' => array('Сайт выключен', 'checkbox', "null"),
-			'offline_text' => array('Оффлайн сообщение', 'text')*/
+			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(
 			'site_description' => array('Описание сайта', 'text'),
@@ -21,17 +19,8 @@ class Settings extends MY_Model
 		)
 	);
 	
-	public $validation = array(
-		array(
-			'field'   => 'site_title',
-			'label'   => 'Имя пользователя',
-			'rules'   => 'required'
-		)
-	);
-	
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 }
