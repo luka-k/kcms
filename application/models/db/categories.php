@@ -40,50 +40,10 @@ class Categories extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->load->database();
 	}
 	
-	public function url_parse($segment_number, $parent = FALSE)
+	public function get_url($item)
 	{
-		$url = $this->uri->segment($segment_number);
-		
-		if(!$url) return FALSE;
-		
-		$child = $this->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-		if(!$child)
-		{
-			$product = $this->products->get_item_by(array('url' => $url));
-			if ($product)
-			{
-				$this->breadcrumbs->add($url, $product->name);
-				$parent->product = $product;
-				return $parent;
-			}
-			else
-			{
-				return '404';
-			}
-		}
-		else
-		{
-			$this->add_active($child->id);
-			$this->breadcrumbs->add($url, $child->name);
-			$child->parent = $parent;
-		
-			if ($this->uri->segment($segment_number+1))
-			{
-				return $this->url_parse($segment_number + 1, $child);
-			}
-			else 
-			{
-				return $child;
-			}		
-		}	
-	}
-	
-	public function get_url($url)
-	{
-		$item = $this->get_item_by(array("url" => $url));
 		$item_full_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
@@ -106,8 +66,11 @@ class Categories extends MY_Model
 	
 	function prepare($item)
 	{
-		$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "catalog_mid", "1");
-		$item->full_url = $this->get_url($item->url);
-		return $item;
+		if(!empty($item))
+		{
+			$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
+			$item->full_url = $this->get_url($item);
+			return $item;
+		}
 	}
 }
