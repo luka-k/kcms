@@ -6,8 +6,7 @@ class Dynamic_menus extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'description' => array('Описание', 'text', 'trim|htmlspecialchars'),
-			//'upload_image' => array('Загрузить изображение', 'image', 'img')
+			'description' => array('Описание', 'text', 'trim|htmlspecialchars')
 		)
 	);
 	
@@ -17,12 +16,7 @@ class Dynamic_menus extends MY_Model
 		$menu->info = $this->get_item_by(array("id" => $id));
 		
 		$menu->items = $this->menus_items->menu_tree($id);
-		
-		foreach($menu->items as $key => $item)
-		{
-			$base = $item->item_type;
-			$item = $this->$base->prepare($item);
-		}
+
 		return $menu;
 	}
 }
