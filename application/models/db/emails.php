@@ -17,7 +17,6 @@ class Emails extends MY_Model
 	{
         parent::__construct();
 		$this->config->load('emails_config');
-	
 	}
 	
 	public function send_system_mail($to, $template_id, $parse_info, $template = 'standart_mail')

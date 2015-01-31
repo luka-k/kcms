@@ -10,6 +10,11 @@ class Dynamic_menus extends MY_Model
 		)
 	);
 	
+	function __construct()
+	{
+        parent::__construct();
+	}
+	
 	public function get_menu($id)
 	{
 		$menu = new stdClass();
