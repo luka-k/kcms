@@ -13,27 +13,36 @@ class Search extends Client_Controller {
 		$this->breadcrumbs->add("catalog", "Каталог");
 		$this->breadcrumbs->add("", "Поиск");
 		
-		$name = $this->input->get('name');
-		$this->db->like('name', $name);
-		$query = $this->db->get('products');
+		$search = $this->input->get();
 		
-		$products = array();
-		foreach ($query->result() as $row)
+		$product = $this->products->get_item_by(array("name" => $search['name']));
+		if(!empty($product))
 		{
-			$products[] = $row;
-		}	
-		
-		$settings = $this->settings->get_item_by(array('id' => 1));
+			$product = $this->products->prepare($product);
+			redirect($product->full_url);
+		}
+		else
+		{
+			$this->db->like('name', $search['name']);
+			$query = $this->db->get('products');
 
-		$data = array(
-			'title' => $settings->site_title,
-			'breadcrumbs' => $this->breadcrumbs->get(),
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'search' => $this->products->get_prepared_list($products)
-		);
+			$products = array();
+			foreach ($query->result() as $row)
+			{
+				$products[] = $row;
+			}	
+
+			$data = array(
+				'title' => "Поиск",
+				'breadcrumbs' => $this->breadcrumbs->get(),
+				'tree' => $this->categories->get_site_tree(0, "parent_id"),
+				'search' => $search['name'],
+				'content' => $this->products->get_prepared_list($products)
+			);
 		
-		$data = array_merge($this->standart_data, $data);
+			$data = array_merge($this->standart_data, $data);
 		
-		$this->load->view("client/search", $data);
+			$this->load->view("client/search", $data);
+		}
 	}
 }

@@ -7,13 +7,16 @@
 		
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/kickstart.css" media="all" />  <!--kickstart css-->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
+		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" media="all" /> <!--fancybox css-->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/style.css" media="all" />  <!--custom css-->
 		
 		
 		<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
 		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/kickstart.js"></script>  <!--kickstart js-->
+		<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/cart.js"></script>
+		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/main.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/wishlist.js"></script>
 	</head>
 	<body>
