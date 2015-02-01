@@ -52,15 +52,7 @@ class Cabinet extends Client_Controller {
 	{
 		$data = array(
 			'title' => "Личный кабинет",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'error' => "",
-			'user' => $this->user,
-			'top_menu' => $this->top_menu,
-			'cart' => $this->cart->get_all(),
-			'total_price' => $this->cart->total_price(),
-			'total_qty' => $this->cart->total_qty(),
 			'orders' => $this->orders_info,
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
@@ -68,6 +60,7 @@ class Cabinet extends Client_Controller {
 			),
 			'status_id' => $this->config->item('order_status')
 		);
+		$data = array_merge($this->standart_data, $data);
 			
 		$this->load->view('client/cabinet.php', $data);
 	}
@@ -96,16 +89,7 @@ class Cabinet extends Client_Controller {
 		
 			$data = array(
 				'title' => "Личный кабинет",
-				'meta_title' => "",
-				'meta_keywords' => "",
-				'meta_description' => "",
 				'error' => "",
-				'user_name' => $this->session->userdata('user_name'),
-				'user' => $user,
-				'top_menu' => $this->menus->top_menu,
-				'cart' => $this->cart->get_all(),
-				'total_price' => $this->cart->total_price(),
-				'total_qty' => $this->cart->total_qty(),
 				'orders' => $orders_info,
 				'selects' => array(
 					'delivery_id' => $this->config->item('method_delivery'),
@@ -113,6 +97,8 @@ class Cabinet extends Client_Controller {
 				),
 				'status_id' => $this->config->item('order_status')
 			);
+			$data = array_merge($this->standart_data, $data);
+			
 			$this->load->view('client/cabinet', $data);	
 		}
 		else

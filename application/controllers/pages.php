@@ -13,9 +13,9 @@ class Pages extends Client_Controller {
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'top_menu' => $this->top_menu,
 			'left_menu' => $left_menu,
 		);
+		$data = array_merge($this->standart_data, $data);
 		
 		$page = $this->articles->url_parse(2);
 		if(isset($page->article))
@@ -50,19 +50,11 @@ class Pages extends Client_Controller {
 
 		$data = array(
 			'title' => "вишлист",
-			'meta_title' => "",
-			'meta_keywords' => "",
-			'meta_description' => "",
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'cart_items' => $this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
-			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'wishlist'),
 			'left_menu' => $left_menu,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
 			'wishlist' => $wishlist
 		);
+		$data = array_merge($this->standart_data, $data);		
 
 		$this->load->view('client/wishlist.php', $data);
 	}

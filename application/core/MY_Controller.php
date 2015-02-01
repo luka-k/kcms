@@ -27,21 +27,26 @@ class Admin_Controller extends CI_Controller
 
 class Client_Controller extends CI_Controller
 {
-	protected $top_menu;
-	protected $user_id;
-	protected $cart_items;
-	protected $total_price;
-	protected $total_qty;
-	
+	protected $standart_data = array();
+
 	function __construct()
 	{
 		parent::__construct();
 				
-		$this->top_menu = $this->menus->top_menu;
-		$this->user_id = $this->session->userdata('user_id');
-		$this->cart_items = $this->cart->get_all();
-		$this->total_price = $this->cart->total_price();
-		$this->total_qty = $this->cart->total_qty();
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		
+		$this->standart_data = array(
+			'meta_title' => $settings->site_title,
+			'meta_keywords' => $settings->site_keywords,
+			'meta_description' => $settings->site_description,
+			"user" => $this->session->userdata('user'),
+			"cart_items" => $this->cart->get_all(),
+			"total_price" => $this->cart->total_price(),
+			"total_qty" => $this->cart->total_qty(),
+			'product_word' => end_maker("товар", $this->cart->total_qty()),
+			'top_menu' => $this->menus->set_active($this->menus->top_menu, 'main'),
+		);
 	}
 }
 

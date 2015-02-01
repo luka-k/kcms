@@ -1,6 +1,7 @@
 <? require 'include/head.php' ?>
 	<div class="grid flex">
 		<div id="menu col_12">
+			<? require 'include/header.php'?>
 			<? require 'include/top-menu.php'?>
 		</div>
 		<div>

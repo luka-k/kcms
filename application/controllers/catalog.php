@@ -35,16 +35,10 @@ class Catalog extends Client_Controller {
 		
 		$data = array(
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'cart_items' => $this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
-			'product_word' => end_maker("товар", $this->total_qty),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'catalog'),
 			'url' => $url,
-			'filters' => $filters,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id))
+			'filters' => $filters
 		);
-		
+		$data = array_merge($this->standart_data, $data);
 		
 	
 		if(isset($get['filter']))
@@ -55,18 +49,15 @@ class Catalog extends Client_Controller {
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
 			$data['title'] = $settings->site_title;
-			$data['meta_title'] = $settings->site_title;
-			$data['meta_keywords'] = $settings->site_keywords;
-			$data['meta_description'] = $settings->site_description;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['content'] = $content;
 			$template = "client/products.php";
 		}
 		else
 		{
-			$category = $this->categories->url_parse(2);
-
-			if ($category == FALSE)
+			$category = $this->url->catalog_url_parse(2);
+			
+			if ($category == "root")
 			{
 				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 				$content = $this->categories->get_prepared_list($content);
@@ -128,21 +119,13 @@ class Catalog extends Client_Controller {
 
 		$data = array(
 			'title' => "Корзина",
-			'meta_title' => $settings->site_title,
-			'meta_keywords' => $settings->site_keywords,
-			'meta_description' => $settings->site_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'cart_items' => $this->cart_items,
-			'total_price' => $this->total_price,
-			'total_qty' => $this->total_qty,
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
-			),
-			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($this->top_menu, 'cart'),
-			'user' => $this->users->get_item_by(array("id" => $this->user_id))
+			)
 		);
+		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/cart.php', $data);
 	}
 }
