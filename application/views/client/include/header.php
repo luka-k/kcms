@@ -1,5 +1,14 @@
 <div class="col_12">
 	<div class="col_4">
+		<div class="col_12 cart">
+			<div class="col_4">
+				<a href="<?=base_url()?>cart" class="button">Корзина</a>
+			</div>	
+			<div class="col_8">
+				В корзине <span id="total_qty"><?=$total_qty?></span> <?=$product_word?>.<br/>
+				На сумму <span id="total_price"><?=$total_price?></span><br/>
+			</div>
+		</div>
 	</div>
 	<div class="col_4 clearfix">
 		<?if($user <> false):?>

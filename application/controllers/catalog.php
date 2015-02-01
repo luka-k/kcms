@@ -56,7 +56,7 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$category = $this->url->catalog_url_parse(2);
-			
+
 			if ($category == "root")
 			{
 				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
@@ -77,7 +77,7 @@ class Catalog extends Client_Controller {
 			{
 				if(isset($category->product))
 				{
-					$content = $this->products->prepare($category->product);
+					$content = $this->products->prepare_product($category->product);
 					$template = "client/product.php";
 				}
 				else
@@ -123,7 +123,9 @@ class Catalog extends Client_Controller {
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
-			)
+			),
+			'action' => $this->input->get('action'),
+			'order_string' => $settings->order_string
 		);
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/cart.php', $data);

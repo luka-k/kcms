@@ -20,7 +20,7 @@
 						<?if($category->img <> NULL):?>
 							<div>
 								<a href="<?=$category->full_url?>">
-									<img src="<?=$category->img->url?>" />
+									<img src="<?=$category->img->catalog_small_url?>" />
 								</a>
 							</div>
 						<?endif;?>
@@ -28,42 +28,12 @@
 					</div>
 				<?endforeach;?>
 			</div>
-			<div class="col_4">
-				<?if($user <> false):?>
-					<div class="col_12">
-						<div class="col_6">
-							<a href="<?=base_url()?>/cabinet">Личный кабинета</a>
-						</div>
-						<div class="col_6">
-							<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
-						</div>
-					</div>
-				<?else:?>
-					<div class="col_12">
-						<h5>Войти</h5>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter/"/>
-							<input type="text" name="login" placeholder="Логин"/></br></br>
-							<input type="password" name="password" placeholder="Пароль"/></br></br>
-							<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
-						</form>
-						<div class="col_6">
-							<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
-						</div>
-						<div class="col_6">
-							<a href="<?=base_url()?>registration/forgot_password/">Забыли пароль?</a>
-						</div>
-					</div>
-				<?endif;?>
-				
-				<div class="cart">
-					<h5>Корзина</h5>
-					В корзине <?=$total_qty?> <?=$product_word?>.<br/>
-					На сумму <?=$total_price?><br/>
-					<a href="<?=base_url()?>cart">Оформить заказ</a>
+			<div id="main_content" class="col_4">
+				<div class="col_12">
+					<h5>Каталог продукции</h5>
+					<? require 'include/tree.php' ?>
 				</div>
-				<h5>Каталог продукции</h5>
-				<? require 'include/tree.php' ?>
-				<div>
+				<div class="col_12">
 					<?require 'include/filters.php'?> 
 				</div>
 			</div>

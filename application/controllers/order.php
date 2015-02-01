@@ -15,7 +15,8 @@ class Order extends Client_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$order_id = uniqid();
+		$order_id = $this->orders->get_order_id();
+		
 		$new_order = array(
 			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
@@ -29,20 +30,23 @@ class Order extends Client_Controller
 			'status_id' => 1
 		);
 		
-		if(isset($orders_info['id']))
+		$settings = $this->settings->get_item_by(array("id" => 1));
+			
+		$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+		$message_info = array(
+			"order_id" => $order_id,
+			"user_name" => $orders_info['name']
+		);
+			
+		if(!empty($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];
 			$user = $this->users->get_item_by(array("id" => $orders_info['id']));
-			$settings = $this->settings->get_item_by(array("id" => 1));
 			
-			$subject = 'Заказ в интернет-магазине '.$settings->site_title;
-			$message_info = array(
-				"order_id" => $order_id,
-				"user_name" => $user->name
-			);
-			$this->emails->send_mail($orders_info['email'], 'customer_order', $message_info);
-			$this->emails->send_mail($settings->admin_email, 'admin_order', $message_info, "admin_order_mail");
+			$this->emails->send_system_mail($user->email, 2, $message_info);
 		}
+		
+		$this->emails->send_system_mail($settings->admin_email, 1, $message_info, "admin_order_mail");
 		
 		$this->orders->insert($new_order);
 		
@@ -59,6 +63,6 @@ class Order extends Client_Controller
 		}
 	
 		$this->cart->clear();
-		redirect(base_url().'cart');		
+		redirect(base_url().'cart?action=order');		
 	}
 }

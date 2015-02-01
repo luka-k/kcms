@@ -28,6 +28,19 @@ class Orders extends MY_Model
 		$data ? $this->db->where($this->_primary_key, $id)->update($this->_table, $data) : $this->db->where($this->_primary_key, $id)->update($this->_table);
 	}	
 	
+	function get_order_id()
+	{
+		return uniqid();
+	}
+	
+	function prepare($item)
+	{
+		if(!is_object($item)) $item = (object)$item;
+		$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->product_id), 1);
+		if(isset($item->url)) $item->full_url = $this->get_url($item->url);
+		return $item;		
+	}
+	
 }
 
 /* End of file Orders.php */

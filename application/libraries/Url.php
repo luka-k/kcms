@@ -61,30 +61,30 @@ class CI_Url {
 	public function catalog_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-		
+
 		if(!$url)
 		{
 			return $segment_number == 2 ? "root" : FALSE;
 		}
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-		if(!$child)
+		
+		if(empty($child))
 		{
 			$child = $parent;
 			$child->product = $this->CI->products->get_item_by(array('url' => $url));
 			if(!$child->product) return FALSE;
 				
 			$this->CI->breadcrumbs->add($url, $child->product->name);
+			
 		}
 		else
 		{
+			$this->CI->categories->add_active($child->id);
 			$this->CI->breadcrumbs->add($url, $child->name);
 			$child->parent = $parent;
 		
-			if ($this->CI->uri->segment($segment_number+1)) return $this->catalog_url_parse($segment_number + 1, $child);
-
-			$child->products = $this->CI->categories->get_sub_products($child->id);
-
+			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->catalog_url_parse($segment_number + 1, $child);	
 		}	
 		return $child;
 	}

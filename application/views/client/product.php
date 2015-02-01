@@ -17,15 +17,20 @@
 					<?if($content->img <> NULL):?>
 						<div>
 							<?foreach($content->img as $img_item):?>
-								<img src="<?=$img_item->url?>" />
+								<img src="<?=$img_item->catalog_small_url?>" />
 							<?endforeach?>
 						</div>
 					<?endif;?>					
 				</div>
 			</div>
-			<div class="col_4">
-				<h5>Каталог продукции</h5>
-				<? require 'include/tree.php' ?>
+			<div id="main_content" class="col_4">
+				<div class="col_12">
+					<h5>Каталог продукции</h5>
+					<? require 'include/tree.php' ?>
+				</div>
+				<div class="col_12">
+					<?require 'include/filters.php'?> 
+				</div>
 			</div>
 		</div>
 	</div>

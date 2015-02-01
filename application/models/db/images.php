@@ -133,12 +133,20 @@ class Images extends MY_Model
 		if ($is_cover == FALSE)
 		{
 			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
-			foreach($images as $key => $item)
+			if($images)
 			{
-				if(!empty($item))
+				foreach($images as $key => $item)
 				{
-					$images[$key] = $this->_get_urls($item);
+					if(!empty($item))
+					{
+						$images[$key] = $this->_get_urls($item);
+					}
 				}
+			}
+			else
+			{
+				$item = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' => 1));
+				$images[0] = $this->_get_urls($item);
 			}
 		}
 		else
