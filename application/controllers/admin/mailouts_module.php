@@ -35,9 +35,7 @@ class Mailouts_module extends Admin_Controller
 		$data = array(
 			'title' => "Редактирование рассылки",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'user' => $this->users->get_item_by(array("id" => $this->user_id)),
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'template_id' => $template_id,
 			'template' => $template,

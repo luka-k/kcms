@@ -73,7 +73,9 @@
 											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_3">
-											<div class="col_12"><a href="#" onclick="delete_user('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;">удалить</a></div>
+											<div class="col_12">
+												<a href="#" onclick="delete_user('<?=base_url()?>', '<?=$item->id?>', '<?=$item->name?>'); return false;">удалить</a>
+											</div>
 										</td>
 									</tr>
 									<?$counter++?>

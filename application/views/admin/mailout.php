@@ -13,11 +13,11 @@
 							<input type="hidden" name="template" value="<?=$template_id?>">
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">От кого</label></div>
-								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_name" value="<?=$user->name?>"/></div>
+								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_name" value="<?=$user['name']?>"/></div>
 							</div>
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">Email отправителя</label></div>
-								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_email" value="<?=$user->email?>"/></div>
+								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_email" value="<?=$user['email']?>"/></div>
 							</div>
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">Тема расссылки</label></div>

@@ -68,7 +68,7 @@
 										<?endif;?>	
 										<td class="tb_3">
 											<div class="col_12">
-												<?if(!isset($item->type)||($item->type == 2)):?>
+												<?if(!isset($item->is_delete)||($item->is_delete == 1)):?>
 													<a href="#" onclick="delete_item('<?=base_url()?>', '<?=$type?>', '<?=$item->id?>', '<?=$item->$name?>'); return false;">удалить</a>&nbsp;
 												<?endif?>
 													<a href="<?=base_url()?>admin/content/item/copy/<?=$type?>/<?=$item->id?>">копировать</a>
