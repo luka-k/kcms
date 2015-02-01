@@ -6,6 +6,38 @@ padding: 0px;
 background:#efefef url(../img/gray_jean.png);
 }
 
+#page{
+	top:20px;
+	min-width:1024px;
+}
+
+/* Верхнее меню */
+#menu{
+	position:fixed;
+	width:100%;
+	min-width:1024px;
+	padding:0 0.83333333333333%;
+	top:0;
+	left:0;
+}
+
+.menu{
+	border-top:none;
+	border-radius:0 0 15px 15px;
+}
+
+.menu li a{
+	padding:15px 15px;
+}
+
+.menu li.r-item a{
+	border-radius:0 0 15px 0;
+}
+
+.menu li.l-item a{
+	border-radius:0 0 0 15px;
+}
+
 #left-menu{
 padding:0;
 }
@@ -38,11 +70,6 @@ text-decoration:none;
 position:relative;
 top:-2px;
 }
-
-#menu{
-padding:0 0.83333333333333%;
-}
-
 
 header{
 background:#fff;

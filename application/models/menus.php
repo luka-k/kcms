@@ -17,7 +17,7 @@ class Menus extends MY_Model
 		);	
 
 		$this->admin_menu = array(
-			'main' => array("Главная", base_url()."admin", 0),
+			'main' => array("<i class='icon-home'></i>", base_url()."admin", 0),
 			'articles' => array("Статьи", "#", 0, array(
 				0 => array('Новости', base_url()."admin/content/items/articles/3", 0),
 				1 => array('Блог', base_url()."admin/content/items/articles/1", 0)
