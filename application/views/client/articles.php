@@ -12,7 +12,7 @@
 			<div id="main_content" class="col_9">
 				<div class="col_12">
 					<?require 'include/breadcrumbs.php'?> 
-					<?foreach($content as $item):?>
+					<?foreach($content->articles as $item):?>
 						<div class="cat-item col_4">
 							<a href="<?=$item->full_url?>"><?=$item->name?></a>
 						</div>

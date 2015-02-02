@@ -96,58 +96,46 @@ class CI_Url {
 		if(!$url) return FALSE;
 		
 		$child = $this->CI->menus_items->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-		
+
 		if(!$child)
 		{
-			$child =$this->CI->articles->get_item_by(array("url" => $url));
-
+			$child = $this->CI->articles->get_item_by(array("url" => $url));
+			
 			if(!$child) return FALSE;
+			
+			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 
-			$this->CI->breadcrumbs->add($url, $child->name);
-			return $this->CI->articles->prepare($child);
+			return $this->CI->uri->segment($segment_number+1) ? $this->url_parse($segment_number + 1, $child) : $this->get_child_info($child, $url);
 		}
 		else
 		{
-			if($segment_number == 2) $url = "articles/".$url; 
-			$this->CI->breadcrumbs->add($url, $child->name);
+			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 			
 			if ($this->CI->uri->segment($segment_number+1))
 			{
 				return $this->url_parse($segment_number + 1, $child);
 			}
-			else 
+			else
 			{
-				if($child->item_type == "articles") 
-				{
-					$article = $this->CI->articles->get_item_by(array("url" => $child->url));
-					$sub_level = $this->CI->articles->get_list(array("parent_id" => $article->id));
+				$child = $this->CI->articles->get_item_by(array("url" => $url));
 				
-					$child = $article;
-
-					if($sub_level)
-					{
-						if($segment_number == 3)
-						{
-							$child->articles = array();
-							foreach($sub_level as $item)
-							{
-								$sub_items = $this->CI->articles->get_list(array("parent_id" => $item->id));
-
-								if(!empty($sub_items))foreach($sub_items as $a)
-								{
-									$child->articles[] = $a;
-								}
-							}
-							$child->articles = $this->CI->articles->get_prepared_list($child->articles);
-						}
-						elseif($segment_number == 4)
-						{
-							$child->articles = $this->CI->articles->get_prepared_list($sub_level);
-						}
-					}
-				}
-				return $child;
+				if(!$child) return FALSE;
+				
+				return $this->get_child_info($child, $url);
 			}
+			
 		}
+	}
+	
+	private function get_child_info($child, $url)
+	{
+		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id));
+		
+		if (!$child->articles)
+		{
+			$child->article = $this->CI->articles->get_item_by(array("url" => $url));
+			if (!$child->article) return FALSE;
+		}
+		return $child;
 	}
 }
