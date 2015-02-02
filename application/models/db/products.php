@@ -13,7 +13,7 @@ class Products extends MY_Model
 			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
 			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
-			'description' => array('Описание', 'tiny', 'trim|htmlspecialchars')
+			'description' => array('Описание', 'tiny', 'trim')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -59,6 +59,19 @@ class Products extends MY_Model
 		return $item;
 	}
 	
+	public function short_desc($description, $n)
+	{
+		$desc = strip_tags($description);
+		$desc_arr = explode(' ', $desc);
+		$desc = '';
+		for ($i = 0; $i < $n && $i < count($desc_arr); $i++)
+		{
+			$desc .= $desc_arr[$i].' ';
+		}
+		if ($i >= $n-1) $desc .= '...';
+		return $desc;
+	}
+	
 	function prepare($item)
 	{
 		if(!empty($item))
@@ -67,6 +80,7 @@ class Products extends MY_Model
 			$item->full_url = $this->get_url($item);
 			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
 			$item = $this->set_sale_price($item);
+			$item->description = $this->short_desc($item->description, 20);
 			return $item;
 		}			
 	}
