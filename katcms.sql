@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 02 2015 г., 18:36
+-- Время создания: Фев 03 2015 г., 01:38
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -135,7 +135,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('b94994b7163f55643ca32a8c9913aae8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1422887581, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('10ae03ca044482635649a3e101611cbc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1422890283, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('c1fb21454ccb4aa67a23122ed6d70afe', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1422911922, '');
 
 -- --------------------------------------------------------
 
@@ -383,15 +384,12 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `description`, `is_new`, `is_special`) VALUES
-(17, 12, 1, 2, 'Товар 1 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-1-podkategorii-2-1-1', '', NULL, NULL),
-(18, 12, 1, 3, 'Товар 2 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', '', NULL, NULL),
-(19, 12, 1, 1, 'Товар 3 подкатегории 2_1_1', '', 0, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', '', NULL, NULL),
-(20, 12, 1, 0, 'Товар 4 подкатегории 2_1_1', '344', 0, 0, '', '', '', 'super-tovar-4-podkategorii-2-1-1', '', 1, 0),
-(21, 8, 1, 1, 'Товар 1 подкатегории 2_2', '321', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', '', NULL, NULL),
-(23, 9, 1, 0, 'Товар 2 подкатегории 2_2', '123', 1300, 0, '', '', '', 'tovar-2-podkategorii-2-2', '', 0, 0),
-(24, 12, 1, 4, 'Товар 6 подкатегории 2_1_1', '', 0, 0, '', '', '', '', '', NULL, NULL),
-(25, 12, 1, 5, 'Товар 7 подкатегории 2_1_1', '', 0, 0, '', '', '', '', '', NULL, NULL),
-(26, 12, 1, 6, 'Товар 8 подкатегории 2_1_1', '', 0, 0, '', '', '', '', '', NULL, NULL);
+(18, 14, 1, 3, 'Товар 5', '12123', 1000, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
+(19, 14, 1, 1, 'Товар 3', '123', 1110, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
+(20, 14, 1, 0, 'Товар 4', '344', 1000, 0, '', '', '', 'super-tovar-4-podkategorii-2-1-1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 1, 0),
+(21, 8, 1, 1, 'Товар 1', '321', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', '', 0, 0),
+(23, 14, 1, 0, 'Товар 2', '123', 1300, 0, '', '', '', 'tovar-2-podkategorii-2-2', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
+(24, 14, 1, 4, 'Товар 6', '12223', 1000, 0, '', '', '', 'tovar-6', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0);
 
 -- --------------------------------------------------------
 
