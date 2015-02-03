@@ -1,0 +1,831 @@
+@charset "UTF-8";
+/* ==========================================================================
+ * Оформление
+ * ========================================================================== */
+
+html{
+  min-width: 960px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+  background: #111312 url(../images/bg/body.jpg) 0 0 repeat;
+  height: 100%;
+  font-family: $verdana;
+  font-size: 11px;
+}
+
+body{
+  height: 100%;
+  color: #fff;
+}
+
+a{
+  color: inherit;
+  &:hover{
+    color: $yellow;
+  }
+}
+
+//android hack
+p,
+span{
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=); 
+}
+
+/* ==========================================================================
+ *  Browse Happy prompt
+ * ========================================================================== */
+
+.browsehappy{
+  padding: 1em 0;
+  text-align: center;
+  margin: 0 0;
+  background: orange;
+  color: #000;
+} 
+
+/* ==========================================================================
+ * Layout
+ * ========================================================================== */
+
+
+.wrap{
+  @include clearfix;
+  margin: auto;
+}
+
+
+
+/* ==========================================================================
+ * Основные стили
+ * ========================================================================== */
+
+
+.main-box{
+
+  display: table;
+  width: 946px;
+  height: 100%;
+  margin: auto;
+
+  &__cell{
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  &__content{
+    display: inline-block;
+    width: 946px;
+    height: 740px;
+    text-align: left;
+    border: 1px solid #767676;
+    border-radius: 9px;
+    background: #000;
+    padding: 0 25px;
+  }
+}
+
+.logo{
+  text-indent: -9999px;
+  @include icons(logo);
+}
+
+.question{
+  position: relative;
+  padding: 0 0 0 20px;
+  &:before{
+    @include icons(question);
+    position: absolute;
+    top: -2px;
+    left: 0;
+  }
+}
+
+.ask{
+  position: relative;
+  display: block;
+  &:before{
+    @include icons(question);
+  }
+  &:hover{
+    .ask__text{
+      display: block;
+    }
+  }
+  &__text{
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    right: 0;
+    white-space: nowrap;
+    padding: 3px;
+    background: #000;
+    background: rgba(0,0,0,.75);
+    color: #fff;
+    border-radius: 3px;
+    font-weight: 700;
+  } 
+}
+
+.brightbuild{
+  text-indent: -9999px;
+  @include icons(brightbuild);
+}
+
+.hover-image{
+  border-radius: 3px;
+  border: 1px solid #767676;
+  transition: all .2s;
+  width: 100%;
+  &:hover{
+    width: 106%;
+    height: 106%;
+    margin: -3% 0 0 -3%;
+    box-shadow: 0 0 15px $yellow;
+    border-color: #fff;
+  }
+}
+
+
+/* ==========================================================================
+ * slider
+ * ========================================================================== */
+
+.bx-wrapper{
+  position: relative;
+}
+
+.bx-prev,
+.bx-next{
+  position: absolute;
+  text-indent: -9999px;
+}
+
+.bx-prev{
+  @include icons(up);
+}
+
+.bx-next{
+  @include icons(down);
+}
+
+/* ==========================================================================
+ * search
+ * ========================================================================== */
+
+.search{
+  
+  &__fields{
+    position: relative;
+  }
+
+  &__line{
+    
+  }
+
+  &__input{
+    height: 20px;
+    padding: 0px 30px 1px 10px;
+  }
+
+  &__button{
+    position: absolute;
+    right: 4px;
+    top: 3px; 
+  }
+}
+
+/* ==========================================================================
+ * breadcrumbs
+ * ========================================================================== */
+
+.breadcrumbs{
+
+  &__list{
+    @include list;    
+  }
+
+  &__item{
+    display: inline-block;
+    margin: 0 4px 0 0;
+    &:before{
+      @include icons(breadcrumbs-arrow);
+      margin: 0 4px 0 0;
+    }
+    &:first-child:before{
+      display: none;
+    }
+  }
+
+  &__href{
+    color: #aaaaaa;
+    text-decoration: none;
+    &__hover{
+      text-decoration: underline;
+    }
+  }
+
+  &__end{
+    color: #fff;
+  }
+}
+
+/* ==========================================================================
+ * inside-navigation{
+ * ========================================================================== */
+
+.inside-navigation{
+  padding: 20px 0 0;
+
+  &__list{
+    @include list;
+  }
+
+  &__item{
+    width: 32%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 30px;
+    text-align: center;
+  }
+
+  &__href{
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    &:hover{
+      .inside-navigation__image{
+        width: 136px;
+        height: 134px;
+        margin: 0px auto 13px;
+        transition: all .2s;
+      }
+    }
+  }
+
+    
+  &__image{
+    display: block;
+    width: 123px;
+    height: 121px;
+    transition: all .2s;
+    margin: 6px auto 20px;
+  }
+}
+
+/* ==========================================================================
+ * header
+ * ========================================================================== */
+
+.header{
+  height: 76px;
+  padding: 8px 0 0;
+  margin: 0 0 14px;
+
+  &__logo{
+    float: left;
+    height: 68px;
+    width: 304px;
+    position: relative;
+    &:after{
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: $yellow;
+      background: linear-gradient(to bottom, #f2f5c8 0%, $yellow 100%);
+    }
+  }
+
+  &__content{
+    float: right;
+  }
+
+  &__search{
+    float: right;
+    width: 210px;
+    height: 22px;
+  }
+
+  &__description{
+    color: $orange;
+    font-size: 12px;
+    line-height: 22px;
+    height: 22px;
+    margin: 0 0 13px;
+  }
+
+  &__menu{
+    
+  }
+
+}
+
+
+/* ==========================================================================
+ * menu
+ * ========================================================================== */
+
+.menu{
+  @include list;
+
+  &__item{
+    display: inline-block;
+  }
+
+  &__href{
+    display: block;
+    margin: 0 0 0 2px;
+    text-align: center;
+    width: 96px;
+    height: 33px;
+    line-height: 28px;
+    text-decoration: none;
+    background: #3a3a3a;
+    background: linear-gradient(to bottom, #3a3a3a 0%, #0c0a0d 100%);
+    border-top: 1px solid #8e8e8e;
+    position: relative;
+    &:after{
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: $yellow;
+      background: linear-gradient(to bottom, #f2f5c8 0%, $yellow 100%);
+    }
+    &:hover,
+    &.active{
+      border-color: #e8ec97;
+      background: $yellow;
+      background: linear-gradient(to bottom, $yellow 0%, #dbe46f 100%);
+      color: #000;
+      &:after{
+        background: #fff;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+ * sidebar-menu
+ * ========================================================================== */
+
+.sidebar-menu{
+  @include list;
+
+  &__item{
+    padding: 0 0 4px;
+  }
+
+  &__href{
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    border-bottom: 2px solid $yellow;
+    text-decoration: none;
+    padding: 0 0 4px;
+    margin: 0 0 9px;
+    &.active{
+      border-color: $orange;
+    }
+  }
+}
+
+.sidebar-menu-level2{
+  @include list;
+  margin: 0 0 10px;
+
+  &__item{
+    margin: 0 0 2px;
+    overflow: hidden;
+    &:first-child{
+      border-radius: 0 5px 0 0;
+    }
+    &:last-child{
+      border-radius: 0 0 5px 0;
+    }
+  }
+
+  &__href{
+    display: block;
+    padding: 4px 0 3px 10px;
+    text-decoration: none;
+    font-size: 12px;
+    background: #121013;
+    background: linear-gradient(to right, #535353 0%, #121013 100%);
+    &:hover,
+    &.active{
+      background: $yellow;
+      background: linear-gradient(to right, $yellow 0%, #f6fe91 100%);
+      color: #000;
+    }
+  } 
+
+}
+
+.sidebar-menu-level3{
+  @include list;
+
+  &__item{
+    
+  }
+
+  &__href{
+    text-decoration: none;
+    display: block;
+    padding: 2px 0 5px 20px;
+    border-bottom: 1px solid $yellow;
+    &:hover,
+    &.active{
+      color: $yellow;
+    }
+  }
+
+}
+
+
+/* ==========================================================================
+ * page
+ * ========================================================================== */
+
+
+.page{
+  position: relative;
+
+  &__breadcrumbs{
+    height: 24px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+  }
+
+  &__content{
+    float: right;
+    width: 674px;
+    height: 620px;
+    padding: 0 0 20px 25px;
+    position: relative;
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1px;
+      top: 20px;
+      left: 0;
+      bottom: 20px;
+      background: #a4a4a4;
+      background: linear-gradient(to bottom, #3b3b3b 0%, #a4a4a4 50%, #3b3b3b 100%);
+    }
+  }
+
+  &__header{
+    margin: 0px 0 15px;
+    text-align: right;
+  }
+
+  &__title{
+    display: inline-block;
+    border-bottom: 3px solid $yellow;
+    min-width: 200px;
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__scroll{
+    overflow: hidden;
+    max-height: 560px; 
+    width: 650px; 
+    position: relative;
+  }
+  
+  &__scroll-up{
+    @include icons(up);
+    position: absolute;
+    top: 0px;
+    left: 0;  
+    cursor: pointer;
+  }  
+
+  &__scroll-down{
+    @include icons(down);
+    position: absolute;
+    bottom: 0px;
+    left: 0;  
+    cursor: pointer;
+  }
+
+  &__scroll-in{
+    //overflow: scroll;
+    //height: 580px; 
+    width: 680px;
+    padding: 10px 20px 20px 18px;
+  }
+
+  &__text{
+    margin: 0 0 0 -5px;
+    ol,
+    ul{
+      margin: 1em 0;
+      padding: 0;
+      li{
+        margin: .5em 0;
+      }
+    }
+
+    ul{
+      list-style: none;
+      
+      li{
+        text-indent: -16px;
+        padding: 0 0 0 16px;
+        &:before{
+          content: '';
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          margin: 0 10px 0 0;
+          border-radius: 50%;
+          background: $yellow;
+        }
+      }
+    }
+
+  }
+
+  &__sidebar{
+    width: 200px;
+    height: 620px;
+    overflow: hidden;
+    padding: 22px 0 20px;
+  }
+}
+
+
+/* ==========================================================================
+ * thumbs-slider
+ * ========================================================================== */
+
+
+.thumbs-slider{ 
+  &__list{
+    @include list;
+    text-align: center;
+  }
+
+  &__item{
+    display: inline-block;
+  }
+
+  &__href{
+    display: block;
+    width: 125px;
+    height: 120px;
+    padding: 20px 0px 20px 15px;  
+  }
+
+  &__image{
+    vertical-align: top;
+  }
+
+  .bx-wrapper{    
+    max-width: 660px!important;
+    width: 660px!important;
+  }
+
+  .bx-prev,
+  .bx-next{
+    top: 20px;
+  }
+
+  .bx-prev{
+    @include icons(left);
+    left: -5px;
+  }
+
+  .bx-next{
+    @include icons(right);
+    right: -5px;
+  }
+
+}
+
+/* ==========================================================================
+ * projects
+ * ========================================================================== */
+
+.projects{
+
+  &__list{
+    @include list;    
+  }
+
+  &__item{
+    height: 140px;
+    padding: 20px 0 20px 20px;
+  }
+  
+
+  .bx-viewport{
+    height: 560px!important;
+  }
+
+  .bx-prev,
+  .bx-next{
+    left: -5px;
+  }
+
+  .bx-prev{
+    top: 20px;
+  }
+
+  .bx-next{
+    bottom: 20px;
+  }
+
+}
+
+.projects-item{
+
+  &__image-box{
+    display: inline-block;
+    vertical-align: top;
+    width: 130px;
+    margin: 0 15px 0 0;
+  }
+
+  &__image{
+    vertical-align: top;
+  }
+
+  &__content{
+    display: inline-block;
+    vertical-align: top;
+    width: 460px;
+  }
+
+  &__title{
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  &__text{
+    line-height: 16px;
+  }
+}
+
+
+/* ==========================================================================
+ * footer
+ * ========================================================================== */
+
+.footer{
+  height: 30px;
+  position: relative;
+  padding: 9px 0 0;
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #5b5b5b;
+    background: linear-gradient(to bottom, #5b5b5b 0%, #1c1c1d 100%);
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  &__right{
+    float: right;
+  }
+
+  &__left{
+    float: left;
+  }
+      
+}
+
+.footer-elements{
+  @include list;
+
+  &__item{
+    display: inline-block;
+    margin: 0 0 0 12px;
+    &:before{
+      content: '|';
+      font-weight: 700;
+      margin: 0 12px 0 0; 
+    }
+    &:first-child{
+      margin: 0;
+      &:before{
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+/* ==========================================================================
+ * modal
+ * ========================================================================== */
+
+.fancybox-iframe{
+  overflow: hidden;
+}
+
+.fancybox-skin{
+  background: #000;
+  border-radius: 6px;
+  border: 2px solid $yellow;
+}
+
+.fancybox-close{
+  @include icons(close);
+  top: 10px;
+  right: 10px;
+}
+
+
+
+
+.modal{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  background: rgba(0,0,0,.6);
+  z-index: 9030;
+
+  &__content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -220px;
+    margin-left: -448px;
+    background: #000;
+    padding: 20px 20px 20px;
+    border: 2px solid $yellow;
+    border-radius: 5px;
+  }
+
+  &__title{
+    padding: 20px 0 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  &__text{
+    
+  }
+
+  &__gallery{
+    padding: 0 20px;
+  }
+
+  &__form{
+    width: 310px;
+  }
+
+  &__close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-indent: -9999px;
+    @include icons(close);
+  }
+
+  &__ask{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+
+}
+
+@media only screen and (max-height: 700px){
+  .modal-gallery__content{
+    top: 20px;
+    margin-top: 0;
+  }
+} 
+

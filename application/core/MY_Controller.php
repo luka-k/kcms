@@ -45,7 +45,7 @@ class Client_Controller extends CI_Controller
 			"total_price" => $this->cart->total_price(),
 			"total_qty" => $this->cart->total_qty(),
 			'product_word' => end_maker("товар", $this->cart->total_qty()),
-			'top_menu' => $this->menus->set_active($this->menus->top_menu, 'main'),
+			'top_menu' => $this->dynamic_menus->get_menu(1)->items
 		);
 	}
 }

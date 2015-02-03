@@ -1,38 +1,29 @@
-<div class="col_12">
-	<div class="col_4">
-
-	</div>
-	<div class="col_4 clearfix">
-				<div class="col_12 cart">
-			<div class="col_4">
-				<a href="<?=base_url()?>cart" class="">Корзина</a>
-			</div>	
-			<div class="col_8">
-				В корзине <span id="total_qty"><?=$total_qty?></span> <?=$product_word?>.<br/>
-				На сумму <span id="total_price"><?=$total_price?></span><br/>
-			</div>
-		</div>
-	</div>
-	<div class="col_4 clearfix">
-		<?if($user <> false):?>
-			<div class="col_6">
-				<a href="<?=base_url()?>/cabinet">Личный кабинета</a>
-			</div>
-			<div class="col_6">
-				<a href="<?=base_url()?>/account/do_exit">Выйти</a>
-			</div>
-		<?else:?>
-			<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="login" action="<?=base_url()?>registration/do_enter/"/>
-				<input type="text" name="login" class="col_5" placeholder="Логин"/>
-				<input type="password" name="password"  class="col_5" placeholder="Пароль"/>
-				<div class="col_6">
-					<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
-				</div>
-				<div class="col_6">
-					<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
-				</div>
-			</form>
+<header class="header" id="header">
+	<div class="header__wrap wrap">
+		<div class="header__logo">
+			<a href="/" class="logo">БрайтБерри</a>
+		</div> <!-- /.header__logo -->
+		
+		<div class="header__content">
+			<div class="header__search search">
+				
+				<form action="#" class="form" method="post">
+					<div class="search__fields">
+						<div class="search__line">
+							<div class="form__input-border">
+								<input type="text" class="form__input search__input" name="s" placeholder="Поиск по сайту" />
+							</div> <!-- /.form__input-border -->
+						</div> <!-- /.search__line -->
+						<div class="search__button">
+							<button type="submit" class="button button--search">Отправить</button>
+						</div> <!-- /.search__button -->
+					</div> <!-- /.search__fields -->
+				</form> <!-- /.form -->
+			</div> <!-- /.header__search search-->
 			
-		<?endif;?>
-	</div>
-</div>		
+			<div class="header__description">Интерьерные решения из массива ценных пород дерева</div> <!-- /.header__description -->
+			
+			<? require "top-menu.php" ?>
+		</div> <!-- /.header__content -->
+	</div> <!-- /.header__wrap wrap -->
+</header> <!-- /.header -->	

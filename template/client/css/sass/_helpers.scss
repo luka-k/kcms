@@ -1,0 +1,24 @@
+/* ==========================================================================
+ * helpers
+ * ========================================================================== */
+
+.hidden{
+  display: none;
+}   
+
+
+.aligncenter{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.alignleft{
+	float: left;
+	margin: 0 10px 10px 0;
+}
+.alignright{
+	float: right;
+	margin: 10px 0 0 10px;
+}

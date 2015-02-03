@@ -1,22 +1,17 @@
-<html>
-	<head>
-		<title><?=$title?></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="keywords" content="<?=$meta_keywords?>" />
-		<meta name="description" content="<?=$meta_description?>" />
-		
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/kickstart.css" media="all" />  <!--kickstart css-->
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
-		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" media="all" /> <!--fancybox css-->
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/style.css" media="all" />  <!--custom css-->
-		
-		
-		<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
-		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
-		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/kickstart.js"></script>  <!--kickstart js-->
-		<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
-		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/cart.js"></script>
-		<script type="text/javascript" src="<?php echo base_url()?>template/client/js/main.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/wishlist.js"></script>
-	</head>
-	<body>
+<head>
+	<meta charset="utf-8">
+	<title>Интерьеры из дерева, производство мебели из дуба,  лестницы из массива, художественная ручная ковка - Брайтберри</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=960">
+	
+	<link rel="shortcut icon" href="<?=base_url()?>template/client/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="<?=base_url()?>template/client/favicon.ico" type="image/x-icon">
+	
+	<!-- Стили popup -->
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/js/fancybox/jquery.fancybox.css?v=2.1.5" />
+	
+	<link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
+	<link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css">
+	
+	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>

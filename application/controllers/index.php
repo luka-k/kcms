@@ -13,14 +13,15 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
-		$left_menu = $this->dynamic_menus->get_menu(4);
+		//$left_menu = $this->dynamic_menus->get_menu(4);
 		
 		$data = array(
 			'title' => $settings->site_title,
-			'left_menu' => $left_menu
+			//'left_menu' => $left_menu
 		);
 		$data = array_merge($this->standart_data, $data);
-		$this->load->view('client/main.php', $data);
+		//var_dump($data);
+		$this->load->view('client/index', $data);
 	}	
 }
 

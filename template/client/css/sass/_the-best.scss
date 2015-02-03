@@ -1,0 +1,59 @@
+/* ==========================================================================
+ * the-best
+ * ========================================================================== */
+
+.the-best{
+	
+	&__slider{
+		margin: 0 0 0 10px;
+		width: 626px;
+		height: 468px;
+	}
+
+	&__thumbs{
+	  width: 660px;
+	  margin: 0 0 0 -7px;
+	}
+
+}
+
+.the-best-slider{
+	
+	&__list{
+		@include list;
+	  overflow: hidden;
+		height: 468px;
+	}
+
+	&__item{
+	  padding: 0 0 0px;
+	}
+
+	&__href{
+		display: block;
+	}
+
+	&__image{
+	  border: 1px solid #767676;
+	  border-radius: 3px;	
+	  vertical-align: top;
+	}
+  
+  .bx-prev,
+  .bx-next{
+    top: 50%;
+    margin-top: -4px;
+  }
+
+  .bx-prev{
+  	@include icons(left);
+    left: -20px;
+  }
+
+  .bx-next{
+  	@include icons(right);
+    right: -20px;
+  }
+
+}
+
