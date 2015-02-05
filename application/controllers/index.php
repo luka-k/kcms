@@ -13,12 +13,20 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
+		$gallery = $this->images->get_list(array("object_type" => "products", "is_main" => 1));
+		foreach($gallery as $key => $img)
+		{
+			$gallery[$key] = $this->images->_get_urls($img);
+		}
+		
+		//var_dump($gallery);
 		//$left_menu = $this->dynamic_menus->get_menu(4);
 		
 		$data = array(
 			'title' => $settings->site_title,
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'url' => $this->uri->segment_array()
+			'url' => $this->uri->segment_array(),
+			'gallery' => $gallery
 			//'left_menu' => $left_menu
 		);
 		$data = array_merge($this->standart_data, $data);

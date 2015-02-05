@@ -167,7 +167,7 @@ class Images extends MY_Model
 	//в шаблоне соответственно нужно указывать
 	//например для миниатюры которая лежит в папке catalog_small
 	//$item->img->catalog_small_url;
-	private function _get_urls($image)
+	public function _get_urls($image)
 	{
 		$thumb_config = $this->config->item('thumb_config');
 		foreach($thumb_config as $path => $config)

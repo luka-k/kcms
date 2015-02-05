@@ -28,9 +28,12 @@
 						<div class="inside-navigation">
 							<ul class="inside-navigation__list">
 								<?foreach($content as $c):?>
+									
 									 <li class="inside-navigation__item">
 										<a href="<?=$c->full_url?>" class="inside-navigation__href">
-											<img src="images/works/ladders.jpg" alt="img" class="inside-navigation__image" data-hover-image="images/works/ladders-hover.jpg"/>
+											<?if(!empty($c->img)):?>
+												<img src="<?=$c->img[0]->categories_url?>" alt="img" class="inside-navigation__image" data-hover-image="<?=$c->img[1]->categories_url?>"/>
+											<?endif;?>
 											<?=$c->name?>
 										</a> <!-- /.inside-navigation__href -->
 									</li> <!-- /.inside-navigation__item -->

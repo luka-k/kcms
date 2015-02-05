@@ -77,7 +77,7 @@ class Works extends Client_Controller {
 					$template = "client/categories.php";
 				}		
 			}		
-			//var_dump($content);
+
 			$data['title'] = $category->name;
 			$data['meta_title'] = $category->meta_title;
 			$data['meta_keywords'] = $category->meta_keywords;

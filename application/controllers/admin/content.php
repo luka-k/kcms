@@ -175,6 +175,19 @@ class Content extends Admin_Controller
 						"object_type" => $type,
 						"object_id" => $data['content']->id
 					);
+					
+					if($type == "products")
+					{
+						$is_main = $this->input->post('is_main');
+						
+						if($is_main)
+						{
+							foreach($is_main as $key => $value)	
+							{
+								$this->images->update($key, array("is_main" => $value));
+							}
+						}
+					}
 		
 					$cover_id = $this->input->post("cover_id");
 					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);

@@ -26,6 +26,13 @@ $config['thumb_config'] = array(
 		'hp' => 80,
 		"zc" => "l",
 		"bg" => "ffffff"	
+	),
+	"categories" => array(
+		'w' => 136,
+		'h' => 134,
+		'wp' => 136,
+		'hp' => 134,
+		"bg" => "ffffff"	
 	)
 );
 

@@ -7,7 +7,7 @@
 			<li class="sidebar-menu__item">
 				<a href="<?=$branch->full_url?>" class="sidebar-menu__href <?if(in_array($branch->url, $url)):?>active<?endif;?>"><?=$branch->name?></a>
 				<?if($branch->childs):?>
-					<ul class="sidebar-menu-level2">
+					<ul class="sidebar-menu-level2 <?if(in_array($branch->url, $url)):?>active<?else:?>noactive<?endif;?>">
 						<?foreach($branch->childs as $branch_2):?>	
 							<li class="sidebar-menu-level2__item">
 								<a href="<?=$branch_2->full_url?>" class="sidebar-menu-level2__href <?if(in_array($branch_2->url, $url)):?>active<?endif;?>"><?=$branch_2->name?></a>

@@ -794,6 +794,12 @@ span
 
     *zoom: 1;
 }
+
+.sidebar-menu-level2.noactive
+{
+	display:none;
+}
+
 .sidebar-menu-level2:before,
 .sidebar-menu-level2:after
 {
