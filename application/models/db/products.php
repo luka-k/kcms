@@ -10,10 +10,11 @@ class Products extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
 			'is_new' => array('Новинка', 'checkbox', 'integer'),
 			'is_special' => array('Специальное предложение', 'checkbox', 'integer'),
-			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
-			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
-			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
-			'description' => array('Описание', 'tiny', 'trim')
+			//'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
+			//'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
+			//'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
+			'short_description' => array('Краткое описание', 'tiny', 'trim'),
+			'description' => array('Описание', 'tiny-2', 'trim')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

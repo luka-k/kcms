@@ -24,7 +24,7 @@ class Images extends MY_Model
 		
 		$img_info = $this->get_unique_info($img['name']);
 		
-		$img_path = $upload_path . $img_info->url;
+		$img_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
 
 		//Загружаем оригинал
 		if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
@@ -142,11 +142,6 @@ class Images extends MY_Model
 						$images[$key] = $this->_get_urls($item);
 					}
 				}
-			}
-			else
-			{
-				$item = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' => 1));
-				$images[0] = $this->_get_urls($item);
 			}
 		}
 		else

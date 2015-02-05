@@ -8,6 +8,7 @@ class Settings extends MY_Model
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
+			'description' => array('Рекламный текст', 'tiny', 'trim'),
 			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(

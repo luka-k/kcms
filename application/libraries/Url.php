@@ -58,7 +58,7 @@ class CI_Url {
 		}	
 	}
 	
-	public function catalog_url_parse($segment_number, $parent = FALSE)
+	public function categories_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
 
@@ -83,8 +83,8 @@ class CI_Url {
 			$this->CI->categories->add_active($child->id);
 			$this->CI->breadcrumbs->add($url, $child->name);
 			$child->parent = $parent;
-		
-			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->catalog_url_parse($segment_number + 1, $child);	
+
+			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->categories_url_parse($segment_number + 1, $child);	
 		}	
 		return $child;
 	}

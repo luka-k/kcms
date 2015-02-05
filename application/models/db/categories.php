@@ -60,7 +60,7 @@ class Categories extends MY_Model
 			$item = $this->get_item_by(array("id" => $parent_id));
 			$item_url[] = $item->url;
 		}
-		$item_url[] = 'catalog';
+		$item_url[] = 'works';
 		return $item_url;
 	}	
 	

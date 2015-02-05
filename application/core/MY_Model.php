@@ -379,8 +379,10 @@ class MY_Model extends CI_Model
 	
 	public function get_site_tree($parent_id, $parent_id_field)
 	{
-		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
+		$tree = $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
+		return $tree;
 	}
+
 	
 	public function get_tree($parent_id, $parent_id_field)
 	{
@@ -393,10 +395,16 @@ class MY_Model extends CI_Model
 		$branches = $this->get_list(array($parent_id_field => $parent_id));
 		if ($branches) foreach ($branches as $i => $b)
 		{
+			$branches[$i] = $this->prepare($b);
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
 			
 			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
-		}		
+		}
+		else
+		{
+			$branches = $this->products->get_list(array($parent_id_field => $parent_id));
+			if($branches) $branches = $this->products->get_prepared_list($branches);
+		}
 		return $branches;
 	}
 	

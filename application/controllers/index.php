@@ -17,10 +17,12 @@ class Index extends Client_Controller {
 		
 		$data = array(
 			'title' => $settings->site_title,
+			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'url' => $this->uri->segment_array()
 			//'left_menu' => $left_menu
 		);
 		$data = array_merge($this->standart_data, $data);
-		//var_dump($data);
+
 		$this->load->view('client/index', $data);
 	}	
 }

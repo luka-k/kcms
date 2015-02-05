@@ -125,26 +125,8 @@
 					</section> <!-- /.page__content -->
 					
 					<aside class="page__sidebar">
-						<ul class="sidebar-menu">
-							<li class="sidebar-menu__item">
-								<a href="/" class="sidebar-menu__href active">Галерея (the best)</a>
-							</li> <!-- /.sidebar-menu__item -->
-								
-								<li class="sidebar-menu__item">
-									
-									<a href="/objects.html" class="sidebar-menu__href">Объекты</a>
-
-								</li> <!-- /.sidebar-menu__item -->
-								
-								<li class="sidebar-menu__item">
-									
-									<a href="/stairs.html" class="sidebar-menu__href">Лестницы</a>
-
-								</li> <!-- /.sidebar-menu__item -->
-								
-							</ul> <!-- /.sidebar-menu -->
-
-			        	</aside> <!-- /.page__sidebar -->
+						<? require 'include/left-menu.php' ?>
+			        </aside> <!-- /.page__sidebar -->
 				</div> <!-- /.page -->
 		        
 				<? require 'include/footer.php' ?>
