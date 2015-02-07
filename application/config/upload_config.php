@@ -9,7 +9,7 @@ $config['thumb_config'] = array(
 		'wp' => 624,
 		'hp' => 466,
 		"zc" => "l",
-		"bg" => "ffffff"
+		"bg" => "000000"
 	),
 	"catalog_mid" => array(
 		'w' => 130,
@@ -17,7 +17,7 @@ $config['thumb_config'] = array(
 		'wp' => 130,
 		'hp' => 110,
 		"zc" => "l",
-		"bg" => "ffffff"	
+		"bg" => "000000"	
 	),
 	"catalog_small" => array(
 		'w' => 110,
@@ -25,14 +25,14 @@ $config['thumb_config'] = array(
 		'wp' => 110,
 		'hp' => 80,
 		"zc" => "l",
-		"bg" => "ffffff"	
+		"bg" => "000000"	
 	),
 	"categories" => array(
 		'w' => 136,
 		'h' => 134,
 		'wp' => 136,
 		'hp' => 134,
-		"bg" => "ffffff"	
+		"bg" => "000000"	
 	)
 );
 

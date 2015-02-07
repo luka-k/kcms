@@ -9,19 +9,22 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$left_menu = $this->dynamic_menus->get_menu(4);
-		//var_dump($left_menu);
+		$left_menu = $this->articles->get_site_tree(1, "parent_id");
+		
+		//var_dump($left_menu[0]->childs[1]);
+		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'left_menu' => $left_menu,
+			'tree' => $left_menu,
+			'url' => $this->uri->segment_array()
 		);
 		$data = array_merge($this->standart_data, $data);
 		
 		$page = $this->url->url_parse(2);
-
+		
 		if(isset($page->article))
 		{
-			$content = $page->article;
+			
+			$content = $page;
 			$template="client/article.php";
 		}		
 		elseif(isset($page->articles))
@@ -34,8 +37,6 @@ class Pages extends Client_Controller {
 		{
 		
 		}
-		
-		//var_dump($content);
 		
 		$data['title'] = $content->name;
 		$data['meta_title'] = $content->meta_title;

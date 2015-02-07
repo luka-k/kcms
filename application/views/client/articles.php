@@ -1,24 +1,63 @@
-﻿<? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/header.php'?>
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12">
-		
-			<div class="left col_3">
-				<? require 'include/left-menu.php'?>
-			</div>
-			<div id="main_content" class="col_9">
-				<div class="col_12">
-					<?require 'include/breadcrumbs.php'?> 
-					<?foreach($content->articles as $item):?>
-						<div class="cat-item col_4">
-							<a href="<?=$item->full_url?>"><?=$item->name?></a>
-						</div>
-					<?endforeach;?>
-				</div>
-			</div>
-		</div>
-	</div>
-<? require 'include/footer.php' ?>
+<!DOCTYPE html>
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+
+<!--[if gt IE 9]><!--> 
+	<html> 
+<!--<![endif]-->
+
+<? require 'include/head.php' ?>
+
+<body>
+	<!--[if lt IE 8]>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+	<![endif]-->
+	
+	<div class="main-box">
+		<div class="main-box__cell">
+			<div class="main-box__content">
+
+				<? require 'include/header.php'?>
+					
+					<div class="page">
+					
+						<? require 'include/breadcrumbs.php'?>
+						
+						<section class="page__content">
+							<header class="page__header">
+								<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
+							</header> <!-- /.page__header -->
+							
+							<div class="inside-navigation">
+								<ul class="inside-navigation__list">
+									<?foreach($content->articles as $a):?>
+										
+										<li class="inside-navigation__item">
+											<a href="<?=$a->full_url?>" class="inside-navigation__href">
+												<img src="<?if(isset($a->img)):?><?=$a->img->categories_url?><?endif;?>" alt="img" class="inside-navigation__image"/>
+												<?=$a->name?>
+											</a> <!-- /.inside-navigation__href -->
+										</li> <!-- /.inside-navigation__item -->
+									
+									<?endforeach;?>
+								</ul> <!-- /.our-works__list inside-navigation -->
+							</div> <!-- /.our-works -->
+							
+						</section> <!-- /.page__content -->
+						
+						<aside class="page__sidebar">
+							<? require 'include/left-menu.php' ?>
+			        	</aside> <!-- /.page__sidebar -->
+					</div> <!-- /.page -->
+		        
+					<? require 'include/footer.php' ?>
+					
+				</div> <!-- /.main-box__content -->
+			</div> <!-- /.main-box -->
+		</div> <!-- /.main-box -->
+
+		<? require 'include/modal.php' ?>
+		<? require 'include/script.php' ?>
+    </body>
+</html>

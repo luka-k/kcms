@@ -110,4 +110,13 @@ public function run($group = '')
 		
 		return $str;
 	}
+	
+	//Автоматом заполяет поле значением указаном в поле field 
+	//autcomplete[field]
+	public function autocomplete($str, $field)
+	{
+		if(empty($str)) $str = $_POST[$field];
+		
+		return $str;
+	}
 }

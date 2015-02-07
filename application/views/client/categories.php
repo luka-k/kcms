@@ -32,7 +32,8 @@
 									 <li class="inside-navigation__item">
 										<a href="<?=$c->full_url?>" class="inside-navigation__href">
 											<?if(!empty($c->img)):?>
-												<img src="<?=$c->img[0]->categories_url?>" alt="img" class="inside-navigation__image" data-hover-image="<?=$c->img[1]->categories_url?>"/>
+												<img src="<?=$c->img[0]->categories_url?>" alt="img" class="inside-navigation__image" 
+													data-hover-image="<?if(isset($c->img[1])):?><?=$c->img[1]->categories_url?><?else:?><?=$c->img[0]->categories_url?><?endif;?>"/>
 											<?endif;?>
 											<?=$c->name?>
 										</a> <!-- /.inside-navigation__href -->

@@ -6,6 +6,7 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
+			'menu_name' => array('Заголовок в меню', 'text', 'trim|htmlspecialchars|autocomplete[name]'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
@@ -16,6 +17,9 @@ class Articles extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	
@@ -61,6 +65,7 @@ class Articles extends MY_Model
 		if(!empty($item))
 		{
 			$item->full_url = $this->get_url($item);
+			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id), 1);
 			if(!empty($item->date))
 			{
 				$item_date = new DateTime($item->date);

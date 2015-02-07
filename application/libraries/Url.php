@@ -123,7 +123,6 @@ class CI_Url {
 				
 				return $this->get_child_info($child, $url);
 			}
-			
 		}
 	}
 	
@@ -135,6 +134,15 @@ class CI_Url {
 		{
 			$child->article = $this->CI->articles->get_item_by(array("url" => $url));
 			if (!$child->article) return FALSE;
+		}
+		else
+		{
+			$f = array();
+			foreach($child->articles as $item)
+			{
+				$f = array_merge($f, $this->CI->articles->get_list(array("parent_id" => $item->id)));
+			}
+			if(empty($f)) $child->article = $child->articles[0];
 		}
 		return $child;
 	}
