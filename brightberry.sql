@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 05 2015 г., 23:41
+-- Время создания: Фев 07 2015 г., 10:20
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `menu_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `sort` int(11) NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -38,7 +39,20 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `parent_id`, `name`, `menu_name`, `date`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`) VALUES
+(1, 0, 'О компании', 'О компании', '2015-02-06', 0, '', '', '', '', 'o-kompanii'),
+(2, 1, 'Наши преимущества', 'Наши преимущества', '2015-02-06', 0, '', '', '', '', 'nashi-preimushestva'),
+(3, 1, 'Новости', 'Новости', '2015-02-06', 0, '', '', '', '', 'novosti'),
+(4, 1, 'Партнеры', 'Партнеры', '2015-02-06', 0, '', '', '', '', 'partnery'),
+(5, 1, 'Скачать документы', 'Скачать документы', '2015-02-06', 0, '', '', '', '', 'skachat-dokumenty'),
+(6, 2, 'bрайтbерри. Высший уровень', 'Высший уровень', '2015-02-06', 0, '<p><strong>Факторы, обуславливающие высокий уровень качества продукции и сервиса bрайтbерри:</strong></p>\r\n\r\n<p><img alt="img" src="http://109.234.154.10/images/advantages/1.png" style="float:left" /></p>\r\n\r\n<p style="margin-left:80px">Индивидуальный подход к каждому клиенту:</p>\r\n\r\n<ul style="margin-left:80px">\r\n	<li>bрайтbерри учитывает все пожелания заказчиков.</li>\r\n	<li>Специалисты bрайтbерри прикладывают все усилия, чтобы реализовать идеи заказчика.</li>\r\n	<li>Если технологии производства не позволяют реализовать какие-то из идей заказчика, осуществляется поиск компромисса.</li>\r\n</ul>\r\n\r\n<p><img alt="img" src="http://109.234.154.10/images/advantages/2.png" style="float:left" /></p>\r\n\r\n<p style="margin-left:80px">Использование лучшего сырья, материалов и комплектующих:</p>\r\n\r\n<ul style="margin-left:80px">\r\n	<li>Доска, металл, стекло высшего качества, от лучших производителей и поставщиков на рынке.</li>\r\n	<li>Клеи марки KLEIBERIT от немецкого производителя KLEBCHEMIE M.G.Becker GmbH & Co. KG (www.kleiberit.ru).</li>\r\n	<li>Лаки и краски от итальянского производителя SAYERLACK (www.sayerlack.it).</li>\r\n	<li>Фурнитура (замки, петли и т.д.) от производителей: AGB (Италия, www.agb.it), OTLAV (Италия, www.otlav.it).</li>\r\n</ul>\r\n\r\n<p><img alt="img" src="http://109.234.154.10/images/advantages/3.png" style="float:left" /></p>\r\n\r\n<p style="margin-left:80px">Использование профессионального оборудования известных европейских марок:</p>\r\n\r\n<ul style="margin-left:80px">\r\n	<li>Деревообрабатывающее оборудование от производителей: WEINIG (Германия, www.weinig.ru), GRIGGIO (Италия, www.griggio.ru), ROBLAND (Бельгия, www.robland.ru).</li>\r\n	<li>Малярное оборудование GESCHA (Германия, www.gescha.de).</li>\r\n</ul>\r\n\r\n<p><img alt="img" src="http://109.234.154.10/images/advantages/4.png" style="float:left" /></p>\r\n\r\n<p style="margin-left:80px">Максимальный уровень сложности применяемых технологий для обеспечения высокого качества продукции:</p>\r\n\r\n<ul style="margin-left:80px">\r\n	<li>Сложная переклейка древесины.</li>\r\n	<li>Использование только ценных пород древесины по всей глубине изделий.</li>\r\n	<li>Ручная шлифовка всех деталей.</li>\r\n	<li>Многоуровневая, подетальная окраска.</li>\r\n	<li>Отсутствие видимых элементов сборки и монтажа изделий.</li>\r\n</ul>\r\n\r\n<p>Максимальное использование ручного труда:</p>\r\n\r\n<ul>\r\n	<li>Ручной труд применяется на всех этапах производства и осуществляется под постоянным контролем соответствующих мастеров.</li>\r\n</ul>\r\n\r\n<p>Наличие высококвалифицированного персонала:</p>\r\n\r\n<ul>\r\n	<li>Все мастера имеют большой опыт работы и высокую квалификацию.</li>\r\n	<li>На производстве осуществляется строгий отбор сотрудников, умение и мастерство которых проверено годами.</li>\r\n</ul>\r\n\r\n<p>Креативный, творческий подход к работе главных мастеров, отвечающих за качество и красоту изделий:</p>\r\n\r\n<ul>\r\n	<li>Главные мастера - это творческие, разносторонне развитые люди, которые любят свою работу.</li>\r\n	<li>Специалисты bрайтbерри постоянно повышают своё мастерство и совершенствуют технологии производства.</li>\r\n</ul>\r\n\r\n<p>Собственный проектный отдел.</p>\r\n\r\n<p>Беспрецедентный контроль качества продукции и выполняемых услуг:</p>\r\n\r\n<ul>\r\n	<li>bрайтbерри – это небольшое семейное предприятие, объединившее коллектив единомышленников, желающих и способных производить изделия высокого качества и предоставлять своим клиентам высокий уровень сервиса, достойный их статуса.</li>\r\n	<li>Все мастера во время рабочего процесса находятся под постоянным наблюдением и контролем руководства компании. Даже незначительные дефекты при производстве и нарекания клиентов сразу выявляются, и принимаются меры к их устранению.</li>\r\n</ul>\r\n\r\n<p>Сотрудничество с надёжными партнёрами:</p>\r\n\r\n<ul>\r\n	<li>Компания bрайтbерри очень щепетильна в выборе партнёров.</li>\r\n	<li>В числе партнеров bрайтbерри - только компании и люди, зарекомендовавшие себя с лучшей стороны.</li>\r\n</ul>\r\n', '', '', '', 'brajtberri-vysshij-uroven'),
+(7, 2, 'Высший уровень (лестницы)', 'Высший уровень (лестницы)', '2015-02-06', 0, '', '', '', '', 'vysshij-uroven-lestnicy');
 
 -- --------------------------------------------------------
 
@@ -112,32 +126,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('00338237fc16bd6eb94fbe79bcb17a93', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159203, ''),
-('10d8da5105f29e0b5a8f853c5f853170', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159206, ''),
-('15c2352bde81253e2ebeb1feb0c0beb5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159205, ''),
-('17c6bbdb2b0216f7601a63406acc4266', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158792, ''),
-('29b35cedc1be205d94dd96b959159609', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159203, ''),
-('2b81462573b76960063b7cc9c71cfc18', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158795, ''),
-('3c195bc355aa54195ec85dde83649d4f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159204, ''),
-('3fd6500e366c149717e7a2e705054184', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('4b225905561ac64ae9f56f02d77edbe8', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('4e3eb05b7ca23ba6e564af8c13806f3a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('5399924ea780716d2098a741dbe8be60', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158795, ''),
-('544b4e5a3df33923b6a5101967a98077', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('562e8b45deb44bf8d0cab83462e77a3c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('63d6300305c51f026c21fddae923f413', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423165242, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('6b4bbe84c30f7868380b3d12987f2dd7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('724389cda562d5de5cf3661357bc60f7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('7311140b24a70444a2b964e0183e940c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159204, ''),
-('793252ac4e912778f6ce6f5fff68607f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423163480, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('a07e4a947c19a41b1603248e5859a0ee', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158794, ''),
-('af5394a43bdd9fbd41f3309f6f4b3d0e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('b3e79364a57fde45975b60d41302d3d6', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('d5a1d92bf170d124b3ef7006c207f4f0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159205, ''),
-('d9b4323e4db037db649cd2d4cfacbe52', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423159203, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('eb21c837b585e901b5560b7cbc05d24d', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158792, ''),
-('f2d5bd3438a73df0332ffdeab00fc4ec', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158390, ''),
-('f579080147e5a06d51b38aa5b574f4f3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423158795, '');
+('45fe0bf4a5c182ef26955548b78d823f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423289843, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -172,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `emails`
@@ -200,19 +189,38 @@ CREATE TABLE IF NOT EXISTS `images` (
   `is_main` int(1) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `is_main`, `url`) VALUES
-(1, 1, 'settings', 1, 0, '/n/o/no-photo-available.png'),
 (6, 1, 'products', 1, 1, '/1/./1.jpg'),
 (7, 0, 'products', 1, 1, '/2/./2.jpg'),
 (8, 0, 'products', 1, 1, '/3/./3.jpg'),
 (13, 1, 'categories', 1, 0, '/o/b/objects.jpg'),
-(14, 0, 'categories', 1, 0, '/o/b/objects-hover.jpg');
+(14, 0, 'categories', 1, 0, '/o/b/objects-hover.jpg'),
+(19, 1, 'articles', 2, 0, '/a/d/advantages.png'),
+(20, 1, 'articles', 3, 0, '/n/e/news.png'),
+(21, 1, 'articles', 4, 0, '/p/a/parnters.png'),
+(22, 1, 'articles', 5, 0, '/d/o/download.png'),
+(23, 0, 'articles', 5, 0, '/d/o/download[1].png'),
+(24, 1, 'settings', 1, 0, '/n/o/no-photo-available.png'),
+(25, 1, 'categories', 2, 0, '/l/a/ladders.jpg'),
+(26, 0, 'categories', 2, 0, '/l/a/ladders-hover.jpg'),
+(27, 1, 'categories', 3, 0, '/d/o/doors.jpg'),
+(28, 0, 'categories', 3, 0, '/d/o/doors-hover.jpg'),
+(29, 1, 'categories', 4, 0, '/d/e/decoration.jpg'),
+(30, 0, 'categories', 4, 0, '/d/e/decoration-hover.jpg'),
+(31, 1, 'categories', 5, 0, '/f/u/furniture.jpg'),
+(32, 0, 'categories', 5, 0, '/f/u/furniture-hover.jpg'),
+(33, 1, 'categories', 6, 0, '/f/o/forging.jpg'),
+(34, 0, 'categories', 6, 0, '/f/o/forging-hover.jpg'),
+(35, 1, 'categories', 7, 0, '/h/o/houses.jpg'),
+(36, 1, 'categories', 8, 0, '/f/l/flats.jpg'),
+(37, 1, 'categories', 9, 0, '/b/u/busyness.jpg'),
+(38, 1, 'categories', 10, 0, '/g/o/goverment.jpg');
 
 -- --------------------------------------------------------
 
@@ -255,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
 (1, 1, 'Галерея', 0, 1, '', 'link', '/'),
 (2, 1, 'Наши работы', 0, 2, '', 'link', 'http://kcms/works/'),
-(3, 1, 'О компании', 0, 3, '', 'link', '/'),
+(3, 1, 'О компании', 0, 3, '', 'articles', 'o-kompanii'),
 (4, 1, 'Каталог', 0, 4, '', 'link', '/'),
 (5, 1, 'Контакты', 0, 5, '', 'link', '/'),
 (6, 1, 'Новости', 0, 6, '', 'link', '/');
@@ -357,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `description`, `order_string`, `site_description`, `site_keywords`, `site_offline`, `offline_text`) VALUES
-(1, 'Интерьеры из дерева, производство мебели из дуба,  лестницы из массива, художественная ручная ковка - Брайтберри', 'admin@admin.ru', 'admin', '<p>Рекламный текст. Для настоящих ценителей ручной работы bрайтbерри предлагает интерьерные коллекции от классики до авангарда. Для нас нет ничего невозможного. Каждый предмет интерьера создается по индивидуальному заказу и является результатом совместного творчества из Ваших пожеланий и нашего мастерства. Вы можете быть уверены - вещь, заказанная у нас, уникальна. Так bрайтbерри создает неповторимый стиль и яркую индивидуальность Вашего дома.</p>\r\n<p>Каждый предмет интерьера создается по индивидуальному заказу и является результатом совместного творчества из Ваших пожеланий и нашего мастерства. Вы можете быть уверены - вещь, заказанная у нас, уникальна. Так bрайтbерри создает неповторимый стиль и яркую индивидуальность Вашего дома.</p>', 'Ваш заказ оформлен', '', '', 0, '');
+(1, 'Интерьеры из дерева, производство мебели из дуба,  лестницы из массива, художественная ручная ковка - Брайтберри', 'admin@admin.ru', 'admin', '<p>Рекламный текст. Для настоящих ценителей ручной работы bрайтbерри предлагает интерьерные коллекции от классики до авангарда. Для нас нет ничего невозможного. Каждый предмет интерьера создается по индивидуальному заказу и является результатом совместного творчества из Ваших пожеланий и нашего мастерства. Вы можете быть уверены - вещь, заказанная у нас, уникальна. Так bрайтbерри создает неповторимый стиль и яркую индивидуальность Вашего дома.</p>\r\n\r\n<p>Каждый предмет интерьера создается по индивидуальному заказу и является результатом совместного творчества из Ваших пожеланий и нашего мастерства. Вы можете быть уверены - вещь, заказанная у нас, уникальна. Так bрайтbерри создает неповторимый стиль и яркую индивидуальность Вашего дома.</p>', 'Ваш заказ оформлен', '', '', 0, '');
 
 -- --------------------------------------------------------
 
