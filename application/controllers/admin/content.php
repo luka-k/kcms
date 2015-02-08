@@ -285,4 +285,28 @@ class Content extends Admin_Controller
 		$ch = $this->characteristics->get_item_by(array("id" => $id));
 		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
 	}
+	
+	public function main_gallery_sort()
+	{
+		$this->menu = $this->menus->set_active($this->menu, "settings");
+	
+		$gallery = $this->images->get_list(array("object_type" => "products", "is_main" => 1), $from = FALSE, $limit = FALSE, "sort", "asc");
+		foreach($gallery as $key => $img)
+		{
+			$gallery[$key] = $this->images->_get_urls($img);
+		}
+
+		$data = array(
+			'title' => "Сортировка галлереи на главной",
+			'error' => "",
+			'user' => $this->user,
+			'menu' => $this->menu,
+			'type' => "images",
+			'sortable' => TRUE,
+			"content" => $gallery
+		);	
+		
+		
+		$this->load->view('admin/gallery_sort.php', $data);
+	}
 }

@@ -13,7 +13,7 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
-		$gallery = $this->images->get_list(array("object_type" => "products", "is_main" => 1));
+		$gallery = $this->images->get_list(array("object_type" => "products", "is_main" => 1), $from = FALSE, $limit = FALSE, "sort", "asc");
 		foreach($gallery as $key => $img)
 		{
 			$gallery[$key] = $this->images->_get_urls($img);
