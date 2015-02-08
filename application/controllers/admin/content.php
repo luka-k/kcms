@@ -124,6 +124,21 @@ class Content extends Admin_Controller
 					"object_id" => $data['content']->id
 				);
 				$data['content']->img = $this->images->get_images($object_info);
+				
+				if($type == "products")
+				{
+					if($data['content']->img)
+					{
+						foreach($data['content']->img as $key => $img)
+						{
+							$categories = $this->images2categories->get_list(array("child_id" => $img->id));
+							foreach($categories as $item)
+							{
+								$data['content']->img[$key]->img_categories[] = $item->category_parent_id;
+							}
+						}
+					}
+				}
 
 				$field_name = editors_field_exists('ch', $data['editors']);
 				if(!empty($field_name))
@@ -187,6 +202,24 @@ class Content extends Admin_Controller
 								$this->images->update($key, array("is_main" => $value));
 							}
 						}
+						
+						$img_ids = $this->input->post('img_ids');
+						if($img_ids)
+						{
+							$this->db->where_in('child_id', $img_ids);
+							$this->db->delete('images2categories');
+						}
+						
+						$img2cat = $this->input->post('img2cat');
+						if($img2cat)
+						{							
+							foreach($img2cat as $img_id => $category_id)
+							{
+								$img_id = explode("-" , $img_id);
+								$this->images2categories->insert(array("category_parent_id" => $category_id, "child_id" => $img_id[0]));
+							}
+						}
+
 					}
 		
 					$cover_id = $this->input->post("cover_id");

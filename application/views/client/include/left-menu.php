@@ -1,6 +1,5 @@
 <ul class="sidebar-menu">
-
-	<?if(in_array("works", $url)):?>
+	<?if(in_array("works", $url)||empty($url)):?>
 		<li class="sidebar-menu__item">
 			<a href="/" class="sidebar-menu__href">Галерея (the best)</a>
 		</li> <!-- /.sidebar-menu__item -->

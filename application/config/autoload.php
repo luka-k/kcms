@@ -129,6 +129,7 @@ $autoload['model'] = array(
 	'db/orders', 
 	'db/orders_products', 
 	'db/images', 
+	'db/images2categories',
 	'db/emails', 
 	'db/mailouts',
 	'db/dynamic_menus',

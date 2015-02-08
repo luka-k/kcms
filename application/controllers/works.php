@@ -53,7 +53,36 @@ class Works extends Client_Controller {
 			}
 			else
 			{
-				$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+				if(in_array("obekty", $data['url']))
+				{
+					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					$content = $this->categories->get_prepared_list($content);
+
+					$template = "client/categories.php";
+				}
+				else
+				{
+					$this->db->select('child_id');
+					$img_ids = $this->images2categories->get_list(array("category_parent_id" => $category->id));
+					
+					$sub_category = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					if($sub_category) foreach($sub_category as $s_c)
+					{
+						$this->db->select('child_id');
+						$img_ids = array_merge($img_ids, $this->images2categories->get_list(array("category_parent_id" => $s_c->id)));
+					}
+					
+					$content = array();
+					
+					foreach($img_ids as $i)
+					{
+						$content[] = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+					}
+					
+					$template = "client/gallery_categories.php";
+				}
+				
+				/*$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 
 				if(empty($content))
 				{
@@ -67,6 +96,7 @@ class Works extends Client_Controller {
 					}
 					else
 					{
+						var_dump($content);
 						$template = "client/categories.php";
 					}
 				
@@ -74,9 +104,12 @@ class Works extends Client_Controller {
 				else
 				{
 					$content = $this->categories->get_prepared_list($content);
+					
 					$template = "client/categories.php";
-				}		
-			}		
+				}*/		
+			}	
+
+			
 
 			$data['title'] = $category->name;
 			$data['meta_title'] = $category->meta_title;

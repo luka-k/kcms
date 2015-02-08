@@ -23,7 +23,7 @@ class Products extends MY_Model
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')		
 		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
+			'upload_image' => array('Загрузить изображение', 'product_image_gallery', 'img')
 		),
 		'Характеристики' => array(
 			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')

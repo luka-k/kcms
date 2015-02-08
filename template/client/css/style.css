@@ -1852,6 +1852,60 @@ span
     margin: 10px 0 0 10px;
 }
 
+/**************************************************
+Галлерея
+**************************************************/
+
+.maxi {
+display: inline-block;
+
+width: 32%;
+margin: 0 0 30px;
+
+    text-align: center;
+    vertical-align: top;
+}
+
+.maxi img{
+width:150px; 
+height:150px; 
+border-radius:10px;
+ margin: 6px auto 20px;
+ -webkit-transition: all .2s;
+            transition: all .2s;
+}
+
+.maxi img:hover
+{
+    width: 163px;
+    height: 163px;
+    margin: 0 auto 13px;
+
+    -webkit-transition: all .2s;
+            transition: all .2s;
+}
+
+.inside-navigation__href:hover .inside-navigation__image
+{
+    width: 136px;
+    height: 134px;
+    margin: 0 auto 13px;
+
+    -webkit-transition: all .2s;
+            transition: all .2s;
+}
+.inside-navigation__image
+{
+    display: block;
+
+    width: 123px;
+    height: 121px;
+    margin: 6px auto 20px;
+
+    -webkit-transition: all .2s;
+            transition: all .2s;
+}
+
 /* @media only screen and (min-width: 740px){
   @import "_tablet" ;
 } 
