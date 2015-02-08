@@ -67,6 +67,8 @@ $route['order/(:any)/(:num)'] = 'order/$1/$2';
 
 $route['search'] = 'search';
 
+$route['popup_gallery'] = 'popup_gallery/index';
+$route['popup_gallery/(any:)'] = 'popup_gallery/(any:)';
 /*
 
 

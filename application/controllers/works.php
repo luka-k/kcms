@@ -81,32 +81,6 @@ class Works extends Client_Controller {
 					
 					$template = "client/gallery_categories.php";
 				}
-				
-				/*$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-
-				if(empty($content))
-				{
-					// Костылек. Вроде просил жестко не ограничивать но пока так
-					// обсудим еще раз структуру доделаю.
-					if($category->parent_id == 1)
-					{
-						$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-						$content = $this->products->get_prepared_list($content);
-						$template = "client/products.php";
-					}
-					else
-					{
-						var_dump($content);
-						$template = "client/categories.php";
-					}
-				
-				}
-				else
-				{
-					$content = $this->categories->get_prepared_list($content);
-					
-					$template = "client/categories.php";
-				}*/		
 			}	
 
 			
@@ -115,6 +89,7 @@ class Works extends Client_Controller {
 			$data['meta_title'] = $category->meta_title;
 			$data['meta_keywords'] = $category->meta_keywords;
 			$data['meta_description'] = $category->meta_description;
+			$data['category_id'] = $category->id;
 			$data['content'] = $content;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 				

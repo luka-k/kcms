@@ -29,8 +29,8 @@
 							<div id = "page0" style = 'display: block;'>
 								<?foreach($content as $c):?>
 									<div class="maxi">
-										<a href="<?=$c->full_url?>" id="single_image0" class="group grouped_elements ttip0" name = "Квартира на Кирочной<span style = 'position:absolute; top:5px; right:60px;'>Перейти к просмотру: <a class ='greenLight' href='http://brightberry.ru/index.php?route=product/product&path=38_86&product_id=145'>Квартира на Кирочной</a></span>" title = "Квартира на Кирочной" rel="group1" title="">
-											<img src="<?=$c->catalog_small_url?>" alt="img" class="maximg"  />
+										<a href="<?=base_url()?>popup_gallery/view?action=category&category_id=<?=$category_id?>" id="single_image0" class="group grouped_elements modal-gallery-open ttip0" data-fancybox-type="iframe" name = "Квартира на Кирочной<span style = 'position:absolute; top:5px; right:60px;'>Перейти к просмотру: <a class ='greenLight' href='http://brightberry.ru/index.php?route=product/product&path=38_86&product_id=145'>Квартира на Кирочной</a></span>" title = "Квартира на Кирочной" rel="group1" title="">
+											<img src="<?=$c->catalog_mid_url?>" alt="img" class="maximg"  />
 										</a>
 									</div>
 								<?endforeach;?>

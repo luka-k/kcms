@@ -29,7 +29,7 @@
 								<ul class="the-best-slider__list">
 									<?foreach($gallery as $img):?>
 										<li class="the-best-slider__item">
-											<a href="gallery-door.html?2" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
+											<a href="<?=base_url()?>popup_gallery/view?action=main&first_img=<?=$img->id?>" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
 												<img src="<?=$img->catalog_big_url?>" alt="project" class="the-best-slider__image" />
 											</a>
 										</li> <!-- /.the-best-slider__item-->

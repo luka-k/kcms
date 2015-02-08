@@ -268,7 +268,7 @@
       _this.sliderWheel($galleryList, gallerySlider);
 
       $galleryThumbsLinks.on('click', function(){
-
+		
         var slideId = parseInt( $(this).attr('href').replace('#slide', '') );
 
         gallerySlider.goToSlide( --slideId );
