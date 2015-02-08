@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 07 2015 г., 10:20
+-- Время создания: Фев 08 2015 г., 18:59
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `categories`
@@ -88,7 +88,9 @@ INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta
 (7, 1, 0, 'Дома', '', '', '', 'doma', 1, ''),
 (8, 1, 0, 'Квартиры', '', '', '', 'kvartiry', 1, ''),
 (9, 1, 0, 'Объекты бизнеса', '', '', '', 'obekty-biznesa', 1, ''),
-(10, 1, 0, 'Государственные объекты', '', '', '', 'gosudarstvennye-obekty', 1, '');
+(10, 1, 0, 'Государственные объекты', '', '', '', 'gosudarstvennye-obekty', 1, ''),
+(11, 1, 0, 'Двери распашные', '', '', '', 'dveri-raspashnye', 3, ''),
+(12, 1, 0, 'Двери раздвижные', '', '', '', 'dveri-razdvizhnye', 3, '');
 
 -- --------------------------------------------------------
 
@@ -126,7 +128,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('45fe0bf4a5c182ef26955548b78d823f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423289843, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('4f6512120cb16eda9c4ee477ce039b83', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423398067, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('546e936052cc2d02e06d7d18ce1621bf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423407242, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -189,16 +192,13 @@ CREATE TABLE IF NOT EXISTS `images` (
   `is_main` int(1) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `is_main`, `url`) VALUES
-(6, 1, 'products', 1, 1, '/1/./1.jpg'),
-(7, 0, 'products', 1, 1, '/2/./2.jpg'),
-(8, 0, 'products', 1, 1, '/3/./3.jpg'),
 (13, 1, 'categories', 1, 0, '/o/b/objects.jpg'),
 (14, 0, 'categories', 1, 0, '/o/b/objects-hover.jpg'),
 (19, 1, 'articles', 2, 0, '/a/d/advantages.png'),
@@ -220,7 +220,30 @@ INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `is_main`, `
 (35, 1, 'categories', 7, 0, '/h/o/houses.jpg'),
 (36, 1, 'categories', 8, 0, '/f/l/flats.jpg'),
 (37, 1, 'categories', 9, 0, '/b/u/busyness.jpg'),
-(38, 1, 'categories', 10, 0, '/g/o/goverment.jpg');
+(38, 1, 'categories', 10, 0, '/g/o/goverment.jpg'),
+(39, 1, 'products', 1, 1, '/1/./1.jpg'),
+(40, 0, 'products', 1, 1, '/2/./2.jpg'),
+(42, 0, 'products', 1, 1, '/3/./3.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `images2categories`
+--
+
+CREATE TABLE IF NOT EXISTS `images2categories` (
+  `category_parent_id` int(11) NOT NULL,
+  `child_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `images2categories`
+--
+
+INSERT INTO `images2categories` (`category_parent_id`, `child_id`) VALUES
+(2, 39),
+(11, 40),
+(12, 42);
 
 -- --------------------------------------------------------
 
