@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 08 2015 г., 18:59
+-- Время создания: Фев 09 2015 г., 01:14
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -128,8 +128,15 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4f6512120cb16eda9c4ee477ce039b83', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423398067, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('546e936052cc2d02e06d7d18ce1621bf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423407242, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('2d7532323963ee9f4ec9904829996fff', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427950, ''),
+('5d9520807e5fb92f26d4b993e999a9dc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427949, ''),
+('6d7890aadbfaeda51a38ae9e2a335ea7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423423476, ''),
+('6d85e392d117d824b3cf4fc03f122d93', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427947, ''),
+('7a8a8b0ce7b709237ec7cc7951b87ea3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427949, ''),
+('85f7ae3bf195707f933dce19eea2869b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427946, ''),
+('9165e145a3e8c62144f420c71d8a3d1f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427950, ''),
+('ef9bd3a1a38925a09e78dc6723ea2cdb', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427948, ''),
+('f48ee47a5b119741614d0f857322d54c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423429847, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -190,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(2) NOT NULL,
   `is_main` int(1) NOT NULL,
+  `sort` int(11) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
@@ -198,32 +206,32 @@ CREATE TABLE IF NOT EXISTS `images` (
 -- Дамп данных таблицы `images`
 --
 
-INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `is_main`, `url`) VALUES
-(13, 1, 'categories', 1, 0, '/o/b/objects.jpg'),
-(14, 0, 'categories', 1, 0, '/o/b/objects-hover.jpg'),
-(19, 1, 'articles', 2, 0, '/a/d/advantages.png'),
-(20, 1, 'articles', 3, 0, '/n/e/news.png'),
-(21, 1, 'articles', 4, 0, '/p/a/parnters.png'),
-(22, 1, 'articles', 5, 0, '/d/o/download.png'),
-(23, 0, 'articles', 5, 0, '/d/o/download[1].png'),
-(24, 1, 'settings', 1, 0, '/n/o/no-photo-available.png'),
-(25, 1, 'categories', 2, 0, '/l/a/ladders.jpg'),
-(26, 0, 'categories', 2, 0, '/l/a/ladders-hover.jpg'),
-(27, 1, 'categories', 3, 0, '/d/o/doors.jpg'),
-(28, 0, 'categories', 3, 0, '/d/o/doors-hover.jpg'),
-(29, 1, 'categories', 4, 0, '/d/e/decoration.jpg'),
-(30, 0, 'categories', 4, 0, '/d/e/decoration-hover.jpg'),
-(31, 1, 'categories', 5, 0, '/f/u/furniture.jpg'),
-(32, 0, 'categories', 5, 0, '/f/u/furniture-hover.jpg'),
-(33, 1, 'categories', 6, 0, '/f/o/forging.jpg'),
-(34, 0, 'categories', 6, 0, '/f/o/forging-hover.jpg'),
-(35, 1, 'categories', 7, 0, '/h/o/houses.jpg'),
-(36, 1, 'categories', 8, 0, '/f/l/flats.jpg'),
-(37, 1, 'categories', 9, 0, '/b/u/busyness.jpg'),
-(38, 1, 'categories', 10, 0, '/g/o/goverment.jpg'),
-(39, 1, 'products', 1, 1, '/1/./1.jpg'),
-(40, 0, 'products', 1, 1, '/2/./2.jpg'),
-(42, 0, 'products', 1, 1, '/3/./3.jpg');
+INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `is_main`, `sort`, `url`) VALUES
+(13, 1, 'categories', 1, 0, 0, '/o/b/objects.jpg'),
+(14, 0, 'categories', 1, 0, 0, '/o/b/objects-hover.jpg'),
+(19, 1, 'articles', 2, 0, 0, '/a/d/advantages.png'),
+(20, 1, 'articles', 3, 0, 0, '/n/e/news.png'),
+(21, 1, 'articles', 4, 0, 0, '/p/a/parnters.png'),
+(22, 1, 'articles', 5, 0, 0, '/d/o/download.png'),
+(23, 0, 'articles', 5, 0, 0, '/d/o/download[1].png'),
+(24, 1, 'settings', 1, 0, 0, '/n/o/no-photo-available.png'),
+(25, 1, 'categories', 2, 0, 0, '/l/a/ladders.jpg'),
+(26, 0, 'categories', 2, 0, 0, '/l/a/ladders-hover.jpg'),
+(27, 1, 'categories', 3, 0, 0, '/d/o/doors.jpg'),
+(28, 0, 'categories', 3, 0, 0, '/d/o/doors-hover.jpg'),
+(29, 1, 'categories', 4, 0, 0, '/d/e/decoration.jpg'),
+(30, 0, 'categories', 4, 0, 0, '/d/e/decoration-hover.jpg'),
+(31, 1, 'categories', 5, 0, 0, '/f/u/furniture.jpg'),
+(32, 0, 'categories', 5, 0, 0, '/f/u/furniture-hover.jpg'),
+(33, 1, 'categories', 6, 0, 0, '/f/o/forging.jpg'),
+(34, 0, 'categories', 6, 0, 0, '/f/o/forging-hover.jpg'),
+(35, 1, 'categories', 7, 0, 0, '/h/o/houses.jpg'),
+(36, 1, 'categories', 8, 0, 0, '/f/l/flats.jpg'),
+(37, 1, 'categories', 9, 0, 0, '/b/u/busyness.jpg'),
+(38, 1, 'categories', 10, 0, 0, '/g/o/goverment.jpg'),
+(39, 1, 'products', 1, 1, 1, '/1/./1.jpg'),
+(40, 0, 'products', 1, 1, 0, '/2/./2.jpg'),
+(42, 0, 'products', 1, 1, 2, '/3/./3.jpg');
 
 -- --------------------------------------------------------
 
