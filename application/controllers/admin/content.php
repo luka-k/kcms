@@ -277,6 +277,7 @@ class Content extends Admin_Controller
 			"id" => $id
 		);
 		$item_id = $this->images->delete_img($object_info);
+		$this->db->delete('images2categories', array('child_id' => $id)); 
 		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id);
 	}
 	
