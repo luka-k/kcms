@@ -193,7 +193,7 @@ class Catalog extends Client_Controller {
 				{
 					if(isset($category->product))
 					{
-						$content = $this->products->prepare_product($category->product);
+						$content = $this->products->prepare($category->product, FALSE);
 						$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
 						$template = "client/product.php";
 					}
