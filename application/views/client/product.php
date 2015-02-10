@@ -28,6 +28,7 @@
 						<div class="page__text page__scroll project__text">
 							<div class="page__scroll-in">
 								<!---<img src="uploads/projects/houses/pushkin/1-305x203.jpg" alt="img" style="float: left; margin: 0 20px 0 0;" />-->
+								<img src="<?=$content->img[0]->catalog_big_url?>" alt="img" style="float: left; width:305px; margin: 0 20px 0 0;" />
 								<?=$content->description?>
 							</div> <!-- /.page__scroll-in -->
 						</div> <!-- /.page__text project__text -->
@@ -38,7 +39,7 @@
 				        			
 				        			<li class="thumbs-slider__item">
 				        				
-				        				<a href="/gallery-pushkin.html?2" class="thumbs-slider__href modal-gallery-open" data-fancybox-type="iframe">
+				        				<a href="<?=base_url()?>popup_gallery/view?action=product&product_id=<?=$content->id?>&first_img=<?=$image->id?>" class="thumbs-slider__href modal-gallery-open" data-fancybox-type="iframe">
 				        					<img src="<?=$image->catalog_small_url?>" alt="thumb" class="thumbs-slider__image hover-image" />
 				        				</a>
 

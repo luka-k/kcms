@@ -40,10 +40,20 @@ class Popup_gallery extends Client_Controller {
 				
 			foreach($img_ids as $i)
 			{
-				$gallery[] = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+				$gallery[] = $this->images->get_item_by(array("id" => $i->child_id));
 			}
 			
 			$gallery_title = $category->name;
+		}
+		elseif("product")
+		{
+			$product_id = $this->input->get("product_id");
+			
+			$product = $this->products->get_item_by(array("id" => $product_id));
+			
+			$gallery = $this->images->get_list(array("object_type" => "products", "object_id" => $product_id));
+						
+			$gallery_title = $product->name;
 		}
 		
 		foreach($gallery as $key => $img)
