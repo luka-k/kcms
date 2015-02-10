@@ -5,8 +5,6 @@ class MY_Model extends CI_Model
 	protected $_table;
     protected $_primary_key = 'id';
     protected $_active_key = 'is_active';
-		
-	private $active_branch = array();
 	
 	function __construct()
     {
@@ -382,16 +380,16 @@ class MY_Model extends CI_Model
 	
 	public function get_site_tree($parent_id, $parent_id_field)
 	{
-		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
+		return $this->get_sub_tree($parent_id, $parent_id_field);
 	}
 	
 	public function get_tree($parent_id, $parent_id_field)
 	{
 		$this->url->admin_url_parse();
-		return $this->get_sub_tree($parent_id, $parent_id_field, $this->active_branch);
+		return $this->get_sub_tree($parent_id, $parent_id_field);
 	}
 	
-	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
+	public function get_sub_tree($parent_id, $parent_id_field)
 	{
 		$branches = $this->get_list(array($parent_id_field => $parent_id));
 		foreach($branches as $branch)
@@ -402,29 +400,12 @@ class MY_Model extends CI_Model
 
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
+			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
 			
-			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
+			if(!($this->url->set_active_class($this->url->active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
 		}		
 		return $branches;
-	}
-	
-	public function add_active($id)
-	{
-		$this->active_branch[] = $id;
-	}
-	
-	private function set_active_class($active_branch, $branch)
-	{
-		foreach($active_branch as $element)
-		{
-			if($branch->id == $element)
-			{
-				$branch->class = "active";
-				return TRUE;
-			}
-		}	
-	}
+	}	
 	
 	public function get_prepared_list($info)
 	{

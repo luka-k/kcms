@@ -55,7 +55,7 @@ class Content extends Admin_Controller
 	public function items($type, $id = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
-		
+				
 		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
 		//Это поле используем как поле для колонки Имя
 		//Тем самым избавляемся от привязки к названию name(title) и тд.
@@ -74,8 +74,7 @@ class Content extends Admin_Controller
 			'type' => $type,
 			'name' => $name
 		);	
-
-		
+				
 		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = $name;
 		$direction = "acs";
 		

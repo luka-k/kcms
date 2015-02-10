@@ -4,6 +4,8 @@ class CI_Url {
 
 	var $CI;
 	
+	public $active_branch = array();
+	
 	public function __construct()
 	{
 		$this->CI =& get_instance();
@@ -37,7 +39,7 @@ class CI_Url {
 		else
 		{
 			$item = $this->CI->$base->get_item_by(array("id" => $id));
-			$this->CI->$base->add_active($id);
+			$this->add_active($id);
 		}
 		
 		if (!empty($item))
@@ -45,9 +47,9 @@ class CI_Url {
 			$parent_id = $item->parent_id;
 			while($parent_id <> 0)
 			{
-				$this->CI->$base->add_active($item->parent_id);
+				$this->add_active($item->parent_id);
 				$item = $this->CI->$base->get_item_by(array("id" => $parent_id));
-				$this->CI->$base->add_active($item->parent_id);
+				$this->add_active($item->parent_id);
 				$parent_id = $item->parent_id;
 			}	
 			return TRUE;
@@ -55,6 +57,23 @@ class CI_Url {
 		else
 		{
 			return TRUE;
+		}	
+	}
+	
+	public function add_active($id)
+	{
+		$this->active_branch[] = $id;
+	}
+	
+	public function set_active_class($active_branch, $branch)
+	{
+		foreach($active_branch as $element)
+		{
+			if($branch->id == $element)
+			{
+				$branch->class = "active";
+				return TRUE;
+			}
 		}	
 	}
 	
