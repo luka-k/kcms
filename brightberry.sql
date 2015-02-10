@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 09 2015 г., 01:14
+-- Время создания: Фев 10 2015 г., 16:07
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -128,15 +128,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('2d7532323963ee9f4ec9904829996fff', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427950, ''),
-('5d9520807e5fb92f26d4b993e999a9dc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427949, ''),
-('6d7890aadbfaeda51a38ae9e2a335ea7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423423476, ''),
-('6d85e392d117d824b3cf4fc03f122d93', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427947, ''),
-('7a8a8b0ce7b709237ec7cc7951b87ea3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427949, ''),
-('85f7ae3bf195707f933dce19eea2869b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427946, ''),
-('9165e145a3e8c62144f420c71d8a3d1f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427950, ''),
-('ef9bd3a1a38925a09e78dc6723ea2cdb', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423427948, ''),
-('f48ee47a5b119741614d0f857322d54c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423429847, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('df98cb81e3127ba0126493b0e8674577', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423569966, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -200,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `sort` int(11) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -293,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
 (1, 1, 'Галерея', 0, 1, '', 'link', '/'),
-(2, 1, 'Наши работы', 0, 2, '', 'link', 'http://kcms/works/'),
+(2, 1, 'Наши работы', 0, 2, '', 'link', '/works/'),
 (3, 1, 'О компании', 0, 3, '', 'articles', 'o-kompanii'),
 (4, 1, 'Каталог', 0, 4, '', 'link', '/'),
 (5, 1, 'Контакты', 0, 5, '', 'link', '/'),
