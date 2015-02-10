@@ -28,7 +28,7 @@
 						<div class="page__text page__scroll project__text">
 							<div class="page__scroll-in">
 								<!---<img src="uploads/projects/houses/pushkin/1-305x203.jpg" alt="img" style="float: left; margin: 0 20px 0 0;" />-->
-								<img src="<?=$content->img[0]->catalog_big_url?>" alt="img" style="float: left; width:305px; margin: 0 20px 0 0;" />
+								<?if(!empty($content->img)):?><img src="<?=$content->img[0]->catalog_big_url?>" alt="img" style="float: left; width:305px; margin: 0 20px 0 0;" /><?endif;?>
 								<?=$content->description?>
 							</div> <!-- /.page__scroll-in -->
 						</div> <!-- /.page__text project__text -->
