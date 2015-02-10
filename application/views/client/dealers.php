@@ -65,6 +65,7 @@
 	<? require 'include/footer.php'?>
 	<? require 'include/modal.php'?>
 	<? require 'include/scripts.php'?>
+	<? require 'include/dealers_script.php'?>
 
     </body>
 </html>

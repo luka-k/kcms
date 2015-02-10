@@ -120,6 +120,8 @@
 	<? require 'include/footer.php'?>
 	<? require 'include/modal.php'?>
 	<? require 'include/scripts.php'?>
+	
+	<?if($sub_template == "news" || $sub_template == "single-news"):?><script src="<?=base_url()?>template/client/js/datepicker.js"></script><?endif;?>
 	</body>
 </html>
 
