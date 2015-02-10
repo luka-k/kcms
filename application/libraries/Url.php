@@ -80,7 +80,6 @@ class CI_Url {
 		}
 		else
 		{
-			$this->CI->categories->add_active($child->id);
 			$this->CI->breadcrumbs->add($url, $child->name);
 			$child->parent = $parent;
 

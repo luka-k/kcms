@@ -20,10 +20,9 @@ class Pages extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		
 		$page = $this->url->url_parse(2);
-		
+
 		if(isset($page->article))
 		{
-			
 			$content = $page;
 			$template="client/article.php";
 		}		

@@ -26,7 +26,7 @@ class Works extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		
 		$category = $this->url->categories_url_parse(2);
-		
+
 		if ($category == "root")
 		{
 			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
@@ -55,10 +55,20 @@ class Works extends Client_Controller {
 			{
 				if(in_array("obekty", $data['url']))
 				{
-					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					$content = $this->categories->get_prepared_list($content);
+					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					
+					if(empty($content))
+					{
+						$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+						$content = $this->categories->get_prepared_list($content);
 
-					$template = "client/categories.php";
+						$template = "client/categories.php";
+					}
+					else
+					{
+						$content = $this->products->get_prepared_list($content);
+						$template = "client/products.php";
+					}
 				}
 				else
 				{
