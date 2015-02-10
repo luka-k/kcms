@@ -21,22 +21,15 @@
 			<div class="page-product__top">
 				<div class="page-product__images product-images">
 					<div class="product-images__big-image-box">
-						<a href="<?=$content->img[0]->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[0]->catalog_big_url?>" 
-                                    width="470" 
-                                    height="470" 
-                                    alt="image" 
-                                    class="product-images__big-image"/>
-						</a>
-						<?if(isset($content->img[1])):?>
-						<a href="<?=$content->img[1]->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-							<img    src="<?=$content->img[1]->catalog_big_url?>" 
-                                    width="470" 
-                                    height="470" 
-                                    alt="image" 
-                                    class="product-images__big-image"/>
-						</a>
-						<?endif;?>
+						<?foreach($content->img as $images):?>
+							<a href="<?=$images->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
+								<img    src="<?=$images->catalog_big_url?>" 
+										width="470" 
+										height="470" 
+										alt="image" 
+										class="product-images__big-image"/>
+							</a>
+						<?endforeach;?>
 					</div> <!-- /.product-images__big-image-box -->
 					
 					<div class="product-images__thumbs">
