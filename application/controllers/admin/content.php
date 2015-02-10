@@ -9,6 +9,49 @@ class Content extends Admin_Controller
 		parent::__construct();
 	}
 	
+	function import()
+	{
+		$file = fopen("import.csv", "r");
+
+		if ($file) 
+		{
+			$info = array();
+			while(!feof($file))
+			{
+				$buffer = fgets($file, 4096);
+				
+				$info[] = explode("; ", $buffer);
+				
+				//$this->products->insert(array("name" => $file_info[0]));
+				
+				
+			}
+			fclose($file);
+			
+			//var_dump($info);
+			
+			foreach($info as $i)
+			{
+				$this->products->insert(array("name" => $i[0]));
+				$object_info = array(
+					"object_type" => "products",
+					"object_id" => $this->db->insert_id()
+				);
+				
+				$file_name = array_reverse(explode("/", $i[1]));
+				
+				$img = array(
+					"tmp_name" => FCPATH."download/import/".trim($i[1]),
+					"name" => $file_name[0]
+				);
+				
+				$answer = $this->images->upload_image($img, $object_info);
+				echo $answer ? "ok</br>" : "fuck</br>";
+			}
+		}
+		
+	}
+	
 	public function items($type, $id = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
