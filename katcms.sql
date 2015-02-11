@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 03 2015 г., 01:38
+-- Время создания: Фев 11 2015 г., 14:39
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -135,8 +135,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('10ae03ca044482635649a3e101611cbc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1422890283, 'a:3:{s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('c1fb21454ccb4aa67a23122ed6d70afe', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1422911922, '');
+('35304c9461c2f5c0eae13744ac701333', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423650834, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":7:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -149,13 +148,14 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `dynamic_menus`
 --
 
 INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
+(1, 'Меню админ панели', ''),
 (4, 'Верхнее меню', '');
 
 -- --------------------------------------------------------
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -259,7 +259,26 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
 (1, 4, 'Блог', 0, 1, '', 'articles', 'blog'),
 (2, 4, 'Новости', 0, 0, '', 'articles', 'novosti'),
-(3, 4, 'Новости компании', 2, 1, '', 'articles', 'novosti-kompanii');
+(3, 4, 'Новости компании', 2, 1, '', 'articles', 'novosti-kompanii'),
+(4, 1, '<i class=icon-home></i>', 0, 2, '', 'link', '/admin/'),
+(5, 1, 'Статьи', 0, 3, '', 'link', '#'),
+(6, 1, 'Каталог', 0, 4, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 5, '', 'link', '/admin/admin_orders'),
+(8, 1, 'Настройки', 0, 6, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 7, '', 'link', '#'),
+(10, 1, 'Меню', 0, 8, '', 'link', '/admin/menu_module/menus'),
+(11, 1, 'Пользователи', 0, 9, '', 'link', '#'),
+(12, 1, 'Все статьи', 5, 1, '', 'link', '/admin/content/items/articles'),
+(13, 1, 'Категории', 6, 1, '', 'link', '/admin/content/items/categories'),
+(14, 1, 'Создать категорию', 6, 2, '', 'link', '/admin/content/item/edit/categories'),
+(15, 1, 'Товары', 6, 3, '', 'link', '/admin/content/items/products'),
+(16, 1, 'Создать товар', 6, 4, '', 'link', '/admin/content/item/edit/products'),
+(17, 1, 'Настройки сайта', 8, 10, '', 'link', '/admin/content/item/edit/settings/1'),
+(19, 1, 'Шаблоны', 9, 1, '', 'link', '/admin/content/items/emails/2'),
+(20, 1, 'Рассылки', 9, 2, '', 'link', '/admin/mailouts_module'),
+(21, 1, 'Системные письма', 9, 3, '', 'link', '/admin/content/items/emails/1'),
+(22, 1, 'Пользователи', 11, 1, '', 'link', '/admin/users_module'),
+(23, 1, 'Группы пользователей', 11, 2, '', 'link', '/admin/content/items/users_groups');
 
 -- --------------------------------------------------------
 
@@ -377,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `is_new` int(1) DEFAULT NULL,
   `is_special` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `products`

@@ -17,7 +17,6 @@ class Admin_orders extends Admin_Controller
 	{
 		$this->config->load('order_config');
 
-		$this->menu = $this->menus->set_active($this->menu, 'orders');
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
@@ -67,7 +66,8 @@ class Admin_orders extends Admin_Controller
 				'payment_id' => $this->config->item('method_pay'),
 				'status_id' => $this->config->item('order_status')
 			),
-			'menu' => $this->menu
+			'menu' => $this->menu,
+			'url' => "/".$this->uri->uri_string()
 		);	
 		
 		$this->load->view('admin/orders.php', $data);

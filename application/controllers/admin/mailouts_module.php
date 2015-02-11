@@ -9,9 +9,7 @@ class Mailouts_module extends Admin_Controller
 	}
 	
 	public function index()
-	{
-		$this->menu = $this->menus->set_active($this->menu, 'emails');
-		
+	{		
 		$mailouts = $this->mailouts->get_prepared_list($this->mailouts->get_list(FALSE));
 
 		$data = array(
@@ -20,7 +18,8 @@ class Mailouts_module extends Admin_Controller
 			'user' => $this->user,
 			'menu' => $this->menu,
 			'templates' => $this->emails->get_list(array("type" => 2)),
-			'mailouts' => array_reverse($mailouts)
+			'mailouts' => array_reverse($mailouts),
+			'url' => "/".$this->uri->uri_string()
 			//'users_groups' => $this->users_groups->get_list(FALSE)
 		);
 	

@@ -14,36 +14,7 @@ class Menus extends MY_Model
 			"catalog" => array("Каталог", base_url()."catalog", "0"),
 			"cart" => array("Корзина", base_url()."cart", "0"),
 			"wishlist" => array("Вишлист", base_url().'wishlist', "0")
-		);	
-
-		$this->admin_menu = array(
-			'main' => array("<i class='icon-home'></i>", base_url()."admin", 0),
-			'articles' => array("Статьи", "#", 0, array(
-				0 => array('Новости', base_url()."admin/content/items/articles/3", 0),
-				1 => array('Блог', base_url()."admin/content/items/articles/1", 0)
-			)),
-			'categories' => array('Каталог', "#", 0, array(
-				0 => array('Категории', base_url()."admin/content/items/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/content/item/edit/categories", 0),
-				2 => array('Товары', base_url()."admin/content/items/products", 0),
-				3 => array('Создать товар', base_url()."admin/content/item/edit/products", 0)				
-			)),
-			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),
-			'settings' => array('Настройки', "#", 0, array(
-				0 => array('Настройки сайта', base_url()."admin/content/item/edit/settings/1", 0),
-				1 => array('Письма', base_url()."admin/mails", 0),
-			)),
-			'emails' => array('Рассылки', "#", 0, array(
-				0 => array("Шаблоны", base_url()."admin/content/items/emails/2", 0),
-				1 => array("Рассылки", base_url()."admin/mailouts_module/", 0),
-				2 => array("Системные письма", base_url()."admin/content/items/emails/1", 0)
-			)),
-			'menus' => array('Меню', base_url()."admin/menu_module/menus", 0),
-			'users' => array('Пользователи', "#", 0, array(
-				0 => array('Пользователи', base_url()."admin/users_module/", 0),
-				1 => array('Группы пользователей', base_url()."admin/content/items/users_groups/", 0)
-			))
-		);		
+		);			
 	}
 	
 	public function set_active($menu, $active)

@@ -2,11 +2,11 @@
 	<?$counter = 1?>
 	<ul class="menu grid flex">
 		<?foreach($menu as $item):?>
-			<li class="<?if ($item[2] == 1):?> current<?endif;?> <?if ($counter == 1):?>l-item<?endif;?>"><a href="<?=$item[1]?>"><?=$item[0]?></a>
-			<?php if(!empty($item[3])):?>
+			<li class="<?if($url == $item->url):?>current<?endif;?> <?if ($counter == 1):?>l-item<?endif;?>"><a href="<?=$item->full_url?>"><?=$item->name?></a>
+			<?php if(!empty($item->childs)):?>
 				<ul>
-					<?foreach($item[3] as $sub_item):?>	
-						<li <?if ($sub_item[2] == 1):?> class="current"<?endif;?>><a href="<?=$sub_item[1]?>"><?=$sub_item[0]?></a></li>
+					<?foreach($item->childs as $sub_item):?>	
+						<li class="<?if($url == $sub_item->url):?>current<?endif;?>"><a href="<?=$sub_item->full_url?>"><?=$sub_item->name?></a></li>
 					<?endforeach;?>
 				</ul>
 			<?php endif;?>				

@@ -10,9 +10,7 @@ class Content extends Admin_Controller
 	}
 	
 	public function items($type, $id = FALSE)
-	{
-		$this->menu = $this->menus->set_active($this->menu, $type);
-		
+	{		
 		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
 		//Это поле используем как поле для колонки Имя
 		//Тем самым избавляемся от привязки к названию name(title) и тд.
@@ -29,7 +27,8 @@ class Content extends Admin_Controller
 			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'type' => $type,
-			'name' => $name
+			'name' => $name,
+			'url' => "/".$this->uri->uri_string()
 		);	
 				
 		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
@@ -64,8 +63,6 @@ class Content extends Admin_Controller
 	
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
-		$this->menu = $this->menus->set_active($this->menu, $type);
-		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 		$name = editors_field_exists('name', $this->$type->editors);
 		
@@ -76,7 +73,8 @@ class Content extends Admin_Controller
 			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
-			'type' => $type
+			'type' => $type,
+			'url' => "/".$this->uri->uri_string()
 		);
 		
 		if($this->db->field_exists('parent_id', $type))

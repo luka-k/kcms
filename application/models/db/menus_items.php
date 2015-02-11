@@ -6,7 +6,7 @@ class Menus_items extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'menu_id' => array('Меню', 'hidden', ''),
-			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
+			'name' => array('Заголовок', 'text', 'trim|required|name'),
 			'parent_id' => array('Родительский пункт меню', 'select', ''),
 			'description' => array('Описание', 'text', ''),
 			'item_type' => array('Тип пункта', 'type', ''),
@@ -25,8 +25,16 @@ class Menus_items extends MY_Model
 		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$url = explode ("://", $b->url, -1);
-			empty($url) ? $branches[$i] = $this->prepare($b) : $branches[$i]->full_url = $b->url;
+			if($b->item_type == "articles")
+			{
+				$url = explode ("://", $b->url, -1);
+				empty($url) ? $branches[$i] = $this->prepare($b) : $branches[$i]->full_url = $b->url;
+			}
+			else
+			{
+				$branches[$i]->full_url = $b->url;
+			}
+			
 
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);
 		}		
@@ -37,7 +45,7 @@ class Menus_items extends MY_Model
 	{
 		$item_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_url));
-		$full_url = base_url().$full_url;
+		//$full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	

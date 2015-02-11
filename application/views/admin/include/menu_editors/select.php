@@ -1,6 +1,6 @@
-﻿<div  class="col_12">
+﻿<div  class="col_12 clearfix">
 	<label for="lbl_<?=$editors_counter?>" class="col_3">Подменю</label>
-	<select id="lbl_<?=$editors_counter?>" class="menu_items <?=$name?>" name="<?=$name?>" class="col_8">
+	<select id="lbl_<?=$editors_counter?>" class="menu_items <?=$name?>" name="<?=$name?>" class="col_9">
 		<option <?if ($item_content->$name == 0):?>selected<?php endif;?> value="0">Родительский пункт</option>
 		<?foreach ($selects[$name] as $select):?>
 			<option <?if(!empty($select->childs)):?>class="option-1-ch"<?else:?>class="option-1"<?endif;?> value="<?=$select->id?>" <?php if ($item_content->$name == $select->id):?>selected<?php endif; ?><?php if ($item_content->id == $select->id):?>disabled<?php endif; ?>>

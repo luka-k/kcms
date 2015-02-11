@@ -22,10 +22,11 @@ class Users_module extends Admin_Controller
 			'title' => "Пользователи",
 			'error' => "",
 			'user' => $this->user,
-			'menu' => $this->menus->set_active($this->menu, "users"),
+			'menu' => $this->menu,
 			'name' => $name,
 			'groups' => $this->users_groups->get_list(FALSE),
-			'content' => new stdClass()
+			'content' => new stdClass(),
+			'url' => "/".$this->uri->uri_string()
 		);
 		
 		if($filters)
@@ -85,11 +86,12 @@ class Users_module extends Admin_Controller
 			'title' => "Пользователи",
 			'error' => "",
 			'user' => $this->user,
-			'menu' => $this->menus->set_active($this->menu, "users"),
+			'menu' => $this->menu,
 			'name' => $name,
 			'selects' => array(
 				'group_parent_id' => $this->users_groups->get_list(FALSE)
 			),
+			'url' => "/".$this->uri->uri_string()
 		);	
 		
 		if(($id == FALSE)&&(isset($this->users->new_editors)))

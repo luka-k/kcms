@@ -13,16 +13,15 @@ class Index extends Admin_Controller
 
 	public function index()
 	{		
-		$this->menu = $this->menus->set_active($this->menu, 'main');
-
 		$data = array(
 			'title' => "Главная",
 			'meta_title' => "Главная",
 			'error' => "",
 			'user' => $this->user,
-			'menu' => $this->menu
+			'menu' => $this->menu,
+			'url' => "/".$this->uri->uri_string()
 		);
-		
+
 		$this->load->view('admin/admin.php', $data);
 	}
 }

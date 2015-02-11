@@ -16,9 +16,10 @@ class Menu_module extends Admin_Controller
 			'title' => "Меню",
 			'error' => "",
 			'user' => $this->user,
-			'menu' => $this->menus->set_active($this->menu, "menus"),
+			'menu' => $this->menu,
 			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
-			'content' => $this->dynamic_menus->get_list(FALSE)
+			'content' => $this->dynamic_menus->get_list(FALSE),
+			'url' => "/".$this->uri->uri_string()
 		);	
 		
 		if(editors_field_exists('img', $this->dynamic_menus->editors))
@@ -66,7 +67,7 @@ class Menu_module extends Admin_Controller
 			'error' => "",
 			'items_error' => "",
 			'user' => $this->user,
-			'menu' => $this->menus->set_active($this->menu, "menus"),
+			'menu' => $this->menu,
 			'type' => "dynamic_menus",
 			'editors' => $editors,
 			'content' => $content,
@@ -77,7 +78,8 @@ class Menu_module extends Admin_Controller
 				'url' => $this->articles->get_site_tree(0, "parent_id")
 			),
 			'types' => $types,
-			'item_content' => $item_content
+			'item_content' => $item_content,
+			'url' => "/".$this->uri->uri_string()
 		);	
 		
 		if($action == "edit")
