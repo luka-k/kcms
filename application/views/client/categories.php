@@ -14,7 +14,7 @@
 					<a href="<?=$url?>&order=sort&direction=asc">по возрастанию sort</a>&nbsp;
 					<a href="<?=$url?>&order=sort&direction=desc">по убыванию sort</a>&nbsp;				
 				</div>
-				<?foreach($content as $category):?>
+				<?foreach($categories as $category):?>
 					<div class="cat-item col_4">
 						<h6><a href="<?=$category->full_url?>"><?=$category->name?></a></h6>
 						<?if($category->img <> NULL):?>

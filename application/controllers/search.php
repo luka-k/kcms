@@ -37,7 +37,7 @@ class Search extends Client_Controller {
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'tree' => $this->categories->get_site_tree(0, "parent_id"),
 				'search' => $search['name'],
-				'content' => $this->products->get_prepared_list($products)
+				'products' => $this->products->get_prepared_list($products)
 			);
 		
 			$data = array_merge($this->standart_data, $data);

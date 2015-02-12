@@ -8,15 +8,15 @@
 			<div id="main_content" class="col_8">
 				<? require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
-					<h6><?=$content->name?></h6>
-					<div>Цена:<?=$content->price?></div>
-					<?if(isset($content->sale_price)):?>
-						<div>Цена со скидкой:<?=$content->sale_price?></div>
+					<h6><?=$product->name?></h6>
+					<div>Цена:<?=$product->price?></div>
+					<?if(isset($product->sale_price)):?>
+						<div>Цена со скидкой:<?=$product->sale_price?></div>
 					<?endif;?>
-					<div><?=$content->description?></div>
-					<?if($content->img <> NULL):?>
+					<div><?=$product->description?></div>
+					<?if($product->img <> NULL):?>
 						<div>
-							<?foreach($content->img as $img_item):?>
+							<?foreach($product->img as $img_item):?>
 								<img src="<?=$img_item->catalog_small_url?>" />
 							<?endforeach?>
 						</div>

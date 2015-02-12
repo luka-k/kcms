@@ -8,7 +8,7 @@
 			<div id="main_content" class="col_8">
 				<? require 'include/breadcrumbs.php'?> 
 				<div class="col_12">
-					<?foreach($content as $item):?>
+					<?foreach($products as $item):?>
 						<div class="col_12">
 							<div class="col_5">
 								<a href="<?=$item->full_url?>"><?=$item->name?></a>

@@ -43,14 +43,13 @@ class Catalog extends Client_Controller {
 	
 		if(isset($get['filter']))
 		{
-			$content = $this->products->get_filtred((object)$get, $order, $direction);
-			$content = $this->products->get_prepared_list($content);
+			$products = $this->products->get_filtred((object)$get, $order, $direction);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
 			$data['title'] = $settings->site_title;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
-			$data['content'] = $content;
+			$data['products'] = $this->products->get_prepared_list($products);
 			$template = "client/products.php";
 		}
 		else
@@ -59,8 +58,7 @@ class Catalog extends Client_Controller {
 
 			if ($category == "root")
 			{
-				$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
-				$content = $this->categories->get_prepared_list($content);
+				$categories = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
 			
 				$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -69,7 +67,7 @@ class Catalog extends Client_Controller {
 				$data['meta_keywords'] = $settings->site_keywords;
 				$data['meta_description'] = $settings->site_description;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				$data['content'] = $content;
+				$data['categories'] =  $this->categories->get_prepared_list($categories);
 			
 				$template = 'client/categories.php';		
 			}
@@ -77,22 +75,21 @@ class Catalog extends Client_Controller {
 			{
 				if(isset($category->product))
 				{
-					$content = $this->products->prepare($category->product, FALSE);
+					$data['product'] = $this->products->prepare($category->product, FALSE);
 					$template = "client/product.php";
 				}
 				else
 				{
-					$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-					if($content == NULL)
+					$categories = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					if($categories == NULL)
 					{
-						$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
-						$content = $this->products->get_prepared_list($content);			
+						$product = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+						$data['products'] = $this->products->get_prepared_list($product);					
 						$template = "client/products.php";
 					}
 					else
 					{
-						$content = $this->categories->get_prepared_list($content);
-					
+						$data['categories']  = $this->categories->get_prepared_list($categories);
 						$template = "client/categories.php";
 					}		
 				}		
@@ -101,9 +98,7 @@ class Catalog extends Client_Controller {
 				$data['meta_title'] = $category->meta_title;
 				$data['meta_keywords'] = $category->meta_keywords;
 				$data['meta_description'] = $category->meta_description;
-				$data['content'] = $content;
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				
 			}
 		}
 		$this->load->view($template, $data);

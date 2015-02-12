@@ -15,26 +15,26 @@
 					<a href="<?=$url?>&order=sort&direction=asc">по возрастанию sort</a>&nbsp;
 					<a href="<?=$url?>&order=sort&direction=desc">по убыванию sort</a>&nbsp;				
 				</div>
-				<?foreach($content as $page):?>
+				<?foreach($products as $product):?>
 						<div class="cat-item col_4">
-							<h6><a href="<?=$page->full_url?>"><?=$page->name?></a></h6>
-							<?if($page->img <> NULL):?>
+							<h6><a href="<?=$product->full_url?>"><?=$product->name?></a></h6>
+							<?if($product->img <> NULL):?>
 								<div>
-									<a href="<?=$page->full_url?>">
-										<img src="<?=$page->img->catalog_small_url?>" />
+									<a href="<?=$product->full_url?>">
+										<img src="<?=$product->img->catalog_small_url?>" />
 									</a>
 								</div>
 							<?endif;?>
-							<div><?=$page->description?></div>
+							<div><?=$product->description?></div>
 							<div class="left">
-								<div>Цена:<?=$page->price?></div>
+								<div>Цена:<?=$product->price?></div>
 								<?if(isset($page->sale_price)):?>
 									<div>Цена со скидкой:<?=$page->sale_price?></div>
 								<?endif;?>
 							</div>
 							<div class="right">
-								<a href="#" class="button small red" onclick="add_to_cart(<?=$page->id?>); return false">В корзину</a>
-								<a href="#" class="button small green" onclick="add_to_wishlist('<?=$page->id?>'); return false">В вишлист</a>
+								<a href="#" class="button small red" onclick="add_to_cart(<?=$product->id?>); return false">В корзину</a>
+								<a href="#" class="button small green" onclick="add_to_wishlist('<?=$product->id?>'); return false">В вишлист</a>
 							</div>
 						</div>	
 				<?endforeach;?>
