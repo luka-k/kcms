@@ -13,8 +13,6 @@ class Index extends Admin_Controller
 
 	public function index()
 	{		
-		$this->menu = $this->menus->set_active($this->menu, 'main');
-
 		$data = array(
 			'title' => "Главная",
 			'meta_title' => "Главная",

@@ -10,8 +10,6 @@ class Mailouts_module extends Admin_Controller
 	
 	public function index()
 	{
-		$this->menu = $this->menus->set_active($this->menu, 'emails');
-		
 		$mailouts = $this->mailouts->get_prepared_list($this->mailouts->get_list(FALSE));
 
 		$data = array(

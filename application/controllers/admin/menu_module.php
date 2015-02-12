@@ -16,7 +16,7 @@ class Menu_module extends Admin_Controller
 			'title' => "Меню",
 			'error' => "",
 			'user' => $this->user,
-			'menu' => $this->menus->set_active($this->menu, "menus"),
+			'menu' => $this->menu,
 			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE)
 		);	
@@ -49,7 +49,6 @@ class Menu_module extends Admin_Controller
 			);
 			$content->img = $this->images->get_images($object_info, "catalog_small");		
 		}
-		3
 		
 		$item_content = set_empty_fields($items_editors);
 		$item_content->menu_id = $id;	
@@ -66,9 +65,8 @@ class Menu_module extends Admin_Controller
 			'title' => "Редактировать меню",
 			'error' => "",
 			'items_error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
-			'menu' => $this->menus->set_active($this->menu, "menus"),
+			'user' => $this->user,
+			'menu' => $this->menu,
 			'type' => "dynamic_menus",
 			'editors' => $editors,
 			'content' => $content,

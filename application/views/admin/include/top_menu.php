@@ -1,11 +1,11 @@
 <div id="menu" class="col_12">
 	<ul class="menu">
 		<?foreach($menu as $item):?>
-			<li <?if ($item[2] == 1):?> class="current"<?endif;?>><a href="<?=$item[1]?>"><?=$item[0]?></a>
-			<?php if(!empty($item[3])):?>
+			<li class="currenttt" ><a href="<?=$item->full_url?>"><?=$item->name?></a>
+			<?php if(!empty($item->childs)):?>
 				<ul>
-					<?foreach($item[3] as $sub_item):?>	
-						<li <?if ($sub_item[2] == 1):?> class="current"<?endif;?>><a href="<?=$sub_item[1]?>"><?=$sub_item[0]?></a></li>
+					<?foreach($item->childs as $sub_item):?>	
+						<li class="currenttt"><a href="<?=$sub_item->full_url?>"><?=$sub_item->name?></a></li>
 					<?endforeach;?>
 				</ul>
 			<?php endif;?>				
