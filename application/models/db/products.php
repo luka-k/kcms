@@ -72,25 +72,13 @@ class Products extends MY_Model
 		return $desc;
 	}
 	
-	function prepare($item)
+	function prepare($item, $cover = 1)
 	{
 		if(!empty($item))
 		{
 			if(!is_object($item)) $item = (object)$item;
 			$item->full_url = $this->get_url($item);
-			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
-			$item = $this->set_sale_price($item);
-			$item->description = $this->short_desc($item->description, 20);
-			return $item;
-		}			
-	}
-	
-	function prepare_product($item)
-	{
-		if(!empty($item))
-		{
-			$item->full_url = $this->get_url($item);
-			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
+			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), $cover);
 			$item = $this->set_sale_price($item);
 			return $item;
 		}			
