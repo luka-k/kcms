@@ -24,15 +24,21 @@ class Images extends MY_Model
 		
 		$img_info = $this->get_unique_info($img['name']);
 		
-		$img_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
+		$img_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
+			
+		if(isset($img['type']))
+		{
+			//Загружаем оригинал
+			if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
+		}else
+		{
+			if(!copy(trim($img["tmp_name"]), $img_path)) return FALSE;
+		}
 
-		//Загружаем оригинал
-		if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
-		
 		//Создаем миниатюры
 		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
 		
-		$object_info['url'] = $img_info ->url;
+		$object_info['url'] = $img_info->url;
 
 		return $this->insert($object_info);
 	}
@@ -88,23 +94,6 @@ class Images extends MY_Model
 			$this->db->insert($this->_table);
 			return $this->db->insert_id();
 		}
-	}
-	
-	public function resize_all()
-	{
-		$images= $this->images->get_list(FALSE);
-		foreach ($images as $image)
-		{
-			$upload_path = $this->config->item('upload_path');
-			$thumb_config = $this->config->item('thumb_config');
-			
-			foreach($thumb_config as $path => $param)
-			{
-				unlink($upload_path."/".$path.$image->url);
-			}
-			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) return FALSE;
-		}
-		return TRUE;
 	}
 	
 	public function get_unique_info($img_name)
