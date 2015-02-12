@@ -25,16 +25,22 @@ class Menus_items extends MY_Model
 		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			if($b->item_type == "articles")
+			if($menu_id == 2)
 			{
-				$url = explode ("://", $b->url, -1);
-				empty($url) ? $branches[$i] = $this->prepare($b) : $branches[$i]->full_url = $b->url;
+				$b->url == "#" ? $branches[$i]->full_url = $b->url : $branches[$i]->full_url = base_url().$b->url;
 			}
 			else
 			{
-				$branches[$i]->full_url = $b->url;
+				if($b->item_type == "articles")
+				{
+					$branches[$i] = $this->prepare($b);
+				}
+				else
+				{
+					$url = explode ("://", $b->url, -1);
+					empty($url) ? $branches[$i]->full_url = $this->get_url($b) : $branches[$i]->full_url = $b->url;
+				}
 			}
-			
 
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);
 		}		
@@ -45,7 +51,7 @@ class Menus_items extends MY_Model
 	{
 		$item_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_url));
-		//$full_url = base_url().$full_url;
+		$full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	
