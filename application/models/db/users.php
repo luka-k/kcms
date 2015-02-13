@@ -6,10 +6,10 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden', 'trim'),
-			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
+			'name' => array('Имя', 'text', 'required|name'),
 			'group_parent_id' => array('Группа', 'u2u_g', 'users2users_groups'),
-			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email'),
-			'password' => array('Пароль', 'pass', 'trim|md5')
+			'email' => array('Почта', 'text', 'required|valid_email'),
+			'password' => array('Пароль', 'pass', 'md5')
 		)
 	);
 	
