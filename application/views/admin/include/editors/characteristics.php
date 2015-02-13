@@ -38,6 +38,9 @@
 					</td>
 				</tr>
 			<?endforeach;?>
+			<tr class="last_ch" >
+				<td colspan="3"></td>
+			</tr>
 			<!--delete popup-->
 			<div id="delete_item" style="display:none;">
 				<div class="pop-up">
