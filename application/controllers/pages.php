@@ -24,7 +24,7 @@ class Pages extends Client_Controller {
 		}
 		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
-				
+		
 		if($sub_level)
 		{	
 			$level_3->items = $this->menus_items->menu_tree(1, $sub_level->id);
@@ -49,24 +49,34 @@ class Pages extends Client_Controller {
 					$sub_template = "news";
 					
 					$select_date = $this->input->get('date');
-				
-					foreach ($content->articles as $key => $row) 
+
+					if(isset($content->articles)) 
 					{
-						$date = new DateTime($row->date);
-						$date->format('Y-m-d H:i:s');
-						$volume[$key]  = $date;
-						
-						$desc = strip_tags($row->description);
-						$desc_arr = explode(' ', $desc);
-						$desc = '';
-						for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+						$volume = array();
+						foreach ($content->articles as $key => $row) 
 						{
-							$desc .= $desc_arr[$i].' ';
+							$date = new DateTime($row->date);
+							$date->format('Y-m-d H:i:s');
+							$volume[$key]  = $date;
+						
+							$desc = strip_tags($row->description);
+							$desc_arr = explode(' ', $desc);
+							$desc = '';
+							for ($i = 0; $i < 20 && $i < count($desc_arr); $i++)
+							{
+								$desc .= $desc_arr[$i].' ';
+							}
+							if ($i >= 19) $desc .= '...';
+							$row->description = $desc;
 						}
-						if ($i >= 19) $desc .= '...';
-						$row->description = $desc;
+						array_multisort($volume, SORT_DESC, $content->articles);
 					}
-					array_multisort($volume, SORT_DESC, $content->articles);
+					else
+					{
+						$content->articles = array();
+						$level_3->active = $this->uri->segment(3);
+						$sub_template = "single-news";
+					}
 					
 					if(!empty($select_date))
 					{
@@ -84,7 +94,7 @@ class Pages extends Client_Controller {
 			{
 				$sub_template = "page";
 			}
-			
+
 			$data = array(
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'sub_template' => $sub_template,

@@ -139,8 +139,9 @@ class CI_Url {
 				if($child->item_type == "articles") 
 				{
 					$article = $this->CI->articles->get_item_by(array("url" => $child->url));
+					
 					$sub_level = $this->CI->articles->get_list(array("parent_id" => $article->id));
-				
+					
 					$child = $article;
 
 					if($sub_level)
@@ -156,6 +157,10 @@ class CI_Url {
 								{
 									$child->articles[] = $a;
 								}
+								else
+								{
+									$child->articles[] = $item;
+								}		
 							}
 							$child->articles = $this->CI->articles->get_prepared_list($child->articles);
 						}

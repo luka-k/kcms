@@ -200,6 +200,12 @@ class Ajax extends CI_Controller {
 				$item_date = date_format($item_date, 'm/d/Y');
 				if(!in_array ( $a->date , $selected_dates)) $selected_dates[] = $item_date;
 			}
+			else
+			{
+				$item_date = new DateTime($item->date);
+				$item_date = date_format($item_date, 'm/d/Y');
+				if(!in_array ( $item->date , $selected_dates)) $selected_dates[] = $item_date;
+			}	
 		}
 		$selected_dates[] = date('m/d/Y'); 
 	
