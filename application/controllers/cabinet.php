@@ -61,7 +61,7 @@ class Cabinet extends Client_Controller {
 			'settings' => $this->settings->get_item_by(array('id' => 1))
 		);
 		$data = array_merge($this->standart_data, $data);
-
+		$data['user'] = $this->users->get_item_by(array("id" => $data['user']->id));
 		$this->load->view('client/cabinet.php', $data);
 	}
 	
