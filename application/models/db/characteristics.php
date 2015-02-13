@@ -13,6 +13,7 @@ class Characteristics extends MY_Model
 	
 	public function get_filters()
 	{
+		$filters = array();
 		foreach($this->filters as $type => $item)
 		{
 			if($item[1] == "multy" || $item[1] == "single" || $item[1] == "select")
@@ -21,15 +22,20 @@ class Characteristics extends MY_Model
 				$this->db->select("value");
 				$this->db->where("type", $type);
 				$query = $this->db->get($this->_table);
+				
+				$values = array();
 				foreach($query->result_array() as $result)
 				{
 					$values[] = $result['value'];
 				}
-				$filters[$type] = (object)array(
-					"name" => $item[0],
-					"editor" => $item[1],
-					"values" => $values
-				);
+				if($values)
+				{
+					$filters[$type] = (object)array(
+						"name" => $item[0],
+						"editor" => $item[1],
+						"values" => $values
+					);
+				}
 			}
 			else
 			{

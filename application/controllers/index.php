@@ -17,7 +17,9 @@ class Index extends Client_Controller {
 		$top_menu = $this->dynamic_menus->get_menu(1);
 		
 		$filters = $this->characteristics->get_filters();
-		foreach($filters['use']->values as $item)
+		
+		$catalog_by_filter = array();
+		if(!empty($filters)) foreach($filters['use']->values as $item)
 		{
 			$catalog_by_filter[$item] = base_url()."catalog?filter=true&use=".str_replace(" ", "+", $item);
 		}
@@ -26,15 +28,23 @@ class Index extends Client_Controller {
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
 		
 		$news_sub = $this->articles->get_list(array("parent_id" => 1));
+		
+		$sub_level_id = array();
+		$last_news = array();
+		
 		foreach($news_sub as $level)
 		{
 			$sub_level_id[] = $level->id;
 		}
-		$this->db->where_in("parent_id", $sub_level_id);
-		$this->db->limit(4);
-		$this->db->order_by('date', 'desc');
-		$query = $this->db->get("articles");
-		$last_news = $query->result();
+		
+		if(!empty($sub_level_id))
+		{
+			$this->db->where_in("parent_id", $sub_level_id);
+			$this->db->limit(4);
+			$this->db->order_by('date', 'desc');
+			$query = $this->db->get("articles");
+			$last_news = $query->result();
+		}
 		
 		foreach($last_news as $news_item)
 		{
