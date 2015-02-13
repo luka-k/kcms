@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 13 2015 г., 23:27
+-- Время создания: Фев 13 2015 г., 23:57
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -58,7 +58,23 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `parent_id` int(5) NOT NULL DEFAULT '0',
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
+(1, 1, 0, 'Обвес', '', '', '', 'obves', 0, ''),
+(2, 1, 0, 'Комплекты патрубков', '', '', '', 'komplekty-patrubkov', 0, ''),
+(3, 1, 0, 'Электроника', '', '', '', 'elektronika', 0, ''),
+(4, 1, 0, 'Домкраты', '', '', '', 'domkraty', 0, ''),
+(5, 1, 0, 'Инверторы', '', '', '', 'invertory', 3, ''),
+(6, 1, 0, 'Пусковые аккумуляторы', '', '', '', 'puskovye-akkumulyatory', 3, ''),
+(7, 1, 0, 'Аксессуары', '', '', '', 'aksessuary', 3, ''),
+(8, 1, 0, 'Домкраты гидравлические', '', '', '', 'domkraty-gidravlicheskie', 4, ''),
+(9, 1, 1, 'Домкраты винтовые', '', '', '', 'domkraty-vintovye', 4, ''),
+(10, 1, 2, 'Аксессуары', '', '', '', 'aksessuary', 4, '');
 
 -- --------------------------------------------------------
 
@@ -96,7 +112,9 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('1253c3cad4c7d9f497f4358bd85060f2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423855578, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":14:{s:2:"id";s:2:"27";s:9:"last_name";s:0:"";s:4:"name";s:5:"admin";s:10:"patronymic";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:4:"city";s:29:"Санкт-Петербург";s:6:"street";s:14:"Руднева";s:5:"house";s:1:"5";s:8:"building";s:1:"1";s:9:"apartment";s:3:"162";s:8:"zip_code";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('3af936b23f8b03f929018c464a83aae1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423857229, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":14:{s:2:"id";s:2:"27";s:9:"last_name";s:0:"";s:4:"name";s:5:"admin";s:10:"patronymic";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:4:"city";s:29:"Санкт-Петербург";s:6:"street";s:14:"Руднева";s:5:"house";s:1:"5";s:8:"building";s:1:"1";s:9:"apartment";s:3:"162";s:8:"zip_code";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('65c2d8429c530abbb83333e4d7f18ead', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423856808, ''),
+('cee6cfa0af407165b727b2a3a451c51f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423856808, '');
 
 -- --------------------------------------------------------
 
@@ -235,23 +253,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (5, 1, 'Авторезированные сервис центры', 1, 1, '', 'articles', 'avtorezirovannye-servis-centry'),
 (6, 1, 'Регистрация и вход', 1, 2, '', 'link', 'йцукен'),
 (7, 1, 'Поддержка клиентов', 0, 0, '', 'articles', 'podderzhka-klientov'),
-(8, 1, 'Авторизованные сервис центры', 7, 1, '', 'articles', 'avtorizovannye-servis-centry'),
-(11, 1, 'Новости', 3, 0, '', 'articles', 'novosti'),
-(12, 1, 'История компании', 3, 1, '', 'articles', 'istoriya-kompanii'),
-(13, 1, 'Производства', 3, 2, '', 'articles', 'proizvodstva'),
-(14, 1, 'Политика качества', 3, 4, '', 'articles', 'politika-kachestva'),
-(15, 1, 'ЧА.ВО. / FAQ', 3, 5, '', 'articles', 'cha-vo-faq'),
-(16, 1, 'Работа с магазином', 3, 3, '', 'articles', 'rabota-s-magazinom'),
-(17, 1, 'Выставки', 11, 0, '', 'articles', 'vystavki'),
-(18, 1, 'Внедорожные мероприятия', 11, 1, '', 'articles', 'vnedorozhnye-meropriyatiya'),
 (19, 1, 'Как стать дилером', 2, 1, '', 'link', 'dealers'),
-(20, 1, 'Информация', 16, 1, '', 'articles', 'informaciya'),
-(21, 1, 'Оформление заказа', 16, 2, '', 'articles', 'oformlenie-zakaza'),
-(22, 1, 'Информация о доставке', 16, 3, '', 'articles', 'informaciya-o-dostavke'),
-(24, 1, 'Дисконтная система', 16, 4, '', 'articles', 'diskontnaya-sistema'),
-(27, 1, 'Пункт меню', 7, 2, '', 'link', '000'),
 (28, 1, 'Авторизованные сервис центры', 27, 1, '', 'articles', 'avtorizovannye-servis-centry'),
-(29, 1, 'Регистрация', 7, 3, '', 'link', 'http://kcms/account/registration?activity=reg'),
 (30, 2, '<i class=icon-home></i>', 0, 0, '', 'link', '/admin'),
 (31, 2, 'Статьи', 0, 0, '', 'link', '#'),
 (32, 2, 'Все статьи', 31, 0, '', 'link', '/admin/content/items/articles'),
