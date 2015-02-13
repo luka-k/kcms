@@ -34,7 +34,7 @@ class CI_Url {
 		{
 			$base = "categories";
 			$item = $this->CI->$base->get_item_by(array("id" => $id));
-			$this->CI->$base->add_active($id);
+			$this->add_active($id);
 		}
 		else
 		{
