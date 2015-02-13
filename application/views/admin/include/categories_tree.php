@@ -1,6 +1,7 @@
 <h6>Категории</h6>
 <ul class="tree">
 	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>">Все категории</a></li>
+	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>/0">Родительские категории</a></li>
 	<?foreach ($tree as $branch_1): ?>
 		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->name?></a><a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$branch_1->id?>"><i class="icon-pencil"></i></a>
 			<?if(!empty($branch_1->childs)):?>

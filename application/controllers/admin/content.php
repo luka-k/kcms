@@ -52,7 +52,7 @@ class Content extends Admin_Controller
 		
 	}
 	
-	public function items($type, $id = FALSE)
+	public function items($type, $id = "all")
 	{
 		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
 		//Это поле используем как поле для колонки Имя
@@ -81,7 +81,7 @@ class Content extends Admin_Controller
 			$type == "products" ? $data['tree'] = $this->categories->get_tree(0, "parent_id") : $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
-		if($id == FALSE)
+		if($id == "all")
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
