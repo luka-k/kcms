@@ -21,40 +21,49 @@
 		<div class="page__wrap wrap">
 			<? require 'include/nav/sub_nav.php'?>
 			
-			<h1 class="page__title">Как стать дилером</h1>
 			
-			<div class="page__content"><!-- тут может быть текст --></div> <!-- /.page__content -->
 			
-			<div class="page__form">
-				<form action="#" class="form" where="validate_ajax" method="post">
-					<input type="hidden" name="dealer" value="true"/>
-					<div class="page-form">
-						<div class="page-form__block">
-							<div class="form__line page-form__line skew">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" />
-							</div> <!-- /.form__line -->
+			<?if($action == "dealers"):?>
+				<h1 class="page__title">Дилеры</h1>
+				<div class="page__content">
+					<?foreach($dealers as $d):?>
+						<h3><?=$d->name?></h3>
+						<div><?=$d->description?>
+					<?endforeach;?>
+				</div> <!-- /.page__content -->
+			<?else:?>
+				<h1 class="page__title">Как стать дилером</h1>
+				<div class="page__form">
+					<form action="#" class="form" where="validate_ajax" method="post">
+						<input type="hidden" name="dealer" value="true"/>
+						<div class="page-form">
+							<div class="page-form__block">
+								<div class="form__line page-form__line skew">
+									<input type="text" class="form__input required" name="name" placeholder="Имя" />
+								</div> <!-- /.form__line -->
+								
+								<div class="form__line page-form__line skew">
+									<input type="email" class="form__input required email" name="email" placeholder="E-mail" />
+								</div> <!-- /.form__line -->
 							
-							<div class="form__line page-form__line skew">
-								<input type="email" class="form__input required email" name="email" placeholder="E-mail" />
-							</div> <!-- /.form__line -->
-							
-							<div class="form__line page-form__line skew">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" />
-							</div> <!-- /.form__line -->
-						</div> <!-- /.page-form__block -->
+								<div class="form__line page-form__line skew">
+									<input type="tel" class="form__input required" name="phone" placeholder="Телефон" />
+								</div> <!-- /.form__line -->
+							</div> <!-- /.page-form__block -->
 						
-						<div class="page-form__block">
-							<div class="form__line page-form__line skew">
-								<textarea name="message" class="form__textarea page-form__textarea required" placeholder="Комментарий"></textarea>
-							</div> <!-- /.form__line -->
-						</div> <!-- /.page-form__block -->
+							<div class="page-form__block">
+								<div class="form__line page-form__line skew">
+									<textarea name="message" class="form__textarea page-form__textarea required" placeholder="Комментарий"></textarea>
+								</div> <!-- /.form__line -->
+							</div> <!-- /.page-form__block -->
 
-						<div class="form__button page-form__button skew">
-							<button class="button button--normal button--auto-width">Отправить заявку</button>
-						</div> <!-- /.form__button -->
-					</div> <!-- /.page-form -->
-				</form> <!-- /.form -->
-			</div> <!-- /.page__form -->
+							<div class="form__button page-form__button skew">
+								<button class="button button--normal button--auto-width">Отправить заявку</button>
+							</div> <!-- /.form__button -->
+						</div> <!-- /.page-form -->
+					</form> <!-- /.form -->
+				</div> <!-- /.page__form -->
+			<?endif;?>
 			
 			<div class="page-dealers__map">
 			

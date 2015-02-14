@@ -120,11 +120,11 @@ class Pages extends Client_Controller {
 		$this->load->view($template, $data);
 	}
 	
-	public function dealers()
+	public function dealers($region = FALSE)
 	{
 		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
-		
 		$this->breadcrumbs->Add("articles/gde-kupit", "Где купить");
+		
 		$this->breadcrumbs->Add("dealers", "Как стать дилером");
 		
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
@@ -140,10 +140,19 @@ class Pages extends Client_Controller {
 			'select_item' => $select_item,
 			'settings' => $this->settings->get_item_by(array("id" => 1)),
 			'level_2' => $level_2,
+			'action' => 'form'
 		);
 		$data = array_merge($this->standart_data, $data);
 		
+		if($region)
+		{
+			$dealers = $region == "all" ? $this->dealers->get_list(FALSE) : $this->dealers->get_list(array("region" => $region));
+			
+			$data['dealers'] = $dealers;
+			$data['action'] = "dealers";
+		}
 		$this->load->view("client/dealers", $data);
+		
 	}
 	
 	public function contacts()

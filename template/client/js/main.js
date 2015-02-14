@@ -285,7 +285,13 @@
 				}               
 				label.html(name + list_obj);                
 				list_obj = '';              
-			},          
+			}, 
+			onRegionClick: function(element, code, region){
+				var regions_codes = Object.keys(dealers);
+				if($.inArray(code, regions_codes) != -1){
+					document.location.replace("/articles/gde-kupit/dealers/"+code);
+				}
+			}
 		}); 
 	});
  

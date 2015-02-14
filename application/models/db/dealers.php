@@ -6,6 +6,7 @@ class Dealers extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Название', 'text', 'trim|required|htmlspecialchars|name'),
+			'description' => array('Краткое описание', 'tiny', 'trim'),
 			'region' => array('Регион', 'reg_select', '')
 		)
 	);
