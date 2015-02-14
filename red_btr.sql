@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 13 2015 г., 23:57
+-- Время создания: Фев 14 2015 г., 17:28
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -38,7 +38,18 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `date`, `parent_id`, `name`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`) VALUES
+(1, '2015-02-13', 7, 'Новости', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', '', '', '', 'novosti'),
+(3, '2015-02-14', 1, 'Внедорожные мероприятия', 0, '', '', '', '', 'vnedorozhnye-meropriyatiya'),
+(5, '2015-02-20', 3, 'Lorem ipsum dolor sit amet, consectetur...', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', '', '', '', 'lorem-ipsum-dolor-sit-amet-consectetur'),
+(6, '2015-02-03', 1, 'Июнь', 0, '<p>Команда redBTR Sport участвует&nbsp;в Трофи-рейде &quot;Ладога&quot;&nbsp; в&nbsp;категории Adventure.</p>\r\n', '', '', '', 'lorem-ipsum-dolor-sit-amet-consectetu'),
+(7, '2015-02-14', 0, 'О нас', 0, '', '', '', '', 'o-nas');
 
 -- --------------------------------------------------------
 
@@ -66,15 +77,15 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `parent_id`, `description`) VALUES
 (1, 1, 0, 'Обвес', '', '', '', 'obves', 0, ''),
-(2, 1, 0, 'Комплекты патрубков', '', '', '', 'komplekty-patrubkov', 0, ''),
-(3, 1, 0, 'Электроника', '', '', '', 'elektronika', 0, ''),
-(4, 1, 0, 'Домкраты', '', '', '', 'domkraty', 0, ''),
+(2, 1, 2, 'Комплекты патрубков', '', '', '', 'komplekty-patrubkov', 0, ''),
+(3, 1, 3, 'Электроника', '', '', '', 'elektronika', 0, ''),
+(4, 1, 1, 'Домкраты', '', '', '', 'domkraty', 0, ''),
 (5, 1, 0, 'Инверторы', '', '', '', 'invertory', 3, ''),
 (6, 1, 0, 'Пусковые аккумуляторы', '', '', '', 'puskovye-akkumulyatory', 3, ''),
 (7, 1, 0, 'Аксессуары', '', '', '', 'aksessuary', 3, ''),
-(8, 1, 0, 'Домкраты гидравлические', '', '', '', 'domkraty-gidravlicheskie', 4, ''),
-(9, 1, 1, 'Домкраты винтовые', '', '', '', 'domkraty-vintovye', 4, ''),
-(10, 1, 2, 'Аксессуары', '', '', '', 'aksessuary', 4, '');
+(8, 1, 1, 'Домкраты гидравлические', '', '', '', 'domkraty-gidravlicheskie', 4, ''),
+(9, 1, 2, 'Домкраты винтовые', '', '', '', 'domkraty-vintovye', 4, ''),
+(10, 1, 0, 'Аксессуары', '', '', '', 'aksessuary', 4, '');
 
 -- --------------------------------------------------------
 
@@ -89,7 +100,19 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `characteristics`
+--
+
+INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`) VALUES
+(1, 'use', 'AVT (Quatro Crazy)', 'products', 5),
+(2, 'use', 'Водный транспорт (Mission Naval)', 'products', 4),
+(3, 'use', 'Туризм (Country side)', 'products', 6),
+(4, 'use', 'Промышленность (Mission SOS)', 'products', 1),
+(5, 'use', 'Тяжелое бездорожье и внедорожный спорт (Mission Impossible)', 'products', 2),
+(6, 'use', 'Тяжелое бездорожье и внедорожный спорт (Mission Impossible)', 'products', 3);
 
 -- --------------------------------------------------------
 
@@ -112,9 +135,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3af936b23f8b03f929018c464a83aae1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423857229, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":14:{s:2:"id";s:2:"27";s:9:"last_name";s:0:"";s:4:"name";s:5:"admin";s:10:"patronymic";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:4:"city";s:29:"Санкт-Петербург";s:6:"street";s:14:"Руднева";s:5:"house";s:1:"5";s:8:"building";s:1:"1";s:9:"apartment";s:3:"162";s:8:"zip_code";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('65c2d8429c530abbb83333e4d7f18ead', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423856808, ''),
-('cee6cfa0af407165b727b2a3a451c51f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423856808, '');
+('a2a56de6fa07c1f9815230754174a1fc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1423920400, 'a:4:{s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"c81e728d9d4c2f636f067f89cc14862c";a:7:{s:2:"id";s:1:"2";s:9:"parent_id";s:1:"5";s:4:"name";s:112:"Инвертор напряжения автомобильный 24/220V 1000W, 2 розетки, 1 USB-порт";s:3:"url";s:70:"invertor-napryazheniya-avtomobilnyj-24-220v-1000w-2-rozetki-1-usb-port";s:5:"price";s:4:"3899";s:3:"qty";i:1;s:10:"item_total";i:3899;}}s:9:"total_qty";i:1;s:10:"cart_total";i:3899;}s:4:"user";O:8:"stdClass":14:{s:2:"id";s:2:"27";s:9:"last_name";s:0:"";s:4:"name";s:5:"admin";s:10:"patronymic";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:4:"city";s:29:"Санкт-Петербург";s:6:"street";s:14:"Руднева";s:5:"house";s:1:"5";s:8:"building";s:1:"1";s:9:"apartment";s:3:"162";s:8:"zip_code";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -127,7 +148,16 @@ CREATE TABLE IF NOT EXISTS `dealers` (
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `region` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `dealers`
+--
+
+INSERT INTO `dealers` (`id`, `name`, `region`) VALUES
+(1, '1-ый диллер', 'al'),
+(2, '2-ой диллер', 'kn'),
+(3, '3-ий диллер', 'ps');
 
 -- --------------------------------------------------------
 
@@ -191,7 +221,14 @@ CREATE TABLE IF NOT EXISTS `filials` (
   `phone` varchar(255) NOT NULL,
   `caption` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `filials`
+--
+
+INSERT INTO `filials` (`id`, `name`, `phone`, `caption`) VALUES
+(1, 'Санкт-Петербург', '8 (800) 770 04 07', 'Санкт-Петербург');
 
 -- --------------------------------------------------------
 
@@ -206,7 +243,33 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+
+--
+-- Дамп данных таблицы `images`
+--
+
+INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
+(1, 1, 'products', 1, '/8/4/84d981fb350911e4943200259019918b-371dd85da55a11e491b3005056991d0b.jpg'),
+(2, 0, 'products', 1, '/8/4/84d981fb350911e4943200259019918b-371dd85ea55a11e491b3005056991d0b.jpg'),
+(3, 0, 'products', 1, '/8/4/84d981fb350911e4943200259019918b-371dd85fa55a11e491b3005056991d0b.jpg'),
+(4, 1, 'products', 2, '/e/f/ef61b710350711e4943200259019918b-2fa10d40a55911e491b3005056991d0b.jpg'),
+(5, 0, 'products', 2, '/e/f/ef61b710350711e4943200259019918b-2fa10d41a55911e491b3005056991d0b.jpg'),
+(6, 0, 'products', 2, '/e/f/ef61b710350711e4943200259019918b-2fa10d42a55911e491b3005056991d0b.jpg'),
+(7, 0, 'products', 2, '/e/f/ef61b710350711e4943200259019918b-2fa10d43a55911e491b3005056991d0b.jpg'),
+(8, 1, 'products', 3, '/e/f/ef61b710350711e4943200259019918b-2fa10d42a55911e491b3005056991d0b[1].jpg'),
+(9, 0, 'products', 3, '/4/d/4dceb184350811e4943200259019918b-2fa10d47a55911e491b3005056991d0b.jpg'),
+(10, 0, 'products', 3, '/4/d/4dceb184350811e4943200259019918b-2fa10d48a55911e491b3005056991d0b.jpg'),
+(11, 0, 'products', 3, '/4/d/4dceb184350811e4943200259019918b-2fa10d4aa55911e491b3005056991d0b.jpg'),
+(12, 1, 'products', 4, '/1/2/1261098de40a11e3956f00155d0a2e33-7e520f75a54f11e491b3005056991d0b.jpg'),
+(13, 0, 'products', 4, '/1/2/1261098de40a11e3956f00155d0a2e33-7e520f73a54f11e491b3005056991d0b.jpg'),
+(14, 0, 'products', 4, '/1/2/1261098de40a11e3956f00155d0a2e33-7e520f74a54f11e491b3005056991d0b.jpg'),
+(15, 1, 'products', 5, '/1/2/1261098ee40a11e3956f00155d0a2e33-7e520f78a54f11e491b3005056991d0b.jpg'),
+(16, 0, 'products', 5, '/1/2/1261098ee40a11e3956f00155d0a2e33-7e520f76a54f11e491b3005056991d0b.jpg'),
+(17, 0, 'products', 5, '/1/2/1261098ee40a11e3956f00155d0a2e33-7e520f77a54f11e491b3005056991d0b.jpg'),
+(18, 1, 'products', 6, '/4/e/4ef7e4cf89af11e4943200259019918b-4ef7e4d089af11e4943200259019918b.jpg'),
+(19, 0, 'products', 5, '/1/2/1261098de40a11e3956f00155d0a2e33-7e520f73a54f11e491b3005056991d0b[1].jpg'),
+(20, 0, 'products', 5, '/1/2/1261098de40a11e3956f00155d0a2e33-7e520f74a54f11e491b3005056991d0b[1].jpg');
 
 -- --------------------------------------------------------
 
@@ -240,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=59 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -278,7 +341,10 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (50, 2, 'Системные письма', 47, 0, '', 'link', '/admin/content/items/emails/1'),
 (51, 2, 'Пользователи', 0, 0, '', 'link', '#'),
 (52, 2, 'Пользователи', 51, 0, '', 'link', '/admin/users_module/'),
-(53, 2, 'Группы пользователей', 51, 0, '', 'link', '/admin/content/items/users_groups/');
+(53, 2, 'Группы пользователей', 51, 0, '', 'link', '/admin/content/items/users_groups/'),
+(55, 1, 'Новости', 3, 1, '', 'articles', 'novosti'),
+(57, 1, 'Внедорожные мероприятия', 55, 1, '', 'articles', 'vnedorozhnye-meropriyatiya'),
+(58, 1, 'Новости', 55, 0, '', 'articles', 'novosti');
 
 -- --------------------------------------------------------
 
@@ -345,7 +411,19 @@ CREATE TABLE IF NOT EXISTS `products` (
   `short_description` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `products`
+--
+
+INSERT INTO `products` (`id`, `parent_id`, `is_active`, `is_new`, `is_good_buy`, `sort`, `name`, `article`, `warrant`, `price`, `discount`, `video`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `short_description`, `description`) VALUES
+(1, 5, 1, 1, 1, 0, 'Преобразователь напряжения с 24/12V (автомобильный) 10A **', 'NF-12/24V-10A', '1 год', 939, 0, '', '', '', '', 'preobrazovatel-napryazheniya-s-24-12v-avtomobilnyj-10a', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
+(2, 5, 1, 0, 1, 0, 'Инвертор напряжения автомобильный 24/220V 1000W, 2 розетки, 1 USB-порт', 'NF-24/220V-1000W', '1 год', 3899, 0, '', '', '', '', 'invertor-napryazheniya-avtomobilnyj-24-220v-1000w-2-rozetki-1-usb-port', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
+(3, 5, 1, 1, 0, 0, 'Инвертор напряжения автомобильный 24/220V 1500W **', 'NF-12/220V-1500W', '1 год', 4749, 0, '', '', '', '', 'invertor-napryazheniya-avtomobilnyj-24-220v-1500w', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
+(4, 10, 1, 1, 0, 1, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 23 мм (7/8`) `Серия90-120`', '7\\8', '1 год', 459, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-23-mm-7-8-seriya90-120', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
+(5, 10, 1, 1, 1, 2, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 20 мм (3/4`), до 4,75 тонн `redBTR`', 'RB-Shakle-3/4', '1 год', 469, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-20-mm-3-4-do-4-75-tonn-redbtr', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
+(6, 10, 1, 0, 1, 0, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 16 мм (5/8`) `redBTR`', 'RB-Shakle-5/8', '1 год', 409, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-16-mm-5-8-redbtr', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', '');
 
 -- --------------------------------------------------------
 
@@ -417,14 +495,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `last_name`, `name`, `patronymic`, `password`, `email`, `phone`, `city`, `street`, `house`, `building`, `apartment`, `zip_code`, `secret`) VALUES
-(27, '', 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', 'Санкт-Петербург', 'Руднева', '5', '1', '162', '', '');
+(27, '', 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', 'Санкт-Петербург', 'Руднева', '5', '1', '162', '', ''),
+(33, 'Лукинский', 'Павел', 'Юръевич', 'fae0b27c451c728867a567e8c1bb4e53', 'luka@mail.ru', '', '', '', '', '', '', '', ''),
+(35, '', 'luka@ya.ru', '', '', 'luka@ya.ru', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -442,7 +522,10 @@ CREATE TABLE IF NOT EXISTS `users2users_groups` (
 --
 
 INSERT INTO `users2users_groups` (`group_parent_id`, `child_id`) VALUES
-(1, '27');
+(1, '27'),
+(2, '33'),
+(3, '35'),
+(3, '27');
 
 -- --------------------------------------------------------
 
@@ -456,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   `is_edit` int(1) NOT NULL DEFAULT '1',
   `is_delete` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `users_groups`
@@ -464,7 +547,8 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `name`, `is_edit`, `is_delete`) VALUES
 (1, 'admin', 0, 0),
-(2, 'customers', 0, 0);
+(2, 'customers', 0, 0),
+(3, 'subscribers', 1, 1);
 
 -- --------------------------------------------------------
 
