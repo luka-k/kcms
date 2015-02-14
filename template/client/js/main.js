@@ -295,7 +295,7 @@
 /* ==========================================================================
  * Валидация и отправка форм
  * ========================================================================== */
-
+ 
   app.alaxOptions = {
     url: "/ajax/callback/",
     timeout: 3000,
@@ -306,8 +306,34 @@
     }       
   };
   
+  app.alaxOptions_2 = {
+    url: "/ajax/subscribe/",
+    datatype: 'json',
+    success: function showResponse(res) { 
+	
+		var res = JSON.parse(res); 
+		$.fancybox('<div class="result" style="text-align:center; margin-top:40px;"><p>'+res.answer+'</p></div>', {
+			autoSize: false,
+			autoHeight: false,
+			autoWidth: false,
+			autoResize: false,
+			width: 400,
+			height: 100
+		});
+		
+		setTimeout(function () {
+			$.fancybox.close();
+		}, 3000);
+    }       
+  };
+  
   app.submitForm = function(form){
-    $(form).ajaxSubmit( this.alaxOptions );
+	if(form.id == "callback_form"){
+		$(form).ajaxSubmit( this.alaxOptions );
+	}
+	else if(form.id == "subscribe_form"){
+		$(form).ajaxSubmit( this.alaxOptions_2 );
+	}
   }
 
   app.validateMessages = {

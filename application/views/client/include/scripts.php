@@ -13,6 +13,7 @@
 <script src="<?=base_url()?>template/client/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 <!-- Обработка и валидация форм -->
+<script src="<?=base_url()?>template/client/js/vendor/jquery.form.min.js"></script>
 <script src="<?=base_url()?>template/client/js/vendor/jquery.validate.min.js"></script>
 
 <!-- Slider -->

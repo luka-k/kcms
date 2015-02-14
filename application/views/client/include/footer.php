@@ -8,13 +8,13 @@
 				
 				<div class="subscribe__form">
 					<div class="subscribe-form">
-						<form action="#" class="form" method="post">
+						<form action="#" class="form" where="validate_ajax" id="subscribe_form" method="post">
 							<div class="subscribe-form__line">
 								<input type="text" class="form__input subscribe-form__input required email" name="email" placeholder="" />
 							</div> <!-- /.subscribe__line -->
 							
 							<div class="subscribe-form__button">
-								<button class="button button--normal">Подписаться</button>
+								<button class="button button--normal" onclick="">Подписаться</button>
 							</div> <!-- /.subscribe__button -->
 						</form> <!-- /.form -->
 					</div> <!-- /.subscribe-form -->

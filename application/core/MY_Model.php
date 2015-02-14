@@ -127,14 +127,8 @@ class MY_Model extends CI_Model
 	function is_unique($fields)
 	{
 		$query = $this->db->where($fields)->get($this->_table);
-		if ($query->num_rows() > 0)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
+		
+		return $query->num_rows() > 0 ? FALSE : TRUE;
 	}
 	
 	//Добавляет данные в таблицу
