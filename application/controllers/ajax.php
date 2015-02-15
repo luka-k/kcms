@@ -220,21 +220,21 @@ class Ajax extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	public function dealers()
+	public function map()
 	{
-		$dealers_list = $this->dealers->get_list(FALSE);
+		$info = json_decode(file_get_contents('php://input', true));
 		
-		$dealers = array();
+		$list = $info->map == "page-dealers__map" ? $this->dealers->get_list(FALSE): $this->sells_services->get_list(FALSE);
 		
-		foreach($dealers_list as $dealer)
+		$items = array();
+		
+		foreach($list as $l)
 		{
-			//if(array_key_exists ( $dealer->region , $dealers ))
-			
-			$dealers[$dealer->region][] = $dealer->name;
+			$items[$l->region][] = $l->name;
 		}
 		
 		
-		$data = (object)$dealers;
+		$data = (object)$items;
 		
 		echo json_encode($data);
 	}

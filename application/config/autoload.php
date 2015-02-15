@@ -139,6 +139,7 @@ $autoload['model'] = array(
 	'db/dealers',
 	'db/users_groups',
 	'db/users2users_groups',
+	'db/sells_services',
 	'breadcrumbs', 
 	'menus'
 );

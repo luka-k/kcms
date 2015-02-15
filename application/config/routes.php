@@ -52,6 +52,10 @@ $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 
 $route['articles/gde-kupit/dealers'] = 'pages/dealers';
 $route['articles/gde-kupit/dealers/(:any)'] = 'pages/dealers/$1';
+
+$route['articles/gde-kupit/sells_services'] = 'pages/sells_services';
+$route['articles/gde-kupit/sells_services/(:any)'] = 'pages/sells_services/$1';
+
 $route['articles/kontakty'] = 'pages/contacts';
 
 
@@ -70,15 +74,6 @@ $route['search'] = 'search';
 
 $route['404_override'] = 'pages/page_404';
 /*
-
-
-$route['ajax/(:any)'] = 'ajax/$1';
-$route['admin_ajax/(:any)'] = 'admin_ajax/$1';
-$route['cart'] = 'catalog/cart';
-$route['(:any)/(:num)'] = 'pages/index/$1/$2';
-$route['default_controller'] = "main/index";
-$route['404_override'] = '';
-
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

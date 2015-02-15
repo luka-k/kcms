@@ -65,7 +65,7 @@
 				</div> <!-- /.page__form -->
 			<?endif;?>
 			
-			<div class="page-dealers__map">
+			<div id="map" class="page-dealers__map">
 			
 			</div> <!-- /.page-dealers__map -->
 		</div> <!-- /.page__wrap wrap -->

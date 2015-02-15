@@ -131,7 +131,7 @@ class Content extends Admin_Controller
 			$data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		}
 		
-		if($type == "dealers")
+		if($type == "dealers"||$type == "sells_services")
 		{
 			$this->config->load('dealers_config');
 			$region = $this->config->item('region');

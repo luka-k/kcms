@@ -235,11 +235,17 @@
  * ========================================================================== */
 
   app.dealersMap = function(){
-  	
-	$.post( "/ajax/dealers/", function(res) {
+	var data = new Object();
+	
+	var map = $('#map').attr('class');
+
+	data.map = map;
+	var json_str = JSON.stringify(data);
+	
+	$.post( "/ajax/map/", json_str, function(res) {
 
 		var dealers = JSON.parse(res);
-		var $dealersMap = $('.page-dealers__map');
+		var $dealersMap = $('.'+map);
 
 		if ($dealersMap.length == 0) return;
 
@@ -289,7 +295,11 @@
 			onRegionClick: function(element, code, region){
 				var regions_codes = Object.keys(dealers);
 				if($.inArray(code, regions_codes) != -1){
-					document.location.replace("/articles/gde-kupit/dealers/"+code);
+					if(map == "page-dealers__map"){
+						document.location.replace("/articles/gde-kupit/dealers/"+code);
+					}else if(map == "page-services__map"){
+						document.location.replace("/articles/gde-kupit/sells_services/"+code);
+					}
 				}
 			}
 		}); 

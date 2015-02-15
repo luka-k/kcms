@@ -155,6 +155,43 @@ class Pages extends Client_Controller {
 		
 	}
 	
+	public function sells_services($region = FALSE)
+	{
+		$this->uri->segment(2) ? $select_item = $this->uri->segment(2) : $select_item = "";
+		$this->breadcrumbs->Add("articles/gde-kupit", "Где купить");
+		
+		$this->breadcrumbs->Add("sells_services", "Продажи и сервис");
+		
+		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
+		if($root) 
+		{
+			$level_2->items = $this->menus_items->menu_tree(1, $root->id);
+			$level_2->active = "sells_services";
+		}
+		
+		$data = array(
+			'title' => "Продажи и сервис",
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'select_item' => $select_item,
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'level_2' => $level_2,
+			'action' => 'form'
+		);
+		var_dump($region);
+		if($region)
+		{
+			$sells_services = $region == "all" ? $this->sells_services->get_list(FALSE) : $this->sells_services->get_list(array("region" => $region));
+			
+			$data['sells_services'] = $sells_services;
+			$data['action'] = "list";
+		}
+		
+		$data = array_merge($this->standart_data, $data);
+		
+		
+		$this->load->view("client/sells_services", $data);
+	}
+	
 	public function contacts()
 	{
 		$this->breadcrumbs->Add("articles/kontakty", "Контакты");

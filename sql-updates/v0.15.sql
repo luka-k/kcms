@@ -1,1 +1,1 @@
-ALTER TABLE dealers ADD description TEXT;
+ALTER TABLE dealers ADD description TEXT;CREATE TABLE sells_services (    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,    name VARCHAR(200),	description VARCHAR(200),    region VARCHAR(10));INSERT INTO `sells_services` (`name`, `region`) VALUES ('Сериви-1', 'ch');INSERT INTO `sells_services` (`name`, `region`) VALUES ('Сервис-2', 'as');INSERT INTO `menus_items` (`menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES ('1', 'Продажи и сервис', '2', '2', '', 'link', 'sells_services');
