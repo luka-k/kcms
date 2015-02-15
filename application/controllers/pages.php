@@ -177,7 +177,7 @@ class Pages extends Client_Controller {
 			'level_2' => $level_2,
 			'action' => 'form'
 		);
-		var_dump($region);
+
 		if($region)
 		{
 			$sells_services = $region == "all" ? $this->sells_services->get_list(FALSE) : $this->sells_services->get_list(array("region" => $region));
