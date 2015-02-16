@@ -62,6 +62,8 @@ class Cabinet extends Client_Controller {
 		);
 		$data = array_merge($this->standart_data, $data);
 		$data['user'] = $this->users->get_item_by(array("id" => $data['user']->id));
+		$data['user'] = $this->users->prepare($data['user']);
+		//var_dump($data['user']);
 		$this->load->view('client/cabinet.php', $data);
 	}
 	
@@ -73,9 +75,34 @@ class Cabinet extends Client_Controller {
 		{
 			$user->password = md5($user->password);
 			unset($user->conf_password);
-		}	
+		}
+		elseif($type == "image")
+		{
+			$images = $this->images->get_list(array("object_type" => "users", "object_id" => $user->id));
+			if(!empty($images))
+			{
+				foreach($images as $img)
+				{
+					$object_info = array(
+						"object_type" => "users",
+						"id" => $img->id
+					);
+					$this->images->delete_img($object_info);
+				}
+			}
+			
+			$object_info = array(
+				"object_type" => "users",
+				"object_id" => $user->id
+			);
+			
+			if (isset($_FILES['avatar'])&&($_FILES['avatar']['error'] <> 4)) $this->images->upload_image($_FILES['avatar'], $object_info);
+		}
+		elseif($type == "personal")
+		{
+			$this->users->update($user->id, $user);
+		}
 
-		$this->users->update($user->id, $user);
 		redirect(base_url().'cabinet');
 	}
 	

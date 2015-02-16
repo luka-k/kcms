@@ -84,4 +84,13 @@ class Users extends MY_Model
 		$user = $this->users2users_groups->get_item_by(array("group_parent_id" => $group_id, "child_id" => $user_id));
 		return $user ? TRUE : FALSE;
 	}
+	
+	function prepare($item)
+	{
+		if(!empty($item))
+		{
+			$item->img = $this->images->get_images(array('object_type' => 'users', 'object_id' => $item->id), "1");
+			return $item;
+		}
+	}
 }

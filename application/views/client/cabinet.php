@@ -58,64 +58,89 @@
 						</tbody>
 					</table> <!-- /.cart-table -->
 				</div> <!-- /.page-cart__products -->
+			<?else:?>
+				Вы еще не сделали заказов.
 			<?endif;?>
 			
 			<h1 class="page__title">Персональные данные</h1>
 			
-			<form method="post" class="form" action="<?=base_url()?>cabinet/update_info/personal"/>
-				<input type="hidden" name="id"  value="<?=$user->id?>"/>
+			<div class="avatar page__form">
+				<?if(!empty($user->img)):?>
+					<div style="position:relative; float:left;">
+						<img src="<?=$user->img->catalog_small_url?>" alt=""/>
+					</div>
+				<?endif;?>
+				<div>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" class="form" action="<?=base_url()?>cabinet/update_info/image"/>
+						<input type="hidden" name="id"  value="<?=$user->id?>"/>
+						<div class="form__line" style="float:left; padding-top:20px;">
+							<a href="#" id="psevdoInput" class="upload" onclick="file_input.click(); return false;">Выбрать изображение</a>
+							<input id="psevdoFileValue" class="inputFileText" type="text" style="display:none;"/>
+							<input type="file" id="file_input" name="avatar" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoFileValue').style.display='block'; document.getElementById('psevdoInput').style.display='none'"/>
+						</div>
+						<div class="form__button avatar__button skew">
+							<button type="submit" class="button button--normal button--auto-width"><?if(!empty($user->img)):?>Изменить<?else:?>Загрузить<?endif;?></button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="clearfix page__form">
+				<form method="post" class="form" action="<?=base_url()?>cabinet/update_info/personal"/>
+					<input type="hidden" name="id"  value="<?=$user->id?>"/>
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="last_name" placeholder="Фамилия" value="<?if($user->last_name):?><?=$user->last_name?><?endif;?>"/>
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="last_name" placeholder="Фамилия" value="<?if($user->last_name):?><?=$user->last_name?><?endif;?>"/>
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="patronymic" placeholder="Отчество" value="<?if($user->patronymic):?><?=$user->patronymic?><?endif;?>"/>
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="patronymic" placeholder="Отчество" value="<?if($user->patronymic):?><?=$user->patronymic?><?endif;?>"/>
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input required" name="email" placeholder="E-mail" value="<?if($user->email):?><?=$user->email?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input required" name="email" placeholder="E-mail" value="<?if($user->email):?><?=$user->email?><?endif;?>" />
+					</div> <!-- /.form__line -->
 							
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="phone" placeholder="Телефон" value="<?if($user->phone):?><?=$user->phone?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="phone" placeholder="Телефон" value="<?if($user->phone):?><?=$user->phone?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="city" placeholder="Город" value="<?if($user->city):?><?=$user->city?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="city" placeholder="Город" value="<?if($user->city):?><?=$user->city?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="street" placeholder="Улица" value="<?if($user->street):?><?=$user->street?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="street" placeholder="Улица" value="<?if($user->street):?><?=$user->street?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="house" placeholder="Дом" value="<?if($user->house):?><?=$user->house?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="house" placeholder="Дом" value="<?if($user->house):?><?=$user->house?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="building" placeholder="Корпус" value="<?if($user->building):?><?=$user->building?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="building" placeholder="Корпус" value="<?if($user->building):?><?=$user->building?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="apartment" placeholder="Квартира" value="<?if($user->apartment):?><?=$user->apartment?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="apartment" placeholder="Квартира" value="<?if($user->apartment):?><?=$user->apartment?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__line skew">
-					<input type="text" class="form__input" name="zip_code" placeholder="Индекс" value="<?if($user->zip_code):?><?=$user->zip_code?><?endif;?>" />
-				</div> <!-- /.form__line -->
+					<div class="form__line skew">
+						<input type="text" class="form__input" name="zip_code" placeholder="Индекс" value="<?if($user->zip_code):?><?=$user->zip_code?><?endif;?>" />
+					</div> <!-- /.form__line -->
 				
-				<div class="form__button cart-order__button skew">
-					<button type="submit" class="button button--normal button--auto-width">Изменить данные</button>
-				</div> <!-- /.form__button -->
-			</form>
+					<div class="form__button cart-order__button skew">
+						<button type="submit" class="button button--normal button--auto-width">Изменить данные</button>
+					</div> <!-- /.form__button -->
+				</form>
+			</div>
 			
 			<h1 class="page__title">Изменить пароль</h1>
-			
+			<div class="page__form">
 			<form method="post" class="form" action="<?=base_url()?>cabinet/update_info/pass"/>
 				<input type="hidden" name="id"  value="<?=$user->id?>"/>
 				
@@ -131,6 +156,7 @@
 					<button type="submit" class="button button--normal button--auto-width">Изменить пароль</button>
 				</div> <!-- /.form__button -->
 			</form>
+			</div>
 		</div> <!-- /.page__wrap wrap -->
 	</div> <!-- /.page -->
 		
