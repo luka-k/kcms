@@ -131,4 +131,18 @@ class Admin_ajax extends Admin_Controller
 			$this->products->update($info->id, array("is_good_buy" => $info->value));
 		}
 	}
+	
+	function autocomplete()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$type = $info->type;
+		$items = $this->characteristics->get_list(array("type" => $type));
+		foreach($items as $i)
+		{
+			$available_tags[] = $i->value;
+		}
+		$answer['available_tags'] = array_unique($available_tags);
+		
+		echo json_encode($answer);
+	}
 }

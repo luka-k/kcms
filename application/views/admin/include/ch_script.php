@@ -5,7 +5,7 @@
 		type = element.value;
 		data.type = type;
 		var json_str = JSON.stringify(data);
-		$.post ("/ajax/autocomplete/characteristics", json_str, autocomp_answer, "json");
+		$.post ("/admin/admin_ajax/autocomplete/", json_str, autocomp_answer, "json");
 	}
 		
 	function autocomp_answer(res){
