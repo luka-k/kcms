@@ -234,9 +234,8 @@ class Account extends Client_Controller
 				$this->users->insert($user);
 				
 				$user_id = $this->db->insert_id();
-				$group = $this->users_groups->get_item_by(array("name" => "customers"));
 				
-				$users2users_groups->group_parent_id =$group->id;
+				$users2users_groups->group_parent_id = 2;
 				$users2users_groups->child_id = $user_id;
 				$this->db->insert('users2users_groups', $users2users_groups);
 
