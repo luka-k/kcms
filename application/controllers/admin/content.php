@@ -196,6 +196,40 @@ class Content extends Admin_Controller
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке
+				if($data['content']->id == FALSE)
+				{
+					$data['content']->img = NULL;
+					$field_name = editors_field_exists('ch', $data['editors']);
+					if(!empty($field_name))
+					{
+						$this->config->load('characteristics_config');
+						$data['content']->ch_select = $this->config->item('characteristics_type');
+						$data['content']->characteristics = array();
+					}
+				}
+				else
+				{
+					$object_info = array(
+						"object_type" => $type,
+						"object_id" => $data['content']->id
+					);
+					$data['content']->img = $this->images->get_images($object_info);
+					$field_name = editors_field_exists('ch', $data['editors']);
+					if(!empty($field_name))
+					{
+						$this->config->load('characteristics_config');
+						$data['ch_select'] = $this->config->item('characteristics_type');
+						$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+						foreach($data['content']->characteristics as $characteristic)
+						{
+							foreach($data['ch_select'] as $key => $type)
+							{
+								if($characteristic->type == $key) $characteristic->name = $type;
+							}
+						}
+					}
+				}
+				
 				$this->load->view('admin/edit_item.php', $data);			
 			}
 			else
