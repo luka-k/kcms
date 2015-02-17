@@ -110,4 +110,11 @@ public function run($group = '')
 		
 		return $str;
 	}
+	
+	public function name($str)
+	{
+		$str = str_replace("'", "&quot;", $str);
+		
+		return $str;
+	}
 }

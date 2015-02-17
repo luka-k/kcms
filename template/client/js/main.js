@@ -148,8 +148,7 @@
 		min_value = $rangeSlider.data('min-value'),
         max_value = $rangeSlider.data('max-value'),
         step = parseInt( (max - min) / 10 );
-	
-	console.log(min_value);
+
     $rangeSlider.slider({
       min: min,
       max: max,

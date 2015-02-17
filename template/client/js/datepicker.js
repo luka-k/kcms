@@ -3,7 +3,14 @@
  *========================================================================= */
 
 $(function() {
-	$.post( "/ajax/selected_days/", function(res) {
+	var data = new Object();
+	
+	parent = $( ".datepicker" ).attr("category");
+	
+	data.parent = parent;
+	var json_str = JSON.stringify(data);
+	
+	$.post( "/ajax/selected_days/", json_str, function(res) {
 	
 		events = JSON.parse(res);
 

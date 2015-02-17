@@ -24,11 +24,11 @@ class Pages extends Client_Controller {
 		}
 		
 		$sub_level = $this->menus_items->get_item_by(array("url" => $this->uri->segment(3)));
-		
 		if($sub_level)
 		{	
 			$level_3->items = $this->menus_items->menu_tree(1, $sub_level->id);
-			$level_3->active = $this->uri->segment(4);
+			$level_3->active = $this->uri->segment(4) ? $this->uri->segment(4) : $this->uri->segment(3);
+			
 		}
 
 		if(!$content)
@@ -37,7 +37,7 @@ class Pages extends Client_Controller {
 		}
 		else
 		{
-			if($sub_level->url == "novosti")
+			if($sub_level->id == 55)
 			{
 			
 				if($this->uri->segment(5))

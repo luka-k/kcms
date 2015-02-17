@@ -101,9 +101,11 @@
 		inputs = form.find('.select_url');
 		inputs.each(function (){ 
 			var element = $(this);
+			element.attr('readonly', false);
 			element.disabled=true;
 		});
 		$('#field-'+type).css("display", "inline");
 		document.getElementById('field-'+type).disabled=false;
+		console.log(document.getElementById('field-'+type).value);
 	}
 </script>

@@ -39,8 +39,7 @@
 				
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<!--<img src="images/calendar.png" alt="calendar" />-->
-						<div id="this_mounth" class="datepicker"></div>
+						<div id="this_mounth" class="datepicker" category="<?=$level_3->active?>"></div>
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">
@@ -81,8 +80,7 @@
 				
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<!--<img src="images/calendar.png" alt="calendar" />-->
-						<div id="this_mounth" class="datepicker"></div>
+						<div id="this_mounth" class="datepicker" category="<?=$level_3->active?>"></div>
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">

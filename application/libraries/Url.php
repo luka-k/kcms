@@ -146,16 +146,16 @@ class CI_Url {
 
 					if($sub_level)
 					{
-						if($segment_number == 3)
+						if($segment_number > 2)
 						{
 							$child->articles = array();
 							foreach($sub_level as $item)
 							{
 								$sub_items = $this->CI->articles->get_list(array("parent_id" => $item->id));
-
+						
 								if(!empty($sub_items))foreach($sub_items as $a)
 								{
-									$child->articles[] = $a;
+									if($segment_number <> 4 && $segment_number <> 3) $child->articles[] = $a;
 								}
 								else
 								{
@@ -163,10 +163,6 @@ class CI_Url {
 								}		
 							}
 							$child->articles = $this->CI->articles->get_prepared_list($child->articles);
-						}
-						elseif($segment_number == 4)
-						{
-							$child->articles = $this->CI->articles->get_prepared_list($sub_level);
 						}
 					}
 				}
