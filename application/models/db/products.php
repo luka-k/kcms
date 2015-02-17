@@ -70,6 +70,9 @@ class Products extends MY_Model
 			$item->full_url = $this->get_url($item);
 			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), $cover);
 			$item = $this->set_sale_price($item);
+			
+			$search = array("'", "\"");
+			$item->name = str_replace($search, "&quot;", $item->name);
 			return $item;
 		}			
 	}	
