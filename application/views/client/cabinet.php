@@ -74,12 +74,15 @@
 					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" class="form" action="<?=base_url()?>cabinet/update_info/image"/>
 						<input type="hidden" name="id"  value="<?=$user->id?>"/>
 						<div class="form__line" style="float:left; padding-top:20px;">
-							<a href="#" id="psevdoInput" class="upload" onclick="file_input.click(); return false;">Выбрать изображение</a>
+							<a href="#" id="psevdoInput" class="upload" onclick="file_input.click(); return false;"><?if(!empty($user->img)):?>Изменить аватар<?else:?>Выбрать изображение<?endif;?></a>
 							<input id="psevdoFileValue" class="inputFileText" type="text" style="display:none;"/>
-							<input type="file" id="file_input" name="avatar" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoFileValue').style.display='block'; document.getElementById('psevdoInput').style.display='none'"/>
+							<input type="file" id="file_input" name="avatar" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoFileValue').style.display='block'; document.getElementById('psevdoInput').style.display='none'; document.getElementById('fileInputButton').style.display='inline-block';"/>
 						</div>
 						<div class="form__button avatar__button skew">
-							<button type="submit" class="button button--normal button--auto-width"><?if(!empty($user->img)):?>Изменить<?else:?>Загрузить<?endif;?></button>
+							<button type="submit" id="fileInputButton" class="button button--normal button--auto-width" style="display:none;"><?if(!empty($user->img)):?>Изменить<?else:?>Загрузить<?endif;?></button>
+							<?if(!empty($user->img)):?>
+								<button class="button button--normal button--auto-width" onclick="document.location.assign('/cabinet/delete_avatar/<?=$user->img->id?>'); return false;">Удалить</button>
+							<?endif;?>
 						</div>
 					</form>
 				</div>

@@ -31,7 +31,9 @@
 										Вы точно уверены что хотите удалить изображение?
 									</div><br/>
 									<?if($type == "dynamic_menus"):?>
-										<a href="<?=base_url()?>menu_module/delete_img/<?=$img_item->id?>" class="button small">Удалить?</a>
+										<a href="<?=base_url()?>admin/menu_module/delete_img/<?=$img_item->id?>" class="button small">Удалить?</a>
+									<?elseif($type == "users"):?>	
+										<a href="<?=base_url()?>admin/users_module/delete_img/<?=$img_item->id?>" class="button small">Удалить?</a>
 									<?else:?>
 										<a href="<?=base_url()?>admin/content/delete_img/<?=$type?>/<?=$img_item->id?>" class="button small">Удалить?</a>
 									<?endif;?>

@@ -64,9 +64,9 @@ class Users_module extends Admin_Controller
 		{
 			$data['content'] = $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
-			if(editors_field_exists('img', $this->dynamic_menus->editors))
+			if(editors_field_exists('img', $this->users->editors))
 			{
-				$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
+				$data['content'] = $this->images->get_img_list($data['content'], "users");
 				$data['images'] = TRUE;
 			}	
 		}
@@ -87,6 +87,7 @@ class Users_module extends Admin_Controller
 			'user' => $this->user,
 			'menu' => $this->menu,
 			'name' => $name,
+			'type' => "users",
 			'selects' => array(
 				'group_parent_id' => $this->users_groups->get_list(FALSE)
 			),
@@ -120,7 +121,7 @@ class Users_module extends Admin_Controller
 				if($field_name) $content->parents = $this->users2users_groups->get_list(array("child_id" => $id));
 				
 				$object_info = array(
-					"object_type" => "user",
+					"object_type" => "users",
 					"object_id" => $content->id
 				);
 				$data['content'] = $content;
@@ -204,5 +205,17 @@ class Users_module extends Admin_Controller
 			$this->db->delete('users2users_groups');
 			redirect(base_url().'admin/users_module/');
 		}
+	}
+	
+	/*--------------Удаление изображения-------------*/
+	
+	public function delete_img($id)
+	{
+		$object_info = array(
+			"object_type" => "users",
+			"id" => $id
+		);
+		$item_id = $this->images->delete_img($object_info);
+		redirect(base_url().'admin/users_module/edit/'.$item_id.'/edit/');
 	}
 }

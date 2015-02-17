@@ -106,4 +106,14 @@ class Cabinet extends Client_Controller {
 		redirect(base_url().'cabinet');
 	}
 	
+	function delete_avatar($id)
+	{
+		$object_info = array(
+			"object_type" => "users",
+			"id" => $id
+		);
+		$item_id = $this->images->delete_img($object_info);
+		redirect(base_url().'cabinet/');
+	}
+	
 }

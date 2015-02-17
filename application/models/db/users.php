@@ -10,6 +10,9 @@ class Users extends MY_Model
 			'group_parent_id' => array('Группа', 'u2u_g', 'users2users_groups'),
 			'email' => array('Почта', 'text', 'required|valid_email'),
 			'password' => array('Пароль', 'pass', 'md5')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	
