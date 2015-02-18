@@ -21,14 +21,8 @@ class Content extends Admin_Controller
 				$buffer = fgets($file, 4096);
 				
 				$info[] = explode("; ", $buffer);
-				
-				//$this->products->insert(array("name" => $file_info[0]));
-				
-				
 			}
 			fclose($file);
-			
-			//var_dump($info);
 			
 			foreach($info as $i)
 			{
@@ -60,7 +54,7 @@ class Content extends Admin_Controller
 		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
 		//что не всегда удобно.
 		$name = editors_field_exists('name', $this->$type->editors);
-		
+
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
 		$data = array(
@@ -139,54 +133,55 @@ class Content extends Admin_Controller
 			$data['selects']['region'] = $region;
 		}
 		
+		$is_characteristics = editors_field_exists('ch', $data['editors']);
+		
+		if(!empty($is_characteristics))
+		{
+			$characteristics_type = $this->characteristics_type->get_list(FALSE);
+			$data['ch_select'] = $characteristics_type;
+		}
+		
 		if($action == "edit")
 		{
 			if($id == FALSE)
 			{	
-				$content = set_empty_fields($data['editors']);
+				$data['content'] = set_empty_fields($data['editors']);
 				
 				if($this->db->field_exists('parent_id', $type))
 				{
 					$parent_id = $this->input->get('parent_id');
 					$content->parent_id = $parent_id;
 				}
-				$content->is_active = "1";
-				
-				if($type == "emails") $content->type = 2;
-
-				$data['content'] = $content;
+				$data['content']->is_active = "1";
 				$data['content']->img = NULL;
-				$field_name = editors_field_exists('ch', $data['editors']);
-				if(!empty($field_name))
-				{
-					$this->config->load('characteristics_config');
-					$data['content']->ch_select = $this->config->item('characteristics_type');
-					$data['content']->characteristics = NULL;
-				}
+				
+				if(!empty($is_characteristics)) $data['content']->characteristics = array();
+				
+				if($type == "emails") $data['content']->type = 2;
 			}	
 			else
 			{			
 				$data['content'] = $this->$type->get_item_by(array('id' => $id));
+				
 				$object_info = array(
 					"object_type" => $type,
 					"object_id" => $data['content']->id
 				);
 				$data['content']->img = $this->images->get_images($object_info);
-				$field_name = editors_field_exists('ch', $data['editors']);
-				if(!empty($field_name))
+				
+				if(!empty($is_characteristics))
 				{
-					$this->config->load('characteristics_config');
-					$data['ch_select'] = $this->config->item('characteristics_type');
-					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
 					foreach($data['content']->characteristics as $characteristic)
 					{
-						foreach($data['ch_select'] as $key => $type)
+						foreach($data['ch_select'] as $ch)
 						{
-							if($characteristic->type == $key) $characteristic->name = $type;
+							if($characteristic->type == $ch->ch_type) $characteristic->name = $ch->name;
 						}
 					}
 				}
 			}
+			
 			$this->load->view('admin/edit_item.php', $data);
 		}
 		elseif($action == "save")
@@ -199,13 +194,9 @@ class Content extends Admin_Controller
 				if($data['content']->id == FALSE)
 				{
 					$data['content']->img = NULL;
-					$field_name = editors_field_exists('ch', $data['editors']);
-					if(!empty($field_name))
-					{
-						$this->config->load('characteristics_config');
-						$data['content']->ch_select = $this->config->item('characteristics_type');
-						$data['content']->characteristics = array();
-					}
+
+					if(!empty($is_characteristics)) $data['content']->characteristics = array();
+					if($type == "emails") $data['content']->type = 2;
 				}
 				else
 				{
@@ -214,17 +205,15 @@ class Content extends Admin_Controller
 						"object_id" => $data['content']->id
 					);
 					$data['content']->img = $this->images->get_images($object_info);
-					$field_name = editors_field_exists('ch', $data['editors']);
-					if(!empty($field_name))
+					
+					if(!empty($is_characteristics))
 					{
-						$this->config->load('characteristics_config');
-						$data['ch_select'] = $this->config->item('characteristics_type');
-						$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+						$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id, "object_type" => $type));
 						foreach($data['content']->characteristics as $characteristic)
 						{
-							foreach($data['ch_select'] as $key => $type)
+							foreach($data['ch_select'] as $ch)
 							{
-								if($characteristic->type == $key) $characteristic->name = $type;
+								if($characteristic->type == $ch->ch_type) $characteristic->name = $ch->name;
 							}
 						}
 					}
@@ -234,7 +223,6 @@ class Content extends Admin_Controller
 			}
 			else
 			{			
-				//Если валидация прошла успешно проверяем переменную id
 				if($data['content']->id == FALSE)
 				{
 					//Если id пустая создаем новую страницу в базе

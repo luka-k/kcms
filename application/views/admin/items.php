@@ -20,6 +20,7 @@
 								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small">Создать</a>
 							</div>			
 						</div>
+
 						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
