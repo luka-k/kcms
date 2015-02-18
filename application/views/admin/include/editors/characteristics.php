@@ -5,8 +5,8 @@
 			<div class="col_5">Характеристика:</div>
 			<select name="type" id="ch_select" class="add_ch col_7">
 				<option label="" value="">Выберите</option>
-				<?foreach($ch_select as $key => $item):?>
-					<option value="<?=$key?>"><?=$item?></option>
+				<?foreach($ch_select as $item):?>
+					<option value="<?=$item->ch_type?>"><?=$item->name?></option>
 				<?endforeach?>
 			</select>
 		</div>
