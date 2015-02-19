@@ -188,11 +188,12 @@ class Account extends Client_Controller
 	public function new_user()
 	{
 		$activity = $this->input->get('activity');
+		$settings = $this->settings->get_item_by(array("id" => 1));
 		$data = array(
 			'title' => "Регистрация",
 			'error' => "",
 			'select_item' => "",
-			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'settings' => $settings,
 			'activity' => "reg"
 		);
 		$data = array_merge($this->standart_data, $data);
@@ -239,17 +240,26 @@ class Account extends Client_Controller
 				$users2users_groups->child_id = $user_id;
 				$this->db->insert('users2users_groups', $users2users_groups);
 
-				
 				$message_info = array(
+					"site_url" => base_url(),
 					"user_name" => $user->name,
 					"login" => $user->email,
 					"password" => $pass
 				);
 				
-				$this->emails->send_system_mail($user->email, 4, $message_info);				
+				$this->emails->send_system_mail($user->email, 4, $message_info);	
 				
-				if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
+				redirect(base_url());
 			}
 		}			
+	}
+	
+	public function set_valid()
+	{
+		$email = $this->input->get("email");
+		$user = $this->users->get_item_by(array("email" => $email));
+		$this->users->update($user->id, array("valid_email" => 1));
+		
+		if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 	}
 }
