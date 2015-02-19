@@ -113,29 +113,20 @@
 					var json_str = JSON.stringify(data);
 					$.post( "/admin/mailouts_module/send_mail/", json_str, send_callback);
 				}
+				
+				setTimeout(function(){
+					//ФОрмируем информацию для лога в базу
+					data = {};
+					data.users_groups = subscribes_groups;
+					data.template_id = $("#template_id").val();
 		
-				//ФОрмируем информацию для лога в базу
-				data = {};
-				data.users_groups = subscribes_groups;
-				data.template_id = $("#template_id").val();
-		
-				///////////////////////////////////////////////////////////////////
-				// И вот собствекнно косяк                                       //
-				// функция send_callback спокойно работае с success и no_succes  //
-				// но в нее ее значения переменнвх не меняются.                  //
-				// гуглил этот вопрос я достаточно много.                        //
-				// писать в куки?                                                //
-				// писать лог в файл? а потом из него брать.                     //
-				// как то замутно.                                               //
-				///////////////////////////////////////////////////////////////////
-				data.success = success;
-				data.no_success = no_success;
-				var json_str = JSON.stringify(data);
-				$.post( "/admin/mailouts_module/add_mailout_info/", json_str, function() {
-					setTimeout(function(){
+					data.success = $('.success').html();
+					data.no_success = $('.no_success').html();
+					var json_str = JSON.stringify(data);
+					$.post( "/admin/mailouts_module/add_mailout_info/", json_str, function() {
 						document.location.assign('/admin/mailouts_module/');
-					}, 4000);
-				});
+					});	
+				}, 4000);
 			});
 				
 			return false;
@@ -146,13 +137,12 @@
 	
 	function send_callback(answer) {
 		if(answer == "true"){
-			success++;
-			
+			window.success++;	
 		}else{
 			no_success++;
 		}
 				
-		$('.success').text(success);
+		$('.success').text(window.success);
 		$('.no_success').text(no_success);
 	}
 	
