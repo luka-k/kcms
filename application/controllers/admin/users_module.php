@@ -218,4 +218,34 @@ class Users_module extends Admin_Controller
 		$item_id = $this->images->delete_img($object_info);
 		redirect(base_url().'admin/users_module/edit/'.$item_id.'/edit/');
 	}
+	
+	public function export()
+	{
+		$group_id = $this->input->post("group");
+		
+		$fields = $this->db->list_fields('users');
+		unset($fields[0]);
+		unset($fields[count($fields)]);//Как то я здраво решил что поле secret то же не особо в импорте нужно
+		
+		$users = $this->users->group_list($group_id);
+
+		$file_name = FCPATH."download/export.csv";
+		$file = fopen($file_name, "w");
+		ftruncate($file, 0);
+		
+		fputcsv($file, $fields, ";");
+		
+		if(!empty($users)) foreach($users as $user)
+		{
+			unset($user->id);
+			
+			unset($user->secret);
+			$fields = (array)$user;
+			fputcsv($file, $fields, ";");
+		}
+		
+		fclose($file);
+		
+		redirect(base_url()."download/export.csv", 307);
+	}
 }

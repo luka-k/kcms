@@ -39,6 +39,10 @@ position:relative;
 top:-2px;
 }
 
+#left-menu .tabs li{
+margin-bottom:-1px;
+}
+
 #menu{
 padding:0 0.83333333333333%;
 }
