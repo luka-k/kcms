@@ -229,8 +229,8 @@ class Users_module extends Admin_Controller
 		
 		$users = $this->users->group_list($group_id);
 
-		$file_name = FCPATH."download/export.csv";
-		$file = fopen($file_name, "w");
+		$file_path = FCPATH."download/export.csv";
+		$file = fopen($file_path, "w");
 		ftruncate($file, 0);
 		
 		fputcsv($file, $fields, ";");
@@ -247,5 +247,59 @@ class Users_module extends Admin_Controller
 		fclose($file);
 		
 		redirect(base_url()."download/export.csv", 307);
+	}
+	
+	public function import()
+	{
+		$group_id = $this->input->post("group");
+		
+		$file_path = FCPATH."download/import.csv";
+		
+		move_uploaded_file($_FILES['import_file']['tmp_name'], $file_path);
+		
+		$file = fopen($file_path, "r");
+		
+		$fields = array();
+		while(!feof($file))
+		{
+			$fields[] = fgetcsv ($file, 0, ";");
+		}
+		
+		$email_key = array_search("email", $fields[0]);
+		
+		foreach($fields as $key => $item)
+		{
+			if($key <> 0)
+			{
+				$field = array();
+				foreach($item as $key => $value)
+				{
+					$field[$fields[0][$key]] = $value;
+				}
+
+				if($this->users->is_unique(array("email" => $item[$email_key])))
+				{
+					$this->db->insert('users', $field);
+					
+					
+					$users2users_groups->group_parent_id = $group_id;
+					$users2users_groups->child_id = $this->db->insert_id();
+					$this->db->insert('users2users_groups', $users2users_groups);
+				}
+				else
+				{
+					$user = $this->users->get_item_by(array("email" => $item[$email_key]));
+					
+					if(!$this->users->in_group($user->id, $group_id))
+					{
+						$users2users_groups->group_parent_id = $group_id;
+						$users2users_groups->child_id = $user->id;
+						$this->db->insert('users2users_groups', $users2users_groups);
+					}
+				}
+			}
+		}
+		
+		redirect(base_url().'admin/users_module/');
 	}
 }

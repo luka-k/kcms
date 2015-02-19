@@ -45,12 +45,32 @@
 										<div>Выберите группу пользователей для экспорта</div>
 										<?$counter = 1?>
 										<?foreach($groups as $g):?>
-											<div class="col_1"><input type="radio" name="group" id="group_<?=$counter?>" <?foreach($filters['groups'] as $gr):?> <?if($gr == $g->id):?>checked<?endif;?> <?endforeach;?> value="<?=$g->id?>"/></div>
-											<div class="col_11"><label for="group_<?=$counter?>"><?=$g->name?></label></div>
+											<div class="col_1"><input type="radio" name="group" id="gr_<?=$counter?>" <?foreach($filters['groups'] as $gr):?> <?if($gr == $g->id):?>checked<?endif;?> <?endforeach;?> value="<?=$g->id?>"/></div>
+											<div class="col_11"><label for="gr_<?=$counter?>"><?=$g->name?></label></div>
 											<?$counter++?>
 										<?endforeach;?>
 										<div class="center">
 											<a href="#" class="button small" onclick="document.forms['export_form'].submit(); return false;">Экспорт</a>
+										</div>
+									</form>
+								</div>
+								
+								<div id="tab_2" class="clearfix tab-content">
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="import_form" action="<?=base_url()?>admin/users_module/import/"/>
+										<div class="col_12">
+											<div class="col_12">Выберите файл для импорта</div>
+											<input type="file" id="import_file" class="col_12" name="import_file" />
+										</div>
+										
+										<div>Выберите в какую группу делаем импорт</div>
+										<?$counter = 1?>
+										<?foreach($groups as $g):?>
+											<div class="col_1"><input type="radio" name="group" id="g_<?=$counter?>" <?foreach($filters['groups'] as $gr):?> <?if($gr == $g->id):?>checked<?endif;?> <?endforeach;?> value="<?=$g->id?>"/></div>
+											<div class="col_11"><label for="g_<?=$counter?>"><?=$g->name?></label></div>
+											<?$counter++?>
+										<?endforeach;?>
+										<div class="center">
+											<a href="#" class="button small" onclick="document.forms['import_form'].submit(); return false;">Импорт</a>
 										</div>
 									</form>
 								</div>
