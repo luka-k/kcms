@@ -176,7 +176,7 @@ class Content extends Admin_Controller
 					{
 						foreach($data['ch_select'] as $ch)
 						{
-							if($characteristic->type == $ch->ch_type) $characteristic->name = $ch->name;
+							if($characteristic->type == $ch->url) $characteristic->name = $ch->name;
 						}
 					}
 				}

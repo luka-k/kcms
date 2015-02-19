@@ -26,7 +26,7 @@
 				<div class="page-catalog__filter">
 					<div class="catalog-filter">
 						<form action="<?=base_url()?>catalog" class="form" method="get">
-							<input type="hidden" name="filter" value="true">
+							<!--<input type="hidden" name="filter" value="true">-->
 							<div class="catalog-filter__top">
 								<!--<div class="form__line catalog-filter__line">
 									<span class="form__select-arrow">
@@ -40,9 +40,7 @@
 									</span>
 								</div> <!-- /.form__line -->
 								
-								<?foreach($filters as $key => $item):?>
-									<?require "include/filters/{$item->editor}.php"?>
-								<?endforeach;?>
+								<?require "include/filters/select.php"?>
 								
 							</div> <!-- /.catalog-filter__top -->
 							

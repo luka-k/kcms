@@ -87,23 +87,17 @@ class Admin_ajax extends Admin_Controller
 		$info = json_decode(file_get_contents('php://input', true));
 		if(!isset($info->id))
 		{
-			$this->db->select_max('id');
-			$query = $this->db->get('characteristics');
-			$after = $query->row()->id;
-			
 			$this->characteristics->insert($info);
 			$info->id = $this->db->insert_id();
 			
-			$this->config->load('characteristics_config');
-			$ch_select = $this->config->item('characteristics_type');
+			$ch_select = $this->characteristics_type->get_list(FALSE);
 			
-			foreach($ch_select as $key => $type)
+			foreach($ch_select as $item)
 			{
-				if($info->type == $key) $info->name = $type;
+				if($info->type == $item->url) $info->name = $item->name;
 			}
 			
 			$answer = array(
-				'after' => $after,
 				'base_url' => base_url(),
 				'info' => $info
 			);

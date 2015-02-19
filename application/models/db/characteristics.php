@@ -51,52 +51,17 @@ class Characteristics extends MY_Model
 	function get_filtered_products($get, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
-		$filters = $this->filters;
+
 		$counter = 0;
-		foreach($get as $key => $item)
+
+		if(isset($get->filter_value))
 		{
-			if(!empty($item)) 
-			{
-				if(isset($filters[$key]))
-				{
-					switch ($filters[$key][1])
-					{
-						case "text":
-							$this->db->where(array("type" => $key, "value" => $item));
-							$counter++;
-							break;
-						case "select":
-							$this->db->where("type", $key);
-							$this->db->where_in("value", $item);
-							$counter++;
-							break;
-						case "single":
-							$this->db->where(array("type" => $key, "value" => $item));
-							$counter++;
-							break;
-						case "interval":
-							if(!empty($item[0])&&!empty($item[1]))
-							{
-								$this->db->where("type", $key);
-								$where = "{$name} BETWEEN {$item[0]} AND {$item[1]}";
-								$this->db->where($where);
-								$counter++;
-							}
-							elseif(!empty($item[0])||!empty($item[1]))
-							{
-								$this->db->where("type", $key);
-								if(!empty($item[0])) $this->db->where("value >", $item[0]);
-								if(!empty($item[1])) $this->db->where("value <", $item[1]);
-								$counter++;
-							}	
-							break;
-					}
-					$values = $this->_update_values($values);
-				}
-			}
+			$this->db->where("type", $get->filter);
+			$this->db->where_in("value", $get->filter_value);
 		}
 
-		
+		$values = $this->_update_values($values);
+
 		if($counter > 1)
 		{
 			$values = array_count_values($values);

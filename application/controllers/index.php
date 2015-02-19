@@ -16,12 +16,12 @@ class Index extends Client_Controller {
 		
 		$top_menu = $this->dynamic_menus->get_menu(1);
 		
-		$filters = $this->characteristics->get_filters();
-		
+		$filters = $this->characteristics->get_list(array("type" => "po-primenyaemosti"));
+
 		$catalog_by_filter = array();
-		if(!empty($filters)) foreach($filters['use']->values as $item)
+		if(!empty($filters)) foreach($filters as $item)
 		{
-			$catalog_by_filter[$item] = base_url()."catalog?filter=true&use=".str_replace(" ", "+", $item);
+			$catalog_by_filter[$item->value] = base_url()."catalog?filter=true&use=".str_replace(" ", "+", $item->value);
 		}
 		
 		$good_buy = $this->products->get_list(array("is_good_buy" => 1), FALSE, 4);

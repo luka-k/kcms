@@ -6,7 +6,7 @@
 			<select name="type" id="ch_select" class="add_ch col_7">
 				<option label="" value="">Выберите</option>
 				<?foreach($ch_select as $item):?>
-					<option value="<?=$item->ch_type?>"><?=$item->name?></option>
+					<option value="<?=$item->url?>"><?=$item->name?></option>
 				<?endforeach?>
 			</select>
 		</div>

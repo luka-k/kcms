@@ -6,7 +6,7 @@ class Characteristics_type extends MY_Model
 		'Основное' => array(
 			'id' => array("id", "hidden", ""),
 			'name' => array("Название типа", "text", "trim|required|htmlspecialchars|name"),
-			'ch_type' => array("Название типа", "hidden", "substituted[name]"),
+			'url' => array("тип фильтра", "hidden", "substituted[name]")
 		)
 	);
 	

@@ -96,15 +96,19 @@ class Catalog extends Client_Controller {
 				}
 			}
 		}
-
 		
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		$this->config->load('characteristics_config');
+				
+		$filter = $this->characteristics_type->get_item_by(array("url" => "po-primenyaemosti"));
 		
-		$filters = $this->characteristics->get_filters();
-		
-		!empty($get['use']) ? $filters_checked['use'] = $get['use'] : $filters_checked['use'] = "";
+		$this->db->distinct();
+		$this->db->select("value");
+		$query = $this->db->get_where("characteristics", array("type" => $filter->url));
+		$filter->items = $query->result();
+
+		!empty($get["filter_value"]) ? $filters_checked[$filter->url] = $get['filter_value'] : $filters_checked[$filter->url] = "";
 		isset($get['is_active']) ? $filters_checked['is_active'] = $get['is_active'] : $filters_checked['is_active'] = "";
 
 		$left_menu = $this->categories->get_site_tree(0, "parent_id");
@@ -130,7 +134,7 @@ class Catalog extends Client_Controller {
 			'select_item' => "",
 			'order_price' => $order_price,
 			'order_name' => $order_name,
-			'filters' => $filters,
+			'filter' => $filter,
 			'filters_checked' => $filters_checked,
 			'min_price' => $min_price,
 			'max_price' => $max_price,
@@ -146,6 +150,7 @@ class Catalog extends Client_Controller {
 			$this->breadcrumbs->add("", "Поиск");
 			$category = new stdClass();
 			$category->name = "Результаты поиска";
+			
 			$category->products = $this->characteristics->get_filtered_products((object)$get, $order, $direction);
 			$category->products = $this->products->get_prepared_list($category->products);
 
