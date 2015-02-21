@@ -179,32 +179,34 @@
 			</div> <!-- /.product__extra-info .product-extra-info -->
 			
 			<div class="product__catalog catalog">
-				<!--<h2 class="catalog__subtitle">рекомендуемые товары</h2>
+				<h2 class="catalog__subtitle">рекомендуемые товары</h2>
 				
 				<div class="catalog__list catalog__list--border-bottom">
-					<div class="catalog__item">
-						<div class="catalog-item">
-							<div class="catalog-item__image-box">
-								<a href="product.html"><img src="images/catalog/1/1-225x170.jpg" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-							</div> <!-- /.catalog-item__image-box -->
+				
+					<?foreach($content->recommended_products as $r_p):?>
+						<div class="catalog__item">
+							<div class="catalog-item">
+								<div class="catalog-item__image-box">
+									<a href="<?=$r_p->full_url?>"><img src="<?=$r_p->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+								</div> <!-- /.catalog-item__image-box -->
 							
-							<!--<a href="product.html" class="catalog-item__name">Диск колесный</a>
+								<a href="<?=$r_p->full_url?>" class="catalog-item__name"><?=$r_p->name?></a>
 							
-							<div class="catalog-item__desc">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde fuga, aut laborum quas expedita</p>
-							</div> <!-- /.catalog-item__desc -->
+								<div class="catalog-item__desc">
+									<p><?=$r_p->description?></p>
+								</div> <!-- /.catalog-item__desc -->
 							
-							<!--<div class="catalog-item__bottom skew">
-								<div class="catalog-item__price">10 000р.</div> <!-- /.catalog-item__price -->
+								<div class="catalog-item__bottom skew">
+									<div class="catalog-item__price"><?=$r_p->price?>р.</div> <!-- /.catalog-item__price -->
 								
-								<!--<div class="catalog-item__button">
-									<button class="button button--normal fancybox" data-fancybox-href="#to-cart">Купить</button>
-								</div> <!-- /.catalog-item__button -->
-							<!--</div> <!-- /.catalog-item__bottom -->
-						<!--</div> <!-- /.catalog-item -->
-					<!--</div> <!-- /.catalog__item -->
-
-				<!--</div> <!-- /.catalog__list -->
+									<div class="catalog-item__button">
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$r_p->id?>', '<?=$r_p->name?>', 1); return false;">Купить</button>
+									</div> <!-- /.catalog-item__button -->
+								</div> <!-- /.catalog-item__bottom -->
+							</div> <!-- /.catalog-item -->
+						</div> <!-- /.catalog__item -->
+					<?endforeach?>
+				</div> <!-- /.catalog__list -->
 				
 				<h2 class="catalog__subtitle">Новинки</h2>
 				
@@ -226,7 +228,7 @@
 									<div class="catalog-item__price"><?=$new_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>'); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

@@ -62,12 +62,12 @@ class Products extends MY_Model
 		$products_id = array();
 		foreach($result as $r)
 		{
-			$product_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
+			$products_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
 		}
 		
 		$recommended_products = array();
 		
-		foreach($product_id as $id)
+		foreach($products_id as $id)
 		{
 			$recommended_products[] = $this->get_item($id); 
 		}

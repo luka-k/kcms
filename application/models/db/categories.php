@@ -83,6 +83,7 @@ class Categories extends MY_Model
 	
 	public function make_full_url($item)
 	{
+		//var_dump($item);
 		$item_url = array();
 		$item_url[] = $item->url;
 		while($item->parent_id <> 0)

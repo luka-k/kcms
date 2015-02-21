@@ -200,6 +200,7 @@ class Catalog extends Client_Controller {
 					{
 						$content = $this->products->prepare($category->product, FALSE);
 						$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
+						$content->recommended_products = $this->products->get_prepared_list($this->products->get_recommended($content->id));
 						$template = "client/product.php";
 					}
 					elseif(isset($category->products))
