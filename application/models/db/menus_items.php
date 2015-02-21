@@ -25,7 +25,7 @@ class Menus_items extends MY_Model
 		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			if($menu_id == 2)
+			if($menu_id == 1)
 			{
 				$b->url == "#" ? $branches[$i]->full_url = $b->url : $branches[$i]->full_url = base_url().$b->url;
 			}
