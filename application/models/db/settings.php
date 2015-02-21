@@ -12,7 +12,8 @@ class Settings extends MY_Model
 		),
 		'SEO' => array(
 			'site_description' => array('Описание сайта', 'text'),
-			'site_keywords' => array('Ключевые слова', 'text')
+			'site_keywords' => array('Ключевые слова', 'text'),
+			'lastmod' => array('lastmod', 'hidden', '')
 		),
 		'Изображение' => array(
 			'upload_image' => array('Изображение по умолчанию', 'image', 'img')

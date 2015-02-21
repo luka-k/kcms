@@ -144,6 +144,9 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->editors_post()->data;
 			
+			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
+			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
+			
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке

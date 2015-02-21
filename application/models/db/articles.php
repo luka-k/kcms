@@ -15,7 +15,8 @@ class Articles extends MY_Model
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
+			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
+			'lastmod' => array('lastmod', 'hidden', '')
 		)
 	);
 	
