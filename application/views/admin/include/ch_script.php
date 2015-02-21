@@ -45,6 +45,7 @@
 			$('#ch-'+res.item_id).remove();
 		}
 	}
+	
 	function autocomp(){
 		var data = {};
 		var element = document.getElementById('ch_select');

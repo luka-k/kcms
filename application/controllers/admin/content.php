@@ -156,7 +156,7 @@ class Content extends Admin_Controller
 				$data['content']->img = NULL;
 				
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
-				
+				if($type == "products") $data['content']->reccomended = array();
 				if($type == "emails") $data['content']->type = 2;
 			}	
 			else
@@ -169,6 +169,8 @@ class Content extends Admin_Controller
 				);
 				$data['content']->img = $this->images->get_images($object_info);
 				
+				if($type == "products") $data['content']->recommended = $this->products->get_recommended($id);
+								
 				if(!empty($is_characteristics))
 				{
 					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
@@ -196,6 +198,7 @@ class Content extends Admin_Controller
 					$data['content']->img = NULL;
 
 					if(!empty($is_characteristics)) $data['content']->characteristics = array();
+					if($type == "products") $data['content']->reccomended = array();
 					if($type == "emails") $data['content']->type = 2;
 				}
 				else
@@ -309,5 +312,14 @@ class Content extends Admin_Controller
 	{
 		$ch = $this->characteristics->get_item_by(array("id" => $id));
 		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
+	}
+	
+	public function delete_recommended($r_id, $id)
+	{
+		$this->db->where(array("product1_id" => $id, "product2_id" => $r_id));
+		$this->db->or_where(array("product2_id" => $id, "product1_id" => $r_id));
+		$this->db->delete("recommended_products");
+
+		redirect(base_url().'admin/content/item/edit/products/'.$id."#tab_5");
 	}
 }

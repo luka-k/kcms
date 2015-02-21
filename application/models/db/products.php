@@ -29,6 +29,9 @@ class Products extends MY_Model
 		),
 		'Характеристики' => array(
 			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
+		),
+		'Рекомендованые товары' => array(
+			'recommend' => array('Редактировать рекомендованые товары', 'recommend', '')
 		)
 	);
 	
@@ -42,6 +45,34 @@ class Products extends MY_Model
 	function __construct()
 	{
         parent::__construct();
+	}
+	
+	public function get_recommended($id)
+	{
+		/*$products_1 = $this->recommended_products->get_list(array("product1_id" => $id));
+				//$this->db->select("product1_id");
+				$products_2 = $this->recommended_products->get_list(array("product1_id" => $id, "product2_id" => $id));
+				
+				var_dump($products_2);*/
+		$this->db->where('product1_id', $id);
+		$this->db->or_where('product2_id', $id); 
+		$query = $this->db->get("recommended_products");
+		$result = $query->result();
+		
+		$products_id = array();
+		foreach($result as $r)
+		{
+			$product_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
+		}
+		
+		$recommended_products = array();
+		
+		foreach($product_id as $id)
+		{
+			$recommended_products[] = $this->get_item($id); 
+		}
+		
+		return $recommended_products;
 	}
 	
 	public function get_url($item)
