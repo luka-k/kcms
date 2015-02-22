@@ -42,6 +42,35 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
+		public function get_sub_products($id)
+	{
+		$this->sub_products = array();
+		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1));
+		if($sub_products) foreach($sub_products as $product_item)
+		{
+			$this->sub_products[] = $product_item;
+		}
+		
+		$this->_sub_products($id);	
+		return $this->sub_products;
+	}
+	
+	//Возвращает товары из всех подкатегорий категории
+	function _sub_products($id)
+	{
+		$sub_categories = $this->categories->get_list(array("parent_id" => $id));
+		
+		if($sub_categories )foreach($sub_categories as $item)
+		{
+			$sub_products = $this->products->get_list(array("parent_id" => $item->id, "is_active" => 1));
+			if($sub_products) foreach($sub_products as $product_item)
+			{
+				$this->sub_products[] = $product_item;
+			}
+			$this->_sub_products($item->id);
+		}
+	}
+	
 	public function get_url($item)
 	{
 		$item_full_url = $this->make_full_url($item);
@@ -52,15 +81,24 @@ class Categories extends MY_Model
 	
 	public function make_full_url($item)
 	{
+		
 		$item_url = array();
 		$item_url[] = $item->url;
-		while($item->parent_id <> 0)
+		
+		if($this->uri->segment(1) == "works") $stop_parent_id = 14;
+		if($this->uri->segment(1) == "catalog") $stop_parent_id = 13;
+
+		while($item->parent_id <> $stop_parent_id)
 		{
 			$parent_id = $item->parent_id;
 			$item = $this->get_item_by(array("id" => $parent_id));
 			$item_url[] = $item->url;
 		}
-		$item_url[] = 'works';
+		
+		//Это костыль, но я пока не придумал лучше способа различать двери в каталоге и двери в наших работах.
+		//вообще надо бы закрыть глюк возникающий при одинаковых урлах.
+		//мысли у меня есть на днях о пробую потому что это актуально.
+		$item_url[] = $this->uri->segment(1);
 		return $item_url;
 	}	
 	

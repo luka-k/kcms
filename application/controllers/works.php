@@ -10,7 +10,7 @@ class Works extends Client_Controller {
 	public function index()
 	{
 		$this->load->helper('url_helper');
-		
+			
 		//!isset($get['order']) ? $order = "name" : $order = $get['order'];		
 		//!isset($get['direction']) ? $direction = "acs" : $direction = $get['direction'];
 		$order = "sort";
@@ -19,7 +19,7 @@ class Works extends Client_Controller {
 		$this->breadcrumbs->add("works", "Наши работы");
 		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'tree' => $this->categories->get_site_tree(14, "parent_id"),
 			'url' => $this->uri->segment_array()
 		);
 
@@ -29,7 +29,8 @@ class Works extends Client_Controller {
 
 		if ($category == "root")
 		{
-			$content = $this->categories->get_list(array("parent_id" => 0), $from = FALSE, $limit = FALSE, $order, $direction);
+			$content = $this->categories->get_list(array("parent_id" => 14), $from = FALSE, $limit = FALSE, $order, $direction);
+			
 			$content = $this->categories->get_prepared_list($content);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
@@ -61,7 +62,6 @@ class Works extends Client_Controller {
 					{
 						$content = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
 						$content = $this->categories->get_prepared_list($content);
-
 						$template = "client/categories.php";
 					}
 					else

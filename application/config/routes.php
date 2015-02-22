@@ -54,6 +54,10 @@ $route['works'] = 'works/index';
 $route['works/(:any)'] = 'works/index/$1';
 $route['works/(:any)/(:num)'] = 'works/index/$1/$2';
 
+$route['catalog'] = 'catalog/index';
+$route['catalog/(:any)'] = 'catalog/index/$1';
+$route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
+
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
