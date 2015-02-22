@@ -31,7 +31,7 @@
 								<?foreach($content as $c):?>
 									<li class="projects__item projects-item">
 										<a href="<?=$c->full_url?>" class="projects-item__image-box">
-				        					<img src="<?=$c->img->full_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
+				        					<img src="<?=$c->img->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
 				        				</a>
 										
 										<div class="projects-item__content">
