@@ -35,7 +35,9 @@
 										
 										<li class="inside-navigation__item">
 											<a href="<?=$a->full_url?>" class="inside-navigation__href">
-												<img src="<?if(isset($a->img)):?><?=$a->img->categories_url?><?endif;?>" alt="img" class="inside-navigation__image"/>
+												<img src="<?=$a->img[0]->categories_url?>" 
+												data-hover-image="<?if(isset($a->img[1])):?><?=$a->img[1]->categories_url?><?else:?><?=$a->img[0]->categories_url?><?endif;?>"
+												alt="img" class="inside-navigation__image"/>
 												<?=$a->name?>
 											</a> <!-- /.inside-navigation__href -->
 										</li> <!-- /.inside-navigation__item -->

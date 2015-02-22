@@ -19,7 +19,7 @@ class Articles extends MY_Model
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
 		),
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image', 'img')
+			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	
@@ -65,7 +65,7 @@ class Articles extends MY_Model
 		if(!empty($item))
 		{
 			$item->full_url = $this->get_url($item);
-			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id), 1);
+			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
 			if(!empty($item->date))
 			{
 				$item_date = new DateTime($item->date);
