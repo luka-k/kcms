@@ -433,7 +433,7 @@
   app.validate = function(){
     var _this = this;
     $.extend($.validator.messages, _this.validateMessages );
-    $('form').each(function() {
+    $('.form').each(function() {
       $(this).validate({
         //errorPlacement: function(error, element) {},
         highlight: function(element, errorClass) {

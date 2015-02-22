@@ -22,3 +22,8 @@
 	
 	<!-- main script -->
 	<script src="<?=base_url()?>template/client/js/main.js"></script>
+	<script src="<?=base_url()?>template/client/js/kcms.js"></script>
+	
+	<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/ru.js"></script> <!--fancybox js-->
+	<link href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" rel="stylesheet" />

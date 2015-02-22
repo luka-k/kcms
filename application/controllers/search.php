@@ -11,7 +11,7 @@ class Search extends Client_Controller {
 	{
 	
 		$this->breadcrumbs->add("catalog", "Каталог");
-		$this->breadcrumbs->add("", "Поиск");
+		$this->breadcrumbs->add("", "Результаты поиска");
 		
 		$search = $this->input->get();
 		
@@ -33,16 +33,17 @@ class Search extends Client_Controller {
 			}	
 
 			$data = array(
-				'title' => "Поиск",
+				'title' => "Результаты поиска",
 				'breadcrumbs' => $this->breadcrumbs->get(),
-				'tree' => $this->categories->get_site_tree(0, "parent_id"),
 				'search' => $search['name'],
+				'tree' => $this->categories->get_site_tree(14, "parent_id"),
+				'url' => $this->uri->segment_array(),
 				'content' => $this->products->get_prepared_list($products)
 			);
 		
 			$data = array_merge($this->standart_data, $data);
 		
-			$this->load->view("client/search", $data);
+			$this->load->view("client/products", $data);
 		}
 	}
 }

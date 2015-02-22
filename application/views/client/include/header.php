@@ -7,11 +7,11 @@
 		<div class="header__content">
 			<div class="header__search search">
 				
-				<form action="#" class="form" method="post">
+				<form action="<?=base_url()?>search" id="searchform" class="" method="get">
 					<div class="search__fields">
 						<div class="search__line">
 							<div class="form__input-border">
-								<input type="text" class="form__input search__input" name="s" placeholder="Поиск по сайту" />
+								<input type="text" id="search_input" class="form__input search__input search" name="name" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
 							</div> <!-- /.form__input-border -->
 						</div> <!-- /.search__line -->
 						<div class="search__button">
