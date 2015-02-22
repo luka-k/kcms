@@ -87,6 +87,7 @@ class Categories extends MY_Model
 		
 		if($this->uri->segment(1) == "works") $stop_parent_id = 14;
 		if($this->uri->segment(1) == "catalog") $stop_parent_id = 13;
+		if(!$this->uri->segment(1)) $stop_parent_id = 14;
 
 		while($item->parent_id <> $stop_parent_id)
 		{
@@ -98,7 +99,7 @@ class Categories extends MY_Model
 		//Это костыль, но я пока не придумал лучше способа различать двери в каталоге и двери в наших работах.
 		//вообще надо бы закрыть глюк возникающий при одинаковых урлах.
 		//мысли у меня есть на днях о пробую потому что это актуально.
-		$item_url[] = $this->uri->segment(1);
+		$item_url[] = $this->uri->segment(1) ? $this->uri->segment(1) : "works";
 		return $item_url;
 	}	
 	
