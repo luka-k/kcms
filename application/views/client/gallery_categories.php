@@ -25,7 +25,8 @@
 							<h1 class="page__title"><?=$title?></h1> <!-- /.page__title -->
 						</header> <!-- /.page__header -->
 						
-						<div id="bigGallery">
+						<div id="bigGallery" class="page__scroll">
+							<div class="page__scroll-in">
 							<div id = "page0" style = 'display: block;'>
 								<?foreach($content as $c):?>
 									<div class="maxi">
@@ -34,6 +35,7 @@
 										</a>
 									</div>
 								<?endforeach;?>
+							</div>
 							</div>
 						</div>
 						

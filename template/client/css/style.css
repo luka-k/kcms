@@ -1868,7 +1868,7 @@ margin: 0 0 30px;
 
 .maxi img{
 width:150px; 
-height:150px; 
+height:135px; 
 border-radius:10px;
  margin: 6px auto 20px;
  -webkit-transition: all .2s;
@@ -1878,7 +1878,7 @@ border-radius:10px;
 .maxi img:hover
 {
     width: 163px;
-    height: 163px;
+    height: 148px;
     margin: 0 auto 13px;
 
     -webkit-transition: all .2s;
