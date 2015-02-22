@@ -2,7 +2,7 @@
 
 // Функции обработки строк
 
-class string_edit {
+class String_edit {
 
     function __construct()
 	{

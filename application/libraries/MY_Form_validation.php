@@ -12,7 +12,7 @@ class MY_Form_validation extends CI_Form_validation {
 		$this->set_message('matches', 'Пароли не совпадают');
     }
 	
-public function run($group = '')
+	public function run($group = '')
 	{
 		// Do we even have any data to process?  Mm?
 		if (count($_POST) == 0)
@@ -99,7 +99,9 @@ public function run($group = '')
 	
 	public function substituted($str, $field)
 	{
-		if(empty($str)) $str = slug($_POST[$field]);
+		$SE =& get_instance();
+		
+		if(empty($str)) $str = $SE->string_edit->slug($_POST[$field]);
 		
 		return $str;
 	}

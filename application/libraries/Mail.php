@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class mail {
+class Mail {
 
     function __construct()
 	{
