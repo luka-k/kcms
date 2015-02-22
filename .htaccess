@@ -1,4 +1,12 @@
 RewriteEngine on
 RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
-RewriteRule ^(.*)$ /index.php/$1 [L]
-RedirectPermanent /main /
+RewriteRule ^(.*)$ index.php/$1
+RewriteCond %{HTTP_HOST} ^([^www].*)$
+RewriteRule ^(.*)$ http://www.%1/$1 [R=301]
+RewriteCond %{REQUEST_URI} !\?
+RewriteCond %{REQUEST_URI} !\&
+RewriteCond %{REQUEST_URI} !\=
+RewriteCond %{REQUEST_URI} !\.
+RewriteCond %{REQUEST_URI} !\/$
+RewriteRule ^(.*[^\/])$ /$1/ [R=301, L]
+Redirect 301 /main /
