@@ -60,19 +60,6 @@ class Products extends MY_Model
 		return $item;
 	}
 	
-	public function short_desc($description, $n)
-	{
-		$desc = strip_tags($description);
-		$desc_arr = explode(' ', $desc);
-		$desc = '';
-		for ($i = 0; $i < $n && $i < count($desc_arr); $i++)
-		{
-			$desc .= $desc_arr[$i].' ';
-		}
-		if ($i >= $n-1) $desc .= '...';
-		return $desc;
-	}
-	
 	function prepare($item, $cover = 1)
 	{
 		if(!empty($item))

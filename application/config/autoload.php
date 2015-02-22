@@ -53,7 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array(
-	'form_validation', 
+	'form_validation',	
 	'database', 
 	'session',
 	'pagination',
@@ -61,7 +61,8 @@ $autoload['libraries'] = array(
 	'mail',
 	'cart',
 	'wishlist',
-	'url'
+	'url',
+	'string_edit'
 );
 
 
@@ -74,7 +75,7 @@ $autoload['libraries'] = array(
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'translit', 'upload', 'editiors', 'end_helper');
+$autoload['helper'] = array('url', 'upload', 'editiors');
 
 
 /*
