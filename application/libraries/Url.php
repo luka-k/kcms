@@ -61,13 +61,15 @@ class CI_Url {
 	public function categories_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-
 		if(!$url)
 		{
 			return $segment_number == 2 ? "root" : FALSE;
 		}
 		
-		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
+		if($this->CI->uri->segment(1) == "works") $parent_id = 14;
+		if($this->CI->uri->segment(1) == "catalog") $parent_id = 13;
+		
+		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : $parent_id));
 		
 		if(empty($child))
 		{
@@ -91,11 +93,11 @@ class CI_Url {
 	public function url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-
+		
 		if(!$url) return FALSE;
 		
 		$child = $this->CI->menus_items->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
-
+		
 		if(!$child)
 		{
 			$child = $this->CI->articles->get_item_by(array("url" => $url));
