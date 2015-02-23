@@ -11,7 +11,7 @@
 
 <body>
 	<!--[if lt IE 8]>
-		<p class="browsehappy">Р’Р°С€ Р±СЂР°СѓР·РµСЂ СѓСЃС‚Р°СЂРµР»! РџРѕР¶Р°Р»СѓР№СЃС‚Р°,  <a rel="nofollow" href="http://browsehappy.com/">РѕР±РЅРѕРІРёС‚Рµ РІР°С€ Р±СЂР°СѓР·РµСЂ</a> С‡С‚РѕР±С‹ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІСЃРµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё СЃР°Р№С‚Р°.</p>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 	
 	<div class="main-box">
@@ -34,12 +34,11 @@
 									<?foreach($content->articles as $a):?>
 										
 										<li class="inside-navigation__item">
-	 									<a href="<?=$a->full_url?>" class="inside-navigation__href">
-												<?if(isset($a->img[0]->categories_url)):?><img src="<?=$a->img[0]->categories_url?>" 
+											<a href="<?=$a->full_url?>" class="inside-navigation__href">
+												<?if(isset($a->img[0])):?><img src="<?=$a->img[0]->categories_url?>" 
 												data-hover-image="<?if(isset($a->img[1])):?><?=$a->img[1]->categories_url?><?else:?><?=$a->img[0]->categories_url?><?endif;?>"
 												alt="img" class="inside-navigation__image"/><?endif;?>
 												<?=$a->name?>
-												
 											</a> <!-- /.inside-navigation__href -->
 										</li> <!-- /.inside-navigation__item -->
 									
@@ -48,7 +47,6 @@
 							</div> <!-- /.our-works -->
 							
 						</section> <!-- /.page__content -->
-						
 						<aside class="page__sidebar">
 							<? require 'include/left-menu.php' ?>
 			        	</aside> <!-- /.page__sidebar -->

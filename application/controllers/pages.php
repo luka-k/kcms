@@ -9,9 +9,8 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$left_menu = $this->articles->get_site_tree(1, "parent_id");
-		
-		//var_dump($left_menu[0]->childs[1]);
+		$parent_article = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
+		$left_menu = $this->articles->get_site_tree($parent_article->id, "parent_id");
 		
 		$data = array(
 			'tree' => $left_menu,
@@ -20,7 +19,7 @@ class Pages extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		
 		$page = $this->url->url_parse(2);
-
+		
 		if(isset($page->article))
 		{
 			$content = $page;

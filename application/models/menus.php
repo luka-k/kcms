@@ -9,12 +9,6 @@ class Menus extends MY_Model
     function __construct()
 	{
         parent::__construct();
-		$this->top_menu = array(
-			"main" => array("Главная", base_url(), "0"),
-			"catalog" => array("Каталог", base_url()."catalog", "0"),
-			"cart" => array("Корзина", base_url()."cart", "0"),
-			"wishlist" => array("Вишлист", base_url().'wishlist', "0")
-		);	
 
 		$this->admin_menu = array(
 			'main' => array("<i class='icon-home'></i>", base_url()."admin", 0),

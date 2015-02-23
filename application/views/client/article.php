@@ -37,7 +37,7 @@
 						
 						<div class="page__text page__scroll">
 							<div class="page__scroll-in">
-								<?=$content->article->description?>
+								<?=$content->article->description?>  
 							</div> <!-- /.page__scroll-in -->
 						</div> <!-- /.page__text page__scroll -->
 					</section> <!-- /.page__content -->

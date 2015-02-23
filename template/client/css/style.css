@@ -1906,6 +1906,21 @@ border-radius:10px;
             transition: all .2s;
 }
 
+
+/*************************************************
+Callback форма - временные стили
+*************************************************/
+
+.contactBox {float:left; margin:0 0 0 110px; _display:inline; width:360px;}
+.contactBox p {font-size:12px;}
+.contactBox img {margin:15px 0 0 0 !important;}
+.contactBox label {font-size:12px; margin:20px 0 0 0; display:block;}
+.contactBox input, .contactBox textarea {width:100%; background:#1e1e1e; border:1px solid #878787 !important; -moz-border-radius:5px; -webkit-border-radius:5px; -khtml-border-radius:5px; border-radius:5px; overflow:hidden; color:#ffffff;}
+.contactBox input.error, .contactBox textarea.error {width:100%; background:#1e1e1e; border:1px solid #f70707 !important; -moz-border-radius:5px; -webkit-border-radius:5px; -khtml-border-radius:5px; border-radius:5px; overflow:hidden; color:#ffffff;}
+.contactBox textarea {height:140px;}
+input.formButton {float:left; margin:20px 20px 0 0; width:130px !important; text-align:center; color:#ffffff; background:none !important; cursor:pointer; font-weight:800;}
+input.formButton:hover {color:#c6da2d !important;}
+
 /* @media only screen and (min-width: 740px){
   @import "_tablet" ;
 } 
