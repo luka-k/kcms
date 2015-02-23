@@ -1295,54 +1295,28 @@ span
 /* ==========================================================================
  * modal
  * ========================================================================== */
-.fancybox-iframe
-{
-    overflow: hidden;
-}
-
-.fancybox-skin
-{
-    border: 2px solid #c6da2d;
-    border-radius: 6px;
-    background: #000;
-}
-
-.fancybox-close
-{
-    top: 10px;
-    right: 10px;
-
-    display: inline-block;
-
-    width: 18px;
-    height: 18px;
-
-    content: '';
-
-    background-position: -137px -37px;
-}
 
 .modal
 {
-    position: absolute;
+   position: absolute;
     z-index: 9030;
-    top: 0;
+
     right: 0;
     bottom: 0;
     left: 0;
-
+	top:0;
     display: none;
 
-    background: #000;
-    background: rgba(0, 0, 0, .6);
+    /*background: #000;
+    background: rgba(0, 0, 0, .6);*/
 }
 .modal__content
 {
-    position: absolute;
+   position: absolute;
     top: 50%;
     left: 50%;
 
-    margin-top: -220px;
+	margin-top: -220px;
     margin-left: -448px;
     padding: 20px 20px 20px;
 

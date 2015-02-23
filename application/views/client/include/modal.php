@@ -1,4 +1,4 @@
- <div class="modal" id="modal-gallery">
+<div class="modal" id="modal-gallery">
 	<div class="modal__content">
 		<a href="#close" class="modal__close">Закрыть</a>
 		<a href="#callback" class="modal__ask ask"><span class="ask__text">Задать вопрос</span></a>
@@ -32,7 +32,7 @@
 			
 			<div class="modal__form">
 				
-				<form action="/ajax/callback/" class="form" method="post">
+				<form action="#" class="form" method="post">
 					<div class="form__line">
 						<label class="form__label">Ваше имя</label>
 						

@@ -415,12 +415,8 @@
     timeout: 3000,
     datatype: 'json',
     success: function showResponse(responseText, statusText, xhr, $form)  { 
-      //var target = $form.data('popup') || 'success';
-      $.fancybox.open( "#success" );
-	  
-	  setTimeout(function () {
-        $.fancybox.close();
-	  }, 3000);
+      var target = $form.data('popup') || 'success';
+      $.fancybox( $('#' + target), app.fancyOptions );
     }       
   };
   
