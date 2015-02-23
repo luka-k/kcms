@@ -14,7 +14,7 @@
 						<?=$branch->name?>
 					<?endif;?>
 				</a>
-				<?if($branch->childs):?>
+				<?if(isset($branch->childs)&& !empty($branch->childs)):?>
 					<ul class="sidebar-menu-level2 <?if(in_array($branch->url, $url)):?>active<?else:?>noactive<?endif;?>">
 						<?foreach($branch->childs as $branch_2):?>	
 							<li class="sidebar-menu-level2__item">

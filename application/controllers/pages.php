@@ -23,13 +23,16 @@ class Pages extends Client_Controller {
 		if(isset($page->article))
 		{
 			$content = $page;
-			$template="client/article.php";
+			
+			$template = "client/article.php";
+
 		}		
 		elseif(isset($page->articles))
 		{
 			$content = $page;
+
 			$content->articles = $this->articles->get_prepared_list($content->articles);
-			$template="client/articles.php";
+			$template = $page->id == 3 ? "client/news.php" : "client/article.php";
 		}
 		elseif($page == FALSE)
 		{
