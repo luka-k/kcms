@@ -31,7 +31,6 @@ class Users_module extends Admin_Controller
 		
 		if($filters)
 		{
-			
 			if($filters['groups'] <> "false")
 			{
 				$users_id = array();
@@ -65,9 +64,9 @@ class Users_module extends Admin_Controller
 		{
 			$data['content'] = $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
-			if(editors_field_exists('img', $this->dynamic_menus->editors))
+			if(editors_field_exists('img', $this->users->editors))
 			{
-				$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
+				$data['content'] = $this->images->get_img_list($data['content'], "users");
 				$data['images'] = TRUE;
 			}	
 		}
@@ -88,6 +87,7 @@ class Users_module extends Admin_Controller
 			'user' => $this->user,
 			'menu' => $this->menu,
 			'name' => $name,
+			'type' => "users",
 			'selects' => array(
 				'group_parent_id' => $this->users_groups->get_list(FALSE)
 			),
@@ -122,7 +122,7 @@ class Users_module extends Admin_Controller
 				if($field_name) $content->parents = $this->users2users_groups->get_list(array("child_id" => $id));
 				
 				$object_info = array(
-					"object_type" => "user",
+					"object_type" => "users",
 					"object_id" => $content->id
 				);
 				$data['content'] = $content;
@@ -206,5 +206,101 @@ class Users_module extends Admin_Controller
 			$this->db->delete('users2users_groups');
 			redirect(base_url().'admin/users_module/');
 		}
+	}
+
+		/*--------------Удаление изображения-------------*/
+	
+	public function delete_img($id)
+	{
+		$object_info = array(
+			"object_type" => "users",
+			"id" => $id
+		);
+		$item_id = $this->images->delete_img($object_info);
+		redirect(base_url().'admin/users_module/edit/'.$item_id.'/edit/');
+	}
+	
+	public function export()
+	{
+		$group_id = $this->input->post("group");
+		
+		$fields = $this->db->list_fields('users');
+		unset($fields[0]);
+		unset($fields[count($fields)]);//Как то я здраво решил что поле secret то же не особо в импорте нужно
+		
+		$users = $this->users->group_list($group_id);
+
+		$file_path = FCPATH."download/export.csv";
+		$file = fopen($file_path, "w");
+		ftruncate($file, 0);
+		
+		fputcsv($file, $fields, ";");
+		
+		if(!empty($users)) foreach($users as $user)
+		{
+			unset($user->id);
+			
+			unset($user->secret);
+			$fields = (array)$user;
+			fputcsv($file, $fields, ";");
+		}
+		
+		fclose($file);
+		
+		redirect(base_url()."download/export.csv", 307);
+	}
+	
+	public function import()
+	{
+		$group_id = $this->input->post("group");
+		
+		$file_path = FCPATH."download/import.csv";
+		
+		move_uploaded_file($_FILES['import_file']['tmp_name'], $file_path);
+		
+		$file = fopen($file_path, "r");
+		
+		$fields = array();
+		while(!feof($file))
+		{
+			$fields[] = fgetcsv ($file, 0, ";");
+		}
+		
+		$email_key = array_search("email", $fields[0]);
+		
+		foreach($fields as $key => $item)
+		{
+			if($key <> 0)
+			{
+				$field = array();
+				foreach($item as $key => $value)
+				{
+					$field[$fields[0][$key]] = $value;
+				}
+
+				if($this->users->is_unique(array("email" => $item[$email_key])))
+				{
+					$this->db->insert('users', $field);
+					
+					
+					$users2users_groups->group_parent_id = $group_id;
+					$users2users_groups->child_id = $this->db->insert_id();
+					$this->db->insert('users2users_groups', $users2users_groups);
+				}
+				else
+				{
+					$user = $this->users->get_item_by(array("email" => $item[$email_key]));
+					
+					if(!$this->users->in_group($user->id, $group_id))
+					{
+						$users2users_groups->group_parent_id = $group_id;
+						$users2users_groups->child_id = $user->id;
+						$this->db->insert('users2users_groups', $users2users_groups);
+					}
+				}
+			}
+		}
+		
+		redirect(base_url().'admin/users_module/');
 	}
 }

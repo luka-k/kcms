@@ -71,6 +71,10 @@ position:relative;
 top:-2px;
 }
 
+#left-menu .tabs li{
+margin-bottom:-1px;
+}
+
 header{
 background:#fff;
 }
