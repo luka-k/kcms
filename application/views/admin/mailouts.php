@@ -49,7 +49,7 @@
 						<h6 class="col_12">Создать новую</h6>
 						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="new_subscribe" action="<?=base_url()?>admin/mailouts_module/mailout/"/>
 							<?if(empty($templates)):?>
-								<div class="col_12">Не обходимо <a href="<?=base_url()?>admin/content/item/edit/emails?parent_id=2">создать шаблон рассылки</a></div>
+								<div class="col_12">Не обходимо <a href="<?=base_url()?>admin/content/item/edit/emails?parent_id=1">создать шаблон рассылки</a></div>
 							<?else:?>
 								<select id="template" name="template" class="col_12" onchange="enabled_item(this.options[this.selectedIndex].value);">
 									<option value="0" select>Необходимо выбрать</option>

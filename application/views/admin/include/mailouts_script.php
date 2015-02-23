@@ -21,7 +21,7 @@
 	}
 	
 	function all_sub(action){
-		var form = $('#new_subscribe'),
+		var form = $('#subscribe_form'),
 		inputs = form.find('input.subscribe_input');
 		
 		var counter_1 = 0;
@@ -50,5 +50,131 @@
 				}
 			}
 		});
+	}
+	
+	$(document).ready(function() {
+		$("#subscribe_form").submit(function(){
+			var form = $(this),
+			subscribes_groups = {},
+			data = {},
+			users = {};
+			
+			//Валидация формы
+			if (subscribe_validation(form, 'error')) return false;
+				
+			//Получаем выдделенные группы подписчиков	
+			var subscribe_inputs = form.find('.subscribe_input');
+			var counter = 0;
+			subscribe_inputs.each(function(){
+				var el = $(this);
+				if(el.prop("checked")){
+					subscribes_groups[counter] = el.val();
+				}
+				counter++;
+			}); 
+					
+			data.groups_ids = subscribes_groups;
+			var json_str = JSON.stringify(data);
+			
+			//По группам подписчиков получаем список пользователей			
+			$.post( "/admin/mailouts_module/get_emails/", json_str, function(res){
+				var data = {},
+				post= {};
+		
+				//Получаем список пользователей
+				var users = JSON.parse(res);
+						
+				$.fancybox.open("#mailout");
+		
+				//Получаем информацию из формы
+				var subscribe_info = form.find('.subscribe_info');
+				var counter = 0;
+				subscribe_info.each(function(){
+					var el = $(this);
+					post[el.attr("name")] = el.val();
+					counter++;
+				});
+		
+				//Получаем текст письма из фрейма js-редактора
+				var d = window.frames[0].document;
+				post['message'] = escape(d.body.innerHTML);
+		
+				data.post = post;
+		
+				var mails_counter = users.length;
+				window.no_success = 0;
+				window.success = 0;
+				
+				$('.all').text(mails_counter);
+		
+				//Начинаем отправку писем
+				for(var i=0; i < mails_counter; i++) {
+					data.user = users[i];
+					var json_str = JSON.stringify(data);
+					$.post( "/admin/mailouts_module/send_mail/", json_str, send_callback);
+				}
+				
+				setTimeout(function(){
+					//ФОрмируем информацию для лога в базу
+					data = {};
+					data.users_groups = subscribes_groups;
+					data.template_id = $("#template_id").val();
+		
+					data.success = $('.success').html();
+					data.no_success = $('.no_success').html();
+					var json_str = JSON.stringify(data);
+					$.post( "/admin/mailouts_module/add_mailout_info/", json_str, function() {
+						document.location.assign('/admin/mailouts_module/');
+					});	
+				}, 4000);
+			});
+				
+			return false;
+		});
+	});
+	
+
+	
+	function send_callback(answer) {
+		if(answer == "true"){
+			window.success++;	
+		}else{
+			no_success++;
+		}
+				
+		$('.success').text(window.success);
+		$('.no_success').text(no_success);
+	}
+	
+	function subscribe_validation (element, errorClass) {
+		var input = element.find('.validate'),
+		isError = false;
+
+		input.on('focus', function () {
+			var el = $(this);
+			if (el.hasClass(errorClass)) el.removeClass(errorClass);
+		});
+		
+		$('#subscribes').css("border", "none");
+		
+		var counter = 0;
+		input.each(function () {
+			var el = $(this);
+			if (el.val() == "") {
+				el.addClass(errorClass);
+				isError = true;
+			}
+			
+			if (el.attr('type') == 'checkbox' && el.prop("checked")){
+				counter++;
+			}	
+		});
+		
+		if(counter == 0){
+			$('#subscribes').css("border", "1px solid red");
+			isError = true;
+		}
+		
+		return isError;
 	}
 </script>

@@ -216,3 +216,29 @@ list-style-image:url('../img/option_1.png');
 display:none;
 }
 
+/*************************
+mailouts
+*************************/
+
+.modal{
+width:300px;
+display:none;
+text-align:center;
+}
+
+#mailout .block-title{
+font-size:24px;
+margin-bottom:10px;
+}
+
+#mailout .text{
+font-size:20px;
+}
+
+#mailout .success{
+color:green;
+}
+
+#mailout .no_success{
+color:red;
+}
