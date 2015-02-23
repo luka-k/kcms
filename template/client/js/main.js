@@ -411,12 +411,16 @@
   };
 
   app.alaxOptions = {
-    url: "ajax/contact.php",
+    url: "/ajax/callback/",
     timeout: 3000,
     datatype: 'json',
     success: function showResponse(responseText, statusText, xhr, $form)  { 
-      var target = $form.data('popup') || 'success';
-      $.fancybox( $('#' + target), app.fancyOptions );
+      //var target = $form.data('popup') || 'success';
+      $.fancybox.open( "#success" );
+	  
+	  setTimeout(function () {
+        $.fancybox.close();
+	  }, 3000);
     }       
   };
   

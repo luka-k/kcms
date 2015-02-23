@@ -19,7 +19,11 @@ class Ajax extends CI_Controller {
 		
 		$subject = 'Вопрос от клиента';
 		$message = 'Клиент '.$post['name'].' спрашивает:</br>'.$post['message'].'<br/> Клиент указал контактный email - '.$post["email"];
-		($this->mail->send_mail($settings->admin_email, $subject, $message));
+		if(isset($post["phone"]))
+		{
+			$message.= "</br> и контактный телефон: ".$post["phone"];
+		}
+		$this->mail->send_mail($settings->admin_email, $subject, $message);
 	}
 	
 	public function add_to_cart()

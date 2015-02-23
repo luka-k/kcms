@@ -23,7 +23,7 @@
 				</li> <!-- /.footer-elements__item -->
 				
 				<li class="footer-elements__item">
-					<a href="contacts.html" class="footer-copy__href">Контакты</a>
+					<a href="<?base_url()?>articles/kontakty" class="footer-copy__href">Контакты</a>
 				</li> <!-- /.footer-elements__item -->
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__right -->
