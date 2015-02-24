@@ -1296,6 +1296,15 @@ span
  * modal
  * ========================================================================== */
 
+
+.result{
+padding: 0 20px;
+
+border: 2px solid #c6da2d;
+border-radius: 5px;
+background: #000;
+}
+
 .modal
 {
    position: absolute;
@@ -1905,3 +1914,4 @@ input.formButton:hover {color:#c6da2d !important;}
   @import "_tablet" ;
 } 
 */
+

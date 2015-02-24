@@ -54,15 +54,16 @@
                             autoHeight: false,
                             autoWidth: false,
                             autoResize: false,
+							scrolling: 'no',
                             width: 400,
-                            height: 200
+                            height: 160
                         });
                         setTimeout(function () {
                             $.fancybox.close();
                         }, 3000);
                         
                     } else {
-                        $.fancybox('<div class="result err"><h3>Упс!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
+                        $.fancybox('<div class="modal err"><h3>Упс!</h3><p>Произошла ошибка, попробуйте еще раз.</p></div>', {
                             autoSize: false,
                             autoHeight: false,
                             autoWidth: false,
