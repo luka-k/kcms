@@ -36,7 +36,7 @@ class Search extends Client_Controller {
 				'title' => "Результаты поиска",
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'search' => $search['name'],
-				'tree' => $this->categories->get_site_tree(14, "parent_id"),
+				'tree' => $this->categories->get_site_tree(37, "parent_id"),
 				'url' => $this->uri->segment_array(),
 				'content' => $this->products->get_prepared_list($products)
 			);

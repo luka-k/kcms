@@ -17,9 +17,8 @@ class Works extends Client_Controller {
 		$direction = "acs";
 		
 		$this->breadcrumbs->add("works", "Наши работы");
-		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(14, "parent_id"),
+			'tree' => $this->categories->get_site_tree(37, "parent_id"),
 			'url' => $this->uri->segment_array()
 		);
 
@@ -29,7 +28,7 @@ class Works extends Client_Controller {
 
 		if ($category == "root")
 		{
-			$content = $this->categories->get_list(array("parent_id" => 14), $from = FALSE, $limit = FALSE, $order, $direction);
+			$content = $this->categories->get_list(array("parent_id" => 37), $from = FALSE, $limit = FALSE, $order, $direction);
 			
 			$content = $this->categories->get_prepared_list($content);
 			
@@ -86,7 +85,9 @@ class Works extends Client_Controller {
 					
 					foreach($img_ids as $i)
 					{
-						$content[] = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+						$im = $this->images->get_item_by(array("id" => $i->child_id));
+						if ($im)
+							$content[] = $this->images->_get_urls($im);
 					}
 					
 					$template = "client/gallery_categories.php";

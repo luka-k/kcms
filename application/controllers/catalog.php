@@ -19,7 +19,7 @@ class Catalog extends Client_Controller {
 		$this->breadcrumbs->add("works", "Каталог");
 		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(13, "parent_id"),
+			'tree' => $this->categories->get_site_tree(36, "parent_id"),
 			'url' => $this->uri->segment_array()
 		);
 
@@ -30,7 +30,7 @@ class Catalog extends Client_Controller {
 		if ($category == "root")
 		{
 			
-			$content = $this->categories->get_list(array("parent_id" => 13), $from = FALSE, $limit = FALSE, $order, $direction);
+			$content = $this->categories->get_list(array("parent_id" => 36), $from = FALSE, $limit = FALSE, $order, $direction);
 			redirect(base_url().'catalog/'.$content[0]->url);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));

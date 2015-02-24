@@ -85,9 +85,9 @@ class Categories extends MY_Model
 		$item_url = array();
 		$item_url[] = $item->url;
 		
-		if($this->uri->segment(1) == "works") $stop_parent_id = 14;
-		if($this->uri->segment(1) == "catalog") $stop_parent_id = 13;
-		if(!$this->uri->segment(1)) $stop_parent_id = 14;
+		if($this->uri->segment(1) == "works") $stop_parent_id = 37;
+		if($this->uri->segment(1) == "catalog") $stop_parent_id = 36;
+		if(!$this->uri->segment(1)) $stop_parent_id = 37;
 
 		while($item->parent_id <> $stop_parent_id)
 		{
