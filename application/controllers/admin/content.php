@@ -76,7 +76,8 @@ class Content extends Admin_Controller
 			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
-			'type' => $type
+			'type' => $type,
+			'name' => editors_field_exists('name', $this->$type->editors)
 		);
 		
 		if($this->db->field_exists('parent_id', $type))
