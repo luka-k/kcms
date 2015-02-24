@@ -42,7 +42,7 @@ class Menu_module extends Admin_Controller
 		}	
 		else
 		{			
-			$content = $this->dynamic_menus->get_item_by(array("id" => $id));
+			$content = $this->dynamic_menus->get_item($id);
 
 			$object_info = array(
 				"object_type" => "dynamic_menus",
@@ -178,8 +178,20 @@ class Menu_module extends Admin_Controller
 	
 	public function delete_item($id)
 	{
-		$menu = $this->menus_items->get_item_by(array("id" => $id));
+		$menu = $this->menus_items->get_item($id);
 		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/edit/'.$menu->menu_id);
+	}
+	
+	/*********************************************************************
+	* аякс функции
+	*********************************************************************/
+	
+	public function menu_item(){
+		$info = json_decode(file_get_contents('php://input', true));
+		$item = $this->menus_items->get_item($info->id);
+		
+		$data['item'] = $item;
+		echo json_encode($data);
 	}
 }
 

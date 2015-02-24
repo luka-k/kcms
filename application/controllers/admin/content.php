@@ -11,11 +11,6 @@ class Content extends Admin_Controller
 	
 	public function items($type, $id = FALSE)
 	{		
-		//При помощи функции editors_field_exists находим поле у которого в третьем параметре указано name
-		//Это поле используем как поле для колонки Имя
-		//Тем самым избавляемся от привязки к названию name(title) и тд.
-		//Например делая сайт каталисту я столкнулся если есть четкая привязка к name то к туровым датам надо указывать имя какоенибудь
-		//что не всегда удобно.
 		$name = editors_field_exists('name', $this->$type->editors);
 		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
@@ -36,10 +31,10 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$type == "products" ? $data['tree'] = $this->categories->get_tree(0, "parent_id") : $data['tree'] = $this->$type->get_tree(0, "parent_id");
+			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
 		}
 		
-		if($id == FALSE)
+		if($id == "all")
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
@@ -79,15 +74,12 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$type == "products" ? $tree = $this->categories->get_tree(0, "parent_id") : $tree = $this->$type->get_tree(0, "parent_id");
+			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}
 		
-		if($type == "emails")
-		{
-			$data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
-		}
+		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		if($action == "edit")
 		{
@@ -95,11 +87,7 @@ class Content extends Admin_Controller
 			{	
 				$data['content'] = set_empty_fields($data['editors']);
 				
-				if($this->db->field_exists('parent_id', $type))
-				{
-					$parent_id = $this->input->get('parent_id');
-					$data['content']->parent_id = $parent_id;
-				}
+				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $this->input->get('parent_id');
 				
 				$data['content']->is_active = "1";
 				$data['content']->img = NULL;
@@ -116,7 +104,7 @@ class Content extends Admin_Controller
 			}	
 			else
 			{			
-				$data['content'] = $this->$type->get_item_by(array('id' => $id));
+				$data['content'] = $this->$type->get_item($id);
 				$object_info = array(
 					"object_type" => $type,
 					"object_id" => $data['content']->id
@@ -182,7 +170,7 @@ class Content extends Admin_Controller
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
 				
-				isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
+				$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "";
 				if($type == "emails") $p_id = $data['content']->type;
 				
 				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
@@ -190,10 +178,10 @@ class Content extends Admin_Controller
 		}
 		if($action == "copy")
 		{
-			$data['content'] = $this->$type->get_item_by(array('id' => $id));
+			$data['content'] = $this->$type->get_item($id);
 			
 			$field_name = editors_field_exists('ch', $data['editors']);
-			if(!empty($field_name))	$characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			if(!empty($field_name)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
 			
 			$data['content']->id = NULL;
 			$data['content']->url = "";
@@ -220,7 +208,31 @@ class Content extends Admin_Controller
 	//Удаление элемента
 	public function delete_item($type, $id)
 	{
-		if($this->$type->delete($id)) redirect(base_url().'admin/content/items/'.$type);
+		$object_info = array(
+			"object_type" => $type,
+			"object_id" => $id
+		);
+		$item_images = $this->images->get_images($object_info);
+		if($item_images) foreach($item_images as $image)
+		{
+			$this->images->delete_img(array("object_type" => $type, "id" => $image->id));
+		}
+		
+		if($type == "products")
+		{
+			$item_characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+			if($item_characteristics) foreach($item_characteristics as $ch)
+			{
+				$this->characteristics->delete($ch->id);
+			}
+		}
+		/**********************************************************************
+		*Как то упушен был у нас этот момент.
+		*При удалении элемента оставались фотографии характеристики.
+		*Соответствено теперь это все чистится
+		**********************************************************************/
+		$this->$type->delete($id);
+		redirect(base_url().'admin/content/items/'.$type);
 	}
 	
 	/*--------------Удаление изображения-------------*/
@@ -237,7 +249,60 @@ class Content extends Admin_Controller
 	
 	public function delete_characteristic($id)
 	{
-		$ch = $this->characteristics->get_item_by(array("id" => $id));
+		$ch = $this->characteristics->get_item($id);
 		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
+	}
+	
+	/***************************************************************************************
+	* аякс функции
+	***************************************************************************************/
+	
+	public function edit_characteristic()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		if(!isset($info->id))
+		{
+			$this->db->select_max('id');
+			$query = $this->db->get('characteristics');
+			$after = $query->row()->id;
+			
+			$this->characteristics->insert($info);
+			$info->id = $this->db->insert_id();
+			
+			$this->config->load('characteristics_config');
+			$ch_select = $this->config->item('characteristics_type');
+			
+			foreach($ch_select as $key => $type)
+			{
+				if($info->type == $key) $info->name = $type;
+			}
+			
+			$answer = array(
+				'after' => $after,
+				'base_url' => base_url(),
+				'info' => $info
+			);
+		}
+		else
+		{
+			$this->characteristics->update($info->id, $info);
+			$answer['message'] = 'ok';
+		}
+		
+		echo json_encode($answer);
+	}
+	
+	public function advanced()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		if($info->type == "new")
+		{
+			$this->products->update($info->id, array("is_new" => $info->value));
+		}
+		elseif($info->type == "special")
+		{
+			$this->products->update($info->id, array("is_good_buy" => $info->value));
+		}
 	}
 }

@@ -118,7 +118,7 @@ class Users_module extends Admin_Controller
 			}
 			else
 			{
-				$content = $this->users->get_item_by(array('id' => $id));
+				$content = $this->users->get_item($id);
 				if($field_name) $content->parents = $this->users2users_groups->get_list(array("child_id" => $id));
 				
 				$object_info = array(

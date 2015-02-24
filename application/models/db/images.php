@@ -111,7 +111,7 @@ class Images extends MY_Model
 	{
 		$image = explode(".", $img_name);
 		//Чистим от лишних символов и транлитируем имя файла.
-		$image[0] = slug($image[0]);
+		$image[0] = $this->string_edit->slug($image[0]);
 		$img_name = $image[0].".".$image[1];
 		$url = make_upload_path($img_name, NULL).$img_name;
 	

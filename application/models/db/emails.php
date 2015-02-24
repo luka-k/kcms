@@ -22,7 +22,7 @@ class Emails extends MY_Model
 	public function send_system_mail($to, $template_id, $parse_info, $template = 'standart_mail')
 	{
 		$config = $this->config->item('config');
-		$settings = $this->settings->get_item_by(array("id" => 1));
+		$settings = $this->settings->get_item(1);
 		
 		$info = new stdCLass();
 		
@@ -30,7 +30,7 @@ class Emails extends MY_Model
 		$info->from_name = $settings->admin_name;
 		$info->from_email = $settings->admin_email;
 		
-		$template_info = $this->emails->get_item_by(array("id" => $template_id));
+		$template_info = $this->emails->get_item($template_id);
 		
 		$info->subject = $template_info->subject;
 		$info->message = $template_info->description;

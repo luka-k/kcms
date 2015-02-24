@@ -61,7 +61,7 @@
 		});							
 		data = info;
 		var json_str = JSON.stringify(data);
-		$.post("/admin/admin_ajax/edit_characteristic/", json_str, add_ch_answer, "json");
+		$.post("/admin/content/edit_characteristic/", json_str, add_ch_answer, "json");
 	}
 	
 	function add_ch_answer(res){
@@ -113,7 +113,7 @@
 		data.id = item_id;
 		data.value = value;
 		var json_str = JSON.stringify(data);
-		$.post("/admin/admin_ajax/advanced/", json_str);
+		$.post("/admin/content/advanced/", json_str);
 	}
 	
 	$(function(){

@@ -58,7 +58,7 @@ class Categories extends MY_Model
 		while($item->parent_id <> 0)
 		{
 			$parent_id = $item->parent_id;
-			$item = $this->get_item_by(array("id" => $parent_id));
+			$item = $this->get_item($parent_id);
 			$item_url[] = $item->url;
 		}
 		$item_url[] = 'catalog';

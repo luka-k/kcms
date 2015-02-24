@@ -18,7 +18,7 @@ class Dynamic_menus extends MY_Model
 	public function get_menu($id)
 	{
 		$menu = new stdClass();
-		$menu->info = $this->get_item_by(array("id" => $id));
+		$menu->info = $this->get_item($id);
 		
 		$menu->items = $this->menus_items->menu_tree($id);
 

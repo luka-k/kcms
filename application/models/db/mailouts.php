@@ -49,11 +49,11 @@ class Mailouts extends MY_Model
 		$groups = explode("/", $item->users_ids);
 		foreach($groups as $g)
 		{
-			$group = $this->users_groups->get_item_by(array("id" => $g));
+			$group = $this->users_groups->get_item($g);
 			$item->users_groups[] = $group->name;
 		}
 		
-		$template = $this->emails->get_item_by(array("id" => $item->template_id));
+		$template = $this->emails->get_item($item->template_id);
 		$item->template = $template->name;
 		return $item;
 	}

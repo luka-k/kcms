@@ -40,7 +40,7 @@ class Users extends MY_Model
 			
 			foreach($u2u_g as $g)
 			{
-				$group = $this->users_groups->get_item_by(array("id" => $g->group_parent_id));
+				$group = $this->users_groups->get_item($g->group_parent_id);
 				$authdata['user_groups'][] = $group->name;
 			}
 			
@@ -72,7 +72,7 @@ class Users extends MY_Model
 		$users = array();
 		foreach($users_id as $item)
 		{
-			$users[] = $this->get_item_by(array("id" => $item->child_id));
+			$users[] = $this->get_item($item->child_id);
 		}
 		
 		return $users;

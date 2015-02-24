@@ -28,7 +28,7 @@ class Mailouts_module extends Admin_Controller
 	public function mailout()
 	{
 		$template_id = $this->input->post('template');
-		$template = $this->emails->get_item_by(array("id" => $template_id));
+		$template = $this->emails->get_item($template_id);
 		
 		$data = array(
 			'title' => "Редактирование рассылки",
