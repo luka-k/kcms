@@ -19,15 +19,11 @@ class Index extends Client_Controller {
 			$gallery[$key] = $this->images->_get_urls($img);
 		}
 		
-		//var_dump($gallery);
-		//$left_menu = $this->dynamic_menus->get_menu(4);
-		
 		$data = array(
 			'title' => $settings->site_title,
 			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
 			'url' => $this->uri->segment_array(),
 			'gallery' => $gallery
-			//'left_menu' => $left_menu
 		);
 		$data = array_merge($this->standart_data, $data);
 

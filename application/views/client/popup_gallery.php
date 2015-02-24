@@ -3,7 +3,7 @@
 		<ul class="gallery-slider__list">
 			<?foreach($gallery as $g):?>
 				<li class="gallery-slider__item">
-					<img src="<?=$g->catalog_big_url?>" alt="project" info="<?=$g->info->name?>" class="gallery-slider__image" />
+					<img src="<?=$g->catalog_big_url?>" alt="project" class="gallery-slider__image" />
 				</li> <!-- /.gallery-slider__item-->
 			<?endforeach;?>
 		</ul> <!-- /.gallery-slider__list -->
