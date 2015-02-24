@@ -81,7 +81,6 @@ class Categories extends MY_Model
 	
 	public function make_full_url($item)
 	{
-		
 		$item_url = array();
 		$item_url[] = $item->url;
 
@@ -96,7 +95,10 @@ class Categories extends MY_Model
 			$item_url[] = $item->url;
 		}
 		
-		$item_url[] = $this->uri->segment(1) ? $this->uri->segment(1) : $this->config->item('works_url');
+		$item_url[] = $this->config->item('works_url');
+		if($this->uri->segment(1) == $this->config->item('works_url')) $item_url[count($item_url)-1] = $this->config->item('works_url');
+		if($this->uri->segment(1) == $this->config->item('catalog_url')) $item_url[count($item_url)-1] = $this->config->item('catalog_url');
+		if($this->uri->segment(1) == "articles") $item_url[count($item_url)-1] = "articles";
 		return $item_url;
 	}	
 	

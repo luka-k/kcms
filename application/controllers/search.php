@@ -10,7 +10,7 @@ class Search extends Client_Controller {
 	public function index()
 	{
 	
-		$this->breadcrumbs->add("catalog", "Каталог");
+		$this->breadcrumbs->add($this->config->item('works_url'), "Наши работы");
 		$this->breadcrumbs->add("", "Результаты поиска");
 		
 		$search = $this->input->get();
