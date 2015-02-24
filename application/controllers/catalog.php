@@ -36,6 +36,7 @@ class Catalog extends Client_Controller {
 		{
 			$content = $this->categories->get_list(array("parent_id" => $catalog_id), $from = FALSE, $limit = FALSE, $order, $direction);
 			redirect(base_url().$catalog_url.'/'.$content[0]->url);
+
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
 

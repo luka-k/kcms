@@ -24,7 +24,7 @@ class Index extends Client_Controller {
 		
 		$data = array(
 			'title' => $settings->site_title,
-			'tree' => $this->categories->get_site_tree(14, "parent_id"),
+			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
 			'url' => $this->uri->segment_array(),
 			'gallery' => $gallery
 			//'left_menu' => $left_menu

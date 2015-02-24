@@ -16,10 +16,14 @@ class Works extends Client_Controller {
 		$order = "sort";
 		$direction = "acs";
 		
-		$this->breadcrumbs->add("works", "Наши работы");
+		$works_id = $this->config->item('works_id');
+		$catalog_id = $this->config->item('catalog_id');
+		$works_url = $this->config->item('works_url');
+		$catalog_url = $this->config->item('catalog_url');
 		
+		$this->breadcrumbs->add($works_url, "Наши работы");
 		$data = array(
-			'tree' => $this->categories->get_site_tree(14, "parent_id"),
+			'tree' => $this->categories->get_site_tree($works_id, "parent_id"),
 			'url' => $this->uri->segment_array()
 		);
 
@@ -29,7 +33,7 @@ class Works extends Client_Controller {
 
 		if ($category == "root")
 		{
-			$content = $this->categories->get_list(array("parent_id" => 14), $from = FALSE, $limit = FALSE, $order, $direction);
+			$content = $this->categories->get_list(array("parent_id" => $works_id), $from = FALSE, $limit = FALSE, $order, $direction);
 			
 			$content = $this->categories->get_prepared_list($content);
 			
@@ -86,15 +90,15 @@ class Works extends Client_Controller {
 					
 					foreach($img_ids as $i)
 					{
-						$content[] = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+						$im = $this->images->get_item_by(array("id" => $i->child_id));
+						if ($im)
+							$content[] = $this->images->_get_urls($im);
 					}
 					
 					$template = "client/gallery_categories.php";
 				}
 			}	
-
 			
-
 			$data['title'] = $category->name;
 			$data['meta_title'] = $category->meta_title;
 			$data['meta_keywords'] = $category->meta_keywords;

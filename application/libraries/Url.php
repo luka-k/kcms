@@ -66,6 +66,7 @@ class CI_Url {
 			return $segment_number == 2 ? "root" : FALSE;
 		}
 		
+
 		$this->CI->config->item('works_id');
 		$this->CI->config->item('catalog_id');
 		
