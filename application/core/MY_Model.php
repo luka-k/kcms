@@ -396,7 +396,15 @@ class MY_Model extends CI_Model
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			if($type == "client") $branches[$i] = $this->prepare($b);
-			if($b->id <> 3 && $this->_table == "articles") $branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch, $type);
+			if($this->_table == "articles")
+			{
+				if($b->id <> 3) $branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch, $type);
+			}
+			else
+			{
+				$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch, $type);
+			}
+			
 			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
 		}
 		else
