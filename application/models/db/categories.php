@@ -85,10 +85,10 @@ class Categories extends MY_Model
 		$item_url = array();
 		$item_url[] = $item->url;
 
-		if($this->uri->segment(1) == $this->CI->config->item('works_url')) $stop_parent_id = $this->CI->config->item('works_id');
-		if($this->uri->segment(1) == $this->CI->config->item('catalog_url')) $stop_parent_id = $this->CI->config->item('catalog_id');
-		if(!$this->uri->segment(1)) $stop_parent_id = $this->CI->config->item('works_id');
-
+		$stop_parent_id = $this->config->item('works_id');
+		if($this->uri->segment(1) == $this->config->item('works_url')) $stop_parent_id = $this->config->item('works_id');
+		if($this->uri->segment(1) == $this->config->item('catalog_url')) $stop_parent_id = $this->config->item('catalog_id');
+		
 		while($item->parent_id <> $stop_parent_id)
 		{
 			$parent_id = $item->parent_id;

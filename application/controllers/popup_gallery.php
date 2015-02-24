@@ -67,7 +67,7 @@ class Popup_gallery extends Client_Controller {
 		}
 		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
 			"gallery" => $gallery,
 			"gallery_title" => $gallery_title
 		);
