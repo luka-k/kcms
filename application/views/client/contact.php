@@ -54,9 +54,11 @@
 							<div class="page__text page__scroll">
 								<div class="page__scroll-in">
 									<?=$content->article->description?>
-									<h6>Карта проезда</h6>
-									<!--Дабы не усложнять модель и контроллер считаем что последней загружена карта-->
-									<a href="<?=$content->article->img[count($content->article->img)-1]->catalog_big_url?>" class="lightbox"><img src="<?=$content->article->img[count($content->article->img)-1]->catalog_small_url?>" alt=""/>
+									<?if(!empty($content->article->img)):?>
+										<h6>Карта проезда</h6>
+										<!--Дабы не усложнять модель и контроллер считаем что последней загружена карта-->
+										<a href="<?=$content->article->img[count($content->article->img)-1]->catalog_big_url?>" class="lightbox"><img src="<?=$content->article->img[count($content->article->img)-1]->catalog_small_url?>" alt=""/>
+									<?endif;?>
 								</div> <!-- /.page__scroll-in -->
 							</div> <!-- /.page__text page__scroll -->
 						<?endif;?>
