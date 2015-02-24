@@ -85,21 +85,23 @@ class Categories extends MY_Model
 		$item_url = array();
 		$item_url[] = $item->url;
 		
-		if($this->uri->segment(1) == "works") $stop_parent_id = 14;
-		if($this->uri->segment(1) == "catalog") $stop_parent_id = 13;
-		if(!$this->uri->segment(1)) $stop_parent_id = 14;
+		if($this->uri->segment(1) == $this->CI->config->item('works_url')) $stop_parent_id = $this->CI->config->item('works_id');
+		if($this->uri->segment(1) == $this->CI->config->item('catalog_url')) $stop_parent_id = $this->CI->config->item('catalog_id');
+		if(!$this->uri->segment(1)) $stop_parent_id = $this->CI->config->item('works_id');
+		
+		
 
 		while($item->parent_id <> $stop_parent_id)
 		{
 			$parent_id = $item->parent_id;
-			$item = $this->get_item_by(array("id" => $parent_id));
+			$item = $this->get_item($parent_id);
 			$item_url[] = $item->url;
 		}
 		
 		//Это костыль, но я пока не придумал лучше способа различать двери в каталоге и двери в наших работах.
 		//вообще надо бы закрыть глюк возникающий при одинаковых урлах.
 		//мысли у меня есть на днях о пробую потому что это актуально.
-		$item_url[] = $this->uri->segment(1) ? $this->uri->segment(1) : "works";
+		$item_url[] = $this->uri->segment(1) ? $this->uri->segment(1) : $this->config->item('works_url');
 		return $item_url;
 	}	
 	

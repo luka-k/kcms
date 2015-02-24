@@ -16,10 +16,15 @@ class Catalog extends Client_Controller {
 		$order = "sort";
 		$direction = "acs";
 		
-		$this->breadcrumbs->add("works", "Каталог");
+		$works_id = $this->config->item('works_id');
+		$catalog_id = $this->config->item('catalog_id');
+		$works_url = $this->config->item('works_url');
+		$catalog_url = $this->config->item('catalog_url');
+		
+		$this->breadcrumbs->add($catalog_url, "Каталог");
 		
 		$data = array(
-			'tree' => $this->categories->get_site_tree(13, "parent_id"),
+			'tree' => $this->categories->get_site_tree($catalog_id, "parent_id"),
 			'url' => $this->uri->segment_array()
 		);
 
@@ -29,9 +34,8 @@ class Catalog extends Client_Controller {
 
 		if ($category == "root")
 		{
-			
-			$content = $this->categories->get_list(array("parent_id" => 13), $from = FALSE, $limit = FALSE, $order, $direction);
-			redirect(base_url().'catalog/'.$content[0]->url);
+			$content = $this->categories->get_list(array("parent_id" => $catalog_id), $from = FALSE, $limit = FALSE, $order, $direction);
+			redirect(base_url().$catalog_url.'/'.$content[0]->url);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -71,7 +75,7 @@ class Catalog extends Client_Controller {
 						$template = "client/products.php";
 					}
 				}
-				elseif(in_array("catalog", $data['url']))
+				elseif(in_array($catalog_url, $data['url']))
 				{
 					$content = $this->categories->get_sub_products($category->id);
 					$content = $this->products->get_prepared_list($content);

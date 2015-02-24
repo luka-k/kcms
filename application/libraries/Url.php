@@ -66,12 +66,15 @@ class CI_Url {
 			return $segment_number == 2 ? "root" : FALSE;
 		}
 		
-		if($this->CI->uri->segment(1) == "works") $parent_id = 14;
-		if($this->CI->uri->segment(1) == "catalog") $parent_id = 13;
+		$this->CI->config->item('works_id');
+		$this->CI->config->item('catalog_id');
+		
+		if($this->CI->uri->segment(1) == "works") $parent_id = $this->CI->config->item('works_id');
+		if($this->CI->uri->segment(1) == "catalog") $parent_id = $this->CI->config->item('catalog_id');
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : $parent_id));
 		
-		if(empty($child))
+			if(empty($child))
 		{
 			$child = $parent;
 			$child->product = $this->CI->products->get_item_by(array('url' => $url));

@@ -90,7 +90,7 @@ $autoload['helper'] = array('url', 'translit', 'upload', 'editiors', 'end_helper
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('magic_constants');
 
 /*
 | -------------------------------------------------------------------

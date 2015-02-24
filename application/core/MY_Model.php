@@ -498,5 +498,5 @@ class MY_Model extends CI_Model
 			$return->error = TRUE;
 		}
 		return $return;
-	}	
+	}
 } 
