@@ -32,7 +32,7 @@ class Pages extends Client_Controller {
 			$content = $page;
 
 			$content->articles = $this->articles->get_prepared_list($content->articles);
-			$template = $page->id == 3 ? "client/news.php" : "client/article.php";
+			$template = $page->id == 3 ? "client/news.php" : "client/articles.php";
 		}
 		elseif($page == FALSE)
 		{
