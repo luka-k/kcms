@@ -392,7 +392,7 @@ class MY_Model extends CI_Model
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch, $type)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id));
+		$branches = $this->get_list(array($parent_id_field => $parent_id), FALSE, FALSE, "sort", "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			if($type == "client") $branches[$i] = $this->prepare($b);
@@ -412,7 +412,7 @@ class MY_Model extends CI_Model
 		{
 			if($type == "client" && $this->_table == "categories")
 			{
-				$branches = $this->products->get_list(array($parent_id_field => $parent_id));
+				$branches = $this->products->get_list(array($parent_id_field => $parent_id), FALSE, FALSE, "sort", "asc");
 				if($branches) $branches = $this->products->get_prepared_list($branches);
 			}
 		}
