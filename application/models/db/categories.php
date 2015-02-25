@@ -42,7 +42,7 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
-		public function get_sub_products($id)
+	public function get_sub_products($id)
 	{
 		$this->sub_products = array();
 		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1));
@@ -76,6 +76,7 @@ class Categories extends MY_Model
 		$item_full_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
+
 		return $full_url;		
 	}
 	
@@ -83,21 +84,20 @@ class Categories extends MY_Model
 	{
 		$item_url = array();
 		$item_url[] = $item->url;
-
-		$stop_parent_id = $this->config->item('works_id');
-		if($this->uri->segment(1) == $this->config->item('works_url')) $stop_parent_id = $this->config->item('works_id');
-		if($this->uri->segment(1) == $this->config->item('catalog_url')) $stop_parent_id = $this->config->item('catalog_id');
 		
-		while($item->parent_id <> $stop_parent_id)
+		$root = array(
+			$this->config->item('works_id') => $this->config->item('works_url'),
+			$this->config->item('catalog_id') => $this->config->item('catalog_url')
+		);
+
+		while(!array_key_exists($item->parent_id, $root))
 		{
 			$parent_id = $item->parent_id;
 			$item = $this->get_item($parent_id);
 			$item_url[] = $item->url;
 		}
-		
-		$item_url[] = $this->config->item('works_url');
-		if($this->uri->segment(1) == $this->config->item('works_url')) $item_url[count($item_url)-1] = $this->config->item('works_url');
-		if($this->uri->segment(1) == $this->config->item('catalog_url')) $item_url[count($item_url)-1] = $this->config->item('catalog_url');
+
+		$item_url[count($item_url)] = $root[$item->parent_id];
 		if($this->uri->segment(1) == "articles") $item_url[count($item_url)-1] = "articles";
 		return $item_url;
 	}	
