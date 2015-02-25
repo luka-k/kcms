@@ -13,37 +13,30 @@ class Search extends Client_Controller {
 		$this->breadcrumbs->add($this->config->item('works_url'), "Наши работы");
 		$this->breadcrumbs->add("", "Результаты поиска");
 		
-		$search = $this->input->get();
+		$search = $this->input->get('search');
 		
-		$product = $this->products->get_item_by(array("name" => $search['name']));
-		if(!empty($product))
-		{
-			$product = $this->products->prepare($product);
-			redirect($product->full_url);
-		}
-		else
-		{
-			$this->db->like('name', $search['name']);
-			$query = $this->db->get('products');
 
-			$products = array();
-			foreach ($query->result() as $row)
-			{
-				$products[] = $row;
-			}	
+		$this->db->like('name', $search);
+		$this->db->or_like('description', $search);
+		$query = $this->db->get('products');
 
-			$data = array(
-				'title' => "Результаты поиска",
-				'breadcrumbs' => $this->breadcrumbs->get(),
-				'search' => $search['name'],
-				'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
-				'url' => $this->uri->segment_array(),
-				'content' => $this->products->get_prepared_list($products)
-			);
+		$content = array();
+		foreach ($query->result() as $row)
+		{
+			$content[] = $row;
+		}	
 		
-			$data = array_merge($this->standart_data, $data);
+		$data = array(
+			'title' => "Результаты поиска",
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'search' => $search['name'],
+			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
+			'url' => $this->uri->segment_array(),
+			'content' => $this->products->get_prepared_list($content)
+		);
 		
-			$this->load->view("client/products", $data);
-		}
+		$data = array_merge($this->standart_data, $data);
+		
+		$this->load->view("client/products", $data);
 	}
 }
