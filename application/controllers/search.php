@@ -14,25 +14,27 @@ class Search extends Client_Controller {
 		$this->breadcrumbs->add("", "Результаты поиска");
 		
 		$search = $this->input->get('search');
-		
 
 		$this->db->like('name', $search);
 		$this->db->or_like('description', $search);
 		$query = $this->db->get('products');
 
-		$content = array();
-		foreach ($query->result() as $row)
-		{
-			$content[] = $row;
-		}	
+		$products = $this->products->get_prepared_list($query->result_array());
 		
+		$this->db->like('name', $search);
+		$this->db->or_like('description', $search);
+		$query = $this->db->get('articles');
+
+		$articles = $this->articles->get_prepared_list($query->result_array());
+		$content = array_merge($products, $articles);
+		//var_dump($content);
 		$data = array(
 			'title' => "Результаты поиска",
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'search' => $search['name'],
 			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
 			'url' => $this->uri->segment_array(),
-			'content' => $this->products->get_prepared_list($content)
+			'content' => $content
 		);
 		
 		$data = array_merge($this->standart_data, $data);

@@ -46,7 +46,7 @@ class Articles extends MY_Model
 		$item_url = array();
 		if(!empty($item)) 
 		{
-		
+			
 			$item_url[] = $item->url;
 		
 			while($item->parent_id <> 0)
@@ -64,6 +64,7 @@ class Articles extends MY_Model
 	{
 		if(!empty($item))
 		{
+			if(!is_object($item)) $item = (object)$item;
 			$item->full_url = $this->get_url($item);
 			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
 			if(!empty($item->date))

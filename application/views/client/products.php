@@ -30,18 +30,22 @@
 								
 								<?foreach($content as $c):?>
 									<li class="projects__item projects-item">
-										<a href="<?=$c->full_url?>" class="projects-item__image-box">
-				        					<img src="<?=$c->img->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
-				        				</a>
+										<?if(!empty($c->img)):?>
+											<a href="<?=$c->full_url?>" class="projects-item__image-box">
+												<img src="<?=$c->img->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
+											</a>
+										<?endif;?>
 										
 										<div class="projects-item__content">
 											<h3 class="projects-item__title">
 												<a href="<?=$c->full_url?>" class="projects-item__href"><?=$c->name?></a>
 											</h3> <!-- /.projects-item__title -->
 											
-											<div class="projects-item__text">
-												<?=$c->short_description?>
-											</div> <!-- /.projects-item__text -->
+											<?if(isset($c->short_description)):?>
+												<div class="projects-item__text">
+													<?=$c->short_description?>
+												</div> <!-- /.projects-item__text -->
+											<?endif;?>
 										</div> <!-- /.projects-item__content -->
 									</li> <!-- /.projects__item projects-item -->
 								<?endforeach;?>
