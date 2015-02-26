@@ -58,7 +58,10 @@ class Content extends Admin_Controller
 			}
 			else
 			{
-				$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+				$type == "emails" ? $parent = "type" : $parent = "parent_id";
+				$data["parent_id"] = $id;
+				$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+				$data['sortable'] = TRUE;
 			}
 			$data['sortable'] = TRUE;
 		}
@@ -94,7 +97,7 @@ class Content extends Admin_Controller
 			
 		}
 		
-		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
+		if($type == "news") $data['news_tree'] = $this->articles->get_news_tree();
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
 		{
@@ -114,9 +117,8 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{	
 			$content = set_empty_fields($data['editors']);
-			
+			if($type == "emails") $content->type = 2;
 			$data['content'] = $content;
-			
 			$field_name = editors_field_exists('news2article', $data['editors']);
 			if($field_name)
 			{
@@ -128,7 +130,7 @@ class Content extends Admin_Controller
 		else
 		{			
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
-			
+			if($type == "emails") $data['content']->type == 2;
 			$field_name = editors_field_exists('news2article', $data['editors']);
 			if($field_name)
 			{
@@ -161,7 +163,7 @@ class Content extends Admin_Controller
 		);
 		
 		$data['content'] = $this->$type->editors_post()->data;
-		
+
 		if($this->db->field_exists('parent_id', $type))
 		{
 			$data['tree'] = $this->$type->get_tree(0, "parent_id");
