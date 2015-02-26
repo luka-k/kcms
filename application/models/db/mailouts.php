@@ -52,8 +52,8 @@ class Mailouts extends MY_Model
 			$group = $this->users_groups->get_item_by(array("id" => $g));
 			$item->users_groups[] = $group->name;
 		}
-		
-		$template = $this->emails->get_item_by(array("id" => $item->template_id));
+		$type = $item->template_type;
+		$template = $this->$type->get_item_by(array("id" => $item->template_id));
 		$item->template = $template->name;
 		return $item;
 	}

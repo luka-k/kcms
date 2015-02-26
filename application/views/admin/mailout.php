@@ -10,7 +10,8 @@
 
 					<div id="left_col" class="col_12 back">
 						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="subscribe_form" action="#"/>
-							<input type="hidden" id="template_id" name="template" value="<?=$template_id?>">
+							<input type="hidden" id="template_id" name="template_id" value="<?=$template_id?>">
+							<input type="hidden" id="template_type" name="template_type" value="<?=$template_type?>">
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">От кого</label></div>
 								<div class="col_10"><input type="text" id="lbl_1" class="col_12 validate subscribe_info" name="from_name" value="<?=$user['name']?>"/></div>
@@ -21,7 +22,7 @@
 							</div>
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">Тема расссылки</label></div>
-								<div class="col_10"><input type="text" id="lbl_1" class="col_12 validate subscribe_info" name="subject" value="<?=$template->subject?>"/></div>
+								<div class="col_10"><input type="text" id="lbl_1" class="col_12 validate subscribe_info" name="subject" value="<?if(isset($template->subject)):?><?=$template->subject?><?else:?><?=$template->name?><?endif;?>"/></div>
 							</div>
 							<div id="subscribes" class="col_12" style="border-radius:10px;">
 								<div class="col_2"><label for="">Подписчики</label></div>

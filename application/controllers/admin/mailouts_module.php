@@ -12,9 +12,26 @@ class Mailouts_module extends Admin_Controller
 	{
 		$mailouts = $this->mailouts->get_prepared_list($this->mailouts->get_list(FALSE));
 		
-		$templates = $this->emails->get_list(array("type" => 2));
-		//$news = $this->news->get_list(FALSE);
+		$emails = $this->emails->get_list(array("type" => 2));
+		
+		//я резонно подумал что врятли захочется делать рассулку на новость месячной давности и ограничил 10 последними.
+		//да и то я думаю много.
+		$news = $this->news->get_list(FALSE, 0, 10, "date", "asc");
+		$templates = array();
+		if(!empty($emails)) foreach($emails as $e)
+		{
+			$e->template_type = "emails";
+			$templates[] = $e;
+		}
+		
+		if(!empty($news)) foreach($news as $n)
+		{
+			$n->template_type = "news";
+			$templates[] = $n;
+		}
 		//$templates = array_merge($templates, $news);
+		//$templates = $this->news->get_list(FALSE);
+		//var_dump($templates);
 		$data = array(
 			'title' => "Рассылка",
 			'error' => "",
@@ -29,15 +46,20 @@ class Mailouts_module extends Admin_Controller
 	
 	public function mailout($action = "edit")
 	{
-		$template_id = $this->input->post('template');
-		$template = $this->emails->get_item_by(array("id" => $template_id));
+		$template_info = $this->input->post('template');
+		$template_info = explode("-", $template_info);
+		
+		$type = $template_info[0];
+		//$template = $this->emails->get_item_by(array("id" => $template_id));
+		$template = $this->$type->get_item_by(array("id" => $template_info[1]));
 		
 		$data = array(
 			'title' => "Редактирование рассылки",
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
-			'template_id' => $template_id,
+			'template_id' => $template_info[1],
+			'template_type' => $template_info[0],
 			'template' => $template,
 			'users_groups' => $this->users_groups->get_list(FALSE)
 		);
@@ -139,6 +161,7 @@ class Mailouts_module extends Admin_Controller
 		
 		$data = array(
 			"template_id" => $info->template_id,
+			"template_type" => $info->template_type,
 			"users_ids" => implode("/", $users_groups),
 			"mailouts_date" => date("Y-m-d"),
 			"success" => $info->success,

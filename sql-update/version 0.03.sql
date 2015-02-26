@@ -27,6 +27,7 @@ ALTER TABLE `emails` MODIFY `type` TINYINT(1) NOT NULL default 2;
 CREATE TABLE IF NOT EXISTS `mailouts` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`template_id` int(11),
+	`template_type` varchar(300),
 	`users_ids` varchar(300),
 	`mailouts_date` date,
 	`success` int(11),

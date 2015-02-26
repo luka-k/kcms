@@ -54,7 +54,7 @@
 								<select id="template" name="template" class="col_12" onchange="enabled_item(this.options[this.selectedIndex].value);">
 									<option value="0" select>Необходимо выбрать</option>
 									<?foreach($templates as $template):?>
-										<option value="<?=$template->id?>"><?=$template->name?></option>
+										<option value="<?=$template->template_type?>-<?=$template->id?>"><?=$template->name?></option>
 									<?endforeach?>
 								</select>
 								

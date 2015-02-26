@@ -119,6 +119,7 @@
 					data = {};
 					data.users_groups = subscribes_groups;
 					data.template_id = $("#template_id").val();
+					data.template_type = $("#template_type").val();
 		
 					data.success = $('.success').html();
 					data.no_success = $('.no_success').html();
