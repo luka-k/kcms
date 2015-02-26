@@ -6,6 +6,7 @@ class News extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
+			'date' => array('Дата', 'date', 'set_date'),
 			'article_parent_id' => array('Раздел', 'n2a', 'news2article'),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', ''),
@@ -45,9 +46,8 @@ class News extends MY_Model
 		$this->db->where_in("id", $id);
 		$counter = $this->db->count_all_results("news");
 		$this->db->where_in("id", $id);
-		// Знаю что это ересь и надо по дате но я этот момент проебал
-		// сейчас покажем так на каникулах даш достуцпы переделаю по дате
-		$this->db->order_by("id", "desc");
+
+		$this->db->order_by("date", "desc");
 		$limit == FALSE ? $query = $this->db->get("news") : $query = $this->db->get("news", $limit, 0);
 		$news = $query->result();
 		return $news;

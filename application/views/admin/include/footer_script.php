@@ -106,6 +106,14 @@
 		}
 	}
 	
+	$(function(){
+		$( ".datepicker" ).datepicker({
+			dateFormat:"yy-mm-dd",
+			setDate: $(".datepicker").attr('date')
+		});
+
+	});
+	
 	jQuery(document).ready(function($){
 		var ckeditor = CKEDITOR.replace('editor');
 		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
