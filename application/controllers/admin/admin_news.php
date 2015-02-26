@@ -20,8 +20,7 @@ class Admin_news extends Admin_Controller
 		$data = array(
 			'title' => "Новости",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'name' => $name,
 			'tree' => $this->articles->get_tree(0, "parent_id"),

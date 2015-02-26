@@ -7,23 +7,19 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin_Controller extends CI_Controller 
 {
 	protected $menu;
-	protected $user_name;
-	protected $user_id;
+	protected $user;
 
 	public function __construct()
 	{
 		parent::__construct();
 		
-		$user = $this->session->userdata('logged_in');
-		$role = $this->session->userdata('role');
-
-		if ((!$user)||($role <> "admin")) die(redirect(base_url().'registration/admin_enter'));	
+		$is_logged = $this->session->userdata('logged_in');
+		$user_groups = (array)$this->session->userdata('user_groups');
+		
+		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
 		
 		$this->menu = $this->menus->admin_menu;
-		$this->user_name = $this->session->userdata('user_name');
-		$this->user_id = $this->session->userdata('user_id');
-		
-		$this->config->load('emails_config');
+		$this->user = (array)$this->session->userdata('user');
 	}
 }
 
