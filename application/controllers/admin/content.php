@@ -23,8 +23,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'type' => $type,
 			'name' => $name
@@ -43,6 +42,8 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type)) $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
+		
+		$data["parent_id"] = $id;
 		
 		if($id == FALSE)
 		{
@@ -78,8 +79,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'type' => $type,
 			'selects' => array(
@@ -103,6 +103,12 @@ class Content extends Admin_Controller
 		else
 		{
 			$data['editors'] = $this->$type->editors;
+		}
+		
+		if($this->db->field_exists('parent_id', $type))
+		{
+			$parent_id = $this->input->get('parent_id');
+			$content->parent_id = $parent_id;
 		}
 		
 		if($id == FALSE)
@@ -145,8 +151,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'editors' => $this->$type->editors,
 			'menu' => $this->menu,
 			'type' => $type,
