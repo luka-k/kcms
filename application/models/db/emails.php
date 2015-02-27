@@ -3,10 +3,14 @@
 class Emails extends MY_Model
 {
 	public $editors = array(
-		'id' => array('id', 'hidden'),
-		'type' => array('Тип', 'select'),
-		'subject' => array('Тема письма', 'text'),
-		'description' => array('Текст письма', 'tiny')
+		'Основное' => array(
+			'id' => array('id', 'hidden', ''),
+			'type' => array('type', 'hidden', ''),
+			'name' => array('Наименование', 'text',  'trim|required|name'),
+			//'users_type' => array('Группа подписчиков', 'simply_select',  ''),
+			'subject' => array('Тема письма', 'text', ''),
+			'description' => array('Текст письма', 'tiny', '')
+		)
 	);
 	
 	function __construct()

@@ -39,6 +39,10 @@ position:relative;
 top:-2px;
 }
 
+#left-menu .tabs li{
+margin-bottom:-1px;
+}
+
 #menu{
 padding:0 0.83333333333333%;
 }
@@ -187,4 +191,31 @@ list-style-image:url('../img/option_1.png');
 
 #field-link{
 display:none;
+}
+
+/*************************
+
+*************************/
+
+.modal{
+width:300px;
+display:none;
+text-align:center;
+}
+
+#mailout .block-title{
+font-size:24px;
+margin-bottom:10px;
+}
+
+#mailout .text{
+font-size:20px;
+}
+
+#mailout .success{
+color:green;
+}
+
+#mailout .no_success{
+color:red;
 }

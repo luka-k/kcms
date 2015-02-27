@@ -20,13 +20,16 @@ class Content extends Admin_Controller
 		//что не всегда удобно.
 		$name = editors_field_exists('name', $this->$type->editors);
 
+		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column: "off";
+
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
 			'type' => $type,
-			'name' => $name
+			'name' => $name,
+			'left_column' => $left_column
 		);	
 				
 		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
@@ -40,10 +43,12 @@ class Content extends Admin_Controller
 		if($id == FALSE)
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['sortable'] = FALSE;
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			$type == "emails" ? $parent = "type" : $parent = "parent_id";
+			$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
 		
@@ -59,12 +64,14 @@ class Content extends Admin_Controller
 	public function item($acting, $type, $id = FALSE, $exit = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
+		$left_column = isset($this->$type->admin_left_column) ? $this->$type->admin_left_column: "off";
 		
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
+			'left_column' => $left_column,
 			'type' => $type
 		);
 		
@@ -74,6 +81,8 @@ class Content extends Admin_Controller
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}
+		
+		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
 		{
@@ -94,6 +103,7 @@ class Content extends Admin_Controller
 				$content->is_active = "1";
 				$data['content'] = $content;
 				$data['content']->img = NULL;
+				if($type == "emails") $data['content']->type = 2;
 				$field_name = editors_field_exists('ch', $data['editors']);
 				if(!empty($field_name))
 				{
@@ -168,7 +178,8 @@ class Content extends Admin_Controller
 				}
 				
 				isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
-
+				if($type == "emails") $p_id = $data['content']->type;
+				
 				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);
 
 				//$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type);		

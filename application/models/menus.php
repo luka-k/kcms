@@ -25,13 +25,18 @@ class Menus extends MY_Model
 			)),
 			'categories' => array('Каталог', "#", 0, array(
 				0 => array('Категории', base_url()."admin/content/items/categories", 0),
-				1 => array('Создать категорию', base_url()."admin/content/item/categories", 0),
+				1 => array('Создать категорию', base_url()."admin/content/item/edit/categories/", 0),
 				2 => array('Товары', base_url()."admin/content/items/products", 0),
-				3 => array('Создать товар', base_url()."admin/content/item/products", 0)				
+				3 => array('Создать товар', base_url()."admin/content/item/edit/products/", 0)				
 			)),
 			'orders' => array('Заказы', base_url()."admin/admin_orders/", 0),
 			'settings' => array('Настройки', "#", 0, array(
 				0 => array('Настройки сайта', base_url()."admin/content/item/edit/settings/1", 0)
+			)),
+			'mailouts' => array('Рассылки', "#", 0, array(
+				0 => array('Служебные письма', base_url()."admin/content/items/emails/1", 0),
+				1 => array('Шаблоны', base_url()."admin/content/items/emails/2", 0),
+				2 => array('Рассылки', base_url()."admin/mailouts_module", 0)
 			)),
 			'menus' => array('Меню', base_url()."admin/menu_module/menus", 0),
 			'users' => array('Пользователи', base_url()."admin/content/items/users", 0, array(

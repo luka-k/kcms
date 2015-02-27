@@ -125,6 +125,7 @@ $autoload['model'] = array(
 	'db/users', 
 	'db/users_groups', 
 	'db/users2users_groups', 
+	'db/mailouts',
 	'db/orders', 
 	'db/orders_customers', 
 	'db/orders_products', 
