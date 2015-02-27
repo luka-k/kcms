@@ -23,8 +23,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'type' => $type,
 			'name' => $name
@@ -64,8 +63,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user_name' => $this->user_name,
-			'user_id' => $this->user_id,
+			'user' => $this->user,
 			'menu' => $this->menu,
 			'type' => $type
 		);

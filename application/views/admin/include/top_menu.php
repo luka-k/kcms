@@ -11,8 +11,8 @@
 			<?php endif;?>				
 			</li>
 		<?endforeach;?>
-		<li class="right"><a href="<?=base_url()?>admin/registration/logout"><i class="icon-remove"></i> Выйти</a></li>
-		<li class="right"><a href="<?=base_url()?>admin/item/users/<?=$user_id?>"><i class="icon-user"></i><?=$user_name?></a></li>
-		<li class="right"><a href="<?=base_url()?>" target = "_blanc"><i class="icon-signout"></i> Перейти на сайт</a></li>
+		<li class="right"><a href="<?=base_url()?>admin/registration/logout"><i class="icon-remove"></i>Выйти</a></li>
+		<li class="right"><a href="<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/edit"><i class="icon-user"></i><?=$user['name']?></a></li>
+		<li class="right"><a href="<?=base_url()?>" target = "_blanc"><i class="icon-signout"></i>На сайт</a></li>
 	</ul>
 </div>	
