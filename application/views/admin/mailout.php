@@ -62,6 +62,7 @@
 				</div>
 			</div>
 		</div>
+
 		<?require 'include/mailouts_script.php'?>
 		<?require 'include/footer_script.php'?>
 		<?require 'include/footer.php'?>
