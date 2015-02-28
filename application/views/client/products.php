@@ -83,7 +83,7 @@
 				</aside>
 			</div>
 			
-				<div id="content" class="col_9">
+				<div id="content" class="col_9 clearfix">
 						<? require 'include/breadcrumbs.php'?>
 						<div class="cat">
 							<div class="clearfix">

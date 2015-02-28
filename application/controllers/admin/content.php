@@ -29,7 +29,8 @@ class Content extends Admin_Controller
 			'menu' => $this->menu,
 			'type' => $type,
 			'name' => $name,
-			'left_column' => $left_column
+			'left_column' => $left_column,
+			"parent_id" => $id
 		);	
 				
 		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";

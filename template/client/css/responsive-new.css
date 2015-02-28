@@ -10,6 +10,10 @@
 	/*border:1px solid red;*/
 	}
 	
+	#menu #search_input{
+		width:30%;
+	}
+	
 	.cart{
 	min-width:280px;
 	}
@@ -42,6 +46,14 @@
 
 	body{
 	background:#000;
+	}
+	
+	#searchform{
+		width:100%;
+	}
+	
+	#menu #search_input{
+		width:95%;
 	}
 	
 	.logo{
@@ -128,6 +140,15 @@
 
 	body{
 	background:#000;
+	}
+	
+	#menu nav ul li{
+		width:33%;
+		text-align:center;
+	}
+	
+	#left-col{
+		display:none;
 	}
 
 	.logo{
@@ -270,7 +291,17 @@
 @media all and (max-width: 480px) {
 
 	body{
+	min-width:380px;
 	background:#000;
+	}
+	
+	#menu nav ul li{
+		width:33%;
+		text-align:center;
+	}
+	
+	#left-col{
+		display:none;
 	}
 
 	.logo{

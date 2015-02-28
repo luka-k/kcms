@@ -1356,6 +1356,7 @@ text-align:left;
  * ========================================================================== */
 .modal
 {
+	width:400px;
     display: none;
     padding: 30px;
     text-align: center;
@@ -1388,6 +1389,10 @@ text-align:left;
 .fancybox-skin
 {
     border-radius: 0;
+}
+
+#order-modal{
+
 }
 
 #order-modal input, #order-modal textarea{
