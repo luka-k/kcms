@@ -97,7 +97,7 @@
 		
 				//Получаем текст письма из фрейма js-редактора
 				var d = window.frames[0].document;
-				post['message'] = d.body.innerHTML;
+				post['message'] = encodeURIComponent(d.body.innerHTML);
 		
 				data.post = post;
 		
