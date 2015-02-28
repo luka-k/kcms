@@ -14,7 +14,6 @@ class Images extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		
 		$this->config->load('upload_config');
 	}
 	
@@ -22,20 +21,38 @@ class Images extends MY_Model
 	{
 		//Подключаем настройки
 		$upload_path = $this->config->item('upload_path');
+		
+		$img_info = $this->get_unique_info($img['name']);
+		
+		$img_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
+			
+		if(isset($img['type']))
+		{
+			//Загружаем оригинал
+			if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
+		}else
+		{
+			if(!copy(trim($img["tmp_name"]), $img_path)) return FALSE;
+		}
+
+		//Создаем миниатюры
+		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
+		
+		$object_info['url'] = $img_info->url;
+
+		return $this->insert($object_info);
+	}
+	
+	// function generate_thumb() - генерирует миниатюры для изображения
+	// $img_path - путь к картинке
+	public function generate_thumbs($img_path)
+	{
+		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
+		
+		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		$img_info = $this->non_requrrent_info($img['name']);
-		
-		//Формируем путь для загрузки оригинала изображения
-		$temp_path = make_upload_path($img_info->name, $upload_path).$img_info->name;
-	
-		//Загружаем оригинал
-		if(!move_uploaded_file($img["tmp_name"], $temp_path))
-		{
-			return FALSE;
-		}
-		
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';		
+		$image_name = array_reverse(explode("/", $img_path));
 		
 		$thumb = new phpThumb();
 		//Создаем миниатюры
@@ -44,17 +61,15 @@ class Images extends MY_Model
 			$thumb->resetObject();
 			
 			//Задаем имя файла с которого делаем миниатюру.
-			$thumb->setSourceFilename($temp_path);
+			$thumb->setSourceFilename($img_path);
 		
 			//Устанавливаем параметры
-			foreach($configs as $parameter => $config)
+			foreach($configs as $parameter => $value)
 			{
-				$thumb->setParameter($parameter, $config);
+				$thumb->setParameter($parameter, $value);
 			}
 			
-			$upload_thumb_path = $upload_path."/".$thumb_dir_name;
-			
-			$output_filename = make_upload_path($img_info->name, $upload_thumb_path).$img_info->name;
+			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
 
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
@@ -64,78 +79,41 @@ class Images extends MY_Model
 			else
 			{
 				//Загружаем миниатюры в соответствующую папку
-				if(!$thumb->RenderToFile($output_filename))
-				{
-					return FALSE;
-				}
+				if(!$thumb->RenderToFile($output_filename))	return FALSE;
 			}
 		}
-		//Добавляем информацию о загруженой картинке в базу
-		foreach ($object_info as $field => $info)
+	}
+	
+	public function insert($data)
+	{
+		if ($data)
 		{
-			$data[$field] = $info;
+			$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
+			$this->db->set($data);
+			
+			$this->db->insert($this->_table);
+			return $this->db->insert_id();
 		}
-		//$data['title'] = $img_name[0];
-		$data['url'] = $img_info->url;
-		if($this->get_images($object_info, 'catalog_mid') == FALSE)
+	}
+	
+	public function resize_all()
+	{
+		$images= $this->images->get_list(FALSE);
+		foreach ($images as $image)
 		{
-			$data['is_cover'] = 1;
-		}
-		else
-		{
-			$data['is_cover'] = 0;
-		}
-		if(!$this->insert($data))
-		{
-			return FALSE;
+			$upload_path = $this->config->item('upload_path');
+			$thumb_config = $this->config->item('thumb_config');
+			
+			foreach($thumb_config as $path => $param)
+			{
+				unlink($upload_path."/".$path.$image->url);
+			}
+			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) return FALSE;
 		}
 		return TRUE;
 	}
 	
-	public function resize($images, $sizes)
-	{
-		$upload_path = $this->config->item('upload_path');
-		$thumb_config = $this->config->item('thumb_config');
-		
-		foreach($sizes as $key => $value)
-		{
-			$size = explode("-", $key);
-			if(!empty($value)) $thumb_config[$size[0]][$size[1]] = $value;
-		}	
-		
-		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
-		
-		$thumb = new phpThumb();
-		foreach ($images as $image)
-		{
-			foreach($thumb_config as $path => $param)
-			{
-				unlink($upload_path."/".$path.$image->url);
-					
-				$thumb->resetObject();
-				$thumb->setSourceFilename($upload_path."/".$image->url);
-					
-				foreach($param as $parameter => $config)
-				{
-					$thumb->setParameter($parameter, $config);
-				}
-			
-				$upload_thumb_path = $upload_path."/".$path;
-				$output_filename = $upload_path."/".$path.$image->url;
-
-				if(!$thumb->GenerateThumbnail())
-				{
-					return FALSE;
-				}
-				else
-				{
-					if(!$thumb->RenderToFile($output_filename)) return FALSE;
-				}
-			}
-		}
-	}
-	
-	public function non_requrrent_info($img_name)
+	public function get_unique_info($img_name)
 	{
 		$image = explode(".", $img_name);
 		//Чистим от лишних символов и транлитируем имя файла.
@@ -144,7 +122,7 @@ class Images extends MY_Model
 		$url = make_upload_path($img_name, NULL).$img_name;
 	
 		$count = 1;
-		while(!($this->non_requrrent(array("url" => $url))))
+		while(!($this->is_unique(array("url" => $url))))
 		{
 			$img_name = $image[0]."[".$count."]".".".$image[1];
 			$url = make_upload_path($img_name, NULL).$img_name;
@@ -156,31 +134,15 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $is_cover = FALSE, $location = FALSE)
+	public function get_images($object_info, $is_cover = FALSE)
 	{
-		$thumb_config = $this->config->item('thumb_config');
 		if ($is_cover == FALSE)
 		{
 			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
-
 			foreach($images as $key => $item)
 			{
 				if(!empty($item))
 				{
-					if($lacation = "product")
-					{
-						$filename = $this->get_url($item->url);
-						$img_info = getimagesize($filename);
-				
-						if($img_info['0'] < $thumb_config['catalog_mid']['w'])
-						{
-							$images[$key]->zoom = "off";
-						}
-						else
-						{
-							$images[$key]->zoom = "on";
-						}
-					}
 					$images[$key] = $this->_get_urls($item);
 				}
 			}
@@ -190,20 +152,6 @@ class Images extends MY_Model
 			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
 			if(!empty($images))
 			{
-				if($lacation = "product")
-				{
-					$filename = $this->get_url($images->url);
-					$img_info = getimagesize($filename);
-				
-					if($img_info['0'] < $thumb_config['catalog_mid']['w'])
-					{
-						$images->zoom = "off";
-					}
-					else
-					{
-						$images->zoom = "on";
-					}
-				}
 				$images = $this->_get_urls($images);
 			}
 			else
@@ -288,7 +236,6 @@ class Images extends MY_Model
 	public function get_url($url, $path = FALSE)
 	{
 		$item_url = array();
-		$item_url = NULL;
 		$item_url[] = $url;
 		if($path) $item_url[] = $path;
 		$item_url[] = "images";
