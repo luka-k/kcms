@@ -114,7 +114,7 @@ class Mailouts_module extends Admin_Controller
 		$send_info->from_name =$info->post->from_name;
 		$send_info->from_email = $info->post->from_email;
 		$send_info->subject = $info->post->subject;
-		$send_info->message = urldecode($info->post->message);
+		$send_info->message = $info->post->message;
 		
 		$send_info->to = $info->user->email;
 		

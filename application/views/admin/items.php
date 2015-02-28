@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<? require 'include/head.php' ?>
 	<body>
@@ -84,7 +84,6 @@
 									</tr>
 									<?$counter++?>
 								<? endforeach; ?>
-								
 								<?require 'include/delete_popup.php'?>
 							</tbody>
 						</table>
