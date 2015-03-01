@@ -65,11 +65,15 @@
 			<h1 class="page__title">Персональные данные</h1>
 			
 			<div class="avatar page__form">
-				<?if(!empty($user->img)):?>
+				<?if(!empty($user->vk_avatar)):?>
+					<div>
+						<img width="120px" src="<?=$user->vk_avatar?>" alt=""/>
+					</div>
+				<?elseif(!empty($user->img)):?>
 					<div style="position:relative; float:left;">
 						<img src="<?=$user->img->catalog_small_url?>" alt=""/>
 					</div>
-				<?endif;?>
+				
 				<div>
 					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" class="form" action="<?=base_url()?>cabinet/update_info/image"/>
 						<input type="hidden" name="id"  value="<?=$user->id?>"/>
@@ -86,6 +90,7 @@
 						</div>
 					</form>
 				</div>
+				<?endif;?>
 			</div>
 			
 			<div class="clearfix page__form">

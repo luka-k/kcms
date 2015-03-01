@@ -63,14 +63,13 @@ class Cabinet extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		$data['user'] = $this->users->get_item_by(array("id" => $data['user']->id));
 		$data['user'] = $this->users->prepare($data['user']);
-		//var_dump($data['user']);
+
 		$this->load->view('client/cabinet.php', $data);
 	}
 	
 	public function update_info($type)
 	{
 		$user = (object)$this->input->post();
-		
 		if($type == "pass")
 		{
 			$user->password = md5($user->password);

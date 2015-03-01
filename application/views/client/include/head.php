@@ -17,7 +17,15 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	
+	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
 	
+	<script>
+		VK.init({apiId: 4807211});
+	</script>
+	
+	<script type="text/javascript">
+		VK.Widgets.Auth("vk_auth", {width: "400px", authUrl: '/account/vk_enter'});
+	</script>
 	
 	<script>
 		function autocomp(){

@@ -40,7 +40,6 @@ class Content extends Admin_Controller
 				);
 				
 				$answer = $this->images->upload_image($img, $object_info);
-				echo $answer ? "ok</br>" : "fuck</br>";
 			}
 		}
 		

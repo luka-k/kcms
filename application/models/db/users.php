@@ -28,7 +28,7 @@ class Users extends MY_Model
 			'user' => " ",
 			'user_groups' => "",
 			'logged_in' => 0
-			);
+		);
 	
 		if($this->get_count(array('email' => $e_email, 'password' => $e_pass)) == 1)
 		{
@@ -50,6 +50,55 @@ class Users extends MY_Model
 			$this->session->set_userdata($authdata);
 		}
 		return $authdata;	
+	}
+	
+	
+	public function vk_login($info)
+	{
+		$authdata = array(
+			'user' => " ",
+			'user_groups' => "",
+			'logged_in' => 0
+		);
+		
+		$uid = "vk-".$info['uid'];
+		
+		if($this->get_count(array('vk_uid' => $uid)) == 1)
+		{
+			$user = $this->get_item_by(array('vk_uid' => $uid));
+			
+			//  На случай если пользователь поменял свои данные обновляем инормацию в базе.
+			$data = array(
+				"last_name" => $info['last_name'],
+				"name" => $info['first_name'],
+				"vk_avatar" => $info['photo']
+			);
+			
+			$this->update($user->id, $data);
+					
+			$authdata = array(
+				'user' => $this->get_item_by(array('vk_uid' => $uid)),
+				'logged_in' => TRUE,
+			);
+			
+			$this->session->set_userdata($authdata);
+			
+			return TRUE;
+		}
+	}
+	
+	public function vk_user_insert($info)
+	{
+		$data = array(
+			"last_name" => $info['last_name'],
+			"name" => $info['first_name'],
+			"vk_uid" => "vk-".$info['uid'],
+			"vk_avatar" => $info['photo']
+		);
+		
+		$this->insert($data);
+		
+		$this->vk_login($info);
 	}
 	
 	/*Проверка на существование регистрации на такой email*/		

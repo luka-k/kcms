@@ -45,7 +45,7 @@ class Account extends Client_Controller
 			'user' => '',
 			'logged_in' => '',
 			'user_groups' => ''
-			);
+		);
 		$this->session->unset_userdata($authdata);
 		
 		redirect(base_url());
@@ -261,5 +261,20 @@ class Account extends Client_Controller
 		$this->users->update($user->id, array("valid_email" => 1));
 		
 		if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
+	}
+	
+	function vk_enter()
+	{
+		$secret_key = $this->config->item("vk_secret_key");
+		$app_id = $this->config->item("vk_app_id");
+		
+		$info = $this->input->get();
+		
+		if ($info['hash']==md5($app_id .$info['uid'].$secret_key)) 
+		{
+			if(!$this->users->vk_login($info)) $this->users->vk_user_insert($info);
+			
+			redirect(base_url().'cabinet');	
+		}
 	}
 }

@@ -366,5 +366,14 @@ $config['secret'] = 'kcms';
 
 $config['wishlist'] = 'kcms';
 
+/*************************************************
+
+
+*************************************************/
+
+$config['vk_app_id'] = '4807211';
+
+$config['vk_secret_key'] = 'i2HlPivWML0wKOYsozk1';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

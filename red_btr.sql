@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 19 2015 г., 15:39
+-- Время создания: Мар 01 2015 г., 23:09
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('b46f199ee9022672a964ce2ef9618417', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1424345767, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":14:{s:2:"id";s:2:"27";s:9:"last_name";s:0:"";s:4:"name";s:5:"admin";s:10:"patronymic";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:4:"city";s:29:"Санкт-Петербург";s:6:"street";s:14:"Руднева";s:5:"house";s:1:"5";s:8:"building";s:1:"1";s:9:"apartment";s:3:"162";s:8:"zip_code";s:0:"";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:2:{i:0;s:5:"admin";i:1;s:11:"subscribers";}}');
+('afa5a1ada05183c42da1cea338482497', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0', 1425236889, 'a:3:{s:4:"user";O:8:"stdClass":17:{s:2:"id";s:2:"50";s:9:"last_name";s:18:"Лукинский";s:4:"name";s:8:"Паша";s:10:"patronymic";s:0:"";s:8:"password";s:0:"";s:5:"email";s:0:"";s:5:"phone";s:0:"";s:4:"city";s:0:"";s:6:"street";s:0:"";s:5:"house";s:0:"";s:8:"building";s:0:"";s:9:"apartment";s:0:"";s:8:"zip_code";s:0:"";s:11:"valid_email";s:1:"0";s:6:"vk_uid";s:9:"vk-439844";s:9:"vk_avatar";s:54:"http://cs617419.vk.me/v617419844/1427e/ZRxl2-Ez8sI.jpg";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -233,7 +233,7 @@ INSERT INTO `emails` (`id`, `name`, `type`, `subject`, `description`, `is_delete
 (1, 'Администратору при заказе', 1, 'Новый заказ', '<p>Кллиент %user_name% оформил заказ № %order_id%.</p>\r\n', 0),
 (2, 'Клиенту при заказе', 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n', 0),
 (3, 'Клиенту при изменении статуса заказа', 1, 'Статус Вашего заказа изменен', '<p>Уважаемый %user_name%. Статус Вашего заказа %order_id% изменен на %order_status%</p>\r\n', 0),
-(4, 'При регистрации', 1, 'Регистрация в магазине', '<p>%user_name%, спасибо за регистрацию в нашем магазине. Ваш логин %login% Ваш пароль %password%</p>\r\n', 0),
+(4, 'При регистрации', 1, 'Подтверждение email', '<p>%user_name%, спасибо за регистрацию в нашем магазине.</p>\r\n\r\n<p>Для подтверждения email перейдите по <a href="%site_url%account/set_valid?email=%login%" target="_blank">ссылке</a></p>\r\n', 0),
 (5, 'При изменении пароля', 1, 'Ваш пароль изменен', '<p>%user_name%, Ваш пароль в интернет магазине изменен. Новые данный доступа Ваш логин %login% Ваш пароль %password%</p>\r\n', 0),
 (6, 'Обратный звонок', 1, 'Заказан обратный звонок', '', 0),
 (7, 'Пробный шаблон рассылки', 2, 'Пробное письмо', '<table border="1" cellpadding="1" cellspacing="1" style="width:500px">\r\n	<tbody>\r\n		<tr>\r\n			<td>ываываыу</td>\r\n			<td>ывыупыупы</td>\r\n		</tr>\r\n		<tr>\r\n			<td>ыпыупыуп</td>\r\n			<td>ыупыупы</td>\r\n		</tr>\r\n		<tr>\r\n			<td>ыпыупыупыуы</td>\r\n			<td>ыупыупыуп</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', 1);
@@ -315,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `mailouts` (
   `success` int(11) NOT NULL,
   `no_success` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Дамп данных таблицы `mailouts`
@@ -337,7 +337,16 @@ INSERT INTO `mailouts` (`id`, `template_id`, `users_ids`, `mailouts_date`, `succ
 (13, 7, '1/2', '2015-02-19', 0, 0),
 (14, 7, '1/2', '2015-02-19', 0, 0),
 (15, 7, '1/2', '2015-02-19', 0, 0),
-(16, 7, '1/2', '2015-02-19', 0, 0);
+(16, 7, '1/2', '2015-02-19', 0, 0),
+(17, 7, '1/2', '2015-02-19', 5, 0),
+(18, 7, '1/2', '2015-02-19', 0, 0),
+(19, 7, '1/2', '2015-02-19', 0, 0),
+(20, 7, '1/2', '2015-02-19', 0, 0),
+(21, 7, '1/2', '2015-02-19', 0, 0),
+(22, 7, '1/2', '2015-02-19', 0, 0),
+(23, 7, '1/2', '2015-02-19', 2, 2),
+(24, 7, '1/2', '2015-02-19', 2, 0),
+(25, 7, '1/2/3', '2015-03-01', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -424,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `orders`
@@ -432,7 +441,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `message`, `city_id`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
 (1, '27', 'admin', 'admin@admin.ru', '88585858585', ' Санкт-Петербург Руднева д.5 к.1 кв.162', '', NULL, 304505500, 0, 0, '2015-02-17 00:00:00', 1),
-(2, '27', 'admin', 'admin@admin.ru', 'q34234234', ' Санкт-Петербург Руднева д.5 к.1 кв.162', '', NULL, 93694000, 0, 0, '2015-02-18 00:00:00', 1);
+(2, '27', 'admin', 'admin@admin.ru', 'q34234234', ' Санкт-Петербург Руднева д.5 к.1 кв.162', '', NULL, 93694000, 0, 0, '2015-02-18 00:00:00', 1),
+(3, '50', 'Паша', '', '85558', '  ', '', NULL, 939, 0, 0, '2015-03-01 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -448,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `product_price` text COLLATE utf8_unicode_ci NOT NULL,
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `orders_products`
@@ -456,7 +466,8 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
 
 INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
 (1, '1', 9, 'шакл &quot;адмирал&quot;', '23423500', 13),
-(2, '2', 9, 'шакл "адмирал"', '23423500', 4);
+(2, '2', 9, 'шакл "адмирал"', '23423500', 4),
+(3, '3', 1, 'Преобразователь напряжения с 24/12V (автомобильный) 10A **', '939', 1);
 
 -- --------------------------------------------------------
 
@@ -484,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `short_description` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `products`
@@ -497,6 +508,25 @@ INSERT INTO `products` (`id`, `parent_id`, `is_active`, `is_new`, `is_good_buy`,
 (4, 10, 1, 1, 0, 1, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 23 мм (7/8`) `Серия90-120`', '7\\8', '1 год', 459, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-23-mm-7-8-seriya90-120', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
 (5, 10, 1, 1, 1, 2, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 20 мм (3/4`), до 4,75 тонн `redBTR`', 'RB-Shakle-3/4', '1 год', 469, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-20-mm-3-4-do-4-75-tonn-redbtr', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', ''),
 (6, 10, 1, 0, 1, 0, 'Шакл для крепления буксирного троса и блоков лебёдки (серьга) 16 мм (5/8`) `redBTR`', 'RB-Shakle-5/8', '1 год', 409, 0, '', '', '', '', 'shakl-dlya-krepleniya-buksirnogo-trosa-i-blokov-lebyodki-serga-16-mm-5-8-redbtr', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum optio, voluptatem, atque ab consectetur sequi cum eius totam culpa vel magnam tempore similique beatae molestiae praesentium eum aperiam doloremque deleniti.</p>\r\n', '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `recommended_products`
+--
+
+CREATE TABLE IF NOT EXISTS `recommended_products` (
+  `product1_id` int(11) DEFAULT NULL,
+  `product2_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `recommended_products`
+--
+
+INSERT INTO `recommended_products` (`product1_id`, `product2_id`) VALUES
+(NULL, 4),
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -587,18 +617,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `building` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `apartment` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `zip_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `valid_email` tinyint(1) NOT NULL DEFAULT '0',
+  `vk_uid` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vk_avatar` text COLLATE utf8_unicode_ci,
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `last_name`, `name`, `patronymic`, `password`, `email`, `phone`, `city`, `street`, `house`, `building`, `apartment`, `zip_code`, `secret`) VALUES
-(27, '', 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', 'Санкт-Петербург', 'Руднева', '5', '1', '162', '', ''),
-(33, 'Лукинский', 'Павел', 'Юръевич', 'fae0b27c451c728867a567e8c1bb4e53', 'luka@mail.ru', '', '', '', '', '', '', '', '');
+INSERT INTO `users` (`id`, `last_name`, `name`, `patronymic`, `password`, `email`, `phone`, `city`, `street`, `house`, `building`, `apartment`, `zip_code`, `valid_email`, `vk_uid`, `vk_avatar`, `secret`) VALUES
+(33, 'Лукинский', 'admin', 'Юръевич', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', '', '', '', '', '', 0, NULL, NULL, ''),
+(38, '', 'admin_2', '', '21232f297a57a5a743894a0e4a801fc3', 'admin_2@admin.ru', '', 'Санкт-Петербург', 'Руднева', '6', '1', '166', '', 0, NULL, NULL, ''),
+(43, '', 'l666', '', 'fae0b27c451c728867a567e8c1bb4e53', 'l666@admin.ru', '', '', '', '', '', '', '', 1, NULL, NULL, ''),
+(50, 'Лукинский', 'Паша', '', '', '', '', '', '', '', '', '', '', 0, 'vk-439844', 'http://cs617419.vk.me/v617419844/1427e/ZRxl2-Ez8sI.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -616,9 +651,10 @@ CREATE TABLE IF NOT EXISTS `users2users_groups` (
 --
 
 INSERT INTO `users2users_groups` (`group_parent_id`, `child_id`) VALUES
-(1, '27'),
-(3, '27'),
-(2, '33');
+(1, '33'),
+(3, '33'),
+(3, '38'),
+(2, '43');
 
 -- --------------------------------------------------------
 

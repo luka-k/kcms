@@ -30,20 +30,23 @@
 			<?=$error?>
 			<div class="cart-order__form">
 				<div class="<?if($activity <> "enter"):?>hidden<?endif;?>" style="margin-bottom:20px;">
-					<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">
-						<div class="form__line skew">
-							<input type="text" class="form__input required" name="email" placeholder="E-mail" autocomplete="off"/>
-						</div> <!-- /.form__line -->
+					<div style="margin-bottom:20px;">
+						<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">
+							<div class="form__line skew">
+								<input type="text" class="form__input required" name="email" placeholder="E-mail" autocomplete="off"/>
+							</div> <!-- /.form__line -->
 							
-						<div class="form__line skew">
-							<input type="password" class="form__input required" name="password" placeholder="Пароль" autocomplete="off"/>
-						</div> <!-- /.form__line -->
+							<div class="form__line skew">
+								<input type="password" class="form__input required" name="password" placeholder="Пароль" autocomplete="off"/>
+							</div> <!-- /.form__line -->
 							
-						<div class="form__button skew">
-							<button type="submit" class="button button--normal button--auto-width" >Войти</button>
-							<a href="<?=base_url()?>account/restore_password/" style="float:right;">Забыли пароль?</a>
-						</div> <!-- /.form__button -->
-					</form>
+							<div class="form__button skew">
+								<button type="submit" class="button button--normal button--auto-width" >Войти</button>
+								<a href="<?=base_url()?>account/restore_password/" style="float:right;">Забыли пароль?</a>
+							</div> <!-- /.form__button -->
+						</form>
+					</div>
+					<div id="vk_auth"></div>
 				</div>
 							
 				<a href="#extra" class="cart-order__extra-link <?if($activity <> "enter"):?>hidden<?endif;?>">Регистрация</a>
