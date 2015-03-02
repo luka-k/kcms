@@ -16,33 +16,7 @@
 						</div>
 					</div>
 				</div>
-				
-				<script>
-					function subscribe(){
-						var data = {};
-						if (validation($("#subscribe_form"), 'error')) return false;
-						console.log($("#subscribe_input").val());
-						data.email = $("#subscribe_input").val();
-						var json_str = JSON.stringify(data);
-	
-						$.post ("/ajax/subscribe/", json_str, function showAnswer(res) { 
-						
-							$.fancybox('<div class="result" style="text-align:center; margin-top:40px;"><p>'+res.answer+'</p></div>', {
-								autoSize: false,
-								autoHeight: false,
-								autoWidth: false,
-								autoResize: false,
-								width: 400,
-								height: 100
-							});
-		
-							setTimeout(function () {
-								$.fancybox.close();
-							}, 3000);
-						}   , "json");
-					}
-					
-				</script>
+
 				<div id="footer" class="grid clearfix">
 					<div class="footer-top clearfix">
 						<div class="footer-menu col_6">
