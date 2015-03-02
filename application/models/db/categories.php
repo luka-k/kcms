@@ -24,6 +24,8 @@ class Categories extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
+			'changefreq' => array('changefreq', 'text', ''),
+			'priority' => array('priority', 'priority', ''),
 			'lastmod' => array('lastmod', 'hidden', '')
 		),
 		'Изображения' => array(
