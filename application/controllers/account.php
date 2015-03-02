@@ -257,4 +257,13 @@ class Account extends Client_Controller
 			}
 		}			
 	}
+	
+	public function set_valid()
+	{
+		$email = $this->input->get("email");
+		$user = $this->users->get_item_by(array("email" => $email));
+		$this->users->update($user->id, array("valid_email" => 1));
+		
+		if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
+	}
 }
