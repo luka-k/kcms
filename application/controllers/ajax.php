@@ -20,6 +20,60 @@ class Ajax extends CI_Controller {
 		($this->mail->send_mail($admin_email, $subject, $message));
 	}
 	
+	function subscribe()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$is_unique = $this->users->is_unique(array("email" => $info->email));
+		
+		$subscriders_group = $this->users_groups->get_item_by(array("name" => "subscribers"));
+		
+		if($is_unique)
+		{
+			$user = array(
+				"name" => $info->email,
+				"email" => $info->email
+			);
+			
+			$this->users->insert($user);
+			
+			$user_info = array(
+				"group_parent_id" => $subscriders_group->id,
+				"child_id" => $this->db->insert_id()
+			);
+			
+			$this->users2users_groups->insert($user_info);
+			$data['answer'] = "Благодарим Вас за подписку";
+		}
+		else
+		{
+			$user = $this->users->get_item_by(array("email" => $info->email));
+			$users_groups = $this->users2users_groups->get_list(array("child_id" => $user->id));
+		
+			$counter = 0;
+			if($users_groups) foreach($users_groups as $u_g)
+			{
+				$group = $this->users_groups->get_item_by(array("id" => $u_g->group_parent_id));
+				if ($u_g->group_parent_id == $subscriders_group->id) $counter++;
+			}
+			if($counter == 0)
+			{
+				$user_info = array(
+					"group_parent_id" => $subscriders_group->id,
+					"child_id" => $user->id
+				);
+			
+				$this->users2users_groups->insert($user_info);
+				$data['answer'] = "Благодарим Вас за подписку";
+			}
+			else
+			{
+				$data['answer'] = "Вы уже подписаны на рассылку.";
+			}
+		}
+		echo json_encode($data);
+	}
+	
 	public function add_to_cart()
 	{
 		$id = json_decode(file_get_contents('php://input', true));
