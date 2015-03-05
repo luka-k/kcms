@@ -1,4 +1,8 @@
 RewriteEngine on
+
 RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
-RewriteRule ^(.*)$ /index.php/$1 [L]
+RewriteRule ^(.*)$ /index.php/$1
+
 RedirectPermanent /main /
+Redirect /sitemap.html /sitemap?type=html
+Redirect /sitemap.xml /sitemap?type=xml
