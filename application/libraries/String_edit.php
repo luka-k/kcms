@@ -146,16 +146,20 @@ class String_edit {
 	
 	function short_description($description)
 	{
-		$n = $this->config->item('characters_in_description');
-		
+		$n = $this->CI->config->item('characters_in_description');
+
 		$desc = strip_tags($description);
 		$desc_arr = explode(' ', $desc);
 		$desc = '';
-		for ($i = 0; $i < $n && $i < count($desc_arr); $i++)
+		$i = 0;
+		while(iconv_strlen($desc, 'UTF-8') <= $n && $i <= count($desc_arr)-1)
 		{
 			$desc .= $desc_arr[$i].' ';
+			$i++;
 		}
-		if ($i >= $n-1) $desc .= '...';
+
+		if ($i < count($desc_arr)-1) $desc .= '...';
+
 		return $desc;
 	}
 	
