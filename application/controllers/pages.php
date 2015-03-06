@@ -32,10 +32,8 @@ class Pages extends Client_Controller {
 		}
 		elseif($page == FALSE)
 		{
-		
+			header('HTTP/1.0 404 Not Found');
 		}
-		
-		//var_dump($content);
 		
 		$data['title'] = $content->name;
 		$data['meta_title'] = $content->meta_title;
@@ -64,5 +62,19 @@ class Pages extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);		
 
 		$this->load->view('client/wishlist.php', $data);
+	}
+	
+	public function page_404()
+	{
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$data = array(
+			'title' => "Страница не найдена",
+			'settings' => $this->settings->get_item_by(array('id' => 1)),
+		);
+		
+		$data = array_merge($this->standart_data, $data);
+		
+		$this->load->view("client/404", $data);
 	}
 }
