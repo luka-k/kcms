@@ -144,23 +144,27 @@ class String_edit {
 		return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
 	}
 	
-	function short_description($description)
+	function short_description($description, $max_characters = FALSE)
 	{
-		$n = $this->CI->config->item('characters_in_description');
-
-		$desc = strip_tags($description);
-		$desc_arr = explode(' ', $desc);
-		$desc = '';
-		$i = 0;
-		while(iconv_strlen($desc, 'UTF-8') <= $n && $i <= count($desc_arr)-1)
-		{
-			$desc .= $desc_arr[$i].' ';
-			$i++;
+		if ($max_characters == FALSE)
+			$max_characters = $this->CI->config->item('characters_in_short_description');
+	
+		$words_array = explode(' ', strip_tags($description));
+		$out_short_description = '';
+		
+		for ($i = 0; $i < count($words_array); $i++) {
+			if ($out_short_description != '')
+				$out_short_description .= ' ';
+			$out_short_description .= $words_array[$i];
+			
+			if (iconv_strlen($out_short_description, 'UTF-8') >= $max_characters)
+				break;
 		}
 
-		if ($i < count($desc_arr)-1) $desc .= '...';
+		if ($i < count($words_array)-1) 
+			$out_short_description .= '...';
 
-		return $desc;
+		return $out_short_description;
 	}
 	
 }
