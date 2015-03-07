@@ -157,12 +157,12 @@ class String_edit {
 				$out_short_description .= ' ';
 			$out_short_description .= $words_array[$i];
 			
-			if (iconv_strlen($out_short_description, 'UTF-8') >= $max_characters)
+			if (iconv_strlen($out_short_description, 'UTF-8') >= $max_characters) {
+				if ($i < count($words_array)-1) 
+					$out_short_description .= '...';
 				break;
+			}
 		}
-
-		if ($i < count($words_array)-1) 
-			$out_short_description .= '...';
 
 		return $out_short_description;
 	}
