@@ -56,11 +56,11 @@ class Characteristics extends MY_Model
 			{
 				if(isset($filters[$key]))
 				{
+					var_dump($filters[$key]);
 					switch ($filters[$key][1])
 					{
 						case "text":
 							$this->db->where(array("type" => $key, "value" => $item));
-							$values = $this->_update_values($values);
 							$counter++;
 							break;
 						case "multy":
@@ -93,7 +93,6 @@ class Characteristics extends MY_Model
 				}
 			}
 		}
-		
 		if($counter > 1)
 		{
 			$values = array_count_values($values);
@@ -115,9 +114,10 @@ class Characteristics extends MY_Model
 		{
 			$this->db->where_in("id", $id);
 			$this->db->order_by($order, $direction); 
-			$query = $this->db->get($this->_table/*, $limit, $from*/);
+			$query = $this->db->get("products"/*, $limit, $from*/);
 			$result = $query->result();
 			empty($result) ? $content = array() : $content = $result;
+	
 			return $content;
 		}
 	}

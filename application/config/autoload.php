@@ -60,6 +60,7 @@ $autoload['libraries'] = array(
 	'email',
 	'mail',
 	'cart',
+	'catalog',
 	'wishlist',
 	'url',
 	'string_edit'

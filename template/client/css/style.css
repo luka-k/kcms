@@ -22,7 +22,11 @@ border-top:1px dotted #ccc;
 height:auto;
 }
 
-.cat-item img{
+.product_item{
+height:430px;
+}
+
+.cat-item img, .product_item img{
 width:100%;
 }
 

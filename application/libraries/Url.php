@@ -93,8 +93,7 @@ class CI_Url {
 			$child->product = $this->CI->products->get_item_by(array('url' => $url));
 			if(!$child->product) return FALSE;
 				
-			$this->CI->breadcrumbs->add($url, $child->product->name);
-			
+			$this->CI->breadcrumbs->add($url, $child->product->name);	
 		}
 		else
 		{

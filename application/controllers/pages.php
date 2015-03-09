@@ -18,8 +18,12 @@ class Pages extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		
 		$page = $this->url->url_parse(2);
-
-		if(isset($page->article))
+		
+		if($page == FALSE)
+		{
+			redirect(base_url()."pages/page_404", "location", 404); //работает через раз. разобраться!!!!!!
+		}
+		elseif(isset($page->article))
 		{
 			$content = $page->article;
 			$template="client/article.php";
@@ -29,10 +33,6 @@ class Pages extends Client_Controller {
 			$content = $page;
 			$content->articles = $this->articles->get_prepared_list($content->articles);
 			$template="client/articles.php";
-		}
-		elseif($page == FALSE)
-		{
-			header('HTTP/1.0 404 Not Found');
 		}
 		
 		$data['title'] = $content->name;
@@ -67,7 +67,6 @@ class Pages extends Client_Controller {
 	public function page_404()
 	{
 		$settings = $this->settings->get_item_by(array("id" => 1));
-		
 		$data = array(
 			'title' => "Страница не найдена",
 			'settings' => $this->settings->get_item_by(array('id' => 1)),

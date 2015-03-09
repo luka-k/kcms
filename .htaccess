@@ -16,3 +16,5 @@ RewriteRule . %1/%2 [R=301,L]
 RedirectPermanent /main /
 RedirectPermanent /sitemap.html /sitemap?type=html
 RedirectPermanent /sitemap.xml /sitemap?type=xml
+
+#ErrorDocument 404 /pages/page_404/
