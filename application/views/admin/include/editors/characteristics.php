@@ -5,8 +5,8 @@
 			<div class="col_5">Характеристика:</div>
 			<select name="type" id="ch_select" class="add_ch col_7">
 				<option label="" value="">Выберите</option>
-				<?foreach($ch_select as $key => $item):?>
-					<option value="<?=$key?>"><?=$item?></option>
+				<?foreach($ch_select as $item):?>
+					<option value="<?=$item->url?>"><?=$item->name?></option>
 				<?endforeach?>
 			</select>
 		</div>
@@ -19,6 +19,7 @@
 				<input type="hidden" name="object_type" class="add_ch" value="<?=$type?>">
 				<input type="hidden" name="object_id" class="add_ch" value="<?=$content->id?>">
 				<a href="#" class="button small" onclick="add_ch(); return false;">Добавить</a>
+				<!--сделать универсальный скрипт для блокировки кнопки по ка не выбран селект-->
 			</div>
 		</div>
 	</div>
@@ -38,6 +39,9 @@
 					</td>
 				</tr>
 			<?endforeach;?>
+			<tr class="last_ch" >
+				<td colspan="3"></td>
+			</tr>
 			<!--delete popup-->
 			<div id="delete_item" style="display:none;">
 				<div class="pop-up">

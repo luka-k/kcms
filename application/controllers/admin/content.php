@@ -26,13 +26,14 @@ class Content extends Admin_Controller
 			'url' => "/".$this->uri->uri_string()
 		);	
 				
-		$this->db->field_exists('sort', $type) ? $order = "sort" : $order = "name";
+		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
 		$direction = "acs";
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
 		}
+		
 		
 		if($id == "all")
 		{
@@ -79,7 +80,22 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $tree;
 		}
 		
+		if($type == "characteristics_type") 
+		{
+			$this->config->load('characteristics_config');
+			
+			$data['selects']['view_type'] = $this->config->item('view_type');
+		}
+		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
+		
+		$is_characteristics = editors_field_exists('ch', $data['editors']);
+		
+		if(!empty($is_characteristics))
+		{
+			$characteristics_type = $this->characteristics_type->get_list(FALSE);
+			$data['ch_select'] = $characteristics_type;
+		}
 		
 		if($action == "edit")
 		{
@@ -94,13 +110,7 @@ class Content extends Admin_Controller
 				
 				if($type == "emails") $data['content']->type = 2;
 				
-				$field_name = editors_field_exists('ch', $data['editors']);
-				if(!empty($field_name))
-				{
-					$this->config->load('characteristics_config');
-					$data['content']->ch_select = $this->config->item('characteristics_type');
-					$data['content']->characteristics = array();
-				}
+				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 			}	
 			else
 			{			
@@ -111,17 +121,14 @@ class Content extends Admin_Controller
 				);
 				$data['content']->img = $this->images->get_images($object_info);
 
-				$field_name = editors_field_exists('ch', $data['editors']);
-				if(!empty($field_name))
+				if(!empty($is_characteristics))
 				{
-					$this->config->load('characteristics_config');
-					$data['ch_select'] = $this->config->item('characteristics_type');
-					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
 					foreach($data['content']->characteristics as $characteristic)
 					{
-						foreach($data['ch_select'] as $key => $type)
+						foreach($data['ch_select'] as $ch)
 						{
-							if($characteristic->type == $key) $characteristic->name = $type;
+							if($characteristic->type == $ch->url) $characteristic->name = $ch->name;
 						}
 					}
 				}
@@ -138,6 +145,35 @@ class Content extends Admin_Controller
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке
+				if($data['content']->id == FALSE)
+				{
+					$data['content']->img = NULL;
+
+					if(!empty($is_characteristics)) $data['content']->characteristics = array();
+					if($type == "products") $data['content']->reccomended = array();
+					if($type == "emails") $data['content']->type = 2;
+				}
+				else
+				{
+					$object_info = array(
+						"object_type" => $type,
+						"object_id" => $data['content']->id
+					);
+					$data['content']->img = $this->images->get_images($object_info);
+					
+					if(!empty($is_characteristics))
+					{
+						$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id, "object_type" => $type));
+						foreach($data['content']->characteristics as $characteristic)
+						{
+							foreach($data['ch_select'] as $ch)
+							{
+								if($characteristic->type == $ch->ch_type) $characteristic->name = $ch->name;
+							}
+						}
+					}
+				}
+			
 				$this->load->view('admin/item.php', $data);			
 			}
 			else
@@ -193,7 +229,7 @@ class Content extends Admin_Controller
 					}
 				}
 				
-				$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "";
+				$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 				if($type == "emails") $p_id = $data['content']->type;
 				
 				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
@@ -270,12 +306,6 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id);
 	}
 	
-	public function delete_characteristic($id)
-	{
-		$ch = $this->characteristics->get_item($id);
-		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_4");
-	}
-	
 	/***************************************************************************************
 	* аякс функции
 	***************************************************************************************/
@@ -285,23 +315,17 @@ class Content extends Admin_Controller
 		$info = json_decode(file_get_contents('php://input', true));
 		if(!isset($info->id))
 		{
-			$this->db->select_max('id');
-			$query = $this->db->get('characteristics');
-			$after = $query->row()->id;
-			
 			$this->characteristics->insert($info);
 			$info->id = $this->db->insert_id();
 			
-			$this->config->load('characteristics_config');
-			$ch_select = $this->config->item('characteristics_type');
+			$ch_select = $this->characteristics_type->get_list(FALSE);
 			
-			foreach($ch_select as $key => $type)
+			foreach($ch_select as $item)
 			{
-				if($info->type == $key) $info->name = $type;
+				if($info->type == $item->url) $info->name = $item->name;
 			}
 			
 			$answer = array(
-				'after' => $after,
 				'base_url' => base_url(),
 				'info' => $info
 			);
@@ -311,7 +335,7 @@ class Content extends Admin_Controller
 			$this->characteristics->update($info->id, $info);
 			$answer['message'] = 'ok';
 		}
-		
+			
 		echo json_encode($answer);
 	}
 	

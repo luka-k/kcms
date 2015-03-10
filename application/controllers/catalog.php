@@ -9,7 +9,7 @@ class Catalog extends Client_Controller {
 		parent::__construct();
 		
 		$this->config->load('characteristics_config');
-		$filters = $this->characteristics->get_filters();
+		$filters = $this->characteristics_type->get_filters();
 		
 		$this->get = $this->input->get();
 		
@@ -18,6 +18,8 @@ class Catalog extends Client_Controller {
 			$this->get['order'] = "sort";
 			$this->get['direction'] = "asc";
 		}
+		
+		if(!isset($this->get['filter'])) $this->get['filter'] = FALSE;  
 		
 		$data = array(
 			'title' => "Каталог",
@@ -73,7 +75,6 @@ class Catalog extends Client_Controller {
 		$data['category']->products = $this->products->get_prepared_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
 				
 		$this->load->view("client/categories", $data);
-		
 	}
 	
 	public function filtred()

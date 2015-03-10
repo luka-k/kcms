@@ -136,6 +136,7 @@ $autoload['model'] = array(
 	'db/dynamic_menus',
 	'db/menus_items',
 	'db/characteristics',
+	'db/characteristics_type',
 	'breadcrumbs',
 	'menus'
 );
