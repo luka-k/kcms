@@ -1,4 +1,4 @@
-﻿<div class="col_12">
+<div class="col_12">
 	<div class="col_12"><?=$edit['0']?></div>
 	<div class="col_12">
 		<div class="col_10">
