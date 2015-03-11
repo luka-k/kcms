@@ -1,4 +1,4 @@
-﻿<div  class="col_12">
+<div  class="col_12">
 	<a href="<?=base_url()?>admin/content/items/<?=$type?>/<?if(isset($content->parent_id)):?><?=$content->parent_id?><?endif;?>" class="btn small">Назад</a>
 	<a href="#" class="btn small" onclick="document.forms['form1'].submit()">Сохранить</a>
 	<?if($type <> "settings"):?>
