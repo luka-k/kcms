@@ -1,5 +1,7 @@
 <h6>Статьи</h6>
 <ul class="tree">
+	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>/all">Все статьи</a></li>
+	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>/0">Родительские статьи</a></li>
 	<?foreach ($tree as $branch_1): ?>
 		<li <?if(!empty($branch_1->childs)):?> class="down" <?endif;?>>
 			<a href = "<?=base_url()?><?if(!empty($branch_1->childs)):?>admin/content/items/<?=$type?>/<?=$branch_1->id?><?else:?>admin/content/item/edit/<?=$type?>/<?=$branch_1->id?><?endif;?>"><?=$branch_1->name?></a>

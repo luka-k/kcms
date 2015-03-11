@@ -1,6 +1,6 @@
 <h6>Товары</h6>
 <ul class="tree">
-	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>">Все страницы</a></li>
+	<li><a href="<?=base_url()?>admin/content/items/<?=$type?>/all">Все продукты</a></li>
 	<?foreach ($tree as $branch_1): ?>
 		<li <?if(!empty($branch_1->childs)):?>class="down"<?endif;?>><a class="" href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->name?></a>
 			<?if(!empty($branch_1->childs)):?>
