@@ -12,8 +12,8 @@ class Catalog extends Client_Controller {
 		$filters = $this->characteristics_type->get_filters();
 		
 		$this->get = $this->input->get();
-		
-		if($this->get['order'] == FALSE)
+
+		if(!isset($this->get['order']))
 		{
 			$this->get['order'] = "sort";
 			$this->get['direction'] = "asc";
@@ -79,15 +79,16 @@ class Catalog extends Client_Controller {
 	
 	public function filtred()
 	{		
-		$products = $this->characteristics->get_filtred((object)$this->get, $this->get['order'], $this->get['direction']);
+		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
 			
 		$settings = $this->settings->get_item_by(array('id' => 1));
 
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		
+		$data['filters_values'] = $this->get;
+
 		$data['category'] = new stdClass();
 		$data['category']->products = $this->products->get_prepared_list($products);
-		
+
 		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
 		$data['url'] = base_url().uri_string()."?".$query_string;
 		$data = array_merge($this->standart_data, $data);

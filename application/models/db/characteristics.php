@@ -14,53 +14,62 @@ class Characteristics extends MY_Model
         parent::__construct();
 	}
 	
-	function get_filtred($get, $order, $direction, $limit = FALSE, $from = FALSE)
+	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
-		$filters = $this->characteristics->filters;
 		$counter = 0;
-		foreach($get as $key => $item)
+		$filters_type = $this->characteristics_type->get_list(FALSE);
+		
+		foreach($filters_type as $item)
 		{
-			if(!empty($item)) 
+			if(isset($filter[$item->url]))
 			{
-				if(isset($filters[$key]))
+				$do_update = TRUE;
+				switch ($item->view_type)
 				{
-					switch ($filters[$key][1])
-					{
-						case "text":
-							$this->db->where(array("type" => $key, "value" => $item));
+					case "text":
+						$this->db->where(array("type" => $item->url, "value" => $filter[$item->url]));
+						$counter++;
+						break;
+					case "multy":
+						$this->db->where("type", $item->url);
+						$this->db->where_in("value", $filter[$item->url]);
+						$counter++;
+						break;
+					case "single":
+						$this->db->where(array("type" => $item->url, "value" => $filter[$item->url]));
+						$counter++;
+						break;
+					case "interval":
+						$filter[$item->url][0] = (integer)$filter[$item->url][0];
+						$filter[$item->url][1] = (integer)$filter[$item->url][1];
+						if(!empty($filter[$item->url][0])&&!empty($filter[$item->url][1]))
+						{
+							$this->db->where("type", $item->url);
+							$where = "value BETWEEN {$filter[$item->url][0]} AND {$filter[$item->url][1]}";
+							$this->db->where($where);
 							$counter++;
-							break;
-						case "multy":
-							$this->db->where("type", $key);
-							$this->db->where_in("value", $item);
+						}
+						elseif(!empty($filter[$item->url][0])||!empty($filter[$item->url][1]))
+						{
+							
+							$this->db->where("type", $item->url);
+							
+							if(!empty($filter[$item->url][0])) $this->db->where("value >=", $filter[$item->url][0]); 
+							if(!empty($filter[$item->url][1])) $this->db->where("value <=", $filter[$item->url][1]);
 							$counter++;
-							break;
-						case "single":
-							$this->db->where(array("type" => $key, "value" => $item));
-							$counter++;
-							break;
-						case "interval":
-							if(!empty($item[0])&&!empty($item[1]))
-							{
-								$this->db->where("type", $key);
-								$where = "{$name} BETWEEN {$item[0]} AND {$item[1]}";
-								$this->db->where($where);
-								$counter++;
-							}
-							elseif(!empty($item[0])||!empty($item[1]))
-							{
-								$this->db->where("type", $key);
-								if(!empty($item[0])) $this->db->where("value >", $item[0]);
-								if(!empty($item[1])) $this->db->where("value <", $item[1]);
-								$counter++;
-							}	
-							break;
-					}
-					$values = $this->_update_values($values);
+						}	
+						else
+						{
+							$do_update = FALSE;
+							$counter--;
+						}
+						break;
 				}
+				if($do_update) $values = $this->_update_values($values);
 			}
 		}
+
 		if($counter > 1)
 		{
 			$values = array_count_values($values);

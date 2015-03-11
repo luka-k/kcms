@@ -59,8 +59,10 @@ class Content extends Admin_Controller
 	
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
-		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
+		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
 		$name = editors_field_exists('name', $this->$type->editors);
+		
+		$parent_id = $this->input->get('parent_id');
 		
 		$data = array(
 			'title' => "Редактировать",
@@ -70,6 +72,7 @@ class Content extends Admin_Controller
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
 			'type' => $type,
+			'parent_id' => $parent_id,
 			'url' => "/".$this->uri->uri_string()
 		);
 		
@@ -103,7 +106,7 @@ class Content extends Admin_Controller
 			{	
 				$data['content'] = set_empty_fields($data['editors']);
 				
-				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $this->input->get('parent_id');
+				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				
 				$data['content']->is_active = "1";
 				$data['content']->img = NULL;
