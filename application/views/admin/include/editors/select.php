@@ -1,4 +1,4 @@
-﻿<div  class="col_12">
+<div  class="col_12">
 	<label for="lbl_<?=$editors_counter?>" class="col_3">Категория</label>
 	<select id="lbl_<?=$editors_counter?>"  name="<?=$name?>" class="col_8">
 		<option <?php if ($content->$name == 0):?>selected<?php endif; ?> value="0">Без категории</option>

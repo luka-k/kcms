@@ -1,4 +1,4 @@
-﻿<div class="col_12">
+<div class="col_12">
 	<label for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></label>
 	<select id="lbl_<?=$editors_counter?>" class="menu_items <?=$name?>" name="<?=$name?>" class="col_8">
 		<option label="" value="">Выберите содержимое</option>
