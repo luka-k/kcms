@@ -1,4 +1,4 @@
-﻿<div  class="col_12">
+<div  class="col_12">
 	<a href="<?=base_url()?>admin/content/items/<?=$type?>/<?=$parent_id?>" class="btn small">Назад</a>
 	<a href="#" class="btn small" onclick="document.forms['form1'].submit()">Сохранить</a>
 	<?if($type <> "settings"):?>

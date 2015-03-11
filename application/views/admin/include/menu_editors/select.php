@@ -1,4 +1,4 @@
-﻿<div  class="col_12 clearfix">
+<div  class="col_12 clearfix">
 	<label for="lbl_<?=$editors_counter?>" class="col_3">Подменю</label>
 	<select id="lbl_<?=$editors_counter?>" class="menu_items <?=$name?>" name="<?=$name?>" class="col_9">
 		<option <?if ($item_content->$name == 0):?>selected<?php endif;?> value="0">Родительский пункт</option>
