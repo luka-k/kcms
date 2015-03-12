@@ -30,7 +30,7 @@ class Emails extends MY_Model
 		$info->from_name = $settings->admin_name;
 		$info->from_email = $settings->admin_email;
 		
-		$template_info = $this->emails->get_item($template_id);
+		$template_info = $this->get_item($template_id);
 		
 		$info->subject = $template_info->subject;
 		$info->message = $template_info->description;

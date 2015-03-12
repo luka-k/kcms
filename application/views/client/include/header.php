@@ -1,6 +1,7 @@
 <div class="col_12">
 	<div class="col_4">
-
+		<div class="col_12 phone">8(812)123-45-67</div>
+		<div class="col_12 callback"><a href="#callback" class="lightbox">Заказать звонок</a></div>
 	</div>
 	<div class="col_4 clearfix">
 				<div class="col_12 cart">

@@ -32,7 +32,7 @@ class Order extends Client_Controller
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 			
-		$subject = 'Заказ в интернет-магазине '.$settings->site_title;
+		//$subject = 'Заказ в интернет-магазине '.$settings->site_title;
 		$message_info = array(
 			"order_id" => $order_id,
 			"user_name" => $orders_info['name']

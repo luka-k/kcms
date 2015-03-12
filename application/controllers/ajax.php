@@ -11,13 +11,21 @@ class Ajax extends CI_Controller {
 		$this->config->load('order_config');
 	}
 
-	function index()
+	function callback()
 	{
-		$post = $this->input->post();
-		$admin_email = $this->config->item('admin_email');
-		$subject = 'Запрос на обратный звонок';
-		$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
-		($this->mail->send_mail($admin_email, $subject, $message));
+		$post = json_decode(file_get_contents('php://input', true));
+	
+		$settings = $this->settings->get_item_by(array("id" => 1));
+		
+		$message_info = array(
+			"USER_NAME" => $post->name,
+			"USER_PHONE" => $post->phone
+		);
+		
+		$this->emails->send_system_mail($settings->admin_email, 6, $message_info);
+		
+		$data['message'] = "ok";
+		echo json_encode($data);
 	}
 	
 	public function add_to_cart()

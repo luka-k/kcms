@@ -18,11 +18,10 @@ class Mailouts extends MY_Model
 	
 	public function send_mail($send_info, $data, $template = 'standart_mail')
 	{
-
 		$config = $this->config->item('config');
 		$subject = $send_info->subject;
 		$message = $send_info->message;
-
+		var_dump($message);
 		if(isset($data))
 		{
 			foreach($data as $key => $info)
@@ -32,6 +31,7 @@ class Mailouts extends MY_Model
 			}
 		}
 		
+		$data['subject'] = $subject;
 		$data['message'] = $message;
 		$template_message = $this->load->view('admin/email/'.$template.'.php', $data, TRUE);
 
