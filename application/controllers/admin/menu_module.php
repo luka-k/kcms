@@ -35,21 +35,7 @@ class Menu_module extends Admin_Controller
 		$editors = $this->dynamic_menus->editors;
 		$items_editors = $this->menus_items->editors;
 		
-		if($id == FALSE)
-		{	
-			$content = set_empty_fields($editors);
-			$content->img = NULL;
-		}	
-		else
-		{			
-			$content = $this->dynamic_menus->get_item($id);
-
-			$object_info = array(
-				"object_type" => "dynamic_menus",
-				"object_id" => $content->id
-			);
-			$content->img = $this->images->get_images($object_info, "catalog_small");		
-		}
+		$content = $id == FALSE ? set_empty_fields($editors) : $this->dynamic_menus->get_item($id);
 		
 		$item_content = set_empty_fields($items_editors);
 		$item_content->menu_id = $id;	
