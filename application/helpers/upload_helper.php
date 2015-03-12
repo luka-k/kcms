@@ -34,21 +34,19 @@ function make_upload_path($file_name, $path = FALSE)
 		mkdir($upload_path, 0755);
 	}
 	
-	for($i=0; $i<2; $i++)
+	$i = 0;
+	$deep = 0;
+	while($deep < 2)
 	{
-		if (!file_exists($upload_path."/".$updir_name[$i]))
+		if(preg_match("/^[a-zA-Z0-9]+$/", $updir_name[$i]))
 		{
 			$upload_path = $upload_path. "/" .$updir_name[$i];
-			if($path <> FALSE)
-			{
-				mkdir($upload_path, 0755);
-			}
-		} 
-		else 
-		{
-			$upload_path = $upload_path. "/" .$updir_name[$i];
+			if (!file_exists($upload_path) && $path <> FALSE) mkdir($upload_path, 0755);
+			$deep++;
 		}
+		$i++;
 	}
+
 	$upload_path = $upload_path."/";
 	return $upload_path;	
 }
