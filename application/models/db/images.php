@@ -45,12 +45,17 @@ class Images extends MY_Model
 	
 	// function generate_thumb() - генерирует миниатюры для изображения
 	// $img_path - путь к картинке
-	public function generate_thumbs($img_path)
+	public function generate_thumbs($img_path, $thumb_config_name = FALSE)
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 		
 		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
+		
+		if($thumb_config_name) foreach ($thumb_config as $thumb_dir_name => $configs) 
+		{
+			if($thumb_dir_name <> $thumb_config_name) unset($thumb_config[$thumb_dir_name]);
+		}
 		
 		$image_name = array_reverse(explode("/", $img_path));
 		
