@@ -1,9 +1,9 @@
-		<footer>
-			<div class="grid flex">
+<footer>
+	<div class="grid flex">
 			
-				<div class="col_12">
-					KCMS
-				</div>
+		<div class="col_12">
+			KCMS
+		</div>
 			
-			</div>
-		</footer>
+	</div>
+</footer>

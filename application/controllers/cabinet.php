@@ -3,7 +3,6 @@
 class Cabinet extends Client_Controller {
 
 	public $orders; 
-	public $user;
 	public $orders_info = array();
 	
 	public function __construct()
@@ -12,9 +11,7 @@ class Cabinet extends Client_Controller {
 		if (!$this->session->userdata('logged_in')) die(redirect(base_url().'cart'));
 		$this->config->load('order_config');
 		
-		$this->user = $this->users->get_item_by(array('id' => $this->user_id));
-		
-		$this->orders = $this->orders->get_list(array("user_id" => $this->user_id));
+		$this->orders = $this->orders->get_list(array("user_id" => $this->standart_data['user']->id));
 		
 		foreach ($this->orders as $key => $order)
 		{	

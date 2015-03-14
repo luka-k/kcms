@@ -36,10 +36,10 @@ class Users_module extends Admin_Controller
 				$users_id = array();
 				foreach($filters['groups'] as $group)
 				{
-					$id_by_group = $this->users2users_groups->get_list(array("group_parent_id" => $group['id']));
+					$id_by_group = $this->users2users_groups->get_list(array("users_group_id" => $group['id']));
 					foreach($id_by_group as $item)
 					{
-						$users_id[] = $item->child_id;
+						$users_id[] = $item->user_id;
 					}
 				}
 				!empty($users_id) ? $this->db->where_in('id', $users_id) : $this->load->view('admin/users.php', $data);
@@ -89,7 +89,7 @@ class Users_module extends Admin_Controller
 			'name' => $name,
 			'type' => "users",
 			'selects' => array(
-				'group_parent_id' => $this->users_groups->get_list(FALSE)
+				'users_group_id' => $this->users_groups->get_list(FALSE)
 			),
 			'url' => "/".$this->uri->uri_string()
 		);	
@@ -119,7 +119,7 @@ class Users_module extends Admin_Controller
 			else
 			{
 				$content = $this->users->get_item($id);
-				if($field_name) $content->parents = $this->users2users_groups->get_list(array("child_id" => $id));
+				if($field_name) $content->parents = $this->users2users_groups->get_list(array("user_id" => $id));
 				
 				$object_info = array(
 					"object_type" => "users",
@@ -180,14 +180,14 @@ class Users_module extends Admin_Controller
 			
 				if((isset($u2u_g))&&($u2u_g == TRUE))
 				{
-					$this->db->where('child_id', $data['content']->id);
+					$this->db->where('user_id', $data['content']->id);
 					$this->db->delete('users2users_groups');
 					foreach($data["users2users_groups"]->$field_name  as $item)
 					{
 						if(!empty($item))
 						{
 							$users2users_groups->$field_name = $item;
-							$users2users_groups->child_id = $data['content']->id;
+							$users2users_groups->user_id = $data['content']->id;
 							$this->db->insert('users2users_groups', $users2users_groups);
 						}
 					}
@@ -202,7 +202,7 @@ class Users_module extends Admin_Controller
 	{
 		if($this->users->delete($id)) 
 		{
-			$this->db->where('child_id', $id);
+			$this->db->where('user_id', $id);
 			$this->db->delete('users2users_groups');
 			redirect(base_url().'admin/users_module/');
 		}
@@ -283,8 +283,8 @@ class Users_module extends Admin_Controller
 					$this->db->insert('users', $field);
 					
 					
-					$users2users_groups->group_parent_id = $group_id;
-					$users2users_groups->child_id = $this->db->insert_id();
+					$users2users_groups->users_group_id = $group_id;
+					$users2users_groups->user_id = $this->db->insert_id();
 					$this->db->insert('users2users_groups', $users2users_groups);
 				}
 				else
@@ -293,8 +293,8 @@ class Users_module extends Admin_Controller
 					
 					if(!$this->users->in_group($user->id, $group_id))
 					{
-						$users2users_groups->group_parent_id = $group_id;
-						$users2users_groups->child_id = $user->id;
+						$users2users_groups->users_group_id = $group_id;
+						$users2users_groups->user_id = $user->id;
 						$this->db->insert('users2users_groups', $users2users_groups);
 					}
 				}

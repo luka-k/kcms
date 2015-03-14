@@ -21,7 +21,7 @@ class Mailouts extends MY_Model
 		$config = $this->config->item('config');
 		$subject = $send_info->subject;
 		$message = $send_info->message;
-		var_dump($message);
+
 		if(isset($data))
 		{
 			foreach($data as $key => $info)

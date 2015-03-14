@@ -9,7 +9,7 @@
 				<div class="col_12">
 					<h5>Личный кабинет</h5>
 					
-					<?if($cart <> NULL):?>
+					<?if($cart_items <> NULL):?>
 						<div class="col_8">
 							<h6>Корзина</h6>
 							<table>
