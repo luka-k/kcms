@@ -11,7 +11,7 @@ class Users_module extends Admin_Controller
 	
 	public function index()
 	{
-		$name = editors_field_exists('name', $this->users->editors);
+		$name = editors_get_name_field('name', $this->users->editors);
 		$this->db->field_exists('sort', "users") ? $order = "sort" : $order = "name";
 		$direction = "acs"; 
 
@@ -64,7 +64,7 @@ class Users_module extends Admin_Controller
 		{
 			$data['content'] = $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
-			if(editors_field_exists('img', $this->users->editors))
+			if(editors_get_name_field('img', $this->users->editors))
 			{
 				$data['content'] = $this->images->get_img_list($data['content'], "users");
 				$data['images'] = TRUE;
@@ -79,7 +79,7 @@ class Users_module extends Admin_Controller
 	
 	public function edit($id = FALSE, $action = "edit", $exit = FALSE)
 	{	
-		$name = editors_field_exists('name', $this->users->editors);
+		$name = editors_get_name_field('name', $this->users->editors);
 				
 		$data = array(
 			'title' => "Пользователи",
@@ -103,7 +103,7 @@ class Users_module extends Admin_Controller
 			$data['editors'] = $this->users->editors;
 		}
 		
-		$field_name = editors_field_exists('users2users_groups', $data['editors']);
+		$field_name = editors_get_name_field('users2users_groups', $data['editors']);
 		
 		if($action == "edit")
 		{
@@ -155,9 +155,9 @@ class Users_module extends Admin_Controller
 					$this->users->update($data['content']->id, $data['content']);
 				}
 			
-				$field_name = editors_field_exists('img', $data['editors']);
+				$field_name = editors_get_name_field('img', $data['editors']);
 				//Получаем id эдитора который предназначен для загрузки изображения
-				//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
+				//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
 				if(!empty($field_name))
 				{
 					$object_info = array(
@@ -171,7 +171,7 @@ class Users_module extends Admin_Controller
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
 				
-				$field_name = editors_field_exists('users2users_groups', $data['editors']);
+				$field_name = editors_get_name_field('users2users_groups', $data['editors']);
 				if($field_name && is_array($this->input->post($field_name)))
 				{
 					$data["users2users_groups"]->$field_name = $this->input->post($field_name);

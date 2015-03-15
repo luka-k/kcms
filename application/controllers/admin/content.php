@@ -11,7 +11,7 @@ class Content extends Admin_Controller
 	
 	public function items($type, $id = FALSE)
 	{		
-		$name = editors_field_exists('name', $this->$type->editors);
+		$name = editors_get_name_field('name', $this->$type->editors);
 		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
@@ -48,7 +48,7 @@ class Content extends Admin_Controller
 			$data['sortable'] = TRUE;
 		}
 		
-		if(editors_field_exists('img', $this->$type->editors))
+		if(editors_get_name_field('img', $this->$type->editors))
 		{
 			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
 			$data['images'] = TRUE;
@@ -60,7 +60,7 @@ class Content extends Admin_Controller
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
-		$name = editors_field_exists('name', $this->$type->editors);
+		$name = editors_get_name_field('name', $this->$type->editors);
 		
 		$parent_id = $this->input->get('parent_id');
 		
@@ -92,7 +92,7 @@ class Content extends Admin_Controller
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
-		$is_characteristics = editors_field_exists('ch', $data['editors']);
+		$is_characteristics = editors_get_name_field('ch', $data['editors']);
 		
 		if(!empty($is_characteristics))
 		{
@@ -194,9 +194,9 @@ class Content extends Admin_Controller
 					$this->$type->update($data['content']->id, $data['content']);
 				}
 			
-				$field_name = editors_field_exists('img', $data['editors']);
+				$field_name = editors_get_name_field('img', $data['editors']);
 				//Получаем id эдитора который предназначен для загрузки изображения
-				//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
+				//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
 				if(!empty($field_name))
 				{
 					$object_info = array(
@@ -242,7 +242,7 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->get_item($id);
 			
-			$field_name = editors_field_exists('ch', $data['editors']);
+			$field_name = editors_get_name_field('ch', $data['editors']);
 			if(!empty($field_name)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
 			
 			$data['content']->id = NULL;

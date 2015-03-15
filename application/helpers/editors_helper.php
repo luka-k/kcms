@@ -8,7 +8,7 @@
 *что не всегда удобно.
 *************************************************************************************************************************************/
 
-function editors_field_exists($field, $editors)
+function editors_get_name_field($field, $editors)
 {
 	$field_name = "";
 	foreach ($editors as $edit)

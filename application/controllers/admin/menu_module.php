@@ -17,12 +17,12 @@ class Menu_module extends Admin_Controller
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
-			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
+			'name' => editors_get_name_field('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE),
 			'url' => "/".$this->uri->uri_string()
 		);	
 		
-		if(editors_field_exists('img', $this->dynamic_menus->editors))
+		if(editors_get_name_field('img', $this->dynamic_menus->editors))
 		{
 			$data['content'] = $this->images->get_img_list($data['content'], "menu", "catalog_mid");
 			$data['images'] = TRUE;
@@ -95,7 +95,7 @@ class Menu_module extends Admin_Controller
 					$this->dynamic_menus->update($content->id, $content);
 				}	
 			
-				$field_name = editors_field_exists('img', $editors);
+				$field_name = editors_get_name_field('img', $editors);
 				if(!empty($field_name))
 				{
 					$object_info = array(
