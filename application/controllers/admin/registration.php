@@ -82,34 +82,27 @@ class Registration extends CI_Controller
 			'meta_title' => "Востановление пароля",
 			'error' => "Не правильно введен e-mail"
 		);
-		$this->form_validation->set_rules('email', 'E-mail', 'trim|xss_clean|required|valid_email');
-		if($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('admin/restore_form', $data);	
-        } 
-		else 
-		{
-			$email = $this->input->post('email');
-			$user = $this->users->get_item_by(array('email' => $email));
-	
-			if(!empty($user)) 
-			{
-				$secret = md5($this->config->item('secret'));
-				$this->users->update($user->id, array('secret' => $secret));
-				
-				$message_info = array(
-					"base_url" => base_url(),
-					"user_name" => $user->name,
-					"user_email" => $email,
-					"secret" => $secret
-				);
-				
-				if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'admin');
-				$data['error'] = "Отправка письма не удалась. Повторите попытку позднее.";
-			} 
 
-			$this->load->view('admin/restore_form', $data);	
-		}
+		$email = $this->input->post('email');
+		$user = $this->users->get_item_by(array('email' => $email));
+	
+		if(!empty($user)) 
+		{
+			$secret = md5($this->config->item('secret'));
+			$this->users->update($user->id, array('secret' => $secret));
+				
+			$message_info = array(
+				"base_url" => base_url(),
+				"user_name" => $user->name,
+				"user_email" => $email,
+				"secret" => $secret
+			);
+				
+			if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'admin');
+			$data['error'] = "Отправка письма не удалась. Повторите попытку позднее.";
+		} 
+
+		$this->load->view('admin/restore_form', $data);	
 	}
 	
 	/*Вывод формы сброса пароля*/
@@ -128,8 +121,8 @@ class Registration extends CI_Controller
 	/*Смена пароля*/
 	public function change_password() 
 	{
-		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
-		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
+		$this->form_validation->set_rules('conf_password',  'Confirm password',  'min_length[3]|matches[password]');
 			
 		if($this->form_validation->run() == FALSE)
 		{

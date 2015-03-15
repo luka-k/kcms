@@ -9,6 +9,7 @@
 		
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
 	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/kickstart.js"></script>  <!--kickstart js-->
+	<script type="text/javascript" src="<?php echo base_url()?>template/admin/js/script.js"></script>  <!--custom js-->
 	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script> <!--fancybox js-->
 	
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script> <!--fancybox js-->
