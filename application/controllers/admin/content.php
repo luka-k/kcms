@@ -78,7 +78,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
+			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}

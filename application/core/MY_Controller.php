@@ -18,8 +18,9 @@ class Admin_Controller extends CI_Controller
 		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
 		
 		$this->menu = $this->dynamic_menus->get_menu(1)->items;
-
 		$this->user = (array)$this->session->userdata('user');
+		
+		$this->load->helper('admin');
 	}
 }
 
