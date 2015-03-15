@@ -30,7 +30,7 @@
 					<a href="#" class="button small" onClick="document.forms['login'].submit()">Войти</a>
 				</div>
 				<div class="col_6">
-					<a href="<?=base_url()?>registration/register_user/">Регистрация</a>
+					<a href="<?=base_url()?>account/registration/">Регистрация</a>
 				</div>
 			</form>
 			

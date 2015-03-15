@@ -87,29 +87,26 @@ class Account extends Client_Controller
 		} 
 		else 
 		{
-			$user_email = $this->users->get_user_email($this->input->post('email'));
-
-			if($user_email) 
+			$email = $this->input->post('email');
+			$user = $this->users->get_item_by(array('email' => $email));
+	
+			if(!empty($user)) 
 			{
 				$secret = md5($this->config->item('secret'));
-				$email = $this->users->get_item_by(array('email' => $user_email));
-				$this->users->update($email->id, array('secret' => $secret));
-				$subject = 'Востановление пароля';
-				$message = 'Перейдите по ссылке для изменения пароля '.base_url()."account/new_password?email=$user_email&secret=$secret";
+				$this->users->update($user->id, array('secret' => $secret));
 				
-				if (!$this->mail->send_mail($user_email, $subject, $message))
-				{
-					$this->load->view('client/registration', $data);	
-				}
-				else
-				{					
-					redirect(base_url().'account/registration?activity=enter');			
-				}
+				$message_info = array(
+					"base_url" => base_url(),
+					"user_name" => $user->name,
+					"user_email" => $email,
+					"secret" => $secret
+				);
+				
+				if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'admin');
+				$data['error'] = "Отправка письма не удалась. Повторите попытку позднее.";
 			} 
-			else
-			{
-				$this->load->view('client/registration', $data);	
-			}
+			
+			$this->load->view('client/registration', $data);	
 		}
 	}
 	
@@ -164,7 +161,7 @@ class Account extends Client_Controller
 				"password" => $this->input->post('password')
 			);
 				
-			$this->emails->send_mail($email->email, 'change_password', $message_info);			
+			$this->emails->send_system_mail($user->email, 5, $message_info);			
 		}
 
 		redirect(base_url().'account/registration?activity=enter');		
@@ -172,13 +169,10 @@ class Account extends Client_Controller
 			
 	public function registration()
 	{
-		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
 			'error' => "",
-			'select_item' => "",
 			'settings' => $this->settings->get_item_by(array("id" => 1)),
-			'activity' => $activity
 		);
 		$data = array_merge($this->standart_data, $data);
 		
@@ -191,9 +185,7 @@ class Account extends Client_Controller
 		$data = array(
 			'title' => "Регистрация",
 			'error' => "",
-			'select_item' => "",
 			'settings' => $this->settings->get_item_by(array("id" => 1)),
-			'activity' => "reg"
 		);
 		$data = array_merge($this->standart_data, $data);
 			
@@ -234,7 +226,7 @@ class Account extends Client_Controller
 				$this->users->insert($user);
 				
 				$user_id = $this->db->insert_id();
-				$group = $this->users_groups->get_item_by(array("name" => "customers"));
+				$group = $this->users_groups->get_item_by(array("name" => "customer"));
 				
 				$users2users_groups->users_group_id = $group->id;
 				$users2users_groups->user_id = $user_id;

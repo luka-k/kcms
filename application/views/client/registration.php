@@ -8,26 +8,31 @@
 			<div id="main_content" class="col_8 clearfix">
 				<div class="col_12">
 					<h5>Регистрация</h5>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>registration/edit_new_user/<?=$content->id?>"/>
-					<?php foreach ($editors as $key => $edits):?>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>account/new_user/"/>					
 						<div id="" class="clearfix">
 							<?=$error;?>
 							<?=validation_errors(); ?>
-							<div  class="col_12">
-								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Зарегистрировать</a>
+							
+							<div class="col_12">
+								<input type="text" name="name" value=""/>
 							</div>
-								
-							<?$editors_counter = 1?>
-							<?php foreach($edits as $name => $edit):?>
-								<?require "include/editors/{$edit[1]}.php"?>
-								<?$editors_counter++?>
-							<?php endforeach?>
+						
+							<div class="col_12">
+								<input type="text" name="email" value=""/>
+							</div>
+						
+							<div class="col_12">
+								<input type="password" name="password" value=""/>
+							</div>
+							
+							<div class="col_12">
+								<input type="password" name="conf_password" value=""/>
+							</div>
 							
 							<div  class="col_12">
 								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Зарегистрировать</a>
-							</div>						
+							</div>					
 						</div>
-					<?endforeach?>
 					</form>
 				</div>
 			</div>

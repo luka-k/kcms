@@ -27,9 +27,6 @@
 										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
 										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
-										<?if((!empty($content->id))):?>
-											<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
-										<?endif;?>
 									</div>
 									
 
@@ -46,9 +43,6 @@
 										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
 										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
-										<?if((!empty($content->id))):?>
-											<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
-										<?endif;?>
 									</div>		
 								</div>
 								

@@ -5,8 +5,4 @@
 		<a href="#" class="btn small" onClick="document.forms['form1'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); document.forms['form1'].submit()">Сохранить и выйти</a>
 		<a href="#delete" class="btn small lightbox">Удалить</a>
 	<?endif;?>
-		
-	<?if(($type == "users")and(!empty($content->id))):?>
-		<a href="<?=base_url()?>registration/reset_password.html?email=<?=$content->email?>&secret=<?=$content->secret?>" class="btn small">Сменить пароль</a>
-	<?endif;?>
 </div>

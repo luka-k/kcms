@@ -33,6 +33,7 @@ class Registration extends CI_Controller
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));	
 		$authdata = $this->users->login($email, $password);
+
 		$is_logged = $authdata['logged_in'];
 		$user = (array)$authdata['user'];
 		$user_groups = (array)$authdata['user_groups'];
@@ -88,29 +89,26 @@ class Registration extends CI_Controller
         } 
 		else 
 		{
-			$user_email = $this->users->get_user_email($this->input->post('email'));
-
-			if($user_email) 
+			$email = $this->input->post('email');
+			$user = $this->users->get_item_by(array('email' => $email));
+	
+			if(!empty($user)) 
 			{
 				$secret = md5($this->config->item('secret'));
-				$email = $this->users->get_item_by(array('email' => $user_email));
-				$this->users->update($email->id, array('secret' => $secret));
-				$subject = 'Востановление пароля';
-				$message = 'Перейдите по ссылке для изменения пароля '.base_url()."admin/registration/new_password?email=$user_email&secret=$secret";
+				$this->users->update($user->id, array('secret' => $secret));
 				
-				if (!$this->mail->send_mail($user_email, $subject, $message))
-				{
-					$this->load->view('admin/restore_form', $data);	
-				}
-				else
-				{					
-					redirect(base_url().'admin');			
-				}
+				$message_info = array(
+					"base_url" => base_url(),
+					"user_name" => $user->name,
+					"user_email" => $email,
+					"secret" => $secret
+				);
+				
+				if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'admin');
+				$data['error'] = "Отправка письма не удалась. Повторите попытку позднее.";
 			} 
-			else
-			{
-				$this->load->view('admin/restore_form', $data);	
-			}
+
+			$this->load->view('admin/restore_form', $data);	
 		}
 	}
 	
@@ -147,23 +145,23 @@ class Registration extends CI_Controller
 		} 
 		else 
 		{
-			$user_email = $this->input->post('user_email');
+			$email = $this->input->post('user_email');
 			$secret = $this->input->post('secret');
 			$password = $this->input->post('password');
 			$new_password = md5($password);
 			
-			$this->users->insert_new_pass($user_email, $new_password, $secret); 
+			$this->users->insert_new_pass($email, $new_password, $secret); 
 			
-			$email = $this->users->get_item_by(array('email' => $user_email));
-			$this->users->update($email->id, array('secret' => ""));			
+			$user = $this->users->get_item_by(array('email' => $email));
+			$this->users->update($user->id, array('secret' => ""));			
 
 			$message_info = array(
-				"user_name" => $email->name,
-				"login" => $email->email,
-				"password" => $this->input->post('password')
+				"user_name" => $user->name,
+				"login" => $email,
+				"password" => $password 
 			);
 				
-			$this->emails->send_mail($email->email, 'change_password', $message_info);			
+			$this->emails->send_system_mail($user->email, 5, $message_info);		
 		}
 
 		redirect(base_url().'admin');		
