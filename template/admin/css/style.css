@@ -156,34 +156,71 @@ list-style-image:url('../img/option_1.png');
 }
 
 .option-1{
-background:url('../img/option_2.png') no-repeat 5px;
-padding:3px 0 3px 25px;
-}
-
-.option-1-ch{
-background:url('../img/option_1.png') no-repeat 5px;
-padding:3px 0 3px 25px;
+	max-width:600px;
+	background:url('../img/option_2.png') no-repeat 5px #fff;
+	padding:3px 0 3px 25px;
+	overflow:hidden;
 }
 
 .option-2{
-background:url('../img/option_2.png') no-repeat 25px;
-padding:3px 0 3px 45px;
-}
-
-.option-2-ch{
-background:url('../img/option_1.png') no-repeat 25px;
-padding:3px 0 3px 45px;
+	max-width:600px;
+	background:url('../img/option_2.png') no-repeat 25px;
+	padding:3px 0 3px 45px;
 }
 
 .option-3{
-background:url('../img/option_2.png') no-repeat 45px;
-padding:3px 0 3px 65px;
+	max-width:600px;
+	background:url('../img/option_2.png') no-repeat 45px;
+	padding:3px 0 3px 65px;
+}
+
+.option-1.have_child{
+	background:url('../img/option_1.png') no-repeat 5px;
+}
+
+.option-2.have_child{
+	background:url('../img/option_1.png') no-repeat 25px;
+}
+
+.option-3.have_child{
+	background:url('../img/option_1.png') no-repeat 45px;
+}
+
+/*.option-1{
+	background:url('../img/option_2.png') no-repeat 5px;
+	padding:3px 0 3px 25px;
+	word-wrap:break-word;
+}
+
+.option-1-ch{
+	background:url('../img/option_1.png') no-repeat 5px;
+	padding:3px 0 3px 25px;
+	word-wrap:break-word;
+}
+
+.option-2{
+	background:url('../img/option_2.png') no-repeat 25px;
+	padding:3px 0 3px 45px;
+	word-wrap:break-word;
+}
+
+.option-2-ch{
+	background:url('../img/option_1.png') no-repeat 25px;
+	padding:3px 0 3px 45px;
+	word-wrap:break-word;
+}
+
+.option-3{
+	background:url('../img/option_2.png') no-repeat 45px;
+	padding:3px 0 3px 65px;
+	word-wrap:break-word;
 }
 
 .option-3-ch{
-background:url('../img/option_1.png') no-repeat 45px;
-padding:3px 0 3px 65px;
-}
+	background:url('../img/option_1.png') no-repeat 45px;
+	padding:3px 0 3px 65px;
+	word-wrap:break-word;
+}*/
 
 .grey {
 background:#f5f5f5;
@@ -216,13 +253,29 @@ list-style-image:url('../img/option_2.png');
 list-style-image:url('../img/option_1.png');
 }
 
-#field-link{
-display:none;
+
+
+/*********************************************************************
+*
+*menu_module
+*
+*********************************************************************/
+
+#menu_item_popup{
+	display:none;
+	width:650px;
 }
 
-/*************************
-mailouts
-*************************/
+#field-link{
+	display:none;
+}
+
+
+/*********************************************************************
+*
+*mailouts
+*
+*********************************************************************/
 
 .modal{
 width:300px;

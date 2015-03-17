@@ -8,7 +8,7 @@
 																
 	function item_info_answer(res){
 		$('#validation_error').text("");
-		$.fancybox.open("#item_info");
+		$.fancybox.open("#menu_item_popup");
 
 		var form = $('.edit_item');
 		if(res.item != ""){
@@ -22,8 +22,10 @@
 					var type = res.item[key];
 				}
 			}
+			$('.item-title').text("Редактировать ");
 			menu_type(type);
 		}else{
+			$('.item-title').text("Добавить ");
 			clear_form();		
 		}
 	}
