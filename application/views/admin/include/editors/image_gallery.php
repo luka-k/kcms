@@ -1,5 +1,5 @@
 <div class="col_12">
-	<div class="col_3">Добавить фотографии</div>
+	<div class="col_2">Добавить фотографии</div>
 	<div class="col_4"><input type="file" multiple="multiple" id="<?=$edit_name?>" name="<?=$edit_name?>[]" accept="image"/></div>
 	<input type="hidden" name="upload_image" value="upload_image"/>
 </div>

@@ -1,6 +1,6 @@
 <div  class="col_12">
-	<div for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></div>
-	<div class="col_9">
+	<div class="col_2"><label for="lbl_<?=$editors_counter?>"><?=$edit[0]?></label></div>
+	<div class="col_10">
 		<table>
 			<input type="hidden" name="<?=$edit_name?>" value=""/>
 			<?foreach ($selects[$edit_name] as $select): ?>
