@@ -34,7 +34,6 @@ class Content extends Admin_Controller
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
 		}
 		
-		
 		if($id == "all")
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
@@ -50,7 +49,10 @@ class Content extends Admin_Controller
 		
 		if(editors_get_name_field('img', $this->$type->editors))
 		{
-			$data['content'] = $this->images->get_img_list($data['content'], $type, "catalog_small");
+			foreach($data['content'] as $key => $item)
+			{
+				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => $type, "object_id" => $item->id));
+			}
 			$data['images'] = TRUE;
 		}
 		
@@ -122,8 +124,9 @@ class Content extends Admin_Controller
 					"object_type" => $type,
 					"object_id" => $data['content']->id
 				);
-				$data['content']->img = $this->images->get_images($object_info);
-
+				
+				$data['content']->images = $this->images->get_list($object_info);
+				
 				if(!empty($is_characteristics))
 				{
 					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
@@ -162,7 +165,7 @@ class Content extends Admin_Controller
 						"object_type" => $type,
 						"object_id" => $data['content']->id
 					);
-					$data['content']->img = $this->images->get_images($object_info);
+					$data['content']->images = $this->images->get_list($object_info);
 					
 					if(!empty($is_characteristics))
 					{

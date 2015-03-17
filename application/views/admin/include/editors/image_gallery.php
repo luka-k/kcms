@@ -4,7 +4,7 @@
 	<input type="hidden" name="upload_image" value="upload_image"/>
 </div>
 
-<?if($content->img <> NULL):?>
+<?if($content->images <> NULL):?>
 	<div class="col_12">
 		<input type="hidden" name="view_image" value="view_image"/>
 		<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
@@ -18,7 +18,7 @@
 			</thead>
 			<tbody>
 				<?$counter = 1?>
-				<?foreach($content->img as $img_item):?>
+				<?foreach($content->images as $img_item):?>
 					<tr>
 						<td class="tb_1"><?=$counter?></td>
 						<td class="tb_5"><img src="<?=$img_item->catalog_small_url?>"/></td>

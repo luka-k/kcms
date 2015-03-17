@@ -139,70 +139,63 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_images($object_info, $is_cover = FALSE)
+	public function get_list($factors = array())
 	{
-		if ($is_cover == FALSE)
+		$images = array();
+		if(!empty($factors)) foreach($factors as $key => $value)
 		{
-			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
-			if($images)
-			{
-				foreach($images as $key => $item)
-				{
-					if(!empty($item))
-					{
-						$images[$key] = $this->_get_urls($item);
-					}
-				}
-			}
+			$this->db->where($key, $value);
 		}
-		else
+		
+		$this->db->order_by("is_cover", "desc");
+		$query = $this->db->get("images");
+		
+		$images = $query->result();
+		
+		if(!empty($images)) foreach($images as $key => $image)
 		{
-			$images = $this->get_item_by(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type'], 'is_cover' =>$is_cover));
-			if(!empty($images))
-			{
-				$images = $this->_get_urls($images);
-			}
-			else
-			{
-				$images = $this->get_item_by(array('object_id' => "1", 'object_type' => "settings", 'is_cover' =>$is_cover));
-				$images = $this->_get_urls($images);
-			}
+			$images[$key] = $this->_get_url($image);
 		}
+		
 		return $images;
 	}
 	
-	//Делая галерею в карточке товара я понял что надо переписать
-	//вывод картинок. в галрее нужны сразу и миниатюры и большая фотография
-	//поэтому переписал функцию get_images и добавил _get_urls
-	//что бы соответсвено возвращались пути ко всем вариантам изображений
-	//в шаблоне соответственно нужно указывать
-	//например для миниатюры которая лежит в папке catalog_small
-	//$item->img->catalog_small_url;
-	private function _get_urls($image)
+	public function get_cover($factors = array())
+	{
+		if(!empty($factors))
+		{		
+			$factors['is_cover'] = "1";
+			$image = $this->get_item_by($factors);
+		}
+		
+		if(!empty($image)) $image = $this->_get_url($image);
+		
+		return $image;
+	}
+	
+	private function _get_url($image)
 	{
 		$thumb_config = $this->config->item('thumb_config');
 		foreach($thumb_config as $path => $config)
 		{
 			$url_name = $path."_url";
-			if(!empty($image)) $image->$url_name = $this->get_url($image->url, $path);
+			$image->$url_name = $this->get_url($image->url, $path);
 		}
 		//Путь к полному изображению
-		
-		if(!empty($image)) $image->full_url = $this->get_url($image->url);
+		$image->full_url = $this->get_url($image->url);
 		return $image; 
 	}
 	
-	public function get_img_list($info, $object_type)
+	public function get_url($url, $path = FALSE)
 	{
-		foreach($info as $key => $item)
-		{
-			$object_info =array (
-				"object_type" => $object_type,
-				"object_id" => $info[$key]->id
-			);
-			$info[$key]->img = $this->images->get_images($object_info, '1');
-		}
-		return $info;
+		$item_url = array();
+		$item_url[] = $url;
+		if($path) $item_url[] = $path;
+		$item_url[] = "images";
+		$item_url[] = "download";
+		$full_url = implode("/", array_reverse($item_url));
+		$full_url = base_url().$full_url;
+		return $full_url;	
 	}
 	
 	public function set_cover($object_info, $cover_id)
@@ -239,17 +232,5 @@ class Images extends MY_Model
 			if($images) $this->set_cover($object_info, $images[0]->id);
 		}	
 		return $img->object_id;
-	}
-	
-	public function get_url($url, $path = FALSE)
-	{
-		$item_url = array();
-		$item_url[] = $url;
-		if($path) $item_url[] = $path;
-		$item_url[] = "images";
-		$item_url[] = "download";
-		$full_url = implode("/", array_reverse($item_url));
-		$full_url = base_url().$full_url;
-		return $full_url;	
 	}
 }
