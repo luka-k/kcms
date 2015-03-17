@@ -101,7 +101,6 @@
 								<div class="col_12">
 									<h5><span class="item-title"></span>пункт</h5>
 									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="edit_item" class="edit_item" action="<?=base_url()?>admin/menu_module/menu/save_item/<?=$content->id?>">
-										<a href="#" class="btn small" onclick="document.forms['edit_item'].submit()">Сохранить</a>
 										<div style="margin-top:5px; color:red;">
 											<span id="validation_error"></span>
 										</div>
@@ -113,6 +112,7 @@
 											<?endforeach;?>
 										<?endforeach;?>
 									</form>
+									<a href="#" class="btn small" onclick="document.forms['edit_item'].submit()">Сохранить</a>
 								</div>
 							</div>
 							
