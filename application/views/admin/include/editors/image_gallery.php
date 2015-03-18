@@ -7,37 +7,21 @@
 <?if($content->images <> NULL):?>
 	<div class="col_12">
 		<input type="hidden" name="view_image" value="view_image"/>
-		<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
-			<thead>
-				<tr>
-					<th class="tb_1">№</th>
-					<th class="tb_9">Изображение</th>
-					<th>Обложка</th>
-					<th class="tb_2">Действие</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?$counter = 1?>
-				<?foreach($content->images as $img_item):?>
-					<tr>
-						<td class="tb_1"><?=$counter?></td>
-						<td class="tb_5"><img src="<?=$img_item->catalog_small_url?>"/></td>
-						<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
-						<td class="tb_2"><a href="#delete-<?=$img_item->id?>" class="lightbox">Удалить</a></td>
-						<!--popup on delete-->
-							<div id="delete-<?=$img_item->id?>" style="display:none;">
-								<div class="pop-up">
-									<div>
-										Вы точно уверены что хотите удалить изображение?
-									</div><br/>
-									<a href="<?=base_url()?>admin/content/delete_img/<?=$type?>/<?=$img_item->id?>" class="button small">Удалить?</a>
-									<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
-								</div>
-							</div>
-					</tr>
-					<?$counter++?>
-				<?endforeach?>
-			</tbody>
-		</table>
+		
+		<?$counter = 1?>
+		<div class="col_12">
+			<?foreach($content->images as $image):?>
+				<div class="img-<?$image->id?> col_3">
+					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->catalog_small_url?>" width="100%"/></a>
+					<div class="col_6">
+						<?if($image->is_cover == 0):?>
+							<a href="<?=base_url()?>admin/content/set_cover/<?=$image->object_type?>/<?=$image->object_id?>/<?=$image->id?>/<?=$tab_counter?>">Обложка</button></a>
+						<?endif;?>
+					</div>
+					<div class="col_6 right"><a href="#" onclick="delete_image('<?=base_url()?>', '<?=$image->object_type?>', '<?=$image->id?>', '<?=$tab_counter?>'); return false;">Удалить</button></a></div>
+					<input type="text" class="col_12" name="" value=""/> <!--место под название фотографии-->
+				</div>
+			<?endforeach;?>
+		</div>
 	</div>
 <?endif;?>

@@ -93,7 +93,9 @@ class Images extends MY_Model
 	{
 		if ($data)
 		{
-			$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
+			//$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
+			$images = $this->get_list(array("object_type" => $data['object_type'], "object_id" => $data['object_id']));
+			$data['is_cover'] = !empty($images) ? 0 : 1;
 			$this->db->set($data);
 			
 			$this->db->insert($this->_table);
@@ -203,8 +205,9 @@ class Images extends MY_Model
 		$this->db->set('is_cover', 0);
 		$this->db->where($object_info);
 		$this->db->update('images'); 
+		
 		$this->db->set('is_cover', 1);
-		$this->db->where(array("object_type" => $object_info['object_type'], "id" => $cover_id));
+		$this->db->where(array("id" => $cover_id));
 		$this->db->update('images');
 	}
 	
@@ -221,7 +224,7 @@ class Images extends MY_Model
 		}
 		unlink($upload_path.$img->url);
 		
-		if(($this->get_count(array("object_id" => $img->object_id))>0) and ($img->is_cover == 1))
+		if(($this->get_count(array("object_id" => $img->object_id)) > 0) && ($img->is_cover == 1))
 		{
 			$object_info = array(
 				"object_type" => $object_info['object_type'],

@@ -302,14 +302,18 @@ class Content extends Admin_Controller
 	
 	/*--------------Удаление изображения-------------*/
 	
-	public function delete_img($object_type, $id)
+	public function delete_image($type, $id, $tab)
 	{
-		$object_info = array(
-			"object_type" => $object_type,
-			"id" => $id
-		);
-		$item_id = $this->images->delete_img($object_info);
-		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id);
+		$item_id = $this->images->delete_img(array("object_type" => $type, "id" => $id));
+		
+		redirect(base_url().'admin/content/item/edit/'.$type."/".$item_id."#tab_".$tab);
+	}
+	
+	public function set_cover($object_type, $object_id, $id, $tab)
+	{
+		$this->images->set_cover(array("object_type" => $object_type, "object_id" => $object_id), $id);
+		
+		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$object_id."#tab_".$tab);
 	}
 	
 	/***************************************************************************************

@@ -186,42 +186,6 @@ list-style-image:url('../img/option_1.png');
 	background:url('../img/option_1.png') no-repeat 45px;
 }
 
-/*.option-1{
-	background:url('../img/option_2.png') no-repeat 5px;
-	padding:3px 0 3px 25px;
-	word-wrap:break-word;
-}
-
-.option-1-ch{
-	background:url('../img/option_1.png') no-repeat 5px;
-	padding:3px 0 3px 25px;
-	word-wrap:break-word;
-}
-
-.option-2{
-	background:url('../img/option_2.png') no-repeat 25px;
-	padding:3px 0 3px 45px;
-	word-wrap:break-word;
-}
-
-.option-2-ch{
-	background:url('../img/option_1.png') no-repeat 25px;
-	padding:3px 0 3px 45px;
-	word-wrap:break-word;
-}
-
-.option-3{
-	background:url('../img/option_2.png') no-repeat 45px;
-	padding:3px 0 3px 65px;
-	word-wrap:break-word;
-}
-
-.option-3-ch{
-	background:url('../img/option_1.png') no-repeat 45px;
-	padding:3px 0 3px 65px;
-	word-wrap:break-word;
-}*/
-
 .grey {
 background:#f5f5f5;
 }
@@ -299,3 +263,9 @@ color:green;
 #mailout .no_success{
 color:red;
 }
+
+/********************************************************************
+*
+*image_gallery
+*
+********************************************************************/
