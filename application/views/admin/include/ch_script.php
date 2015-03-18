@@ -19,7 +19,7 @@
 		console.log(res);
 		$(".last_ch").before("<tr id='ch-"+item.id+"' class='ch_item'><td>"+item.name+"</td><td><input type='text' class='col_12 edit val-'"+item.id+" value='"+item.value+"' onchange=''></td><td><a href='#' class='del' onclick=''>удалить</a></td></tr>");
 		var onchange_link = "update_ch('"+item.id+"'); return false;";
-		var del_link = "delete_ch('"+res.base_url+"', '"+item.id+"', '"+item.name+"'); return false;"
+		var del_link = "delete_ch('"+res.base_url+"', '"+item.id+"', '"+item.name+"', '"+4+"'); return false;"
 		$('input.edit').attr('onchange', onchange_link);
 		$('a.del').attr('onclick', del_link);
 	}
@@ -32,21 +32,14 @@
 		$.post("/admin/content/edit_characteristic/", json_str, "json");
 	}
 	
-	function delete_ch(base_url, item_id, item_name){
+	function delete_ch(base_url, item_id, item_name, tab){
 		var href;
-		href = base_url+"admin/content/delete_characteristic/"+item_id;
+		href = base_url+"admin/content/delete_characteristic/"+item_id+"/"+tab;
 		$('#item_name').text(item_name);
 		$('.delete_button').attr('href', href);
 		$.fancybox.open("#delete_item");
 	}
-	
-	function delete_ch_answer(res){
-		if(res.message == "ok"){
-			$.fancybox.close("#delete-"+res.item_id);
-			$('#ch-'+res.item_id).remove();
-		}
-	}
-	
+		
 	function autocomp(){
 		var data = {};
 		var element = document.getElementById('ch_select');

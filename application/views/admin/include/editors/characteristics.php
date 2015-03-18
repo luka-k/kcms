@@ -35,7 +35,7 @@
 						<input type="text" class="val-<?=$characteristic->id?> col_12" value="<?=$characteristic->value?>" onchange="update_ch('<?=$characteristic->id?>')"/>
 					</td>
 					<td class="tb_2">
-						<a href="#" onclick="delete_ch('<?=base_url()?>', '<?=$characteristic->id?>', '<?=$characteristic->name?>'); return false;">Удалить</a>
+						<a href="#" onclick="delete_ch('<?=base_url()?>', '<?=$characteristic->id?>', '<?=$characteristic->name?>', '<?=$tab_counter?>'); return false;">Удалить</a>
 					</td>
 				</tr>
 			<?endforeach;?>
