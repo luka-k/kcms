@@ -11,7 +11,7 @@
 		<?$counter = 1?>
 		<div class="col_12">
 			<?foreach($content->images as $image):?>
-				<div class="img-<?$image->id?> col_3">
+				<div class="col_3">
 					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->catalog_small_url?>" width="100%"/></a>
 					<div class="col_6">
 						<?if($image->is_cover == 0):?>

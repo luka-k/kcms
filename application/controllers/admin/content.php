@@ -126,7 +126,7 @@ class Content extends Admin_Controller
 				);
 				
 				$data['content']->images = $this->images->get_list($object_info);
-				
+
 				if(!empty($is_characteristics))
 				{
 					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
@@ -207,9 +207,6 @@ class Content extends Admin_Controller
 						"object_id" => $data['content']->id
 					);
 					
-					$cover_id = $this->input->post("cover_id");
-					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
-					
 					if (isset($_FILES[$field_name]))
 					{
 						if(is_array($_FILES[$field_name]['name']))
@@ -230,7 +227,7 @@ class Content extends Admin_Controller
 						}
 						else
 						{
-							if($_FILES[$field_name]['error'] <> 4)$this->images->upload_image($_FILES[$field_name], $object_info);
+							if($_FILES[$field_name]['error'] <> 4) $this->images->upload_image($_FILES[$field_name], $object_info);
 						}
 					}
 				}
