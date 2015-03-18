@@ -170,9 +170,9 @@ class Images extends MY_Model
 			$image = $this->get_item_by($factors);
 		}
 		
-		if(!empty($image)) $image = $this->_get_url($image);
+		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));
 		
-		return $image;
+		return $this->_get_url($image);
 	}
 	
 	private function _get_url($image)
