@@ -125,7 +125,7 @@ class Content extends Admin_Controller
 					"object_id" => $data['content']->id
 				);
 				
-				$data['content']->images = $this->images->get_list($object_info);
+				$data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
 
 				if(!empty($is_characteristics))
 				{

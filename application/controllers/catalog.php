@@ -71,8 +71,8 @@ class Catalog extends Client_Controller {
 		
 		$data['url'] = base_url().uri_string()."?".$query_string;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['category']->sub_categories = $this->categories->get_prepared_list($this->categories->get_list(array("parent_id" => $parent_id)));
-		$data['category']->products = $this->products->get_prepared_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
+		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
+		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
 				
 		$this->load->view("client/categories", $data);
 	}
@@ -87,7 +87,7 @@ class Catalog extends Client_Controller {
 		$data['filters_values'] = $this->get;
 
 		$data['category'] = new stdClass();
-		$data['category']->products = $this->products->get_prepared_list($products);
+		$data['category']->products = $this->products->prepare_list($products);
 
 		$query_string = get_filter_string($_SERVER['QUERY_STRING']);
 		$data['url'] = base_url().uri_string()."?".$query_string;

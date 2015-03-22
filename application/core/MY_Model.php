@@ -398,7 +398,7 @@ class MY_Model extends CI_Model
 		return $branches;
 	}
 	
-	public function get_prepared_list($info)
+	public function prepare_list($info)
 	{
 		foreach($info as $key => $item)
 		{

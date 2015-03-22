@@ -143,27 +143,6 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
-	public function get_list($factors = array())
-	{
-		$images = array();
-		if(!empty($factors)) foreach($factors as $key => $value)
-		{
-			$this->db->where($key, $value);
-		}
-		
-		$this->db->order_by("is_cover", "desc");
-		$query = $this->db->get("images");
-		
-		$images = $query->result();
-		
-		if(!empty($images)) foreach($images as $key => $image)
-		{
-			$images[$key] = $this->_get_url($image);
-		}
-		
-		return $images;
-	}
-	
 	public function get_cover($factors = array())
 	{
 		if(!empty($factors))
@@ -174,23 +153,23 @@ class Images extends MY_Model
 		
 		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));
 		
-		return $this->_get_url($image);
+		return $this->get_urls($image);
 	}
 	
-	private function _get_url($image)
+	private function get_urls($image)
 	{
 		$thumb_config = $this->config->item('thumb_config');
 		foreach($thumb_config as $path => $config)
 		{
 			$url_name = $path."_url";
-			$image->$url_name = $this->get_url($image->url, $path);
+			$image->$url_name = $this->make_full_url($image->url, $path);
 		}
 		//Путь к полному изображению
-		$image->full_url = $this->get_url($image->url);
+		$image->full_url = $this->make_full_url($image->url);
 		return $image; 
 	}
 	
-	public function get_url($url, $path = FALSE)
+	public function make_full_url($url, $path = FALSE)
 	{
 		$item_url = array();
 		$item_url[] = $url;
@@ -237,5 +216,15 @@ class Images extends MY_Model
 			if($images) $this->set_cover($object_info, $images[0]->id);
 		}	
 		return $img->object_id;
+	}
+	
+	function prepare($item)
+	{
+		if(!empty($item))
+		{
+			if(!is_object($item)) $item = (object)$item;
+			$item = $this->get_urls($item);
+			return $item;
+		}			
 	}
 }

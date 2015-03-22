@@ -66,7 +66,10 @@ class Users_module extends Admin_Controller
 		
 			if(editors_get_name_field('img', $this->users->editors))
 			{
-				$data['content'] = $this->images->get_img_list($data['content'], "users");
+				foreach($data['content'] as $key => $item)
+				{
+					$data['content'][$key]->image = $this->images->get_cover(array("object_type" => "users", "object_id" => $item->id));
+				}
 				$data['images'] = TRUE;
 			}	
 		}
@@ -121,12 +124,14 @@ class Users_module extends Admin_Controller
 				$content = $this->users->get_item($id);
 				if($field_name) $content->parents = $this->users2users_groups->get_list(array("user_id" => $id));
 				
+				$data['content'] = $content;
+				
 				$object_info = array(
 					"object_type" => "users",
 					"object_id" => $content->id
 				);
-				$data['content'] = $content;
-				$data['content']->img = $this->images->get_images($object_info);
+				
+				$data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
 			}
 			
 			$this->load->view('admin/user.php', $data);
@@ -164,9 +169,6 @@ class Users_module extends Admin_Controller
 						"object_type" => "users",
 						"object_id" => $data['content']->id
 					);
-		
-					$cover_id = $this->input->post("cover_id");
-					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
 				
 					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 				}
