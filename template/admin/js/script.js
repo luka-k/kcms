@@ -52,3 +52,12 @@ function delete_image(base_url, type, item_id, tab){
 	$('.delete_button').attr('href', href);
 	$.fancybox.open("#delete_item");
 }
+
+function rename_image(id, name){
+	data = new Object();
+	data.id = id;
+	data.name = name;
+	
+	var json_str = JSON.stringify(data);
+	$.post ("/admin/content/rename_image/", json_str, "json");
+}

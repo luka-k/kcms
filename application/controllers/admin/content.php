@@ -305,6 +305,13 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/item/edit/'.$type."/".$item_id."#tab_".$tab);
 	}
 	
+	public function rename_image()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$this->images->update($info->id, array("name" => $info->name));
+	}
+	
 	public function set_cover($object_type, $object_id, $id, $tab)
 	{
 		$this->images->set_cover(array("object_type" => $object_type, "object_id" => $object_id), $id);

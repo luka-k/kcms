@@ -5,6 +5,7 @@ class Images extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
+			'name' => array('Имя', 'hidden'),
 			'object_type' => array('Тип страницы', 'hidden'),
 			'object_id' => array('Id сраницы', 'hidden'),
 			'url' => array('url', 'hidden')
@@ -39,6 +40,8 @@ class Images extends MY_Model
 		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
 		
 		$object_info['url'] = $img_info->url;
+		$name = explode(".", $img_info->name);
+		$object_info['name'] = $name[0];
 
 		return $this->insert($object_info);
 	}
@@ -93,7 +96,6 @@ class Images extends MY_Model
 	{
 		if ($data)
 		{
-			//$data['is_cover'] = $this->get_images(array("object_type" => $data['object_type'], "object_id" => $data['object_id'])) ? 0 : 1;
 			$images = $this->get_list(array("object_type" => $data['object_type'], "object_id" => $data['object_id']));
 			$data['is_cover'] = !empty($images) ? 0 : 1;
 			$this->db->set($data);

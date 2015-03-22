@@ -19,9 +19,13 @@
 						<?endif;?>
 					</div>
 					<div class="col_6 right"><a href="#" onclick="delete_image('<?=base_url()?>', '<?=$image->object_type?>', '<?=$image->id?>', '<?=$tab_counter?>'); return false;">Удалить</button></a></div>
-					<input type="text" class="col_12" name="" value=""/> <!--место под название фотографии-->
+					<input type="text" class="col_12" name="" value="<?=$image->name?>" onchange="rename_image('<?=$image->id?>', this.value)"/> <!--место под название фотографии-->
 				</div>
 			<?endforeach;?>
 		</div>
 	</div>
 <?endif;?>
+
+<script>
+
+</script>

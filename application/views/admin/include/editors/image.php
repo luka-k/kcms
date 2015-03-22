@@ -13,7 +13,7 @@
 			<div class="col_12 right">
 				<a href="#" onclick="delete_image('<?=base_url()?>', '<?=$content->images[0]->object_type?>', '<?=$content->images[0]->id?>', '<?=$tab_counter?>'); return false;">Удалить</button></a>
 			</div>
-			<input type="text" class="col_12" name="" value=""/> <!--место под название фотографии-->
+			<input type="text" class="col_12" name="" value="<?=$content->images[0]->name?>"/> <!--место под название фотографии-->
 		</div>
 	</div>
 <?endif;?>

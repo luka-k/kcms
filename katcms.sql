@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 15 2015 г., 23:18
+-- Время создания: Мар 22 2015 г., 18:06
 -- Версия сервера: 5.5.38-log
 -- Версия PHP: 5.3.28
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `changefreq` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `priority` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -54,7 +54,8 @@ INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`
 (5, 3, 'Новости компании', '2015-01-01', 0, '', '', '', '', 'novosti-kompanii', '0000-00-00', '', ''),
 (6, 3, 'Новости о товарах', '0000-00-00', 0, '', '', '', '', 'novosti-o-tovarah', '0000-00-00', '', ''),
 (7, 5, 'Вторая новость о компании', '0000-00-00', 0, '', '', '', '', 'vtoraya-novost-o-kompanii', '0000-00-00', '', ''),
-(8, 0, 'Контакты', '0000-00-00', 0, '', '', '', '', 'kontakty', '0000-00-00', '', '');
+(8, 0, 'Контакты', '0000-00-00', 0, '', '', '', '', 'kontakty', '0000-00-00', '', ''),
+(9, 0, 'Статья с огромным названием, ну просто огромнейшим названием для проверки редактора меню, да и вообще мало ли где пригодится статья с  огромным названием.', '2015-03-17', 0, '', '', '', '', 'statya-s-ogromnym-nazvaniem-nu-prosto-ogromnejshim-nazvaniem-dlya-proverki-redaktora-menyu-da-i-voobshe-malo-li-gde-prigoditsya-statya-s-ogromnym-nazvaniem', '2015-03-17', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta
 (9, 1, 2, 'Подкатегория 2_3', '', '', '', 'kategory_2_3', '0000-00-00', '', '', 15, ''),
 (12, 1, 0, 'Подкатегория 2_1_1', '', '', '', 'podkategoria', '0000-00-00', '', '', 7, ''),
 (13, 1, 1, 'Подкатегория 2_1_2', '', '', '', 'podkat', '0000-00-00', '', '', 7, ''),
-(14, 1, 0, 'Категория 1', '', '', '', 'kategoriya-1', '0000-00-00', '', '', 0, '<p>Описание первой категории.</p>\r\n<p>Описание первой категории.</p>'),
+(14, 1, 0, 'Категория 1', '', '', '', 'kategoriya-1', '2015-03-18', '', '0.1', 0, '<p>Описание первой категории.</p>\r\n\r\n<p>Описание первой категории.</p>\r\n'),
 (15, 0, 2, 'Категория 2', '', '', '', 'kategoriya-2', '0000-00-00', '', '', 0, '&lt;p&gt;Описание второй категории&lt;/p&gt;'),
 (22, 1, 1, 'Категория 3', '', '', '', 'kategoriya-3', '0000-00-00', '', '', 0, ''),
 (23, 1, 0, 'Подкатегория 2_2_1', '', '', '', 'podkategoriya-2-2-1', '0000-00-00', '', '', 8, '');
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `characteristics`
@@ -168,8 +169,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('0a885338f910ccabf6ea1fa9ec066ace', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0', 1426447013, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('ac1e6daa5f507af8e4d6609a9453e71f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0', 1426445407, 'a:1:{s:9:"user_data";s:0:"";}');
+('a7341041186f3e8ecc772c7f75f4d035', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0', 1427032977, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -229,21 +229,27 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `is_cover` int(1) NOT NULL DEFAULT '0',
   `object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `object_id` int(2) NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
-INSERT INTO `images` (`id`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
-(20, 1, 'settings', 1, '/n/o/no-photo-available.png'),
-(21, 1, 'products', 20, '/3/6/3-63.jpg'),
-(28, 1, 'products', 23, '/j/w/jw7x9mn32uq[1].jpg');
+INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `url`) VALUES
+(20, '', 1, 'settings', 1, '/n/o/no-photo-available.png'),
+(21, '', 1, 'products', 20, '/3/6/3-63.jpg'),
+(28, '', 1, 'products', 23, '/j/w/jw7x9mn32uq[1].jpg'),
+(29, '', 0, 'products', 20, '/1/0/10422122-714908408624038-6412271962746173059-n.jpg'),
+(30, '', 0, 'products', 20, '/j/w/jw7x9mn32uq.jpg'),
+(35, '', 1, 'categories', 14, '/3/6/3-63[1].jpg'),
+(37, '3-63[2]', 1, 'products', 25, '/3/6/3-63[2].jpg'),
+(38, '3-63[3]', 0, 'products', 20, '/3/6/3-63[3].jpg');
 
 -- --------------------------------------------------------
 
@@ -452,11 +458,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
 (7, 14, 1, 3, 'Товар 5', '12123', 1000, 0, '', '', '', 'tovar-2-podkategorii-2-1-1', '2015-03-15', '', '0.1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
 (19, 14, 1, 1, 'Товар 3', '123', 1110, 0, '', '', '', 'tovar-3-podkategorii-2-1-1', '0000-00-00', '', '', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
-(20, 14, 1, 0, 'Товар 4', '344', 1000, 0, '', '', '', 'super-tovar-4-podkategorii-2-1-1', '2015-03-13', '', '0.1', '<p>Описание товара №4. Такое длинное и нудное описание товара №4. Оно очень важно для нас, ведь товар №4 очень особенный.</p>', 1, 0),
+(20, 14, 1, 0, 'Товар 4', '344', 1000, 0, '', '', '', 'super-tovar-4-podkategorii-2-1-1', '2015-03-19', '', '0.1', '<p>Описание товара №4. Такое длинное и нудное описание товара №4. Оно очень важно для нас, ведь товар №4 очень особенный.</p>', 1, 0),
 (21, 8, 1, 1, 'Товар 1', '321', 2000, 10, '', '', '', 'tovar-1-podkategorii-2-2', '0000-00-00', '', '', '', 0, 0),
 (23, 14, 1, 0, 'Товар 2', '123', 1300, 0, '', '', '', 'tovar-2-podkategorii-2-2', '2015-03-15', '', '0.1', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
 (24, 14, 1, 4, 'Товар 6', '12223', 1000, 0, '', '', '', 'tovar-6', '0000-00-00', '', '', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, 0),
-(25, 14, 1, 0, 'Товар 7', '324', 232323, 0, '', '', '', 'tovar-7', '2015-02-22', '', '', '', 0, 0);
+(25, 14, 1, 0, 'Товар 7', '324', 232323, 0, '', '', '', 'tovar-7', '2015-03-18', '', '0.1', '', 0, 0);
 
 -- --------------------------------------------------------
 
