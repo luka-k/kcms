@@ -10,10 +10,8 @@ class Sitemap extends Client_Controller
 		parent::__construct();
 	}
 	
-	public function index()
+	public function index($map_type = "html")
 	{
-		$map_type = $this->input->get('type');
-		if(empty($map_type)) $map_type = "xml";
 		//Возможно этот массив нужно вынести в config
 		$types = array("articles", "categories", "products");
 		

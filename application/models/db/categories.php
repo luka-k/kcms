@@ -71,7 +71,7 @@ class Categories extends MY_Model
 	{
 		if(!empty($item))
 		{
-			$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id), "1");
+			$item->img = $this->images->get_list(array('object_type' => 'categories', 'object_id' => $item->id));
 			$item->full_url = $this->get_url($item);
 			return $item;
 		}
