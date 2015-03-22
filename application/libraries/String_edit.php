@@ -7,35 +7,23 @@ class String_edit {
     function __construct()
 	{
 		$this->CI =& get_instance();
+		
+		$this->CI->config->load('string_edit');
 	}
 	
-	function end_maker($word, $counter)
+	function set_word_form($word, $counter)
 	{
-		if ($word == 'day')
-		{
-			$form_1 = 'день';
-			$form_2 = 'дней';
-			$form_3 = 'дня';
-			$counter = $counter % 100;
-			
-			if ($counter >= 20) $counter = $counter % 10;
-			if ($counter > 4 | $counter == 0) return $form_2;
-			if ($counter > 1 && $counter < 5) return $form_3;
-			
-			return $form_1;  
-		} 
-		else 
-		{
-			$form_1 = 'товар';
-			$form_2 = 'товаров';
-			$form_3 = 'товара';
-			$counter = $counter % 100;
+		$this->CI->config->item("set_word_form", TRUE);
 		
-			if ($counter >= 20) $counter = $counter % 10;
-			if ($counter > 4 | $counter == 0) return $form_2;
-			if ($counter > 1 && $counter < 5) return $form_3;
-			return $form_1;
-		}    
+		$form = $this->CI->config->item($word, 'set_word_form');
+
+		$counter = $counter % 100;
+		
+		if ($counter >= 20) $counter = $counter % 10;
+		if ($counter > 4 | $counter == 0) return $form[1];
+		if ($counter > 1 && $counter < 5) return $form[2];
+			
+		return $form[0];   
 	}
 	
 	function slug($str, $options = array()) 
