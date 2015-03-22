@@ -24,6 +24,7 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
+						<?$editors_counter = 1?>
 						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/item/save/<?=$type?>"/>
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
@@ -31,10 +32,8 @@
 									<?=validation_errors(); ?>
 									
 									<? require 'include/buttons.php' ?>
-									<? require 'include/delete_popup.php'?>
 														
 									<!--editors-->
-									<?$editors_counter = 1?>
 									<?foreach($edits as $edit_name => $edit):?>
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
@@ -49,6 +48,8 @@
 				</div>
 			</div>
 		</div>
+		
+		<? require 'include/delete_popup.php'?>
 		<? require "include/ch_script.php" ?>
 		<? require 'include/footer_script.php' ?>
 		<? require 'include/footer.php' ?>

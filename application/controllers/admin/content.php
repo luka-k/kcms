@@ -274,7 +274,7 @@ class Content extends Admin_Controller
 			"object_type" => $type,
 			"object_id" => $id
 		);
-		$item_images = $this->images->get_images($object_info);
+		$item_images = $this->images->get_list($object_info);
 		if($item_images) foreach($item_images as $image)
 		{
 			$this->images->delete_img(array("object_type" => $type, "id" => $image->id));
