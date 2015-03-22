@@ -63,7 +63,6 @@ $route['order/(:any)/(:num)'] = 'order/$1/$2';
 
 $route['search'] = 'search';
 
-$route['sitemap'] = 'sitemap/index';
 $route['sitemap.xml'] = 'sitemap/index/xml';
  
 /* End of file routes.php */
