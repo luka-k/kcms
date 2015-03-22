@@ -9,7 +9,7 @@ class Cabinet extends Client_Controller {
 	{
 		parent::__construct();
 		if (!$this->session->userdata('logged_in')) die(redirect(base_url().'cart'));
-		$this->config->load('order_config');
+		$this->config->load('orders');
 		
 		$this->orders = $this->orders->get_list(array("user_id" => $this->standart_data['user']->id));
 		

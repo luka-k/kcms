@@ -87,7 +87,7 @@ class Content extends Admin_Controller
 		
 		if($type == "characteristics_type") 
 		{
-			$this->config->load('characteristics_config');
+			$this->config->load('characteristics');
 			
 			$data['selects']['view_type'] = $this->config->item('view_type');
 		}

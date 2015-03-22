@@ -366,15 +366,6 @@ $config['secret'] = 'kcms';
 
 $config['wishlist'] = 'kcms';
 
-/*
-|--------------------------------------------------------------------------
-| Characters in short description
-|--------------------------------------------------------------------------
-|
-| Using for identification characters in short description
-|
-*/
-$config['characters_in_short_description'] = '140';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

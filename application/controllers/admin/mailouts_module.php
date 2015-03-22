@@ -10,7 +10,7 @@ class Mailouts_module extends Admin_Controller
 	
 	public function index()
 	{		
-		$mailouts = $this->mailouts->get_prepared_list($this->mailouts->get_list(FALSE));
+		$mailouts = $this->mailouts->prepare_list($this->mailouts->get_list(FALSE));
 
 		$data = array(
 			'title' => "Рассылка",

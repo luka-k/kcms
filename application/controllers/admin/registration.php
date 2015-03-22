@@ -8,7 +8,7 @@ class Registration extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->config->load('order_config');
+		$this->config->load('orders');
 	}
 	
 	public function login()

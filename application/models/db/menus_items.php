@@ -10,8 +10,7 @@ class Menus_items extends MY_Model
 			'parent_id' => array('Родительский пункт меню', 'select', ''),
 			'description' => array('Описание', 'text', ''),
 			'item_type' => array('Тип пункта', 'type', ''),
-			'url' => array('Ссылка', 'link', '')//,
-			//'upload_image' => array('Загрузить изображение', 'image', 'img')
+			'url' => array('Ссылка', 'link', '')
 		)
 	);
 	

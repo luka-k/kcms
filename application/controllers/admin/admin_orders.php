@@ -14,7 +14,7 @@ class Admin_orders extends Admin_Controller
 	
 	public function index($filter = FALSE)
 	{
-		$this->config->load('order_config');
+		$this->config->load('orders');
 
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');

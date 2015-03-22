@@ -15,7 +15,7 @@ class Images extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->config->load('upload_config');
+		$this->config->load('upload');
 	}
 	
 	public function upload_image($img, $object_info)

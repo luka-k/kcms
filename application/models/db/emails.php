@@ -7,7 +7,6 @@ class Emails extends MY_Model
 			'id' => array('id', 'hidden', ''),
 			'type' => array('type', 'hidden', ''),
 			'name' => array('Наименование', 'text',  'trim|required|name'),
-			//'users_type' => array('Группа подписчиков', 'simply_select',  ''),
 			'subject' => array('Тема письма', 'text', ''),
 			'description' => array('Текст письма', 'tiny', '')
 		)
@@ -16,7 +15,7 @@ class Emails extends MY_Model
 	function __construct()
 	{
         parent::__construct();
-		$this->config->load('emails_config');
+		$this->config->load('emails');
 	}
 	
 	public function send_system_mail($to, $template_id, $parse_info, $template = 'standart_mail')
