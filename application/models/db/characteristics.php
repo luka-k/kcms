@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Characteristics_model extends MY_Model
+class Characteristics extends MY_Model
 {
 	public $filters = array(
 		'color' => array("Цвет", "text"),

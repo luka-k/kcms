@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Menus_items_model extends MY_Model
+class Menus_items extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(

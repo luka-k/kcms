@@ -17,27 +17,6 @@ class Admin_Controller extends CI_Controller
 		
 		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
 		
-		
-		/**********************************************************
-		* мысль ридумать что то подобное зрела уже давно.
-		* в частности очень не удобно что нельзя назвать контроллер по имени таблицы, потому что так названа модель.
-		* что предлагаю. все модели именовать с суффиксом _model 
-		* что бы автоматизировать процесс подключения моделей я сделал конфиг model
-		* соответственно в нем содержаться все модели которые надо подгрузить автоматом
-		* что бы не перепиливать весь код и в дальнейшем обращатся к моделям без суффикса
-		* я подключаю их ниже через короткое имя
-		* а вообще мне кажется в дальнейшем надо убрать из автозагрузки те модели которые используются не везде.
-		* например модели характеристик нужны только товарам. модели рассылок и тд. их можно подключать только в соответсвтующих контроллерах
-		**********************************************************/
-		$this->config->load("model");
-		$autoload = $this->config->item("autoload");
-		
-		foreach($autoload as $item)
-		{
-			$short_name = str_replace(array("db/", "_model"), "", $item);
-			$this->load->model($item, $short_name);
-		}
-		
 		$this->menu = $this->dynamic_menus->get_menu(1)->items;
 		$this->user = (array)$this->session->userdata('user');
 		
@@ -55,15 +34,6 @@ class Client_Controller extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
-		$this->config->load("model");
-		$autoload = $this->config->item("autoload");
-		
-		foreach($autoload as $item)
-		{
-			$short_name = str_replace(array("db/", "_model"), "", $item);
-			$this->load->model($item, $short_name);
-		}
 				
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
