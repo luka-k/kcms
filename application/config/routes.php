@@ -37,7 +37,6 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
 $route['default_controller'] = "index";
 $route['404_override'] = 'pages/page_404';
 
@@ -50,11 +49,12 @@ $route['catalog'] = 'catalog/index';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 
+$routes['(:any)'] = "core/index";
+
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 
-$route['wishlist'] = 'pages/wishlist';
 $route['cabinet'] = 'cabinet';
 
 $route['cart'] = 'catalog/cart';
@@ -64,6 +64,6 @@ $route['order/(:any)/(:num)'] = 'order/$1/$2';
 $route['search'] = 'search';
 
 $route['sitemap.xml'] = 'sitemap/index/xml';
- 
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

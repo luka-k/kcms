@@ -24,5 +24,5 @@ class Index extends Client_Controller {
 	}	
 }
 
-/* End of file index.php */
-/* Location: ./application/controllers/index.php */
+/* End of file Index.php */
+/* Location: ./application/controllers/Index.php */
