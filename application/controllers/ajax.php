@@ -89,16 +89,16 @@ class Ajax extends CI_Controller {
 			if ($order->status_id == $key) $status = $value;
 		}
 		
-		$message_info = array(
-			"order_id" => $info->order_id,
-			"user_name" => $order->user_name,
-			"order_status" => $status
-		);
-		$this->emails->send_mail($order->user_email, 'change_order_status', $message_info);
-		
 		switch ($info->type) 
 		{
-			case "status_id": $data['message'] = "Статус заказа изменен"; break;
+			case "status_id": $data['message'] = "Статус заказа изменен"; 
+				$message_info = array(
+					"order_id" => $info->order_id,
+					"user_name" => $order->user_name,
+					"order_status" => $status
+				);
+				$this->emails->send_system_mail($order->user_email, 3, $message_info);
+				break;
 			case "payment_id": $data['message'] = "Способ оплаты изменен"; break;
 			case "delivery_id": $data['message'] = "Способ доставки изменен"; break;
 		}
