@@ -20,7 +20,7 @@ class String_edit {
 		$counter = $counter % 100;
 		
 		if ($counter >= 20) $counter = $counter % 10;
-		if ($counter > 4 | $counter == 0) return $form[1];
+		if ($counter > 4 || $counter == 0) return $form[1];
 		if ($counter > 1 && $counter < 5) return $form[2];
 			
 		return $form[0];   

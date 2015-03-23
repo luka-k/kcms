@@ -88,6 +88,7 @@ class Ajax extends CI_Controller {
 		{
 			if ($order->status_id == $key) $status = $value;
 		}
+		
 		$message_info = array(
 			"order_id" => $info->order_id,
 			"user_name" => $order->user_name,
