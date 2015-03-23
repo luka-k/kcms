@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Orders_products extends MY_Model
+class Orders_products_model extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(

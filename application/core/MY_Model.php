@@ -9,7 +9,7 @@ class MY_Model extends CI_Model
 	function __construct()
     {
         parent::__construct();
-        $this->_table = strtolower(get_class($this));
+        $this->_table = strtolower(str_replace("_model", "", get_class($this)));
     }
 	
 	//Возращает количество записей в таблице

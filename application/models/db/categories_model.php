@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Categories extends MY_Model
+class Categories_model extends MY_Model
 {
 	//Третий параметр параметры валидации и обработки для функции editors_post
 	//Параметры валидации класса валидации codeignighter

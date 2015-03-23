@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users2users_groups extends MY_Model
+class Users2users_groups_model extends MY_Model
 {
 	function __construct()
 	{
