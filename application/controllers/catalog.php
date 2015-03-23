@@ -110,28 +110,6 @@ class Catalog extends Client_Controller {
 
 		$this->load->view("client/product", $data);
 	}
-	
-	public function cart()
-	{
-		$this->breadcrumbs->Add("catalog", "Корзина");
-		
-		$settings = $this->settings->get_item_by(array("id" => 1));
-		
-		$this->config->load('orders');
-
-		$data = array(
-			'title' => "Корзина",
-			'breadcrumbs' => $this->breadcrumbs->get(),
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay')
-			),
-			'action' => $this->input->get('action'),
-			'order_string' => $settings->order_string
-		);
-		$data = array_merge($this->standart_data, $data);
-		$this->load->view('client/cart.php', $data);
-	}
 }
 
 /* End of file catalog.php */
