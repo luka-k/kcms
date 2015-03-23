@@ -17,7 +17,7 @@ class Wishlist extends Client_Controller {
 
 		$data = array(
 			'title' => "вишлист",
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'left_menu' => $left_menu,
 			'wishlist' => $wishlist
 		);

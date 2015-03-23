@@ -375,14 +375,8 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	public function get_site_tree($parent_id, $parent_id_field)
-	{
-		return $this->get_sub_tree($parent_id, $parent_id_field);
-	}
-	
 	public function get_tree($parent_id, $parent_id_field)
 	{
-		$this->url->admin_url_parse();
 		return $this->get_sub_tree($parent_id, $parent_id_field);
 	}
 	
@@ -393,9 +387,30 @@ class MY_Model extends CI_Model
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
 			
-			if(!($this->url->set_active_class($this->url->active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
+			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}		
 		return $branches;
+	}
+	
+	private function is_active($branch_id)
+	{
+		$table = $this->_table;
+		$root_id = $this->uri->segment($this->uri->total_segments());
+		
+		$item = $this->$table->get_item($root_id);
+		if(!empty($item))
+		{
+			if($item->id == $branch_id) return TRUE;
+			
+			$parent_id = $item->parent_id;
+			while($parent_id <> 0)
+			{
+				$item = $this->$table->get_item_by(array("id" => $parent_id));
+				if($item->id == $branch_id) return TRUE;
+				$parent_id = $item->parent_id;
+			}	
+		}
+		return FALSE;
 	}
 	
 	public function prepare_list($info)

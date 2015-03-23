@@ -23,7 +23,7 @@ class Catalog extends Client_Controller {
 		
 		$data = array(
 			'title' => "Каталог",
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
+			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'filters' => $filters
 		);
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -103,7 +103,6 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'product' => $this->products->prepare($content->product, FALSE)
 		);
 		$data = array_merge($this->standart_data, $data);

@@ -4,76 +4,9 @@ class CI_Url {
 
 	var $CI;
 	
-	public $active_branch = array();
-	
 	public function __construct()
 	{
 		$this->CI =& get_instance();
-	}
-	
-	public function admin_url_parse()
-	{
-		$type = $this->CI->uri->segment(3);
-		if($type == "item")
-		{
-			$base = $this->CI->uri->segment(5);
-			$id = $this->CI->uri->segment(6);
-		}
-		else
-		{
-			$base = $this->CI->uri->segment(4);
-			$id = $this->CI->uri->segment(5);
-		}
-
-		if(($type == "item")and($base == "products"))
-		{
-			$item = $this->CI->$base->get_item_by(array("id" => $id));
-			$base = "categories";
-		}
-		elseif(($type == "items")and($base == "products"))
-		{
-			$base = "categories";
-			$item = $this->CI->$base->get_item_by(array("id" => $id));
-			$this->add_active($id);
-		}
-		else
-		{
-			$item = $this->CI->$base->get_item_by(array("id" => $id));
-			$this->add_active($id);
-		}
-		
-		if (!empty($item))
-		{
-			$parent_id = $item->parent_id;
-			while($parent_id <> 0)
-			{
-				$item = $this->CI->$base->get_item_by(array("id" => $parent_id));
-				$this->add_active($item->id);
-				$parent_id = $item->parent_id;
-			}	
-			return TRUE;
-		}	
-		else
-		{
-			return TRUE;
-		}	
-	}
-	
-	public function add_active($id)
-	{
-		$this->active_branch[] = $id;
-	}
-	
-	public function set_active_class($active_branch, $branch)
-	{
-		foreach($active_branch as $element)
-		{
-			if($branch->id == $element)
-			{
-				$branch->class = "active";
-				return TRUE;
-			}
-		}	
 	}
 	
 	public function catalog_url_parse($segment_number, $parent = FALSE)
