@@ -8,7 +8,7 @@ class Wishlist extends Client_Controller {
 	}
 
 	// wishlist()
-	// âûâîä âèøëèñòà
+	// Ğ²Ñ‹Ğ²Ğ¾Ğ´ Ğ²Ğ¸ÑˆĞ»Ğ¸ÑÑ‚Ğ°
 	public function index()
 	{
 		$left_menu = $this->dynamic_menus->get_menu(4);
@@ -16,7 +16,7 @@ class Wishlist extends Client_Controller {
 		$wishlist = $this->wishlist->get();
 
 		$data = array(
-			'title' => "âèøëèñò",
+			'title' => "Ğ²Ğ¸ÑˆĞ»Ğ¸ÑÑ‚",
 			'tree' => $this->categories->get_site_tree(0, "parent_id"),
 			'left_menu' => $left_menu,
 			'wishlist' => $wishlist

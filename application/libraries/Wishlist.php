@@ -36,7 +36,7 @@ class CI_Wishlist {
 		{
 			$wishlist_items[] = $this->CI->products->get_item_by(array("id" => $item));
 		}
-		return $this->CI->products->get_prepared_list($wishlist_items);
+		return $this->CI->products->prepare_list($wishlist_items);
 	}
 	
 	
