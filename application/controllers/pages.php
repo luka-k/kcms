@@ -13,7 +13,7 @@ class Pages extends Client_Controller {
 		
 		if($page == FALSE)
 		{
-			redirect(base_url()."pages/page_404", "location", 404); //работает через раз. разобраться!!!!!!
+			redirect(base_url()."pages/page_404");
 		}
 		elseif(isset($page->article))
 		{
@@ -44,6 +44,7 @@ class Pages extends Client_Controller {
 	
 	public function page_404()
 	{
+		header("HTTP/1.0 404 Not Found");
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$data = array(
 			'title' => "Страница не найдена",

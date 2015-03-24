@@ -15,4 +15,4 @@ RewriteRule . %1/%2 [R=301,L]
 
 RedirectPermanent /main /
 
-#ErrorDocument 404 /pages/page_404/
+ErrorDocument 404 /pages/page_404
