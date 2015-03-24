@@ -13,8 +13,6 @@ class String_edit {
 	
 	function set_word_form($word, $counter)
 	{
-		$this->CI->config->item("set_word_form", TRUE);
-		
 		$form = $this->CI->config->item($word, 'set_word_form');
 
 		$counter = $counter % 100;
