@@ -9,6 +9,18 @@ class Content extends Admin_Controller
 		parent::__construct();
 	}
 	
+	function import()
+	{
+		$this->load->library('import');
+		
+		$categories = array(
+			0 => array("category_name" => "Импортируемая категория 1", "parent_category_name" => "Категория 1"),
+			1 => array("category_name" => "Импортируемая категория 2", "parent_category_name" => "Импортируемая категория 1")
+		);
+		
+		$this->import->import_categories($categories);
+	}
+	
 	public function items($type, $id = FALSE)
 	{		
 		$name = editors_get_name_field('name', $this->$type->editors);
