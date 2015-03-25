@@ -35,7 +35,22 @@ class Import{
 				
 				$this->CI->categories->insert($data);
 				
+				if(isset($c['image']))
+				{
+					$object_info = array(
+						"object_type" => "categories",
+						"object_id" => $this->CI->db->insert_id()
+					);
 				
+					$file_name = array_reverse(explode("/", $c['image']));
+				
+					$img = array(
+						"tmp_name" => trim(FCPATH."import/images".$c['image']),
+						"name" => $file_name[0]
+					);
+				
+					$answer = $this->CI->images->upload_image($img, $object_info);
+				}
 			}
 		}
 	}

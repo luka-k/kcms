@@ -14,7 +14,7 @@ class Content extends Admin_Controller
 		$this->load->library('import');
 		
 		$categories = array(
-			0 => array("category_name" => "Импортируемая категория 1", "parent_category_name" => "Категория 1"),
+			0 => array("category_name" => "Импортируемая категория 1", "parent_category_name" => "Категория 1", "image" => "/b/r/bring.jpg"),
 			1 => array("category_name" => "Импортируемая категория 2", "parent_category_name" => "Импортируемая категория 1")
 		);
 		
