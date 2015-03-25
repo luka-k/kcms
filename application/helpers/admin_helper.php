@@ -31,6 +31,20 @@ function editors_get_name_field($field, $editors)
 	return $field_name;
 }
 
+/**
+*
+* 
+*
+*/
+function editors_key_exists($key, $editors)
+{
+	foreach($editors as $tab)
+	{
+		if(array_key_exists($key, $tab)) return TRUE;
+	}
+	return FALSE;
+}
+
 /***************************************************************************************************************
 * set_empty_fields()
 * заполняет объект пустыми элеметнами с ключами взятыми c editors

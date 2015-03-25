@@ -62,9 +62,26 @@ class Import{
 	*
 	* @return
 	*/
-	public function import_products()
+	public function import_products($products = array())
 	{
-	
+		$editors = $this->CI->products->editors;
+
+		foreach($products as $p)
+		{
+			$data = array();
+			foreach($p as $field => $value)
+			{
+				if(editors_key_exists($field, $editors))
+				{
+					$data[$field] = $value;
+				}
+			}
+			
+			$parent_category = $this->CI->categories->get_item_by(array("name" => $p['parent_category']));
+			$data['parent_id'] = $parent_category->id;
+
+			$this->CI->products->insert($data);
+		}
 	}
 	
 	/**
