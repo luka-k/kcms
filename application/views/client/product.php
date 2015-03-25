@@ -14,10 +14,10 @@
 						<div>Цена со скидкой:<?=$product->sale_price?></div>
 					<?endif;?>
 					<div><?=$product->description?></div>
-					<?if($product->img <> NULL):?>
+					<?if($product->images <> NULL):?>
 						<div>
-							<?foreach($product->img as $img_item):?>
-								<img src="<?=$img_item->catalog_small_url?>" />
+							<?foreach($product->images as $image):?>
+								<img src="<?=$image->catalog_small_url?>" />
 							<?endforeach?>
 						</div>
 					<?endif;?>					
