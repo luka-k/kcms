@@ -19,38 +19,52 @@ class Import{
 	*
 	* @return
 	*/
-	public function import_categories($categories = array())
+	public function import_categories($categories = array(), $need_update = FALSE, $need_create = FALSE, $need_img_upload = FALSE)
 	{
 		foreach($categories as $c)
 		{
 			$category = $this->CI->categories->get_item_by(array("name" => $c['category_name']));
-			if(!$category)
+			$parent_category = $this->CI->categories->get_item_by(array("name" => $c['parent_category_name']));
+			
+			$data = array(
+				"name" => $c['category_name'],
+				"parent_id" => $parent_category->id,
+			);
+			
+			if($category)
 			{
-				$parent_category = $this->CI->categories->get_item_by(array("name" => $c['parent_category_name']));
-				
-				$data = array(
-					"name" => $c['category_name'],
-					"parent_id" => $parent_category->id,
+				if($need_update) 
+				{
+					$this->CI->categories->update($category->id, $data);
+					$object_id = $category->id;
+				}
+			}
+			else
+			{
+				if($need_create)
+				{
+					$this->CI->categories->insert($data);
+					$object_id = $this->CI->db->insert_id();
+				}
+			}
+
+			//тут я сознательно убрал проверку на существование картинки в массиве и и $object_id
+			//типо если $need_img_upload true то соответственно эти условия выполняются
+			if($need_img_upload)
+			{
+				$object_info = array(
+					"object_type" => "categories",
+					"object_id" => $object_id
 				);
 				
-				$this->CI->categories->insert($data);
+				$file_name = array_reverse(explode("/", $c['image']));
 				
-				if(isset($c['image']))
-				{
-					$object_info = array(
-						"object_type" => "categories",
-						"object_id" => $this->CI->db->insert_id()
-					);
+				$img = array(
+					"tmp_name" => trim(FCPATH."import/images".$c['image']),
+					"name" => $file_name[0]
+				);
 				
-					$file_name = array_reverse(explode("/", $c['image']));
-				
-					$img = array(
-						"tmp_name" => trim(FCPATH."import/images".$c['image']),
-						"name" => $file_name[0]
-					);
-				
-					$answer = $this->CI->images->upload_image($img, $object_info);
-				}
+				$answer = $this->CI->images->upload_image($img, $object_info);
 			}
 		}
 	}
@@ -62,7 +76,7 @@ class Import{
 	*
 	* @return
 	*/
-	public function import_products($products = array())
+	public function import_products($products = array(), $need_update = TRUE, $need_create = TRUE, $need_img_upload = TRUE)
 	{
 		$editors = $this->CI->products->editors;
 
@@ -81,6 +95,7 @@ class Import{
 			$data['parent_id'] = $parent_category->id;
 
 			$this->CI->products->insert($data);
+
 		}
 	}
 	
@@ -111,7 +126,7 @@ class Import{
 			
 			foreach($info as $i)
 			{
-				$this->products->insert(array("name" => $i[0]));
+
 				$object_info = array(
 					"object_type" => "products",
 					"object_id" => $this->db->insert_id()
