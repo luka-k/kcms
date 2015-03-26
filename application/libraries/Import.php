@@ -76,7 +76,7 @@ class Import{
 	*
 	* @return
 	*/
-	public function import_products($products = array(), $need_update = TRUE, $need_create = TRUE, $need_img_upload = TRUE)
+	public function import_products($products = array(), $need_update = FALSE, $need_create = FALSE)
 	{
 		$editors = $this->CI->products->editors;
 
@@ -91,11 +91,21 @@ class Import{
 				}
 			}
 			
+			$product = $this->CI->products->get_item_by(array("name" => $p['name']));
 			$parent_category = $this->CI->categories->get_item_by(array("name" => $p['parent_category']));
 			$data['parent_id'] = $parent_category->id;
+			
+			if($product)
+			{
+				if($need_update) $this->CI->products->update($product->id, $data);
+
+			}
+			else
+			{
+				if($need_create) $this->CI->products->insert($data);
+			}
 
 			$this->CI->products->insert($data);
-
 		}
 	}
 	
