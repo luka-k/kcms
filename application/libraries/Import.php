@@ -131,25 +131,26 @@ class Import{
 				$buffer = fgets($file, 4096);
 				$info[] = explode("; ", $buffer);
 			}
-			
 			fclose($file);
 			
 			foreach($info as $i)
 			{
+				$data = array();
+				foreach($i as $key => $value)
+				{
+					$data[$info[0][$key]] = $value;
+				}
 
-				$object_info = array(
-					"object_type" => "products",
-					"object_id" => $this->db->insert_id()
-				);
+				$data["object_type"] = "products"
 				
-				$file_name = array_reverse(explode("/", $i[1]));
+				$file_name = array_reverse(explode("/", $data['name']));
 				
 				$img = array(
-					"tmp_name" => $images_dir_name.trim($i[1]),
+					"tmp_name" => $images_dir_name.trim($data['name']),
 					"name" => $file_name[0]
 				);
 				
-				$answer = $this->images->upload_image($img, $object_info);
+				$answer = $this->images->upload_image($img, $data);
 			}
 		}
 	}
