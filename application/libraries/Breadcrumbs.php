@@ -4,16 +4,15 @@
 * Breadcrumbs class
 * 
 * @package		kcms
-* @subpackage	Models
+* @subpackage	Libraries
 * @category	    Breadcrumbs
 */
-class Breadcrumbs extends CI_Model 
+class Breadcrumbs 
 {
 	private $breadcrumbs = array();
 	
     function __construct()
 	{
-        parent::__construct();
 		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
 	}
 	

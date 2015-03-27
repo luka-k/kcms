@@ -62,7 +62,8 @@ $autoload['libraries'] = array(
 	'catalog',
 	'wishlist',
 	'url',
-	'string_edit'
+	'string_edit',
+	'breadcrumbs'
 );
 
 
@@ -136,7 +137,6 @@ $autoload['model'] = array(
 	'db/menus_items',
 	'db/characteristics',
 	'db/characteristics_type',
-	'breadcrumbs',
 	'menus'
 );
 
