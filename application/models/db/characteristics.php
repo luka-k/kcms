@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Characteristics class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Characteristics
+*/
 class Characteristics extends MY_Model
 {
 	public $filters = array(
@@ -14,6 +21,16 @@ class Characteristics extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение продуктов по фильтру
+	*
+	* @param array $filter
+	* @param string $order
+	* @param string $direction
+	* @param integer $limit
+	* @param integer $from
+	* @return array
+	*/
 	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
@@ -82,7 +99,8 @@ class Characteristics extends MY_Model
 		{
 			$id = $values;
 		}
-
+		
+		//Редатировать
 		if(empty($id))
 		{
 			return $content = array();
@@ -99,6 +117,12 @@ class Characteristics extends MY_Model
 		}
 	}
 	
+	/**
+	* Фильтр по условию и обновление списка id продуктов соответствующих фильтрации
+	*
+	* @param array $values
+	* @return array
+	*/
 	private function _update_values($values)
 	{
 		$query = $this->db->get('characteristics');

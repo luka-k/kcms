@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Products class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Products
+*/
 class Products extends MY_Model
 {
 	public $editors = array(
@@ -37,13 +44,17 @@ class Products extends MY_Model
         parent::__construct();
 	}
 	
-	//items_tree - дерево для списка элементов
-	//item_tree - дерево для страницы редактирования элемента
 	public $admin_left_column = array(
-		"items_tree" => "products_tree",
-		"item_tree" => "products_tree",
+		"items_tree" => "products_tree", //дерево для списка элементов
+		"item_tree" => "products_tree", // дерево для страницы редактирования элемента
 	);
 	
+	/**
+	* Получение url продукта
+	*
+	* @param object $item
+	* @return string
+	*/
 	public function get_url($item)
 	{
 		$item_full_url = $this->categories->make_full_url($item);
@@ -53,6 +64,12 @@ class Products extends MY_Model
 		return $full_url;		
 	}
 	
+	/**
+	* Получение цены со скидкой
+	*
+	* @param object $item
+	* @return object
+	*/
 	public function set_sale_price($item)
 	{
 		if(!empty($item->discount))
@@ -62,6 +79,12 @@ class Products extends MY_Model
 		return $item;
 	}
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	function prepare($item, $cover = TRUE)
 	{
 		if(!empty($item))

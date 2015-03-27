@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Characteristics_type class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Characteristics_type
+*/
 class Characteristics_type extends MY_Model
 {
 	public $editors = array(
@@ -16,6 +23,11 @@ class Characteristics_type extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение списка фильтров
+	*
+	* @return array
+	*/
 	public function get_filters()
 	{
 		$characteristics_type = $this->get_list(FALSE);

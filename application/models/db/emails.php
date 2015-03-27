@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Emails class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Emails
+*/
 class Emails extends MY_Model
 {
 	public $editors = array(
@@ -18,6 +25,15 @@ class Emails extends MY_Model
 		$this->config->load('emails');
 	}
 	
+	/*
+	* Отсылка системного письма
+	*
+	* @param string $to
+	* @param integer $template_id
+	* @param array $parse_info
+	* @param string $template
+	* @return bool
+	*/
 	public function send_system_mail($to, $template_id, $parse_info, $template = 'standart_mail')
 	{
 		$config = $this->config->item('config');

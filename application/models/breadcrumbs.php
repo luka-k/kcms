@@ -1,6 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//Модель хлебные крошки
+/**
+* Breadcrumbs class
+* 
+* @package		kcms
+* @subpackage	Models
+* @category	    Breadcrumbs
+*/
 class Breadcrumbs extends CI_Model 
 {
 	private $breadcrumbs = array();
@@ -11,10 +17,24 @@ class Breadcrumbs extends CI_Model
 		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
 	}
 	
+	/**
+	* Добавляет элемент в хлебные крошки
+	*
+	* @param string $url 
+	* @param srtring $name
+	*
+	*/
+	
 	public function add($url, $name)
 	{
 		$this->breadcrumbs[] = array('url' => $url, 'name' => $name);
 	}
+	
+	/**
+	* Получение массива хлебокрошек
+	*
+	* @return array
+	*/
 	
 	public function get()
 	{

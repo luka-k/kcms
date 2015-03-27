@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Settings class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Settings
+*/
 class Settings extends MY_Model
 {
 	public $editors = array(

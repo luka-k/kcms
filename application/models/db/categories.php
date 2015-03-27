@@ -1,15 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Categories class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Categories
+*/
 class Categories extends MY_Model
 {
-	//Третий параметр параметры валидации и обработки для функции editors_post
-	//Параметры валидации класса валидации codeignighter
-	//+ можно указывать  функции php которые принимают один параметр
-	//+ хочу расширить класс валмдации на две функции
-	//url - автоматически подставлять значени поля в url если он пуст
-	//и для обработки чекбоксов
-	//вообще расширая класс валидации можно легко делать обработку любых данных
-	//Параметр 'img' используется для обработки изображений
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
@@ -33,11 +32,9 @@ class Categories extends MY_Model
 		)
 	);
 	
-	//items_tree - дерево для списка элементов
-	//item_tree - дерево для страницы редактирования элемента
 	public $admin_left_column = array(
-		"items_tree" => "categories_tree",
-		"item_tree" => "categories_tree",
+		"items_tree" => "categories_tree", //дерево для списка элементов
+		"item_tree" => "categories_tree", //дерево для страницы редактирования элемента
 	);
 	
 	function __construct()
@@ -45,6 +42,12 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение url категории
+	*
+	* @param object $item
+	* @return string
+	*/
 	public function get_url($item)
 	{
 		$item_full_url = $this->make_full_url($item);
@@ -53,6 +56,12 @@ class Categories extends MY_Model
 		return $full_url;		
 	}
 	
+	/**
+	* Формирование полного url к категории
+	*
+	* @param object $item
+	* @return array
+	*/
 	public function make_full_url($item)
 	{
 		$item_url = array();
@@ -67,6 +76,12 @@ class Categories extends MY_Model
 		return $item_url;
 	}	
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	function prepare($item)
 	{
 		if(!empty($item))

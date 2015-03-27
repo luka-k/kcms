@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Mailouts class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Mailouts
+*/
 class Mailouts extends MY_Model
 {
 	public $editors = array(
@@ -16,6 +23,14 @@ class Mailouts extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Отправка письма
+	*
+	* @param array $send_info
+	* @param array $data
+	* @param string $template
+	* @return bool
+	*/
 	public function send_mail($send_info, $data, $template = 'standart_mail')
 	{
 		$config = $this->config->item('config');
@@ -44,6 +59,12 @@ class Mailouts extends MY_Model
 		return !$this->email->send() ? FALSE : TRUE; 
 	}
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	public function prepare($item)
 	{
 		$groups = explode("/", $item->users_ids);

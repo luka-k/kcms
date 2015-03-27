@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Articles class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Articles
+*/
 class Articles extends MY_Model
 {
 	public $editors = array(
@@ -32,6 +39,12 @@ class Articles extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение url статьи
+	*
+	* @param object $item
+	* @return string
+	*/
 	public function get_url($item)
 	{
 		$item_url = $this->make_full_url($item);
@@ -40,6 +53,12 @@ class Articles extends MY_Model
 		return $full_url;		
 	}
 	
+	/**
+	* Формирование полного url к статье
+	*
+	* @param object $item
+	* @return array
+	*/
 	public function make_full_url($item)
 	{
 		$item_url = array();
@@ -59,6 +78,12 @@ class Articles extends MY_Model
 		return $item_url;
 	}	
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	function prepare($item)
 	{
 		if(!empty($item))

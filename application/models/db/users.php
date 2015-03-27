@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Users class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Users
+*/
 class Users extends MY_Model
 {
 	public $editors = array(
@@ -18,7 +25,13 @@ class Users extends MY_Model
         parent::__construct();
 	}
 	
-	/*Авторизация*/
+	/**
+	* Авторизация пользователя
+	*
+	* @param string $email
+	* @param string $password
+	* @return array
+	*/
 	public function login($email, $password)
 	{	
 		$authdata = array(
@@ -49,7 +62,12 @@ class Users extends MY_Model
 		return $authdata;	
 	}
 	
-	/*Проверка на существование регистрации на такой email*/		
+	/**
+	* Проверка уникальности email
+	*
+	* @param string $email
+	* @return string/bool
+	*/
 	public function get_user_email($email) 
 	{
 	
@@ -57,14 +75,25 @@ class Users extends MY_Model
 		return !empty($user) ? $user->email : FALSE;
 	}
 	
-	/*Изменение пароля*/	
+	/**
+	* Изменение пароля
+	*
+	* @param string $email
+	* @param string $new_password
+	* @param string $secret
+	*/
 	public function insert_new_pass($email, $new_password, $secret)
 	{		
 		$this->db->where(array("email" => $email, "secret" => $secret));
 		$this->db->update('users', array("password" => $new_password));
 	}
 	
-	//Вывод списока пользователей по id группы 
+	/**
+	* Получение списка пользователей по id группы 
+	*
+	* @param integer $group_id
+	* @return array
+	*/
 	public function group_list($group_id)
 	{
 		$users_id = $this->users2users_groups->get_list(array("users_group_id" => $group_id));
@@ -78,7 +107,13 @@ class Users extends MY_Model
 		return $users;
 	}
 	
-	//Проверка принадлежности пользователя к группе
+	/**
+	* Проверка пренадлежности пользователя к группе
+	*
+	* @param integer $user_id
+	* @param integer $group_id
+	* @return bool
+	*/
 	public function in_group($user_id, $group_id)
 	{
 		$user = $this->users2users_groups->get_item_by(array("users_group_id" => $group_id, "user_id" => $user_id));

@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Users_groups class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Users_groups
+*/
 class Users_groups extends MY_Model
 {
 	public $editors = array(

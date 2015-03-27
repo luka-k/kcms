@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Menus_items class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Menus_items
+*/
 class Menus_items extends MY_Model
 {
 	public $editors = array(
@@ -19,6 +26,13 @@ class Menus_items extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение дерева элементов меню
+	*
+	* @param integer $menu_id
+	* @param integer $parent_id
+	* @return object
+	*/
 	public function menu_tree($menu_id, $parent_id = 0)
 	{
 		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
@@ -46,6 +60,12 @@ class Menus_items extends MY_Model
 		return $branches;
 	}
 	
+	/**
+	* Получение url пункта меню
+	*
+	* @param object $item
+	* @return string
+	*/
 	public function get_url($item)
 	{
 		$item_url = $this->make_full_url($item);
@@ -54,6 +74,12 @@ class Menus_items extends MY_Model
 		return $full_url;		
 	}
 	
+	/**
+	* Формирование полного url пункта меню
+	*
+	* @param object $item
+	* @return array
+	*/
 	public function make_full_url($item)
 	{
 		$item_url = array();
@@ -72,6 +98,12 @@ class Menus_items extends MY_Model
 		return $item_url;
 	}	
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	function prepare($item)
 	{
 		if(!empty($item)) $item->full_url = $this->get_url($item);

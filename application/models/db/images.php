@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Images class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Images
+*/
 class Images extends MY_Model
 {
 	public $editors = array(
@@ -18,6 +25,13 @@ class Images extends MY_Model
 		$this->config->load('upload');
 	}
 	
+	/**
+	* Загрузка изображения
+	*
+	* @param array $img
+	* @param array $object_info
+	* @return integer
+	*/
 	public function upload_image($img, $object_info)
 	{
 		//Подключаем настройки
@@ -45,9 +59,14 @@ class Images extends MY_Model
 
 		return $this->insert($object_info);
 	}
-	
-	// function generate_thumb() - генерирует миниатюры для изображения
-	// $img_path - путь к картинке
+
+	/**
+	* Генерация и загрузка миниатур изображений
+	* 
+	* @param string $img_path
+	* @param string $thumb_config_name
+	* @return bool
+	*/
 	public function generate_thumbs($img_path, $thumb_config_name = FALSE)
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
@@ -92,6 +111,12 @@ class Images extends MY_Model
 		}
 	}
 	
+	/**
+	* Вставка информации об изображении в базу
+	*
+	* @param array
+	* @return integer
+	*/
 	public function insert($data)
 	{
 		if ($data)
@@ -105,6 +130,11 @@ class Images extends MY_Model
 		}
 	}
 	
+	/**
+	* Изменение размеров миниатюру
+	*
+	* @return bool
+	*/
 	public function resize_all()
 	{
 		$images= $this->images->get_list(FALSE);
@@ -122,6 +152,11 @@ class Images extends MY_Model
 		return TRUE;
 	}
 	
+	/**
+	* Получение уникальной информации для загрузки изображения
+	*
+	* @param string $img_name
+	*/
 	public function get_unique_info($img_name)
 	{
 		$image = explode(".", $img_name);
@@ -143,6 +178,12 @@ class Images extends MY_Model
 		return $img_info;
 	}
 	
+	/**
+	* Получение обложки элемента
+	*
+	* @param array $factors
+	* @return object
+	*/
 	public function get_cover($factors = array())
 	{
 		if(!empty($factors))
@@ -156,6 +197,12 @@ class Images extends MY_Model
 		return $this->get_urls($image);
 	}
 	
+	/**
+	* Получение url к изображению и миниатюрам
+	*
+	* @param object $image
+	* @return object
+	*/
 	private function get_urls($image)
 	{
 		$thumb_config = $this->config->item('thumb_config');
@@ -169,6 +216,13 @@ class Images extends MY_Model
 		return $image; 
 	}
 	
+	/**
+	*  Получение полного url изображения или миниатюры
+	* 
+	* @param string $url
+	* @param string $path
+	* @return string
+	*/
 	public function make_full_url($url, $path = FALSE)
 	{
 		$item_url = array();
@@ -181,6 +235,12 @@ class Images extends MY_Model
 		return $full_url;	
 	}
 	
+	/**
+	* Установка обложки элемента
+	* 
+	* @param array $object_info
+	* @param integer $cover_id
+	*/
 	public function set_cover($object_info, $cover_id)
 	{
 		$this->db->set('is_cover', 0);
@@ -192,6 +252,12 @@ class Images extends MY_Model
 		$this->db->update('images');
 	}
 	
+	/**
+	* Удаление изображения
+	* 
+	* @param array $object_info
+	* @return integer
+	*/
 	public function delete_img($object_info)
 	{
 		$img = $this->get_item_by(array('object_type' => $object_info['object_type'], 'id' =>$object_info['id']));
@@ -218,6 +284,12 @@ class Images extends MY_Model
 		return $img->object_id;
 	}
 	
+	/**
+	* 
+	*
+	* @param object $item
+	* @return object
+	*/
 	function prepare($item)
 	{
 		if(!empty($item))

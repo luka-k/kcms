@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Dynamic_menus class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Dynamic_menus
+*/
 class Dynamic_menus extends MY_Model
 {
 	public $editors = array(
@@ -15,6 +22,12 @@ class Dynamic_menus extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	* Получение меню по id
+	*
+	* @param integer $id
+	* @return object
+	*/
 	public function get_menu($id)
 	{
 		$menu = new stdClass();

@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Orders_products class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Orders_products
+*/
 class Orders_products extends MY_Model
 {
 	public $editors = array(
@@ -19,5 +26,5 @@ class Orders_products extends MY_Model
 	}
 }
 
-/* End of file news.php */
-/* Location: ./application/models/db/news.php */
+/* End of file orders.php */
+/* Location: ./application/models/db/orders_products.php */
