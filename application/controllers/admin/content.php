@@ -145,7 +145,18 @@ class Content extends Admin_Controller
 					"object_id" => $data['content']->id
 				);
 				
-				$data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
+				$is_image = editors_get_name_field('img', $data['editors']);
+				if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
+				
+				$is_double_image = editors_get_name_field('double_img', $data['editors']);
+				if($is_double_image)
+				{
+					$field = get_editors_field($data['editors'], $is_double_image);
+					if($field) foreach($field[3] as $image_type)
+					{
+						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
+					}
+				}
 
 				if(!empty($is_characteristics))
 				{
@@ -185,7 +196,18 @@ class Content extends Admin_Controller
 						"object_type" => $type,
 						"object_id" => $data['content']->id
 					);
-					$data['content']->images = $this->images->get_list($object_info);
+					$is_image = editors_get_name_field('img', $data['editors']);
+					if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
+				
+					$is_double_image = editors_get_name_field('double_img', $data['editors']);
+					if($is_double_image)
+					{
+						$field = get_editors_field($data['editors'], $is_double_image);
+						if($field) foreach($field[3] as $image_type)
+						{
+							$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
+						}
+					}
 					
 					if(!empty($is_characteristics))
 					{
@@ -219,7 +241,7 @@ class Content extends Admin_Controller
 			
 				$field_name = editors_get_name_field('img', $data['editors']);
 				//Получаем id эдитора который предназначен для загрузки изображения
-				//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
+
 				if(!empty($field_name))
 				{
 					$object_info = array(
@@ -247,9 +269,36 @@ class Content extends Admin_Controller
 						}
 						else
 						{
-							if($_FILES[$field_name]['error'] <> 4) $this->images->upload_image($_FILES[$field_name], $object_info);
+							if($_FILES[$field_name]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$field_name], $object_info);
 						}
 					}
+				}
+				
+				$field_name = editors_get_name_field('double_img', $data['editors']);
+				
+				if(!empty($field_name))
+				{
+					$object_info = array(
+						"object_type" => $type,
+						"object_id" => $data['content']->id
+					);
+					
+					foreach($_FILES[$field_name]['error'] as $key => $error)
+					{
+						if($error == UPLOAD_ERR_OK)
+						{
+							$file = array(
+								"name" => $_FILES[$field_name]['name'][$key],
+								"type" => $_FILES[$field_name]['type'][$key],
+								"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+							);
+							
+							$object_info['image_type'] = $key;
+
+							$this->images->upload_image($file, $object_info);
+						}
+					}
+				
 				}
 				
 				$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";

@@ -26,6 +26,9 @@ class Articles extends MY_Model
 			'changefreq' => array('changefreq', 'text', ''),
 			'priority' => array('priority', 'priority', ''),
 			'lastmod' => array('lastmod', 'hidden', '')
+		),
+		'Изображение' => array(
+			'upload_double_gallery' => array('Изображение по умолчанию', 'double_images', 'double_img', array("Первое изображение" => "first", "Второе изображение" => "second"))
 		)
 	);
 	

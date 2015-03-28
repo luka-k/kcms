@@ -426,6 +426,7 @@ class MY_Model extends CI_Model
 	{
 		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
+		$return->data = new stdCLass();
 
 		$editors = $this->editors;
 
@@ -444,7 +445,6 @@ class MY_Model extends CI_Model
 				{	
 					if($key == "password" && empty($_POST[$key])) 
 					{	
-						
 						unset($editors[$type][$key]);
 					}
 					else
@@ -459,6 +459,7 @@ class MY_Model extends CI_Model
 		if($this->form_validation->run())
 		{
 			unset($return->data);
+			$return->data = new stdCLass();
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)

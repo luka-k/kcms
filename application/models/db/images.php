@@ -277,7 +277,7 @@ class Images extends MY_Model
 				"object_type" => $object_info['object_type'],
 				"object_id" => $img->object_id
 			);
-			$images = $this->get_images($object_info);
+			$images = $this->get_list($object_info);
 
 			if($images) $this->set_cover($object_info, $images[0]->id);
 		}	
