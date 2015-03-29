@@ -100,21 +100,16 @@ class Characteristics extends MY_Model
 			$id = $values;
 		}
 		
-		//Редатировать
-		if(empty($id))
-		{
-			return $content = array();
-		}
-		else
+		$content = array();
+		if(!empty($id))
 		{
 			$this->db->where_in("id", $id);
 			$this->db->order_by($order, $direction); 
 			$query = $this->db->get("products"/*, $limit, $from*/);
 			$result = $query->result();
-			empty($result) ? $content = array() : $content = $result;
-	
-			return $content;
+			if(!empty($result)) $content = $result;
 		}
+		return $content;
 	}
 	
 	/**

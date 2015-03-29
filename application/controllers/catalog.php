@@ -51,6 +51,7 @@ class Catalog extends Client_Controller {
 	private function category($content)
 	{	
 		$parent_id = 0;
+		$data['category'] = new stdClass;
 		if($content <> "root")
 		{
 			$parent_id = $content->id;
@@ -81,11 +82,11 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_values' => $this->get,
-			
 		);
 		
 		$data = array_merge($this->standart_data, $data);
 		
+		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
 
 		$this->load->view("client/categories", $data);
