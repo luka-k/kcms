@@ -11,13 +11,13 @@ class Menus_items extends MY_Model
 {
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', ''),
-			'menu_id' => array('Меню', 'hidden', ''),
-			'name' => array('Заголовок', 'text', 'trim|required|name'),
-			'parent_id' => array('Родительский пункт меню', 'select', ''),
-			'description' => array('Описание', 'text', ''),
-			'item_type' => array('Тип пункта', 'type', ''),
-			'url' => array('Ссылка', 'link', '')
+			'id' => array('id', 'hidden'),
+			'menu_id' => array('Меню', 'hidden'),
+			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
+			'parent_id' => array('Родительский пункт меню', 'select'),
+			'description' => array('Описание', 'text'),
+			'item_type' => array('Тип пункта', 'type'),
+			'url' => array('Ссылка', 'link')
 		)
 	);
 	

@@ -31,7 +31,7 @@ class Content extends Admin_Controller
 	
 	public function items($type, $id = FALSE)
 	{		
-		$name = editors_get_name_field('name', $this->$type->editors);
+		$name = $this->db->field_exists('parent_id', $type) ? "name" : editors_get_name_field('name', $this->$type->editors);
 		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
@@ -152,7 +152,7 @@ class Content extends Admin_Controller
 				if($is_double_image)
 				{
 					$field = get_editors_field($data['editors'], $is_double_image);
-					if($field) foreach($field[3] as $image_type)
+					if($field) foreach($field[4] as $image_type)
 					{
 						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
 					}
@@ -174,138 +174,90 @@ class Content extends Admin_Controller
 		}
 		elseif($action == "save")
 		{
-			$data['content'] = $this->$type->editors_post()->data;
+			$data['content'] = $this->$type->editors_post();
 			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
-			
-			if($this->$type->editors_post()->error == TRUE)
-			{
-				//Если валидация не прошла выводим сообщение об ошибке
-				if($data['content']->id == FALSE)
-				{
-					$data['content']->img = NULL;
-
-					if(!empty($is_characteristics)) $data['content']->characteristics = array();
-					if($type == "products") $data['content']->reccomended = array();
-					if($type == "emails") $data['content']->type = 2;
-				}
-				else
-				{
-					$object_info = array(
-						"object_type" => $type,
-						"object_id" => $data['content']->id
-					);
-					$is_image = editors_get_name_field('img', $data['editors']);
-					if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
-				
-					$is_double_image = editors_get_name_field('double_img', $data['editors']);
-					if($is_double_image)
-					{
-						$field = get_editors_field($data['editors'], $is_double_image);
-						if($field) foreach($field[3] as $image_type)
-						{
-							$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
-						}
-					}
 					
-					if(!empty($is_characteristics))
-					{
-						$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id, "object_type" => $type));
-						foreach($data['content']->characteristics as $characteristic)
-						{
-							foreach($data['ch_select'] as $ch)
-							{
-								if($characteristic->type == $ch->ch_type) $characteristic->name = $ch->name;
-							}
-						}
-					}
-				}
-			
-				$this->load->view('admin/item.php', $data);			
+			//Если валидация прошла успешно проверяем переменную id
+			if($data['content']->id == FALSE)
+			{
+				//Если id пустая создаем новую страницу в базе
+				$this->$type->insert($data['content']);
+				$data['content']->id = $this->db->insert_id();				
 			}
 			else
-			{			
-				//Если валидация прошла успешно проверяем переменную id
-				if($data['content']->id == FALSE)
-				{
-					//Если id пустая создаем новую страницу в базе
-					$this->$type->insert($data['content']);
-					$data['content']->id = $this->db->insert_id();				
-				}
-				else
-				{
-					//Если id не пустая вносим изменения.
-					$this->$type->update($data['content']->id, $data['content']);
-				}
+			{
+				//Если id не пустая вносим изменения.
+				$this->$type->update($data['content']->id, $data['content']);
+			}
 			
-				$field_name = editors_get_name_field('img', $data['editors']);
-				//Получаем id эдитора который предназначен для загрузки изображения
+			$field_name = editors_get_name_field('img', $data['editors']);
+			//Получаем id эдитора который предназначен для загрузки изображения
 
-				if(!empty($field_name))
-				{
-					$object_info = array(
-						"object_type" => $type,
-						"object_id" => $data['content']->id
-					);
+			if(!empty($field_name))
+			{
+				$object_info = array(
+					"object_type" => $type,
+					"object_id" => $data['content']->id
+				);
 					
-					if (isset($_FILES[$field_name]))
+				if (isset($_FILES[$field_name]))
+				{
+					if(is_array($_FILES[$field_name]['name']))
 					{
-						if(is_array($_FILES[$field_name]['name']))
+						foreach($_FILES[$field_name]['error'] as $key => $error)
 						{
-							foreach($_FILES[$field_name]['error'] as $key => $error)
+							if($error == UPLOAD_ERR_OK)
 							{
-								if($error == UPLOAD_ERR_OK)
-								{
-									$file = array(
-										"name" => $_FILES[$field_name]['name'][$key],
-										"type" => $_FILES[$field_name]['type'][$key],
-										"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
-									);
+								$file = array(
+									"name" => $_FILES[$field_name]['name'][$key],
+									"type" => $_FILES[$field_name]['type'][$key],
+									"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+								);
 
-									$this->images->upload_image($file, $object_info);
-								}
+								$this->images->upload_image($file, $object_info);
 							}
 						}
-						else
-						{
-							if($_FILES[$field_name]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$field_name], $object_info);
-						}
 					}
-				}
-				
-				$field_name = editors_get_name_field('double_img', $data['editors']);
-				
-				if(!empty($field_name))
-				{
-					$object_info = array(
-						"object_type" => $type,
-						"object_id" => $data['content']->id
-					);
-					
-					foreach($_FILES[$field_name]['error'] as $key => $error)
+					else
 					{
-						if($error == UPLOAD_ERR_OK)
-						{
-							$file = array(
-								"name" => $_FILES[$field_name]['name'][$key],
-								"type" => $_FILES[$field_name]['type'][$key],
-								"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
-							);
-							
-							$object_info['image_type'] = $key;
-
-							$this->images->upload_image($file, $object_info);
-						}
+						if($_FILES[$field_name]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$field_name], $object_info);
 					}
+				}
+			}
 				
+			$field_name = editors_get_name_field('double_img', $data['editors']);
+				
+			if(!empty($field_name))
+			{
+				$object_info = array(
+					"object_type" => $type,
+					"object_id" => $data['content']->id
+				);
+					
+				foreach($_FILES[$field_name]['error'] as $key => $error)
+				{
+					if($error == UPLOAD_ERR_OK)
+					{
+						$file = array(
+							"name" => $_FILES[$field_name]['name'][$key],
+							"type" => $_FILES[$field_name]['type'][$key],
+							"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+						);
+						
+						$object_info['image_type'] = $key;
+						$this->images->upload_image($file, $object_info);
+					}
 				}
 				
-				$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
-				if($type == "emails") $p_id = $data['content']->type;
-				
-				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
 			}
+				
+			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
+			if($type == "emails") $p_id = $data['content']->type;
+				
+			$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
+
 		}
 		if($action == "copy")
 		{

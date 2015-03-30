@@ -422,11 +422,12 @@ class MY_Model extends CI_Model
 		return $info;
 	}
 	
-	function editors_post($post = FALSE)
+	/**
+	* Обрабатывает данные перед внесением в базу
+	*/
+	public function editors_post()
 	{
-		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
-		$return->data = new stdCLass();
 
 		$editors = $this->editors;
 
@@ -434,12 +435,13 @@ class MY_Model extends CI_Model
 		{
 			foreach ($edit as $key => $value)
 			{
-				if (isset($value[2])) 
+				if (isset($value[2])&&!empty($value[2])) 
 				{	
 					$validation_config[] = array(
 						'field' => $key,
 						'label' => $value[0],
-						'rules' => $value[2]);
+						'rules' => $value[2]
+					);
 				}
 				if ($this->db->field_exists($key, $this->_table))
 				{	
@@ -449,33 +451,21 @@ class MY_Model extends CI_Model
 					}
 					else
 					{ 
-						$return->data->$key = $_POST[$key];
+						$return->$key = $_POST[$key];
 					}
 				}
 			}
 		}
-		$this->form_validation->set_rules($validation_config);
 		
-		if($this->form_validation->run())
+		$this->form_validation->set_rules($validation_config);
+		$this->form_validation->run();
+		
+		foreach($return as $key => $value)
 		{
-			unset($return->data);
-			$return->data = new stdCLass();
-			foreach ($editors as $edit)
-			{
-				foreach ($edit as $key => $value)
-				{
-					if ($this->db->field_exists($key, $this->_table))
-					{
-						$return->data->$key = htmlspecialchars_decode(set_value($key));
-					}						
-				}
-			}
-			$return->error = FALSE;
+			$edit_value = set_value($key);
+			if(!empty($edit_value)) $return->$key = $edit_value;
 		}
-		else
-		{
-			$return->error = TRUE;
-		}
+		
 		return $return;
 	}	
 } 

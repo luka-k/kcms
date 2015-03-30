@@ -1,5 +1,5 @@
 <div class="col_12">
-	<?foreach($edit[3] as $title => $image_type):?>
+	<?foreach($edit[4] as $title => $image_type):?>
 		<?if(empty($content->images[$image_type])):?>
 			<div class="col_6">
 				<div class="col_12 clearfix">

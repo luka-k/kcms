@@ -112,7 +112,7 @@
 											<?endforeach;?>
 										<?endforeach;?>
 									</form>
-									<a href="#" class="btn small" onclick="document.forms['edit_item'].submit()">Сохранить</a>
+									<a href="#" class="btn small" onclick="submit_form('edit_item'); return false;">Сохранить</a>
 								</div>
 							</div>
 							

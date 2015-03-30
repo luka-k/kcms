@@ -61,7 +61,7 @@ class Menu_module extends Admin_Controller
 			'items_editors' => $this->menus_items->editors,
 			'selects' => array(
 				'parent_id' =>$this->menus_items->menu_tree($id),
-				'url' => $this->articles->get_site_tree(0, "parent_id")
+				'url' => $this->articles->get_tree(0, "parent_id")
 			),
 			'types' => $types,
 			'item_content' => $item_content,
@@ -74,76 +74,57 @@ class Menu_module extends Admin_Controller
 		}
 		elseif($action == "save")
 		{
-			$content = $this->dynamic_menus->editors_post()->data;
-			if($this->dynamic_menus->editors_post()->error == TRUE)
+			$content = $this->dynamic_menus->editors_post();
+			if($content->id == FALSE)
 			{
-				//Если валидация не прошла выводим сообщение об ошибке
-				$data['items_error'] = validation_errors();
-				$this->load->view('admin/menu', $data);			
+				//Если id пустая создаем новую страницу в базе
+				$this->dynamic_menus->insert($content);
+				$content->id = $this->db->insert_id();				
 			}
 			else
 			{
-				if($content->id == FALSE)
-				{
-					//Если id пустая создаем новую страницу в базе
-					$this->dynamic_menus->insert($content);
-					$content->id = $this->db->insert_id();				
-				}
-				else
-				{
-					//Если id не пустая вносим изменения.
-					$this->dynamic_menus->update($content->id, $content);
-				}	
+				//Если id не пустая вносим изменения.
+				$this->dynamic_menus->update($content->id, $content);
+			}	
 			
-				$field_name = editors_get_name_field('img', $editors);
-				if(!empty($field_name))
-				{
-					$object_info = array(
-						"object_type" => "dynamic_menus",
-						"object_id" => $content->id
-					);
+			$field_name = editors_get_name_field('img', $editors);
+			if(!empty($field_name))
+			{
+				$object_info = array(
+					"object_type" => "dynamic_menus",
+					"object_id" => $content->id
+				);
 		
-					$cover_id = $this->input->post("cover_id");
-					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
+				$cover_id = $this->input->post("cover_id");
+				if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
 				
-					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
-				}
-				redirect(base_url().'admin/menu_module/menu/edit/'.$content->id);
+				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
+			redirect(base_url().'admin/menu_module/menu/edit/'.$content->id);
 		}
 		elseif($action == "save_item")
 		{
-			$info = $this->input->post();
-			$info = $this->menus_items->editors_post($info);
+			$info = $this->menus_items->editors_post();
 
-			if($info->error == TRUE)
+			if($info->id == FALSE)
 			{
-				//Если валидация не прошла формируем сообщение об ошибке
-				$data['items_error'] = strip_tags(validation_errors());
-				$this->load->view("admin/menu", $data);
+				//Если id пустая создаем новый пункт в базе
+				$this->db->where("parent_id", $info->parent_id);
+				$this->db->select_max('sort');
+				$query = $this->db->get('menus_items');
+				$max_sort = $query->row()->sort;
+				
+				$info->sort = $max_sort+1;
+				$this->menus_items->insert($info);
+				$info->id = $this->db->insert_id();
 			}
 			else
 			{
-				if($info->data->id == FALSE)
-				{
-					//Если id пустая создаем новый пункт в базе
-					$this->db->where("parent_id", $info->data->parent_id);
-					$this->db->select_max('sort');
-					$query = $this->db->get('menus_items');
-					$max_sort = $query->row()->sort;
-				
-					$info->data->sort = $max_sort+1;
-					$this->menus_items->insert($info->data);
-					$info->data->id = $this->db->insert_id();
-				}
-				else
-				{
-					//Если id не пустая вносим изменения.
-					$this->menus_items->update($info->data->id, $info->data);
+				//Если id не пустая вносим изменения.
+				$this->menus_items->update($info->id, $info);
 					
-				}
-				redirect(base_url().'admin/menu_module/menu/edit/'.$info->data->menu_id);
-			} 
+			}
+			redirect(base_url().'admin/menu_module/menu/edit/'.$info->menu_id); 
 		}
 	}
 	
