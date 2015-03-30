@@ -1,5 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Cart class
+* 
+* @package		kcms
+* @subpackage	Libraries
+* @category	    Cart
+*/
 class CI_Cart {
 
 	var $CI;
@@ -17,6 +24,11 @@ class CI_Cart {
 		if ($this->CI->session->userdata('cart_contents') !== FALSE) $this->cart_contents = $this->CI->session->userdata('cart_contents');
 	}
 	
+	/**
+	* Вставка в корзину
+	*
+	* @param array $items
+	*/
 	public function insert($items = array())
 	{
 		if (isset($items['id']))
@@ -37,6 +49,11 @@ class CI_Cart {
 		$this->safe_cart();
 	}
 	
+	/**
+	* Вставка отдельного элемента в корзину
+	* 
+	* @param array $item
+	*/
 	public function insert_item($item = array())
 	{
 		isset($item['options']) && count($item['options']) > 0 ? $item_id = md5($item['id'].implode('_', $item['options'])) : $item_id = md5($item['id']);
@@ -53,6 +70,11 @@ class CI_Cart {
 		}
 	}
 	
+	/**
+	* Обновление корзины
+	*
+	* @param array $item
+	*/
 	public function update($item = array())
 	{
 		$item_id = $item['item_id'];
@@ -69,6 +91,9 @@ class CI_Cart {
 		$this->safe_cart();
 	}
 	
+	/**
+	* Сохраниние изменений в корзине
+	*/
 	public function safe_cart()
 	{
 		unset($this->cart_contents['total_qty']);
@@ -85,26 +110,39 @@ class CI_Cart {
 		$this->CI->session->set_userdata(array('cart_contents' => $this->cart_contents));
 	}
 	
+	/**
+	* Получение всех элементов корзины
+	* 
+	* @return array
+	*/
 	public function get_all()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		return $this->cart_contents['items'];
 	}
 	
+	/**
+	* Получение элемента корзин
+	*
+	* @param integer $item_id
+	*
+	* @return bool/array
+	*/
 	public function get($item_id)
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
-		if(array_key_exists($item_id, $this->cart_contents['items']))
-		{
-			$item = $this->cart_contents['items'][$item_id];
-			return $item;
-		}
-		else
-		{
-			return FALSE;
-		}
+		
+		if(!array_key_exists($item_id, $this->cart_contents['items'])) return FALSE
+
+		$item = $this->cart_contents['items'][$item_id];
+		return $item;
 	}
 	
+	/**
+	* Сумма корзины
+	*
+	* @return string
+	*/
 	public function total_price()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
@@ -112,6 +150,11 @@ class CI_Cart {
 		return $this->cart_contents['cart_total'];		
 	}
 	
+	/**
+	* Общее количество товаров в корзине
+	*
+	* @return string
+	*/
 	public function total_qty()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
@@ -119,6 +162,11 @@ class CI_Cart {
 		return $this->cart_contents['total_qty'];		
 	}
 	
+	/**
+	* Удаление элемента корзины
+	*
+	* @param integer $item_id
+	*/
 	public function delete($item_id)
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
@@ -126,6 +174,9 @@ class CI_Cart {
 		$this->safe_cart();
 	}
 	
+	/**
+	* Полная очистка корзины
+	*/
 	public function clear()
 	{
 		$this->cart_contents = array(

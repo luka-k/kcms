@@ -1,5 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Url class
+* 
+* @package		kcms
+* @subpackage	Libraries
+* @category	    Url
+*/
+
 class CI_Url {
 
 	var $CI;
@@ -9,6 +17,13 @@ class CI_Url {
 		$this->CI =& get_instance();
 	}
 	
+	/**
+	* Парсер url каталога
+	*
+	* @param integer $segment_number
+	* @param integer $parent
+	* @return object
+	*/
 	public function catalog_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
@@ -38,6 +53,13 @@ class CI_Url {
 		return $child;
 	}
 	
+	/**
+	* Парсер url
+	*
+	* @param integer $segment_number
+	* @param integer $parent
+	* @return object	
+	*/
 	public function url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
@@ -76,6 +98,13 @@ class CI_Url {
 		}
 	}
 	
+	/**
+	* Добавляет подстатьи
+	*
+	* @param object $child
+	* @param string $url
+	* @return object
+	*/
 	private function get_child_info($child, $url)
 	{
 		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id));

@@ -96,7 +96,12 @@ class MY_Form_validation extends CI_Form_validation {
 		return FALSE;
 	}
 
-	
+	/**
+	* Если значение поля пустое то присваивается значение поля $field
+	*
+	* @param string $str
+	* @param string $field
+	*/
 	public function substituted($str, $field)
 	{
 		$SE =& get_instance();
@@ -106,6 +111,11 @@ class MY_Form_validation extends CI_Form_validation {
 		return $str;
 	}
 	
+	/**
+	* Если поле даты пустое устанавливается текущая дата
+	*
+	* @param string $str
+	*/
 	public function set_date($str)
 	{
 		if(empty($str)) $str = date("Y-m-d");

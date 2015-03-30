@@ -1,7 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* Библиотека импорта
+* Import class
+* 
+* @package		kcms
+* @subpackage	Libraries
+* @category	    Import
 */
 class Import{
 
@@ -13,11 +17,12 @@ class Import{
 	}
 	
 	/**
+	* Импортирование категорий
 	*
-	*
-	* @param
-	*
-	* @return
+	* @param array $categories
+	* @param bool $need_update
+	* @param bool $need_create
+	* @param bool $need_img_upload
 	*/
 	public function import_categories($categories = array(), $need_update = FALSE, $need_create = FALSE, $need_img_upload = FALSE)
 	{
@@ -70,11 +75,11 @@ class Import{
 	}
 	
 	/**
+	* Импортирование продуктов
 	*
-	*
-	* @param
-	*
-	* @return
+	* @param array $products
+	* @param bool $need_update
+	* @param bool $need_create
 	*/
 	public function import_products($products = array(), $need_update = FALSE, $need_create = FALSE)
 	{
@@ -110,11 +115,7 @@ class Import{
 	}
 	
 	/**
-	*
-	*
-	* @param
-	*
-	* @return
+	* Импортирование изображений
 	*/
 	public function import_images()
 	{

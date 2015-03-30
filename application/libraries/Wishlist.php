@@ -1,5 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Wishlist class
+* 
+* @package		kcms
+* @subpackage	Libraries
+* @category	    Wishlist
+*/
 class CI_Wishlist {
 	
 	var $CI;
@@ -11,6 +18,11 @@ class CI_Wishlist {
 		$this->CI->load->library('session');	
 	}
 	
+	/**
+	* Добавление в wishlist
+	* 
+	* @param object $item
+	*/
 	public function insert($item)
 	{
 		$this->wishlist = unserialize($this->CI->input->cookie('wishlist'));
@@ -25,6 +37,11 @@ class CI_Wishlist {
 		$this->safe_wishlist();
 	}
 	
+	/**
+	* Получиние wishlist
+	*
+	* @return object
+	*/
 	public function get()
 	{
 		$wishlist_id = $this->CI->config->item('wishlist_id');
@@ -39,7 +56,11 @@ class CI_Wishlist {
 		return $this->CI->products->prepare_list($wishlist_items);
 	}
 	
-	
+	/**
+	* Удаление из wishlist
+	*
+	* @param integer $id
+	*/
 	public function delete($id)
 	{
 		$this->wishlist = unserialize($this->CI->input->cookie('wishlist'));
@@ -47,6 +68,9 @@ class CI_Wishlist {
 		$this->safe_wishlist();
 	}
 	
+	/**
+	* Сохранение изменений в wishlist
+	*/
 	public function safe_wishlist()
 	{
 		$wishlist_id = $this->CI->config->item('wishlist_id');

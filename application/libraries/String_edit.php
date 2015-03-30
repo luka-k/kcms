@@ -1,6 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Функции обработки строк
+/**
+* String_edit class
+* 
+* @package		kcms
+* @subpackage	Libraries
+* @category	    String_edit
+*/
 
 class String_edit {
 
@@ -11,6 +17,13 @@ class String_edit {
 		$this->CI->config->load('string_edit');
 	}
 	
+	/**
+	* Установка формы слова в зависимости от числа
+	*
+	* @param string $word
+	* @param integer $counter
+	* @return string
+	*/
 	function set_word_form($word, $counter)
 	{
 		$form = $this->CI->config->item($word, 'set_word_form');
@@ -24,6 +37,13 @@ class String_edit {
 		return $form[0];   
 	}
 	
+	/**
+	* Трансляция на латиницу
+	*
+	* @param string $str
+	* @param array $options
+	* @return string
+	*/
 	function slug($str, $options = array()) 
 	{
 		// Make sure string is in UTF-8 and strip invalid UTF-8 characters
@@ -130,6 +150,13 @@ class String_edit {
 		return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
 	}
 	
+	/**
+	* Сокращение строки description до длинны max_characters
+	*
+	* @param string $description
+	* @param integer $max_characters
+	* @return string
+	*/
 	function short_description($description, $max_characters = FALSE)
 	{
 		if ($max_characters == FALSE)
