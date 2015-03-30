@@ -12,9 +12,12 @@ class MY_Model extends CI_Model
         $this->_table = strtolower(get_class($this));
     }
 	
-	//Возращает количество записей в таблице
-	//$factors условие where для фильтра элементов
-	//$factors ассоциативный массив	
+	/**
+	* Возвращает количество записей в таблице
+	*
+	* @param array $factors
+	* @return integer
+	*/
 	function get_count($factors = FALSE)
 	{
 		if ($factors)
@@ -24,7 +27,12 @@ class MY_Model extends CI_Model
         return  $this->db->count_all_results($this->_table);
 	}
 	
-	//Возвращает запись в таблице по $id
+	/**
+	* Возвращает запись в таблице по $id
+	*
+	* @param integer $id
+	* @return object
+	*/
 	function get_item($id)
 	{
 		$id = intval($id);
@@ -35,8 +43,12 @@ class MY_Model extends CI_Model
 		return $this->db->where('id', $id)->get($this->_table)->row();
 	}
 	
-	//Возвращает запись из таблицы по параметру
-	//$factors ассоциативный массив
+	/**
+	*Возвращает запись из таблицы по параметру
+	*
+	* @param array $factors
+	* @return object
+	*/
 	function get_item_by($factors)
 	{
 		if ( ! $factors)
@@ -46,20 +58,20 @@ class MY_Model extends CI_Model
 		return $this->db->where($factors)->get($this->_table)->row();
 	}
 	
-	//Возращает список страниц по параметррам
-	//$this->get_list(FALSE) - все страницы
-	//$this->get_list() - активные страницы
-	//$this->get_list(TRUE, $from, $limit) - 
-	//$this->get_list('deleted') - неактивные страницы
-	//$this->get_list(array(
-        //'is_active' => TRUE, 
-        //'counter >=' => 10
-        //),
-        //$from,
-        //FALSE,
-        //'created',
-        //'desc'
-       // )
+	/**
+	* Возращает список страниц по параметррам
+	* $this->get_list(FALSE) - все страницы
+	* $this->get_list() - активные страницы
+	* $this->get_list(TRUE, $from, $limit) - 
+	* $this->get_list('deleted') - неактивные страницы
+	*
+	* @param array $factors
+	* @param integer $from
+	* @param integer $limit
+	* @param string $order
+	* @param string $direction
+	* @return array
+	*/
 	   
 	function get_list($factors = array('is_active' => 1), $from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
@@ -96,60 +108,94 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	//Возращает активные страницы
+	/**
+	* Возращает активные страницы
+	*
+	* @param integer $from
+	* @param integer $limit
+	* @param string $order
+	* @param string $direction
+	* @return array
+	*/
 	function get_active($from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
 		return $this->get_list(TRUE, $from, $limit, $order, $direction);
 	}
 	
-    //Возращает неактивные страницы
+	/**
+    * Возращает неактивные страницы
+	*
+	* @param integer $from
+	* @param integer $limit
+	* @param string $order
+	* @param string $direction
+	* @return array
+	*/
 	function get_deleted($from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
 	{
 		return $this->get_list('deleted', $from, $limit, $order, $direction);
 	}
 	
-	//Добавляет элемент в таблицу
+	/**
+	* Добавляет элемент в таблицу
+	* 
+	* @param array $fields
+	* @param array $data
+	* @return bool
+	*/
 	function add($fields, $data = FALSE)
 	{
 		foreach ($fields as $field)
 		{	
-			//var_dump( $field);
 			$this->db->set($field, $this->input->post($field));
 		}
 		$this->accordion('add');
 		return $this->db->insert($this->_table, $data);
 	}
-
-	//Проверяем оригинальность данного имени в категории.
+	
+	/**
+	* Проверяет оригинальность данного имени в категории
+	* 
+	* @param array $fields
+	* @return bool
+	*/
 	function is_unique($fields)
 	{
 		$query = $this->db->where($fields)->get($this->_table);
-		if ($query->num_rows() > 0)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
+		
+		return $query->num_rows() > 0 ? FALSE : TRUE;
 	}
 	
-	//Добавляет данные в таблицу
+	/**
+	* Добавляет данные в таблицу
+	*
+	* @param array $data
+	* @return integer
+	*/
 	function insert($data = FALSE)
 	{
-		if ($data)
-		{
-			$this->db->set($data);
-		}
+		if($data) $this->db->set($data);
+
 		$this->db->insert($this->_table);
 		return $this->db->insert_id();
     }
 
+	/**
+	* Удаляет данные  из таблицы
+	*
+	* @param integr $id
+	* @return bool
+	*/
 	function delete($id)
 	{
 		return $this->db->delete($this->_table, array('id' => $id)); 
 	}
 	
+	/**
+	* @param integer $id
+	* @param array $fields
+	* @param array $data
+	*/
 	function edit($id, $fields, $data = FALSE)
 	{
 		foreach ($fields as $field)
@@ -160,14 +206,16 @@ class MY_Model extends CI_Model
 		$this->update($id, $data);
     }
 	
-	//Обновляет поле страницы
+	/**
+	* Обновляет поле страницы
+	*
+	* @param integer $id
+	* @param array $data
+	*/
 	function update($id, $data = FALSE)
 	{
 		$id = intval($id);
-		if (!$id)
-		{	
-			return FALSE;
-		}
+		if (!$id) return FALSE;
 		
 		if ($data)
 		{
@@ -179,38 +227,52 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	// set records parameter
+	/**
+	* set records parameter
+	*
+	* @param integer $id
+	* @param string $key
+	* @param string $value
+	*/
 	function set_property($id, $key, $value)
 	{
 		$this->db->where($this->_primary_key, $id)->set($key, $value)->update($this->_table);
 	}
 	
-	//Сделать активным
+	/**
+	* Сделать активным
+	*
+	* @param object $item
+	*/
 	function enable($item)
 	{
 		$active_key = $this->_active_key;
-		if ($item->$active_key)
-		{
-			return;
-		}
+		if ($item->$active_key)	return;
+		
 		$primary_key = $this->_primary_key;
 		$this->set_property($item->$primary_key, $active_key, 1);
 	}
 	
-	//Сделать не активным
+	/**
+	* Сделать не активным
+	*
+	* @param object $item
+	*/
 	function disable($item)
 	{
 		$active_key = $this->_active_key;
-		if (!$item->$active_key)
-		{
-			return;
-		}
+		if (!$item->$active_key) return;
+		
 		$primary_key = $this->_primary_key;
 		$this->set_property($item->$primary_key, $active_key, NULL);
     }
 	
 	var $list = array();
 	
+	/**
+	* @param array $data
+	* @param string $key
+	*/
     function set_related($data, $key = 'id')
 	{
 		if (!$data)
@@ -259,37 +321,47 @@ class MY_Model extends CI_Model
 		}
 	}
 	
-	// load list data
+	/**
+	* load list data
+	*
+	* @param array $list
+	* @param string $key
+	*/
 	function load_related($list = FALSE, $key = 'id')
     {
-		if ($list)	
-		{	
-			$this->set_related($list, $key);
-		}
-		if (empty($this->list))
-		{
-			return;
-		}
+		if($list) $this->set_related($list, $key);
+		
+		if(empty($this->list)) return;
+		
 		$keys = array_keys($this->list);
 		$listing = $this->db->where_in($this->_primary_key,$keys)->get($this->_table)->result();
-		if (!$listing)
-		{
-			return;
-		}
+		
+		if (!$listing) return;
+		
 		foreach ($listing as $record)
 		{
 			$this->list[$record->id] = $record;
 		}
 	}
     
-	// returns related items
+	/**
+	* returns related items
+	* 
+	* @param array $list
+	* @param string $key
+	* @return array
+	*/
 	function related($list = FALSE, $key = 'id')
 	{
 		$this->load_related($list, $key);
 		return $this->list;
 	}
     
-	// set or update standart fields 
+	/**
+	* set or update standart fields 
+	* 
+	* @param string $action
+	*/
 	function accordion($action = 'add')
 	{
 		if ( ! in_array($action, array('add', 'edit')))
@@ -337,61 +409,94 @@ class MY_Model extends CI_Model
 		}
 	}
     
-	// counter increment
+	/**
+	* counter increment
+	*
+	* @param integer $id
+	* @param string $field
+	*/
 	function increment($id, $field)
 	{
-		$this->db->set($field, $field.' + 1',FALSE)->where($this->_primary_key,$id)->update($this->_table);
+		$this->db->set($field, $field.' + 1', FALSE)->where($this->_primary_key, $id)->update($this->_table);
 	}
     
-	// counter decrement
-	function decrement($id,$field)
+	/**
+	* counter decrement
+	*
+	* @param integer $id
+	* @param string $field
+	*/
+	function decrement($id, $field)
 	{
-		$this->db->set($field,$field . ' - 1 ',FALSE)->where($this->_primary_key,$id)->update($this->_table);
+		$this->db->set($field, $field.' - 1 ', FALSE)->where($this->_primary_key, $id)->update($this->_table);
 	}
 	
-    // move item up
-	function move_up($item,$sortorder = 'sortorder')
+	/**
+    * move item up
+	* 
+	* @param object $item 
+	* @param string $sortorder
+	*/
+	function move_up($item, $sortorder = 'sortorder')
 	{
 		$active_key = $this->_active_key;
-		$prev = $this->db->where('`'.$sortorder.'` < '.$item->$sortorder)->where($active_key,$item->$active_key)->order_by($sortorder,'DESC')->get($this->_table)->row();
+		$prev = $this->db->where('`'.$sortorder.'` < '.$item->$sortorder)->where($active_key, $item->$active_key)->order_by($sortorder, 'DESC')->get($this->_table)->row();
 		if ($prev)
 		{
 			$primary_key = $this->_primary_key;
-			$this->db->set($sortorder,$prev->$sortorder)->where($primary_key, $item->$primary_key)->update($this->_table);
-			$this->db->set($sortorder,$item->$sortorder)->where($primary_key, $prev->$primary_key)->update($this->_table);
+			$this->db->set($sortorder, $prev->$sortorder)->where($primary_key, $item->$primary_key)->update($this->_table);
+			$this->db->set($sortorder, $item->$sortorder)->where($primary_key, $prev->$primary_key)->update($this->_table);
 		}
 	}
 	
-    // move item down
-	function move_down($item,$sortorder = 'sortorder')
+	/**
+    * move item down
+	*
+	* @param object $item
+	* @param string $sortorder
+	*/
+	function move_down($item, $sortorder = 'sortorder')
 	{
 		$active_key = $this->_active_key;
-		$prev = $this->db->where('`'.$sortorder.'` > '.$item->sortorder)->where($active_key,$item->is_active)->order_by($sortorder)->get($this->_table)->row();
+		$prev = $this->db->where('`'.$sortorder.'` > '.$item->sortorder)->where($active_key, $item->is_active)->order_by($sortorder)->get($this->_table)->row();
 		if ($prev)
 		{
 			$primary_key = $this->_primary_key;
-			$this->db->set($sortorder,$prev->$sortorder)->where($primary_key,$item->$primary_key)->update($this->_table);
-			$this->db->set($sortorder,$item->$sortorder)->where($primary_key,$prev->$primary_key)->update($this->_table);
+			$this->db->set($sortorder, $prev->$sortorder)->where($primary_key, $item->$primary_key)->update($this->_table);
+			$this->db->set($sortorder, $item->$sortorder)->where($primary_key, $prev->$primary_key)->update($this->_table);
 		}
 	}
 	
-	public function get_tree($parent_id, $parent_id_field)
+	/**
+	* Возвращает древо элементов
+	*
+	* @param integer $parent_id
+	* @param string $parent_field
+	* @return array
+	*/
+	public function get_tree($parent_id, $parent_field)
 	{
-		return $this->get_sub_tree($parent_id, $parent_id_field);
+		return $this->get_sub_tree($parent_id, $parent_field);
 	}
 	
-	public function get_sub_tree($parent_id, $parent_id_field)
+	public function get_sub_tree($parent_id, $parent_field)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field);
+			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_field);
 			
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}		
 		return $branches;
 	}
 	
+	/*
+	* Проверяте пренадлежит ли ветка к активной в админ панелит
+	*
+	* @param integer $branch_id
+	* @return bool
+	*/
 	private function is_active($branch_id)
 	{
 		$table = $this->_table;
@@ -413,6 +518,11 @@ class MY_Model extends CI_Model
 		return FALSE;
 	}
 	
+	/**
+	*
+	* @param object $info
+	* @return object
+	*/
 	public function prepare_list($info)
 	{
 		foreach($info as $key => $item)
@@ -424,6 +534,8 @@ class MY_Model extends CI_Model
 	
 	/**
 	* Обрабатывает данные перед внесением в базу
+	*
+	* @return object
 	*/
 	public function editors_post()
 	{
