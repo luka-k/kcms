@@ -9,17 +9,33 @@
 */
 class Products extends MY_Model
 {
+	/**
+	* $editors = array(
+	* 	"Наименование вкладки в админке" = array(
+	*		"имя поля в базе" => array("Наименование поля для отображения", "наименования отображения", "условия для функции editors_post()", "условия для js валидации")
+	*	)
+	* )
+	* 
+	* "условия для функции editors_post" - функции php принимающие на вход один параметр + функции из библиотеки My_form_validation
+	*
+	* "условия для js валидации" - поддерживается три условия
+	*	reqiure - обязателоно для заполнения
+	*	email - коректный email
+	*	matches[имя поля] - совпадение со значением поля имя которого указано
+	* валидация функцией editors_post убрана полность. 
+	* позднее расширю js валидацию.
+	*/
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', ''),
-			'parent_id' => array('Категория', 'select', 'integer'),
-			'is_active' => array('Активна', 'checkbox', 'integer'),
-			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'is_new' => array('Новинка', 'checkbox', 'integer'),
-			'is_special' => array('Специальное предложение', 'checkbox', 'integer'),
-			'article' => array('Артикул', 'text', 'trim|required|htmlspecialchars'),
-			'price' => array('Цена', 'text', 'trim|required|htmlspecialchars'),
-			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars|max_length[2]'),
+			'id' => array('id', 'hidden'),
+			'parent_id' => array('Категория', 'select'),
+			'is_active' => array('Активна', 'checkbox'),
+			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'is_new' => array('Новинка', 'checkbox'),
+			'is_special' => array('Специальное предложение', 'checkbox'),
+			'article' => array('Артикул', 'text', 'trim|htmlspecialchars', 'require'),
+			'price' => array('Цена', 'text', 'trim|htmlspecialchars', 'require'),
+			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars', 'max_length[2]'),
 			'description' => array('Описание', 'tiny', 'trim')
 		),
 		'SEO' => array(
@@ -27,9 +43,9 @@ class Products extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
-			'changefreq' => array('changefreq', 'text', ''),
-			'priority' => array('priority', 'priority', ''),
-			'lastmod' => array('lastmod', 'hidden', '')			
+			'changefreq' => array('changefreq', 'text'),
+			'priority' => array('priority', 'priority'),
+			'lastmod' => array('lastmod', 'hidden')			
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')

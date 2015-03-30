@@ -9,23 +9,39 @@
 */
 class Categories extends MY_Model
 {
+	/**
+	* $editors = array(
+	* 	"Наименование вкладки в админке" = array(
+	*		"имя поля в базе" => array("Наименование поля для отображения", "наименования отображения", "условия для функции editors_post()", "условия для js валидации")
+	*	)
+	* )
+	* 
+	* "условия для функции editors_post" - функции php принимающие на вход один параметр + функции из библиотеки My_form_validation
+	*
+	* "условия для js валидации" - поддерживается три условия
+	*	reqiure - обязателоно для заполнения
+	*	email - коректный email
+	*	matches[имя поля] - совпадение со значением поля имя которого указано
+	* валидация функцией editors_post убрана полность. 
+	* позднее расширю js валидацию.
+	*/	
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', ''),
-			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'parent_id' => array('Родительская категория', 'select', ''),
-			'is_active' => array('Активен', 'checkbox', 'integer'),
-			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', '')
+			'id' => array('id', 'hidden'),
+			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'parent_id' => array('Родительская категория', 'select'),
+			'is_active' => array('Активен', 'checkbox'),
+			'sort' => array('Сортировка', 'text'),
+			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
-			'changefreq' => array('changefreq', 'text', ''),
-			'priority' => array('priority', 'priority', ''),
-			'lastmod' => array('lastmod', 'hidden', '')
+			'changefreq' => array('changefreq', 'text'),
+			'priority' => array('priority', 'priority'),
+			'lastmod' => array('lastmod', 'hidden')
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image', 'img')

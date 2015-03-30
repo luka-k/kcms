@@ -9,13 +9,6 @@
 */
 class Characteristics extends MY_Model
 {
-	public $filters = array(
-		'color' => array("Цвет", "text"),
-		'manufacturer' => array("Производитель", "multy"),
-		'width' => array("Ширина", "interval"),
-		'height' => array("Высота", "interval")
-	);
-	
 	function __construct()
 	{
         parent::__construct();

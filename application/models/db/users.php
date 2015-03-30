@@ -9,13 +9,29 @@
 */
 class Users extends MY_Model
 {
+	/**
+	* $editors = array(
+	* 	"Наименование вкладки в админке" = array(
+	*		"имя поля в базе" => array("Наименование поля для отображения", "наименования отображения", "условия для функции editors_post()", "условия для js валидации")
+	*	)
+	* )
+	* 
+	* "условия для функции editors_post" - функции php принимающие на вход один параметр + функции из библиотеки My_form_validation
+	*
+	* "условия для js валидации" - поддерживается три условия
+	*	reqiure - обязателоно для заполнения
+	*	email - коректный email
+	*	matches[имя поля] - совпадение со значением поля имя которого указано
+	* валидация функцией editors_post убрана полность. 
+	* позднее расширю js валидацию.
+	*/
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden', 'trim'),
-			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
+			'name' => array('Имя', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'users_group_id' => array('Группа', 'u2u_g', 'users2users_groups'),
-			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email'),
+			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email'),
 			'password' => array('Пароль', 'pass', 'trim|md5')
 		)
 	);

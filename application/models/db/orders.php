@@ -9,9 +9,25 @@
 */
 class Orders extends MY_Model
 {
+	/**
+	* $editors = array(
+	* 	"Наименование вкладки в админке" = array(
+	*		"имя поля в базе" => array("Наименование поля для отображения", "наименования отображения", "условия для функции editors_post()", "условия для js валидации")
+	*	)
+	* )
+	* 
+	* "условия для функции editors_post" - функции php принимающие на вход один параметр + функции из библиотеки My_form_validation
+	*
+	* "условия для js валидации" - поддерживается три условия
+	*	reqiure - обязателоно для заполнения
+	*	email - коректный email
+	*	matches[имя поля] - совпадение со значением поля имя которого указано
+	* валидация функцией editors_post убрана полность. 
+	* позднее расширю js валидацию.
+	*/
 	public $editors = array(
 		'Основное' => array(
-			'id' => array('id', 'hidden', ''),
+			'id' => array('id', 'hidden'),
 			'customer_id' => array('customer_id', 'hidden'),
 			'order_total' => array('Сумма заказа', 'hidden'),
 			'method_delivery' => array('Способ доставки', 'select'),
