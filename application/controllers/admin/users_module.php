@@ -265,7 +265,7 @@ class Users_module extends Admin_Controller
 		$fields = array();
 		while(!feof($file))
 		{
-			$fields[] = fgetcsv ($file, 0, ";");
+			$fields[] = fgetcsv($file, 0, ";");
 		}
 		
 		$email_key = array_search("email", $fields[0]);

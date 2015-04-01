@@ -141,11 +141,8 @@ class Import{
 	/**
 	* импортирование изображений
 	*/
-	public function import_images()
+	public function import_csv($filename)
 	{
-		$filename = FCPATH."import/import.csv";
-		$images_dir_name = FCPATH."import/images/";
-		
 		$file = fopen($filename, "r");
 		
 		if ($file) 
@@ -153,30 +150,29 @@ class Import{
 			$info = array();
 			while(!feof($file))
 			{
-				$buffer = fgets($file, 4096);
-				$info[] = explode("; ", $buffer);
+				$info[] = fgetcsv($file, 0, ";");
 			}
+			
 			fclose($file);
 			
-			foreach($info as $i)
+			$imported = array();
+			
+			foreach($info as $key => $i)
 			{
-				$data = array();
-				foreach($i as $key => $value)
+				if($key <> 0)
 				{
-					$data[$info[0][$key]] = $value;
+					$field = array();
+					foreach($item as $key_2 => $value)
+					{
+						$field[$info[0][$key_2]] = $value;
+					}
+					
+					$imported[] = $field;
 				}
-
-				$data["object_type"] = "products";
-				
-				$file_name = array_reverse(explode("/", $data['name']));
-				
-				$img = array(
-					"tmp_name" => $images_dir_name.trim($data['name']),
-					"name" => $file_name[0]
-				);
-				
-				$answer = $this->images->upload_image($img, $data);
 			}
+			
+			//Ђ тут вызов нужной функции импорта. ЌЂпример:
+			//$this->import_categories($imported, TRUE, FALSE, FALSE);
 		}
 	}
 	
