@@ -13,20 +13,37 @@ class Content extends Admin_Controller
 	{
 		$this->load->library('import');
 		
-		$categories = array(
+		/*$categories = array(
 			0 => array("category_name" => "Импортируемая категория 1", "parent_category_name" => "Категория 1", "image" => "/b/r/bring.jpg"),
 			1 => array("category_name" => "Импортируемая категория 2", "parent_category_name" => "Импортируемая категория 1"),
 			2 => array("category_name" => "Подкатегория 2_1", "parent_category_name" => "Категория 2"),
 		);
 		
-		$this->import->import_categories($categories, true);
+		$this->import->import_categories($categories, true);*/
 		
-		/*$products = array(
-			0 => array("name" => "Товар 25", "parent_category" => "Категория 2", "price" => "1120", "description" => "Описание"), 
-			1 => array("name" => "Товар 26", "parent_category" => "Категория 2", "price" => "520", "description" => "Описание")
+		$products = array(
+			0 => array(
+				"name" => "Товар 25", 
+				"parent_category" => "Категория 3", 
+				"price" => "1120", 
+				"description" => "Описание", 
+				"images" => array(
+					0 => "b/r/bring.jpg",
+					1 => "d/r/dring.jpg"
+				)
+			), 
+			1 => array(
+				"name" => "Товар 26", 
+				"parent_category" => "Категория 3", 
+				"price" => "520", 
+				"description" => "Описание",
+				"images" => array(
+					0 => "d/r/dring.jpg"
+				)
+			)
 		);
 		
-		$this->import->import_products($products);*/
+		$this->import->import_products($products, FALSE, TRUE, TRUE);
 	}
 	
 	public function items($type, $id = FALSE)

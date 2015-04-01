@@ -53,8 +53,6 @@ class Import{
 				}
 			}
 
-			//тут я сознательно убрал проверку на существование картинки в массиве и и $object_id
-			//типо если $need_img_upload true то соответственно эти условия выполняются
 			if($need_img_upload)
 			{
 				$object_info = array(
@@ -80,8 +78,9 @@ class Import{
 	* @param array $products
 	* @param bool $need_update
 	* @param bool $need_create
+	* @param bool $need_img_upload
 	*/
-	public function import_products($products = array(), $need_update = FALSE, $need_create = FALSE)
+	public function import_products($products = array(), $need_update = FALSE, $need_create = FALSE, $need_img_upload = FALSE)
 	{
 		$editors = $this->CI->products->editors;
 
@@ -102,20 +101,45 @@ class Import{
 			
 			if($product)
 			{
-				if($need_update) $this->CI->products->update($product->id, $data);
+				if($need_update) 
+				{
+					$this->CI->products->update($product->id, $data);
+					$object_id = $category->id;
+				}
 
 			}
 			else
 			{
-				if($need_create) $this->CI->products->insert($data);
+				if($need_create)
+				{
+					$this->CI->products->insert($data);
+					$object_id = $this->CI->db->insert_id();
+				}
 			}
-
-			$this->CI->products->insert($data);
+			
+			if($need_img_upload)
+			{
+				$object_info = array(
+					"object_type" => "products",
+					"object_id" => $object_id
+				);
+				
+				foreach($p['images'] as $image)
+				{
+					$file_name = array_reverse(explode("/", $image));
+					$img = array(
+						"tmp_name" => trim(FCPATH."import/images/".$image),
+						"name" => $file_name[0]
+					);
+				
+					$answer = $this->CI->images->upload_image($img, $object_info);
+				}
+			}
 		}
 	}
 	
 	/**
-	* Импортирование изображений
+	* импортирование изображений
 	*/
 	public function import_images()
 	{
@@ -142,7 +166,7 @@ class Import{
 					$data[$info[0][$key]] = $value;
 				}
 
-				$data["object_type"] = "products"
+				$data["object_type"] = "products";
 				
 				$file_name = array_reverse(explode("/", $data['name']));
 				

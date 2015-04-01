@@ -132,7 +132,7 @@ class CI_Cart {
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
 		
-		if(!array_key_exists($item_id, $this->cart_contents['items'])) return FALSE
+		if(!array_key_exists($item_id, $this->cart_contents['items'])) return FALSE;
 
 		$item = $this->cart_contents['items'][$item_id];
 		return $item;

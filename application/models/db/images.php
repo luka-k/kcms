@@ -61,13 +61,14 @@ class Images extends MY_Model
 		{
 			//Загружаем оригинал
 			if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
-		}else
+		}
+		else
 		{
 			if(!copy(trim($img["tmp_name"]), $img_path)) return FALSE;
 		}
 
 		//Создаем миниатюры
-		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
+		if($this->generate_thumbs($img_path)) return FALSE;
 		
 		$object_info['url'] = $img_info->url;
 		$name = explode(".", $img_info->name);
@@ -105,7 +106,7 @@ class Images extends MY_Model
 			
 			//Задаем имя файла с которого делаем миниатюру.
 			$thumb->setSourceFilename($img_path);
-		
+
 			//Устанавливаем параметры
 			foreach($configs as $parameter => $value)
 			{
@@ -113,7 +114,7 @@ class Images extends MY_Model
 			}
 			
 			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
-
+			
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
 			{
