@@ -245,29 +245,31 @@ class Content extends Admin_Controller
 			}
 				
 			$field_name = editors_get_name_field('double_img', $data['editors']);
-				
+			
 			if(!empty($field_name))
 			{
 				$object_info = array(
 					"object_type" => $type,
 					"object_id" => $data['content']->id
 				);
-					
-				foreach($_FILES[$field_name]['error'] as $key => $error)
-				{
-					if($error == UPLOAD_ERR_OK)
-					{
-						$file = array(
-							"name" => $_FILES[$field_name]['name'][$key],
-							"type" => $_FILES[$field_name]['type'][$key],
-							"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
-						);
-						
-						$object_info['image_type'] = $key;
-						$this->images->upload_image($file, $object_info);
-					}
-				}
 				
+				if (isset($_FILES[$field_name]))
+				{
+					foreach($_FILES[$field_name]['error'] as $key => $error)
+					{
+						if($error == UPLOAD_ERR_OK)
+						{
+							$file = array(
+								"name" => $_FILES[$field_name]['name'][$key],
+								"type" => $_FILES[$field_name]['type'][$key],
+								"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+							);
+						
+							$object_info['image_type'] = $key;
+							$this->images->upload_image($file, $object_info);
+						}
+					}
+				}	
 			}
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
