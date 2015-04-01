@@ -275,9 +275,9 @@ class Users_module extends Admin_Controller
 			if($key <> 0)
 			{
 				$field = array();
-				foreach($item as $key => $value)
+				foreach($item as $key_2 => $value)
 				{
-					$field[$fields[0][$key]] = $value;
+					$field[$fields[0][$key_2]] = $value;
 				}
 
 				if($this->users->is_unique(array("email" => $item[$email_key])))
