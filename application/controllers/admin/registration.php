@@ -35,6 +35,7 @@ class Registration extends CI_Controller
 		$authdata = $this->users->login($email, $password);
 
 		$is_logged = $authdata['logged_in'];
+
 		$user = (array)$authdata['user'];
 		$user_groups = (array)$authdata['user_groups'];
 

@@ -55,7 +55,7 @@ class Users extends MY_Model
 			'user_groups' => "",
 			'logged_in' => 0
 			);
-	
+
 		if($this->get_count(array('email' => $email, 'password' => $password)) == 1)
 		{
 			$user = $this->get_item_by(array('email' => $email, 'password' => $password));

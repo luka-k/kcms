@@ -8,8 +8,8 @@
 				<?=$error;?>
 				<div class="clearfix" style="width:230px; margin:0 auto">
 					<form method="post" id="login_form" accept-charset="utf-8" action="<?=base_url()?>admin/registration/do_enter"/>
-						<input id="text1" type="text" placeholder="Введите логин" name="email" class="col_12 require"/>
-						<input id="text2" type="password" placeholder="Введите пароль" name ="password" class="col_12 require" autocomplete="off"/>
+						<input id="text1" type="text" placeholder="Введите логин" name="email" data-id="require" class="col_12 validation"/>
+						<input id="text2" type="password" placeholder="Введите пароль" name ="password" data-id="require" class="col_12 validation" autocomplete="off"/>
 						
 						<button class="col_4 small" onclick="submit_form('login_form'); return false;">Войти</button>
 						
