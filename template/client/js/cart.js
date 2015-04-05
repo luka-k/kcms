@@ -15,6 +15,7 @@ function update_cart(item_id, qty){
 }
 
 function fancy_to_cart(item_id, name, qty){
+	console.log(item_id);
 	$('.fancy_product_name').text(name);
 	add_to_cart(item_id, qty);
 	$('#input_item_id').attr("value", item_id);
@@ -38,7 +39,7 @@ function update_items(res){
 	
 	$('#cart-empty').attr("style", "display:none");
 	$('#cart-full').attr("style", "display:inline");
-	
+
 	$('#input_qty').attr("value", res['item_qty']);	
 	$('#input_item_id').attr("value", res['item_id']);	
 }
