@@ -17,6 +17,7 @@ class Cart extends Client_Controller
 		$this->config->load('orders');
 		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		$data = array(
+			'settings' => $settings,
 			'title' => "Корзина",
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'selects' => array(

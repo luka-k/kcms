@@ -2673,15 +2673,10 @@ span
 .catalog-item__desc
 {
     overflow: hidden;
-    height: 70px;
 	line-height:1.3em;
     margin: 0 0 10px 0;
 }
 
-#main-catalog .catalog-item__desc
-{
-	height: 67px;
-}
 .catalog-item__bottom
 {
     text-align: justify;

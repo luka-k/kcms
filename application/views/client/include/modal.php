@@ -24,27 +24,34 @@
 	</div> <!-- /.modal__cart -->
 </div> <!-- /.modal -->
 
-	<div id="callback" style="display:none;">
-		<div class="pop-up">
-			<h5 class="col_12 center">Заказать обратный звонок</h5>
-			<form action="#" class="form" id="callback_form" method="post">
-			<div class="col_12 center">
-				<input type="text" id="callback_name" class="col_12 validate" name="name" placeholder="Имя" />
+<div class="modal" id="callback">
+	<div class="modal__title block-title">Оставьте ваш номер телефона</div> <!-- /.modal__title block-title -->
+	
+	<div class="modal__text">
+		<p></p>
+	</div> <!-- /.modal__text -->
+	
+	<div class="modal__form">
+		<form action="#" id="callback_form" method="post">
+			<div class="form__line">
+				<input type="text" id="callback_name" class="form__input validate" name="name" placeholder="Имя" />
 			</div> <!-- /.form__line -->
 			
-			<div class="col_12 center">
-				<input type="tel" id="call" class="col_12 validate" name="phone" placeholder="Телефон" />
+			<div class="form__line">
+				<input type="tel" id="call" class="form__input validate" name="phone" placeholder="Телефон" />
 			</div> <!-- /.form__line -->
 			
-			<div class="col_12 center">
-				<button class="button small" onclick="callback_submit('callback_form'); return false;">Заказать звонок</button>
+			<div class="form__button">
+				<button class="button button--normal button--auto-width" onclick="callback_submit('callback_form'); return false;">Заказать звонок</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
-		</div>
-	</div>
+	</div> <!-- /.modal__form -->
+</div> <!-- /.modal -->
+
+<div class="modal" id="callback_answer" style="display:none;">
+	<div class="modal__title block-title">Спасибо за оставленную заявку!</div> <!-- /.modal__title block-title -->
 	
-	<div id="callback_answer" style="display:none;">
-		<div class="pop-up">
-			Спасибо за Ваш, менеджер свяжется с Вами!
-		</div>
-	</div>
+	<div class="modal__text">
+		<p>Наш менеджер свяжется <br />с вами в ближайшее время.</p>
+	</div> <!-- /.modal__text -->
+</div> <!-- /.modal --> 
