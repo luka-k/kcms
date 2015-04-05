@@ -482,10 +482,11 @@ class MY_Model extends CI_Model
 	public function get_sub_tree($parent_id, $parent_field)
 	{
 		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_field);
-			
+			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "sort", "asc"));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}		
 		return $branches;

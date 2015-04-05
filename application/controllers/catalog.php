@@ -7,6 +7,7 @@ class Catalog extends Client_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$settings = $this->settings->get_item_by(array('id' => 1));
 		
 		$this->config->load('characteristics');
 		
@@ -18,15 +19,36 @@ class Catalog extends Client_Controller {
 			$this->get['direction'] = "asc";
 		}
 		
-		if(!isset($this->get['filter'])) $this->get['filter'] = FALSE;  
+		if(!isset($this->get['filter'])) $this->get['filter'] = FALSE; 
+
+		$this->db->select_max('price');
+		$query = $this->db->get('products');
+		$max_price = $query->row()->price;
+		$max_value = empty($get['price_to']) ? $max_price : $get['price_to'];
+
+		$this->db->select_min('price');
+		$query = $this->db->get('products');
+		$min_price = $query->row()->price;
+		$min_value = empty($get['price_from']) ? $min_price : $get['price_from'];		
 	
 		$data = array(
+			'settings' => $settings,
 			'title' => "Каталог",
+			'select_item' => '',
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
-			'filters' => $this->characteristics_type->get_filters()
+			'filters' => $this->characteristics_type->get_filters(),
+			'min_price' => $min_price,
+			'max_price' => $max_price,
+			'min_value' => $min_value,
+			'max_value' => $max_value,
+			'filters_checked' => array("is_active" => ""),
+			'left_menu' => $this->categories->get_tree(0, "parent_id")
 		);
+		
 		$this->standart_data = array_merge($this->standart_data, $data);
+		
+		$this->load->helper('url_helper');
 	}
 	
 	public function index()
@@ -64,6 +86,11 @@ class Catalog extends Client_Controller {
 			);
 		}
 		
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
+		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3, $this->get['order'], $this->get['direction']);
+		
+		$data['special'] = $this->products->prepare_list($special);
+		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
 		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
@@ -94,13 +121,18 @@ class Catalog extends Client_Controller {
 	
 	private function product($content)
 	{
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 		$data = array(
 			'title' => $content->product->name,
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'product' => $this->products->prepare($content->product, FALSE)
+			'product' => $this->products->prepare($content->product, FALSE),
+			'new_products' => $this->products->prepare_list($new_products)
 		);
+		
+		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
+		
 		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view("client/product", $data);

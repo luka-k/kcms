@@ -1,73 +1,135 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!--> 
+	<html class="no-js">
+<!--<![endif]-->
+
 <? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/header.php'?>
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12 clearfix">
-			<div id="main_content" class="col_8 clearfix">
-				<?require 'include/breadcrumbs.php'?> 
-				
-				<?if(isset($category->sub_categories) && (!empty($category->sub_categories))):?>
-					<div class="col_12 clearfix">
-						<h5>Подкатегории</h5>
-						<?foreach($category->sub_categories as $s_c):?>
-							<div class="cat-item col_2 center">
-								<?if($s_c->img <> NULL):?>
-									<div>
-										<a href="<?=$s_c->full_url?>"><img src="<?=$s_c->img->catalog_small_url?>" alt=""/></a>
-									</div>
-								<?endif;?>
-								<h6><a href="<?=$s_c->full_url?>"><?=$s_c->name?></a></h6>
-							</div>
-						<?endforeach;?>
-					</div>
-				<?endif;?>
-				
-				<div class="col_12 xlearfix">
-					<h5>Товары</h5>
-					<div class="col_12">
-						Сортировать: 
-						<a href="<?=$url?>&order=name&direction=asc">по имени &#9650;</a>&nbsp;
-						<a href="<?=$url?>&order=name&direction=desc">по имени &#9660;</a>&nbsp;
-						<a href="<?=$url?>&order=price&direction=asc">по цене &#9650;</a>&nbsp;
-						<a href="<?=$url?>&order=price&direction=desc">по цене &#9660;</a>&nbsp;				
-					</div>
+
+<body>
+	<!--[if lt IE 8]>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+	<![endif]-->
+	
+	<? require 'include/header.php'?>
+	<? require 'include/top-menu.php'?>
+	<? require 'include/breadcrumbs.php'?>
+	<div class="page page-catalog" id="page-catalog">
+		<div class="page-wrap wrap">
+			<div class="page-catalog__nav">
+				<? require 'include/left-menu.php'?>
+			</div> <!-- /.page-catalog__nav -->
 			
-					<?foreach($category->products as $p):?>
-						<div class="product_item col_3">
-							<h6><a href="<?=$p->full_url?>"><?=$p->name?></a></h6>
-							<?if($p->img <> NULL):?>
-								<div>
-									<a href="<?=$p->full_url?>">
-										<img src="<?=$p->img->catalog_small_url?>" />
-									</a>
-								</div>
-							<?endif;?>
-							<div><?=$p->description?></div>
-							<div class="left">
-								<div>Цена:<?=$p->price?></div>
-								<?if(isset($p->sale_price)):?>
-									<div>Цена со скидкой:<?=$p->sale_price?></div>
-								<?endif;?>
-							</div>
-							<div class="right">
-								<a href="#" class="button small red" onclick="add_to_cart(<?=$p->id?>); return false">В корзину</a>
-								<a href="#" class="button small green" onclick="add_to_wishlist('<?=$p->id?>'); return false">В вишлист</a>
-							</div>
-						</div>	
-					<?endforeach;?>
-				</div>
-			</div>
-			<div id="main_content" class="col_4">
-				<div class="col_12">
-					<h5>Каталог продукции</h5>
-					<? require 'include/tree.php' ?>
-				</div>
-				<div class="col_12">
-					<?require 'include/filters.php'?> 
-				</div>
-			</div>
-		</div>
-	</div>
-<? require 'include/footer.php' ?>
+			<div class="page-catalog__content">
+				<div class="page-catalog__filter">
+					<div class="catalog-filter">
+						<form action="<?=base_url()?>catalog" class="form" method="get">
+							<input type="-+hidden" name="filter" value="true"/>
+							<div class="catalog-filter__top">
+								
+								<?//require "include/filters/select.php"?>
+								
+							</div> <!-- /.catalog-filter__top -->
+							
+							<div class="catalog-filter__range">
+								<div class="catalog-range">
+									<div class="catalog-range__scale">
+										<div class="catalog-range__from">
+											Цена: от <span data-range-from><?=$min_price?></span>
+										</div> <!-- /.catalog-range__from -->
+										
+										<div class="catalog-range__to">
+											до <span data-range-to><?=$max_price?></span>
+										</div> <!-- /.catalog-range__to -->
+									</div> <!-- /.catalog-slider__scale -->
+									
+									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>" data-min-value="<?=$min_value?>" data-max-value="<?=$max_value?>"></div> <!-- /.catalog-range__slider -->
+									<input type="hidden" id="price_from" name="price_from" value="<?=$min_price?>"/>
+									<input type="hidden" id="price_to" name="price_to" value="<?=$max_price?>"/>
+								</div> <!-- /.catalog-range -->
+							</div> <!-- /.catalog-filter__range -->
+							
+							<div class="form__line catalog-filter__checkbox">
+								<div class="form__checkbox checkbox">
+									<label class="checkbox__label">
+										<input type="checkbox" name="is_active" class="checkbox__input" <?if($filters_checked['is_active'] == 1):?>checked<?endif;?> value="1" />
+										<span class="checkbox__text">В наличии</span>
+									</label>
+								</div> <!-- /.radio -->
+							</div> <!-- /.form__line -->
+							
+							<div class="form__button page-form__button">
+								<button class="button button--normal button--auto-width">Подобрать</button>
+							</div> <!-- /.form__button -->
+						</form> <!-- /.form -->
+					</div> <!-- /.catalog-filter -->
+				</div> <!-- /.page-catalog__filter -->
+				
+				<div class="page-catalog__products"> 
+
+						<div class="catalog">
+							<div class="catalog__sort catalog-sort">
+								<a href="<?=$url?>&order=name&direction=asc" class="catalog-sort__href">по имени &#9650;</a>&nbsp;
+								<a href="<?=$url?>&order=name&direction=desc" class="catalog-sort__href">по имени &#9660;</a>&nbsp;
+								<a href="<?=$url?>&order=price&direction=asc" class="catalog-sort__href">по цене &#9650;</a>&nbsp;
+								<a href="<?=$url?>&order=price&direction=desc" class="catalog-sort__href">по цене &#9660;</a>&nbsp;	
+							</div> <!-- /.catalog__sort catalog-sort-->
+						
+							<h1 class="catalog__subtitle"><?if(isset($category->name)):?><?=$category->name?><?else:?>Каталог<?endif;?></h1>
+						
+							<div class="catalog__list">
+								<?foreach($category->products as $item):?>
+									<div class="catalog__item">
+										<div class="catalog-item">
+											<div class="catalog-item__image-box">
+												<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+										
+											<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
+										
+											<div class="catalog-item__desc">
+												<p><?=$item->short_description?></p>
+											</div> <!-- /.catalog-item__desc -->
+										
+											<div class="catalog-item__bottom">
+												<div class="catalog-item__price"><?=$item->price?> р.</div> <!-- /.catalog-item__price -->
+											
+												<div class="catalog-item__button">
+													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$item->id?>', '<?=$item->name?>', 1); return false;">Купить</button>
+												</div> <!-- /.catalog-item__button -->
+											</div> <!-- /.catalog-item__bottom -->
+										</div> <!-- /.catalog-item -->
+									</div> <!-- /.catalog__item -->
+								<?endforeach;?>
+							</div> <!-- /.catalog__list -->
+						
+							<!--<div class="catalog__load load-link">
+								<a href="#load" class="load-link__href">Еще товары</a>
+							</div> <!-- /.catalog__load -->
+						</div> <!-- /.catalog -->
+
+				</div> <!-- /.page-catalog__products -->
+			</div> <!-- /.page-catalog__content -->
+	</div> <!-- /.page-catalog__wrap wrap -->
+</div> <!-- /.page-catalog -->
+        
+	<div class="text-about" id="text-about">
+		<div class="text-about__wrap wrap">
+			<h2 class="text-about__title block-title"></h2>
+			<div class="text-about__text">
+				<?if(isset($content->description)):?>
+					<?=$content->description?>
+				<?else:?>
+					<?=$settings->site_description?>
+				<?endif;?>
+			</div> <!-- /.text-about__text -->
+		</div> <!-- /.text-about__wrap wrap -->
+	</div> <!-- /.text-about -->
+	
+	<? require 'include/footer.php'?>
+    <? require 'include/modal.php'?>  
+    </body>
+</html>
+

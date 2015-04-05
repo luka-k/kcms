@@ -52,6 +52,9 @@ class Products extends MY_Model
 		),
 		'Характеристики' => array(
 			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
+		),
+		'Рекомендованые товары' => array(
+			'recommend' => array('Редактировать рекомендованые товары', 'recommend')
 		)
 	);
 	
@@ -64,6 +67,35 @@ class Products extends MY_Model
 		"items_tree" => "products_tree", //дерево для списка элементов
 		"item_tree" => "products_tree", // дерево для страницы редактирования элемента
 	);
+	
+	/**
+	* Получение рекомендованных продуктов
+	*
+	* @param integer $id
+	* @return object
+	*/
+	public function get_recommended($id)
+	{
+		$this->db->where('product1_id', $id);
+		$this->db->or_where('product2_id', $id); 
+		$query = $this->db->get("recommended_products");
+		$result = $query->result();
+		
+		$products_id = array();
+		foreach($result as $r)
+		{
+			$products_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
+		}
+		
+		$recommended_products = array();
+		
+		foreach($products_id as $id)
+		{
+			$recommended_products[] = $this->get_item($id); 
+		}
+		
+		return $recommended_products;
+	}
 	
 	/**
 	* Получение url продукта
@@ -123,7 +155,8 @@ class Products extends MY_Model
 			}
 			
 			$item = $this->set_sale_price($item);
-			$item->description = $this->string_edit->short_description($item->description);
+			$item->short_description = $this->string_edit->short_description($item->description);
+			
 			return $item;
 		}			
 	}

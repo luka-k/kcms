@@ -13,11 +13,19 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
-		$left_menu = $this->dynamic_menus->get_menu(4);
+		//$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
+		$special = $this->products->get_list(array("is_special" => 1), FALSE, 4);
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
+		
+		$last_news = array();
 		
 		$data = array(
 			'title' => $settings->site_title,
-			'left_menu' => $left_menu
+			'select_item' => '',
+			'special' => $special,
+			'new_products' => $this->products->prepare_list($new_products),
+			'last_news' => $this->articles->prepare_list($last_news),
+			'settings' => $settings
 		);
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/main.php', $data);
