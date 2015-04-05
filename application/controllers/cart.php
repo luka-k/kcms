@@ -15,7 +15,7 @@ class Cart extends Client_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$this->config->load('orders');
-
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		$data = array(
 			'title' => "Корзина",
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -24,6 +24,7 @@ class Cart extends Client_Controller
 				'payment_id' => $this->config->item('method_pay')
 			),
 			'action' => $this->input->get('action'),
+			'select_item' => '',
 			'order_string' => $settings->order_string
 		);
 		$data = array_merge($this->standart_data, $data);

@@ -181,7 +181,7 @@
 									<p><?=$r_p->description?></p>
 								</div> <!-- /.catalog-item__desc -->
 							
-								<div class="catalog-item__bottom skew">
+								<div class="catalog-item__bottom">
 									<div class="catalog-item__price"><?=$r_p->price?>р.</div> <!-- /.catalog-item__price -->
 								
 									<div class="catalog-item__button">
@@ -209,7 +209,7 @@
 									<p><?=$new_item->short_description?></p>
 								</div> <!-- /.catalog-item__desc -->
 								
-								<div class="catalog-item__bottom skew">
+								<div class="catalog-item__bottom">
 									<div class="catalog-item__price"><?=$new_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">

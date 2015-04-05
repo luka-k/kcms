@@ -20,15 +20,14 @@ class Order extends Client_Controller
 		$new_order = array(
 			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
-			'user_email' => $orders_info['email'],
 			'user_phone' => $orders_info['phone'],
-			'user_address' => $orders_info['address'],
 			'total' => $total_price,
-			'delivery_id' => $orders_info['delivery_id'],
-			'payment_id' => $orders_info['payment_id'],
 			'date' => date("Y-m-d"),
 			'status_id' => 1
 		);
+		
+		if(isset($orders_info['email'])) $new_order['user_email'] = $orders_info['email'];
+		if(isset($orders_info['email'])) $new_order['user_address'] = $orders_info['address'];
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 			
