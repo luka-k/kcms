@@ -107,7 +107,7 @@ class CI_Url {
 	*/
 	private function get_child_info($child, $url)
 	{
-		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id));
+		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id), FALSE, FALSE, "date", "desc");
 		
 		if (!$child->articles)
 		{

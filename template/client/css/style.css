@@ -1483,10 +1483,6 @@ span
 
     padding: 2px 30px;
 
-    -webkit-transform: skew(-14deg);
-        -ms-transform: skew(-14deg);
-            transform: skew(-14deg);
-
     color: #fff;
     background: #cc3b26;
 }

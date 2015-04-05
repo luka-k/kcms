@@ -10,21 +10,40 @@ class Pages extends Client_Controller {
 	public function index()
 	{
 		$page = $this->url->url_parse(2);
-		
+
+		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
 		if($page == FALSE)
 		{
 			redirect(base_url()."pages/page_404");
 		}
 		elseif(isset($page->article))
 		{
+			$sub_template = "";
+			if($root->id == 3)
+			{
+				$sub_template = "single-news";
+				$template="client/news.php";
+			}
+			else
+			{
+				$template="client/article.php";
+			}
+			
 			$content = $page->article;
-			$template="client/article.php";
 		}		
 		elseif(isset($page->articles))
 		{
+			if($root->id == 3)
+			{
+				$sub_template = "news";
+				$template="client/news.php";
+			}
+			else
+			{
+				$template="client/article.php";
+			}
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
-			$template="client/articles.php";
 		}
 	
 		$data = array(
@@ -32,13 +51,13 @@ class Pages extends Client_Controller {
 			'meta_keywords' => $content->meta_keywords,
 			'meta_description' => $content->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'tree' => $this->categories->get_site_tree(0, "parent_id"),
-			'left_menu' => $this->dynamic_menus->get_menu(4),
-			'content' => $content
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'select_item' => "",
+			'content' => $content,
+			'sub_template' => $sub_template
 		);
-		
+
 		$data = array_merge($this->standart_data, $data);
-		
 		$this->load->view($template, $data);
 	}
 	
@@ -48,6 +67,7 @@ class Pages extends Client_Controller {
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$data = array(
 			'title' => "Страница не найдена",
+			'select_item' => "",
 			'settings' => $this->settings->get_item_by(array('id' => 1)),
 		);
 		
