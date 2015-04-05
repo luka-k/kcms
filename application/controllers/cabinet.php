@@ -47,15 +47,20 @@ class Cabinet extends Client_Controller {
 	/*----------Личный кабинет----------*/
 	public function index()
 	{
+		$settings = $this->settings->get_item_by(array('id' => 1));
+		
 		$data = array(
 			'title' => "Личный кабинет",
+			'select_item' => '',
 			'error' => "",
+			'user' => $this->users->get_item($this->standart_data['user']->id),
 			'orders' => $this->orders_info,
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay')
 			),
-			'status_id' => $this->config->item('order_status')
+			'status_id' => $this->config->item('order_status'),
+			'settings' => $settings
 		);
 		$data = array_merge($this->standart_data, $data);
 			
@@ -65,44 +70,14 @@ class Cabinet extends Client_Controller {
 	public function update_info($type)
 	{
 		$user = (object)$this->input->post();
-		if($type == "personal")
+		if($type == "pass")
 		{
-			$this->form_validation->set_rules( 'name','Имя','trim|xss_clean|required|min_length[4]|max_length[35]|callback_username_not_exists');			
-			$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required|valid_email|callback_email_not_exists');
-			$this->form_validation->set_rules( 'phone','Телефон','trim|xss_clean|required');
-			$this->form_validation->set_rules( 'address','Адрес','trim|xss_clean');
-		}
-		else
-		{
-			$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
-			$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
 			$user->password = md5($user->password);
 			unset($user->conf_password);
 		}	
+		$this->users->update($user->id, $user);
 		
-		//Валидация формы
-		if($this->form_validation->run() == FALSE)
-		{
-		
-			$data = array(
-				'title' => "Личный кабинет",
-				'error' => "",
-				'orders' => $orders_info,
-				'selects' => array(
-					'delivery_id' => $this->config->item('method_delivery'),
-					'payment_id' => $this->config->item('method_pay')
-				),
-				'status_id' => $this->config->item('order_status')
-			);
-			$data = array_merge($this->standart_data, $data);
-			
-			$this->load->view('client/cabinet', $data);	
-		}
-		else
-		{
-			$this->users->update($user->id, $user);
-			redirect(base_url().'cabinet');
-		}
+		redirect(base_url().'cabinet');
 	}
 	
 }

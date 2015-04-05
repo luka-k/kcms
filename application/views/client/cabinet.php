@@ -1,140 +1,146 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!--> 
+	<html class="no-js">
+<!--<![endif]-->
+
 <? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/header.php'?>
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12 clearfix">
-			<div id="main_content" class="col_12 clearfix">
-				<div class="col_12">
-					<h5>Личный кабинет</h5>
-					
-					<?if($cart_items <> NULL):?>
-						<div class="col_8">
-							<h6>Корзина</h6>
-							<table>
-								<thead>
-									<th>№</th>
-									<th>Наименование</th>
-									<th>Цена</th>
-									<th>Количество</th>
-									<th>Сумма</th>
-									<th>Удалить</th>
-								</thead>
-								<tbody>
-									<?$counter = 1?>
-									<?foreach($cart as $item_id => $item):?>
-										<tr id="<?=$item_id?>">
-											<td><?=$counter?></td>
-											<td><?=$item['name']?></td>
-											<td><?=$item['price']?></td>
-											<td><input type="text" name="qty_<?=$item_id?>" id="qty_<?=$item_id?>" value="<?=$item['qty']?>" onchange="update_cart('<?=$item_id?>', this.value);"/></td>
-											<td><span id="item_total_<?=$item_id?>"><?=$item['item_total']?></span></td>
-											<td><a href="#" onclick="delete_item('<?=$item_id?>');"><i class="icon-minus-sign icon-2x"></i></a></td>
-										<tr>
-										<?$counter++?>
-									<?endforeach;?>
-								</tbody>
-								<tfoot>
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th>&nbsp;</th>
-									<th><span id="total_qty"><?=$total_qty?></span></th>
-									<th><span id="total_price"><?=$total_price?></span></th>
-									<th>&nbsp;</th>
-								</tfoot>
-							</table>
+    
+<body>
+	<!--[if lt IE 8]>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+	<![endif]-->
+
+	<? require 'include/header.php'?>
+	<? require 'include/top-menu.php'?>
+
+	<div class="page page-about">
+		<div class="page__wrap wrap">			
+			<h1 class="page__title">Ваши заказы</h1>
+			<?if(!empty($orders)):?>
+				<div class="page-cart__products">
+					<table class="cart-table">
+						<tbody>
+							<tr>
+								<th></th>
+								<th>Товары</th>
+								<th>Дата</th>
+								<th>Статус</th>
+							</tr>
+							<?$counter = 1?>
+							<?foreach($orders as $item_id => $item):?>
+								<tr>
+									<td><?=$counter?></td>
+									<td>
+										<table>
+											<tbody>
+												<tr>
+													<th>Товар</th>
+													<th>Цена</th>
+													<th>Количество</th>
+												</tr>
+												<?foreach($item->order_products as $p):?>
+													<tr style="font-size:14px;">
+														<th><?=$p->product_name?></th>
+														<th><?=$p->product_price?></th>
+														<th><?=$p->order_qty?></th>
+													</tr>
+												<?endforeach;?>
+											</tbody>
+										</table>
+									</td>
+									<td><div class="cart-table__price"><?=$item->date?></div> <!-- /.cart-table__price --></td>
+									<td style="text-align:center"><?=$item->status?></td>
+								</tr>
+							<?endforeach;?>
+						</tbody>
+					</table> <!-- /.cart-table -->
+				</div> <!-- /.page-cart__products -->
+			<?else:?>
+				Вы еще не сделали заказов.
+			<?endif;?>
+			
+			<h1 class="page__title">Персональные данные</h1>
+			
+			<div class="avatar page__form">
+				<?if(!empty($user->vk_avatar)):?>
+					<div>
+						<img width="120px" src="<?=$user->vk_avatar?>" alt=""/>
+					</div>
+				<?elseif(!empty($user->img)):?>
+					<div style="position:relative; float:left;">
+						<img src="<?=$user->img->catalog_small_url?>" alt=""/>
+					</div>
+				
+				<div>
+					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" class="form" action="<?=base_url()?>cabinet/update_info/image"/>
+						<input type="hidden" name="id"  value="<?=$user->id?>"/>
+						<div class="form__line" style="float:left; padding-top:20px;">
+							<a href="#" id="psevdoInput" class="upload" onclick="file_input.click(); return false;"><?if(!empty($user->img)):?>Изменить аватар<?else:?>Выбрать изображение<?endif;?></a>
+							<input id="psevdoFileValue" class="inputFileText" type="text" style="display:none;"/>
+							<input type="file" id="file_input" name="avatar" onchange="document.getElementById('psevdoFileValue').value = this.value; document.getElementById('psevdoFileValue').style.display='block'; document.getElementById('psevdoInput').style.display='none'; document.getElementById('fileInputButton').style.display='inline-block';"/>
 						</div>
-						<div class="col_4">
-							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" action="<?=base_url()?>order/edit_order/"/>
-								<div class="cart">
-									<h5>Оформить заказ</h5>
-									<input type="hidden" name="id" value="<?=$user->id?>"/>
-									<input type="hidden" name="name" value="<?=$user->name?>"/>
-									<input type="hidden" name="phone" value="<?=$user->phone?>"/>
-									<input type="hidden" name="email" value="<?=$user->email?>"/>
-									<input type="hidden" name="address" value="<?=$user->address?>"/>
-									<?foreach($selects as $name => $select):?>
-										<?require "include/editors/select.php"?>
-									<?endforeach;?></br>
-									<a href="#" class="button small" onClick="document.forms['order'].submit()">Оформить</a>
-								</div>
-							</form>							
+						<div class="form__button avatar__button skew">
+							<button type="submit" id="fileInputButton" class="button button--normal button--auto-width" style="display:none;"><?if(!empty($user->img)):?>Изменить<?else:?>Загрузить<?endif;?></button>
+							<?if(!empty($user->img)):?>
+								<button class="button button--normal button--auto-width" onclick="document.location.assign('/cabinet/delete_avatar/<?=$user->img->id?>'); return false;">Удалить</button>
+							<?endif;?>
 						</div>
-					<?endif;?>
-					
-					<?if(isset($orders)):?>
-						<div class="col_12">
-							<div class="col_8">
-								<h6>Ваши заказы</h6>
-								<table>
-									<thead>
-										<th width="7%">Id</th>
-										<th width="10%">Статус</th>
-										<th width="30%">Товары</th>
-										<th width="5%">Дата</th>
-									</thead>
-									<tbody>
-										<?foreach ($orders as $order):?>
-											<tr>
-												<td><?=$order->order_id?></td>
-												<td><?=$order->status?></td>
-												<td>
-													<table>
-														<thead>
-															<th width="70%">Наименование</th>
-															<th width="15%">Цена</th>
-															<th width="15%">Количество</th>
-														</thead>
-														<tbody>
-															<?foreach($order->order_products as $product):?>
-																<tr>
-																	<td><?=$product->product_name?></td>
-																	<td><?=$product->product_price?></td>
-																	<td><?=$product->order_qty?></td>
-																</tr>
-															<?endforeach;?>
-														</tbody>
-													</table>
-												</td>
-												<td><?=$order->date?></td>
-											</tr>
-										<?endforeach;?>
-									</tbody>
-								</table>
-							</div>
-							<div class="col_4">
-								<div class="col_12">
-									<div class="col_6">
-										<a href="<?=base_url()?>/registration/do_exit">Выйти</a>
-									</div>
-								</div>
-								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="save_changes" action="<?=base_url()?>cabinet/update_info/personal"/>
-									<input type="hidden" name="id" value="<?=$user->id?>"/>
-									Имя:</br>
-									<input type="text" name="name" <?if($user->name):?>value="<?=$user->name?>"<?endif;?>/></br>
-									Email:</br>
-									<input type="text" name="email" <?if($user->email):?>value="<?=$user->email?>"<?endif;?>/></br>
-									Телефон:</br>
-									<input type="text" name="phone" <?if($user->phone):?>value="<?=$user->phone?>"<?endif;?>/></br>
-									Адрес:</br>
-									<input type="text" name="address" <?if($user->address):?>value="<?=$user->address?>"<?endif;?>/></br></br>
-									<a href="" class="small button" onclick="document.forms['save_changes'].submit();return false;">Сохранить изменения</a>
-								</form>
-								</br>
-								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="change_pass" action="<?=base_url()?>cabinet/update_info/pass"/>
-									<input type="hidden" name="id" value="<?=$user->id?>"/>
-									Новый пароль:</br>
-									<input type="password" name="password"/></br>
-									Повторите пароль:</br>
-									<input type="password" name="conf_password"/></br></br>
-									<a href="" class="small button" onclick="document.forms['change_pass'].submit(); return false;">Изменить пароль</a>
-								</form>
-							</div>
-						</div>	
-					<?endif;?>
+					</form>
 				</div>
+				<?endif;?>
 			</div>
-		</div>
-	</div>
-<? require 'include/footer.php' ?>
+			
+			<div class="clearfix page__form">
+				<form method="post" class="form" action="<?=base_url()?>cabinet/update_info/personal"/>
+					<input type="hidden" name="id"  value="<?=$user->id?>"/>
+				
+					<div class="form__line">
+						<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if($user->name):?><?=$user->name?><?endif;?>"/>
+					</div> <!-- /.form__line -->
+			
+					<div class="form__line">
+						<input type="text" class="form__input required" name="email" placeholder="E-mail" value="<?if($user->email):?><?=$user->email?><?endif;?>" />
+					</div> <!-- /.form__line -->
+							
+					<div class="form__line">
+						<input type="text" class="form__input" name="phone" placeholder="Телефон" value="<?if($user->phone):?><?=$user->phone?><?endif;?>" />
+					</div> <!-- /.form__line -->
+				
+					<div class="form__line">
+						<input type="text" class="form__input" name="address" placeholder="Адрес" value="<?if($user->address):?><?=$user->address?><?endif;?>" />
+					</div> <!-- /.form__line -->
+				
+					<div class="form__button cart-order__button">
+						<button type="submit" class="button button--normal button--auto-width">Изменить данные</button>
+					</div> <!-- /.form__button -->
+				</form>
+			</div>
+			
+			<h1 class="page__title">Изменить пароль</h1>
+			<div class="page__form">
+			<form method="post" class="form" action="<?=base_url()?>cabinet/update_info/pass"/>
+				<input type="hidden" name="id"  value="<?=$user->id?>"/>
+				
+				<div class="form__line">
+					<input type="text" class="form__input required" name="password" autocomplete="off" placeholder="Пароль" value=""/>
+				</div> <!-- /.form__line -->
+				
+				<div class="form__line">
+					<input type="text" class="form__input required" name="conf_password" autocomplete="off" placeholder="Повторите" value="" />
+				</div> <!-- /.form__line -->
+				
+				<div class="form__button cart-order__button">
+					<button type="submit" class="button button--normal button--auto-width">Изменить пароль</button>
+				</div> <!-- /.form__button -->
+			</form>
+			</div>
+		</div> <!-- /.page__wrap wrap -->
+	</div> <!-- /.page -->
+		
+	<? require 'include/footer.php'?>
+	<? require 'include/modal.php'?>
+	</body>
+</html>
