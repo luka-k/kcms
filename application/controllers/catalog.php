@@ -24,12 +24,12 @@ class Catalog extends Client_Controller {
 		$this->db->select_max('price');
 		$query = $this->db->get('products');
 		$max_price = $query->row()->price;
-		$max_value = empty($get['price_to']) ? $max_price : $get['price_to'];
+		$max_value = empty($this->get['price_to']) ? $max_price : $this->get['price_to'];
 
 		$this->db->select_min('price');
 		$query = $this->db->get('products');
 		$min_price = $query->row()->price;
-		$min_value = empty($get['price_from']) ? $min_price : $get['price_from'];		
+		$min_value = empty($this->get['price_from']) ? $min_price : $this->get['price_from'];		
 	
 		$data = array(
 			'settings' => $settings,

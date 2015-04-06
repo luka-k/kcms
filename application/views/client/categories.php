@@ -26,8 +26,8 @@
 				<div class="page-catalog__filter">
 					<div class="catalog-filter">
 						<form action="<?=base_url()?>catalog" class="form" method="get">
-							<input type="-+hidden" name="filter" value="true"/>
-							<div class="catalog-filter__top">
+							<input type="hidden" name="filter" value="true"/>
+							<!--<div class="catalog-filter__top">
 								
 								<?//require "include/filters/select.php"?>
 								

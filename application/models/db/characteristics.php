@@ -93,15 +93,26 @@ class Characteristics extends MY_Model
 			$id = $values;
 		}
 		
+		//Если указан пункт в наличии 
+		if(isset($filter['is_active'])) $this->db->where("is_active", 1);
+
+		if(isset($filter['price_from']) && isset($filter['price_to']))
+		{
+			$where = "price BETWEEN {$filter['price_from']} AND {$filter['price_to']}";
+			$this->db->where($where);
+		}
+		
 		$content = array();
 		if(!empty($id))
 		{
 			$this->db->where_in("id", $id);
 			$this->db->order_by($order, $direction); 
-			$query = $this->db->get("products"/*, $limit, $from*/);
-			$result = $query->result();
-			if(!empty($result)) $content = $result;
 		}
+		
+		$query = $this->db->get("products"/*, $limit, $from*/);
+		$result = $query->result();
+		if(!empty($result)) $content = $result;
+		
 		return $content;
 	}
 	
