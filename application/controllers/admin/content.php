@@ -148,7 +148,7 @@ class Content extends Admin_Controller
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				
 				$data['content']->is_active = "1";
-				$data['content']->img = NULL;
+				$data['content']->images = NULL;
 				
 				if($type == "emails") $data['content']->type = 2;
 				

@@ -155,6 +155,7 @@ class Products extends MY_Model
 			}
 			
 			$item = $this->set_sale_price($item);
+			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
 			return $item;

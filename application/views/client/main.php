@@ -58,7 +58,7 @@
 									<a href="<?=$special_item->full_url?>"><img src="<?=$special_item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
 								</div> <!-- /.catalog-item__image-box -->
 								
-								<a href="<?=$special_item->full_url?>" class="catalog-item__name"><?=$good_item->name?></a>
+								<a href="<?=$special_item->full_url?>" class="catalog-item__name"><?=$special_item->name?></a>
 								
 								<div class="catalog-item__desc">
 									<?=$special_item->short_description?>
@@ -68,7 +68,7 @@
 									<div class="catalog-item__price"><?=$special_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$good_item->id?>', '<?=$good_item->name?>', 1); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$special_item->id?>', '<?=$special_item->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

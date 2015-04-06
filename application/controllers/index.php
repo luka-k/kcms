@@ -22,7 +22,7 @@ class Index extends Client_Controller {
 		$data = array(
 			'title' => $settings->site_title,
 			'select_item' => '',
-			'special' => $special,
+			'special' => $this->products->prepare_list($special),
 			'new_products' => $this->products->prepare_list($new_products),
 			'last_news' => $this->articles->prepare_list($last_news),
 			'settings' => $settings

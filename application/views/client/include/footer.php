@@ -27,7 +27,7 @@
 		<div class="footer__contacts">
 			<div class="contacts-info">
 				<div class="contacts-info__item">
-					<div class="contacts-info__copy">redBTR &copy; 2015</div> <!-- /.contacts-info__copy -->
+					<div class="contacts-info__copy">greenWEELS &copy; 2015</div> <!-- /.contacts-info__copy -->
 					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
 				</div> <!-- /.contacts-info__item -->
 
