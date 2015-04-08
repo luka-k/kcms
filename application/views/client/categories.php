@@ -27,27 +27,27 @@
 					<div class="catalog-filter">
 						<form action="<?=base_url()?>catalog" class="form" method="get">
 							<input type="hidden" name="filter" value="true"/>
-							<!--<div class="catalog-filter__top">
-								
-								<?//require "include/filters/select.php"?>
-								
+							<div class="catalog-filter__top">
+								<?foreach($filters as $type=> $filter):?>
+									<?require "include/filters/{$filter->editor}.php"?>
+								<?endforeach;?>	
 							</div> <!-- /.catalog-filter__top -->
 							
 							<div class="catalog-filter__range">
 								<div class="catalog-range">
 									<div class="catalog-range__scale">
 										<div class="catalog-range__from">
-											Цена: от <span data-range-from><?=$min_price?></span>
+											Цена: от <span data-range-from><?=$min_value?></span>
 										</div> <!-- /.catalog-range__from -->
 										
 										<div class="catalog-range__to">
-											до <span data-range-to><?=$max_price?></span>
+											до <span data-range-to><?=$max_value?></span>
 										</div> <!-- /.catalog-range__to -->
 									</div> <!-- /.catalog-slider__scale -->
 									
 									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>" data-min-value="<?=$min_value?>" data-max-value="<?=$max_value?>"></div> <!-- /.catalog-range__slider -->
-									<input type="hidden" id="price_from" name="price_from" value="<?=$min_price?>"/>
-									<input type="hidden" id="price_to" name="price_to" value="<?=$max_price?>"/>
+									<input type="hidden" id="price_from" name="price_from" value="<?=$min_value?>"/>
+									<input type="hidden" id="price_to" name="price_to" value="<?=$max_value?>"/>
 								</div> <!-- /.catalog-range -->
 							</div> <!-- /.catalog-filter__range -->
 							

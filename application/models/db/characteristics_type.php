@@ -29,7 +29,7 @@ class Characteristics_type extends MY_Model
 		'Основное' => array(
 			'id' => array("id", "hidden"),
 			'name' => array("Название типа", "text", "trim|htmlspecialchars|name", 'require'),
-			'category' => array("Категория товаров", "checkbox", "trim|htmlspecialchars|name"),
+			'category' => array("Категория товаров", "checkbox", "trim|htmlspecialchars"),
 			'view_type' => array("Тип отображения", "simple_select"),
 			'url' => array("Тип фильтра", "hidden", "substituted[name]")
 		)
@@ -45,29 +45,46 @@ class Characteristics_type extends MY_Model
 	*
 	* @return array
 	*/
-	public function get_filters()
+	public function get_filters($products = "all")
 	{
+		$filters = array();
 		$characteristics_type = $this->get_list(FALSE);
 
-		foreach($characteristics_type as $item)
+		if(!empty($products)) foreach($characteristics_type as $item)
 		{
-			$filters[$item->url] = (object)array(
-				"name" => $item->name,
-				"editor" => $item->view_type
-			);
-			if($item->view_type == "multy" || $item->view_type == "single")
-			{
-				$this->db->distinct();
-				$this->db->select("value");
-				$this->db->where("type", $item->url);
-				$query = $this->db->get("characteristics");
-				$values = array();
-				foreach($query->result_array() as $result)
+			$this->db->distinct();
+			$this->db->select("value");
+			$this->db->where("type", $item->url);
+
+			if($products <> "all")
+			{	
+				$ids = array();
+				foreach($products as $p)
 				{
-					$values[] = $result['value'];
+					$ids[] = $p->id;
 				}
+				$this->db->where_in("object_id", $ids);
+			}
 				
-				$filters[$item->url]->values = $values;
+			$query = $this->db->get("characteristics");
+			$values = array();
+
+			foreach($query->result_array() as $result)
+			{
+				$values[] = $result['value'];
+			}
+			
+			if(!empty($values))
+			{
+				$filters[$item->url] = (object)array(
+					"name" => $item->name,
+					"editor" => $item->view_type
+				);
+			
+				if($item->view_type == "multy" || $item->view_type == "single")
+				{				
+					$filters[$item->url]->values = $values;
+				}
 			}
 		}
 		return $filters;

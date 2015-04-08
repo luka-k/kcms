@@ -8,6 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" media="all" /> <!--fancybox css-->
 	<link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/style.css" media="all" />  <!--custom css-->
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/grid.css" media="all" />
 		
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
 	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->

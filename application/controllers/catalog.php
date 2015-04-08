@@ -37,7 +37,6 @@ class Catalog extends Client_Controller {
 			'select_item' => '',
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
-			'filters' => $this->characteristics_type->get_filters(),
 			'min_price' => $min_price,
 			'max_price' => $max_price,
 			'min_value' => $min_value,
@@ -94,7 +93,7 @@ class Catalog extends Client_Controller {
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
 		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
-		
+		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
 				
 		$this->load->view("client/categories", $data);
@@ -109,6 +108,7 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_values' => $this->get,
+			'filters' => $this->characteristics_type->get_filters()
 		);
 		
 		$data = array_merge($this->standart_data, $data);

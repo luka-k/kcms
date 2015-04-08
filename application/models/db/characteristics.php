@@ -27,12 +27,13 @@ class Characteristics extends MY_Model
 	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE)
 	{
 		$values = array();
+		$id = array();
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
 		foreach($filters_type as $item)
 		{
-			if(isset($filter[$item->url]))
+			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
 			{
 				$do_update = TRUE;
 				switch ($item->view_type)
@@ -42,6 +43,7 @@ class Characteristics extends MY_Model
 						$counter++;
 						break;
 					case "multy":
+						$this->db->distinct();
 						$this->db->where("type", $item->url);
 						$this->db->where_in("value", $filter[$item->url]);
 						$counter++;
@@ -79,41 +81,38 @@ class Characteristics extends MY_Model
 				if($do_update) $values = $this->_update_values($values);
 			}
 		}
-
 		if($counter > 1)
 		{
 			$values = array_count_values($values);
-			foreach($values as $key => $counter)
+			foreach($values as $key => $counter_value)
 			{
-				if($counter > 1) $id[] = $key;
+				if($counter_value > 1) $id[] = $key;
 			}
 		}
 		else
 		{
 			$id = $values;
 		}
-		
-		//Если указан пункт в наличии 
-		if(isset($filter['is_active'])) $this->db->where("is_active", 1);
 
-		if(isset($filter['price_from']) && isset($filter['price_to']))
+		if(!empty($id) || (empty($id) && $counter == 0))
 		{
-			$where = "price BETWEEN {$filter['price_from']} AND {$filter['price_to']}";
-			$this->db->where($where);
-		}
-		
-		$content = array();
-		if(!empty($id))
-		{
-			$this->db->where_in("id", $id);
+			//Если указан пункт в наличии 
+			if(isset($filter['is_active'])) $this->db->where("is_active", 1);
+
+			if(isset($filter['price_from']) && isset($filter['price_to']))
+			{
+				$where = "price BETWEEN {$filter['price_from']} AND {$filter['price_to']}";
+				$this->db->where($where);
+			}
+			if(!empty($id)) $this->db->where_in("id", $id);
+			
 			$this->db->order_by($order, $direction); 
+			$query = $this->db->get("products"/*, $limit, $from*/);
+			$result = $query->result();
+			if(!empty($result)) return $result;
 		}
-		
-		$query = $this->db->get("products"/*, $limit, $from*/);
-		$result = $query->result();
-		if(!empty($result)) $content = $result;
-		
-		return $content;
+	
+		return array();
 	}
 	
 	/**
@@ -124,6 +123,7 @@ class Characteristics extends MY_Model
 	*/
 	private function _update_values($values)
 	{
+		$this->db->select('object_id');
 		$query = $this->db->get('characteristics');
 		foreach($query->result_array() as $result)
 		{
