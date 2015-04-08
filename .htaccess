@@ -3,6 +3,13 @@ RewriteEngine on
 RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1
 
+RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
+RewriteRule . %1/%2 [R=301,L]
+
+RedirectPermanent /main /
+
+ErrorDocument 404 /pages/page_404
+
 #RewriteCond %{HTTP_HOST} ^site\.ru$ [NC]
 #RewriteRule ^(.*)$ http://www.site.ru/$1 [R=301,L]
 
@@ -10,9 +17,3 @@ RewriteRule ^(.*)$ /index.php/$1
 #RewriteCond %{REQUEST_URI} !(.*)/$
 #RewriteRule ^(.*[^/])$ $1/ [L, R=301]
 
-RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
-RewriteRule . %1/%2 [R=301,L]
-
-RedirectPermanent /main /
-
-ErrorDocument 404 /pages/page_404

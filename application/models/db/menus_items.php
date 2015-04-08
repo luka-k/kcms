@@ -29,7 +29,7 @@ class Menus_items extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'menu_id' => array('Меню', 'hidden'),
-			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
+			'name' => array('Заголовок', 'text', 'trim|name|htmlspecialchars', 'require'),
 			'parent_id' => array('Родительский пункт меню', 'select'),
 			'description' => array('Описание', 'text'),
 			'item_type' => array('Тип пункта', 'type'),
@@ -60,15 +60,8 @@ class Menus_items extends MY_Model
 			}
 			else
 			{
-				if($b->item_type == "articles")
-				{
-					$branches[$i] = $this->prepare($b);
-				}
-				else
-				{
-					$url = explode ("://", $b->url, -1);
-					empty($url) ? $branches[$i]->full_url = $this->get_url($b) : $branches[$i]->full_url = $b->url;
-				}
+				$url = explode ("://", $b->url, -1);
+				empty($url) ? $branches[$i]->full_url = $this->item_prepare($b, $b->item_type) : $branches[$i]->full_url = $b->url;
 			}
 
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);
@@ -77,18 +70,32 @@ class Menus_items extends MY_Model
 	}
 	
 	/**
+	*
+	*
+	*
+	*/
+	public function item_prepare($item, $type = "link")
+	{
+		$item_url = $this->get_url($item);
+		if($type == "articles") $item_url[] = 'articles';
+		$full_url = implode("/", array_reverse($item_url));
+		$full_url = base_url().$full_url;
+		return $full_url;	
+	}
+	
+	/**
 	* Получение url пункта меню
 	*
 	* @param object $item
 	* @return string
 	*/
-	public function get_url($item)
+	/*public function get_url($item)
 	{
 		$item_url = $this->make_full_url($item);
 		$full_url = implode("/", array_reverse($item_url));
 		$full_url = base_url().$full_url;
 		return $full_url;		
-	}
+	}*/
 	
 	/**
 	* Формирование полного url пункта меню
@@ -96,7 +103,7 @@ class Menus_items extends MY_Model
 	* @param object $item
 	* @return array
 	*/
-	public function make_full_url($item)
+	public function get_url($item)
 	{
 		$item_url = array();
 		if(!empty($item)) 
@@ -109,7 +116,7 @@ class Menus_items extends MY_Model
 				$item = $this->get_item($parent_id);
 				$item_url[] = $item->url;
 			}
-			$item_url[] = 'articles';
+			//$item_url[] = 'articles';
 		}
 		return $item_url;
 	}	

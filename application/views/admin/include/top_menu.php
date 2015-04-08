@@ -2,7 +2,7 @@
 	<?$counter = 1?>
 	<ul class="menu grid flex">
 		<?foreach($menu as $item):?>
-			<li class="<?if($url == $item->url):?>current<?endif;?> <?if ($counter == 1):?>l-item<?endif;?>"><a href="<?=$item->full_url?>"><?=$item->name?></a>
+			<li class="<?if($url == $item->url):?>current<?endif;?> <?if ($counter == 1):?>l-item<?endif;?>"><a href="<?=$item->full_url?>" <?if($item->full_url == "#"):?>onclick="return false;"<?endif;?>><?=$item->name?></a>
 			<?php if(!empty($item->childs)):?>
 				<ul>
 					<?foreach($item->childs as $sub_item):?>	
