@@ -6,8 +6,8 @@
 		
 		<div class="header__phone">
 			<div class="header-phone">
-				<div class="header-phone__number"></div> <!-- /.header-phone__number -->
-				<div class="header-phone__time"></div> <!-- /.header-phone__time -->
+				<div class="header-phone__number">8(123)4567-89-00</div> <!-- /.header-phone__number -->
+				<div class="header-phone__time">9:00 - 18:00</div> <!-- /.header-phone__time -->
 				
 				<div class="header-phone__callback">
 					<a href="#callback" class="header-phone__callback-link lightbox">Обратный звонок</a>

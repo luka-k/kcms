@@ -16,6 +16,14 @@ class Contacts extends Client_Controller {
 	
 	public function index()
 	{
-		echo "fuck";
+		$this->breadcrumbs->add("contacts", "Контакты");
+		
+		$data = array(
+			"title" => "Контакты",
+			"select_item" => "contacts",
+			'breadcrumbs' => $this->breadcrumbs->get()
+		);
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/contacts.php', $data);
 	}
 }
