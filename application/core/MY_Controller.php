@@ -1,8 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//
-//
+/**
+* Класс контроллеров
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Articles
+*/
 class Admin_Controller extends CI_Controller 
 {
 	protected $menu;
@@ -24,9 +29,13 @@ class Admin_Controller extends CI_Controller
 	}
 }
 
-//
-//
-
+/**
+* Класс контроллеров
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Articles
+*/
 class Client_Controller extends CI_Controller
 {
 	protected $standart_data = array();
