@@ -5,7 +5,7 @@ function change_field(order_id, value, type){
 	data.value = value;
 	data.type = type;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/change_field/", json_str, callback_message, "json");
+	$.post ("/admin/admin_orders/change_field/", json_str, callback_message, "json");
 }
 
 function callback_message(res){

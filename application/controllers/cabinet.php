@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Cabinet class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Cabinet
+*/
 class Cabinet extends Client_Controller {
 
 	public $orders; 
@@ -44,30 +51,30 @@ class Cabinet extends Client_Controller {
 		}
 	}
 
-	/*----------Личный кабинет----------*/
+	/**
+	* Вывод личного кабинета
+	*/
 	public function index()
 	{
-		$settings = $this->settings->get_item_by(array('id' => 1));
-		
 		$data = array(
 			'title' => "Личный кабинет",
 			'select_item' => '',
 			'error' => "",
 			'user' => $this->users->get_item($this->standart_data['user']->id),
 			'orders' => $this->orders_info,
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay')
-			),
 			'status_id' => $this->config->item('order_status'),
-			'settings' => $settings
 		);
 		$data = array_merge($this->standart_data, $data);
 			
 		$this->load->view('client/cabinet.php', $data);
 	}
 	
-	public function update_info($type)
+	/**
+	* Обновление информации о пользователе
+	*
+	* @param string $type
+	*/
+	public function update_info($type = "info")
 	{
 		$user = (object)$this->input->post();
 		if($type == "pass")

@@ -136,6 +136,32 @@ class MY_Model extends CI_Model
 		return $this->get_list('deleted', $from, $limit, $order, $direction);
 	}
 	
+	/*
+	* Возвращает минимальное значение в столбце $field
+	*
+	* @param string $field
+	* @return string
+	*/
+	public function get_min($field)
+	{
+		$this->db->select_min($field);
+		$query = $this->db->get($this->_table);
+		return $query->row()->price;
+	}
+
+	/*
+	* Возвращает максимальное значение в столбце $field
+	*
+	* @param string $field
+	* @return string
+	*/	
+	public function get_max($field)
+	{
+		$this->db->select_max($field);
+		$query = $this->db->get($this->_table);
+		return $query->row()->price;
+	}
+	
 	/**
 	* Добавляет элемент в таблицу
 	* 

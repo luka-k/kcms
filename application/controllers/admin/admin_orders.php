@@ -71,4 +71,36 @@ class Admin_orders extends Admin_Controller
 		
 		$this->load->view('admin/orders.php', $data);
 	}
+	
+	public function change_field()
+	{
+		$this->config->load('orders');
+		$info = json_decode(file_get_contents('php://input', true));
+
+		$this->orders->update($info->order_id, array("{$info->type}" => $info->value));
+		
+		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
+		$status_id = $this->config->item('order_status');
+		
+		foreach($status_id as $key => $value)
+		{
+			if ($order->status_id == $key) $status = $value;
+		}
+		
+		switch ($info->type) 
+		{
+			case "status_id": $data['message'] = "Статус заказа изменен"; 
+				$message_info = array(
+					"order_id" => $info->order_id,
+					"user_name" => $order->user_name,
+					"order_status" => $status
+				);
+				$this->emails->send_system_mail($order->user_email, 3, $message_info);
+				break;
+			case "payment_id": $data['message'] = "Способ оплаты изменен"; break;
+			case "delivery_id": $data['message'] = "Способ доставки изменен"; break;
+		}
+		
+		echo json_encode($data);
+	}
 }

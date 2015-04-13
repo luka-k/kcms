@@ -1,41 +1,115 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!--> 
+	<html class="no-js">
+<!--<![endif]-->
+
 <? require 'include/head.php' ?>
-	<div class="grid flex">
-		<div id="menu col_12">
-			<? require 'include/header.php'?>
-			<? require 'include/top-menu.php'?>
-		</div>
-		<div class="wrap col_12 clearfix">
-			<div id="main_content" class="col_8 clearfix">
-				<div class="col_12">
-					<h5>Регистрация</h5>
-					<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>account/new_user/"/>					
-						<div id="" class="clearfix">
-							<?=$error;?>
-							<?=validation_errors(); ?>
+    
+<body>
+	<!--[if lt IE 8]>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+	<![endif]-->
+
+	<? require 'include/header.php'?>
+	<? require 'include/top-menu.php'?>
+
+	<div class="page page-about">
+		<div class="page-cart__order">
+			<h1 class="page__title">
+				<?if($activity == "enter"):?>
+					Войти
+				<?elseif($activity == "reg"):?>
+					Регистрация
+				<?elseif($activity == "restore" || $activity == "new"):?>
+					Востановление пароля
+				<?endif;?>
+			</h1>
+			<?=$error?>
+			<div class="cart-order__form">
+				<div class="<?if($activity <> "enter"):?>hidden<?endif;?>" style="margin-bottom:20px;">
+					<div style="margin-bottom:20px;">
+						<form action="<?=base_url()?>account/do_enter" id="enter_form" method="post">
+							<div class="form__line">
+								<input type="text" class="form__input required" name="email" placeholder="E-mail" autocomplete="off"/>
+							</div> <!-- /.form__line -->
 							
-							<div class="col_12">
-								<input type="text" name="name" value=""/>
-							</div>
+							<div class="form__line">
+								<input type="password" class="form__input required" name="password" placeholder="Пароль" autocomplete="off"/>
+							</div> <!-- /.form__line -->
+							
+							<div class="form__button">
+								<button type="submit" class="button button--normal button--auto-width" >Войти</button>
+								<a href="<?=base_url()?>account/restore_password/" style="float:right;">Забыли пароль?</a>
+							</div> <!-- /.form__button -->
+						</form>
+					</div>
+					<div id="vk_auth"></div>
+				</div>
+							
+				<a href="#extra" class="cart-order__extra-link <?if($activity <> "enter"):?>hidden<?endif;?>">Регистрация</a>
+							
+				<div class="cart-order__extra <?if($activity <> "reg"):?>hidden<?endif;?>" id="extra">
+					<form action="<?=base_url()?>/account/new_user" id="registr_form" method="post">
+						<div class="form__line">
+							<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?=set_value('name')?>"/>
+						</div> <!-- /.form__line -->
 						
-							<div class="col_12">
-								<input type="text" name="email" value=""/>
-							</div>
+						<div class="form__line">
+							<input type="text" class="form__input required" name="email" placeholder="E-mail" value="<?=set_value('email')?>"/>
+						</div> <!-- /.form__line -->
 						
-							<div class="col_12">
-								<input type="password" name="password" value=""/>
-							</div>
-							
-							<div class="col_12">
-								<input type="password" name="conf_password" value=""/>
-							</div>
-							
-							<div  class="col_12">
-								<a href="#" class="btn small" onClick="document.forms['form1'].submit()">Зарегистрировать</a>
-							</div>					
+						<div class="form__line">
+							<input type="password" class="form__input required" name="password" placeholder="Пароль" />
+						</div> <!-- /.form__line -->
+						<div class="form__line">
+							<input type="password" class="form__input required" name="conf_password" placeholder="Повторите пароль" />
+						</div> <!-- /.form__line -->
+						
+						<div class="form__button">
+							<button type="submit" class="button button--normal button--auto-width" >Регистрация</button>
+						</div> <!-- /.form__button -->
+						
+					</form>
+				</div> <!-- /.cart-order__extra -->		
+
+				<div class="<?if($activity <> "restore"):?>hidden<?endif;?>">
+					<form action="<?=base_url()?>/account/restore_password_mail" id="reset_form" method="post">
+						
+						<div class="form__line">
+							<input type="text" class="form__input required" name="email" placeholder="Введите e-mail" />
 						</div>
+					
+						<div class="form__button">
+							<button type="submit" class="button button--normal button--auto-width" >Востановить</button>
+						</div> <!-- /.form__button -->
 					</form>
 				</div>
-			</div>
-		</div>
-	</div>
-<? require 'include/footer.php' ?>
+				
+				<div class="<?if($activity <> "new"):?>hidden<?endif;?>">
+					<form action="<?=base_url()?>account/change_password" id="new_pass_form" method="post">
+						<input type="hidden" name="user_email" value="<?if(isset($email)):?><?=$email?><?endif;?>"/>
+						<input type="hidden" name="secret" value="<?if(isset($secret)):?><?=$secret?><?endif;?>"/>
+						<div class="form__line">
+							<input type="password" class="form__input required" name="password" placeholder="Пароль" />
+						</div> <!-- /.form__line -->
+						<div class="form__line">
+							<input type="password" class="form__input required" name="conf_password" placeholder="Повторите пароль" />
+						</div> <!-- /.form__line -->
+					
+						<div class="form__button">
+							<button type="submit" class="button button--normal button--auto-width" >Установить</button>
+						</div> <!-- /.form__button -->
+					</form>
+				</div>
+			</div> <!-- /.cart-order__form -->
+			
+		</div> <!-- /.page__wrap wrap -->
+	</div> <!-- /.page -->
+		
+	<? require 'include/footer.php'?>
+	<? require 'include/modal.php'?>
+	</body>
+</html>

@@ -1,6 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Order class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Order
+*/
 class Order extends Client_Controller 
 {	
 	public function __construct()
@@ -8,9 +15,13 @@ class Order extends Client_Controller
 		parent::__construct();
 	}
 	
+	/**
+	* Оформление заказа
+	*/
 	public function edit_order()
 	{
 		$orders_info = $this->input->post();
+		
 		$cart_items = $this->cart->get_all();
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
@@ -26,12 +37,11 @@ class Order extends Client_Controller
 			'status_id' => 1
 		);
 		
+		$this->orders->insert($new_order);
+		
 		if(isset($orders_info['email'])) $new_order['user_email'] = $orders_info['email'];
 		if(isset($orders_info['email'])) $new_order['user_address'] = $orders_info['address'];
-		
-		$settings = $this->settings->get_item_by(array("id" => 1));
 			
-		//$subject = 'Заказ в интернет-магазине '.$settings->site_title;
 		$message_info = array(
 			"order_id" => $order_id,
 			"user_name" => $orders_info['name']
@@ -45,10 +55,8 @@ class Order extends Client_Controller
 			$this->emails->send_system_mail($user->email, 2, $message_info);
 		}
 		
-		$this->emails->send_system_mail($settings->admin_email, 1, $message_info, "admin_order_mail");
-		
-		$this->orders->insert($new_order);
-		
+		$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
+	
 		foreach($cart_items as $item)
 		{
 			$orders_products = array(
