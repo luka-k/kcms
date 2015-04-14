@@ -357,15 +357,22 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-//$secret secret word using for change password
-//
-//
+/**
+* $secret secret word using for change password
+*/
 $config['secret'] = 'kcms';
 
-//$wishlist_id using for identification wish list in browser
+/**
+* $wishlist using for identification wish list in browser
+*/
 
 $config['wishlist'] = 'kcms';
 
+/**
+* Контроллеры для добавления в sitemap
+*/
+
+$config['sitemap_types'] = array("articles", "categories", "products");
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

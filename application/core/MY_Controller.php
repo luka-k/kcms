@@ -10,8 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 */
 class Admin_Controller extends CI_Controller 
 {
-	protected $menu;
-	protected $user;
+	protected $standart_data = array();
 
 	public function __construct()
 	{
@@ -22,8 +21,11 @@ class Admin_Controller extends CI_Controller
 		
 		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
 		
-		$this->menu = $this->dynamic_menus->get_menu(1)->items;
-		$this->user = (array)$this->session->userdata('user');
+		$this->standart_data = array(
+			'error' => "",
+			"menu" => $this->dynamic_menus->get_menu(1)->items,
+			"user" => (array)$this->session->userdata('user')
+		);
 		
 		$this->load->helper('admin');
 	}
@@ -48,7 +50,6 @@ class Client_Controller extends CI_Controller
 		
 		
 		$this->standart_data = array(
-			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			"user" => $this->session->userdata('user'),

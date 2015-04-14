@@ -1,6 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Users_module class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    users
+*/
 class Users_module extends Admin_Controller 
 {
 
@@ -9,6 +16,9 @@ class Users_module extends Admin_Controller
 		parent::__construct();
 	}
 	
+	/**
+	* Вывод списка пользователей
+	*/
 	public function index()
 	{
 		$name = editors_get_name_field('name', $this->users->editors);
@@ -17,17 +27,14 @@ class Users_module extends Admin_Controller
 
 		$filters = $this->input->post();
 		
-
 		$data = array(
 			'title' => "Пользователи",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'name' => $name,
 			'groups' => $this->users_groups->get_list(FALSE),
 			'content' => new stdClass(),
 			'url' => "/".$this->uri->uri_string()
 		);
+		$data = array_merge($this->standart_data, $data);
 		
 		if($filters)
 		{
@@ -80,15 +87,19 @@ class Users_module extends Admin_Controller
 		$this->load->view('admin/users.php', $data);
 	}	
 	
+	/**
+	* Редактирование, сохранение пользователя
+	*
+	* @param integer $id
+	* @paaram string $action
+	* @param bool $exit
+	*/
 	public function edit($id = FALSE, $action = "edit", $exit = FALSE)
 	{	
 		$name = editors_get_name_field('name', $this->users->editors);
 				
 		$data = array(
 			'title' => "Пользователи",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'name' => $name,
 			'type' => "users",
 			'selects' => array(
@@ -96,6 +107,7 @@ class Users_module extends Admin_Controller
 			),
 			'url' => "/".$this->uri->uri_string()
 		);	
+		$data = array_merge($this->standart_data, $data);
 		
 		if(($id == FALSE)&&(isset($this->users->new_editors)))
 		{
@@ -200,6 +212,9 @@ class Users_module extends Admin_Controller
 		}
 	}
 	
+	/**
+	* Удаление пользователя
+	*/
 	public function delete_user($id)
 	{
 		if($this->users->delete($id)) 
@@ -210,8 +225,9 @@ class Users_module extends Admin_Controller
 		}
 	}
 
-		/*--------------Удаление изображения-------------*/
-	
+	/**
+	* Удаление авватара
+	*/
 	public function delete_img($id)
 	{
 		$object_info = array(
@@ -222,13 +238,16 @@ class Users_module extends Admin_Controller
 		redirect(base_url().'admin/users_module/edit/'.$item_id.'/edit/');
 	}
 	
+	/**
+	* Экспорт пользоватей
+	*/
 	public function export()
 	{
 		$group_id = $this->input->post("group");
 		
 		$fields = $this->db->list_fields('users');
 		unset($fields[0]);
-		unset($fields[count($fields)]);//Как то я здраво решил что поле secret то же не особо в импорте нужно
+		unset($fields[count($fields)]);
 		
 		$users = $this->users->group_list($group_id);
 
@@ -252,6 +271,9 @@ class Users_module extends Admin_Controller
 		redirect(base_url()."download/export.csv", 307);
 	}
 	
+	/**
+	* Импорт пользователей
+	*/
 	public function import()
 	{
 		$group_id = $this->input->post("group");

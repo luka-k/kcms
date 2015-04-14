@@ -1,6 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Content class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    content
+*/
 class Content extends Admin_Controller 
 {
 
@@ -9,6 +16,10 @@ class Content extends Admin_Controller
 		parent::__construct();
 	}
 	
+	/**
+	* Импорт
+	* Может стоит вынести импорт в отдельный контроллер?
+	*/
 	function import()
 	{
 		$this->load->library('import');
@@ -42,26 +53,29 @@ class Content extends Admin_Controller
 				)
 			)
 		);
-		
 		$this->import->import_products($products, FALSE, TRUE, TRUE);
 	}
 	
+	/**
+	* Вывод списка элементов
+	*
+	* @param string $type - имя базы
+	* @param integer $id - id категории
+	*/
 	public function items($type, $id = FALSE)
 	{		
-		$name = $this->db->field_exists('parent_id', $type) ? "name" : editors_get_name_field('name', $this->$type->editors);
+		$name = editors_get_name_field('name', $this->$type->editors);
 		
 		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
 
 		$data = array(
 			'title' => "Страницы",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'type' => $type,
 			'name' => $name,
-			'url' => "/".$this->uri->uri_string()
+			'url' => $this->uri->uri_string()
 		);	
+		$data = array_merge($this->standart_data, $data);
 				
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
 		$direction = "acs";
@@ -96,6 +110,14 @@ class Content extends Admin_Controller
 		$this->load->view('admin/items.php', $data);
 	}
 	
+	/**
+	* Вовод, редактирование, создание элемента.
+	*
+	* @param string $action - действие(редактировани, сохранение, копирование)
+	* @param string $type - имя базы
+	* @param integer $id - id элемента
+	* @param boolen $exit - выход из редактирования
+	*/
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
@@ -105,15 +127,13 @@ class Content extends Admin_Controller
 		
 		$data = array(
 			'title' => "Редактировать",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
 			'type' => $type,
 			'parent_id' => $parent_id,
 			'url' => "/".$this->uri->uri_string()
 		);
+		$data = array_merge($this->standart_data, $data);
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
@@ -307,7 +327,12 @@ class Content extends Admin_Controller
 		}
 	}
 		
-	//Удаление элемента
+	/**
+	* Удаление элемента
+	*
+	* @param string $type
+	* @param integer $id
+	*/
 	public function delete_item($type, $id)
 	{
 		$object_info = array(
@@ -333,11 +358,13 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/items/'.$type);
 	}
 	
-	/***********************************************************************************************
-	*
-	* Обработка картинок
-	*
-	***********************************************************************************************/
+	/**
+	* Удаление изображения
+	* 
+	* @param string $type - тип изображения(категория)
+	* @param integer $id - id изображения
+	* @param integer $tab - номер вкладки с изображениями.
+	*/
 	public function delete_image($type, $id, $tab)
 	{
 		$item_id = $this->images->delete_img(array("object_type" => $type, "id" => $id));
@@ -345,6 +372,9 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/item/edit/'.$type."/".$item_id."#tab_".$tab);
 	}
 	
+	/**
+	* Переименования изображения
+	*/
 	public function rename_image()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
@@ -352,6 +382,9 @@ class Content extends Admin_Controller
 		$this->images->update($info->id, array("name" => $info->name));
 	}
 	
+	/**
+	* Установка обложки альбома
+	*/
 	public function set_cover($object_type, $object_id, $id, $tab)
 	{
 		$this->images->set_cover(array("object_type" => $object_type, "object_id" => $object_id), $id);
@@ -359,12 +392,9 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$object_id."#tab_".$tab);
 	}
 	
-	/***********************************************************************************************
-	*
-	* Обработка характеристик
-	*
-	***********************************************************************************************/
-	
+	/**
+	* Добавление характеристики товару
+	*/
 	public function edit_characteristic()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
@@ -394,21 +424,22 @@ class Content extends Admin_Controller
 		echo json_encode($answer);
 	}
 	
+	/**
+	* Удаление характеристики товара
+	*/
 	public function delete_characteristic($id, $tab)
 	{
 		$ch = $this->characteristics->get_item_by(array("id" => $id));
 		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_".$tab);
 	}
 	
-	/***********************************************************************************************
-	*
-	* Редактирование на лету - новинка и спецпредложение
-	*
-	***********************************************************************************************/
-	
+	/**
+	* Редактирование на странице списка товаров - спецпредложения и новинка
+	*/
 	public function advanced()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+		
 		
 		if($info->type == "new")
 		{

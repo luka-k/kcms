@@ -1,21 +1,27 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Admin_orders class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    admin_orders
+*/
 class Admin_orders extends Admin_Controller 
 {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->config->load('orders');
 	}
 	
-	/*****************************************************************************************
-	* вывод заказов в админку
-	*****************************************************************************************/
-	
+	/**
+	* Вывод заказов в админку
+	*/
 	public function index($filter = FALSE)
 	{
-		$this->config->load('orders');
-
 		$delivery_id = $this->config->item('method_delivery');
 		$payment_id = $this->config->item('method_pay');
 		
@@ -58,23 +64,24 @@ class Admin_orders extends Admin_Controller
 		
 		$data = array(
 			'title' => "Заказы",			
-			'user' => $this->user,
 			'orders_info' => array_reverse($orders_info),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
 				'payment_id' => $this->config->item('method_pay'),
 				'status_id' => $this->config->item('order_status')
 			),
-			'menu' => $this->menu,
 			'url' => "/".$this->uri->uri_string()
 		);	
+		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view('admin/orders.php', $data);
 	}
 	
+	/**
+	* Изменения информации о заказе
+	*/
 	public function change_field()
 	{
-		$this->config->load('orders');
 		$info = json_decode(file_get_contents('php://input', true));
 
 		$this->orders->update($info->order_id, array("{$info->type}" => $info->value));

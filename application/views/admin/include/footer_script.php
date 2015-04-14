@@ -14,19 +14,6 @@
 			}
 		});
 	});
-
-	function change_sort(type, item_id, sort){
-		data = new Object();
-		data.type = type;
-		data.item_id = item_id;
-		data.sort = sort;
-		var json_str = JSON.stringify(data);
-		$.post ("/admin/admin_ajax/change_sort/", json_str, update_items, "json");
-	}
-	
-	function update_items(res){
-
-	}
 	
 	function delete_item(base_url, type, item_id, item_name){
 		var href;
