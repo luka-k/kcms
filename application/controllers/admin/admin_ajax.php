@@ -46,4 +46,30 @@ class Admin_ajax extends Admin_Controller
 		
 		echo json_encode($answer);
 	}	
+	
+	/**
+	* Добавление рекомендованого товара
+	*/
+	public function add_recommend()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$product_2 = $this->products->get_item_by(array("name" => $info->name));
+		
+		if($product_2)
+		{
+			$this->recommended_products->insert(array("product1_id" => $info->product1_id, "product2_id" => $product_2->id));
+			
+			$answer = array(
+				'base_url' => base_url(),
+				'product_2' => $product_2
+			);
+		}
+		else
+		{
+			$answer = "error";
+		}
+			
+		echo json_encode($answer);
+	}
 }

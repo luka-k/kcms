@@ -82,6 +82,10 @@ function set_empty_fields($editors)
 			$content->$item = "";
 		}
 	}
+	
+	$content->is_active = "1";
+	$content->images = NULL;
+	$content->recommended = array();
 	return $content;
 }
 

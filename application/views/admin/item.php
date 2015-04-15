@@ -51,6 +51,7 @@
 		
 		<? require 'include/delete_popup.php'?>
 		<? require "include/ch_script.php" ?>
+		<? require 'include/recommend_script.php'?>
 		<? require 'include/footer_script.php' ?>
 		<? require 'include/footer.php' ?>
 	</body>

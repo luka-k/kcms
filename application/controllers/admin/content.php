@@ -66,7 +66,7 @@ class Content extends Admin_Controller
 	{		
 		$name = editors_get_name_field('name', $this->$type->editors);
 		
-		isset($this->$type->admin_left_column) ? $left_column = $this->$type->admin_left_column: $left_column = "off";
+		$left_column = isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
 
 		$data = array(
 			'title' => "Страницы",
@@ -87,14 +87,14 @@ class Content extends Admin_Controller
 		
 		if($id == "all")
 		{
-			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
 			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 		}
 		else
 		{
 			$type == "emails" ? $parent = "type" : $parent = "parent_id";
 			$data["parent_id"] = $id;
-			$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
 		}
 		
@@ -122,7 +122,6 @@ class Content extends Admin_Controller
 	{
 		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
 		$name = editors_get_name_field('name', $this->$type->editors);
-		
 		$parent_id = $this->input->get('parent_id');
 		
 		$data = array(
@@ -145,19 +144,13 @@ class Content extends Admin_Controller
 		if($type == "characteristics_type") 
 		{
 			$this->config->load('characteristics');
-			
 			$data['selects']['view_type'] = $this->config->item('view_type');
 		}
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		$is_characteristics = editors_get_name_field('ch', $data['editors']);
-		
-		if(!empty($is_characteristics))
-		{
-			$characteristics_type = $this->characteristics_type->get_list(FALSE);
-			$data['ch_select'] = $characteristics_type;
-		}
+		if(!empty($is_characteristics)) $data['ch_select'] = $this->characteristics_type->get_list(FALSE);
 		
 		if($action == "edit")
 		{
@@ -166,24 +159,17 @@ class Content extends Admin_Controller
 				$data['content'] = set_empty_fields($data['editors']);
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
-				
-				$data['content']->is_active = "1";
-				$data['content']->images = NULL;
-				
-				if($type == "emails") $data['content']->type = 2;
-				
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
+				if($type == "emails") $data['content']->type = 2;				
 			}	
 			else
 			{			
 				$data['content'] = $this->$type->get_item($id);
-				$object_info = array(
-					"object_type" => $type,
-					"object_id" => $data['content']->id
-				);
+				
+				if($type == "products") $data['content']->recommended = $this->products->get_recommended($id);
 				
 				$is_image = editors_get_name_field('img', $data['editors']);
-				if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
+				if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id)));
 				
 				$is_double_image = editors_get_name_field('double_img', $data['editors']);
 				if($is_double_image)
@@ -216,7 +202,6 @@ class Content extends Admin_Controller
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 					
-			//Если валидация прошла успешно проверяем переменную id
 			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
@@ -232,6 +217,9 @@ class Content extends Admin_Controller
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
 
+			/*****************************************
+			/ Требует более серьезного рефакторинга
+			/****************************************/
 			if(!empty($field_name))
 			{
 				$object_info = array(
@@ -291,6 +279,9 @@ class Content extends Admin_Controller
 					}
 				}	
 			}
+			/*****************************************************
+			/ Конец куска требующего рефакторинга
+			/****************************************************/
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
@@ -308,11 +299,6 @@ class Content extends Admin_Controller
 			$data['content']->id = NULL;
 			$data['content']->url = "";
 			
-			foreach($data['content'] as $key => $value)
-			{
-				if(!$this->db->field_exists($key, $type)) unset($data['content']->$key);
-			}
-			
 			$this->$type->insert($data['content']);
 			$new_id = $this->db->insert_id();
 			
@@ -321,8 +307,7 @@ class Content extends Admin_Controller
 				$ch->id = NULL;
 				$ch->object_id = $new_id;
 				$this->characteristics->insert($ch);
-			}
-			
+			}			
 			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}
 	}
