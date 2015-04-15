@@ -21,12 +21,11 @@ class Mailouts_module extends Admin_Controller
 
 		$data = array(
 			'title' => "Рассылка",
-			'url' => $this->uri->uri_string(),
 			'templates' => $this->emails->get_list(array("type" => 2)),
 			'mailouts' => array_reverse($mailouts)
 		);
 		$data = array_merge($this->standart_data, $data);
-	
+		
 		$this->load->view('admin/mailouts', $data);
 	}
 	
@@ -40,7 +39,6 @@ class Mailouts_module extends Admin_Controller
 		
 		$data = array(
 			'title' => "Редактирование рассылки",
-			'url' => "/".$this->uri->uri_string(),
 			'template_id' => $template_id,
 			'template' => $template,
 			'users_groups' => $this->users_groups->get_list(FALSE)
@@ -77,7 +75,6 @@ class Mailouts_module extends Admin_Controller
 		$send_info->from_email = $info->post->from_email;
 		$send_info->subject = $info->post->subject;
 		$send_info->message = urldecode($info->post->message);
-		
 		$send_info->to = $info->user->email;
 		
 		$parse_info['USER_NAME'] = $info->user->email;

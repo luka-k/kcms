@@ -23,6 +23,7 @@ class Admin_Controller extends CI_Controller
 		
 		$this->standart_data = array(
 			'error' => "",
+			'url' => $this->uri->uri_string(),
 			"menu" => $this->dynamic_menus->get_menu(1)->items,
 			"user" => (array)$this->session->userdata('user')
 		);
