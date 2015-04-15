@@ -54,7 +54,7 @@ class Products extends MY_Model
 			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
 		),
 		'Рекомендованые товары' => array(
-			'recommend' => array('Редактировать рекомендованые товары', 'recommend')
+			'recommend' => array('Редактировать рекомендованые товары', 'recommend', 'recommend')
 		)
 	);
 	
@@ -95,6 +95,18 @@ class Products extends MY_Model
 		}
 		
 		return $recommended_products;
+	}
+	
+	/**
+	* Удаление рекомендованных товаров по id товара 
+	*
+	* @param integer $id
+	*/
+	public function delete_recommended($id)
+	{
+		$this->db->where('product1_id', $id);
+		$this->db->or_where('product2_id', $id); 
+		$this->db->delete("recommended_products");
 	}
 	
 	/**

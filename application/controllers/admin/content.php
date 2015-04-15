@@ -166,11 +166,11 @@ class Content extends Admin_Controller
 			{			
 				$data['content'] = $this->$type->get_item($id);
 				
-				if($type == "products") $data['content']->recommended = $this->products->get_recommended($id);
-				
+				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
 				if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id)));
 				
+				// Двойная галлерея
 				$is_double_image = editors_get_name_field('double_img', $data['editors']);
 				if($is_double_image)
 				{
@@ -180,7 +180,8 @@ class Content extends Admin_Controller
 						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
 					}
 				}
-
+				
+				// Характеристики
 				if(!empty($is_characteristics))
 				{
 					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
@@ -192,6 +193,10 @@ class Content extends Admin_Controller
 						}
 					}
 				}
+				
+				// Рекомендованные
+				$is_recommend = editors_get_name_field('recommend', $data['editors']);
+				if($is_recommend) $data['content']->recommended = $this->products->get_recommended($id);
 			}
 			$this->load->view('admin/item.php', $data);
 		}
@@ -293,8 +298,7 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->get_item($id);
 			
-			$field_name = editors_get_name_field('ch', $data['editors']);
-			if(!empty($field_name)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			if(!empty($is_characteristics)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
 			
 			$data['content']->id = NULL;
 			$data['content']->url = "";
@@ -320,25 +324,33 @@ class Content extends Admin_Controller
 	*/
 	public function delete_item($type, $id)
 	{
-		$object_info = array(
-			"object_type" => $type,
-			"object_id" => $id
-		);
-		$item_images = $this->images->get_list($object_info);
-		if($item_images) foreach($item_images as $image)
+		// Удаляем картинки связанные с элементом
+		$is_images = editors_get_name_field('img', $this->$type->editors);
+		$is_dbl_img = editors_get_name_field('double_img', $this->$type->editors);
+		if($is_images || $is_dbl_img)
 		{
-			$this->images->delete_img(array("object_type" => $type, "id" => $image->id));
+			$item_images = $this->images->get_list(array("object_type" => $type, "object_id" => $id));
+			if($item_images) foreach($item_images as $image)
+			{
+				$this->images->delete_img(array("object_type" => $type, "id" => $image->id));
+			}
 		}
 		
-		if($type == "products")
+		// Удаляем характеристики связанные с товаром.
+		$is_characteristics = editors_get_name_field('ch', $this->$type->editors);
+		if($is_characteristics)
 		{
-			$item_characteristics = $this->characteristics->get_list(array("object_id" => $id,"object_type" => $type));
+			$item_characteristics = $this->characteristics->get_list(array("object_type" => $type, "object_id" => $id));
 			if($item_characteristics) foreach($item_characteristics as $ch)
 			{
 				$this->characteristics->delete($ch->id);
 			}
 		}
 		
+		// Удаляем рекомендованные элементы
+		$is_recommended = editors_get_name_field('recommend', $this->$type->editors);
+		if($is_recommended)	$this->products->delete_recommended($id);
+	
 		$this->$type->delete($id);
 		redirect(base_url().'admin/content/items/'.$type);
 	}
