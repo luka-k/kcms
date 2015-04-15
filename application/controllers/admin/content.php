@@ -351,8 +351,9 @@ class Content extends Admin_Controller
 		$is_recommended = editors_get_name_field('recommend', $this->$type->editors);
 		if($is_recommended)	$this->products->delete_recommended($id);
 	
+		$item = $this->$type->get_item($id);
 		$this->$type->delete($id);
-		redirect(base_url().'admin/content/items/'.$type);
+		redirect(base_url().'admin/content/items/'.$type."/".$item->parent_id);
 	}
 	
 	/**
