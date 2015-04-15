@@ -24,13 +24,11 @@
 									
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
+										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
 									</div>
-									
-
-														
+													
 									<!--editors-->
 									<?$editors_counter = 1?>
 									<?foreach($edits as $edit_name => $edit):?>
@@ -40,10 +38,10 @@
 									
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].submit()">Сохранить</a>
-										<a href="#" class="btn small" onClick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); document.forms['user_form'].submit()">Сохранить и выйти</a>
+										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>		
+									</div>	
 								</div>
 								
 								<!--delete popup-->

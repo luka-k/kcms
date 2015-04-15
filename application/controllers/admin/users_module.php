@@ -22,7 +22,7 @@ class Users_module extends Admin_Controller
 	public function index()
 	{
 		$name = editors_get_name_field('name', $this->users->editors);
-		$this->db->field_exists('sort', "users") ? $order = "sort" : $order = "name";
+		$order = $this->db->field_exists('sort', "users") ? "sort" : "name";
 		$direction = "acs"; 
 
 		$filters = $this->input->post();
@@ -32,7 +32,6 @@ class Users_module extends Admin_Controller
 			'name' => $name,
 			'groups' => $this->users_groups->get_list(FALSE),
 			'content' => new stdClass(),
-			'url' => "/".$this->uri->uri_string()
 		);
 		$data = array_merge($this->standart_data, $data);
 		
@@ -102,6 +101,7 @@ class Users_module extends Admin_Controller
 			'title' => "Пользователи",
 			'name' => $name,
 			'type' => "users",
+			'editors' => $this->users->editors,
 			'selects' => array(
 				'users_group_id' => $this->users_groups->get_list(FALSE)
 			),
@@ -109,106 +109,76 @@ class Users_module extends Admin_Controller
 		);	
 		$data = array_merge($this->standart_data, $data);
 		
-		if(($id == FALSE)&&(isset($this->users->new_editors)))
-		{
-			$data['editors'] = $this->users->new_editors;
-		}
-		else
-		{
-			$data['editors'] = $this->users->editors;
-		}
-		
 		$field_name = editors_get_name_field('users2users_groups', $data['editors']);
 		
 		if($action == "edit")
 		{
 			if($id == FALSE)
 			{
-				$content = set_empty_fields($data['editors']);
-				if($field_name) $content->parents = array();
-
-				$data['content'] = $content;
-				
-				$data['content']->img = NULL;
+				$data['content'] = set_empty_fields($data['editors']);
+				if($field_name) $data['content']->parents = array();
 			}
 			else
 			{
-				$content = $this->users->get_item($id);
-				if($field_name) $content->parents = $this->users2users_groups->get_list(array("user_id" => $id));
-				
-				$data['content'] = $content;
-				
-				$object_info = array(
-					"object_type" => "users",
-					"object_id" => $content->id
-				);
-				
-				$data['content']->images = $this->images->prepare_list($this->images->get_list($object_info));
+				$data['content'] = $this->users->get_item($id);
+				$data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => "users", "object_id" => $data['content']->id)));
+				if($field_name) $data['content']->parents = $this->users2users_groups->get_list(array("user_id" => $id));	
 			}
 			
 			$this->load->view('admin/user.php', $data);
 		}
 		elseif($action == "save")
 		{
-			$data['content'] = $this->users->editors_post()->data;
+			$data['content'] = $this->users->editors_post();
 
-			if($this->users->editors_post()->error == TRUE)
+			if($id == FALSE)
 			{
-				//Если валидация не прошла выводим сообщение об ошибке
-				$this->load->view('admin/user.php', $data);			
+				//Если id пустая создаем новую страницу в базе
+				$this->users->insert($data['content']);
+				$data['content']->id = $this->db->insert_id();				
 			}
 			else
-			{			
-				//Если валидация прошла успешно проверяем переменную id
-				if($id == FALSE)
-				{
-					//Если id пустая создаем новую страницу в базе
-					$this->users->insert($data['content']);
-					$data['content']->id = $this->db->insert_id();				
-				}
-				else
-				{
-					//Если id не пустая вносим изменения.
-					$this->users->update($data['content']->id, $data['content']);
-				}
+			{
+				//Если id не пустая вносим изменения.
+				$this->users->update($data['content']->id, $data['content']);
+			}
 			
-				$field_name = editors_get_name_field('img', $data['editors']);
-				//Получаем id эдитора который предназначен для загрузки изображения
-				//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
-				if(!empty($field_name))
-				{
-					$object_info = array(
-						"object_type" => "users",
-						"object_id" => $data['content']->id
-					);
+			$field_name = editors_get_name_field('img', $data['editors']);
+			//Получаем id эдитора который предназначен для загрузки изображения
+			//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
+			if(!empty($field_name))
+			{
+				$object_info = array(
+					"object_type" => "users",
+					"object_id" => $data['content']->id
+				);
 				
-					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
-				}
+				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+			}
 				
-				$field_name = editors_get_name_field('users2users_groups', $data['editors']);
-				if($field_name && is_array($this->input->post($field_name)))
-				{
-					$data["users2users_groups"]->$field_name = $this->input->post($field_name);
-					$u2u_g = TRUE;
-				}
+			$field_name = editors_get_name_field('users2users_groups', $data['editors']);
+			if($field_name && is_array($this->input->post($field_name)))
+			{
+				$data["users2users_groups"]->$field_name = $this->input->post($field_name);
+				$u2u_g = TRUE;
+			}
 			
-				if((isset($u2u_g))&&($u2u_g == TRUE))
+			if((isset($u2u_g))&&($u2u_g == TRUE))
+			{
+				$this->db->where('user_id', $data['content']->id);
+				$this->db->delete('users2users_groups');
+				foreach($data["users2users_groups"]->$field_name  as $item)
 				{
-					$this->db->where('user_id', $data['content']->id);
-					$this->db->delete('users2users_groups');
-					foreach($data["users2users_groups"]->$field_name  as $item)
+					if(!empty($item))
 					{
-						if(!empty($item))
-						{
-							$users2users_groups->$field_name = $item;
-							$users2users_groups->user_id = $data['content']->id;
-							$this->db->insert('users2users_groups', $users2users_groups);
-						}
+						$users2users_groups->$field_name = $item;
+						$users2users_groups->user_id = $data['content']->id;
+						$this->db->insert('users2users_groups', $users2users_groups);
 					}
 				}
-				
-				$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
 			}
+				
+			$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
 		}
 	}
 	

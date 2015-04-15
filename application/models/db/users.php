@@ -28,7 +28,7 @@ class Users extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
-			'secret' => array('secret', 'hidden', 'trim'),
+			'secret' => array('secret', 'hidden'),
 			'name' => array('Имя', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'users_group_id' => array('Группа', 'u2u_g', 'users2users_groups'),
 			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email'),
