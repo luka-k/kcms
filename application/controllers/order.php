@@ -44,7 +44,8 @@ class Order extends Client_Controller
 			
 		$message_info = array(
 			"order_id" => $order_id,
-			"user_name" => $orders_info['name']
+			"user_name" => $orders_info['name'],
+			"products" => $cart_items
 		);
 			
 		if(!empty($orders_info['id']))
@@ -56,7 +57,7 @@ class Order extends Client_Controller
 		}
 		
 		$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
-	
+
 		foreach($cart_items as $item)
 		{
 			$orders_products = array(

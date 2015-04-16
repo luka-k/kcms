@@ -57,6 +57,8 @@ class Mailouts extends MY_Model
 		{
 			foreach($data as $key => $info)
 			{
+				if($key == "products") $info = $this->product_parse($info);
+
 				$subject = str_replace("%".$key."%", $info, $subject);
 				$message = str_replace("%".$key."%", $info, $message);
 			}
@@ -73,6 +75,49 @@ class Mailouts extends MY_Model
 		$this->email->message($template_message);
 		
 		return !$this->email->send() ? FALSE : TRUE; 
+	}
+	
+	/**
+	* Подготовка таблицы с перечнем продуктов для отправки в письме
+	*
+	* @param array $products
+	* @return string
+	*/
+	public function product_parse($products)
+	{
+		$table = "";
+		$total_price = 0;
+		$total_qty = 0;
+		if(is_array($products))
+		{
+			$table = $this->load->view('admin/email/product_table_head.php', '', TRUE);
+			$counter = 1;
+			foreach($products as $p)
+			{
+				
+				$data = array(
+					"counter" => $counter,
+					"name" => $p['name'],
+					"price" => $p['price'],
+					"qty" => $p['qty'],
+					"item_total" => $p['item_total'],
+				);
+				
+				$table .= $this->load->view('admin/email/product_table_body.php', $data, TRUE);
+				
+				$total_qty += $p['qty'];
+				$total_price += $p['item_total'];
+				$counter++;
+			}
+			
+			$data = array(
+				'total_qty' => $total_qty,
+				'total_price' => $total_price
+			);
+			$table .= $this->load->view('admin/email/product_table_footer.php', $data, TRUE);
+		} 
+		
+		return $table;
 	}
 	
 	/**
