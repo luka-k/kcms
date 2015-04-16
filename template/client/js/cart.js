@@ -14,8 +14,7 @@ function update_cart(item_id, qty){
 	$.post ("/ajax/update_cart/", json_str, update_items, "json");
 }
 
-function fancy_to_cart(item_id, name, qty){
-	console.log(item_id);
+function fancy_to_cart(item_id, name, qty){	
 	$('.fancy_product_name').text(name);
 	add_to_cart(item_id, qty);
 	$('#input_item_id').attr("value", item_id);
@@ -23,7 +22,7 @@ function fancy_to_cart(item_id, name, qty){
 }
 	
 function delete_item(item_id){
-	$("#"+item_id).detach();
+	$("#cart-"+item_id).detach();
 	data = new Object();
 	data.item_id = item_id;
 	var json_str = JSON.stringify(data);
@@ -31,6 +30,8 @@ function delete_item(item_id){
 }
 
 function update_items(res){		
+	//$('#input_qty').attr("value", res['item_qty']);	
+	$('#input_qty').val(res['item_qty']);
 	$('#total_qty').text(res['total_qty']);
 	$('#total_price').text(res['total_price']);
 	$('.total_price').text(res['total_price']);
@@ -39,8 +40,7 @@ function update_items(res){
 	
 	$('#cart-empty').attr("style", "display:none");
 	$('#cart-full').attr("style", "display:inline");
-
-	$('#input_qty').attr("value", res['item_qty']);	
+	
 	$('#input_item_id').attr("value", res['item_id']);	
 }
 
