@@ -1,8 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//Sitemap class
-
+/**
+* Sitemap class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Sitemap
+*/
 class Sitemap extends Client_Controller 
 {	
 	public function __construct()
@@ -13,16 +18,16 @@ class Sitemap extends Client_Controller
 	public function index($map_type = "html")
 	{
 		//Возможно этот массив нужно вынести в config
-		$types = array("articles", "categories", "products");
-		
+		$types = $this->config->item('sitemap_types');
 		$content = array();
 		foreach($types as $type)
 		{
-			$content = array_merge($content, $this->$type->get_prepared_list($this->$type->get_list(FALSE)));
+			$content = array_merge($content, $this->$type->prepare_list($this->$type->get_list(FALSE)));
 		}
 		
 		$data = array(
 			'title' => "Карта сайта",
+			'select_item' => '',
 			'open_tag' => '<?xml version="1.0" encoding="UTF-8"?>',
 			'content' => $content
 		);

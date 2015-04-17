@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Catalog class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Catalog
+*/
 class Catalog extends Client_Controller {
 
 	protected $get = array();
@@ -7,7 +14,6 @@ class Catalog extends Client_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$settings = $this->settings->get_item_by(array('id' => 1));
 		
 		$this->config->load('characteristics');
 		
@@ -19,20 +25,13 @@ class Catalog extends Client_Controller {
 			$this->get['direction'] = "asc";
 		}
 		
-		if(!isset($this->get['filter'])) $this->get['filter'] = FALSE; 
+		$max_value = $max_price = $this->products->get_max('price');
+		if(!empty($this->get['price_to'])) $max_value = $this->get['price_to'];
 
-		$this->db->select_max('price');
-		$query = $this->db->get('products');
-		$max_price = $query->row()->price;
-		$max_value = empty($this->get['price_to']) ? $max_price : $this->get['price_to'];
-
-		$this->db->select_min('price');
-		$query = $this->db->get('products');
-		$min_price = $query->row()->price;
-		$min_value = empty($this->get['price_from']) ? $min_price : $this->get['price_from'];		
+		$min_value = $min_price = $this->products->get_min('price');
+		if(!empty($this->get['price_from'])) $min_value = $this->get['price_from'];		
 	
 		$data = array(
-			'settings' => $settings,
 			'title' => "Каталог",
 			'select_item' => '',
 			'tree' => $this->categories->get_tree(0, "parent_id"),
@@ -54,9 +53,7 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
-		$filter = $this->get['filter'];
-		
-		if($filter)
+		if(isset($this->get['filter']))
 		{
 			 $this->filtred();
 		}
@@ -69,6 +66,11 @@ class Catalog extends Client_Controller {
 		}
 	}
 	
+	/**
+	* Вывод категории товаров
+	*
+	* @param object $content
+	*/
 	private function category($content)
 	{	
 		$parent_id = 0;
@@ -99,6 +101,9 @@ class Catalog extends Client_Controller {
 		$this->load->view("client/categories", $data);
 	}
 	
+	/**
+	* Вывод товаров по фильтру
+	*/
 	public function filtred()
 	{		
 		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
@@ -119,6 +124,11 @@ class Catalog extends Client_Controller {
 		$this->load->view("client/categories", $data);
 	}
 	
+	/**
+	* Вывод страницы товара
+	*
+	* @param object $content
+	*/
 	private function product($content)
 	{
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);

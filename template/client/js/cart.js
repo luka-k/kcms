@@ -29,8 +29,7 @@ function delete_item(item_id){
 	$.post ("/ajax/delete_item/", json_str, delete_answer, "json");
 }
 
-function update_items(res){		
-	//$('#input_qty').attr("value", res['item_qty']);	
+function update_items(res){	
 	$('#input_qty').val(res['item_qty']);
 	$('#total_qty').text(res['total_qty']);
 	$('#total_price').text(res['total_price']);

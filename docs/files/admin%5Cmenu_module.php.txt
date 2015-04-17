@@ -14,13 +14,11 @@ class Menu_module extends Admin_Controller
 	{		
 		$data = array(
 			'title' => "Меню",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'name' => editors_get_name_field('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE),
 			'url' => "/".$this->uri->uri_string()
 		);	
+		$data = array_merge($this->standart_data, $data);
 		
 		if(editors_get_name_field('img', $this->dynamic_menus->editors))
 		{
@@ -50,10 +48,7 @@ class Menu_module extends Admin_Controller
 		
 		$data = array(
 			'title' => "Редактировать меню",
-			'error' => "",
 			'items_error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
 			'type' => "dynamic_menus",
 			'editors' => $editors,
 			'content' => $content,
@@ -67,6 +62,7 @@ class Menu_module extends Admin_Controller
 			'item_content' => $item_content,
 			'url' => "/".$this->uri->uri_string()
 		);	
+		$data = array_merge($this->standart_data, $data);
 		
 		if($action == "edit")
 		{

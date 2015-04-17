@@ -1,6 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Mailouts_module class
+*
+* @package		kcms
+* @subpackage	controllers
+* @category	    mailouts
+*/
 class Mailouts_module extends Admin_Controller 
 {
 	public function __construct()
@@ -14,17 +21,17 @@ class Mailouts_module extends Admin_Controller
 
 		$data = array(
 			'title' => "Рассылка",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
-			'url' => "/".$this->uri->uri_string(),
 			'templates' => $this->emails->get_list(array("type" => 2)),
 			'mailouts' => array_reverse($mailouts)
 		);
-	
+		$data = array_merge($this->standart_data, $data);
+		
 		$this->load->view('admin/mailouts', $data);
 	}
 	
+	/**
+	* Редактирование рассылки
+	*/
 	public function mailout()
 	{
 		$template_id = $this->input->post('template');
@@ -32,18 +39,18 @@ class Mailouts_module extends Admin_Controller
 		
 		$data = array(
 			'title' => "Редактирование рассылки",
-			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
-			'url' => "/".$this->uri->uri_string(),
 			'template_id' => $template_id,
 			'template' => $template,
 			'users_groups' => $this->users_groups->get_list(FALSE)
 		);
+		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view('admin/mailout', $data);	
 	}
 	
+	/**
+	* Передает email из выбранных групп пользователей
+	*/
 	public function get_emails(){
 		$info = json_decode(file_get_contents('php://input', true));
 		
@@ -56,6 +63,9 @@ class Mailouts_module extends Admin_Controller
 		echo json_encode($users);
 	}
 	
+	/**
+	* Отсылка письма
+	*/
 	public function send_mail()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
@@ -65,7 +75,6 @@ class Mailouts_module extends Admin_Controller
 		$send_info->from_email = $info->post->from_email;
 		$send_info->subject = $info->post->subject;
 		$send_info->message = urldecode($info->post->message);
-		
 		$send_info->to = $info->user->email;
 		
 		$parse_info['USER_NAME'] = $info->user->email;
@@ -75,6 +84,10 @@ class Mailouts_module extends Admin_Controller
 		echo json_encode($is_send);
 	}
 	
+	
+	/**
+	* Добавление инфомации о рассылке в базу
+	*/
 	public function add_mailout_info(){
 		$info = json_decode(file_get_contents('php://input', true));
 		

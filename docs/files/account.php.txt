@@ -1,8 +1,15 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Управление пользователями
-
+/**
+* Account class
+* 
+* Класс работы с пользоватлями клиентской стороны
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Account
+*/
 class Account extends Client_Controller 
 {	
 	public function __construct()
@@ -10,35 +17,50 @@ class Account extends Client_Controller
 		parent::__construct();
 	}
 	
-	/*Авторизация покупателя*/	
-	public function do_enter()
+	/**
+	* Вывод страницы входа и регстрации пользователя
+	*/
+	public function registration()
 	{
-		$email = $this->input->post('login');
-		$password = md5($this->input->post('password'));			
-		$authdata = $this->users->login($email, $password);
-
-		if (!$authdata['logged_in'])
-		{	
-			$data = array(
-				'title' => "Регистрация",
-				'error' => "",
-				'select_item' => "",
-				'settings' => $this->settings->get_item_by(array("id" => 1)),
-				'activity' => "enter",
-			);	
-			
-			$data = array_merge($this->standart_data, $data);
-
-			$data['error'] = "Данные не верны. Повторите ввод";		
-			$this->load->view('client/registration', $data);	
-		} 
-		else 
-		{
-			redirect(base_url().'cabinet');	
-		}	
+		$activity = $this->input->get('activity');
+		$data = array(
+			'title' => "Регистрация",
+			'error' => "",
+			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'activity' => $activity
+		);
+		$data = array_merge($this->standart_data, $data);
+		
+		$this->load->view('client/registration', $data);		
 	}
 	
-	//Выход
+	/**
+	* Авторизация пользователя
+	*/	
+	public function do_enter()
+	{
+		$email = $this->input->post('email');
+		$password = md5($this->input->post('password'));			
+		$authdata = $this->users->login($email, $password);
+		if ($authdata['logged_in']) redirect(base_url().'cabinet');
+
+		$data = array(
+			'title' => "Регистрация",
+			'error' => "",
+			'select_item' => "",
+			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'activity' => "enter",
+		);	
+		$data = array_merge($this->standart_data, $data);
+
+		$data['error'] = "Данные не верны. Повторите ввод";		
+		$this->load->view('client/registration', $data);	
+	}
+	
+	/**
+	* Выход пользователя
+	*/
 	public function do_exit()
 	{
 		$authdata = array(
@@ -51,7 +73,9 @@ class Account extends Client_Controller
 		redirect(base_url());
 	}
 	
-	/*Вывод формы востановления пароля*/
+	/**
+	* Вывод формы востановления пароля
+	*/
 	public function restore_password()
 	{
 		$data = array(
@@ -67,7 +91,9 @@ class Account extends Client_Controller
 		$this->load->view('client/registration', $data);	
 	}
 	
-	/*Востановление пароля*/	
+	/**
+	* Востановление пароля
+	*/	
 	public function restore_password_mail()
 	{
 		$data = array(
@@ -102,7 +128,7 @@ class Account extends Client_Controller
 					"secret" => $secret
 				);
 				
-				if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'admin');
+				if($this->emails->send_system_mail($email, 7, $message_info)) redirect(base_url().'account/registration?activity=enter');
 				$data['error'] = "Отправка письма не удалась. Повторите попытку позднее.";
 			} 
 			
@@ -110,7 +136,9 @@ class Account extends Client_Controller
 		}
 	}
 	
-	/*Вывод формы сброса пароля*/
+	/**
+	* Вывод формы сброса пароля
+	*/
 	public function new_password()
 	{
 		$data = array(
@@ -126,123 +154,82 @@ class Account extends Client_Controller
 		$this->load->view('client/registration', $data);
 	}
 		
-	/*Смена пароля*/
+	/**
+	* Смена пароля
+	*/
 	public function change_password() 
 	{
-		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
-		$this->form_validation->set_rules('conf_password',  'Confirm password',  'required|min_length[3]|matches[password]');
+		$user_email = $this->input->post('email');
+		$secret = $this->input->post('secret');
+		$password = $this->input->post('password');
+		$new_password = md5($password);
 			
-		if($this->form_validation->run() == FALSE)
-		{
-			$data = array(
-				'title' => "Регистрация",
-				'error' => "",
-				'activity' => "restore"
-			);
-			$data = array_merge($this->standart_data, $data);
+		$this->users->insert_new_pass($user_email, $new_password, $secret); 
 			
-			$this->load->view('admin/new_password', $data);
-		} 
-		else 
-		{
-			$user_email = $this->input->post('email');
-			$secret = $this->input->post('secret');
-			$password = $this->input->post('password');
-			$new_password = md5($password);
-			
-			$this->users->insert_new_pass($user_email, $new_password, $secret); 
-			
-			$email = $this->users->get_item_by(array('email' => $user_email));
-			$this->users->update($email->id, array('secret' => ""));			
+		$email = $this->users->get_item_by(array('email' => $user_email));
+		$this->users->update($email->id, array('secret' => ""));			
 
-			$message_info = array(
-				"user_name" => $email->name,
-				"login" => $email->email,
-				"password" => $this->input->post('password')
-			);
+		$message_info = array(
+			"user_name" => $email->name,
+			"login" => $email->email,
+			"password" => $this->input->post('password')
+		);
 				
-			$this->emails->send_system_mail($user->email, 5, $message_info);			
-		}
+		$this->emails->send_system_mail($user->email, 5, $message_info);			
 
 		redirect(base_url().'account/registration?activity=enter');		
 	}
 			
-	public function registration()
-	{
-		$data = array(
-			'title' => "Регистрация",
-			'error' => "",
-			'settings' => $this->settings->get_item_by(array("id" => 1)),
-		);
-		$data = array_merge($this->standart_data, $data);
-		
-		$this->load->view('client/registration', $data);		
-	}
-	
+	/**
+	* Регистрация нового пользователя
+	*/
 	public function new_user()
 	{
-		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
 			'error' => "",
-			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'select_item' => "",
+			'activity' => "reg"
 		);
 		$data = array_merge($this->standart_data, $data);
 			
-		$this->form_validation->set_rules('email', 'e-mail', 'trim|xss_clean|valid_email|is_unique[users.email]');
-		$this->form_validation->set_rules( 'name', 'имя','trim|xss_clean|min_length[4]|max_length[25]');	
-					
-		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');
-		$this->form_validation->set_rules('conf_password',  'Confirm password',  'min_length[3]|matches[password]');
-					
-		//Валидация формы
-		if($this->form_validation->run() == FALSE)
-		{
-			$data['error'] = validation_errors();
-			//Если валидация не прошла выводим сообщение об ошибке
-			$this->load->view('client/registration', $data);			
-		}
-		else
-		{	
-			$user = (object)$this->input->post();
+		$user = (object)$this->input->post();
 			
-			//Если id пустой то добавляем нового пользователя
-			if (!$this->users->is_unique(array('name'=>$user->name)))
-			{
-				$data['error'] ="Пользователь с таким именем уже зарегистрирован";
-				$this->load->view('client/registration', $data);	
-			} 
-			elseif (!$this->users->is_unique(array('email'=>$user->email)))
-			{
-				$data['error'] ="Такой email уже зарегистрирован";
-				$this->load->view('client/registration', $data);						
-			} 
-			else 
-			{	
-				$pass = $user->conf_password;
+		//Если id пустой то добавляем нового пользователя
+		if (!$this->users->is_unique(array('name'=>$user->name)))
+		{
+			$data['error'] ="Пользователь с таким именем уже зарегистрирован";
+			$this->load->view('client/registration', $data);	
+		} 
+		elseif (!$this->users->is_unique(array('email'=>$user->email)))
+		{
+			$data['error'] ="Такой email уже зарегистрирован";
+			$this->load->view('client/registration', $data);						
+		} 
+		else 
+		{	
+			$pass = $user->conf_password;
+		
+			$user->password = md5($user->password);
+			unset($user->conf_password);
+			$this->users->insert($user);
+			
+			$user_id = $this->db->insert_id();
+			$group = $this->users_groups->get_item_by(array("name" => "customer"));
 				
-				$user->password = md5($user->password);
-				unset($user->conf_password);
-				$this->users->insert($user);
-				
-				$user_id = $this->db->insert_id();
-				$group = $this->users_groups->get_item_by(array("name" => "customer"));
-				
-				$users2users_groups->users_group_id = $group->id;
-				$users2users_groups->user_id = $user_id;
-				$this->db->insert('users2users_groups', $users2users_groups);
+			$users2users_groups->users_group_id = $group->id;
+			$users2users_groups->user_id = $user_id;
+			$this->db->insert('users2users_groups', $users2users_groups);
 
+			$message_info = array(
+				"user_name" => $user->name,
+				"login" => $user->email,
+				"password" => $pass
+			);
 				
-				$message_info = array(
-					"user_name" => $user->name,
-					"login" => $user->email,
-					"password" => $pass
-				);
-				
-				$this->emails->send_system_mail($user->email, 4, $message_info);				
-				
-				if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
-			}
+			$this->emails->send_system_mail($user->email, 4, $message_info);				
+			
+			if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 		}			
 	}
 }

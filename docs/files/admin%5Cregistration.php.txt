@@ -1,8 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Управление пользователями
-
+/**
+* Registration class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    registration
+*/
 class Registration extends CI_Controller 
 {	
 	public function __construct()
@@ -11,6 +16,9 @@ class Registration extends CI_Controller
 		$this->config->load('orders');
 	}
 	
+	/**
+	* Вывод страницы входа в админку
+	*/
 	public function login()
 	{
 		$data = array(
@@ -21,7 +29,9 @@ class Registration extends CI_Controller
 		$this->load->view('admin/login.php', $data);
 	}
 	
-	/*Авторизация пользователя*/	
+	/**
+	* Авторизация пользователя
+	*/	
 	public function do_enter()
 	{
 		$data = array(
@@ -50,7 +60,9 @@ class Registration extends CI_Controller
 		}	
 	}
 	
-	//Выход
+	/**
+	* Выход из админки
+	*/
 	public function logout()
 	{
 		$role = $this->session->userdata('role');
@@ -64,7 +76,9 @@ class Registration extends CI_Controller
 		redirect(base_url().'admin');
 	}
 	
-	/*Вывод формы востановления пароля*/
+	/**
+	* Вывод формы востановления пароля
+	*/
 	public function restore_password()
 	{
 		$data = array(
@@ -75,7 +89,9 @@ class Registration extends CI_Controller
 		$this->load->view('admin/restore_form', $data);			
 	}
 	
-	/*Востановление пароля*/	
+	/**
+	* Востановление пароля
+	*/	
 	public function restore_password_mail()
 	{
 		$data = array(
@@ -106,7 +122,9 @@ class Registration extends CI_Controller
 		$this->load->view('admin/restore_form', $data);	
 	}
 	
-	/*Вывод формы сброса пароля*/
+	/**
+	* Вывод формы сброса пароля
+	*/
 	public function new_password()
 	{
 		$data = array(
@@ -119,7 +137,9 @@ class Registration extends CI_Controller
 		$this->load->view('admin/new_password', $data);
 	}
 		
-	/*Смена пароля*/
+	/**
+	* Смена пароля
+	*/
 	public function change_password() 
 	{
 		$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean');

@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Pages class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Pages
+*/
 class Pages extends Client_Controller {
 
 	public function __construct()
@@ -12,36 +19,21 @@ class Pages extends Client_Controller {
 		$page = $this->url->url_parse(2);
 
 		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
-		if($page == FALSE)
+		
+		if($page == FALSE) redirect(base_url()."pages/page_404");
+		
+		if(isset($page->article))
 		{
-			redirect(base_url()."pages/page_404");
-		}
-		elseif(isset($page->article))
-		{
-			$sub_template = "";
-			if($root->id == 3)
-			{
-				$sub_template = "single-news";
-				$template="client/news.php";
-			}
-			else
-			{
-				$template="client/article.php";
-			}
+			$sub_template = "single-news";
+			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
 			
 			$content = $page->article;
 		}		
 		elseif(isset($page->articles))
 		{
-			if($root->id == 3)
-			{
-				$sub_template = "news";
-				$template="client/news.php";
-			}
-			else
-			{
-				$template="client/article.php";
-			}
+			$sub_template = "news";
+			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
 		}
@@ -61,6 +53,9 @@ class Pages extends Client_Controller {
 		$this->load->view($template, $data);
 	}
 	
+	/**
+	* Страница 404
+	*/
 	public function page_404()
 	{
 		header("HTTP/1.0 404 Not Found");

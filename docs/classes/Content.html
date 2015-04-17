@@ -106,7 +106,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">164</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">85</span>
                                 </a>
                             </li>
                             <li>
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-63222290"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1630246115"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-63222290" class="accordion-body collapse in">
+            <div id="namespace-1630246115" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -182,7 +182,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>Content</h1>
-                    <p><em></em></p>
+                    <p><em>Content class</em></p>
                     
                     
                                         
@@ -251,7 +251,7 @@
                         <dt>File</dt>
                             <dd><a href="../files/admin.content.html"><div class="path-wrapper">admin\content.php</div></a></dd>
                                                 <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Default</div></dd>
+                            <dd><div class="namespace-wrapper">kcms\Controllers</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                 
@@ -266,7 +266,14 @@
                                                                         </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
-                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                            <tr>
+                            <th>
+                                category
+                            </th>
+                            <td>
+                                                                    <p>content</p>
+                                                            </td>
+                        </tr>
                                         </table>
                 </aside>
             </div>
@@ -312,7 +319,8 @@
                 <h3 class="public ">import()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">import() </pre>
-                <p><em></em></p>
+                <p><em>Импорт
+Может стоит вынести импорт в отдельный контроллер?</em></p>
                 
 
                 
@@ -337,21 +345,25 @@
             <article class="method">
                 <h3 class="public ">items()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">items(  <span class="argument">$type</span>,   <span class="argument">$id = FALSE</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">items(string  <span class="argument">$type</span>, integer  <span class="argument">$id = FALSE</span>) </pre>
+                <p><em>Вывод списка элементов</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$type </td>
-                                <td></td>
+                                <td><ul>
+<li>имя базы</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$id </td>
-                                <td></td>
+                                <td><ul>
+<li>id категории</li>
+</ul></td>
                             </tr>
                                             </table>
                 
@@ -376,31 +388,39 @@
             <article class="method">
                 <h3 class="public ">item()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">item(  <span class="argument">$action</span>,   <span class="argument">$type</span>,   <span class="argument">$id = FALSE</span>,   <span class="argument">$exit = FALSE</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">item(string  <span class="argument">$action</span>, string  <span class="argument">$type</span>, integer  <span class="argument">$id = FALSE</span>, \boolen  <span class="argument">$exit = FALSE</span>) </pre>
+                <p><em>Вовод, редактирование, создание элемента.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$action </td>
-                                <td></td>
+                                <td><ul>
+<li>действие(редактировани, сохранение, копирование)</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$type </td>
-                                <td></td>
+                                <td><ul>
+<li>имя базы</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$id </td>
-                                <td></td>
+                                <td><ul>
+<li>id элемента</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>\boolen</td>
                                 <td>$exit </td>
-                                <td></td>
+                                <td><ul>
+<li>выход из редактирования</li>
+</ul></td>
                             </tr>
                                             </table>
                 
@@ -425,19 +445,19 @@
             <article class="method">
                 <h3 class="public ">delete_item()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delete_item(  <span class="argument">$type</span>,   <span class="argument">$id</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">delete_item(string  <span class="argument">$type</span>, integer  <span class="argument">$id</span>) </pre>
+                <p><em>Удаление элемента</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$type </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$id </td>
                                 <td></td>
                             </tr>
@@ -464,26 +484,32 @@
             <article class="method">
                 <h3 class="public ">delete_image()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delete_image(  <span class="argument">$type</span>,   <span class="argument">$id</span>,   <span class="argument">$tab</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">delete_image(string  <span class="argument">$type</span>, integer  <span class="argument">$id</span>, integer  <span class="argument">$tab</span>) </pre>
+                <p><em>Удаление изображения</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$type </td>
-                                <td></td>
+                                <td><ul>
+<li>тип изображения(категория)</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$id </td>
-                                <td></td>
+                                <td><ul>
+<li>id изображения</li>
+</ul></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$tab </td>
-                                <td></td>
+                                <td><ul>
+<li>номер вкладки с изображениями.</li>
+</ul></td>
                             </tr>
                                             </table>
                 
@@ -509,7 +535,7 @@
                 <h3 class="public ">rename_image()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">rename_image() </pre>
-                <p><em></em></p>
+                <p><em>Переименования изображения</em></p>
                 
 
                 
@@ -535,7 +561,7 @@
                 <h3 class="public ">set_cover()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">set_cover(  <span class="argument">$object_type</span>,   <span class="argument">$object_id</span>,   <span class="argument">$id</span>,   <span class="argument">$tab</span>) </pre>
-                <p><em></em></p>
+                <p><em>Установка обложки альбома</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -584,7 +610,7 @@
                 <h3 class="public ">edit_characteristic()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">edit_characteristic() </pre>
-                <p><em></em></p>
+                <p><em>Добавление характеристики товару</em></p>
                 
 
                 
@@ -610,7 +636,7 @@
                 <h3 class="public ">delete_characteristic()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">delete_characteristic(  <span class="argument">$id</span>,   <span class="argument">$tab</span>) </pre>
-                <p><em></em></p>
+                <p><em>Удаление характеристики товара</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -649,7 +675,7 @@
                 <h3 class="public ">advanced()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">advanced() </pre>
-                <p><em></em></p>
+                <p><em>Редактирование на странице списка товаров - спецпредложения и новинка</em></p>
                 
 
                 
@@ -717,7 +743,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 13th, 2015 at 09:27.
+                    on April 17th, 2015 at 06:18.
                 </section>
             </section>
         </section>

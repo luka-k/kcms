@@ -1,7 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//main page controller
-
+/**
+* Index class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Index
+*/
 class Index extends Client_Controller {
 
 	public function __construct()

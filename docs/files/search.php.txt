@@ -1,21 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Search class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Search
+*/
 class Search extends Client_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$data = array(
+			'select_item' => '',
+			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'url' => base_url().uri_string(),
+			'filters' => $this->characteristics_type->get_filters(),
+			'min_price' => $this->products->get_min('price'),
+			'max_price' => $this->products->get_max('price'),
+			'min_value' => $this->products->get_min('price'),
+			'max_value' => $this->products->get_max('price'),
+			'filters_checked' => array("is_active" => ""),
+			'left_menu' => $this->categories->get_tree(0, "parent_id")
+		);
+		
+		$this->standart_data = array_merge($this->standart_data, $data);
 	}
 	
 	public function index()
 	{
-	
 		$this->breadcrumbs->add("catalog", "Каталог");
 		$this->breadcrumbs->add("", "Поиск");
 		
 		$search = $this->input->get();
 		
 		$product = $this->products->get_item_by(array("name" => $search['name']));
+		
 		if(!empty($product))
 		{
 			$product = $this->products->prepare($product);
@@ -25,24 +47,21 @@ class Search extends Client_Controller {
 		{
 			$this->db->like('name', $search['name']);
 			$query = $this->db->get('products');
-
-			$products = array();
-			foreach ($query->result() as $row)
-			{
-				$products[] = $row;
-			}	
+			$products = $query->result_array();
 
 			$data = array(
 				'title' => "Поиск",
 				'breadcrumbs' => $this->breadcrumbs->get(),
-				'tree' => $this->categories->get_site_tree(0, "parent_id"),
+				'tree' => $this->categories->get_tree(0, "parent_id"),
 				'search' => $search['name'],
-				'products' => $this->products->get_prepared_list($products)
 			);
+			
+			$data['category'] = new stdClass;
+			$data['category']->products = $this->products->prepare_list($products);
 		
 			$data = array_merge($this->standart_data, $data);
 		
-			$this->load->view("client/search", $data);
+			$this->load->view("client/categories", $data);
 		}
 	}
 }

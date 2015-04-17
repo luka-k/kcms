@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* WIshlist class
+*
+* @package		kcms
+* @subpackage	Controllers
+* @category	    Wishlist
+*/
 class Wishlist extends Client_Controller {
 
 	public function __construct()
@@ -7,18 +14,14 @@ class Wishlist extends Client_Controller {
 		parent::__construct();
 	}
 
-	// wishlist()
-	// вывод вишлиста
 	public function index()
 	{
-		$left_menu = $this->dynamic_menus->get_menu(4);
-		
 		$wishlist = $this->wishlist->get();
 
 		$data = array(
 			'title' => "вишлист",
+			'select_item' => '',
 			'tree' => $this->categories->get_tree(0, "parent_id"),
-			'left_menu' => $left_menu,
 			'wishlist' => $wishlist
 		);
 		$data = array_merge($this->standart_data, $data);		

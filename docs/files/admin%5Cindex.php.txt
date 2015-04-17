@@ -1,8 +1,13 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// Base admin class
-
+/**
+* Admin main page
+*
+* @package		kcms
+* @subpackage	controllers
+* @category	    index
+*/
 class Index extends Admin_Controller 
 {
 
@@ -15,12 +20,10 @@ class Index extends Admin_Controller
 	{		
 		$data = array(
 			'title' => "Главная",
-			'meta_title' => "Главная",
 			'error' => "",
-			'user' => $this->user,
-			'menu' => $this->menu,
-			'url' => "/".$this->uri->uri_string()
+			'url' => $this->uri->uri_string()
 		);
+		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view('admin/admin.php', $data);
 	}
