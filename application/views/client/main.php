@@ -13,37 +13,9 @@
 		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 	
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 	<? require 'include/slider.php'?>
-	
-	<div class="main-catalog-nav" id="main-catalog-nav">
-		<div class="main-catalog-nav__wrap wrap">
-			<div class="main-catalog-nav__titles inline-categories">
-				<ul class="inline-categories__list">
-					<li class="inline-categories__item">
-						<a href="<?=base_url()?>catalog/" class="inline-categories__href active">По применяемости</a>
-					</li> <!-- /.inline-categories__item -->
-					<li class="inline-categories__item">
-						<a href="<?=base_url()?>catalog/" class="inline-categories__href">Каталог</a>
-					</li> <!-- /.inline-categories__item -->
-				</ul> <!-- /.inline-categories__inner -->
-			</div> <!-- /.main-catalog-nav__titles -->
-			
-			<!--<div class="main-catalog-nav__columns">
-				<?$counter = 1?>
-				<?$line = ceil(count($catalog_by_filter)/2)?>
-				<?foreach($catalog_by_filter as $name => $link):?>
-					<?if($counter == 1):?><ul class="main-catalog-nav__list"><?endif;?>
-						<li class="main-catalog-nav__item">
-							<a href="<?=$link?>" class="main-catalog-nav__href"><?=$name?></a>
-						</li> <!-- /.main-catalog-nav__item -->
-					<?if($counter == $line):?></ul><?$counter = 0?><?endif;?>
-					<?$counter++?>
-				<?endforeach;?>
-			<!--</div> <!-- /.main-catalog-nav__columns -->
-		</div> <!-- /.main-catalog-nav__wrap wrap -->
-	</div> <!-- /.main-catalog-nav -->
         
 	<div class="main-catalog" id="main-catalog">
 		<div class="main-catalog__wrap wrap">
@@ -76,7 +48,7 @@
 					<?endforeach;?>
 				</div> <!-- /.catalog__list -->
 				
-				<h2 class="catalog__subtitle">Новинки</h2>
+				<h2 class="catalog__subtitle">Актуальные книги</h2>
 				
 				<div class="catalog__list">
 				

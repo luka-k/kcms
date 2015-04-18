@@ -1,5 +1,14 @@
 <div class="menu" id="menu">
 	<div class="menu__wrap wrap">
+		<div class="menu_lang">
+			<span class="rus">&nbsp;</span>
+			<span class="eng">&nbsp;</span>
+		</div>
+		<a href="/">
+		<div class="menu_main">
+			На главную
+		</div>
+		</a>
 		<nav class="menu__nav">
 		
 			<ul class="menu-nav">
@@ -31,13 +40,21 @@
 			</ul> <!-- /.menu -->
 		</nav> <!-- /.menu__nav -->
 		
-		<div class="menu__search">
+		<div class="menu-enter">
+			<?if(empty($user)):?>
+				<a href="<?=base_url()?>account/registration?activity=enter">Вход</a>|<a href="<?=base_url()?>account/registration?activity=reg">Регистрация</a>|<a href="<?=base_url()?>cart/" class="enter-cart"><span id="total_qty" class="total-qty">0</span></a>
+			<?else:?>
+				&nbsp;Ваш кабинет,<a href="<?=base_url()?>cabinet"><?=$user->name?></a>|<a href="<?=base_url()?>cart/" class="enter-cart"><span id="total_qty" class="total-qty">0</span></a>
+			<?endif;?>
+		</div>
+		
+		<!--<div class="menu__search">
 			<div class="menu-search">
 				<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
 					<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
 					<button class="button menu-search__button" >Поиск</button>
-				</form> <!-- /.form -->
-			</div> <!-- /.menu-search -->
+				</form>
+			</div>-->
 		</div> <!-- /.menu__search -->
 	</div> <!-- /.menu__wrap wrap -->
 </div> <!-- /.menu -->
