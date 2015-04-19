@@ -31,6 +31,9 @@ class Catalog extends Client_Controller {
 		$min_value = $min_price = $this->products->get_min('price');
 		if(!empty($this->get['price_from'])) $min_value = $this->get['price_from'];		
 	
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 5);
+		$last_news = $this->articles->get_list(array("parent_id" => 1), FALSE, 3);
+		
 		$data = array(
 			'title' => "Каталог",
 			'select_item' => '',
@@ -41,8 +44,11 @@ class Catalog extends Client_Controller {
 			'min_value' => $min_value,
 			'max_value' => $max_value,
 			'filters_checked' => array("is_active" => ""),
-			'left_menu' => $this->categories->get_tree(0, "parent_id")
+			'left_menu' => $this->categories->get_tree(0, "parent_id"),
+			'last_news' => $this->articles->prepare_list($last_news),
+			'new_products' => $this->products->prepare_list($new_products)
 		);
+
 		
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
@@ -87,11 +93,10 @@ class Catalog extends Client_Controller {
 			);
 		}
 		
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3, $this->get['order'], $this->get['direction']);
 		
 		$data['special'] = $this->products->prepare_list($special);
-		$data['new_products'] = $this->products->prepare_list($new_products);
+		
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
 		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
@@ -131,14 +136,12 @@ class Catalog extends Client_Controller {
 	*/
 	private function product($content)
 	{
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 		$data = array(
 			'title' => $content->product->name,
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'product' => $this->products->prepare($content->product, FALSE),
-			'new_products' => $this->products->prepare_list($new_products)
+			'product' => $this->products->prepare($content->product, FALSE)
 		);
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));

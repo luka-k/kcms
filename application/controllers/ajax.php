@@ -132,4 +132,22 @@ class Ajax extends CI_Controller {
 		$data['message'] = "Ok";
 		echo json_encode($data);
 	}
+	
+	public function selected_days()
+	{
+		$news = $this->articles->get_list(array("parent_id" => 1));
+		$selected_dates = array();
+		foreach($news as $item)
+		{
+			$item_date = new DateTime($item->date);
+			$item_date = date_format($item_date, 'm/d/Y');
+			if(!in_array ( $item->date , $selected_dates)) $selected_dates[] = $item_date;
+
+		}
+		$selected_dates[] = date('m/d/Y'); 
+	
+		$data = $selected_dates;
+		
+		echo json_encode($data);
+	}
 }

@@ -47,14 +47,7 @@
 				&nbsp;Ваш кабинет,<a href="<?=base_url()?>cabinet"><?=$user->name?></a>|<a href="<?=base_url()?>cart/" class="enter-cart"><span id="total_qty" class="total-qty">0</span></a>
 			<?endif;?>
 		</div>
-		
-		<!--<div class="menu__search">
-			<div class="menu-search">
-				<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
-					<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
-					<button class="button menu-search__button" >Поиск</button>
-				</form>
-			</div>-->
+
 		</div> <!-- /.menu__search -->
 	</div> <!-- /.menu__wrap wrap -->
 </div> <!-- /.menu -->

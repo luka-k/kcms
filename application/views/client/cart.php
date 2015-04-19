@@ -14,12 +14,26 @@
 	<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 <![endif]-->
 
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 	<? require 'include/breadcrumbs.php'?>
 	
 	<div class="page page-cart">
 		<div class="page__wrap wrap">
+		<div class="main-catalog-nav" id="main-catalog-nav">
+				<div class="main-catalog-nav__wrap wrap">
+					
+					<div class="main-catalog-nav-button">
+						<a href="<?base_url()?>catalog" class="catalog-button">&nbsp;</a>
+					</div> 
+			
+					<div class="main-catalog-nav-search">
+						<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
+							<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
+						</form>
+					</div> <!-- /.main-catalog-nav__columns -->
+				</div> <!-- /.main-catalog-nav__wrap wrap -->
+			</div> <!-- /.main-catalog-nav -->
 		<?if(!empty($action)):?>
 			Ваш заказ успешно оформлен.
 		<?else:?>

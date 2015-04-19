@@ -13,8 +13,8 @@
 		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 	
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 	<? require 'include/breadcrumbs.php'?>
 	
 	<div class="page page-contacts">
@@ -28,23 +28,17 @@
 			<div class="contacts-info">
 			
 				<div class="contacts-info__item">
-					<div class="contacts-info__copy">redBTR &copy; 2015</div> <!-- /.contacts-info__copy -->
+					<div class="contacts-info__copy">&copy; 2014 Книжный дом</div> <!-- /.contacts-info__copy -->
 					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
 				</div> <!-- /.contacts-info__item -->
 				
 				<div class="contacts-info__item">
 					<div class="contacts-info-phone">
 						<div class="contacts-info-phone__city">Санкт-Петербург</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">8(123)4567-89-00</div> <!-- /.contacts-info-phone__number -->
+						<div class="contacts-info-phone__number">8(123)457-89-00</div> <!-- /.contacts-info-phone__number -->
 					</div> <!-- /.contacts-info-phone -->
 				</div> <!-- /.contacts-info__item -->
 				
-				<div class="contacts-info__item">
-					<div class="contacts-info-phone">
-						<div class="contacts-info-phone__city">Москва</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">8(123)4567-89-00</div> <!-- /.contacts-info-phone__number -->
-					</div> <!-- /.contacts-info-phone -->
-				</div> <!-- /.contacts-info__item -->
 			</div> <!-- /.contacts-info -->
 		</div> <!-- /.page-contacts__contacts --> 
 		
@@ -86,7 +80,6 @@
 
 	<? require 'include/footer.php'?>
 	<? require 'include/modal.php'?>
-	<? require 'include/scripts.php'?>
 
     </body>
 </html>

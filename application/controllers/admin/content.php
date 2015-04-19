@@ -106,7 +106,7 @@ class Content extends Admin_Controller
 			}
 			$data['images'] = TRUE;
 		}
-		
+
 		$this->load->view('admin/items.php', $data);
 	}
 	

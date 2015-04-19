@@ -25,14 +25,14 @@ class Pages extends Client_Controller {
 		if(isset($page->article))
 		{
 			$sub_template = "single-news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			$template = $root->id == 1 ? "client/news.php" : "client/article.php";
 			
 			$content = $page->article;
 		}		
 		elseif(isset($page->articles))
 		{
 			$sub_template = "news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			$template = $root->id == 1 ? "client/news.php" : "client/article.php";
 			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
