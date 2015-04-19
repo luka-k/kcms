@@ -7,7 +7,7 @@
 							
 				<div class="catalog-filter__top">
 					<?foreach($filters as $type=> $filter):?>
-						<?require "include/filters/{$filter->editor}.php"?>
+						<?require "filters/{$filter->editor}.php"?>
 					<?endforeach;?>	
 				</div> <!-- /.catalog-filter__top -->
 							
