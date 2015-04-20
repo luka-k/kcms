@@ -13,8 +13,8 @@
 		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 	<? require 'include/breadcrumbs.php'?>
 	
 	<div class="page page-about">

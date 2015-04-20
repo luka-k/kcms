@@ -13,8 +13,8 @@
 		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 	<? require 'include/breadcrumbs.php'?>
 	
 	<div class="page page-about">
@@ -34,7 +34,7 @@
 				
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<div id="this_mounth" class="datepicker" category=""></div>
+						<div id="this_mounth" class="datepicker"></div>
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">
