@@ -222,15 +222,18 @@ class Images extends MY_Model
 	*/
 	private function get_urls($image)
 	{
-		$thumb_config = $this->config->item('thumb_config');
-		foreach($thumb_config as $path => $config)
+		if($image)
 		{
-			$url_name = $path."_url";
-			$image->$url_name = $this->make_full_url($image->url, $path);
+			$thumb_config = $this->config->item('thumb_config');
+			foreach($thumb_config as $path => $config)
+			{
+				$url_name = $path."_url";
+				$image->$url_name = $this->make_full_url($image->url, $path);
+			}
+			//Путь к полному изображению
+			$image->full_url = $this->make_full_url($image->url);
+			return $image;
 		}
-		//Путь к полному изображению
-		$image->full_url = $this->make_full_url($image->url);
-		return $image; 
 	}
 	
 	/**
