@@ -29,7 +29,7 @@ class Articles extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),
 			'sort' => array('Сортировка', 'text'),

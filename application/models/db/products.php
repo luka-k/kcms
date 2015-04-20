@@ -30,7 +30,7 @@ class Products extends MY_Model
 			'id' => array('id', 'hidden'),
 			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
-			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
 			'autor' => array('Автор', 'text', 'trim|htmlspecialchars', 'require'),
 			'is_new' => array('Новинка', 'checkbox'),
 			'is_special' => array('Специальное предложение', 'checkbox'),

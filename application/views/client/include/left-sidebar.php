@@ -36,7 +36,7 @@
 			<?foreach($last_news as $news_item):?>
 				<div class="news_item">
 					<div class="news-date"><?=$news_item->date?></div>
-					<div class="news-title"><?=$news_item->name?></div>
+					<div class="news-title"><a href="<?=$news_item->full_url?>"><?=$news_item->name?></a></div>
 				</div>
 			<?endforeach;?>
 		</div>

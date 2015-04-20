@@ -35,7 +35,7 @@
 				</div> <!-- /.main-catalog-nav__wrap wrap -->
 			</div> <!-- /.main-catalog-nav -->
 		<?if(!empty($action)):?>
-			Ваш заказ успешно оформлен.
+			<?=$settings->order_string?>
 		<?else:?>
 			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
 			<?if(!empty($cart_items)):?>
