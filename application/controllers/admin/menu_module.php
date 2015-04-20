@@ -124,9 +124,18 @@ class Menu_module extends Admin_Controller
 		}
 	}
 	
-	public function delete_menu($id)
+	public function delete_menu($id) 
 	{
-		if($this->dynamic_menus->delete($id)) redirect(base_url().'admin/menu_module/menus');
+		if($this->dynamic_menus->delete($id))
+		{
+			$menu_items = $this->dynamic_menus->get_menu($id)->items;
+			if(!empty($menu_items)) foreach($menu_items as $item)
+			{
+				$this->menus_items->delete($item->id);
+			}
+		}
+		
+		redirect(base_url().'admin/menu_module/menus');
 	}
 	
 	public function delete_img($id)
@@ -142,7 +151,8 @@ class Menu_module extends Admin_Controller
 	public function delete_item($id)
 	{
 		$menu = $this->menus_items->get_item($id);
-		if($this->menus_items->delete($id)) redirect(base_url().'admin/menu_module/menu/edit/'.$menu->menu_id);
+		$this->menus_items->delete($id);
+		redirect(base_url().'admin/menu_module/menu/edit/'.$menu->menu_id);
 	}
 	
 	/*********************************************************************

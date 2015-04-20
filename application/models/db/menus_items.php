@@ -69,6 +69,18 @@ class Menus_items extends MY_Model
 		return $branches;
 	}
 	
+	public function delete($id)
+	{
+		//$item = $this->get_item($id);
+		$this->db->where("id", $id);
+		$this->db->delete($this->_table);
+		$childs = $this->get_list(array("parent_id" => $id));
+		if($childs) foreach($childs as $item)
+		{
+			$this->delete($item->id);
+		}
+	}
+	
 	/**
 	*
 	*
@@ -82,20 +94,6 @@ class Menus_items extends MY_Model
 		$full_url = base_url().$full_url;
 		return $full_url;	
 	}
-	
-	/**
-	* Получение url пункта меню
-	*
-	* @param object $item
-	* @return string
-	*/
-	/*public function get_url($item)
-	{
-		$item_url = $this->make_full_url($item);
-		$full_url = implode("/", array_reverse($item_url));
-		$full_url = base_url().$full_url;
-		return $full_url;		
-	}*/
 	
 	/**
 	* Формирование полного url пункта меню
