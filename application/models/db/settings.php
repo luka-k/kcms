@@ -31,11 +31,10 @@ class Settings extends MY_Model
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
-			'site_description' => array('Описание сайта', 'tiny', 'trim'),
+			'site_description' => array('Описание сайта', 'tiny|htmlspecialchars', 'trim'),
 			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(
-			'site_description' => array('Описание сайта', 'text'),
 			'site_keywords' => array('Ключевые слова', 'text'),
 			'lastmod' => array('lastmod', 'hidden')
 		),
