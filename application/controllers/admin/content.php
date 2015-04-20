@@ -445,7 +445,7 @@ class Content extends Admin_Controller
 		}
 		elseif($info->type == "special")
 		{
-			$this->products->update($info->id, array("is_good_buy" => $info->value));
+			$this->products->update($info->id, array("is_special" => $info->value));
 		}
 	}
 }
