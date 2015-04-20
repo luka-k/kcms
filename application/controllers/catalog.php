@@ -32,6 +32,7 @@ class Catalog extends Client_Controller {
 		if(!empty($this->get['price_from'])) $min_value = $this->get['price_from'];		
 	
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 5);
+		$special = $this->products->get_list(array("is_special" => 1), FALSE, 5);
 		$last_news = $this->articles->get_list(array("parent_id" => 1), FALSE, 3);
 		
 		$data = array(
@@ -43,10 +44,12 @@ class Catalog extends Client_Controller {
 			'max_price' => $max_price,
 			'min_value' => $min_value,
 			'max_value' => $max_value,
+			'filters' => $this->characteristics_type->get_filters(),
 			'filters_checked' => array("is_active" => ""),
 			'left_menu' => $this->categories->get_tree(0, "parent_id"),
 			'last_news' => $this->articles->prepare_list($last_news),
-			'new_products' => $this->products->prepare_list($new_products)
+			'new_products' => $this->products->prepare_list($new_products),
+			'special' => $this->products->prepare_list($special)
 		);
 
 		
@@ -81,6 +84,7 @@ class Catalog extends Client_Controller {
 	{	
 		$parent_id = 0;
 		$data['category'] = new stdClass;
+
 		if($content <> "root")
 		{
 			$parent_id = $content->id;
@@ -91,16 +95,15 @@ class Catalog extends Client_Controller {
 				'meta_description' => $content->meta_description,
 				'category' => $content
 			);
+			
+			$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
+			$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		}
-		
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3, $this->get['order'], $this->get['direction']);
-		
-		$data['special'] = $this->products->prepare_list($special);
 		
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
-		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
-		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
+		
+		
 		$data = array_merge($this->standart_data, $data);
 				
 		$this->load->view("client/categories", $data);

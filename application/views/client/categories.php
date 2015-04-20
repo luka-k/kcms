@@ -15,7 +15,6 @@
 	
 	<? require 'include/top-menu.php'?>
 	<? require 'include/header.php'?>
-	
 	<div class="page page-catalog" id="page-catalog">
 		<div class="page-wrap wrap">
 		
@@ -43,59 +42,85 @@
 				<div class="page-catalog__products"> 
 						
 						<div class="slider">
-							<img src="<?base_url()?>template/client/images/slider.png" width="817px"/>
+							<img src="<?=base_url()?>template/client/images/slider.png" width="817px"/>
 						</div>
 
 						<div class="catalog">
+							<?if(!isset($category->products)):?>
 							<h2 class="catalog__subtitle">Актуальные книги</h2>
-							<div class="catalog-slider">
-								<div name="prev" class="navy prev-slide-1">&nbsp;</div>
-								<div name="next" class="navy next-slide-1">&nbsp;</div>
-					
-								<div class="slide-list">
-									<div class="slide-wrap-1">
-										<?foreach($category->products as $item):?>
-											<div class="slide-item-1">
-												<div class="catalog-item">
-													<div class="catalog-item-top">
-														<a href="<?=$item->full_url?>" class="catalog-item__autor"><?=$item->autor?></a>
-														<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
-													</div>
-													<div class="catalog-item__image-box">
-														<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
-													</div> <!-- /.catalog-item__image-box -->
-													<div class="catalog-item__price"><?=$item->price?> р.</div>
-												</div>
-											</div>
-										<?endforeach;?>	
-									</div>
-								</div>
-							</div>	
-							
-							<h2 class="catalog__subtitle">Выгодное предложение</h2>
 							<div class="catalog-slider">
 								<div name="prev" class="navy prev-slide-2">&nbsp;</div>
 								<div name="next" class="navy next-slide-2">&nbsp;</div>
 					
 								<div class="slide-list">
 									<div class="slide-wrap-2">
-										<?foreach($category->products as $item):?>
+										<?foreach($new_products as $new_item):?>
 											<div class="slide-item-2">
 												<div class="catalog-item">
 													<div class="catalog-item-top">
-														<a href="<?=$item->full_url?>" class="catalog-item__autor"><?=$item->autor?></a>
-														<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
+														<a href="<?=$new_item->full_url?>" class="catalog-item__autor"><?=$new_item->autor?></a>
+														<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
 													</div>
 													<div class="catalog-item__image-box">
-														<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
+														<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
 													</div> <!-- /.catalog-item__image-box -->
-													<div class="catalog-item__price"><?=$item->price?> р.</div>
+													<div class="catalog-item__price"><?=$new_item->price?> р.</div>
 												</div>
 											</div>
 										<?endforeach;?>	
 									</div>
 								</div>
-							</div>	
+							</div>
+							
+							<h2 class="catalog__subtitle">Выгодное предложение</h2>
+							<div class="catalog-slider">
+								<div name="prev" class="navy prev-slide-1">&nbsp;</div>
+								<div name="next" class="navy next-slide-1">&nbsp;</div>
+					
+								<div class="slide-list">
+									<div class="slide-wrap-1">
+										<?foreach($special as $special_item):?>
+											<div class="slide-item-1">
+												<div class="catalog-item">
+													<div class="catalog-item-top">
+														<a href="<?=$special_item->full_url?>" class="catalog-item__autor"><?=$special_item->autor?></a>
+														<a href="<?=$special_item->full_url?>" class="catalog-item__name"><?=$special_item->name?></a>
+													</div>
+													<div class="catalog-item__image-box">
+														<a href="<?=$special_item->full_url?>"><img src="<?=$special_item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
+													</div> <!-- /.catalog-item__image-box -->
+													<div class="catalog-item__price"><?=$special_item->price?> р.</div>
+												</div>
+											</div>
+										<?endforeach;?>	
+									</div>
+								</div>
+							</div>
+							<?else:?>
+								<div class="catalog-slider">
+									<div name="prev" class="navy prev-slide-1">&nbsp;</div>
+									<div name="next" class="navy next-slide-1">&nbsp;</div>
+					
+									<div class="slide-list">
+										<div class="slide-wrap-1">
+											<?foreach($category->products as $item):?>
+												<div class="slide-item-1">
+													<div class="catalog-item">
+														<div class="catalog-item-top">
+															<a href="<?=$item->full_url?>" class="catalog-item__autor"><?=$item->autor?></a>
+															<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
+														</div>
+														<div class="catalog-item__image-box">
+															<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
+														</div> <!-- /.catalog-item__image-box -->
+														<div class="catalog-item__price"><?=$item->price?> р.</div>
+													</div>
+												</div>
+											<?endforeach;?>	
+										</div>
+									</div>
+							</div>
+							<?endif;?>
 						
 							<!--<div class="catalog__load load-link">
 								<a href="#load" class="load-link__href">Еще товары</a>
