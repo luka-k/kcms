@@ -48,7 +48,7 @@ class Client_Controller extends CI_Controller
 		parent::__construct();
 				
 		$settings = $this->settings->get_item_by(array("id" => 1));
-		
+		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
 		$this->standart_data = array(
 			'meta_keywords' => $settings->site_keywords,

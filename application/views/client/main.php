@@ -128,7 +128,7 @@
 						<a href="<?=$news_item->full_url?>" class="last-news__name"><?=$news_item->name?></a>
 						
 						<div class="last-news__desc">
-							<?=$news_item->description?>
+							<?=$news_item->short_description?>
 						</div> <!-- /.last-news__desc -->
 					</li> <!-- /.last-news__item -->
 				<?endforeach;?>
