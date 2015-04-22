@@ -19,10 +19,11 @@
 	
 	<div class="main-catalog-nav" id="main-catalog-nav">
 		<div class="main-catalog-nav__wrap wrap">
+	
 			<div class="main-catalog-nav__titles inline-categories">
 				<ul class="inline-categories__list">
 					<li class="inline-categories__item">
-						<a href="<?=base_url()?>catalog/" class="inline-categories__href active">По применяемости</a>
+						<a href="<?=base_url()?>catalog/" class="inline-categories__href active">По параметрам</a>
 					</li> <!-- /.inline-categories__item -->
 					<li class="inline-categories__item">
 						<a href="<?=base_url()?>catalog/" class="inline-categories__href">Каталог</a>
@@ -30,18 +31,47 @@
 				</ul> <!-- /.inline-categories__inner -->
 			</div> <!-- /.main-catalog-nav__titles -->
 			
-			<!--<div class="main-catalog-nav__columns">
-				<?$counter = 1?>
-				<?$line = ceil(count($catalog_by_filter)/2)?>
-				<?foreach($catalog_by_filter as $name => $link):?>
-					<?if($counter == 1):?><ul class="main-catalog-nav__list"><?endif;?>
-						<li class="main-catalog-nav__item">
-							<a href="<?=$link?>" class="main-catalog-nav__href"><?=$name?></a>
-						</li> <!-- /.main-catalog-nav__item -->
-					<?if($counter == $line):?></ul><?$counter = 0?><?endif;?>
-					<?$counter++?>
-				<?endforeach;?>
-			<!--</div> <!-- /.main-catalog-nav__columns -->
+			<div class="catalog-filter">
+				<form action="<?=base_url()?>catalog" class="form" method="get">
+					<input type="hidden" name="filter" value="true"/>
+					<div class="catalog-filter__top">
+						<?foreach($filters as $type=> $filter):?>
+							<?require "include/filters/{$filter->editor}.php"?>
+						<?endforeach;?>	
+					</div> <!-- /.catalog-filter__top -->
+							
+					<div class="catalog-filter__range">
+						<div class="catalog-range">
+							<div class="catalog-range__scale">
+								<div class="catalog-range__from">
+									Цена: от <span data-range-from><?=$min_value?></span>
+								</div> <!-- /.catalog-range__from -->
+									
+								<div class="catalog-range__to">
+									до <span data-range-to><?=$max_value?></span>
+								</div> <!-- /.catalog-range__to -->
+							</div> <!-- /.catalog-slider__scale -->
+								
+							<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>" data-min-value="<?=$min_value?>" data-max-value="<?=$max_value?>"></div> <!-- /.catalog-range__slider -->
+							<input type="hidden" id="price_from" name="price_from" value="<?=$min_value?>"/>
+							<input type="hidden" id="price_to" name="price_to" value="<?=$max_value?>"/>
+						</div> <!-- /.catalog-range -->
+					</div> <!-- /.catalog-filter__range -->
+							
+					<div class="form__line catalog-filter__checkbox">
+						<div class="form__checkbox checkbox">
+							<label class="checkbox__label">
+								<input type="checkbox" name="is_active" class="checkbox__input"  value="1" />
+								<span class="checkbox__text">В наличии</span>
+							</label>
+						</div> <!-- /.radio -->
+					</div> <!-- /.form__line -->
+							
+					<div class="form__button page-form__button">
+						<button class="button button--normal button--auto-width">Подобрать</button>
+					</div> <!-- /.form__button -->
+				</form> <!-- /.form -->
+			</div> <!-- /.catalog-filter -->
 		</div> <!-- /.main-catalog-nav__wrap wrap -->
 	</div> <!-- /.main-catalog-nav -->
         
