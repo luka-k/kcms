@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 22 2015 г., 13:04
+-- Время создания: Апр 22 2015 г., 13:49
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -109,7 +109,25 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+
+--
+-- Дамп данных таблицы `characteristics`
+--
+
+INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`) VALUES
+(1, 'izdatelstvo', 'Издательство 1', 'products', 1),
+(2, 'yazyk', 'Английский', 'products', 1),
+(3, 'uroven', 'Уровень 1', 'products', 1),
+(4, 'tip', 'Тип 1', 'products', 1),
+(5, 'yazyk', 'Английский', 'products', 2),
+(7, 'uroven', 'Уровень 1', 'products', 2),
+(8, 'izdatelstvo', 'Издательство 2', 'products', 2),
+(9, 'tip', 'Тип 1', 'products', 2),
+(10, 'izdatelstvo', 'Издательство 1', 'products', 3),
+(11, 'yazyk', 'Немецкий', 'products', 3),
+(12, 'uroven', 'Уровень 1', 'products', 3),
+(13, 'tip', 'Тип 3', 'products', 3);
 
 -- --------------------------------------------------------
 
@@ -157,7 +175,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('2da6aa82391a84b5eba7ef2537235cdc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429696967, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('94a6677838f726a7457a1943bb27ff34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429699454, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('e119725d9c3a709b583b86f10b9a0896', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429698676, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -390,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Дамп данных таблицы `products`
