@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 20 2015 г., 13:14
+-- Время создания: Апр 22 2015 г., 13:04
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -78,14 +78,22 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Дамп данных таблицы `categories`
 --
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `parent_id`, `description`) VALUES
-(1, 1, 0, 'Учебники', '', '', '', 'uchebniki', '2015-04-18', '', '0.1', 0, '');
+(1, 1, 0, 'Самоучители', '', '', '', 'samouchiteli', '2015-04-22', '', '0.1', 0, ''),
+(2, 1, 0, 'Словари', '', '', '', 'slovari', '2015-04-22', '', '0.1', 0, ''),
+(3, 1, 0, 'Литература по переводу', '', '', '', 'literatura-po-perevodu', '2015-04-22', '', '0.1', 0, ''),
+(4, 1, 0, 'Английский язык', '', '', '', 'anglijskij-yazyk', '2015-04-22', '', '0.1', 3, ''),
+(5, 1, 0, 'Немецкий язык', '', '', '', 'nemeckij-yazyk', '2015-04-22', '', '0.1', 3, ''),
+(6, 1, 0, 'Французкий язык', '', '', '', 'francuzkij-yazyk', '2015-04-22', '', '0.1', 3, ''),
+(9, 1, 0, 'Английский язык', '', '', '', 'anglijskij-yazyk', '2015-04-22', '', '0.1', 2, ''),
+(10, 1, 0, 'Немецкий язык', '', '', '', 'nemeckij-yazyk', '2015-04-22', '', '0.1', 2, ''),
+(11, 1, 0, 'Французкий язык', '', '', '', 'francuzkij-yazyk', '2015-04-22', '', '0.1', 2, '');
 
 -- --------------------------------------------------------
 
@@ -101,25 +109,7 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
-
---
--- Дамп данных таблицы `characteristics`
---
-
-INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`) VALUES
-(1, 'izdatelstvo', 'Издательство 1', 'products', 1),
-(2, 'yazyk', 'Английский', 'products', 1),
-(3, 'uroven', 'Уровень 1', 'products', 1),
-(4, 'tip', 'Тип 1', 'products', 1),
-(5, 'izdatelstvo', 'Издательство 2', 'products', 2),
-(6, 'yazyk', 'Английский', 'products', 2),
-(7, 'uroven', 'Уровень 1', 'products', 2),
-(8, 'tip', 'Тип 1', 'products', 2),
-(9, 'izdatelstvo', 'Издательство 1', 'products', 3),
-(10, 'yazyk', 'Китайский', 'products', 3),
-(11, 'uroven', 'Уровень 3', 'products', 3),
-(12, 'tip', 'Тип 1', 'products', 3);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -167,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('2384c51f3adff9c76ca5d35350a39d9c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429524831, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
+('2da6aa82391a84b5eba7ef2537235cdc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429696967, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -234,20 +224,22 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
-(1, 'book-1', 1, 'products', 1, '', '/b/o/book-1.png'),
-(2, 'book-2', 1, 'products', 2, '', '/b/o/book-2.png'),
-(3, 'book-3', 1, 'products', 3, '', '/b/o/book-3.png'),
-(4, 'book-4', 1, 'products', 4, '', '/b/o/book-4.png'),
-(5, 'book-4[1]', 1, 'products', 5, '', '/b/o/book-4[1].png'),
-(6, 'book-4[2]', 1, 'products', 6, '', '/b/o/book-4[2].png'),
-(7, 'book-1[1]', 1, 'products', 7, '', '/b/o/book-1[1].png');
+(1, '001', 1, 'products', 1, '', '/0/0/001.jpg'),
+(2, '002', 1, 'products', 2, '', '/0/0/002.jpg'),
+(3, '003', 1, 'products', 3, '', '/0/0/003.jpg'),
+(4, '004', 1, 'products', 4, '', '/0/0/004.jpg'),
+(5, '005', 1, 'products', 5, '', '/0/0/005.jpg'),
+(6, '006', 1, 'products', 6, '', '/0/0/006.jpg'),
+(7, '007', 1, 'products', 7, '', '/0/0/007.jpg'),
+(8, '008', 1, 'products', 8, '', '/0/0/008.jpg'),
+(9, '008[1]', 1, 'products', 9, '', '/0/0/008[1].jpg');
 
 -- --------------------------------------------------------
 
@@ -398,20 +390,22 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `autor`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 1, 1, 0, 'Skillfull Writing and Reading: Level 3: Student Book with Digibook Access', 'Jennifer Bixby', 'jb-001', 2350, 0, '', '', '', 'skillfull-writing-and-reading-level-3-student-book-with-digibook-access', '2015-04-19', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 1),
-(2, 1, 1, 0, 'Collocation Extra Book+CD-ROM', 'Elizabeth Walter', 'EW-001', 2350, 0, '', '', '', 'collocation-extra-book-cd-rom', '2015-04-19', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
-(3, 1, 1, 0, 'Skillfull Writing and Reading: Level 3: Student Book with Digibook Access Grammar', 'Jennifer Bixby', 'JB-002', 2350, 0, '', '', '', 'skillfull-writing-and-reading-level-3-student-book-with-digibook-access-grammar', '2015-04-19', '', '0.1', '', 1, 0),
-(4, 1, 1, 0, 'Film, TV &amp; Music', 'Olha Madulus', 'OM-001', 2350, 0, '', '', '', 'film-tv-music', '2015-04-20', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 0),
-(5, 1, 1, 0, 'Collocation Extra Book+CD-ROM 2', 'Elizabeth Walter', 'EW-002', 2350, 0, '', '', '', 'collocation-extra-book-cd-rom-2', '2015-04-19', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
-(6, 1, 1, 0, 'Film, TV &amp; Music - 2', 'Olha Madulus', 'OM-002', 2350, 0, '', '', '', 'film-tv-amp-music-2', '2015-04-20', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 1),
-(7, 1, 1, 0, 'Film, TV &amp; Music - 3', 'Olha Madulus', 'OM-002', 2350, 0, '', '', '', 'film-tv-amp-amp-music-3', '2015-04-20', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 1);
+(1, 4, 1, 0, 'Грамматические трудности перевода с английского языка на русский', 'Л.А. Соколова, Е.П. Трофимова', 'Не обходимо ввести значение', 654, 0, '', '', '', 'grammaticheskie-trudnosti-perevoda-s-anglijskogo-yazyka-na-russkij', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
+(2, 4, 1, 0, 'Идиоматический перевод с русского языка на английский', 'С.С. Кузьмин', 'Не обходимо ввести значение', 330, 0, '', '', '', 'idiomaticheskij-perevod-s-russkogo-yazyka-na-anglijskij', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
+(3, 5, 1, 0, 'Horizonte 7 Arbeitsbuch', 'Просвещение', 'Не обходимо ввести значение', 424, 0, '', '', '', 'horizonte-7-arbeitsbuch', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
+(4, 6, 1, 0, 'Французский язык. Курс устного перевода', '-', 'Не обходимо ввести значение', 154, 0, '', '', '', 'francuzskij-yazyk-kurs-ustnogo-perevoda', '2015-04-22', '', '0.1', '', 1, 0),
+(5, 2, 1, 0, '2000 самых употребительных английских слов.', 'А.В. Петроченков', 'Не обходимо ввести значение', 116, 0, '', '', '', '2000-samyh-upotrebitelnyh-anglijskih-slov', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
+(6, 2, 1, 0, '500 самых важных слов английского языка', 'С.А. Матвеев', 'Не обходимо ввести значение', 60, 0, '', '', '', '500-samyh-vazhnyh-slov-anglijskogo-yazyka', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
+(7, 10, 1, 0, 'Deutsch english german english Lernwortschatz. Hueber', 'Hueber', 'Не обходимо ввести значение', 1057, 0, '', '', '', 'deutsch-english-german-english-lernwortschatz-hueber', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
+(8, 1, 1, 0, '&quot;Intellect 25 кадр&quot; английский язык (25 000 слов)', 'Intellect', 'Не обходимо ввести значение', 2000, 0, '', '', '', 'intellect-25-kadr-anglijskij-yazyk-25-000-slov', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
+(9, 1, 1, 0, '100 % Английский начальный уровень+ 8CD', 'Living Language', 'Не обходимо ввести значение', 1538, 0, '', '', '', '100-anglijskij-nachalnyj-uroven-8cd', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1);
 
 -- --------------------------------------------------------
 
