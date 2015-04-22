@@ -34,7 +34,7 @@
 				
 				<div class="page__content">
 					<div class="page-news__calendar">
-						<div id="this_mounth" class="datepicker" category=""></div>
+						<div id="this_mounth" class="datepicker" ></div>
 					</div> <!-- /.page-news__calendar -->
 					
 					<div class="page-news__content">

@@ -36,6 +36,19 @@ class Pages extends Client_Controller {
 			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
+			
+			$select_date = $this->input->get('date');
+			if(!empty($select_date))
+			{
+				$selected_news = array();
+				foreach ($content->articles as $item)
+				{
+					$item->date = new DateTime($item->date);
+					$item->date = date_format($item->date, 'm/d/Y');
+					if($item->date == $select_date) $selected_news[] = $item;
+				}
+				$content->articles = $selected_news;
+			}
 		}
 	
 		$data = array(

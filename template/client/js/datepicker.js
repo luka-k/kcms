@@ -3,14 +3,7 @@
  *========================================================================= */
 
 $(function() {
-	var data = new Object();
-	
-	parent = $( ".datepicker" ).attr("category");
-	
-	data.parent = parent;
-	var json_str = JSON.stringify(data);
-	
-	$.post( "/ajax/selected_days/", json_str, function(res) {
+	$.post( "/ajax/selected_days/", function(res) {
 	
 		events = JSON.parse(res);
 
@@ -31,7 +24,7 @@ $(function() {
 			},
 			numberOfMonths:[3, 1],
 			onSelect:function(dateText){
-				document.location.replace('/articles/o-nas/novosti?date='+dateText);
+				document.location.replace('/articles/novosti?date='+dateText);
 			}
 		});
 	
