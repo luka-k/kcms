@@ -306,7 +306,7 @@ class Content extends Admin_Controller
 			$this->$type->insert($data['content']);
 			$new_id = $this->db->insert_id();
 			
-			if(is_array($characteristics)) foreach($characteristics as $ch)
+			if(isset($characteristics) && is_array($characteristics)) foreach($characteristics as $ch)
 			{
 				$ch->id = NULL;
 				$ch->object_id = $new_id;

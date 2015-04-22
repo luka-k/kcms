@@ -1,4 +1,5 @@
 <aside class="leftbar">
+	<?require_once "left-menu.php"?>
 	<div class="filters">
 		<h3>Поиск по параметрам</h3>
 		
