@@ -7,3 +7,4 @@
 !application/logs/.htaccess
 
 /download/*
+/download-bookhouse/*

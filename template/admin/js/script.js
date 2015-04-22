@@ -11,7 +11,7 @@
 		input.on('focus', function () {
 			var el = $(this);
 			if (el.hasClass(errorClass)){
-				el.val(null);
+				el.attr('placeholder', '');
 				el.removeClass(errorClass);
 			}
 		});
@@ -25,13 +25,13 @@
 			
 			factors.forEach(function(item){ 
 				if (item == 'require' && el.val() == "") {
-					el.val('Не обходимо ввести значение');
+					el.attr('placeholder', 'Не обходимо ввести значение');
 					el.addClass(errorClass);
 					isError = true;
 				}
 				
 				if(item == 'email' && el.val().match('[\.\-_A-Za-z0-9]+?@[\.\-A-Za-z0-9]+?[\ .A-Za-z0-9]{2,}') == null) {
-					el.val('Не обходимо ввести коректнный email');
+					el.attr('placeholder', 'Не обходимо ввести коректнный email');
 					el.addClass(errorClass);
 					isError = true;
 				}
@@ -40,8 +40,8 @@
 					factor = item.substring(8, item.length-1);
 					matched = element.find('input[name="'+factor+'"]');
 					if(matched.val() != el.val()){
-						el.val('Значение полей должно совпадать');
-						matched.val('Значение полей должно совпадать');
+						el.attr('placeholder', 'Значение полей должно совпадать');
+						matched.attr('placeholder', 'Значение полей должно совпадать');
 						el.addClass(errorClass);
 						matched.addClass(errorClass);
 						isError = true;
