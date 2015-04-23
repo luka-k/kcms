@@ -29,7 +29,7 @@ class Categories extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
-			'parent_id' => array('Родительская категория', 'select'),
+			'category_parent_id' => array('Родительская категория', 'category2category', 'c2c'),
 			'is_active' => array('Активен', 'checkbox'),
 			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
@@ -56,6 +56,24 @@ class Categories extends MY_Model
 	function __construct()
 	{
         parent::__construct();
+	}
+	
+	public function get_tree($parent_id, $parent_id_field)
+	{
+		$query = $this->db->get_where('category2category', array($parent_id_field => $parent_id)); 
+		$items = $query->result();
+		//var_dump($items);
+		$branches = array();
+		if (empty($items) <> TRUE) foreach($items as $item)
+		{
+			$branches[] = $this->get_item_by(array("id" => $item->child_id));
+		}
+
+		if (!empty($branches)) foreach($branches as $i => $b)
+		{
+			$branches[$i]->childs = $this->get_tree($b->id, $parent_id_field);
+		}
+		return $branches;	
 	}
 	
 	/**

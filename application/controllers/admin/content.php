@@ -73,7 +73,8 @@ class Content extends Admin_Controller
 			'left_column' => $left_column,
 			'type' => $type,
 			'name' => $name,
-			'url' => $this->uri->uri_string()
+			'url' => $this->uri->uri_string(),
+			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
@@ -82,7 +83,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
+			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "category_parent_id") : $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($id == "all")
@@ -92,9 +93,16 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$type == "emails" ? $parent = "type" : $parent = "parent_id";
-			$data["parent_id"] = $id;
-			$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+			if($type == "categories")
+			{
+				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+			}
+			else
+			{
+				$type == "emails" ? $parent = "type" : $parent = "parent_id";
+				$data["parent_id"] = $id;
+				$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+			}
 			$data['sortable'] = TRUE;
 		}
 		
@@ -130,13 +138,17 @@ class Content extends Admin_Controller
 			'editors' => $this->$type->editors,
 			'type' => $type,
 			'parent_id' => $parent_id,
-			'url' => "/".$this->uri->uri_string()
+			'url' => "/".$this->uri->uri_string(),
+			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
+	
+		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+
 		$data = array_merge($this->standart_data, $data);
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
+			$tree =  $type == "products" ? $this->categories->get_tree(0, "category_parent_id") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}
@@ -158,6 +170,8 @@ class Content extends Admin_Controller
 			{	
 				$data['content'] = set_empty_fields($data['editors']);
 				
+				$data['content']->parent_id[] = 0;
+				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 				if($type == "emails") $data['content']->type = 2;				
@@ -165,6 +179,17 @@ class Content extends Admin_Controller
 			else
 			{			
 				$data['content'] = $this->$type->get_item($id);
+				
+				if($type == "categories")
+				{
+					$query = $this->db->get_where('category2category', array("child_id" => $id));
+					$items = $query->result_array();
+
+					foreach($items as $item)
+					{
+						$data['content']->parent_id[] = $item['category_parent_id'];
+					}
+				}
 				
 				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
@@ -204,6 +229,8 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->editors_post();
 			
+			$c2c_name = editors_get_name_field('c2c', $data['editors']);
+			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 					
@@ -217,6 +244,29 @@ class Content extends Admin_Controller
 			{
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
+				
+				if($c2c_name)
+				{
+					$this->db->where('child_id', $data['content']->id);
+					$this->db->delete('category2category');
+				}
+			}
+			
+			if($c2c_name)
+			{
+				$category2category = $this->input->post($c2c_name);
+				
+				if($category2category)
+				{
+					foreach($category2category  as $item)
+					{	
+						$this->db->insert('category2category', array("category_parent_id" => $item, "child_id" => $data['content']->id));
+					}
+				}
+				else
+				{
+					$this->db->insert('category2category', array("category_parent_id" => 0, "child_id" => $data['content']->id));
+				}
 			}
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
