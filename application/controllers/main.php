@@ -11,6 +11,8 @@ class Main extends CI_Controller {
 	
 	public function index()
 	{		
+		if ($_POST) die('ok');
+		redirect('/shop');
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		$top_menu = $this->menus->top_menu;
 		

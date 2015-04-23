@@ -1,4 +1,4 @@
-<div  class="col_12">
+﻿<div  class="col_12">
 	<div for="lbl_<?=$editors_counter?>" class="col_3"><?=$edit[0]?></div>
 	<div class="col_9">
 		<table>

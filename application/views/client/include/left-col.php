@@ -1,141 +1,165 @@
-<div class="scroll-contentd" id="leftscroll" style="height: 550px;">
-	<div id="filter" class="clearfix scroll-content"  style="height: 500px; overflow-y: hidden;">
-		
-		<div class="clearfix" >
-			<div class="filter-titl">Группа товаров:</div>
-			<div class="help">i
-				<div class="popup-help">
-					Окно с подсказкой
-				</div>
-			</div>
-									
-			<div id="filt-1" class="filtr-noact <?if($left_active == "filt-1"):?>filtr-act<?endif;?>" onclick="menu(1)">
-				<?if(empty($categories_ch)):?>
-					Все товары
-				<?else:?>
-					<?=$categories_ch[0]->name?>
-					<?if(count($categories_ch) > 1):?>
-						<div class="count">
-							<?=count($categories_ch)?>
-							<div class="popup-count">
-								<ul>
-									<?foreach($categories_ch as $item):?>
-										<li><?=$item->name?></li>
-									<?endforeach;?>
-								</ul>
-							</div>
-						</div>
-					<?endif;?>
-				<?endif;?>
-			</div>
-		</div>	
-			<input type="hidden" name="filter" value="true"/>
-			<div class="clearfix" style="margin-top:3px;">
-				<div class="filter-titl">Производитель:</div>
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-							
-				<div id="filt-2" class="filtr-noact" onclick="menu(2)">
-					<?if(empty($manufacturer_ch)):?>
-						Все производители
-					<?else:?>
-						<?=$manufacturer_ch[0]->name?>
-						<?if(count($manufacturer_ch) > 1):?>
-							<div class="count">
-								<?=count($manufacturer_ch)?>
-								<div class="popup-count">
-									<ul>
-										<?foreach($manufacturer_ch as $item):?>
-											<li><?=$item->name?></li>
-										<?endforeach;?>
-									</ul>
-								</div>
-							</div>
-						<?endif;?>
-					<?endif;?>
-				</div>
-				
-				<div class="filter-titl">Колекция/Серия:</div>
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-				
-				<input id="collection" class="input" type="text" name="collection" value="<?if(isset($filters['collection'])):?><?=$filters['collection']?><?endif;?>" onkeypress="autocomp(this.id)"/>
-				
-				<div class="filter-titl">Артикул/Модель:</div>
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-				
-				<input id="article" class="input" type="text" name="article" value="<?if(isset($filters['article'])):?><?=$filters['article']?><?endif;?>" onkeypress="autocomp(this.id)"/>
-			</div>
-			
-			<div class="clearfix" style="margin-top:3px">
-				<div class="filter-titl">Название товара:</div>
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-				<input id="name" class="input" type="text" name="name" value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>" onkeypress="autocomp(this.id)"/>
-				<div class="filter-titl">Описание товара:</div>
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-				<input id="description" class="input" type="text" name="description" value="<?if(isset($filters['description'])):?><?=$filters['description']?><?endif;?>" onkeypress="autocomp(this.id)"/>
-			</div>
-			<div class="clearfix" style="margin-top:3px;">
-				<div class="clearfix">
-				<div class="help">i
-					<div class="popup-help">
-						Окно с подсказкой
-					</div>
-				</div>
-				<div class="filter-titl">Характеристики:</div>
-				</div>
-				<div class="clearfix">
+                                               
+			<input type="hidden" name="filter" value="true"/>   
+                                <aside id="s_left">
+                                    <h1><?if(empty($categories_ch)):?>
+											<?if(!empty($manufacturer_ch)):?>
+												<?=$manufacturer_ch[0]->name?>
+											<?else:?>
+												Все товары
+											<? endif?>
+										<?else:?>
+											<?=$categories_ch[0]->name?>
+										<? endif?>(<?= $total_rows ?>)</h1>
+									<div class="leftmenu">
+										<div class="lm-block">
+											<div class="lm-caption">
+												Группа товаров:
+											</div>
+											<div class="lm-item" prop="secondcolumn">
+												<?if(empty($categories_ch)):?>
+													Все товары
+												<?else:?>
+													<?=$categories_ch[0]->name?>
+													<?if(count($categories_ch) > 1):?>
+														, ... [<?= count($categories_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Производители:
+											</div>
+											<div class="lm-item" prop="secondcolumn2">
+												<?if(empty($manufacturer_ch)):?>
+													Все производители
+												<?else:?>
+													<?=$manufacturer_ch[0]->name?>
+													<?if(count($manufacturer_ch) > 1):?>
+														, ... [<?= count($manufacturer_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Коллекция/Серия:
+											</div>
+											<div class="lm-item" prop="secondcolumn3">
+												<?if(empty($collection_ch)):?>
+													Все коллекции
+												<?else:?>
+													<?=$collection_ch[0]?>
+													<?if(count($collection_ch) > 1):?>
+														, ... [<?= count($collection_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Название/Описание/Комплектация:
+											</div>
+											<div class="lm-item" prop="secondcolumn5">
+												<?if(empty($name_ch)):?>
+													Все названия
+												<?else:?>
+													<?=$name_ch[0]?>
+													<?if(count($name_ch) > 1):?>
+														, ... [<?= count($name_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Цвет:
+											</div>
+											<div class="lm-item" prop="secondcolumn6">
+												<?if(empty($color_ch)):?>
+													Все цвета
+												<?else:?>
+													<?=$color_ch[0]?>
+													<?if(count($color_ch) > 1):?>
+														, ... [<?= count($color_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Материал:
+											</div>
+											<div class="lm-item" prop="secondcolumn7">
+												<?if(empty($material_ch)):?>
+													Все материалы
+												<?else:?>
+													<?=$material_ch[0]?>
+													<?if(count($material_ch) > 1):?>
+														, ... [<?= count($material_ch)?>]
+													<?endif;?>
+												<?endif;?>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Отделка:
+											</div>
+											<div class="lm-item">
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Разворот:
+											</div>
+											<div class="lm-item">
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Размеры:
+											</div> 
+											
+											<div class="range-input">
+												<input type="text" readonly name="width_to" id="width-hi">
+												<div class="caption">Ширина:</div>
+												<input type="text" readonly name="width_from" id="width-low">
+												<div style="clear: both;"></div>
+												<div id="width-range" class="block-range"></div>
+											</div>
+											
+											<div class="range-input">
+												<input type="text" name="height_to" readonly id="height-hi">
+												<div class="caption">Высота(h):</div>
+												<input type="text" name="height_from" readonly id="height-low">
+												<div style="clear: both;"></div>
+												<div id="height-range" class="block-range"></div>
+											</div>
+											
+											<div class="range-input">
+												<input type="text" name="depth_to" readonly id="weight-hi">
+												<div class="caption">Глубина:</div>
+												<input type="text" name="depth_from" readonly id="weight-low">
+												<div style="clear: both;"></div>
+												<div id="weight-range" class="block-range"></div>
+											</div>
+										</div>
+										<div class="lm-block">
+											<div class="lm-caption">
+												Цена:
+											</div> 
+											
+											<div class="range-input">
+												<input type="text" name="price_to" readonly id="price-hi">
+												<div class="caption"> </div>
+												<input type="text" name="price_from" readonly id="price-low">
+												<div style="clear: both;"></div>
+												<div id="price-range" class="block-range"></div>
+											</div>
+										</div>
+										<div class="lm-block" style="margin-top:28px; padding-bottom:10px; text-align:center;">
+											<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
+										</div>
+									</div>
+                                </aside>
 
-					<div class="filter">	
-						<div class="filtr-razmer-1">Размеры(мм):</div>
-						<div class="filtr-razmer-2">от:</div>	
-						<div class="filtr-razmer-2">до:</div>
-						<div class="filtr-razmer-1">ширина:</div>
-						<input class="filtr-razmer-3 attributes" type="text" name="width_from" value="<?if(isset($filters['width_from'])):?><?=$filters['width_from']?><?endif;?>" onchange="--filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" name="width_to" value="<?if(isset($filters['width_to'])):?><?=$filters['width_to']?><?endif;?>" onchange="--filter()"/>
-						<div class="filtr-razmer-1">высота(h):</div>	
-						<input class="filtr-razmer-3 attributes" type="text" name="height_from" value="<?if(isset($filters['height_from'])):?><?=$filters['height_from']?><?endif;?>" onchange="filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" name="height_to" value="<?if(isset($filters['height_to'])):?><?=$filters['height_to']?><?endif;?>" onchange="--filter()"/>
-						<div class="filtr-razmer-1">глубина:</div>
-						<input class="filtr-razmer-3 attributes" type="text" name="depth_from" value="<?if(isset($filters['depth_from'])):?><?=$filters['depth_from']?><?endif;?>" onchange="--filter()"/>
-						<input class="filtr-razmer-3 attributes" type="text" name="depth_to" value="<?if(isset($filters['depth_to'])):?><?=$filters['depth_to']?><?endif;?>" onchange="--filter()"/>
-						<div class="filter-titl">Цвет:</div>
-						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="color" value="<?if(isset($filters['color'])):?><?=$filters['color']?><?endif;?>" onchange="--filter()"/>
-						<div class="filter-titl">Материал:</div>
-						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="material" value="<?if(isset($filters['material'])):?><?=$filters['material']?><?endif;?>" onchange="--filter()"/>
-						<div class="filter-titl">Отделка:</div>
-						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="finishing" value="<?if(isset($filters['finishing'])):?><?=$filters['finishing']?><?endif;?>" onchange="--filter()"/>
-						<div class="filter-titl">Разворот:</div>
-						<div class="help">i</div>
-						<input class="input attributes" type="text" range="false" name="turn" value="<?if(isset($filters['turn'])):?><?=$filters['turn']?><?endif;?>" onchange="--filter()"/>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix" style="margin-top:8px; padding-bottom:10px; text-align:center;">
-				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
-			</div>
-
-	</div>
-	
-</div><!-- .left-sidebar -->

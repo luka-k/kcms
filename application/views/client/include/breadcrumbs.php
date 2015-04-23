@@ -1,9 +1,9 @@
-<div id="breadcrumbs" class="clearfix">
+<div id="breadcrumbs" class="breadcrumbs">
 	<? foreach ($breadcrumbs as $link):?>
 		<?if($link['last'] == FALSE):?>
-			<a href="<?=$link["url"]?>"><?=$link["name"]?></a> >
+			<a href="<?=$link["url"]?>"><?=$link["name"]?></a> /
 		<?else:?>
-			<?=$link["name"]?>
+			<span><?=$link["name"]?></span>
 		<?endif;?>
 	<? endforeach?>
 </div>

@@ -9,8 +9,27 @@ class Catalog extends CI_Controller {
 		$this->config->load('pagination_config');
 	}
 	
-	public function index()
+	public function count()
 	{
+		echo '10';
+	}
+	
+	public function index($count)
+	{
+		if ($count=='count')
+			$_POST['cctmp'] = 1;
+		$_GET['width_from'] = intval(str_replace('от', '', str_replace('+', '', str_replace('мм', '', $_GET['width_from']))));
+		$_GET['width_to'] = intval(str_replace('до', '', str_replace('+', '', str_replace('мм', '', $_GET['width_to']))));
+		if ($_GET['width_to'] == 0)
+			$_GET['width_to'] = 500;
+		$_GET['height_from'] = intval(str_replace('от', '', str_replace('+', '', str_replace('мм', '', $_GET['height_from']))));
+		$_GET['height_to'] = intval(str_replace('до', '', str_replace('+', '', str_replace('мм', '', $_GET['height_to']))));
+		if ($_GET['height_to'] == 0)
+			$_GET['height_to'] = 500;
+		$_GET['depth_from'] = intval(str_replace('от', '', str_replace('+', '', str_replace('мм', '', $_GET['depth_from']))));
+		$_GET['depth_to'] = intval(str_replace('до', '', str_replace('+', '', str_replace('мм', '', $_GET['depth_to']))));
+		if ($_GET['depth_to'] == 0)
+			$_GET['depth_to'] = 500;
 		$order = "name";	
 		$direction = "asc";
 		
@@ -26,7 +45,7 @@ class Catalog extends CI_Controller {
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$manufacturer = $this->manufacturer->get_list(FALSE);
+		$manufacturers = $this->manufacturer->get_list(FALSE);
 		
 		$this->load->library('pagination');
 		
@@ -74,6 +93,55 @@ class Catalog extends CI_Controller {
 		else
 		{
 			$manufacturer_ch = "";
+		}
+
+		if(!empty($filters['collection_checked']))
+		{
+			foreach($filters['collection_checked'] as $key => $item)
+			{
+				
+				$collection_ch[] = $item;		
+			}
+		}
+		else
+		{
+			$collection_ch = "";
+		}
+		if(!empty($filters['sku_checked']))
+		{
+			foreach($filters['sku_checked'] as $key => $item)
+			{
+				
+				$sku_ch[] = $item;		
+			}
+		}
+		else
+		{
+			$sku_ch = "";
+		}
+		if(!empty($filters['color_checked']))
+		{
+			foreach($filters['color_checked'] as $key => $item)
+			{
+				
+				$color_ch[] = $item;		
+			}
+		}
+		else
+		{
+			$color_ch = "";
+		}
+		if(!empty($filters['material_checked']))
+		{
+			foreach($filters['material_checked'] as $key => $item)
+			{
+				
+				$material_ch[] = $item;		
+			}
+		}
+		else
+		{
+			$material_ch = "";
 		}
 
 		if(isset($filters['filter']))
@@ -173,8 +241,15 @@ class Catalog extends CI_Controller {
 
 			foreach($content as $key => $item)
 			{
+				$content[$key]->discount = 5;
+				$content[$key]->price = ceil($content[$key]->price * 61.74);
+			}
+			foreach($content as $key => $item)
+			{
 				if(!empty($item->discount))
 				{
+					$content[$key]->sale_price = ceil($item->price*(100 - $item->discount)/100);
+				} else {
 					$content[$key]->sale_price = $item->price*(100 - $item->discount)/100;
 				}
 			}
@@ -202,15 +277,48 @@ class Catalog extends CI_Controller {
 		
 		if(empty($filters['categories_checked'])) $filters['categories_checked'] = "";
 		if(empty($filters['manufacturer_checked'])) $filters['manufacturer_checked'] = "";
+		if(empty($filters['collection_checked'])) $filters['collection_checked'] = "";
+		if(empty($filters['material_checked'])) $filters['material_checked'] = "";
+		if(empty($filters['sku_checked'])) $filters['sku_checked'] = "";
+		if(empty($filters['nok_checked'])) $filters['nok_checked'] = "";
+		if(empty($filters['color_checked'])) $filters['color_checked'] = "";
 		if(empty($filters['parent_checked'])) $filters['parent_checked'] = "";
 		
 		//var_dump($filters['categories_checked']);
 		//var_dump($filters['manufacturer_checked']);
 		//var_dump($manufacturer);
 		
+		$manufacturer = array();
+		$collection = array();
+		$material = array();
+		$sku = array();
+		$nok = array();
+		$color = array();
+		foreach ($content as $c)
+		{
+			$m_name='-';
+			foreach ($manufacturers as $mf)
+			{
+				if ($mf->id = $c->manufacturer_id)
+					$m_name = $mf->name;
+			}
+			$manufacturer[$m_name] = $c->manufacturer_id;
+			$collection[$c->collection] = 1;
+			if (trim($c->material))
+			$material[$c->material] = 1;
+			$nok[$c->shortname.' '.$c->shortdesc] = 1;
+			$sku[$c->article] = 1;
+			$color[$c->color] = 1;
+		}
+		
 		$data = array(
 			'content' => $content,
 			'manufacturer' => $manufacturer,
+			'collection' => $collection,
+			'sku' => $sku,
+			'nok' => $nok,
+			'material' => $material,
+			'color' => $color,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'cart' => $cart,
 			'total_price' => $total_price,
@@ -222,9 +330,20 @@ class Catalog extends CI_Controller {
 			'categories_checked' => $filters['categories_checked'],
 			'categories_ch' => $categories_ch,
 			'manufacturer_ch' => $manufacturer_ch,
+			'collection_ch' => $collection_ch,
+			'material_ch' => $material_ch,
+			'color_ch' => $color_ch,
+			'sku_ch' => $sku_ch,
+			'nok_ch' => $nok_ch,
 			'manufacturer_checked' => $filters['manufacturer_checked'],
+			'collection_checked' => $filters['collection_checked'],
+			'material_checked' => $filters['material_checked'],
+			'sku_checked' => $filters['sku_checked'],
+			'nok_checked' => $filters['nok_checked'],
+			'color_checked' => $filters['color_checked'],
 			'filters' => $filters,
 			'parent_checked' => $filters['parent_checked'],
+			'total_rows' => $total_rows,
 			'pagination' => $pagination
 		);
 		
@@ -233,6 +352,14 @@ class Catalog extends CI_Controller {
 		$data['meta_keywords'] = $settings->site_keywords;
 		$data['meta_description'] = $settings->site_description;
 		
+		if ($count=='count')
+		{
+			if (!$total_rows)
+				print_r(count($content));
+			else
+				echo $total_rows;
+			die();
+			}
 		$this->load->view($template, $data);
 	}
 }

@@ -73,7 +73,16 @@ class Products extends MY_Model
 			$this->db->where_in('parent_id', $filters['categories_checked']);
 		}
 		
+		
 		if(!empty($filters['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filters['manufacturer_checked']);
+		
+		
+		if(!empty($filters['collection_checked'])) $this->db->where_in('collection', $filters['collection_checked']);
+		if(!empty($filters['sku_checked'])) $this->db->where_in('article', $filters['sku_checked']);
+		if(!empty($filters['color_checked'])) $this->db->where_in('color', $filters['color_checked']);
+		if(!empty($filters['material_checked'])) $this->db->where_in('material', $filters['material_checked']);
+		
+		
 		$this->range_filter("width", $filters['width_from'], $filters['width_to']);
 		$this->range_filter("height", $filters['height_from'], $filters['height_to']);
 		$this->range_filter("depth", $filters['depth_from'], $filters['depth_to']);

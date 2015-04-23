@@ -1,4 +1,4 @@
-<div class="col_12">
+﻿<div class="col_12">
 	<input type="hidden" name="upload_image" value="upload_image"/>
 	<div class="col_12">Добавить фотографии</div>
 	<div class="col_3">Маленькая иконка</div>

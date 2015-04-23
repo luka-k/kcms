@@ -3,18 +3,24 @@
 	<? require 'include/head.php' ?>
 	<? require 'include/product_script.php'?>
 	<body>
-		<div class="wrap">
-			<? require 'include/header.php'?>
-			<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
-			<div class="main">
-				<div class="middle">
-					<div class="container">
-						<div class="content">
-							<? require 'include/breadcrumbs.php' ?>
+		<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
+		<? require 'include/header.php'?>
+			
+			
+                <div id="wrapper">
+                        <div class="section maxw">
+
+                                        <div class="mainwrap">
+                                            <main>
+                                                <article>
+													<? require 'include/breadcrumbs.php' ?>
+													<div style="clear: both;"></div>
+													
+													
 							<div class="middle2">
 								<div class="container2">
 									<div id="shop-item" class="<?if($left_active):?>content-shop<?else:?>content-shop-1<?endif;?>">
-										<div class="good-page" style="height: 500px; width: 100%; overflow-y: scroll;overflow-x:hidden;" id="good_page_scroll">
+										<div class="good-page" style="width: 100%; " id="good_page_scroll">
 											<div class="gp-content">
 												<?if(!empty($content)):?>
 													<div class="item-content clearfix">
@@ -28,7 +34,7 @@
 																<div id="bg-1" class="bg" class="clearfix">
 																	<div style="display: table; margin:0 auto">
 																		<?foreach($content->img as $image):?>
-																			<img src="<?=base_url()?>download/images/catalog_mid/<?=$image->url?>" />
+																			<!--<img src="<?=base_url()?>download/images/catalog_mid/<?=$image->url?>" />-->
 																		<?endforeach?>
 																	</div>
 																</div>
@@ -60,32 +66,54 @@
 									</div><!-- .content-->
 								</div><!-- .container-->
 								
-								<div class="left-sidebar-attr clearfix" >
-									<div class="logo-column scroll-content1" style="height: 400px; oveflow: auto;">
-										
-											<? require 'include/cart.php'?>
-										
-											<? require 'include/left-menu.php'?>
-										
-											<? require 'include/manufacturer.php'?>
-										
-											<? require 'include/filter.php'?>
-											
-									</div>
-								</div>
 							</div>
-						</div><!-- .content-->
-					</div><!-- .container-->
-					<div class="left-sidebar-filtr clearfix">
+							
+							
+                                                </article>
+                                            </main>
+                                        </div>       
+										
 						<? require 'include/left-col.php'?>
-					</div>
-				</div><!-- .middle-->
-			</div><!--/main-->
-			</form>
-			<div class="footer"></div><!--/footer-->
+                                                        
+                                <aside id="s_right">
+                                    <h1>Новости</h1>
+									<div class="menuright">
+                                    <h2>Экспорт новостей</h2>
+									<p>Вы можете поставить на свой сайт 
+заголовки и аннотации сюжетов Яндекс.
+Новостей, а также просматривать их с 
+помощью любых программ и сервисов, 
+совместимых с форматом RSS. Для 
+удобства владельцев сайтов и домашних 
+страничек созданы новостные информеры, 
+установка которых не требует 
+специальных знаний.
+</p>
+<h2>Экспорт в формате RSS</h2>
+<p>RSS  — международный формат, 
+специально созданный для трансляции 
+данных с одного сайта на другой.
+Используя приведенные ниже экспортные 
+файлы в формате RSS, вы можете 
+разместить на своей странице заголовки 
+и аннотации сюжетов Яндекс.Новостей. 
+Кроме того, посредством RSS можно 
+читать новости специальными 
+программами — агрегаторами новостей — 
+и таким образом оперативно узнавать об 
+обновлениях нужных сайтов. Подробнее 
+об RSS в каталоге Яндекса (общие 
+сведения, спецификация, ссылки на 
+ресурсы по теме)
+</p>
+</div>
+                                </aside>
+                          </div>
+                 </div>
+				 <? if (!$_GET): ?>
+				 <div id="shadow"></div>
+				 <? endif ?>
 			
-		</div><!--/wrap-->
-		
-		<? require 'include/footer_script.php'?>
+			</form>
 	</body>
 </html>

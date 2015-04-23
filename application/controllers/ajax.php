@@ -34,7 +34,7 @@ class Ajax extends CI_Controller {
 		$cart_item = array(
 			"id" => $product->id,
 			"name" => $product->name,
-			"price" => $product->price,
+			"price" => ceil($product->price  * 61.74 * 0.95),
 			"qty" => 1
 		);
 		

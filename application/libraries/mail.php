@@ -13,7 +13,7 @@ class mail {
 	{
 		$config = array(
 			'protocol' => "mail",
-			'charset' => "iso-8859-1",
+			'mailtype' => "html",
 			'wordwrap' => TRUE
 		);
 		$from = 'admin@admin.com';

@@ -103,8 +103,11 @@ class Admin extends CI_Controller
 					case 'Цвет':
 						$data['color'] = (string) $param->Значение;
 						break;
+					case 'Название':
+						$data['shortname'] = (string) $param->Значение;
+						break;
 					case 'Описание':
-						$data['description'] = (string) $param->Значение;
+						$data['shortdesc'] = (string) $param->Значение;
 						break;
 					case 'Материал':
 						$data['material'] = (string) $param->Значение;

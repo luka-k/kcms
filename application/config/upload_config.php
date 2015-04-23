@@ -7,8 +7,7 @@ $config['thumb_config'] = array(
 		'w' => 640,
 		'h' => 640,
 		'wp' => 640,
-		'hp' => 640,
-		"zc" => "l",
+		'hp' => 640, 
 		"bg" => "ffffff"
 	),
 	"catalog_mid" => array(
@@ -16,15 +15,14 @@ $config['thumb_config'] = array(
 		'h' => 320,
 		'wp' => 320,
 		'hp' => 320,
-		"zc" => "l",
 		"bg" => "ffffff"	
 	),
 	"catalog_small" => array(
-		'w' => 120,
-		'h' => 120,
-		'wp' => 120,
-		'hp' => 120,
-		"zc" => "l",
+		'w' => 140,
+		'h' => 140,
+		'wp' => 140,
+		'hp' => 140,
+		'far' => 'C',
 		"bg" => "ffffff"	
 	)
 );
