@@ -176,6 +176,7 @@ class Content extends Admin_Controller
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
+				if($type == "products") $data['content']->collections_id = array();
 				if($type == "emails") $data['content']->type = 2;				
 			}	
 			else

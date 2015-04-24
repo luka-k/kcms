@@ -586,10 +586,11 @@ class MY_Model extends CI_Model
 	*/
 	public function insert_fixing_info($fixing_base, $field_name, $id)
 	{
-		$fixing_info = array_unique($this->input->post($field_name));
+		$fixing_info = $this->input->post($field_name);
 				
-		if($fixing_info)
+		if($fixing_info && is_array($fixing_info))
 		{
+			$fixing_info = array_unique($fixing_info);
 			foreach($fixing_info  as $item)
 			{	
 				$this->db->insert($fixing_base, array($field_name => $item, "child_id" => $id));
