@@ -512,7 +512,7 @@ class MY_Model extends CI_Model
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_field);
-			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "sort", "asc"));
+			//$branches[$i]->count_sub_products = count($this->catalog->get_products($b->id, "sort", "asc"));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}		
 		return $branches;
@@ -563,9 +563,10 @@ class MY_Model extends CI_Model
 	* Возращает ids родительских категорий
 	*
 	* @param string $base - база из которой брать привязки("category2category", "product2category")
+	* @param string $field_name
 	* @param integer $child_id
 	*/
-	public function get_parent_ids($base, $child_id)
+	public function get_parent_ids($base, $field_name, $child_id)
 	{
 		$query = $this->db->get_where($base, array("child_id" => $child_id));
 		$items = $query->result_array();
@@ -573,10 +574,31 @@ class MY_Model extends CI_Model
 		$parent_ids = array();
 		foreach($items as $item)
 		{
-			$parent_ids[] = $item['category_parent_id'];
+			$parent_ids[] = $item[$field_name];
 		}
 		
 		return $parent_ids;
+	}
+	
+	/**
+	*
+	*
+	*/
+	public function insert_fixing_info($fixing_base, $field_name, $id)
+	{
+		$fixing_info = array_unique($this->input->post($field_name));
+				
+		if($fixing_info)
+		{
+			foreach($fixing_info  as $item)
+			{	
+				$this->db->insert($fixing_base, array($field_name => $item, "child_id" => $id));
+			}
+		}
+		else
+		{
+			$this->db->insert($fixing_base, array($field_name => 0, "child_id" => $id));
+		}
 	}
 	
 	/**

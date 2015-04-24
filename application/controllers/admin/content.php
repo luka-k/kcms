@@ -143,6 +143,7 @@ class Content extends Admin_Controller
 		);
 	
 		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 
 		$data = array_merge($this->standart_data, $data);
@@ -181,8 +182,9 @@ class Content extends Admin_Controller
 			{			
 				$data['content'] = $this->$type->get_item($id);
 				
-				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", $id);
-				if($type == "products") $data['content']->parent_id = $this->products->get_parent_ids("product2category", $id);
+				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", "category_parent_id", $id);
+				if($type == "products") $data['content']->parent_id = $this->products->get_parent_ids("product2category", "category_parent_id", $id);
+				if($type == "products") $data['content']->collections_id = $this->products->get_parent_ids("product2collection", "collection_parent_id", $id);
 				
 				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
@@ -245,24 +247,16 @@ class Content extends Admin_Controller
 					$this->db->where('child_id', $data['content']->id);
 					$this->db->delete($fixing_base);
 				}
+				
+				if($type == "products")
+				{
+					$this->db->where('child_id', $data['content']->id);
+					$this->db->delete("product2collection");
+				}
 			}
 			
-			if($fixing_name)
-			{
-				$fixing_info = array_unique($this->input->post($fixing_name));
-				
-				if($fixing_info)
-				{
-					foreach($fixing_info  as $item)
-					{	
-						$this->db->insert($fixing_base, array("category_parent_id" => $item, "child_id" => $data['content']->id));
-					}
-				}
-				else
-				{
-					$this->db->insert($fixing_base, array("category_parent_id" => 0, "child_id" => $data['content']->id));
-				}
-			}
+			if($fixing_name) $this->$type->insert_fixing_info($fixing_base, $fixing_name, $data['content']->id);
+			if($type == "products") $this->$type->insert_fixing_info("product2collection", "collection_parent_id", $data['content']->id);
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
