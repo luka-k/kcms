@@ -99,7 +99,7 @@ class Content extends Admin_Controller
 			}
 			else
 			{
-				$type == "emails" ? $parent = "type" : $parent = "parent_id";
+				$parent = $type == "emails" ? "type" : "parent_id";
 				$data["parent_id"] = $id;
 				$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
 			}
@@ -143,6 +143,7 @@ class Content extends Admin_Controller
 		);
 	
 		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 
 		$data = array_merge($this->standart_data, $data);
 		
@@ -170,7 +171,7 @@ class Content extends Admin_Controller
 			{	
 				$data['content'] = set_empty_fields($data['editors']);
 				
-				$data['content']->parent_id[] = 0;
+				if($type == "categories" || $type == "products") $data['content']->parent_id[] = 0;
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
@@ -180,16 +181,8 @@ class Content extends Admin_Controller
 			{			
 				$data['content'] = $this->$type->get_item($id);
 				
-				if($type == "categories")
-				{
-					$query = $this->db->get_where('category2category', array("child_id" => $id));
-					$items = $query->result_array();
-
-					foreach($items as $item)
-					{
-						$data['content']->parent_id[] = $item['category_parent_id'];
-					}
-				}
+				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", $id);
+				if($type == "products") $data['content']->parent_id = $this->products->get_parent_ids("product2category", $id);
 				
 				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
@@ -229,7 +222,9 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->editors_post();
 			
-			$c2c_name = editors_get_name_field('c2c', $data['editors']);
+			//fixing - привязка
+			$fixing_name = editors_get_name_field('fixing', $data['editors']);
+			$fixing_base = $type == "category" ? "category2category" : "product2category";
 			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
@@ -245,27 +240,27 @@ class Content extends Admin_Controller
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
 				
-				if($c2c_name)
+				if($fixing_name)
 				{
 					$this->db->where('child_id', $data['content']->id);
-					$this->db->delete('category2category');
+					$this->db->delete($fixing_base);
 				}
 			}
 			
-			if($c2c_name)
+			if($fixing_name)
 			{
-				$category2category = $this->input->post($c2c_name);
+				$fixing_info = array_unique($this->input->post($fixing_name));
 				
-				if($category2category)
+				if($fixing_info)
 				{
-					foreach($category2category  as $item)
+					foreach($fixing_info  as $item)
 					{	
-						$this->db->insert('category2category', array("category_parent_id" => $item, "child_id" => $data['content']->id));
+						$this->db->insert($fixing_base, array("category_parent_id" => $item, "child_id" => $data['content']->id));
 					}
 				}
 				else
 				{
-					$this->db->insert('category2category', array("category_parent_id" => 0, "child_id" => $data['content']->id));
+					$this->db->insert($fixing_base, array("category_parent_id" => 0, "child_id" => $data['content']->id));
 				}
 			}
 			

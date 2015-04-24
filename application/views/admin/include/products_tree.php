@@ -4,7 +4,7 @@
 	<?foreach ($tree as $branch_1): ?>
 		<li <?if(!empty($branch_1->childs)):?>class="down"<?endif;?>><a class="" href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_1->id?>"><?=$branch_1->name?></a>
 			<?if(!empty($branch_1->childs)):?>
-				<ul class="<?=$branch_1->class?>">
+				<ul class="active">
 					<?foreach ($branch_1->childs as $branch_2): ?>
 						<li <?if(!empty($branch_2->childs)):?> class="down" <?endif;?>><a href = "<?=base_url()?>admin/content/items/<?=$type?>/<?=$branch_2->id?>"><?=$branch_2->name?></a>
 							<?if(!empty($branch_2->childs)):?>

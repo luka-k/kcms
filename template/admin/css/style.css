@@ -264,6 +264,13 @@ color:green;
 color:red;
 }
 
+.category_select .col_12, #category_select .col_10,  #category_select .col_2, #category_select .col_1, #category_select .col_11{
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
 /********************************************************************
 *
 *image_gallery

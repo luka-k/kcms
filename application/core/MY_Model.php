@@ -560,6 +560,26 @@ class MY_Model extends CI_Model
 	}
 	
 	/**
+	* Возращает ids родительских категорий
+	*
+	* @param string $base - база из которой брать привязки("category2category", "product2category")
+	* @param integer $child_id
+	*/
+	public function get_parent_ids($base, $child_id)
+	{
+		$query = $this->db->get_where($base, array("child_id" => $child_id));
+		$items = $query->result_array();
+
+		$parent_ids = array();
+		foreach($items as $item)
+		{
+			$parent_ids[] = $item['category_parent_id'];
+		}
+		
+		return $parent_ids;
+	}
+	
+	/**
 	* Обрабатывает данные перед внесением в базу
 	*
 	* @return object

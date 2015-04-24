@@ -53,6 +53,14 @@
 		$.post("/admin/content/advanced/", json_str);
 	}
 	
+	function select_equal(value, select_id){
+		if($('#cch_'+select_id).prop("checked")){
+			$('.cch-'+value).prop("checked", true);
+		}else{
+			$('.cch-'+value).prop("checked", false);
+		}	
+	}
+	
 	$(function(){
 		$( ".datepicker" ).datepicker({
 			dateFormat:"yy-mm-dd",
