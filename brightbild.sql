@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 24 2015 г., 22:36
+-- Время создания: Апр 25 2015 г., 00:24
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -158,8 +158,41 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4ecf1d98c4d9ad562dcc3732bd8cf9dd', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429878668, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('8b89bffbc501db8e8acc1c9c2529439f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429903664, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('4ef0986cc761f5cfad69257dee856785', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429910535, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `collections`
+--
+
+CREATE TABLE IF NOT EXISTS `collections` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `lastmod` date NOT NULL,
+  `changefreq` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `priority` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `url` (`url`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `collections`
+--
+
+INSERT INTO `collections` (`id`, `parent_id`, `name`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`, `lastmod`, `changefreq`, `priority`) VALUES
+(1, 0, 'Коллекция 1', 0, '', '', '', '', 'kollekciya-1', '2015-04-24', '', '0.1'),
+(2, 0, 'Коллекция 2', 0, '', '', '', '', 'kollekciya-2', '2015-04-24', '', '0.1'),
+(3, 1, 'Подколекция 1', 0, '', '', '', '', 'podkolekciya-1', '2015-04-24', '', '0.1'),
+(4, 1, 'Подколекция 2', 0, '', '', '', '', 'podkolekciya-2', '2015-04-24', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -282,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -294,11 +327,11 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
 (5, 1, 'Статьи', 0, 1, '', 'link', '#'),
 (6, 1, 'Каталог', 0, 2, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 5, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 6, '', 'link', '#'),
-(10, 1, 'Меню', 0, 7, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 8, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 5, '', 'link', 'admin/admin_orders'),
+(8, 1, 'Настройки', 0, 6, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 7, '', 'link', '#'),
+(10, 1, 'Меню', 0, 8, '', 'link', 'admin/menu_module/menus'),
+(11, 1, 'Пользователи', 0, 9, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
 (13, 1, 'Категории', 6, 1, '', 'link', 'admin/content/items/categories/'),
 (14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
@@ -313,7 +346,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
 (33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
 (34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
-(35, 1, 'Производители', 0, 3, '', 'link', 'admin/content/items/manufacturer/all');
+(35, 1, 'Производители', 0, 3, '', 'link', 'admin/content/items/manufacturer/all'),
+(36, 1, 'Коллекции', 0, 4, '', 'link', 'admin/content/items/collections/all');
 
 -- --------------------------------------------------------
 
@@ -377,6 +411,24 @@ INSERT INTO `product2category` (`category_parent_id`, `child_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `product2collection`
+--
+
+CREATE TABLE IF NOT EXISTS `product2collection` (
+  `collection_parent_id` int(11) NOT NULL,
+  `child_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `product2collection`
+--
+
+INSERT INTO `product2collection` (`collection_parent_id`, `child_id`) VALUES
+(3, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `products`
 --
 
@@ -409,7 +461,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `manufacturer_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 6, 1, 0, 'Зеркало', '123', 235, 0, '', '', '', 'zerkalo', '2015-04-24', '', '0.1', '', 0, 0);
+(1, 6, 1, 0, 'Зеркало', '123', 235, 0, '', '', '', 'zerkalo', '2015-04-25', '', '0.1', '', 0, 0);
 
 -- --------------------------------------------------------
 
