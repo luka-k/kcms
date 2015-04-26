@@ -357,7 +357,7 @@ class Content extends Admin_Controller
 			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
 	
-		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		$data['selects']['parent_id'] = $this->categories->get_tree(0, "category_parent_id");
 		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 
@@ -399,7 +399,6 @@ class Content extends Admin_Controller
 				$data['content'] = $this->$type->get_item($id);
 				
 				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", "category_parent_id", $id);
-				if($type == "products") $data['content']->parent_id = $this->products->get_parent_ids("product2category", "category_parent_id", $id);
 				if($type == "products") $data['content']->collections_id = $this->products->get_parent_ids("product2collection", "collection_parent_id", $id);
 				
 				// Галлерея
