@@ -1,12 +1,12 @@
+<?require_once "columns.php"?>
 
-				 
-        <header>
-			<div class="maxw">
-				<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
+	<header>
+		<div class="maxw">
+			<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
 				<div class="catalog-btn"><a href="/">Каталог производителей</a></div>
 				<div class="top-menu">
 					<ul>
-						<li><a href="<?base_url()?>catalog" class="active">Магазин</a></li>
+						<li><a href="<?=base_url()?>catalog" class="active">Магазин</a></li>
 						<li><a href="/">Доставка и Оплата</a></li>
 						<li><a href="/">bрайтbилd</a></li>
 						<li class="right"><a href="/">Контакты</a></li>

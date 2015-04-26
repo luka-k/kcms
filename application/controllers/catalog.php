@@ -10,6 +10,7 @@
 class Catalog extends Client_Controller {
 
 	protected $get = array();
+	protected $post = array();
 
 	public function __construct()
 	{
@@ -18,6 +19,7 @@ class Catalog extends Client_Controller {
 		$this->config->load('characteristics');
 		
 		$this->get = $this->input->get();
+		$this->post = $this->input->post();
 
 		if(!isset($this->get['order']))
 		{
@@ -26,22 +28,32 @@ class Catalog extends Client_Controller {
 		}
 		
 		$max_value = $max_price = $this->products->get_max('price');
-		if(!empty($this->get['price_to'])) $max_value = $this->get['price_to'];
+		if(!empty($this->post['price_to'])) $max_value = $this->post['price_to'];
 
 		$min_value = $min_price = $this->products->get_min('price');
-		if(!empty($this->get['price_from'])) $min_value = $this->get['price_from'];		
+		if(!empty($this->post['price_from'])) $min_value = $this->post['price_from'];		
 	
 		$data = array(
 			'title' => "Каталог",
 			'select_item' => '',
-			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'tree' => $this->categories->get_tree(0, "category_parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
 			'min_price' => $min_price,
 			'max_price' => $max_price,
 			'min_value' => $min_value,
 			'max_value' => $max_value,
-			'filters_checked' => array("is_active" => ""),
-			'left_menu' => $this->categories->get_tree(0, "parent_id")
+			'width_from' => 0,
+			'width_to' => 500,
+			'height_from' => 0,
+			'height_to' => 500,
+			'depth_from' => 0,
+			'depth_to' => 500,
+			'filters_checked' => array(),
+			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
+			'manufacturer' => $this->manufacturer->get_list(FALSE),
+			'collection' => $this->collections->get_tree(0, "parent_id"),
+			'sku' => array(),
+			'nok' => array(),
 		);
 		
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -53,7 +65,7 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
-		if(isset($this->get['filter']))
+		if(isset($this->post['filter']))
 		{
 			 $this->filtred();
 		}
@@ -93,8 +105,8 @@ class Catalog extends Client_Controller {
 		$data['special'] = $this->products->prepare_list($special);
 		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
-		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
+		$data['category']->products = $this->products->get_list(FALSE);
+		$data['total_rows'] = count($data['category']->products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
 				
@@ -106,20 +118,23 @@ class Catalog extends Client_Controller {
 	*/
 	public function filtred()
 	{		
-		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 			
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'filters_values' => $this->get,
-			'filters' => $this->characteristics_type->get_filters()
+			'filters_checked' => $this->post,
+			'total_rows' => count($products),
+			'filters' => $this->characteristics_type->get_filters($products)
 		);
+		
+		//var_dump($data['filters_checked']);
 		
 		$data = array_merge($this->standart_data, $data);
 		
 		$data['category'] = new stdClass;
-		$data['category']->products = $this->products->prepare_list($products);
+		$data['category']->products = $products;
 
 		$this->load->view("client/categories", $data);
 	}

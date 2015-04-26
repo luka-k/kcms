@@ -1,17 +1,17 @@
-<div id="searchpopupbtn"><p>Количество: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
-				 
-				 <div id="secondcolumn7" class="secondcolumn">
+<div id="searchpopupbtn"><p>РљРѕР»РёС‡РµСЃС‚РІРѕ: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">РџРѕРєР°Р·Р°С‚СЊ</a></p></div>
+				 				
+				<div id="secondcolumn7" class="secondcolumn">
 					<ul class="level1">
-						<?foreach($material as $item_1 => $ok):?>
+						<?foreach($filters['material']->values as $material):?>
 							<li>
-								<input type="checkbox" class="parent_checked" name="material_checked[]" value="<?=$item_1?>"
+								<input type="checkbox" class="parent_checked" name="<?=$filters['material']->name?>[]" value="<?=$material?>"
 									<?if(!empty($material_checked)):?>
 										<?foreach($material_checked as $key => $item):?>
 											<?if($item == $item_1):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$item_1?></a>
+								<a href="#" class="level1_link"> <?=$material?></a>
 							</li>
 						<? endforeach ?>
 					</ul>
@@ -19,16 +19,16 @@
 				
 				 <div id="secondcolumn6" class="secondcolumn">
 					<ul class="level1">
-						<?foreach($color as $item_1 => $ok):?>
+						<?foreach($filters['color']->values as $color):?>
 							<li>
-								<input type="checkbox" class="parent_checked" name="color_checked[]" value="<?=$item_1?>"
+								<input type="checkbox" class="parent_checked" name="<?=$filters['color']->name?>[]" value="<?=$color?>"
 									<?if(!empty($color_checked)):?>
 										<?foreach($color_checked as $key => $item):?>
 											<?if($item == $item_1):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$item_1?></a>
+								<a href="#" class="level1_link"> <?=$color?></a>
 							</li>
 						<? endforeach ?>
 					</ul>
@@ -51,7 +51,7 @@
 					</ul>
 				</div>
 				
-				 <div id="secondcolumn4" class="secondcolumn">
+				<div id="secondcolumn4" class="secondcolumn">
 					<ul class="level1">
 						<?foreach($sku as $item_1 => $ok):?>
 							<li>
@@ -68,18 +68,18 @@
 					</ul>
 				</div>
 				
-				 <div id="secondcolumn3" class="secondcolumn">
+				<div id="secondcolumn3" class="secondcolumn">
 					<ul class="level1">
-						<?foreach($collection as $item_1 => $ok):?>
+						<?foreach($collection as $c):?>
 							<li>
-								<input type="checkbox" class="parent_checked" name="collection_checked[]" value="<?=$item_1?>"
-									<?if(!empty($collection_checked)):?>
-										<?foreach($collection_checked as $key => $item):?>
-											<?if($item == $item_1):?>checked<?endif;?>
+								<input type="checkbox" class="parent_checked" name="collection_checked[]" value="<?=$c->id?>"
+									<?if(!empty($filters_checked['collection_checked'])):?>
+										<?foreach($filters_checked['collection_checked'] as $key => $item):?>
+											<?if($item == $c->id):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$item_1?></a>
+								<a href="#" class="level1_link"> <?=$c->name?></a>
 							</li>
 						<? endforeach ?>
 					</ul>
@@ -87,16 +87,16 @@
 				
 				 <div id="secondcolumn2" class="secondcolumn">
 					<ul class="level1">
-						<?foreach($manufacturer as $item_1 => $m_id):?>
+						<?foreach($manufacturer as $m):?>
 							<li>
-								<input type="checkbox" class="parent_checked" name="manufacturer_checked[]" value="<?=$m_id?>" 
-									<?if(!empty($manufacturer_checked)):?>
-										<?foreach($manufacturer_checked as $key => $item):?>
-											<?if($item == $item_1):?>checked<?endif;?>
+								<input type="checkbox" class="parent_checked" name="manufacturer_checked[]" value="<?=$m->id?>" 
+									<?if(!empty($filters_checked['manufacturer_checked'])):?>
+										<?foreach($filters_checked['manufacturer_checked'] as $key => $item):?>
+											<?if($item == $m->id):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$item_1?></a>
+								<a href="#" class="level1_link"> <?=$m->name?></a>
 							</li>
 						<? endforeach ?>
 					</ul>
@@ -109,8 +109,8 @@
 						<?foreach($left_menu as $item_1):?>
 							<li>
 								<input type="checkbox" class="parent_checked category-<?=$item_1->id?>" name="parent_checked[]" value="<?=$item_1->id?>" 
-									<?if(!empty($parent_checked)):?>
-										<?foreach($parent_checked as $key => $item):?>
+									<?if(!empty($filters_checked['parent_checked'])):?>
+										<?foreach($filters_checked['parent_checked'] as $key => $item):?>
 											<?if($item == $item_1->id):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
@@ -121,8 +121,8 @@
 										<?foreach ($item_1->childs as $item_2):?>
 											<li>
 												<input type="checkbox" class="categories_checked" name="categories_checked[]" parent="<?=$item_1->id?>" value="<?=$item_2->id?>" 
-												<?if(!empty($categories_checked)):?>
-													<?foreach($categories_checked as $key => $ch):?>
+												<?if(!empty($filters_checked['categories_checked'])):?>
+													<?foreach($filters_checked['categories_checked'] as $key => $ch):?>
 														<?if($ch == $item_2->id):?>checked<?endif;?>
 													<?endforeach;?>
 												<?endif;?>/>

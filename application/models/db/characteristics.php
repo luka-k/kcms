@@ -96,11 +96,33 @@ class Characteristics extends MY_Model
 
 		if(!empty($id) || (empty($id) && $counter == 0))
 		{
+			if(isset($filter['collection_checked']))
+			{
+				$this->db->where_in("collection_parent_id", $filter['collection_checked']);
+				$this->db->select("child_id");
+				$ids = $this->db->get("product2collection")->result();
+				$product_ids = array();
+				foreach($ids as $item)
+				{
+					$product_ids[] = $item->child_id;
+				}
+				$this->db->where_in("id", $product_ids);
+			}
+			
 			//Если указан пункт в наличии 
 			if(isset($filter['is_active'])) $this->db->where("is_active", 1);
+			
+			//фильтрация по категории
+			if(isset($filter['categories_checked'])) $this->db->where_in("parent_id", $filter['categories_checked']);
+
+			//фильтрация по производителю
+			if(isset($filter['manufacturer_checked'])) $this->db->where_in("manufacturer_id", $filter['manufacturer_checked']);
 
 			if(isset($filter['price_from']) && isset($filter['price_to']))
 			{
+				$filter['price_from'] = preg_replace("/[^0-9]/", "", $filter['price_from']);
+				$filter['price_to'] = preg_replace("/[^0-9]/", "", $filter['price_to']);
+
 				$where = "price BETWEEN {$filter['price_from']} AND {$filter['price_to']}";
 				$this->db->where($where);
 			}

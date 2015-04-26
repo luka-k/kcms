@@ -50,7 +50,7 @@
 					range: true,
 					min: 0,
 					max: 500,
-					values: [ <?= $_GET['width_from']?>, <?= $_GET['width_to']?> ],
+					values: [ <?= $width_from?>, <?= $width_to?> ],
 					slide: function( event, ui ) {
 						$( "#width-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#width-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
@@ -63,7 +63,7 @@
 					range: true,
 					min: 0,
 					max: 500,
-					values: [ <?= $_GET['height_from']?>, <?= $_GET['height_to']?> ],
+					values: [ <?= $height_from?>, <?= $height_to?> ],
 					slide: function( event, ui ) {
 						$( "#height-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#height-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
@@ -76,7 +76,7 @@
 					range: true,
 					min: 0,
 					max: 500,
-					values: [ <?= $_GET['depth_from']?>, <?= $_GET['depth_to']?> ],
+					values: [ <?= $depth_from?>, <?= $depth_to?> ],
 					slide: function( event, ui ) {
 						$( "#weight-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#weight-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
