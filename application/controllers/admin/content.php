@@ -58,6 +58,9 @@ class Content extends Admin_Controller
 			$sku = (string) $el->Артикул;
 			$cat1 = array(); // Группы товаров 1
 			$collections = array(); // Коллекции
+			
+			$filters = array(); //Характеристики
+			
 			$images = array();
 			
 			$data = array(
@@ -95,29 +98,59 @@ class Content extends Admin_Controller
 						$data['depth'] = (string) $param->Значение;
 						break;
 					case 'Цвет':
-						$data['color'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['color'][$i] = $f;
+						}
+						//$data['color'] = (string) $param->Значение;
 						break;
 					case 'Название':
-						$data['shortname'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['shortname'][$i] = $f;
+						}
+						//$data['shortname'] = (string) $param->Значение;
 						break;
 					case 'Описание':
-						$data['shortdesc'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['shortdesc'][$i] = $f;
+						}
+						//$data['shortdesc'] = (string) $param->Значение;
 						break;
 					case 'Материал':
-						$data['material'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['material'][$i] = $f;
+						}
+						//$data['material'] = (string) $param->Значение;
 						break;
 					case 'Отделка':
-						$data['finishing'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['finishing'][$i] = $f;
+						}
+						//$data['finishing'] = (string) $param->Значение;
 						break;
 					case 'Разворот':
-						$data['turn'] = (string) $param->Значение;
+						$filter = explode('/', (string) $param->Значение);
+						foreach ($filter as $i => $f)
+						{
+							$filters['turn'][$i] = $f;
+						}
+						//$data['turn'] = (string) $param->Значение;
 						break;
 					case 'Файл':
 						$images[] = '1c/'. ( (string) $param->Значение);
 						break;
 				}
 			}
-			if ( $this->products->get_item_by(array('1c_id' => $data['1c_id']))) 
+			if ($this->products->get_item_by(array('1c_id' => $data['1c_id']))) 
 				continue;
 			 
 			echo "start inserting...\n";
@@ -203,6 +236,25 @@ class Content extends Admin_Controller
 					if (!$this->db->get_where('product2collection', $product2collection)->result())				
 						$this->db->insert('product2collection', $product2collection);
 				}
+				
+				if($filters)
+				{
+					foreach($filters as $type => $filter)
+					{
+						foreach($filter as $value)
+						{
+							$characteristics = array(
+								"type" => $type,
+								"value" => $value,
+								'object_type' => "products",
+								'object_id' => $product_id
+							);
+							if (!$this->db->get_where('characteristics', $characteristics)->result()) $this->db->insert('characteristics', $characteristics);
+						}
+					}	
+				}
+				
+				
 			
 				// убрать для загрузки фото
 				if (false)

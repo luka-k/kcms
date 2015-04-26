@@ -29,7 +29,6 @@ class Characteristics_type extends MY_Model
 		'Основное' => array(
 			'id' => array("id", "hidden"),
 			'name' => array("Название типа", "text", "trim|htmlspecialchars|name", 'require'),
-			'category' => array("Категория товаров", "checkbox", "trim|htmlspecialchars"),
 			'view_type' => array("Тип отображения", "simple_select"),
 			'url' => array("Тип фильтра", "hidden", "substituted[name]")
 		)
