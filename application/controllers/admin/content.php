@@ -16,6 +16,221 @@ class Content extends Admin_Controller
 		parent::__construct();
 	}
 	
+	
+	
+	public function load1COffers()
+	{
+		$xmlstr = file_get_contents('1c/offers.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		 
+		foreach($xml->ПакетПредложений->Предложения->Предложение as $el)
+		{
+			$id = (string) $el->Ид;
+			$product = $this->products->get_item_by(array('1c_id' => $id));
+			if (!$product)
+			{
+				echo $name."\n";
+				continue;
+			}
+			$price = (string) $el->Цены->Цена->ЦенаЗаЕдиницу;
+			$this->products->update($product->id, array('price' => $price));
+		}
+	}
+	
+	public function load1C()
+	{
+		$xmlstr = file_get_contents('1c/import.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		$total = 0;
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$total++;
+			//if ($total > 20) die('done');
+			$manufacturer = (string) $el->Изготовитель->ОфициальноеНаименование;
+			$id = (string) $el->Ид;
+			$name = (string) $el->Наименование;
+			echo $total.': '.$name."\n";
+			$sku = (string) $el->Артикул;
+			$cat1 = array(); // Группы товаров 1
+			$collections = array(); // Коллекции
+			$images = array();
+			
+			$data = array(
+				'1c_id' => $id,
+				'sku' => $sku
+			);
+			
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
+			{
+				switch ((string) $param->Наименование)
+				{
+					case 'Группа товаров 1':
+						$cat1 = explode(';', (string) $param->Значение);
+						break;
+					case 'Группа товаров 2':
+						$cat2 = (string) $param->Значение;
+						break;
+					case 'Полное наименование':
+						$data['name'] = (string) $param->Значение;
+						break;
+					case 'Коллекция/Серия1':
+						$collections = explode('(', (string) $param->Значение);
+						foreach ($collections as $i => $collection)
+						{
+							$collections[$i] = str_replace(')', '', $collection);
+						}
+						break;
+					case 'Ширина':
+						$data['width'] = (string) $param->Значение;
+						break;
+					case 'Высота':
+						$data['height'] = (string) $param->Значение;
+						break;
+					case 'Глубина':
+						$data['depth'] = (string) $param->Значение;
+						break;
+					case 'Цвет':
+						$data['color'] = (string) $param->Значение;
+						break;
+					case 'Название':
+						$data['shortname'] = (string) $param->Значение;
+						break;
+					case 'Описание':
+						$data['shortdesc'] = (string) $param->Значение;
+						break;
+					case 'Материал':
+						$data['material'] = (string) $param->Значение;
+						break;
+					case 'Отделка':
+						$data['finishing'] = (string) $param->Значение;
+						break;
+					case 'Разворот':
+						$data['turn'] = (string) $param->Значение;
+						break;
+					case 'Файл':
+						$images[] = '1c/'. ( (string) $param->Значение);
+						break;
+				}
+			}
+			if ( $this->products->get_item_by(array('1c_id' => $data['1c_id']))) 
+				continue;
+			 
+			echo "start inserting...\n";
+			
+			$_manufacturer = $this->manufacturer->get_item_by(array('name' => $manufacturer));
+			if (!$_manufacturer)
+			{
+				$this->manufacturer->insert(array('name' => $manufacturer, 'url' => $this->string_edit->slug($manufacturer)));
+				$_manufacturer = $this->manufacturer->get_item($this->db->insert_id());
+			}
+			echo "manufacturer_id=".$_manufacturer->id."\n";
+				
+			$my_collections = array();
+			if ($collections)
+			{
+				foreach ($collections as $collection)
+				{
+					$_collection = $this->collections->get_item_by(array('name' => trim($collection)));
+					if (!$_collection)
+					{
+						$this->collections->insert(array('name' => trim($collection), 'url' => $this->string_edit->slug($collection)));
+						$_collection = $this->collections->get_item($this->db->insert_id());
+					}
+					$my_collections[] = $_collection->id;
+				}
+			}
+			
+			if ($cat2)
+			{
+				$category = $this->categories->get_item_by(array('name' => $cat2));
+				if (!$category)
+				{
+					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2)));
+					$category = $this->categories->get_item($this->db->insert_id());
+				}
+				
+				foreach ($cat1 as $c1)
+				{
+					$c1 = trim($c1);
+					if (!$c1) continue;
+					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
+					if (!$parentcategory)
+					{
+						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1)));
+						$pid = $this->db->insert_id();
+						$parentcategory = $this->categories->get_item($pid);
+					
+						$category2category = array(
+							'category_parent_id' => 0,
+							'child_id' => $pid
+						); 
+						
+						if (!$this->db->get_where('category2category', $category2category)->result())				
+							$this->db->insert('category2category', $category2category);
+						
+					}
+					
+					$category2category = array(
+						'category_parent_id' => $parentcategory->id,
+						'child_id' => $category->id
+					);
+					
+					if (!$this->db->get_where('category2category', $category2category)->result())				
+						$this->db->insert('category2category', $category2category);
+				}
+			
+				$data['parent_id'] = $category->id;
+				$data['is_active'] = 1;
+				$data['price'] = 0;
+				$data['manufacturer_id'] = $_manufacturer->id;
+				$data['url'] = $this->string_edit->slug($data['name']);
+				$this->products->insert($data);
+				$product_id = $this->db->insert_id();
+				
+			
+				foreach ($my_collections as $collection_id)
+				{
+					$product2collection = array(
+						'collection_parent_id' => $collection_id,
+						'child_id' => $product_id
+					); 
+					
+					if (!$this->db->get_where('product2collection', $product2collection)->result())				
+						$this->db->insert('product2collection', $product2collection);
+				}
+			
+				// убрать для загрузки фото
+				if (false)
+					foreach ($images as $i => $im)
+					{
+						$newim = str_replace('.file', '.tiff', $im);
+						if (file_exists(FCPATH.$im))
+							rename (FCPATH.$im, FCPATH.$newim);
+						$jpg = str_replace('.tiff', '.jpg', FCPATH.$newim);
+						if (!file_exists($jpg))
+						{
+							$tiff = new Imagick(FCPATH.$newim);
+							
+							//$tiff->thumbnailImage(100, 100);
+							$tiff->setImageFormat('jpg');
+							$tiff->setCompressionQuality(97);
+							$tiff->writeImage($jpg);
+						}
+						
+						$this->images->upload_image($jpg, array('object_type' => 'products', 'object_id' => $product_id, 'is_cover' => ($i == 0 ? 1 : 0)));
+					}
+				
+				//die('ok');
+					
+			}
+		}
+	}
+	
 	/**
 	* Импорт
 	* Может стоит вынести импорт в отдельный контроллер?
