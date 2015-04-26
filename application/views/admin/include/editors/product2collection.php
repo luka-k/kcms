@@ -3,7 +3,6 @@
 	<div class="col_10">
 		<?$ch_counter = 0?>
 		<?foreach ($selects[$edit_name] as $select): ?>
-			<?if($select->childs):?>
 			<div class="col_12 clearfix">
 				<div class="col_1">
 					<input id="cch-2_<?=$ch_counter?>" 
@@ -34,7 +33,6 @@
 					</div>
 				<?endif;?>
 			</div>
-			<?endif;?>
 		<?endforeach ?>
 	</div>
 </div>
