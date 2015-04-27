@@ -199,6 +199,12 @@ class Catalog extends Client_Controller {
 
 		$this->load->view("client/product", $data);
 	}
+	
+	public function count()
+	{
+		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
+		echo count($products);
+	}
 }
 
 /* End of file catalog.php */

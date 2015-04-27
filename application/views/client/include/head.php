@@ -134,7 +134,7 @@
 					$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
 					$('#searchpopupbtn').fadeIn('slow');
 					
-					$.get('http://shop.brightbuild.ru/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+					$.get('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 					
 					
 					$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
