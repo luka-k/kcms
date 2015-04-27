@@ -1,13 +1,51 @@
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
-				 				
+				 
+				<div id="secondcolumn9" class="secondcolumn">
+					<?if(isset($filters['turn']->values)):?>
+					<ul class="level1">
+						<?foreach($filters['turn']->values as $turn):?>
+							<li>
+								<input type="checkbox" class="parent_checked" name="<?=$filters['turn']->name?>[]" value="<?=$turn?>"
+									<?if(!empty($filters_checked['turn'])):?>
+										<?foreach($filters_checked['turn'] as $key => $item):?>
+											<?if($item == $turn):?>checked<?endif;?>
+										<?endforeach;?>
+									<?endif;?>
+								/>
+								<a href="#" class="level1_link"> <?=$turn?></a>
+							</li>
+						<? endforeach ?>
+					</ul>
+					<?endif;?>
+				</div>
+				
+				<div id="secondcolumn8" class="secondcolumn">
+					<?if(isset($filters['finishing']->values)):?>
+					<ul class="level1">
+						<?foreach($filters['finishing']->values as $finishing):?>
+							<li>
+								<input type="checkbox" class="parent_checked" name="<?=$filters['finishing']->name?>[]" value="<?=$finishing?>"
+									<?if(!empty($filters_checked['finishing'])):?>
+										<?foreach($filters_checked['finishing'] as $key => $item):?>
+											<?if($item == $finishing):?>checked<?endif;?>
+										<?endforeach;?>
+									<?endif;?>
+								/>
+								<a href="#" class="level1_link"> <?=$finishing?></a>
+							</li>
+						<? endforeach ?>
+					</ul>
+					<?endif;?>
+				</div>
+				
 				<div id="secondcolumn7" class="secondcolumn">
 					<?if(isset($filters['material']->values)):?>
 					<ul class="level1">
 						<?foreach($filters['material']->values as $material):?>
 							<li>
 								<input type="checkbox" class="parent_checked" name="<?=$filters['material']->name?>[]" value="<?=$material?>"
-									<?if(!empty($material_checked)):?>
-										<?foreach($material_checked as $key => $item):?>
+									<?if(!empty($filters_checked['material'])):?>
+										<?foreach($filters_checked['material'] as $key => $item):?>
 											<?if($item == $item_1):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>

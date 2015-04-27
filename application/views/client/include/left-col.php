@@ -1,4 +1,5 @@
-<input type="hidden" name="filter" value="true"/>   
+                            
+			<input type="hidden" name="filter" value="true"/>   
                                 <aside id="s_left">
                                     <h1><?if(empty($categories_ch)):?>
 											<?if(!empty($manufacturer_ch)):?>
@@ -104,14 +105,30 @@
 											<div class="lm-caption">
 												Отделка:
 											</div>
-											<div class="lm-item">
+											<div class="lm-item" prop="secondcolumn8">
+												<?if(empty($finishing_ch)):?>
+													Все варианты
+												<?else:?>
+													<?=$finishing_ch[0]?>
+													<?if(count($finishing_ch) > 1):?>
+														, ... [<?= count($finishing_ch)?>]
+													<?endif;?>
+												<?endif;?>
 											</div>
 										</div>
 										<div class="lm-block">
 											<div class="lm-caption">
 												Разворот:
 											</div>
-											<div class="lm-item">
+											<div class="lm-item" prop="secondcolumn9">
+												<?if(empty($turn_ch)):?>
+													Все варианты
+												<?else:?>
+													<?=$turn_ch[0]?>
+													<?if(count($turn_ch) > 1):?>
+														, ... [<?= count($turn_ch)?>]
+													<?endif;?>
+												<?endif;?>
 											</div>
 										</div>
 										<div class="lm-block">
