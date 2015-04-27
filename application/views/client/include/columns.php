@@ -141,7 +141,23 @@
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$c->name?></a>
+								<a href="#" class="level1_link"><span>+</span> <?=$c->name?></a>
+								<?if($c->childs):?>
+									<ul>
+										<?foreach($c->childs as $level_2):?>
+											<li>
+												<input type="checkbox" class="parent_checked" name="collection_checked[]" value="<?=$level_2->id?>"
+													<?if(!empty($filters_checked['collection_checked'])):?>
+														<?foreach($filters_checked['collection_checked'] as $key => $item):?>
+															<?if($item == $level_2->id):?>checked<?endif;?>
+														<?endforeach;?>
+													<?endif;?>
+												/>
+												<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
+											</li>
+										<?endforeach;?>
+									</ul>
+								<?endif;?>
 							</li>
 						<? endforeach ?>
 					</ul>
