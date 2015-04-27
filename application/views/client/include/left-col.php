@@ -1,5 +1,4 @@
-                                               
-			<input type="hidden" name="filter" value="true"/>   
+<input type="hidden" name="filter" value="true"/>   
                                 <aside id="s_left">
                                     <h1><?if(empty($categories_ch)):?>
 											<?if(!empty($manufacturer_ch)):?>

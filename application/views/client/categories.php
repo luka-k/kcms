@@ -21,9 +21,9 @@
 													</div>
 													<div style="clear: both;"></div>
 												
-													<?if(!empty($content)):?>
+													<?if(!empty($category->products)):?>
 														<?$counter = 1?>
-														<?foreach($content as $item):?>
+														<?foreach($category->products as $item):?>
 															<div class="product">
 																<div class="product-price">
 																	<p>Цена розничная: <del><?=$item->price?> р.</del> <span class="discount">-<?=$item->discount?>%</span></p>
@@ -32,18 +32,20 @@
 																	<p><a onclick="add_to_cart('<?=$item->id?>', 1); return false" href="<?=$item->full_url?>"><img src="/template/client/images-new/cartbtn.png" /></a></p>
 																</div>
 																<div class="product-image">
-																<a href="<?=$item->full_url?>"><img src="<?=str_replace('catalog_mid', 'catalog_small', $item->img->url)?>" width="138" /></a>
+																<?if(isset($item->img)):?><!---Костыль ввиду отсутствия картинок--->
+																<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="138" /></a>
+																<?endif;?>
 																</div>
 																<div class="product-name">
 																<a href="<?=$item->full_url?>"><?=$item->name?></a>
 																</div>
 																<div class="product-sku">
-																<?=$item->article?>
+																<?=$item->sku?>
 																</div>
 															</div>
 															<?$counter++?>
 														<?endforeach;?>
-														<?=$pagination?>
+														
 													<?endif;?>
 													</div>
                                                 </article>

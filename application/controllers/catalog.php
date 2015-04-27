@@ -26,28 +26,48 @@ class Catalog extends Client_Controller {
 			$this->get['order'] = "sort";
 			$this->get['direction'] = "asc";
 		}
-		
-		$max_value = $max_price = $this->products->get_max('price');
-		if(!empty($this->post['price_to'])) $max_value = $this->post['price_to'];
 
-		$min_value = $min_price = $this->products->get_min('price');
-		if(!empty($this->post['price_from'])) $min_value = $this->post['price_from'];		
-	
+		$price_min = $price_from = $this->products->get_min('price');
+		if(!empty($this->post['price_from'])) $price_min = preg_replace("/[^0-9]/", "", $this->post['price_from']);
+		$price_max = $price_to = $this->products->get_max('price');
+		if(!empty($this->post['price_to'])) $price_max = preg_replace("/[^0-9]/", "", $this->post['price_to']);
+
+		$width_min = $width_from = $this->products->get_min('width');
+		if(!empty($this->post['width_from'])) $width_min = preg_replace("/[^0-9]/", "", $this->post['width_from']);
+		$width_max = $width_to = $this->products->get_max('width');
+		if(!empty($this->post['width_to'])) $width_max = preg_replace("/[^0-9]/", "", $this->post['width_to']);
+		
+		$height_min = $height_from = $this->products->get_min('height');
+		if(!empty($this->post['height_from'])) $height_min = preg_replace("/[^0-9]/", "", $this->post['height_from']);
+		$height_max = $height_to = $this->products->get_max('height');
+		if(!empty($this->post['height_to'])) $height_max = preg_replace("/[^0-9]/", "", $this->post['height_to']);
+		
+		$depth_min = $depth_from = $this->products->get_min('depth');
+		if(!empty($this->post['depth_from'])) $depth_min = preg_replace("/[^0-9]/", "", $this->post['depth_from']);
+		$depth_max = $depth_to = $this->products->get_max('depth');
+		if(!empty($this->post['depth_to'])) $depth_max = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
+		
 		$data = array(
 			'title' => "Каталог",
 			'select_item' => '',
 			'tree' => $this->categories->get_tree(0, "category_parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
-			'min_price' => $min_price,
-			'max_price' => $max_price,
-			'min_value' => $min_value,
-			'max_value' => $max_value,
-			'width_from' => 0,
-			'width_to' => 500,
-			'height_from' => 0,
-			'height_to' => 500,
-			'depth_from' => 0,
-			'depth_to' => 500,
+			'price_from' => $price_from,
+			'price_to' => $price_to,
+			'price_min' => $price_min,
+			'price_max' => $price_max,
+			'width_from' => $width_from,
+			'width_to' => $width_to,
+			'width_min' => $width_min,
+			'width_max' => $width_max,
+			'height_from' => $height_from,
+			'height_to' => $height_to,
+			'height_min' => $height_min,
+			'height_max' => $height_max,
+			'depth_from' => $depth_from,
+			'depth_to' => $depth_to,
+			'depth_min' => $depth_min,
+			'depth_max' => $depth_max, //Тут мне кажется я переборшил с 4-мя интервалами вроде должно хваттать и двух. 
 			'filters_checked' => array(),
 			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
 			'manufacturer' => $this->manufacturer->get_list(FALSE),
@@ -55,7 +75,7 @@ class Catalog extends Client_Controller {
 			'sku' => array(),
 			'nok' => array(),
 		);
-		
+	
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
 		$this->load->helper('url_helper');
@@ -105,7 +125,7 @@ class Catalog extends Client_Controller {
 		$data['special'] = $this->products->prepare_list($special);
 		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['category']->products = $this->products->get_list(FALSE);
+		$data['category']->products = $this->products->prepare_list($this->products->get_list(FALSE));
 		$data['total_rows'] = count($data['category']->products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
@@ -119,22 +139,39 @@ class Catalog extends Client_Controller {
 	public function filtred()
 	{		
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
-			
-		$settings = $this->settings->get_item_by(array('id' => 1));
 		
+		$settings = $this->settings->get_item_by(array('id' => 1));
+		//var_dump($this->post);
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_checked' => $this->post,
 			'total_rows' => count($products),
-			'filters' => $this->characteristics_type->get_filters($products)
+			'filters' => $this->characteristics_type->get_filters($products),
+			'price_from' => $this->catalog->get_min_for_filtred($products, "price"),
+			'price_to' => $this->catalog->get_max_for_filtred($products, "price"),
+			'price_min' => $this->catalog->get_min_for_filtred($products, "price"),
+			'price_max' => $this->catalog->get_max_for_filtred($products, "price"),
+			'width_from' => $this->catalog->get_min_for_filtred($products, "width"),
+			'width_to' => $this->catalog->get_max_for_filtred($products, "width"),
+			'width_min' => $this->catalog->get_min_for_filtred($products, "width"),
+			'width_max' => $this->catalog->get_max_for_filtred($products, "width"),
+			'height_from' => $this->catalog->get_min_for_filtred($products, "height"),
+			'height_to' => $this->catalog->get_max_for_filtred($products, "height"),
+			'height_min' => $this->catalog->get_min_for_filtred($products, "height"),
+			'height_max' => $this->catalog->get_max_for_filtred($products, "height"),
+			'depth_from' => $this->catalog->get_min_for_filtred($products, "depth"),
+			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
+			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
+			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
+			'nok' => $this->catalog->get_nok_tree($products)
 		);
 		
-		//var_dump($data['filters_checked']);
 		
+
 		$data = array_merge($this->standart_data, $data);
-		
+
 		$data['category'] = new stdClass;
-		$data['category']->products = $products;
+		$data['category']->products = $this->products->prepare_list($products);
 
 		$this->load->view("client/categories", $data);
 	}

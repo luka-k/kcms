@@ -54,4 +54,47 @@ class CI_Catalog {
 	
 		return $products;
 	}
+	
+	public function get_max_for_filtred($products, $field)
+	{
+		$max = 0;
+		foreach($products as $product)
+		{
+			if($product->$field > $max) $max = $product->$field;
+		}
+		return $max;
+	}
+	
+	public function get_min_for_filtred($products, $field)
+	{
+		$min = 0;
+		foreach($products as $product)
+		{
+			if($product->$field < $min) $min = $product->$field;
+		}
+		return $min;
+	}
+	
+	public function get_nok_tree($products)
+	{
+		$nok_tree = array();
+		
+		foreach($products as $product)
+		{
+			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $product->id));
+
+			if($product_shortnames) foreach($product_shortnames as $p_sn)
+			{
+				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $product->id));
+				$nok_tree[$p_sn->value] = array();
+				
+				if($product_shortdescs) foreach($product_shortdescs as $p_sd)
+				{
+					$nok_tree[$p_sn->value][] = $p_sd->value;
+				}
+			}
+		}
+		//var_dump($nok_tree);
+		return $nok_tree;
+	}
 }

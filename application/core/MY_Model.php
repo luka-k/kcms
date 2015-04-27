@@ -146,7 +146,7 @@ class MY_Model extends CI_Model
 	{
 		$this->db->select_min($field);
 		$query = $this->db->get($this->_table);
-		return $query->row()->price;
+		return $query->row()->$field;
 	}
 
 	/*
@@ -159,7 +159,7 @@ class MY_Model extends CI_Model
 	{
 		$this->db->select_max($field);
 		$query = $this->db->get($this->_table);
-		return $query->row()->price;
+		return $query->row()->$field;
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
 				 				
 				<div id="secondcolumn7" class="secondcolumn">
+					<?if(isset($filters['material']->values)):?>
 					<ul class="level1">
 						<?foreach($filters['material']->values as $material):?>
 							<li>
@@ -15,16 +16,18 @@
 							</li>
 						<? endforeach ?>
 					</ul>
+					<?endif;?>
 				</div>
 				
 				 <div id="secondcolumn6" class="secondcolumn">
+					<?if(isset($filters['color']->values)):?>
 					<ul class="level1">
 						<?foreach($filters['color']->values as $color):?>
 							<li>
 								<input type="checkbox" class="parent_checked" name="<?=$filters['color']->name?>[]" value="<?=$color?>"
-									<?if(!empty($color_checked)):?>
-										<?foreach($color_checked as $key => $item):?>
-											<?if($item == $item_1):?>checked<?endif;?>
+									<?if(!empty($filters_checked['color'])):?>
+										<?foreach($filters_checked['color'] as $key => $item):?>
+											<?if($item == $color):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
@@ -32,23 +35,44 @@
 							</li>
 						<? endforeach ?>
 					</ul>
+					<?endif;?>
 				</div>
 				
 				 <div id="secondcolumn5" class="secondcolumn">
+					<?if(isset($nok)):?>
 					<ul class="level1">
 						<?foreach($nok as $item_1 => $ok):?>
 							<li>
 								<input type="checkbox" class="parent_checked" name="nok_checked[]"
-									<?if(!empty($nok_checked)):?>
-										<?foreach($nok_checked as $key => $item):?>
+									<?if(!empty($filters_checked['nok_checked'])):?>
+										<?foreach($filters_checked['nok_checked'] as $key => $item):?>
 											<?if($item == $item_1):?>checked<?endif;?>
 										<?endforeach;?>
 									<?endif;?>
 								/>
-								<a href="#" class="level1_link"> <?=$item_1?></a>
+								<a href="#" class="level1_link"><span>+</span> <?=$item_1?></a>
+								<?if(!empty($ok)):?>
+									<ul>
+										<?foreach($ok as $item_2):?>
+										<?if(!empty($item_2)):?>
+										<li>
+											<input type="checkbox" class="parent_checked" name="nok_checked[]"
+												<?if(!empty($filters_checked['nok_checked'])):?>
+													<?foreach($filters_checked['nok_checked'] as $key => $item):?>
+														<?if($item == $item_1):?>checked<?endif;?>
+													<?endforeach;?>
+												<?endif;?>
+											/>
+											<a href="#"><?=$item_2?></a>
+										</li>
+										<?endif;?>
+										<?endforeach;?>
+									</ul>
+								<?endif;?>
 							</li>
 						<? endforeach ?>
 					</ul>
+					<?endif;?>
 				</div>
 				
 				<div id="secondcolumn4" class="secondcolumn">

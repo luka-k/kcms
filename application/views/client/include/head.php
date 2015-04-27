@@ -48,8 +48,8 @@
 				
 				$( "#width-range" ).slider({
 					range: true,
-					min: 0,
-					max: 500,
+					min: <?= $width_min?>,
+					max: <?= $width_max?>,
 					values: [ <?= $width_from?>, <?= $width_to?> ],
 					slide: function( event, ui ) {
 						$( "#width-low" ).val( "от " + ui.values[ 0 ] + " мм" );
@@ -61,8 +61,8 @@
 				
 				$( "#height-range" ).slider({
 					range: true,
-					min: 0,
-					max: 500,
+					min: <?= $height_min?>,
+					max: <?= $height_max?>,
 					values: [ <?= $height_from?>, <?= $height_to?> ],
 					slide: function( event, ui ) {
 						$( "#height-low" ).val( "от " + ui.values[ 0 ] + " мм" );
@@ -74,8 +74,8 @@
 				
 				$( "#weight-range" ).slider({
 					range: true,
-					min: 0,
-					max: 500,
+					min: <?= $depth_min?>,
+					max: <?= $depth_max?>,
 					values: [ <?= $depth_from?>, <?= $depth_to?> ],
 					slide: function( event, ui ) {
 						$( "#weight-low" ).val( "от " + ui.values[ 0 ] + " мм" );
@@ -87,9 +87,9 @@
 				
 				$( "#price-range" ).slider({
 					range: true,
-					min: 0,
-					max: 500,
-					values: [ 0, 500 ],
+					min: <?= $price_min?>,
+					max: <?= $price_max?>,
+					values: [ <?= $price_from?>, <?= $price_to?> ],
 					slide: function( event, ui ) {
 						$( "#price-low" ).val( "от " + ui.values[ 0 ] + " т.р." );
 						$( "#price-hi" ).val( "до " + ui.values[ 1 ] + " т.р." );
@@ -115,6 +115,7 @@
 						$('#searchpopupbtn').fadeOut('slow'); 
 					}
 				});
+				
 				$('.secondcolumn a.level1_link').click(function() {
 					$(this).parent().find('ul').toggle('slow');
 					if ($(this).find('span'))
@@ -126,6 +127,7 @@
 					}
 					return false;
 				});
+				
 				$('.secondcolumn input').click(function() {
 					//$('#shadow').fadeOut('slow'); 
 					$('#total_count').html('...');

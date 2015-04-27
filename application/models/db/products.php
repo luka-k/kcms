@@ -135,10 +135,11 @@ class Products extends MY_Model
 	*/
 	public function set_sale_price($item)
 	{
-		if(!empty($item->discount))
+		/*if(!empty($item->discount))
 		{
 			$item->sale_price = $item->price*(100 - $item->discount)/100;
-		}	
+		}	*/
+		$item->sale_price = $item->price*(100 - $item->discount)/100;
 		return $item;
 	}
 	
@@ -173,6 +174,8 @@ class Products extends MY_Model
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
+			//временно костылик
+			$item->location = "";
 			return $item;
 		}			
 	}
