@@ -117,7 +117,10 @@ class Characteristics extends MY_Model
 
 			//фильтрация по производителю
 			if(isset($filter['manufacturer_checked'])) $this->db->where_in("manufacturer_id", $filter['manufacturer_checked']);
-
+			
+			//фильтрация по артикулу
+			if(isset($filter['sku_checked'])) $this->db->where_in("sku", $filter['sku_checked']);
+			
 			if(isset($filter['price_from']) && isset($filter['price_to']))
 			{
 				$filter['price_from'] = preg_replace("/[^0-9]/", "", $filter['price_from']);

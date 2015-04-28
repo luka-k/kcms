@@ -162,7 +162,22 @@
 					   value="<?=$m->id?>" 
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"> <?=$m->name?></a>
+				<a href="#" class="level1_link"><span>+</span> <?=$m->name?></a>
+				<?if($m->sku):?>
+					<ul>
+						<?foreach($m->sku as $sku):?>
+							<li>
+								<input type="checkbox" 
+									   class="parent_checked" 
+									   name="sku_checked[]" 
+									   value="<?=$sku?>" 
+									   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
+								/>
+								<a href="#"><?=$sku?></a>
+							</li>
+						<?endforeach;?>
+					</ul>
+				<?endif;?>
 			</li>
 		<? endforeach ?>
 	</ul>

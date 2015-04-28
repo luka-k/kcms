@@ -70,7 +70,7 @@ class Catalog extends Client_Controller {
 			'depth_max' => $depth_max, //Тут мне кажется я переборшил с 4-мя интервалами вроде должно хваттать и двух. 
 			'filters_checked' => array(),
 			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
-			'manufacturer' => $this->manufacturer->get_list(FALSE),
+			'manufacturer' => $this->manufacturer->get_tree(FALSE),
 			'collection' => $this->collections->get_tree(0, "parent_id"),
 			'sku' => array(),
 			'nok' => array(),
@@ -163,13 +163,13 @@ class Catalog extends Client_Controller {
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
-			'nok' => $this->catalog->get_nok_tree($products)
+			'nok' => $this->catalog->get_nok_tree($products),
+			//'collection' => $this->collections->get_for_filtred($products)
 		);
 		
 		//var_dump($data['filters_checked']);
 
 		$data = array_merge($this->standart_data, $data);
-
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
 

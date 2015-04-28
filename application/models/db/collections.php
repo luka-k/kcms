@@ -55,6 +55,11 @@ class Collections extends MY_Model
         parent::__construct();
 	}
 	
+	/**
+	*
+	*/
+                                                                                                                                                       
+	
 	function prepare($item)
 	{
 		return $item;
