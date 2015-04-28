@@ -166,7 +166,7 @@ class Catalog extends Client_Controller {
 			'nok' => $this->catalog->get_nok_tree($products)
 		);
 		
-		
+		//var_dump($data['filters_checked']);
 
 		$data = array_merge($this->standart_data, $data);
 
