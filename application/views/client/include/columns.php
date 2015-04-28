@@ -79,8 +79,9 @@
 				<li>
 					<input type="checkbox" 
 						   class="parent_checked" 
-						   name="nok_checked[]"
-						   <?if(isset($filters_checked['nok_checked']) && in_array($nok_checked, $filters_checked['nok_checked'])):?>checked<?endif;?>
+						   name="shortname[]"
+						   value="<?=$item_1?>"
+						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"><span>+</span> <?=$item_1?></a>
 					<?if(!empty($ok)):?>
@@ -90,8 +91,9 @@
 									<li>	
 										<input type="checkbox" 
 											   class="parent_checked" 
-										       name="nok_checked[]"
-										       <?if(isset($filters_checked['nok_checked']) && in_array($nok_checked, $filters_checked['nok_checked'])):?>checked<?endif;?>
+										       name="shortdesc[]"
+											   value="<?=$item_2?>"
+										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
 								    </li>
