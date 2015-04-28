@@ -58,8 +58,49 @@ class Collections extends MY_Model
 	/**
 	*
 	*/
-                                                                                                                                                       
+	public function get_tree($products = FALSE)
+	{
+		if(!$products) $products = $this->products->get_list(FALSE);
+
+		$filtred_ids = array();
+		$p_ids = array();
+		
+		foreach($products as $p)
+		{
+			$p_ids[] = $p->id;
+		}
+		
+		$this->db->where_in("child_id", $p_ids);
+		$result = $this->db->get("product2collection")->result();
+		foreach($result as $r)
+		{
+			$filtred_ids[] = $r->collection_parent_id;
+		}
+		
+		$tree = $this->_get_tree(0, $filtred_ids);
+		
+		return $tree;
+	}
 	
+	private function _get_tree($parent_id, $filtred_ids)
+	{
+		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->prepare_list($branches);
+		if ($branches) foreach ($branches as $i => $b)
+		{
+			$sub_tree = $this->_get_tree($b->id, $filtred_ids);
+			if(!empty($sub_tree) || in_array($b->id, $filtred_ids))
+			{
+				$branches[$i]->childs = $sub_tree;
+			}
+			else
+			{
+				unset($branches[$i]);
+			}
+		}		
+		return $branches;
+	}
+                                                                                                                                                       
 	function prepare($item)
 	{
 		return $item;

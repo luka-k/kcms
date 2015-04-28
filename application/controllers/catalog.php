@@ -71,7 +71,7 @@ class Catalog extends Client_Controller {
 			'filters_checked' => array(),
 			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
 			'manufacturer' => $this->manufacturer->get_tree(FALSE),
-			'collection' => $this->collections->get_tree(0, "parent_id"),
+			'collection' => $this->collections->get_tree(),
 			'sku' => array(),
 			'nok' => array(),
 		);
@@ -164,7 +164,7 @@ class Catalog extends Client_Controller {
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'nok' => $this->catalog->get_nok_tree($products),
-			//'collection' => $this->collections->get_for_filtred($products)
+			'collection' => $this->collections->get_tree($products)
 		);
 		
 		//var_dump($data['filters_checked']);
