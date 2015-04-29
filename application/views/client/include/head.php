@@ -11,9 +11,10 @@
 		 
 		 
 		<link rel="stylesheet" href="/template/client/css/style-new.css" type="text/css">
-		 <link rel="stylesheet" href="/template/client/css/jquery-ui.css">
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/template/client/css/jquery-ui.css">
+		
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
 	
 	
 	<link href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
