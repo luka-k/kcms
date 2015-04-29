@@ -196,6 +196,7 @@ class Catalog extends Client_Controller {
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'nok' => $this->catalog->get_nok_tree($products),
 			'collection' => $this->collections->get_tree($products),
+			'manufacturer' => $this->manufacturer->get_tree($products),
 			'categories_ch' => $categories_ch,
 			'manufacturer_ch' => $manufacturer_ch
 		);
