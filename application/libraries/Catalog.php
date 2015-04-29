@@ -81,11 +81,11 @@ class CI_Catalog {
 		
 		foreach($products as $product)
 		{
-			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $product->id));
-
+			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $product->id), FALSE, FALSE, "value", "asc");
+			
 			if($product_shortnames) foreach($product_shortnames as $p_sn)
 			{
-				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $product->id));
+				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $product->id), FALSE, FALSE, "value", "asc");
 				$nok_tree[$p_sn->value] = array();
 				
 				if($product_shortdescs) foreach($product_shortdescs as $p_sd)
@@ -94,6 +94,8 @@ class CI_Catalog {
 				}
 			}
 		}
+		ksort($nok_tree, SORT_STRING);
+		
 		return $nok_tree;
 	}
 	

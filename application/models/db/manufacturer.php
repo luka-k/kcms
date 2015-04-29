@@ -34,7 +34,15 @@ class Manufacturer extends MY_Model
 			$sku[$p->manufacturer_id][] = $p->sku;
 		}
 		
+		foreach($sku as $i => $articls)
+		{
+			asort($articls, SORT_STRING);
+			$sku[$i] = $articls;
+		}
+		
+		
 		$manufacturer = array();
+		$this->db->order_by("name", "asc"); 
 		$this->db->where_in("id", array_unique($m_ids));
 		$manufacturer = $this->db->get($this->_table)->result();
 		

@@ -84,7 +84,7 @@ class Collections extends MY_Model
 	
 	private function _get_tree($parent_id, $filtred_ids)
 	{
-		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "name", "asc");
 		$branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{

@@ -52,6 +52,7 @@ class Characteristics_type extends MY_Model
 		if(!empty($products)) foreach($characteristics_type as $item)
 		{
 			$this->db->distinct();
+			$this->db->order_by("value", "asc"); 
 			$this->db->select("value");
 			$this->db->where("type", $item->url);
 

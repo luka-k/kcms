@@ -69,9 +69,16 @@ class Categories extends MY_Model
 			$branches[] = $this->get_item_by(array("id" => $item->child_id));
 		}
 
-		if (!empty($branches)) foreach($branches as $i => $b)
+		$name = array();
+		if (!empty($branches)) 
 		{
-			$branches[$i]->childs = $this->get_tree($b->id, $parent_id_field);
+			foreach($branches as $i => $b)
+			{
+				$names[$i] = $b->name;
+				$branches[$i]->childs = $this->get_tree($b->id, $parent_id_field);
+			}
+		
+			array_multisort($names, SORT_ASC, $branches);
 		}
 		return $branches;	
 	}

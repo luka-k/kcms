@@ -71,7 +71,7 @@ class Catalog extends Client_Controller {
 			'filters_checked' => array(),
 			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
 			'manufacturer' => $this->manufacturer->get_tree(FALSE),
-			'collection' => $this->collections->get_tree(),
+			'collection' => array(),
 			'sku' => array(),
 			'nok' => array(),
 		);
