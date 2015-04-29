@@ -27,7 +27,6 @@
 	<script src="<?=base_url()?>template/client/js/cart.js"></script>
 		
 	<script>
-		
 		(function($){
 			$(window).load(function(){
 				$(".scroll-content").height($( window ).height() - 105);
@@ -134,7 +133,9 @@
 					$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
 					$('#searchpopupbtn').fadeIn('slow');
 					
-					$.get('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+					
+					
+					$.post('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 					
 					
 					$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
@@ -220,6 +221,38 @@
 				source: availableTags
 			});
 		}
+		
+		function checked_tree(parent_id, type, action){
+			var form = $('.filter-form'),
+			inputs = form.find('input.'+type+'-branch-'+parent_id);
+
+			var counter_1 = 0;
+			var counter_2 = 0;
+			inputs.each(function () {
+				var element = $(this);
+				if(action == "fork"){
+				
+					if($("#"+type+"-fork-"+parent_id).prop("checked")){
+						element.prop("checked", true);
+					}else{
+						element.prop("checked", false);
+					}
+	
+				
+			}else if(action == "child"){
+				counter_1++;
+				if(element.prop("checked") == false){
+					$("#"+type+"-fork-"+parent_id).prop("checked", false);
+				}else{
+					counter_2++;
+				}
+				
+				if(counter_1 == counter_2){
+					$("#"+type+"-fork-"+parent_id).prop("checked", true);
+				}
+			}
+		});
+	}
 	
 	</script>	
 </head>

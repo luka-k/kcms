@@ -1,32 +1,33 @@
-                            
-			<input type="hidden" name="filter" value="true"/>   
-                                <aside id="s_left">
-                                    <h1><?if(empty($categories_ch)):?>
-											<?if(!empty($manufacturer_ch)):?>
-												<?=$manufacturer_ch[0]->name?>
-											<?else:?>
-												Все товары
-											<? endif?>
-										<?else:?>
-											<?=$categories_ch[0]->name?>
-										<? endif?>(<?= $total_rows ?>)</h1>
-									<div class="leftmenu">
-										<div class="lm-block">
-											<div class="lm-caption">
-												Группа товаров:
-											</div>
-											<div class="lm-item" prop="secondcolumn">
-												<?if(empty($categories_ch)):?>
-													Все товары
-												<?else:?>
-													<?=$categories_ch[0]->name?>
-													<?if(count($categories_ch) > 1):?>
-														, ... [<?= count($categories_ch)?>]
-													<?endif;?>
-												<?endif;?>
-											</div>
-										</div>
-										<div class="lm-block">
+<input type="hidden" name="filter" value="true"/>
+	<aside id="s_left">
+		<h1><?if(empty($categories_ch)):?>
+				<?if(!empty($manufacturer_ch)):?>
+					<?=$manufacturer_ch[0]->name?>
+				<?else:?>
+					Все товары
+				<?endif;?>
+			<?else:?>
+				<?=$categories_ch[0]->name?>
+			<?endif;?>
+			(<?=$total_rows ?>)
+		</h1>
+		<div class="leftmenu">
+			<div class="lm-block">
+				<div class="lm-caption">
+					Группа товаров:
+				</div>
+				<div class="lm-item" prop="secondcolumn">
+					<?if(empty($categories_ch)):?>
+						Все товары
+					<?else:?>
+						<?=$categories_ch[0]->name?>
+						<?if(count($categories_ch) > 1):?>
+							, ... [<?= count($categories_ch)?>]
+						<?endif;?>
+					<?endif;?>
+				</div>
+			</div>
+			<div class="lm-block">
 											<div class="lm-caption">
 												Производители:
 											</div>

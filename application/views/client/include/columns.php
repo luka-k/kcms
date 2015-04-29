@@ -75,12 +75,14 @@
 <div id="secondcolumn5" class="secondcolumn">
 	<?if(isset($nok)):?>
 		<ul class="level1">
+			<?$nok_counter = 1?>
 			<?foreach($nok as $item_1 => $ok):?>
 				<li>
 					<input type="checkbox" 
-						   class="parent_checked" 
+						   id="nok-fork-<?=$nok_counter?>"
 						   name="shortname[]"
 						   value="<?=$item_1?>"
+						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork')"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"><span>+</span> <?=$item_1?></a>
@@ -90,9 +92,10 @@
 								<?if(!empty($item_2)):?>
 									<li>	
 										<input type="checkbox" 
-											   class="parent_checked" 
+											   class="nok-branch-<?=$nok_counter?>"
 										       name="shortdesc[]"
 											   value="<?=$item_2?>"
+											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child')"
 										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
@@ -102,11 +105,13 @@
 						</ul>
 					<?endif;?>
 				</li>
+				<?$nok_counter++?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
 </div>
-				
+
+<!--Как понимаю вроде secondcolumn4 не нужна больше?-->				
 <div id="secondcolumn4" class="secondcolumn">
 	<ul class="level1">
 		<?foreach($sku as $item_1 => $ok):?>
@@ -128,9 +133,10 @@
 		<?foreach($collection as $c):?>
 			<li>
 				<input type="checkbox" 
-					   class="parent_checked" 
+					   id="collection-fork-<?=$c->id?>"
 					   name="collection_checked[]" 
 					   value="<?=$c->id?>"
+					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork')"
 					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><span>+</span> <?=$c->name?></a>
@@ -139,9 +145,10 @@
 						<?foreach($c->childs as $level_2):?>
 							<li>
 								<input type="checkbox" 
-									   class="parent_checked" 
+									   class="collection-branch-<?=$c->id?>"
 									   name="collection_checked[]" 
 									   value="<?=$level_2->id?>"
+									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child')"
 									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 								/>
 								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
@@ -159,9 +166,10 @@
 		<?foreach($manufacturer as $m):?>
 			<li>
 				<input type="checkbox" 
-					   class="parent_checked" 
+					   id="manufacturer-fork-<?=$m->id?>"
 					   name="manufacturer_checked[]" 
 					   value="<?=$m->id?>" 
+					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><span>+</span> <?=$m->name?></a>
@@ -170,9 +178,10 @@
 						<?foreach($m->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
-									   class="parent_checked" 
+									   class="manufacturer-branch-<?=$m->id?>" 
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
+									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child')"
 									   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 								/>
 								<a href="#"><?=$sku?></a>
@@ -191,9 +200,11 @@
 		<?foreach($left_menu as $item_1):?>
 			<li>
 				<input type="checkbox" 
+					   id="parent-fork-<?=$item_1->id?>"
 					   class="parent_checked category-<?=$item_1->id?>" 
 					   name="parent_checked[]" 
 					   value="<?=$item_1->id?>"
+					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><span>+</span> <?=$item_1->name?></a>
@@ -202,9 +213,10 @@
 						<?foreach ($item_1->childs as $item_2):?>
 							<li>
 								<input type="checkbox" 
-									   class="categories_checked" 
+									   class="categories_checked parent-branch-<?=$item_1->id?>" 
 									   name="categories_checked[]" parent="<?=$item_1->id?>" 
 									   value="<?=$item_2->id?>" 
+									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child')"
 									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?endif;?>
 								/>
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>

@@ -94,7 +94,8 @@ class CI_Catalog {
 				}
 			}
 		}
-		//var_dump($nok_tree);
 		return $nok_tree;
 	}
+	
+	
 }

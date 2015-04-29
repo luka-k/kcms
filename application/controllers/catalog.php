@@ -141,7 +141,38 @@ class Catalog extends Client_Controller {
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 		
 		$settings = $this->settings->get_item_by(array('id' => 1));
-		//var_dump($this->post);
+		
+		$filters = $this->post;
+		
+		
+		// Временное решение
+		if(!empty($filters['categories_checked']))
+		{
+			foreach($filters['categories_checked'] as $key => $item)
+			{
+				
+				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
+			}
+		}
+		else
+		{
+			$categories_ch = "";
+		}
+		
+		if(!empty($filters['manufacturer_checked']))
+		{
+			foreach($filters['manufacturer_checked'] as $key => $item)
+			{
+				
+				$manufacturer_ch[] = $this->manufacturer->get_item_by(array("id" => $item));		
+			}
+		}
+		else
+		{
+			$manufacturer_ch = "";
+		}
+		//конец временного решения
+		
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_checked' => $this->post,
@@ -164,7 +195,9 @@ class Catalog extends Client_Controller {
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'nok' => $this->catalog->get_nok_tree($products),
-			'collection' => $this->collections->get_tree($products)
+			'collection' => $this->collections->get_tree($products),
+			'categories_ch' => $categories_ch,
+			'manufacturer_ch' => $manufacturer_ch
 		);
 		
 		//var_dump($data['filters_checked']);
@@ -202,7 +235,7 @@ class Catalog extends Client_Controller {
 	
 	public function count()
 	{
-		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 		echo count($products);
 	}
 }
