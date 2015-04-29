@@ -86,7 +86,8 @@
 					/>
 					<a href="#" class="level1_link"><?if(!empty($ok)):?><span>+</span> <?endif;?><?=$item_1?></a>
 					<?if(!empty($ok)):?>
-						<ul>
+						<ul id="sub-ok-<?=$nok_counter?>">
+							<?$show_counter = 0?>
 							<?foreach($ok as $item_2):?>
 								<?if(!empty($item_2)):?>
 									<li>	
@@ -95,12 +96,13 @@
 										       name="shortdesc[]"
 											   value="<?=$item_2?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child')"
-										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?endif;?>
+										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?$show_counter++?><?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
 								    </li>
 								<?endif;?>
 							<?endforeach;?>
+							<?if($show_counter > 0):?><script>document.getElementById('sub-ok-<?=$nok_counter?>').style.display='block';</script><?endif;?>
 						</ul>
 					<?endif;?>
 				</li>
@@ -140,7 +142,8 @@
 				/>
 				<a href="#" class="level1_link"><?if($c->childs):?><span>+</span><?endif;?> <?=$c->name?></a>
 				<?if($c->childs):?>
-					<ul>
+					<ul id="sub-collections-<?=$c->id?>">
+						<?$show_counter = 0?>
 						<?foreach($c->childs as $level_2):?>
 							<li>
 								<input type="checkbox" 
@@ -148,11 +151,12 @@
 									   name="collection_checked[]" 
 									   value="<?=$level_2->id?>"
 									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child')"
-									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
+									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
 							</li>
 						<?endforeach;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block';</script><?endif;?>
 					</ul>
 				<?endif;?>
 			</li>
@@ -173,7 +177,8 @@
 				/>
 				<a href="#" class="level1_link"><?if($m->sku):?><span>+</span> <?endif;?><?=$m->name?></a>
 				<?if($m->sku):?>
-					<ul>
+					<ul id="sub-manufacturer-<?=$m->id?>">
+						<?$show_counter = 0?>
 						<?foreach($m->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
@@ -181,11 +186,12 @@
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
 									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child')"
-									   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
+									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="#"><?=$sku?></a>
 							</li>
-						<?endforeach;?>
+						<?endforeach;?><?=$show_counter?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-manufacturer-<?=$m->id?>').style.display='block';</script><?endif;?>
 					</ul>
 				<?endif;?>
 			</li>
@@ -195,7 +201,6 @@
 				
 <div id="secondcolumn" class="secondcolumn">
 	<ul class="level1">
-		<?$counter = 0?>
 		<?foreach($left_menu as $item_1):?>
 			<li>
 				<input type="checkbox" 
@@ -208,7 +213,8 @@
 				/>
 				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span>+</span> <?endif;?><?=$item_1->name?></a>
 				<?if(!empty($item_1->childs)):?>
-					<ul>
+					<ul id="sub-parent-<?=$item_1->id?>">
+						<?$show_counter = 0?>
 						<?foreach ($item_1->childs as $item_2):?>
 							<li>
 								<input type="checkbox" 
@@ -216,12 +222,12 @@
 									   name="categories_checked[]" parent="<?=$item_1->id?>" 
 									   value="<?=$item_2->id?>" 
 									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child')"
-									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?endif;?>
+									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 							</li>
-							<?$counter++?>
 						<?endforeach;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block';</script><?endif;?>
 					</ul>
 				<? endif;?>
 			</li>
