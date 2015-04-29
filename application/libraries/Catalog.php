@@ -57,6 +57,7 @@ class CI_Catalog {
 	
 	public function get_max_for_filtred($products, $field)
 	{
+		//var_dump(co$products);
 		$max = 0;
 		foreach($products as $product)
 		{
@@ -86,12 +87,12 @@ class CI_Catalog {
 			if($product_shortnames) foreach($product_shortnames as $p_sn)
 			{
 				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $product->id), FALSE, FALSE, "value", "asc");
-				$nok_tree[$p_sn->value] = array();
-				
+
 				if($product_shortdescs) foreach($product_shortdescs as $p_sd)
 				{
 					$nok_tree[$p_sn->value][] = $p_sd->value;
 				}
+				$nok_tree[$p_sn->value] = array_unique($nok_tree[$p_sn->value]);
 			}
 		}
 		ksort($nok_tree, SORT_STRING);

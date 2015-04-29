@@ -121,14 +121,11 @@ class Characteristics extends MY_Model
 			//фильтрация по артикулу
 			if(isset($filter['sku_checked'])) $this->db->where_in("sku", $filter['sku_checked']);
 			
-			if(isset($filter['price_from']) && isset($filter['price_to']))
-			{
-				$filter['price_from'] = preg_replace("/[^0-9]/", "", $filter['price_from']);
-				$filter['price_to'] = preg_replace("/[^0-9]/", "", $filter['price_to']);
-
-				$where = "price BETWEEN {$filter['price_from']} AND {$filter['price_to']}";
-				$this->db->where($where);
-			}
+			$this->set_range_param("width", $filter['width_from'], $filter['width_to']);
+			$this->set_range_param("height", $filter['height_from'], $filter['height_to']);
+			$this->set_range_param("depth", $filter['depth_from'], $filter['depth_to']);
+			$this->set_range_param("price", $filter['price_from'], $filter['price_to']);
+			
 			if(!empty($id)) $this->db->where_in("id", $id);
 			
 			$this->db->order_by($order, $direction); 
@@ -155,5 +152,17 @@ class Characteristics extends MY_Model
 			$values[] = $result['object_id'];
 		}
 		return $values;
+	}
+	
+	private function set_range_param($type, $from, $to)
+	{
+		if(isset($from) && isset($to))
+		{
+			$from = preg_replace("/[^0-9]/", "", $from);
+			$to = preg_replace("/[^0-9]/", "", $to);
+
+			$where = "{$type} BETWEEN {$from} AND {$to}";
+			$this->db->where($where);
+		}
 	}
 }

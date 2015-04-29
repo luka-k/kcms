@@ -24,7 +24,6 @@
 			<?foreach($filters['finishing']->values as $finishing):?>
 				<li>
 					<input type="checkbox" 
-						   class="parent_checked" 
 						   name="<?=$filters['finishing']->name?>[]" 
 						   value="<?=$finishing?>"
 						   <?if(isset($filters_checked['finishing']) && in_array($finishing, $filters_checked['finishing'])):?>checked<?endif;?>
@@ -85,7 +84,7 @@
 						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork')"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link"><span>+</span> <?=$item_1?></a>
+					<a href="#" class="level1_link"><?if(!empty($ok)):?><span>+</span> <?endif;?><?=$item_1?></a>
 					<?if(!empty($ok)):?>
 						<ul>
 							<?foreach($ok as $item_2):?>
@@ -139,7 +138,7 @@
 					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork')"
 					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><span>+</span> <?=$c->name?></a>
+				<a href="#" class="level1_link"><?if($c->childs):?><span>+</span><?endif;?> <?=$c->name?></a>
 				<?if($c->childs):?>
 					<ul>
 						<?foreach($c->childs as $level_2):?>
@@ -172,7 +171,7 @@
 					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><span>+</span> <?=$m->name?></a>
+				<a href="#" class="level1_link"><?if($m->sku):?><span>+</span> <?endif;?><?=$m->name?></a>
 				<?if($m->sku):?>
 					<ul>
 						<?foreach($m->sku as $sku):?>
@@ -207,8 +206,8 @@
 					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><span>+</span> <?=$item_1->name?></a>
-				<? if(!empty($item_1->childs)):?>
+				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span>+</span> <?endif;?><?=$item_1->name?></a>
+				<?if(!empty($item_1->childs)):?>
 					<ul>
 						<?foreach ($item_1->childs as $item_2):?>
 							<li>
