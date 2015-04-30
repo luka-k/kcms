@@ -59,6 +59,21 @@
 			</div>
 			<div class="lm-block">
 				<div class="lm-caption">
+					Артикулы:
+				</div>
+				<div class="lm-item" prop="secondcolumn4">
+					<?if(empty($manufacturer_ch)):?>
+						Все артикулы
+					<?else:?>
+						<?=$manufacturer_ch[0]->name?>
+						<?if(count($manufacturer_ch) > 1):?>
+							, ... [<?= count($manufacturer_ch)?>]
+						<?endif;?>
+					<?endif;?>
+				</div>
+			</div>
+			<div class="lm-block">
+				<div class="lm-caption">
 					Название/Описание/Комплектация:
 				</div>
 				<div class="lm-item" prop="secondcolumn5">

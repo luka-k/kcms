@@ -111,19 +111,30 @@
 		</ul>
 	<?endif;?>
 </div>
-
-<!--Как понимаю вроде secondcolumn4 не нужна больше?-->				
+		
 <div id="secondcolumn4" class="secondcolumn">
 	<ul class="level1">
-		<?foreach($sku as $item_1 => $ok):?>
+		<?foreach($manufacturer as $m):?>
 			<li>
-				<input type="checkbox" 
-					   class="parent_checked" 
-					   name="sku_checked[]" 
-					   value="<?=$item_1?>"
-					   <?if(isset($filters_checked['sku_checked']) && in_array($sku_checked, $filters_checked['sku_checked'])):?>checked<?endif;?>
-				/>
-				<a href="#" class="level1_link"> <?=$item_1?></a>
+				<a href="#" class="level1_link"><?if($m->sku):?> <span>+</span> <?endif;?><?=$m->name?></a>
+				<?if($m->sku):?>
+					<ul id="sub-manufacturer-<?=$m->id?>">
+						<?$show_counter = 0?>
+						<?foreach($m->sku as $sku):?>
+							<li>
+								<input type="checkbox" 
+									   class="manufacturer-branch-<?=$m->id?>" 
+									   name="sku_checked[]" 
+									   value="<?=$sku?>" 
+									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child')"
+									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?$show_counter++?><?endif;?>
+								/>
+								<a href="#"><?=$sku?></a>
+							</li>
+						<?endforeach;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-manufacturer-<?=$m->id?>').style.display='block';</script><?endif;?>
+					</ul>
+				<?endif;?>
 			</li>
 		<? endforeach ?>
 	</ul>
@@ -175,25 +186,7 @@
 					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if($m->sku):?><span>+</span> <?endif;?><?=$m->name?></a>
-				<?if($m->sku):?>
-					<ul id="sub-manufacturer-<?=$m->id?>">
-						<?$show_counter = 0?>
-						<?foreach($m->sku as $sku):?>
-							<li>
-								<input type="checkbox" 
-									   class="manufacturer-branch-<?=$m->id?>" 
-									   name="sku_checked[]" 
-									   value="<?=$sku?>" 
-									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child')"
-									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?$show_counter++?><?endif;?>
-								/>
-								<a href="#"><?=$sku?></a>
-							</li>
-						<?endforeach;?><?=$show_counter?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-manufacturer-<?=$m->id?>').style.display='block';</script><?endif;?>
-					</ul>
-				<?endif;?>
+				<a href="#" class="level1_link"><?if($m->sku):?><?endif;?><?=$m->name?></a>
 			</li>
 		<? endforeach ?>
 	</ul>
