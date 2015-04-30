@@ -89,61 +89,62 @@ class Content extends Admin_Controller
 						}
 						break;
 					case 'Ширина':
-						$data['width'] = (string) $param->Значение;
+						$value = (string) $param->Значение;
+						if(!empty($value)) $data['width'] = $value;
 						break;
 					case 'Высота':
-						$data['height'] = (string) $param->Значение;
+						$value = (string) $param->Значение;
+						if(!empty($value)) $data['height'] = (string) $param->Значение;
 						break;
 					case 'Глубина':
-						$data['depth'] = (string) $param->Значение;
+						$value = (string) $param->Значение;
+						if(!empty($value)) $data['depth'] = (string) $param->Значение;
 						break;
 					case 'Цвет':
 						$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['color'][$i] = $f;
+							if(!empty($f)) $filters['color'][$i] = $f;
 						}
-						//$data['color'] = (string) $param->Значение;
 						break;
 					case 'Название':
-						$filter = explode('/', (string) $param->Значение);
+						$value = (string) $param->Значение;
+						if(!empty($value)) $filters['shortname'] = $value;
+						/*$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['shortname'][$i] = $f;
-						}
-						//$data['shortname'] = (string) $param->Значение;
+							if(!empty($f)) $filters['shortname'][$i] = $f;
+						}*/
 						break;
 					case 'Описание':
-						$filter = explode('/', (string) $param->Значение);
+						$value = (string) $param->Значение;
+						if(!empty($value)) $filters['shortdesc'] = $value; 
+						/*$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['shortdesc'][$i] = $f;
-						}
-						//$data['shortdesc'] = (string) $param->Значение;
+							if(!empty($f)) $filters['shortdesc'][$i] = $f;
+						}*/
 						break;
 					case 'Материал':
 						$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['material'][$i] = $f;
+							if(!empty($f)) $filters['material'][$i] = $f;
 						}
-						//$data['material'] = (string) $param->Значение;
 						break;
 					case 'Отделка':
 						$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['finishing'][$i] = $f;
+							if   (!empty($f)) $filters['finishing'][$i] = $f;
 						}
-						//$data['finishing'] = (string) $param->Значение;
 						break;
 					case 'Разворот':
 						$filter = explode('/', (string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
-							$filters['turn'][$i] = $f;
+							if(!empty($f)) $filters['turn'][$i] = $f;
 						}
-						//$data['turn'] = (string) $param->Значение;
 						break;
 					case 'Файл':
 						$images[] = '1c/'. ( (string) $param->Значение);
@@ -241,16 +242,25 @@ class Content extends Admin_Controller
 				{
 					foreach($filters as $type => $filter)
 					{
-						foreach($filter as $value)
+						$characteristics = array(
+							"type" => $type,
+							'object_type' => "products",
+							'object_id' => $product_id
+						);
+						if(is_array($filter))
 						{
-							$characteristics = array(
-								"type" => $type,
-								"value" => $value,
-								'object_type' => "products",
-								'object_id' => $product_id
-							);
+							foreach($filter as $value)
+							{
+								$characteristics['value'] = $value;
+								if (!$this->db->get_where('characteristics', $characteristics)->result()) $this->db->insert('characteristics', $characteristics);
+							}
+						}
+						else
+						{
+							$characteristics['value'] = $filter;
 							if (!$this->db->get_where('characteristics', $characteristics)->result()) $this->db->insert('characteristics', $characteristics);
 						}
+						
 					}	
 				}
 				

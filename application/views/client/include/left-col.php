@@ -1,5 +1,11 @@
-<input type="hidden" name="filter" value="true"/>
+
 	<aside id="s_left">
+	<input type="hidden" name="filter" value="true"/>
+	
+	 <? if (empty($filters_checked)): ?>
+				 <div id="shadow"></div>
+				 <? endif ?>
+	
 		<h1><?if(empty($categories_ch)):?>
 				<?if(!empty($manufacturer_ch)):?>
 					<?=$manufacturer_ch[0]->name?>

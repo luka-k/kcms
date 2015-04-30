@@ -92,8 +92,14 @@ class CI_Catalog {
 				{
 					$nok_tree[$p_sn->value][] = $p_sd->value;
 				}
-				$nok_tree[$p_sn->value] = array_unique($nok_tree[$p_sn->value]);
+				
 			}
+		}
+		
+		foreach($nok_tree as $i => $branch)
+		{
+			$nok_tree[$i] = array_unique($branch);
+			sort($nok_tree[$i], SORT_STRING);
 		}
 		ksort($nok_tree, SORT_STRING);
 		
