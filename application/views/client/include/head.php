@@ -91,12 +91,12 @@
 					max: <?= $price_max?>,
 					values: [ <?= $price_from?>, <?= $price_to?> ],
 					slide: function( event, ui ) {
-						$( "#price-low" ).val( "от " + ui.values[ 0 ] + " т.р." );
-						$( "#price-hi" ).val( "до " + ui.values[ 1 ] + " т.р." );
+						$( "#price-low" ).val( "от " + ui.values[ 0 ] + " р." );
+						$( "#price-hi" ).val( "до " + ui.values[ 1 ] + " р." );
 					}
 				});
-				$( "#price-low" ).val( "от " + $( "#price-range" ).slider( "values", 0 )  + " т.р." );
-				$( "#price-hi" ).val( "до " + $( "#price-range" ).slider( "values", 1 )  + " т.р." );
+				$( "#price-low" ).val( "от " + $( "#price-range" ).slider( "values", 0 )  + " р." );
+				$( "#price-hi" ).val( "до " + $( "#price-range" ).slider( "values", 1 )  + " р." );
 				
 				$('.lm-item').click(function() {
 					if ($(this).hasClass('active'))

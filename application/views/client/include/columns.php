@@ -122,8 +122,7 @@
 			<li>
 				<a href="#" class="level1_link"><?if($m->sku):?> <span>+</span> <?endif;?><?=$m->name?></a>
 				<?if($m->sku):?>
-					<ul id="sub-manufacturer-<?=$m->id?>">
-						<?$show_counter = 0?>
+					<ul id="sub-manufacturer-<?=$m->id?>" style="display:block">
 						<?foreach($m->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
@@ -131,12 +130,11 @@
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
 									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child'); $('#last_type_filter').val('sku_checked');"
-									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?$show_counter++?><?endif;?>
+									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
 								/>
 								<a href="#"><?=$sku?></a>
 							</li>
 						<?endforeach;?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-manufacturer-<?=$m->id?>').style.display='block';</script><?endif;?>
 					</ul>
 				<?endif;?>
 			</li>

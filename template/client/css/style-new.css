@@ -431,6 +431,11 @@ color:#ec1c24;
 			height: 12px;
 			float: right;
 		}
+		
+		.range-input #price-hi, .range-input #price-low{
+			width: 50x;
+		}
+		
 		.range-input .caption {
 			font-size: 10px;
 			width: 85px;

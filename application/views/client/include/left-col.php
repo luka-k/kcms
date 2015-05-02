@@ -14,10 +14,11 @@
 					Все товары
 				<?endif;?>
 			<?else:?>
-				<?=$categories_ch[0]->name?>
+				<?=$categories_ch[0]?>
 			<?endif;?>
 			(<?=$total_rows ?>)
 		</h1>
+		
 		<div class="leftmenu">
 			<div class="lm-block">
 				<div class="lm-caption">
@@ -27,7 +28,7 @@
 					<?if(empty($categories_ch)):?>
 						Все товары
 					<?else:?>
-						<?=$categories_ch[0]->name?>
+						<?=$categories_ch[0]?>
 						<?if(count($categories_ch) > 1):?>
 							, ... [<?= count($categories_ch)?>]
 						<?endif;?>
@@ -42,7 +43,7 @@
 					<?if(empty($manufacturer_ch)):?>
 						Все производители
 					<?else:?>
-						<?=$manufacturer_ch[0]->name?>
+						<?=$manufacturer_ch[0]?>
 						<?if(count($manufacturer_ch) > 1):?>
 							, ... [<?= count($manufacturer_ch)?>]
 						<?endif;?>
@@ -54,12 +55,12 @@
 					Коллекция/Серия:
 				</div>
 				<div class="lm-item" prop="secondcolumn3">
-					<?if(empty($collection_ch)):?>
+					<?if(empty($collections_ch)):?>
 						Все коллекции
 					<?else:?>
-						<?=$collection_ch[0]?>
-						<?if(count($collection_ch) > 1):?>
-							, ... [<?= count($collection_ch)?>]
+						<?=$collections_ch[0]?>
+						<?if(count($collections_ch) > 1):?>
+							, ... [<?= count($collections_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -69,12 +70,12 @@
 					Артикулы:
 				</div>
 				<div class="lm-item" prop="secondcolumn4">
-					<?if(empty($manufacturer_ch)):?>
+					<?if(empty($sku_ch)):?>
 						Все артикулы
 					<?else:?>
-						<?=$manufacturer_ch[0]->name?>
-						<?if(count($manufacturer_ch) > 1):?>
-							, ... [<?= count($manufacturer_ch)?>]
+						<?=$sku_ch[0]?>
+						<?if(count($sku_ch) > 1):?>
+							, ... [<?= count($sku_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -84,12 +85,12 @@
 					Название/Описание/Комплектация:
 				</div>
 				<div class="lm-item" prop="secondcolumn5">
-					<?if(empty($name_ch)):?>
+					<?if(empty($shortname_ch)):?>
 						Все названия
 					<?else:?>
-						<?=$name_ch[0]?>
-						<?if(count($name_ch) > 1):?>
-							, ... [<?= count($name_ch)?>]
+						<?=$shortname_ch[0]?>
+						<?if(count($shortname_ch) > 1):?>
+							, ... [<?= count($shortname_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>

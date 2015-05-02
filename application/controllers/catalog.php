@@ -162,34 +162,16 @@ class Catalog extends Client_Controller {
 		$filters = $this->characteristics_type->get_filters($products);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
-	
-		// Временное решение
-		if(!empty($this->post['categories_checked']))
-		{
-			foreach($this->post['categories_checked'] as $key => $item)
-			{
-				
-				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
-			}
-		}
-		else
-		{
-			$categories_ch = "";
-		}
 		
-		if(!empty($this->post['manufacturer_checked']))
-		{
-			foreach($this->post['manufacturer_checked'] as $key => $item)
-			{
-				
-				$manufacturer_ch[] = $this->manufacturer->get_item_by(array("id" => $item));		
-			}
-		}
-		else
-		{
-			$manufacturer_ch = "";
-		}
-		//конец временного решения
+		$categories_ch = $this->catalog->get_filters_info($this->post, "categories", "categories_checked");
+		$manufacturer_ch = $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked");
+		$collections_ch = $this->catalog->get_filters_info($this->post, "collections", "collection_checked");
+		$sku_ch = $this->catalog->get_filters_info($this->post, "products", "sku_checked");
+		$shortname_ch = $this->catalog->get_filters_info($this->post, "characteristics", "shortname");
+		$color_ch = $this->catalog->get_filters_info($this->post, "characteristics", "color");
+		$material_ch = $this->catalog->get_filters_info($this->post, "characteristics", "material");
+		$finishing_ch = $this->catalog->get_filters_info($this->post, "characteristics", "finishing");
+		$turn_ch = $this->catalog->get_filters_info($this->post, "characteristics", "turn");
 		
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -216,7 +198,14 @@ class Catalog extends Client_Controller {
 			'collection' => $this->collections->get_tree($products_ids_wlt),
 			'manufacturer' => $this->manufacturer->get_tree($products_wlt),
 			'categories_ch' => $categories_ch,
-			'manufacturer_ch' => $manufacturer_ch
+			'manufacturer_ch' => $manufacturer_ch,
+			'collections_ch' => $collections_ch,
+			'sku_ch' => $sku_ch,
+			'shortname_ch' => $shortname_ch,
+			'color_ch' => $color_ch,
+			'material_ch' => $material_ch,
+			'finishing_ch' => $finishing_ch,
+			'turn_ch' => $turn_ch
 		);
 
 		$data = array_merge($this->standart_data, $data);

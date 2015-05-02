@@ -94,6 +94,37 @@ class CI_Catalog {
 		return $min;
 	}
 	
+	public function get_filters_info($filters, $type, $ch)
+	{
+		$filters_info = "";
+		if(!empty($filters[$ch]))
+		{
+			switch($type){
+				case "characteristics":
+					foreach($filters[$ch] as $key => $item)
+					{
+						$filters_info[] = $item;
+					}
+					break;
+				case "products":
+					foreach($filters[$ch] as $key => $item)
+					{
+						$filters_info[] = $this->CI->$type->get_item_by(array("sku" => $item))->sku;
+					}
+					break;
+				default:
+					foreach($filters[$ch] as $key => $item)
+					{
+						$filters_info[] = $this->CI->$type->get_item($item)->name;
+					}
+					
+					break;
+			}
+		}
+
+		return $filters_info;
+	}
+	
 	public function get_nok_tree($ids)
 	{
 		$nok_tree = array();
