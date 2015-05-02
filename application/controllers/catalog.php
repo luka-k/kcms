@@ -197,8 +197,8 @@ class Catalog extends Client_Controller {
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),*/
-			'collection' => $last_type_filter == "collections" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
-			'manufacturer' => $last_type_filter == "manufacturer" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
+			'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
+			'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
 			'categories_ch' => $categories_ch,
 			'manufacturer_ch' => $manufacturer_ch,
 			'collections_ch' => $collections_ch,
