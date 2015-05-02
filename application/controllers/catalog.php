@@ -33,19 +33,19 @@ class Catalog extends Client_Controller {
 		if(!empty($this->post['price_to'])) $price_max = preg_replace("/[^0-9]/", "", $this->post['price_to']);
 
 		$width_min = $width_from = $this->products->get_min('width');
-		if(!empty($this->post['width_from'])) $width_min = preg_replace("/[^0-9]/", "", $this->post['width_from']);
+		//if(!empty($this->post['width_from'])) $width_min = preg_replace("/[^0-9]/", "", $this->post['width_from']);
 		$width_max = $width_to = $this->products->get_max('width');
-		if(!empty($this->post['width_to'])) $width_max = preg_replace("/[^0-9]/", "", $this->post['width_to']);
+		//if(!empty($this->post['width_to'])) $width_max = preg_replace("/[^0-9]/", "", $this->post['width_to']);
 		
 		$height_min = $height_from = $this->products->get_min('height');
-		if(!empty($this->post['height_from'])) $height_min = preg_replace("/[^0-9]/", "", $this->post['height_from']);
+		//if(!empty($this->post['height_from'])) $height_min = preg_replace("/[^0-9]/", "", $this->post['height_from']);
 		$height_max = $height_to = $this->products->get_max('height');
-		if(!empty($this->post['height_to'])) $height_max = preg_replace("/[^0-9]/", "", $this->post['height_to']);
+		//if(!empty($this->post['height_to'])) $height_max = preg_replace("/[^0-9]/", "", $this->post['height_to']);
 		
 		$depth_min = $depth_from = $this->products->get_min('depth');
-		if(!empty($this->post['depth_from'])) $depth_min = preg_replace("/[^0-9]/", "", $this->post['depth_from']);
+		//if(!empty($this->post['depth_from'])) $depth_min = preg_replace("/[^0-9]/", "", $this->post['depth_from']);
 		$depth_max = $depth_to = $this->products->get_max('depth');
-		if(!empty($this->post['depth_to'])) $depth_max = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
+		//if(!empty($this->post['depth_to'])) $depth_max = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
 		
 		$data = array(
 			'title' => "Каталог",
@@ -149,7 +149,7 @@ class Catalog extends Client_Controller {
 		
 		//var_dump($filters_wlt);
 		//Костыление диапозонов
-		$filters_wlt['price_from'] = $this->standart_data['price_from'];
+		$filters_wlt['price_from'] = $filters_wlt['price_min'] = $this->standart_data['price_from'];
 		$filters_wlt['price_to'] = $this->standart_data['price_to'];
 		$filters_wlt['width_from'] = $this->standart_data['width_from'];
 		$filters_wlt['width_to'] = $this->standart_data['width_to'];
@@ -181,7 +181,7 @@ class Catalog extends Client_Controller {
 			'filters_checked' => $this->post,
 			'filters' => $filters,
 			'total_rows' => count($products),
-			'price_from' => $this->catalog->get_min_for_filtred($products, "price"),
+			/*'price_from' => $this->catalog->get_min_for_filtred($products, "price"),
 			'price_to' => $this->catalog->get_max_for_filtred($products, "price"),
 			'price_min' => $this->catalog->get_min_for_filtred($products, "price"),
 			'price_max' => $this->catalog->get_max_for_filtred($products, "price"),
@@ -196,7 +196,7 @@ class Catalog extends Client_Controller {
 			'depth_from' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
-			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
+			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),*/
 			'collection' => $last_type_filter == "collections" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
 			'manufacturer' => $last_type_filter == "manufacturer" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
 			'categories_ch' => $categories_ch,
