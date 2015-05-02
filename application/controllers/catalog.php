@@ -139,13 +139,15 @@ class Catalog extends Client_Controller {
 	public function filtred()
 	{	
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
-		$filtred_product_ids = $this->catalog->get_products_ids($products);
+		$products_ids = $this->catalog->get_products_ids($products);
 		
 		$last_type_filter = $this->post['last_type_filter'];
 		//wlt - without last type
 		$filters_wlt = $this->post;
 		
 		unset($filters_wlt[$last_type_filter]);
+		
+		//var_dump($filters_wlt);
 		//Костыление диапозонов
 		$filters_wlt['price_from'] = $this->standart_data['price_from'];
 		$filters_wlt['price_to'] = $this->standart_data['price_to'];
@@ -157,6 +159,7 @@ class Catalog extends Client_Controller {
 		$filters_wlt['depth_to'] = $this->standart_data['depth_to'];
 
 		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
+		//var_dump($products);
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
 		$filters = $this->characteristics_type->get_filters($products);
@@ -194,9 +197,8 @@ class Catalog extends Client_Controller {
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
-			'nok' => $this->catalog->get_nok_tree($products_ids_wlt),
-			'collection' => $this->collections->get_tree($products_ids_wlt),
-			'manufacturer' => $this->manufacturer->get_tree($products_wlt),
+			'collection' => $last_type_filter == "collections" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
+			'manufacturer' => $last_type_filter == "manufacturer" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
 			'categories_ch' => $categories_ch,
 			'manufacturer_ch' => $manufacturer_ch,
 			'collections_ch' => $collections_ch,
@@ -207,6 +209,15 @@ class Catalog extends Client_Controller {
 			'finishing_ch' => $finishing_ch,
 			'turn_ch' => $turn_ch
 		);
+		
+		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
+		{
+			$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt);
+		}
+		else
+		{
+			$data['nok'] = $this->catalog->get_nok_tree($products_ids);
+		}
 
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;
