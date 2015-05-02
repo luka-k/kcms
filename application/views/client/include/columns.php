@@ -9,6 +9,7 @@
 						   class="parent_checked" 
 						   name="<?=$filters['turn']->name?>[]" 
 						   value="<?=$turn?>" 
+						   onclick="$('#last_type_filter').val('turn');"
 						   <?if(isset($filters_checked['turn']) && in_array($turn, $filters_checked['turn'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"> <?=$turn?></a>
@@ -26,6 +27,7 @@
 					<input type="checkbox" 
 						   name="<?=$filters['finishing']->name?>[]" 
 						   value="<?=$finishing?>"
+						   onclick="$('#last_type_filter').val('finishing');"
 						   <?if(isset($filters_checked['finishing']) && in_array($finishing, $filters_checked['finishing'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"> <?=$finishing?></a>
@@ -44,6 +46,7 @@
 						   class="parent_checked" 
 						   name="<?=$filters['material']->name?>[]" 
 						   value="<?=$material?>"
+						   onclick="$('#last_type_filter').val('material');"
 						   <?if(isset($filters_checked['material']) && in_array($material, $filters_checked['material'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"> <?=$material?></a>
@@ -62,6 +65,7 @@
 						   class="parent_checked" 
 						   name="<?=$filters['color']->name?>[]" 
 						   value="<?=$color?>"
+						   onclick="$('#last_type_filter').val('color');"
 						   <?if(isset($filters_checked['color']) && in_array($color, $filters_checked['color'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"> <?=$color?></a>
@@ -81,7 +85,7 @@
 						   id="nok-fork-<?=$nok_counter?>"
 						   name="shortname[]"
 						   value="<?=$item_1?>"
-						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork')"
+						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
 					<a href="#" class="level1_link"><?if(!empty($ok)):?><span>+</span> <?endif;?><?=$item_1?></a>
@@ -95,7 +99,7 @@
 											   class="nok-branch-<?=$nok_counter?>"
 										       name="shortdesc[]"
 											   value="<?=$item_2?>"
-											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child')"
+											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
 										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?$show_counter++?><?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
@@ -126,7 +130,7 @@
 									   class="manufacturer-branch-<?=$m->id?>" 
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
-									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child')"
+									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child'); $('#last_type_filter').val('sku_checked');"
 									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="#"><?=$sku?></a>
@@ -148,7 +152,7 @@
 					   id="collection-fork-<?=$c->id?>"
 					   name="collection_checked[]" 
 					   value="<?=$c->id?>"
-					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork')"
+					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
 					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><?if($c->childs):?><span>+</span><?endif;?> <?=$c->name?></a>
@@ -161,7 +165,7 @@
 									   class="collection-branch-<?=$c->id?>"
 									   name="collection_checked[]" 
 									   value="<?=$level_2->id?>"
-									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child')"
+									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
 									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
@@ -183,7 +187,7 @@
 					   id="manufacturer-fork-<?=$m->id?>"
 					   name="manufacturer_checked[]" 
 					   value="<?=$m->id?>" 
-					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork')"
+					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><?if($m->sku):?><?endif;?><?=$m->name?></a>
@@ -214,7 +218,7 @@
 									   class="categories_checked parent-branch-<?=$item_1->id?>" 
 									   name="categories_checked[]" parent="<?=$item_1->id?>" 
 									   value="<?=$item_2->id?>" 
-									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child')"
+									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child');"
 									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>

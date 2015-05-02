@@ -137,18 +137,36 @@ class Catalog extends Client_Controller {
 	* Вывод товаров по фильтру
 	*/
 	public function filtred()
-	{		
+	{	
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
+		$filtred_product_ids = $this->catalog->get_products_ids($products);
 		
-		$settings = $this->settings->get_item_by(array('id' => 1));
+		$last_type_filter = $this->post['last_type_filter'];
+		//wlt - without last type
+		$filters_wlt = $this->post;
 		
-		$filters = $this->post;
+		unset($filters_wlt[$last_type_filter]);
+		//Костыление диапозонов
+		$filters_wlt['price_from'] = $this->standart_data['price_from'];
+		$filters_wlt['price_to'] = $this->standart_data['price_to'];
+		$filters_wlt['width_from'] = $this->standart_data['width_from'];
+		$filters_wlt['width_to'] = $this->standart_data['width_to'];
+		$filters_wlt['height_from'] = $this->standart_data['height_from'];
+		$filters_wlt['height_to'] = $this->standart_data['height_to'];
+		$filters_wlt['depth_from'] = $this->standart_data['depth_from'];
+		$filters_wlt['depth_to'] = $this->standart_data['depth_to'];
+
+		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
+		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
-		
+		$filters = $this->characteristics_type->get_filters($products);
+		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
+		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
+	
 		// Временное решение
-		if(!empty($filters['categories_checked']))
+		if(!empty($this->post['categories_checked']))
 		{
-			foreach($filters['categories_checked'] as $key => $item)
+			foreach($this->post['categories_checked'] as $key => $item)
 			{
 				
 				$categories_ch[] = $this->categories->get_item_by(array("id" => $item));		
@@ -159,9 +177,9 @@ class Catalog extends Client_Controller {
 			$categories_ch = "";
 		}
 		
-		if(!empty($filters['manufacturer_checked']))
+		if(!empty($this->post['manufacturer_checked']))
 		{
-			foreach($filters['manufacturer_checked'] as $key => $item)
+			foreach($this->post['manufacturer_checked'] as $key => $item)
 			{
 				
 				$manufacturer_ch[] = $this->manufacturer->get_item_by(array("id" => $item));		
@@ -176,8 +194,8 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_checked' => $this->post,
+			'filters' => $filters,
 			'total_rows' => count($products),
-			'filters' => $this->characteristics_type->get_filters($products),
 			'price_from' => $this->catalog->get_min_for_filtred($products, "price"),
 			'price_to' => $this->catalog->get_max_for_filtred($products, "price"),
 			'price_min' => $this->catalog->get_min_for_filtred($products, "price"),
@@ -194,14 +212,12 @@ class Catalog extends Client_Controller {
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
 			'depth_min' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_max' => $this->catalog->get_max_for_filtred($products, "depth"),
-			'nok' => $this->catalog->get_nok_tree($products),
-			'collection' => $this->collections->get_tree($products),
-			'manufacturer' => $this->manufacturer->get_tree($products),
+			'nok' => $this->catalog->get_nok_tree($products_ids_wlt),
+			'collection' => $this->collections->get_tree($products_ids_wlt),
+			'manufacturer' => $this->manufacturer->get_tree($products_wlt),
 			'categories_ch' => $categories_ch,
 			'manufacturer_ch' => $manufacturer_ch
 		);
-		
-		//var_dump($data['filters_checked']);
 
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;

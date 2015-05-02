@@ -58,19 +58,13 @@ class Collections extends MY_Model
 	/**
 	*
 	*/
-	public function get_tree($products = FALSE)
+	public function get_tree($ids = FALSE)
 	{
-		if(!$products) $products = $this->products->get_list(FALSE);
+		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
 
 		$filtred_ids = array();
-		$p_ids = array();
 		
-		foreach($products as $p)
-		{
-			$p_ids[] = $p->id;
-		}
-		
-		$this->db->where_in("child_id", $p_ids);
+		$this->db->where_in("child_id", $ids);
 		$result = $this->db->get("product2collection")->result();
 		foreach($result as $r)
 		{

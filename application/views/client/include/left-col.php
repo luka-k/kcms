@@ -1,6 +1,7 @@
 
 	<aside id="s_left">
 	<input type="hidden" name="filter" value="true"/>
+	<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
 	
 	 <? if (empty($filters_checked)): ?>
 				 <div id="shadow"></div>

@@ -55,9 +55,22 @@ class CI_Catalog {
 		return $products;
 	}
 	
+	/**
+	* Возвращает массив id продуктов
+	*/
+	public function get_products_ids($products)
+	{
+		$ids = array();
+		foreach($products as $p)
+		{
+			$ids[] = $p->id;
+		}
+		
+		return $ids;
+	}
+	
 	public function get_max_for_filtred($products, $field)
 	{
-		//var_dump(co$products);
 		$max = 0;
 		foreach($products as $product)
 		{
@@ -69,24 +82,29 @@ class CI_Catalog {
 	public function get_min_for_filtred($products, $field)
 	{
 		$min = 0;
-		foreach($products as $product)
+		if(!empty($products))
 		{
-			if($product->$field < $min) $min = $product->$field;
+			$min = $products[0]->$field;
+			foreach($products as $product)
+			{
+				if($product->$field < $min) $min = $product->$field;
+			}
+			
 		}
 		return $min;
 	}
 	
-	public function get_nok_tree($products)
+	public function get_nok_tree($ids)
 	{
 		$nok_tree = array();
 		
-		foreach($products as $product)
+		foreach($ids as $id)
 		{
-			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $product->id), FALSE, FALSE, "value", "asc");
+			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $id), FALSE, FALSE, "value", "asc");
 			
 			if($product_shortnames) foreach($product_shortnames as $p_sn)
 			{
-				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $product->id), FALSE, FALSE, "value", "asc");
+				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $id), FALSE, FALSE, "value", "asc");
 
 				if($product_shortdescs) foreach($product_shortdescs as $p_sd)
 				{
