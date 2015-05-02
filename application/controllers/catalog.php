@@ -28,9 +28,9 @@ class Catalog extends Client_Controller {
 		}
 
 		$price_min = $price_from = $this->products->get_min('price');
-		if(!empty($this->post['price_from'])) $price_min = preg_replace("/[^0-9]/", "", $this->post['price_from']);
+		//if(!empty($this->post['price_from'])) $price_min = preg_replace("/[^0-9]/", "", $this->post['price_from']);
 		$price_max = $price_to = $this->products->get_max('price');
-		if(!empty($this->post['price_to'])) $price_max = preg_replace("/[^0-9]/", "", $this->post['price_to']);
+		//if(!empty($this->post['price_to'])) $price_max = preg_replace("/[^0-9]/", "", $this->post['price_to']);
 
 		$width_min = $width_from = $this->products->get_min('width');
 		//if(!empty($this->post['width_from'])) $width_min = preg_replace("/[^0-9]/", "", $this->post['width_from']);
