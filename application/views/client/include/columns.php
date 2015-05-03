@@ -88,7 +88,7 @@
 						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link"><?if(!empty($ok)):?><span id="ll-<?=$nok_counter?>">+</span> <?endif;?><?=$item_1?></a>
+					<a href="#" class="level1_link"><?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>">+</span> <?endif;?><?=$item_1?></a>
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
@@ -106,7 +106,7 @@
 								    </li>
 								<?endif;?>
 							<?endforeach;?>
-							<?if($show_counter > 0):?><script>document.getElementById('sub-ok-<?=$nok_counter?>').style.display='block'; document.getElementById('ll-<?=$nok_counter?>').html('-');</script><?endif;?>
+							<?if($show_counter > 0):?><script>document.getElementById('sub-ok-<?=$nok_counter?>').style.display='block'; $("#nokll-<?=$nok_counter?>").html("-");</script><?endif;?>
 						</ul>
 					<?endif;?>
 				</li>
@@ -120,7 +120,7 @@
 	<ul class="level1">
 		<?foreach($manufacturer as $m):?>
 			<li>
-				<a href="#" class="level1_link"><?if($m->sku):?> <span>+</span> <?endif;?><?=$m->name?></a>
+				<a href="#" class="level1_link"><?if($m->sku):?> <span>-</span> <?endif;?><?=$m->name?></a>
 				<?if($m->sku):?>
 					<ul id="sub-manufacturer-<?=$m->id?>" style="display:block">
 						<?foreach($m->sku as $sku):?>
@@ -153,7 +153,7 @@
 					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
 					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if($c->childs):?><span>+</span><?endif;?> <?=$c->name?></a>
+				<a href="#" class="level1_link"><?if($c->childs):?><span id="cll-<?=$c->id?>">+</span><?endif;?> <?=$c->name?></a>
 				<?if($c->childs):?>
 					<ul id="sub-collections-<?=$c->id?>">
 						<?$show_counter = 0?>
@@ -169,7 +169,7 @@
 								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
 							</li>
 						<?endforeach;?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block';</script><?endif;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block'; $("#cll-<?=$c->id?>").html("-");</script><?endif;?>
 					</ul>
 				<?endif;?>
 			</li>
@@ -206,7 +206,7 @@
 					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span>+</span> <?endif;?><?=$item_1->name?></a>
+				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>">+</span> <?endif;?><?=$item_1->name?></a>
 				<?if(!empty($item_1->childs)):?>
 					<ul id="sub-parent-<?=$item_1->id?>">
 						<?$show_counter = 0?>
@@ -222,7 +222,7 @@
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 							</li>
 						<?endforeach;?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block';</script><?endif;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block'; $("#pll-<?=$item_1->id?>").html("-");</script><?endif;?>
 					</ul>
 				<? endif;?>
 			</li>
