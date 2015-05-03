@@ -170,6 +170,7 @@
 							</li>
 						<?endforeach;?>
 						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block'; $("#cll-<?=$c->id?>").html("-");</script><?endif;?>
+						<?if($show_counter == count($c->childs)):?><script>$('collection-fork-<?=$c->id?>').prop("checked", true)</script><?endif;?>
 					</ul>
 				<?endif;?>
 			</li>
@@ -222,7 +223,8 @@
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 							</li>
 						<?endforeach;?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block'; $("#pll-<?=$item_1->id?>").html("-");</script><?endif;?>
+						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block';</script><?endif;?>
+						<?if($show_counter == count($item_1->childs)):?><script>$('#parent-fork-<?=$item_1->id?>').prop("checked", true)</script><?endif;?>
 					</ul>
 				<? endif;?>
 			</li>
