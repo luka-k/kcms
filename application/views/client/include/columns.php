@@ -118,18 +118,18 @@
 		
 <div id="secondcolumn4" class="secondcolumn">
 	<ul class="level1">
-		<?foreach($manufacturer as $m):?>
+		<?foreach($sku_tree as $s):?>
 			<li>
-				<a href="#" class="level1_link"><?if($m->sku):?> <span>-</span> <?endif;?><?=$m->name?></a>
-				<?if($m->sku):?>
-					<ul id="sub-manufacturer-<?=$m->id?>" style="display:block">
-						<?foreach($m->sku as $sku):?>
+				<a href="#" class="level1_link"><?if($s->sku):?> <span>-</span> <?endif;?><?=$s->name?></a>
+				<?if($s->sku):?>
+					<ul id="sub-sku-<?=$s->id?>" style="display:block">
+						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
-									   class="manufacturer-branch-<?=$m->id?>" 
+									   class="sku-branch-<?=$s->id?>" 
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
-									   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'child'); $('#last_type_filter').val('sku_checked');"
+									   onclick="checked_tree('<?=$s->id?>', 'sku', 'child'); $('#last_type_filter').val('sku_checked');"
 									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
 								/>
 								<a href="#"><?=$sku?></a>
