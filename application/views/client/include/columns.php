@@ -204,7 +204,7 @@
 					   class="parent_checked category-<?=$item_1->id?>" 
 					   name="parent_checked[]" 
 					   value="<?=$item_1->id?>"
-					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork')"
+					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork'); $('#last_type_filter').val('categories_checked')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
 				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>">+</span> <?endif;?><?=$item_1->name?></a>
@@ -217,7 +217,7 @@
 									   class="categories_checked parent-branch-<?=$item_1->id?>" 
 									   name="categories_checked[]" parent="<?=$item_1->id?>" 
 									   value="<?=$item_2->id?>" 
-									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child');"
+									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child'); $('#last_type_filter').val('categories_checked')"
 									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
 								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>

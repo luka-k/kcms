@@ -150,8 +150,6 @@
 					return false;
 				});
 				
-				
-				
 				$('.secondcolumn input').click(function() {
 					//$('#shadow').fadeOut('slow'); 
 					show_popup();

@@ -67,9 +67,9 @@ class Catalog extends Client_Controller {
 			'depth_from' => $depth_from,
 			'depth_to' => $depth_to,
 			'depth_min' => $depth_min,
-			'depth_max' => $depth_max, //Тут мне кажется я переборшил с 4-мя интервалами вроде должно хваттать и двух. 
+			'depth_max' => $depth_max,
 			'filters_checked' => array(),
-			'left_menu' => $this->categories->get_tree(0, "category_parent_id"),
+			'left_menu' => $this->categories->get_tree(),
 			'manufacturer' => $this->manufacturer->get_tree(FALSE),
 			'collection' => array(),
 			'sku' => array(),
@@ -165,17 +165,7 @@ class Catalog extends Client_Controller {
 		$filters = $this->characteristics_type->get_filters($products);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
-		
-		$categories_ch = $this->catalog->get_filters_info($this->post, "categories", "categories_checked");
-		$manufacturer_ch = $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked");
-		$collections_ch = $this->catalog->get_filters_info($this->post, "collections", "collection_checked");
-		$sku_ch = $this->catalog->get_filters_info($this->post, "products", "sku_checked");
-		$shortname_ch = $this->catalog->get_filters_info($this->post, "characteristics", "shortname");
-		$color_ch = $this->catalog->get_filters_info($this->post, "characteristics", "color");
-		$material_ch = $this->catalog->get_filters_info($this->post, "characteristics", "material");
-		$finishing_ch = $this->catalog->get_filters_info($this->post, "characteristics", "finishing");
-		$turn_ch = $this->catalog->get_filters_info($this->post, "characteristics", "turn");
-		
+				
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_checked' => $this->post,
@@ -189,17 +179,18 @@ class Catalog extends Client_Controller {
 			'height_to' => $this->catalog->get_max_for_filtred($products, "height"),
 			'depth_from' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
+			'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products),
 			'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
 			'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
-			'categories_ch' => $categories_ch,
-			'manufacturer_ch' => $manufacturer_ch,
-			'collections_ch' => $collections_ch,
-			'sku_ch' => $sku_ch,
-			'shortname_ch' => $shortname_ch,
-			'color_ch' => $color_ch,
-			'material_ch' => $material_ch,
-			'finishing_ch' => $finishing_ch,
-			'turn_ch' => $turn_ch
+			'categories_ch' => $this->catalog->get_filters_info($this->post, "categories", "categories_checked"),
+			'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked"),
+			'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
+			'sku_ch' => $this->catalog->get_filters_info($this->post, "products", "sku_checked"),
+			'shortname_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortname"),
+			'color_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "color"),
+			'material_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "material"),
+			'finishing_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "finishing"),
+			'turn_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "turn")
 		);
 		
 		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
