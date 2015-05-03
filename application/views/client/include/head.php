@@ -54,6 +54,11 @@
 					slide: function( event, ui ) {
 						$( "#width-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#width-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
+					},
+					stop: function( event, ui ) {
+						show_popup();
+						$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+						$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 					}
 				});
 				$( "#width-low" ).val( "от " + $( "#width-range" ).slider( "values", 0 )  + " мм" );
@@ -67,6 +72,12 @@
 					slide: function( event, ui ) {
 						$( "#height-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#height-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
+						
+					},
+					stop: function( event, ui ) {
+						show_popup();
+						$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+						$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 					}
 				});
 				$( "#height-low" ).val( "от " + $( "#height-range" ).slider( "values", 0 )  + " мм" );
@@ -80,6 +91,11 @@
 					slide: function( event, ui ) {
 						$( "#weight-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#weight-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
+					},
+					stop: function( event, ui ) {
+						show_popup();
+						$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+						$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 					}
 				});
 				$( "#weight-low" ).val( "от " + $( "#weight-range" ).slider( "values", 0 )  + " мм" );
@@ -93,7 +109,13 @@
 					slide: function( event, ui ) {
 						$( "#price-low" ).val( "от " + ui.values[ 0 ] + " р." );
 						$( "#price-hi" ).val( "до " + ui.values[ 1 ] + " р." );
+					},
+					stop: function( event, ui ) {
+						show_popup();
+						$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+						$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 					}
+					
 				});
 				$( "#price-low" ).val( "от " + $( "#price-range" ).slider( "values", 0 )  + " р." );
 				$( "#price-hi" ).val( "до " + $( "#price-range" ).slider( "values", 1 )  + " р." );
@@ -128,21 +150,24 @@
 					return false;
 				});
 				
+				
+				
 				$('.secondcolumn input').click(function() {
 					//$('#shadow').fadeOut('slow'); 
-					$('#total_count').html('...');
-					$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
-					$('#searchpopupbtn').fadeIn('slow');
-					
-					
-					
-					$.post('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
-					
+					show_popup();
 					
 					$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+					$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 				});
 			});
 		})(jQuery);
+
+		function show_popup(){
+			$('#total_count').html('...');
+			$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
+			$('#searchpopupbtn').fadeIn('slow');
+			$.post('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+		}
 		
 		function validation (element, errorClass) {
 			var input = element.find('input[type="text"]'),

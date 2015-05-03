@@ -9,7 +9,7 @@
 	
 		<h1><?if(empty($categories_ch)):?>
 				<?if(!empty($manufacturer_ch)):?>
-					<?=$manufacturer_ch[0]->name?>
+					<?=$manufacturer_ch[0]?>
 				<?else:?>
 					Все товары
 				<?endif;?>
