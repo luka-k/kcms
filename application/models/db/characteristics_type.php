@@ -44,7 +44,7 @@ class Characteristics_type extends MY_Model
 	*
 	* @return array
 	*/
-	public function get_filters($products = "all")
+	public function get_filters($products = "all", $selected = FALSE)
 	{
 		$filters = array();
 		$characteristics_type = $this->get_list(FALSE);
@@ -65,6 +65,8 @@ class Characteristics_type extends MY_Model
 				}
 				$this->db->where_in("object_id", $ids);
 			}
+			
+			
 				
 			$query = $this->db->get("characteristics");
 			$values = array();
@@ -86,7 +88,14 @@ class Characteristics_type extends MY_Model
 					$filters[$item->url]->values = $values;
 				}
 			}
+			
+			if(isset($selected[$item->name]))
+			{				
+				$filters[$item->url]->values = array_merge($filters[$item->url]->values , $selected[$item->name]);
+				$filters[$item->url]->values = array_unique($filters[$item->url]->values);
+			}
 		}
+		
 		return $filters;
 	}
 }

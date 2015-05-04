@@ -125,11 +125,41 @@ class CI_Catalog {
 		return $filters_info;
 	}
 	
-	public function get_nok_tree($ids)
+	public function get_nok_tree($ids, $selected = array())
 	{
 		$nok_tree = array();
+		$shortdescs = array();
+
+		if(!isset($selected['shortname'])) $selected['shortname'] = array();
+		if(!isset($selected['shortdesc'])) $selected['shortdesc'] = array();
 		
-		foreach($ids as $id)
+		$shortnames = $this->CI->characteristics->get_list(array("type" => "shortname"), FALSE, FALSE, "value", "asc");
+		
+		foreach($shortnames as $sn)
+		{
+			$nok_tree[$sn->value] = array();
+		}
+		
+		foreach($shortnames as $sn)
+		{
+			$shortdesc = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
+			foreach($shortdesc as $sd)
+			{
+				if(in_array($sd->value, $selected['shortdesc']) || in_array($sd->object_id, $ids))  $nok_tree[$sn->value][] = $sd->value;
+			}
+		}
+		
+		/*foreach($shortnames as $sn)
+		{
+			$item_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
+			
+			if(!empty($item_shortdescs))foreach($item_shortdescs as $sd)
+			{
+				if(in_array($sd->id, $selected['shortdesc']) || in_array($sd->id, $ids)) $nok_tree[$sn->value][] = $sd->value;
+			}
+		}*/
+		
+		/*foreach($ids as $id)
 		{
 			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $id), FALSE, FALSE, "value", "asc");
 			
@@ -143,13 +173,14 @@ class CI_Catalog {
 				}
 				
 			}
-		}
+		}*/
 		
 		foreach($nok_tree as $i => $branch)
 		{
 			$nok_tree[$i] = array_unique($branch);
 			sort($nok_tree[$i], SORT_STRING);
 		}
+		
 		ksort($nok_tree, SORT_STRING);
 		
 		return $nok_tree;

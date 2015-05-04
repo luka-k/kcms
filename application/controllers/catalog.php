@@ -70,7 +70,7 @@ class Catalog extends Client_Controller {
 			'depth_max' => $depth_max,
 			'filters_checked' => array(),
 			'left_menu' => $this->categories->get_tree(),
-			'manufacturer' => $this->manufacturer->get_tree(FALSE),
+			'manufacturer' => $this->manufacturer->get_tree(FALSE, $this->post),
 			'sku_tree' => array(),
 			'collection' => array(),
 			'sku' => array(),
@@ -163,7 +163,7 @@ class Catalog extends Client_Controller {
 		//var_dump($products);
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
-		$filters = $this->characteristics_type->get_filters($products);
+		$filters = $this->characteristics_type->get_filters($products, $this->post);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
 				
@@ -180,10 +180,10 @@ class Catalog extends Client_Controller {
 			'height_to' => $this->catalog->get_max_for_filtred($products, "height"),
 			'depth_from' => $this->catalog->get_min_for_filtred($products, "depth"),
 			'depth_to' => $this->catalog->get_max_for_filtred($products, "depth"),
-			'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products),
-			'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids),
-			'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
-			'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products),
+			'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products, $this->post),
+			'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
+			'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
+			'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
 			'categories_ch' => $this->catalog->get_filters_info($this->post, "categories", "categories_checked"),
 			'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked"),
 			'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
@@ -197,11 +197,11 @@ class Catalog extends Client_Controller {
 		
 		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
 		{
-			$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt);
+			$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt, $this->post);
 		}
 		else
 		{
-			$data['nok'] = $this->catalog->get_nok_tree($products_ids);
+			$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
 		}
 
 		$data = array_merge($this->standart_data, $data);

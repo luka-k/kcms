@@ -22,7 +22,7 @@ class Manufacturer extends MY_Model
 		$this->load->database();
 	}
 	
-	public function get_tree($products = FALSE)
+	public function get_tree($products = FALSE, $selected = array())
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 		
@@ -34,17 +34,24 @@ class Manufacturer extends MY_Model
 			$sku[$p->manufacturer_id][] = $p->sku;
 		}
 		
+		if(isset($selected['manufacturer_checked'])) array_merge($m_ids, $selected['manufacturer_checked']);
+		
 		foreach($sku as $i => $articls)
 		{
 			asort($articls, SORT_STRING);
 			$sku[$i] = $articls;
 		}
 		
-		
 		$manufacturer = array();
 		$this->db->order_by("name", "asc"); 
 		$this->db->where_in("id", array_unique($m_ids));
 		$manufacturer = $this->db->get($this->_table)->result();
+		
+		if(isset($selected["sku_checked"])) foreach($selected["sku_checked"] as $sk)
+		{	
+			$product = $this->products->get_item_by(array("sku" => $sk));	
+			$sku[$product->manufacturer_id][] = $sk; 
+		}
 		
 		foreach($manufacturer as $i => $m)
 		{

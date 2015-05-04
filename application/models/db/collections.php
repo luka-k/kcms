@@ -58,7 +58,7 @@ class Collections extends MY_Model
 	/**
 	*
 	*/
-	public function get_tree($ids = FALSE)
+	public function get_tree($ids = FALSE, $selected = array())
 	{
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
 
@@ -71,19 +71,21 @@ class Collections extends MY_Model
 			$filtred_ids[] = $r->collection_parent_id;
 		}
 		
-		$tree = $this->_get_tree(0, $filtred_ids);
+		$tree = $this->_get_tree(0, $filtred_ids, $selected);
 		
 		return $tree;
 	}
 	
-	private function _get_tree($parent_id, $filtred_ids)
+	private function _get_tree($parent_id, $filtred_ids, $selected)
 	{
+		
+		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
 		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "name", "asc");
 		$branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$sub_tree = $this->_get_tree($b->id, $filtred_ids);
-			if(!empty($sub_tree) || in_array($b->id, $filtred_ids))
+			$sub_tree = $this->_get_tree($b->id, $filtred_ids, $selected);
+			if(!empty($sub_tree) || in_array($b->id, $filtred_ids) || in_array($b->id, $selected['collection_checked']))
 			{
 				$branches[$i]->childs = $sub_tree;
 			}

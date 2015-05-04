@@ -58,7 +58,7 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
-	public function get_tree($products = FALSE)
+	public function get_tree($products = FALSE, $selected = array())
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 
@@ -69,7 +69,7 @@ class Categories extends MY_Model
 			$filtred_ids[] = $p->parent_id;
 		}
 
-		$tree = $this->_get_tree(0, "category_parent_id", $filtred_ids);
+		$tree = $this->_get_tree(0, "category_parent_id", $filtred_ids, $selected);
 		
 		foreach($tree as $i => $t)
 		{
@@ -79,27 +79,9 @@ class Categories extends MY_Model
 		return $tree;
 	}
 	
-	private function ____get_tree($parent_id, $filtred_ids)
+	public function _get_tree($parent_id, $parent_id_field, $filtred_ids, $selected = array())
 	{
-		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "name", "asc");
-		$branches = $this->prepare_list($branches);
-		if ($branches) foreach ($branches as $i => $b)
-		{
-			$sub_tree = $this->_get_tree($b->id, $filtred_ids);
-			if(!empty($sub_tree) || in_array($b->id, $filtred_ids))
-			{
-				$branches[$i]->childs = $sub_tree;
-			}
-			else
-			{
-				unset($branches[$i]);
-			}
-		}		
-		return $branches;
-	}
-	
-	public function _get_tree($parent_id, $parent_id_field, $filtred_ids)
-	{
+		if(!isset($selected['categories_checked'])) $selected['categories_checked'] = array();//костыли костылики
 		$query = $this->db->get_where('category2category', array($parent_id_field => $parent_id)); 
 		$items = $query->result();
 		
@@ -108,7 +90,8 @@ class Categories extends MY_Model
 		{
 			if($parent_id <> 0)
 			{
-				if(in_array($item->child_id, $filtred_ids)) $branches[] = $this->get_item_by(array("id" => $item->child_id));
+				$branch = $this->get_item_by(array("id" => $item->child_id));
+				if(in_array($item->child_id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
 			}
 			else
 			{
@@ -122,7 +105,7 @@ class Categories extends MY_Model
 			foreach($branches as $i => $b)
 			{
 				$names[$i] = $b->name;
-				$branches[$i]->childs = $this->_get_tree($b->id, $parent_id_field, $filtred_ids);
+				$branches[$i]->childs = $this->_get_tree($b->id, $parent_id_field, $filtred_ids, $selected);
 			}
 		
 			array_multisort($names, SORT_ASC, $branches);
