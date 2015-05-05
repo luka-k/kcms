@@ -129,56 +129,41 @@ class CI_Catalog {
 	{
 		$nok_tree = array();
 		$shortdescs = array();
-
-		if(!isset($selected['shortname'])) $selected['shortname'] = array();
-		if(!isset($selected['shortdesc'])) $selected['shortdesc'] = array();
-		
+		$to_delete = array();
+			
 		$shortnames = $this->CI->characteristics->get_list(array("type" => "shortname"), FALSE, FALSE, "value", "asc");
 		
 		foreach($shortnames as $sn)
 		{
 			$nok_tree[$sn->value] = array();
+			if(!in_array($sn->object_id, $ids)) $to_delete[] = $sn->value;
 		}
-		
+
 		foreach($shortnames as $sn)
 		{
 			$shortdesc = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
+			
 			foreach($shortdesc as $sd)
 			{
-				if(in_array($sd->value, $selected['shortdesc']) || in_array($sd->object_id, $ids))  $nok_tree[$sn->value][] = $sd->value;
+				if(isset($selected['shortdesc']))
+				{
+					if(in_array($sd->object_id, $ids) || array_key_exists($sd->id, $selected['shortdesc'])) $nok_tree[$sn->value][$sd->id] = $sd->value;
+				}
+				else
+				{
+					if(in_array($sd->object_id, $ids)) $nok_tree[$sn->value][$sd->id] = $sd->value;
+				}
 			}
 		}
 		
-		/*foreach($shortnames as $sn)
-		{
-			$item_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
-			
-			if(!empty($item_shortdescs))foreach($item_shortdescs as $sd)
-			{
-				if(in_array($sd->id, $selected['shortdesc']) || in_array($sd->id, $ids)) $nok_tree[$sn->value][] = $sd->value;
-			}
-		}*/
-		
-		/*foreach($ids as $id)
-		{
-			$product_shortnames = $this->CI->characteristics->get_list(array("type" => "shortname", "object_id" => $id), FALSE, FALSE, "value", "asc");
-			
-			if($product_shortnames) foreach($product_shortnames as $p_sn)
-			{
-				$product_shortdescs = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $id), FALSE, FALSE, "value", "asc");
-
-				if($product_shortdescs) foreach($product_shortdescs as $p_sd)
-				{
-					$nok_tree[$p_sn->value][] = $p_sd->value;
-				}
-				
-			}
-		}*/
-		
 		foreach($nok_tree as $i => $branch)
 		{
-			$nok_tree[$i] = array_unique($branch);
-			sort($nok_tree[$i], SORT_STRING);
+			if((isset($selected['shortname']) && !in_array($i, $selected['shortname'])) || (in_array($i, $to_delete) && empty($nok_tree[$i]))) unset($nok_tree[$i]);
+			if(isset($nok_tree[$i]))
+			{
+				$nok_tree[$i] = array_unique($branch);
+				asort($nok_tree[$i], SORT_STRING);
+			}
 		}
 		
 		ksort($nok_tree, SORT_STRING);

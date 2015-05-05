@@ -121,10 +121,10 @@ class Characteristics extends MY_Model
 			//фильтрация по артикулу
 			if(isset($filter['sku_checked'])) $this->db->where_in("sku", $filter['sku_checked']);
 			
-			$this->set_range_param("width", $filter['width_from'], $filter['width_to']);
-			$this->set_range_param("height", $filter['height_from'], $filter['height_to']);
-			$this->set_range_param("depth", $filter['depth_from'], $filter['depth_to']);
-			$this->set_range_param("price", $filter['price_from'], $filter['price_to']);
+			if(isset($filter['width_from']) && isset($filter['width_to'])) $this->set_range_param("width", $filter['width_from'], $filter['width_to']);
+			if(isset($filter['height_from']) && isset($filter['height_to']))  $this->set_range_param("height", $filter['height_from'], $filter['height_to']);
+			if(isset($filter['depth_from']) && isset($filter['depth_to']))  $this->set_range_param("depth", $filter['depth_from'], $filter['depth_to']);
+			if(isset($filter['price_from']) && isset($filter['price_to']))  $this->set_range_param("price", $filter['price_from'], $filter['price_to']);
 			
 			if(!empty($id)) $this->db->where_in("id", $id);
 			

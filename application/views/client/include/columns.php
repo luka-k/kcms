@@ -92,15 +92,16 @@
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
-							<?foreach($ok as $item_2):?>
+							
+							<?foreach($ok as $key => $item_2):?>
 								<?if(!empty($item_2)):?>
 									<li>	
 										<input type="checkbox" 
 											   class="nok-branch-<?=$nok_counter?>"
-										       name="shortdesc[]"
+										       name="shortdesc[<?=$key?>]"
 											   value="<?=$item_2?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
-										       <?if(isset($filters_checked['shortdesc']) && in_array($item_2, $filters_checked['shortdesc'])):?>checked<?$show_counter++?><?endif;?>
+										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?$show_counter++?><?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
 								    </li>

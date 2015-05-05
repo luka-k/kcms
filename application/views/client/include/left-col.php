@@ -161,25 +161,25 @@
 				</div> 
 								
 				<div class="range-input">
-					<input type="text" readonly name="width_to" id="width-hi">
+					<input type="text" readonly name="" id="width-hi">
 					<div class="caption">Ширина:</div>
-					<input type="text" readonly name="width_from" id="width-low">
+					<input type="text" readonly name="" id="width-low">
 					<div style="clear: both;"></div>
 					<div id="width-range" class="block-range"></div>
 				</div>
 											
 				<div class="range-input">
-					<input type="text" name="height_to" readonly id="height-hi">
+					<input type="text" name="" readonly id="height-hi">
 					<div class="caption">Высота(h):</div>
-					<input type="text" name="height_from" readonly id="height-low">
+					<input type="text" name="" readonly id="height-low">
 					<div style="clear: both;"></div>
 					<div id="height-range" class="block-range"></div>
 				</div>
 										
 				<div class="range-input">
-					<input type="text" name="depth_to" readonly id="weight-hi">
+					<input type="text" name="" readonly id="weight-hi">
 					<div class="caption">Глубина:</div>
-					<input type="text" name="depth_from" readonly id="weight-low">
+					<input type="text" name="" readonly id="weight-low">
 					<div style="clear: both;"></div>
 					<div id="weight-range" class="block-range"></div>
 				</div>
@@ -190,9 +190,9 @@
 				</div> 
 											
 				<div class="range-input">
-					<input type="text" name="price_to" readonly id="price-hi">
+					<input type="text" name="" readonly id="price-hi">
 					<div class="caption"> </div>
-					<input type="text" name="price_from" readonly id="price-low">
+					<input type="text" name="" readonly id="price-low">
 					<div style="clear: both;"></div>
 					<div id="price-range" class="block-range"></div>
 				</div>

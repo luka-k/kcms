@@ -51,6 +51,10 @@
 					min: <?= $width_min?>,
 					max: <?= $width_max?>,
 					values: [ <?= $width_from?>, <?= $width_to?> ],
+					start: function( event, ui ) {
+						$("#width-low").attr("name", "width_from");
+						$("#width-hi").attr("name", "width_to");
+					},
 					slide: function( event, ui ) {
 						$( "#width-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#width-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
@@ -69,6 +73,10 @@
 					min: <?= $height_min?>,
 					max: <?= $height_max?>,
 					values: [ <?= $height_from?>, <?= $height_to?> ],
+					start: function( event, ui ) {
+						$("#height-low").attr("name", "height_from");
+						$("#height-hi").attr("name", "height_to");
+					},
 					slide: function( event, ui ) {
 						$( "#height-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#height-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
@@ -88,6 +96,10 @@
 					min: <?= $depth_min?>,
 					max: <?= $depth_max?>,
 					values: [ <?= $depth_from?>, <?= $depth_to?> ],
+					start: function( event, ui ) {
+						$("#weight-low").attr("name", "depth_from");
+						$("#weight-hi").attr("name", "depth_to");
+					},
 					slide: function( event, ui ) {
 						$( "#weight-low" ).val( "от " + ui.values[ 0 ] + " мм" );
 						$( "#weight-hi" ).val( "до " + ui.values[ 1 ] + " мм" );
@@ -106,6 +118,10 @@
 					min: <?= $price_min?>,
 					max: <?= $price_max?>,
 					values: [ <?= $price_from?>, <?= $price_to?> ],
+					start: function( event, ui ) {
+						$("#price-low").attr("name", "price_from");
+						$("#price-hi").attr("name", "price_to");
+					},
 					slide: function( event, ui ) {
 						$( "#price-low" ).val( "от " + ui.values[ 0 ] + " р." );
 						$( "#price-hi" ).val( "до " + ui.values[ 1 ] + " р." );
@@ -279,4 +295,40 @@
 	}
 	
 	</script>	
+
+	<?if(isset($filters_checked["width_from"])):?>
+		<script>
+			$( document ).ready(function() {
+				$("#width-low").attr("name", "width_from");
+				$("#width-hi").attr("name", "width_to");
+			});	
+		</script>
+	<?endif;?>
+	
+	<?if(isset($filters_checked["height_from"])):?>
+		<script>
+			$( document ).ready(function() {
+				$("#height-low").attr("name", "height_from");
+				$("#height-hi").attr("name", "height_to");
+			});	
+		</script>
+	<?endif;?>
+	
+	<?if(isset($filters_checked["depth_from"])):?>
+		<script>
+			$( document ).ready(function() {
+				$("#depth-low").attr("name", "depth_from");
+				$("#depth-hi").attr("name", "depth_to");
+			});	
+		</script>
+	<?endif;?>
+	
+	<?if(isset($filters_checked["price_from"])):?>
+		<script>
+			$( document ).ready(function() {
+				$("#price-low").attr("name", "price_from");
+				$("#price-hi").attr("name", "price_to");
+			});	
+		</script>
+	<?endif;?>
 </head>
