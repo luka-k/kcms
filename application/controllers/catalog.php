@@ -50,7 +50,6 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'title' => "Каталог",
 			'select_item' => '',
-			'tree' => $this->categories->get_tree(0, "category_parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
 			'price_from' => $price_from,
 			'price_to' => $price_to,
@@ -164,7 +163,7 @@ class Catalog extends Client_Controller {
 		$filters = $this->characteristics_type->get_filters($products, $this->post);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
-						
+
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_checked' => $this->post,

@@ -26,36 +26,41 @@ class Manufacturer extends MY_Model
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 		
+		$manufacturer = array();
 		$m_ids = array();
 		$sku = array();
-		foreach($products as $p)
+		
+		if($products)
 		{
-			$m_ids[] = $p->manufacturer_id;
-			$sku[$p->manufacturer_id][] = $p->sku;
-		}
+			foreach($products as $p)
+			{
+				$m_ids[] = $p->manufacturer_id;
+				$sku[$p->manufacturer_id][] = $p->sku;
+			}
 		
-		if(isset($selected['manufacturer_checked'])) array_merge($m_ids, $selected['manufacturer_checked']);
+			if(isset($selected['manufacturer_checked'])) array_merge($m_ids, $selected['manufacturer_checked']);
 		
-		foreach($sku as $i => $articls)
-		{
-			asort($articls, SORT_STRING);
-			$sku[$i] = $articls;
-		}
+			foreach($sku as $i => $articls)
+			{
+				asort($articls, SORT_STRING);
+				$sku[$i] = $articls;
+			}
 		
-		$manufacturer = array();
-		$this->db->order_by("name", "asc"); 
-		$this->db->where_in("id", array_unique($m_ids));
-		$manufacturer = $this->db->get($this->_table)->result();
 		
-		if(isset($selected["sku_checked"])) foreach($selected["sku_checked"] as $sk)
-		{	
-			$product = $this->products->get_item_by(array("sku" => $sk));	
-			$sku[$product->manufacturer_id][] = $sk; 
-		}
+			$this->db->order_by("name", "asc"); 
+			if(!empty($m_ids)) $this->db->where_in("id", array_unique($m_ids));
+			$manufacturer = $this->db->get($this->_table)->result();
 		
-		foreach($manufacturer as $i => $m)
-		{
-			$manufacturer[$i]->sku = $sku[$m->id];
+			if(isset($selected["sku_checked"])) foreach($selected["sku_checked"] as $sk)
+			{	
+				$product = $this->products->get_item_by(array("sku" => $sk));	
+				$sku[$product->manufacturer_id][] = $sk; 
+			}
+		
+			foreach($manufacturer as $i => $m)
+			{
+				$manufacturer[$i]->sku = $sku[$m->id];
+			}
 		}
 		return $manufacturer;
 	}
