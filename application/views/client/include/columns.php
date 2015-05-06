@@ -1,12 +1,13 @@
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
 				 
 <div id="secondcolumn9" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('turn'); return false;">сбросить фильтр</a></div>
 	<?if(isset($filters['turn']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['turn']->values as $turn):?>
 				<li>
 					<input type="checkbox" 
-						   class="parent_checked" 
+						   class="turn-filter" 
 						   name="<?=$filters['turn']->name?>[]" 
 						   value="<?=$turn?>" 
 						   onclick="$('#last_type_filter').val('turn');"
@@ -20,11 +21,13 @@
 </div>
 				
 <div id="secondcolumn8" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('finishing'); return false;">сбросить фильтр</a></div>
 	<?if(isset($filters['finishing']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['finishing']->values as $finishing):?>
 				<li>
 					<input type="checkbox" 
+						   class="finishing-filter"
 						   name="<?=$filters['finishing']->name?>[]" 
 						   value="<?=$finishing?>"
 						   onclick="$('#last_type_filter').val('finishing');"
@@ -38,12 +41,13 @@
 </div>
 				
 <div id="secondcolumn7" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('material'); return false;">сбросить фильтр</a></div>
 	<?if(isset($filters['material']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['material']->values as $material):?>
 				<li>
 					<input type="checkbox" 
-						   class="parent_checked" 
+						   class="material-filter" 
 						   name="<?=$filters['material']->name?>[]" 
 						   value="<?=$material?>"
 						   onclick="$('#last_type_filter').val('material');"
@@ -57,12 +61,13 @@
 </div>
 				
 <div id="secondcolumn6" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('color'); return false;">сбросить фильтр</a></div>
 	<?if(isset($filters['color']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['color']->values as $color):?>
 				<li>
 					<input type="checkbox" 
-						   class="parent_checked" 
+						   class="color-filter" 
 						   name="<?=$filters['color']->name?>[]" 
 						   value="<?=$color?>"
 						   onclick="$('#last_type_filter').val('color');"
@@ -76,6 +81,7 @@
 </div>
 				
 <div id="secondcolumn5" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('nok'); return false;">сбросить фильтр</a></div>
 	<?if(isset($nok)):?>
 		<ul class="level1">
 			<?$nok_counter = 1?>
@@ -83,6 +89,7 @@
 				<li>
 					<input type="checkbox" 
 						   id="nok-fork-<?=$nok_counter?>"
+						   class="nok-filter"
 						   name="shortname[]"
 						   value="<?=$item_1?>"
 						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
@@ -97,7 +104,7 @@
 								<?if(!empty($item_2)):?>
 									<li>	
 										<input type="checkbox" 
-											   class="nok-branch-<?=$nok_counter?>"
+											   class="nok-branch-<?=$nok_counter?> nok-filter"
 										       name="shortdesc[<?=$key?>]"
 											   value="<?=$item_2?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
@@ -118,6 +125,7 @@
 </div>
 		
 <div id="secondcolumn4" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('sku'); return false;">сбросить фильтр</a></div>
 	<ul class="level1">
 		<?foreach($sku_tree as $s):?>
 			<li>
@@ -127,7 +135,7 @@
 						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
-									   class="sku-branch-<?=$s->id?>" 
+									   class="sku-branch-<?=$s->id?> sku-filter" 
 									   name="sku_checked[]" 
 									   value="<?=$sku?>" 
 									   onclick="checked_tree('<?=$s->id?>', 'sku', 'child'); $('#last_type_filter').val('sku_checked');"
@@ -144,11 +152,13 @@
 </div>
 				
 <div id="secondcolumn3" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр</a></div>
 	<ul class="level1">
 		<?foreach($collection as $c):?>
 			<li>
 				<input type="checkbox" 
 					   id="collection-fork-<?=$c->id?>"
+					   class="collection-filter"
 					   name="collection_checked[]" 
 					   value="<?=$c->id?>"
 					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
@@ -161,7 +171,7 @@
 						<?foreach($c->childs as $level_2):?>
 							<li>
 								<input type="checkbox" 
-									   class="collection-branch-<?=$c->id?>"
+									   class="collection-branch-<?=$c->id?> collection-filter"
 									   name="collection_checked[]" 
 									   value="<?=$level_2->id?>"
 									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
@@ -180,11 +190,13 @@
 </div>
 				
 <div id="secondcolumn2" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('manufacturer'); return false;">сбросить фильтр</a></div>
 	<ul class="level1">
 		<?foreach($manufacturer as $m):?>
 			<li>
 				<input type="checkbox" 
 					   id="manufacturer-fork-<?=$m->id?>"
+					   class="manufacturer-filter"
 					   name="manufacturer_checked[]" 
 					   value="<?=$m->id?>" 
 					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
@@ -197,12 +209,13 @@
 </div>
 				
 <div id="secondcolumn" class="secondcolumn">
+	<div class="clear_filter"><a href="#" onclick="clear_filter('categories'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
 		<?foreach($left_menu as $item_1):?>
 			<li>
 				<input type="checkbox" 
 					   id="parent-fork-<?=$item_1->id?>"
-					   class="parent_checked category-<?=$item_1->id?>" 
+					   class="parent_checked category-<?=$item_1->id?> categories-filter" 
 					   name="parent_checked[]" 
 					   value="<?=$item_1->id?>"
 					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork'); $('#last_type_filter').val('categories_checked')"
@@ -215,7 +228,7 @@
 						<?foreach ($item_1->childs as $item_2):?>
 							<li>
 								<input type="checkbox" 
-									   class="categories_checked parent-branch-<?=$item_1->id?>" 
+									   class="categories_checked parent-branch-<?=$item_1->id?> categories-filter" 
 									   name="categories_checked[]" parent="<?=$item_1->id?>" 
 									   value="<?=$item_2->id?>" 
 									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child'); $('#last_type_filter').val('categories_checked')"

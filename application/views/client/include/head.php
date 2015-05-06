@@ -183,6 +183,12 @@
 			$.post('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 		}
 		
+		
+		function clear_filter(type){
+			$('.'+type+'-filter').prop("checked", false);
+			$('#filter-form').submit();
+		}
+		
 		function validation (element, errorClass) {
 			var input = element.find('input[type="text"]'),
 			spaces = new RegExp(/^(\s|\u00A0)+|(\s|\u00A0)+$/g),
