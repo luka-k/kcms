@@ -129,7 +129,7 @@ class Catalog extends Client_Controller {
 		$data['total_rows'] = count($data['category']->products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
-				
+		//var_dump($data['category']->products);	
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -196,7 +196,7 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
-
+		var_dump($products);
 		$this->load->view("client/categories", $data);
 	}
 	

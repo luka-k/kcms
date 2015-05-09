@@ -61,7 +61,7 @@ class Admin_orders extends Admin_Controller
 				"address" => $order->user_address
 			);
 		}
-		
+		//var_dump($orders_info);
 		$data = array(
 			'title' => "Заказы",			
 			'orders_info' => array_reverse($orders_info),
@@ -72,6 +72,7 @@ class Admin_orders extends Admin_Controller
 			),
 			'url' => "/".$this->uri->uri_string()
 		);	
+
 		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view('admin/orders.php', $data);

@@ -54,6 +54,7 @@ class Ajax extends CI_Controller {
 			"name" => $product->name,
 			"url" => $product->url,
 			"price" => $product->price,
+			"discount" => $product->discount,
 			"qty" => $info->qty
 		);
 		
@@ -75,9 +76,12 @@ class Ajax extends CI_Controller {
 	public function update_cart()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+		
 		$this->cart->update(array("item_id" => $info->item_id, "qty" => $info->qty));
 		$item = $this->cart->get($info->item_id);
+		
 		$data['item_total'] = $item['item_total'];
+		$data['item_id'] = $info->item_id;
 		$data['item_qty'] = $item['qty'];
  		$data['total_qty'] = $this->cart->total_qty();
 		$data['total_price'] = $this->cart->total_price();		

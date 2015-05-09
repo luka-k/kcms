@@ -135,11 +135,14 @@ class Products extends MY_Model
 	*/
 	public function set_sale_price($item)
 	{
-		/*if(!empty($item->discount))
+		if(isset($item->discount))
 		{
 			$item->sale_price = $item->price*(100 - $item->discount)/100;
-		}	*/
-		$item->sale_price = $item->price*(100 - $item->discount)/100;
+		}
+		
+		//var_dump($item->discount);
+		
+		//$item->sale_price = $item->price*(100 - $item->discount)/100;
 		return $item;
 	}
 	

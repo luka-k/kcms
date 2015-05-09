@@ -4,17 +4,15 @@
 	<body>
 		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 		<? require 'include/header.php'?>
-			
-			
-                <div id="wrapper">
-                        <div class="section maxw">
-
-                                        <div class="mainwrap">
-                                            <main>
-                                                <article>
-													<div style="height: 700px; overflow-y: scroll;">
-													<? require 'include/breadcrumbs.php' ?>
-													<div class="sortings">
+		
+		<div id="wrapper">
+			<div class="section maxw">
+				<div class="mainwrap">
+					<main>
+						<article>
+							<div style="height: 700px; overflow-y: scroll;">
+								<? require 'include/breadcrumbs.php' ?>
+									<div class="sortings">
 														Сортировка: 
 														<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
 														<span onclick="$(this).toggleClass('active');">по цене</span>
@@ -29,7 +27,7 @@
 																	<p>Цена розничная: <del><?=$item->price?> р.</del> <span class="discount">-<?=$item->discount?>%</span></p>
 																	<p>Цена на сайте: <span class="top-price"><?=$item->sale_price?></span> р.</p>
 																	<p>Наличие: <span class="blue-label"><?=$item->location?></span></p>
-																	<p><a onclick="add_to_cart('<?=$item->id?>', 1); return false" href="<?=$item->full_url?>"><img src="/template/client/images-new/cartbtn.png" /></a></p>
+																	<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
 																</div>
 																<div class="product-image">
 																<?if(isset($item->img)):?><!---Костыль ввиду отсутствия картинок--->
@@ -95,4 +93,5 @@
 			
 			</form>
 	</body>
+	
 </html>

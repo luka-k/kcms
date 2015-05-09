@@ -1,13 +1,11 @@
-
-	<aside id="s_left">
+<aside id="s_left">
 	<input type="hidden" name="filter" value="true"/>
 	<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
 	
-	 <? if (empty($filters_checked)): ?>
-				 <div id="shadow"></div>
-				 <? endif ?>
-	
-		<h1><?if(empty($categories_ch)):?>
+	<? if (empty($filters_checked)): ?><div id="shadow"></div><? endif ?>
+
+	<h1><?if(isset($total_rows)):?>
+			<?if(empty($categories_ch)):?>
 				<?if(!empty($manufacturer_ch)):?>
 					<?=$manufacturer_ch[0]?>
 				<?else:?>
@@ -15,11 +13,13 @@
 				<?endif;?>
 			<?else:?>
 				<?=$categories_ch[0]?>
-			<?endif;?>
-			(<?=$total_rows ?>)
-		</h1>
-		
-		<div class="leftmenu">
+			<?endif;?>(<?=$total_rows ?>)
+		<?else:?>
+			<?=$title?>
+		<?endif;?>
+	</h1>
+	
+	<div class="leftmenu">
 			<div class="lm-block">
 				<div class="lm-caption">
 					Группа товаров:

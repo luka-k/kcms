@@ -27,11 +27,15 @@ class Order extends Client_Controller
 		$total_qty = $this->cart->total_qty();
 		
 		$order_id = $this->orders->get_order_id();
-		
+
 		$new_order = array(
 			'order_id' => $order_id,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
+			'user_email' => $orders_info['email'],
+			'user_address' => $orders_info['address'],
+			'delivery_id' => $orders_info['delivery_id'],
+			'payment_id' => $orders_info['payment_id'],
 			'total' => $total_price,
 			'date' => date("Y-m-d"),
 			'status_id' => 1

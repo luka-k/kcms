@@ -1,127 +1,138 @@
-<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
-<? require 'include/head.php' ?>
-
-<body>
-
-<!--[if lt IE 8]>
-	<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-<![endif]-->
-
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
-	
-	<div class="page page-cart">
-		<div class="page__wrap wrap">
-		<?if(!empty($action)):?>
-			Ваш заказ успешно оформлен.
-		<?else:?>
-			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
-			<?if(!empty($cart_items)):?>
-			<div class="page-cart__products">
-				<table class="cart-table">
-					<tbody>
-						<tr>
-							<th></th>
-							<th>Наименование</th>
-							<th>Цена</th>
-							<th>Количество</th>
-							<th>Стоимость</th>
-							<th></th>
-						</tr>
-						
-						<?foreach($cart_items as $item_id => $item):?>
-							<tr id="cart-<?=$item_id?>">
-								<td>
-									<img src="<?=$item->img->catalog_small_url?>" alt="image" width="100" class="cart-table__image" />
-								</td>
-								<td>
-									<a href="<?=$item->full_url?>" class="cart-table__name"><?=$item->name?></a>
-								</td>
-								<td>
-									<div class="cart-table__price"><?=$item->price?></div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<form action="#" class="form cart-amount" method="post">
-										<button type="button"  class="button button--normal cart-amount__button" item_id="<?=$item_id?>">-</button>
-										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
-										<button type="button" class="button button--normal cart-amount__button" item_id="<?=$item_id?>">+</button>
-									</form> <!-- /.cart-amount -->
-								</td>
-								<td>
-									<div class="cart-table__price"><span id="<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<button type="button" class="button button--normal" onclick="delete_item('<?=$item_id?>')">Удалить</button>
-								</td>
-							</tr>
-						<?endforeach;?>
-							
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td colspan="2">
-								<div class="cart-table__price">
-									Итого <span><span class="total_price"><?=$total_price?></span>р.</span>
-								</div> <!-- /.cart-table__price -->
-							</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table> <!-- /.cart-table -->
-			</div> <!-- /.page-cart__products -->
-			
-			<div class="page-cart__order">
-				<div class="cart-order">
-					<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+	<? require 'include/head.php' ?>	
+	<body>
+			<? require 'include/header.php'?>
+		
+			<div id="wrapper">
+				<div class="section maxw">
+					<div class="mainwrap">
+						<main class="cart">
+							<article>
+								<div style="height: 700px; overflow-y: scroll;">
+									
+									<? require 'include/breadcrumbs.php' ?>
+									<div style="clear: both;"></div>
+									<div class="cart">
+										<?if(!empty($action)):?>
+											Ваш заказ успешно оформлен.
+										<?else:?>
+											<?if(!empty($cart_items)):?>
+												<div class="cart_products">
+													<table class="cart-table">
+														<thead>
+															<tr>
+																<th class="col_1">№</th>
+																<th class="col_2">Наименование</th>
+																<th class="col_3">Цена</th>
+																<th class="col_4">Количество</th>
+																<th class="col_5">Сумма</th>
+																<th class="col_6">Удалить</th>
+															</tr>
+														</thead>
+														<tbody>
+															<?$cart_counter = 1?>
+															<?foreach($cart_items as $item_id => $item):?>
+																<tr id="cart-<?=$item_id?>">
+																	<td class="counter col_1"><?=$cart_counter?></td>
+																	<td class="col_2"><a href="<?=$item->full_url?>" class="cart-table_name"><?=$item->name?></a></td>
+																	<td class="col_3">
+																		<div class="cart-table__price"><?=$item->price?> р.</div>
+																	</td>
+																	<td class="col_4">
+																		<input type="text" id="qty-<?=$item_id?>" class="" onchange="update_cart('<?=$item_id?>', this.value); return false;" value="<?=$item->qty?>" />
+																	</td>
+																	<td class="col_5">
+																		<div class="cart-table__price"><span id="<?=$item_id?>-qty"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
+																	</td>
+																	<td class="col_6">
+																		<a href="#" class="cart-delete" onclick="delete_item('<?=$item_id?>')">x</a>
+																	</td>
+																</tr>
+															<?endforeach;?>
+															<?$cart_counter++?>
+															<tr>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td class="total"><span class="total_qty"><?=$total_qty?></td>
+																<td class="total"><span class="total_price"><?=$total_price?></span> р.</td>
+																<td></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												
+												<div class="page-cart__order">
+													<div class="cart-order">
 					
-					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
-						<div class="cart-order__form">
-							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
-							<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
-							<div class="form__line">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
-							</div> <!-- /.form__line -->
+													<form action="<?=base_url()?>order/edit_order" id="order_form" class="form" method="post">
+													
+														<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
+														<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
+														
+														<div class="cart-order__form">
+															<h2 class="cart-order_title">Быстрый заказ</h2>
+															<div class="cart-collumn-1">
+																
+																<div class="form__line">
+																	<input type="text" class="form__input required" name="name" data-id="name" data-necessarily="true" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
+																</div>
 							
-							<div class="form__line">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
-							</div> <!-- /.form__line -->
-							
-							<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
-							
-							<div class="cart-order__extra hidden" id="extra">
-								<div class="form__line">
-									<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
-								</div> <!-- /.form__line -->
+																<div class="form__line">
+																	<input type="text" class="form__input required" name="phone" data-id="phone" data-necessarily="true" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
+																</div>
+															
+																<div class="form__line">
+																	<input type="text" class="form__input" name="email" data-id="email" data-necessarily="true" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
+																</div>
 				
-								<div class="form__line">
-									<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
-								</div> <!-- /.form__line -->
-							</div> <!-- /.cart-order__extra -->
+																<div class="form__line">
+																	<input type="text" class="form__input" name="address" data-id="address" data-necessarily="true" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
+																</div>
+															</div>
+															
+															<div class="cart-collumn-1">
+																<select name="payment_id" class="dropdown">
+																	<?foreach($selects['payment_id'] as $key => $select):?>
+																		<option value="<?=$key?>"><?=$select?></option>
+																	<?endforeach;?>
+																</select>
+																
+																<select name="delivery_id" class="dropdown">
+																	<?foreach($selects['delivery_id'] as $key => $select):?>
+																		<option value="<?=$key?>"><?=$select?></option>
+																	<?endforeach;?>
+																</select>
+															</div>
 							
-							<div class="form__button cart-order__button">
-								<button type="submit" class="button button--normal button--auto-width">Оформить заказ</button>
-							</div> <!-- /.form__button -->
-						</div> <!-- /.cart-order__form -->
-					</form> <!-- /.form -->
-				</div> <!-- /.cart-order -->
-			</div> <!-- /.page-cart__order -->
-			<?else:?>
-				Корзина пуста
-			<?endif;?>
-		<?endif;?>
-		</div> <!-- /.page__wrap wrap -->
-	</div> <!-- /.page -->
-
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
+															<div class="cart-collumn-2">
+																<div class="form__button cart-order__button">
+																	<button type="submit" class="order-button" onclick="sub_form(); return false;">Оформить заказ</button>
+																</div> 
+															</div>
+														</div> <!-- /.cart-order__form -->
+													</form> <!-- /.form -->
+												</div> <!-- /.cart-order -->
+											</div> <!-- /.page-cart__order -->
+										<?else:?>
+											Корзина пуста
+										<?endif;?>
+									<?endif;?>
+									</div>
+								</div>
+								<div style="clear: both;"></div>
+							</article>
+						</main>
+					</div>
+					
+				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
+					<? require 'include/left-col.php'?>
+				</form>
+				</div>
+			</div>
+		
+			<? if (empty($filters_checked)): ?><div id="shadow"></div><? endif ?>
+		
 	</body>
 </html>

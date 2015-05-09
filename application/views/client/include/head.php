@@ -10,12 +10,18 @@
 			
 		 
 		 
-		<link rel="stylesheet" href="/template/client/css/style-new.css" type="text/css">
-		<link rel="stylesheet" href="/template/client/css/jquery-ui.css">
+		<link rel="stylesheet" href="<?=base_url()?>/template/client/css/style-new.css" type="text/css">
+		<link rel="stylesheet" href="<?=base_url()?>/template/client/css/jquery-ui.css">
+		
+		<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/easydropdown.css"/>
 		
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
+		
+		<script src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script>
 	
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
+		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
 	
 	<link href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
 	<script type="text/javascript">var current_id = 0;</script> 
@@ -25,6 +31,7 @@
 		
 	<script src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
+	
 	<script src="<?=base_url()?>template/client/js/cart.js"></script>
 		
 	<script>
@@ -207,7 +214,8 @@
 					isError = true;
 				}
 				
-				if (el.attr('data-id') == 'name' && el.val() == null) {
+				if (el.attr('data-id') == 'name' && el.val() == "") {
+					
 					el.addClass(errorClass);
 					isError = true;
 				}
@@ -232,8 +240,8 @@
 		
 		function sub_form(){
 			var errorClass = 'frame-input_error';
-			if (validation($("#order"), errorClass)) return false;
-			$("#order").submit();
+			if (validation($("#order_form"), errorClass)) return false;
+			$("#order_form").submit();
 		}
 		
 		function autocomp(type){
