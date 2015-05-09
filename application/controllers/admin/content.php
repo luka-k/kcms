@@ -420,6 +420,7 @@ class Content extends Admin_Controller
 		);
 	
 		$data['selects']['parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		$data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 

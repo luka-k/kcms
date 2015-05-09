@@ -210,6 +210,10 @@ color:#ec1c24;
 		main.cart {
 			padding: 0 0 0 290px;
 		}
+		
+		main.news {
+			padding: 0 250px 0 290px;
+		}
         
 		.breadcrumbs {
 			background: url(/template/client/images-new/icon-home.png) 0 0 no-repeat;
@@ -458,8 +462,13 @@ color:#ec1c24;
                     	position: relative;
                     	min-height: 450px;
                     } 
+					
+					#s_right.news{
+						width: 250px;
+						margin-left: -250px;
+					}
 			  
-                    #s_right .menuright {
+					#s_right .menuright {
 						width: 295px;
 						height: 606px;
 						margin-right: 6px;
@@ -717,23 +726,99 @@ text-align:center;
 	border:1px solid red;
 }
 
-/*.cart select{
-	width:100%;
-	border:none;
-	background:#CCCCFF;
-	height:26px;
+/*************************************
+* News
+*************************************/
+
+.aside_news_header{
+	margin:5px 25px 25px 25px;
+	color:#000099;
+	font-weight:bold;
+}
+
+.aside-news-item{
+	margin:5px 25px;
+}
+
+.aside-news-item .item_date{
+	font-size:12px;
+	color:#000099;
+}
+
+.news-header{
+	margin:12px 0;
+}
+
+.news-header .m_logo{
+	float:left;
+	width:140px;
+	height:61px;
+}
+
+.news-header .m_logo img{
+	width:140px;
+	height:61px;
+}
+
+.news-header .m_title{
+	margin:0 0 0 20px;
+	padding:18px 0 0 0;
+	float:left;
+	color:#000099;
+	font-weight:bold;
+}
+
+.news-content{
+
+}
+
+.news-item{
+	margin:0 0 10px 0;
+}
+
+.item_date{
 	margin:5px 0;
-	color:#000000;
+	color:#0000CC;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.item_title{
+	margin:5px 0;
+	font-size:14px;
+}
+
+.item_title a{
+	color:#0000CC;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.item_text{
 	font-size:12px;
 }
 
-.cart option{
-	border:none;
-	background:#E5E5E5;
+.item_text p{
+	padding:5px 0;
 }
 
-.cart option[selected]{
-	color:#CC0000;
-}*/
+#s_right .manufacturers{
+	margin:30px 20px 0 20px;
+	padding:10px 20px;
+	border:2px solid #7E7E7B;
+}
+
+#s_right .manufacturers ul{
+	list-style:none;
+	width:164px;
+	height:72px;
+}
+
+#s_right .manufacturers ul img{
+	width:164px;
+	height:72px;
+	border:1px solid #7E7E7B;
+}
+
 
 

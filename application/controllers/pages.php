@@ -25,28 +25,29 @@ class Pages extends Client_Controller {
 		if(isset($page->article))
 		{
 			$sub_template = "single-news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			$template = $root->id == 1 ? "client/news.php" : "client/article.php";
 			
 			$content = $page->article;
 		}		
 		elseif(isset($page->articles))
 		{
 			$sub_template = "news";
-			$template = $root->id == 3 ? "client/news.php" : "client/articles.php";
+			$template = $root->id == 1 ? "client/news.php" : "client/articles.php";
 			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
 			
-			$select_date = $this->input->get('date');
-			if(!empty($select_date))
+			$manufacturer_id = $this->input->get('m_id');
+			$selected_manufacturer = "";
+			if(!empty($manufacturer_id))
 			{
 				$selected_news = array();
 				foreach ($content->articles as $item)
 				{
-					$item->date = new DateTime($item->date);
-					$item->date = date_format($item->date, 'm/d/Y');
-					if($item->date == $select_date) $selected_news[] = $item;
+					if($item->manufacturer_id == $manufacturer_id) $selected_news[] = $item;
 				}
+				
+				$selected_manufacturer = $this->manufacturer->prepare($this->manufacturer->get_item($manufacturer_id));
 				$content->articles = $selected_news;
 			}
 		}
@@ -59,13 +60,15 @@ class Pages extends Client_Controller {
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'select_item' => "",
 			'content' => $content,
+			'manufacturers' => $this->manufacturer->prepare_list($this->manufacturer->get_list(FALSE)),
+			'selected_manufacturer' => $selected_manufacturer,
 			'sub_template' => $sub_template
 		);
 
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view($template, $data);
 	}
-	
+		
 	/**
 	* Страница 404
 	*/

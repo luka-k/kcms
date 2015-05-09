@@ -109,7 +109,9 @@
 	padding: 6px 12px;
 	overflow: hidden;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 	font-weight:bold;
+	
 }
 
 .dropdown.disabled .selected{
@@ -122,10 +124,10 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
-	width: 60px;
-	
+	width: 30px;
+	background:#CCCCFF;
 	border-radius: 0 2px 2px 0;
-	box-shadow: inset -55px 0 25px -20px #fff;
+	/*box-shadow: inset -15px 0 25px -20px #fff;
 }*/
 
 /* DROP DOWN WRAPPER */
@@ -159,7 +161,6 @@
 	right: 0;
 	bottom: 0;
 	height: 50px;
-	
 	box-shadow: inset 0 -50px 30px -35px #fff;
 }
 

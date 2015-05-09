@@ -11,8 +11,7 @@ class Manufacturer extends MY_Model
 			'link' => array('Ссылка на сайт', 'text')
 		),		
 		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'upload_image', "unset"),
-			'view_image' => array('Изображение', 'view_image', "unset")
+			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	
@@ -63,5 +62,14 @@ class Manufacturer extends MY_Model
 			}
 		}
 		return $manufacturer;
+	}
+	
+	public function prepare($item)
+	{
+		if(!empty($item))
+		{
+			$item->img = $this->images->get_cover(array('object_type' => 'manufacturer', 'object_id' => $item->id));
+			return $item;
+		}
 	}
 }
