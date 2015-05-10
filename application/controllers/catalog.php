@@ -74,6 +74,7 @@ class Catalog extends Client_Controller {
 			'collection' => array(),
 			'sku' => array(),
 			'nok' => array(),
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
 		);
 	
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -196,7 +197,7 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
-		var_dump($products);
+
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -208,6 +209,7 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
+		
 		$data = array(
 			'title' => $content->product->name,
 			'meta_keywords' => $content->product->meta_keywords,
@@ -217,8 +219,14 @@ class Catalog extends Client_Controller {
 			'new_products' => $this->products->prepare_list($new_products)
 		);
 		
-		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
+		$data['product']->color = $this->characteristics->get_list(array("type" => "color", "object_id" => $data['product']->id));
+		$data['product']->shortname = $this->characteristics->get_item_by(array("type" => "shortname", "object_id" => $data['product']->id));
+		$data['product']->shortdesc = $this->characteristics->get_list(array("type" => "shortdesc", "object_id" => $data['product']->id));
+		$data['product']->finishing = $this->characteristics->get_list(array("type" => "finishing", "object_id" => $data['product']->id));
+		$data['product']->turn = $this->characteristics->get_list(array("type" => "turn", "object_id" => $data['product']->id));
 		
+		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
+		//var_dump($data['product']);
 		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view("client/product", $data);

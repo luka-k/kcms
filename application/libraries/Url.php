@@ -33,7 +33,7 @@ class CI_Url {
 			return $segment_number == 2 ? "root" : FALSE;
 		}
 		
-		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
+		$child = $this->CI->categories->get_item_by(array('url' => $url));
 		
 		if(empty($child))
 		{

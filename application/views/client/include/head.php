@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
 		
 		<script src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
 	
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
 		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
@@ -307,6 +308,13 @@
 			}
 		});
 	}
+	
+	$('.fancybox').fancybox();
+	
+    $('.js-close-fancybox').on('click', function(){
+      $.fancybox.close();
+      return false;
+    });
 	
 	</script>	
 

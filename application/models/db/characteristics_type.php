@@ -89,7 +89,7 @@ class Characteristics_type extends MY_Model
 				}
 			}
 			
-			if(isset($selected[$item->name]))
+			if(isset($selected[$item->name]) && isset($filters[$item->url]))
 			{				
 				$filters[$item->url]->values = array_merge($filters[$item->url]->values , $selected[$item->name]);
 				$filters[$item->url]->values = array_unique($filters[$item->url]->values);
