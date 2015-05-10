@@ -310,11 +310,22 @@
 	}
 	
 	$('.fancybox').fancybox();
-	
+
     $('.js-close-fancybox').on('click', function(){
       $.fancybox.close();
       return false;
     });
+	
+	$(function() {
+    var icons = {
+      header: "ui-icon-circle-arrow-e",
+      activeHeader: "ui-icon-circle-arrow-s"
+    };
+    $( "#accordion" ).accordion({
+      icons: icons,
+	  collapsible: true
+    });
+  });
 	
 	</script>	
 

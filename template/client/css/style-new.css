@@ -842,7 +842,7 @@ div.news{
 }
 
 #gallery{
-	position:absolute;
+	position:relative;
 	float:left;
 	margin:0 20px 10px 0;
 	width:180px;
@@ -894,9 +894,13 @@ div.news{
 }
 
 .product_content{
+	margin-left:-190px;
 	padding:0 0 0 190px;
 	position:relative;
 	float:left;
+	width: -moz-calc(100% - 200px);
+    width: -webkit-calc(100% - 200px);
+    width: calc(100% - 200px);
 }
 
 .item-description{
