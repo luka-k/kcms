@@ -16,6 +16,13 @@
 									
 									<div class="news">
 										<?if($sub_template == "single-news"):?>
+											<div class="news-item">
+												<div class="item_date"><?=$content->article->date?></div>
+													
+												<h3 class="item_title"><?=$content->article->name?></h3>
+													
+												<div class="item_text"><?=$content->article->description?></div>
+											</div>
 										<?else:?>
 											<div class="news-header">
 												<?if(!empty($selected_manufacturer)):?>

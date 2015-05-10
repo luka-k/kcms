@@ -22,12 +22,13 @@ class Pages extends Client_Controller {
 		
 		if($page == FALSE) redirect(base_url()."pages/page_404");
 		
+		$selected_manufacturer = "";
 		if(isset($page->article))
 		{
 			$sub_template = "single-news";
 			$template = $root->id == 1 ? "client/news.php" : "client/article.php";
-			
-			$content = $page->article;
+			$page->articles = $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"));
+			$content = $page;
 		}		
 		elseif(isset($page->articles))
 		{
@@ -38,7 +39,7 @@ class Pages extends Client_Controller {
 			$content->articles = $this->articles->prepare_list($content->articles);
 			
 			$manufacturer_id = $this->input->get('m_id');
-			$selected_manufacturer = "";
+			
 			if(!empty($manufacturer_id))
 			{
 				$selected_news = array();
