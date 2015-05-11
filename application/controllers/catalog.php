@@ -219,11 +219,6 @@ class Catalog extends Client_Controller {
 			'new_products' => $this->products->prepare_list($new_products)
 		);
 		
-		$data['product']->color = $this->characteristics->get_list(array("type" => "color", "object_id" => $data['product']->id));
-		$data['product']->shortname = $this->characteristics->get_item_by(array("type" => "shortname", "object_id" => $data['product']->id));
-		$data['product']->shortdesc = $this->characteristics->get_list(array("type" => "shortdesc", "object_id" => $data['product']->id));
-		$data['product']->finishing = $this->characteristics->get_list(array("type" => "finishing", "object_id" => $data['product']->id));
-		$data['product']->turn = $this->characteristics->get_list(array("type" => "turn", "object_id" => $data['product']->id));
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
 		//var_dump($data['product']);

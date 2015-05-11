@@ -953,13 +953,14 @@ div.news{
 }
 
 .accordeon-body .check_col{
-	width:3%;
+	width:4%;
 	float:left;
 }
 
 .accordeon-body .img_col{
 	width:15%;
 	float:left;
+	text-align:left;
 }
 
 .accordeon-body .img_col img{
@@ -968,12 +969,13 @@ div.news{
 }
 
 .accordeon-body .description_col{
-	width:55%;
+	width:50%;
 	float:left;
+	padding-left:3%;
 }
 
 .accordeon-body .price_col{
-	width:27%;
+	width:28%;
 	float:left;
 }
 

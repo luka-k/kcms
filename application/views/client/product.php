@@ -113,7 +113,36 @@
 													<?endif;?>
 												</div>
 												<div class="description_col">
-													<?=$recommended->name?>
+													<div class="item-name"><?=$recommended->name?></div>
+													<div class="item-color">
+														<?$counter = 1?>
+														<?foreach($recommended->color as $color):?>
+															<?=$color->value?><?if($counter <> count($recommended->color)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-shortname"><?=$recommended->shortname->value?></div>
+													<div class="item-shortdesc">
+														<?$counter = 1?>
+														<?foreach($recommended->shortdesc as $shortdesc):?>
+															<?=$shortdesc->value?><?if($counter <> count($recommended->shortdesc)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-finishing">
+														<?$counter = 1?>
+														<?foreach($recommended->finishing as $finishing):?>
+															<?=$finishing->value?><?if($counter <> count($recommended->finishing)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-turn">
+														<?$counter = 1?>
+														<?foreach($recommended->turn as $turn):?>
+															<?=$turn->value?><?if($counter <> count($recommended->turn)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
 												</div>
 												<div class="price_col">
 													<div>Цена розничная: <del><?=$recommended->price?> р.</del> <span class="discount">-<?=$recommended->discount?>%</span></div>

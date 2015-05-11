@@ -177,6 +177,8 @@ class Products extends MY_Model
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
+			$item = $this->characteristics->get_product_characteristics($item);
+			
 			//временно костылик
 			$item->location = "";
 			return $item;
