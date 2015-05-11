@@ -30,7 +30,7 @@
 																	<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
 																</div>
 																<div class="product-image">
-																<?if(isset($item->img)):?><!---Костыль ввиду отсутствия картинок--->
+																<?if(isset($item->img)):?>
 																<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="138" /></a>
 																<?endif;?>
 																</div>

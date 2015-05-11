@@ -303,7 +303,7 @@ color:#ec1c24;
 		.product-image  img{
 			border: 1px solid gray;
 		}
-		.product .discount, .product-price .discount{
+		.product .discount, .product-price .discount, .price_col .discount{
 			font-size: 12px;
 			color: white;
 			padding: 0px 3px;
@@ -918,3 +918,71 @@ div.news{
 .item-shortname{
 	font-weight:bold;
 }
+
+/*********************************************
+* Аккордеон в карточке товара
+**********************************************/
+
+.noactive{
+	display:none;
+}
+
+.accordeon{
+	margin:0 10px 0 0;
+	font-size:14px;
+}
+
+.accordeon-head{
+	padding:5px 0;
+	cursor:pointer;
+	color:#000099;
+	font-weight:bold;
+	background:#CCCCCC;
+}
+
+.accordeon-body{
+	background:#E8E8E8;
+}
+
+.accordeon .list{
+	display:inline-block;
+	width:20px;
+	font-size:16px;
+	color:#000;
+	text-align:center;
+}
+
+.accordeon-body .check_col{
+	width:3%;
+	float:left;
+}
+
+.accordeon-body .img_col{
+	width:15%;
+	float:left;
+}
+
+.accordeon-body .img_col img{
+	width:95%;
+	border:1px solid black;
+}
+
+.accordeon-body .description_col{
+	width:55%;
+	float:left;
+}
+
+.accordeon-body .price_col{
+	width:27%;
+	float:left;
+}
+
+.accordeon-item{
+	padding:10px 0;
+}
+
+.price_col div{
+	margin:0 0 10px 0;
+}
+
+
