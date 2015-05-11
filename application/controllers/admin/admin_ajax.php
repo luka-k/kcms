@@ -28,6 +28,20 @@ class Admin_ajax extends Admin_Controller
 			}
 		}
 	}
+	
+	function anchor_autocomplete()
+	{
+		$type = json_decode(file_get_contents('php://input', true));
+		$products = $this->products->get_list(FALSE);
+		foreach($products as $p)
+		{
+			$available_tags[] = $p->name;
+		}
+		$answer['available_tags'] = $available_tags;
+		$answer['type'] = $type;
+		
+		echo json_encode($answer);
+	}
 
 	/**
 	* Автокомплит
@@ -48,20 +62,21 @@ class Admin_ajax extends Admin_Controller
 	}	
 	
 	/**
-	* Добавление рекомендованого товара
+	* Создание привязок товара к аналогичным, комплектующим и запчастям
 	*/
-	public function add_recommend()
+	public function add_anchor()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		
+		$base = $info->type."_products";
 		$product_2 = $this->products->get_item_by(array("name" => $info->name));
 		
 		if($product_2)
 		{
-			$this->recommended_products->insert(array("product1_id" => $info->product1_id, "product2_id" => $product_2->id));
+			$this->$base->insert(array("product1_id" => $info->product1_id, "product2_id" => $product_2->id));
 			
 			$answer = array(
 				'base_url' => base_url(),
+				'type' => $info->type,
 				'product_2' => $product_2
 			);
 		}

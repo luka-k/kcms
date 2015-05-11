@@ -56,8 +56,14 @@ class Products extends MY_Model
 		'Характеристики' => array(
 			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
 		),
-		'Рекомендованые товары' => array(
-			'recommend' => array('Редактировать рекомендованые товары', 'recommend', 'recommend')
+		'Аналогичные' => array(
+			'recommended' => array('Редактировать рекомендованые товары', 'anchor', 'recommended')
+		),
+		'Комплектующие' => array(
+			'components' => array('Редактировать компоненты', 'anchor', 'components')
+		),
+		'Запчасти' => array(
+			'accessories' => array('Редактировать запчасти', 'anchor', 'accessories')
 		)
 	);
 	
@@ -77,11 +83,13 @@ class Products extends MY_Model
 	* @param integer $id
 	* @return object
 	*/
-	public function get_recommended($id)
+	public function get_anchor($id, $base)
 	{
+		$anchor_products = array();
+	
 		$this->db->where('product1_id', $id);
-		$this->db->or_where('product2_id', $id); 
-		$query = $this->db->get("recommended_products");
+		$this->db->or_where('product2_id', $id); //Если надо сделать привязку только в одну сторону убрать эту строку
+		$query = $this->db->get($base."_products");
 		$result = $query->result();
 		
 		$products_id = array();
@@ -90,14 +98,12 @@ class Products extends MY_Model
 			$products_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
 		}
 		
-		$recommended_products = array();
-		
 		foreach($products_id as $id)
 		{
-			$recommended_products[] = $this->get_item($id); 
+			$anchor_products[] = $this->get_item($id); 
 		}
 		
-		return $recommended_products;
+		return $anchor_products;
 	}
 	
 	/**

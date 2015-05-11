@@ -96,11 +96,105 @@
 									</div>
 									<div class="accordeon-head"><span class="list">+</span> Комплектующие товары</div>
 									<div class="accordeon-body noactive">
-										Комплектующие товары
+										<?foreach($product->components_products as $components):?>
+											<div class="accordeon-item">
+												<div class="check_col">&nbsp;</div>
+												<div class="img_col">
+													<?if(isset($components->img)):?>
+														<a href="<?=$components->full_url?>"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
+													<?endif;?>
+												</div>
+												<div class="description_col">
+													<div class="item-name"><?=$components->name?></div>
+													<div class="item-color">
+														<?$counter = 1?>
+														<?foreach($components->color as $color):?>
+															<?=$color->value?><?if($counter <> count($components->color)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-shortname"><?=$components->shortname->value?></div>
+													<div class="item-shortdesc">
+														<?$counter = 1?>
+														<?foreach($components->shortdesc as $shortdesc):?>
+															<?=$shortdesc->value?><?if($counter <> count($components->shortdesc)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-finishing">
+														<?$counter = 1?>
+														<?foreach($components->finishing as $finishing):?>
+															<?=$finishing->value?><?if($counter <> count($components->finishing)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-turn">
+														<?$counter = 1?>
+														<?foreach($components->turn as $turn):?>
+															<?=$turn->value?><?if($counter <> count($components->turn)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+												</div>
+												<div class="price_col">
+													<div>Цена розничная: <del><?=$components->price?> р.</del> <span class="discount">-<?=$components->discount?>%</span></div>
+													<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
+													<div>Наличие: <span class="blue-label"><?=$components->location?></span></div>
+												</div>
+											</div>
+											<div style="clear: both;"></div>
+										<?endforeach;?>
 									</div>
 									<div class="accordeon-head"><span class="list">+</span> Запасные части</div>
 									<div class="accordeon-body noactive">
-										Запасные части
+										<?foreach($product->accessories_products as $accessories):?>
+											<div class="accordeon-item">
+												<div class="check_col">&nbsp;</div>
+												<div class="img_col">
+													<?if(isset($accessories->img)):?>
+														<a href="<?=$accessories->full_url?>"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
+													<?endif;?>
+												</div>
+												<div class="description_col">
+													<div class="item-name"><?=$accessories->name?></div>
+													<div class="item-color">
+														<?$counter = 1?>
+														<?foreach($accessories->color as $color):?>
+															<?=$color->value?><?if($counter <> count($accessories->color)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-shortname"><?=$accessories->shortname->value?></div>
+													<div class="item-shortdesc">
+														<?$counter = 1?>
+														<?foreach($accessories->shortdesc as $shortdesc):?>
+															<?=$shortdesc->value?><?if($counter <> count($accessories->shortdesc)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-finishing">
+														<?$counter = 1?>
+														<?foreach($accessories->finishing as $finishing):?>
+															<?=$finishing->value?><?if($counter <> count($accessories->finishing)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+													<div class="item-turn">
+														<?$counter = 1?>
+														<?foreach($accessories->turn as $turn):?>
+															<?=$turn->value?><?if($counter <> count($accessories->turn)):?>,<?endif;?> 
+															<?$counter++?>
+														<?endforeach;?>
+													</div>
+												</div>
+												<div class="price_col">
+													<div>Цена розничная: <del><?=$accessories->price?> р.</del> <span class="discount">-<?=$accessories->discount?>%</span></div>
+													<div>Цена на сайте: <span class="top-price"><?=$accessories->sale_price?></span> р.</div>
+													<div>Наличие: <span class="blue-label"><?=$accessories->location?></span></div>
+												</div>
+											</div>
+											<div style="clear: both;"></div>
+										<?endforeach;?>
 									</div>
 									<div class="accordeon-head"><span class="list">+</span> Аналогичный товар</div>
 									<div class="accordeon-body noactive">

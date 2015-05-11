@@ -220,7 +220,10 @@ class Catalog extends Client_Controller {
 		);
 		
 		
-		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
+		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"));
+		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"));
+		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"));
+		
 		//var_dump($data['product']);
 		$data = array_merge($this->standart_data, $data);
 

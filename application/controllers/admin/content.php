@@ -492,9 +492,17 @@ class Content extends Admin_Controller
 					}
 				}
 				
-				// Рекомендованные
-				$is_recommend = editors_get_name_field('recommend', $data['editors']);
-				if($is_recommend) $data['content']->recommended = $this->products->get_recommended($id);
+				// Аналогичные
+				$is_recommend = editors_get_name_field('recommended', $data['editors']);
+				if($is_recommend) $data['content']->recommended = $this->products->get_anchor($id, "recommended");
+				
+				// Комплектующие
+				$is_components = editors_get_name_field('components', $data['editors']);
+				if($is_components) $data['content']->components = $this->products->get_anchor($id, "components");
+				
+				// Запчасти
+				$is_accessories = editors_get_name_field('accessories', $data['editors']);
+				if($is_accessories) $data['content']->accessories = $this->products->get_anchor($id, "accessories");
 			}
 			$this->load->view('admin/item.php', $data);
 		}
