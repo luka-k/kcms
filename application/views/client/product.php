@@ -88,6 +88,45 @@
 								<div style="clear: both;"></div>
 								
 								
+								
+								<div class="accordeon">
+									<div class="accordeon-head"><span class="list">+</span> Стоимость товара с выбранными комплектующими/запчастями</div>
+									<div class="accordeon-body noactive">
+										Выбранные сопутствующие
+									</div>
+									<div class="accordeon-head"><span class="list">+</span> Комплектующие товары</div>
+									<div class="accordeon-body noactive">
+										Комплектующие товары
+									</div>
+									<div class="accordeon-head"><span class="list">+</span> Запасные части</div>
+									<div class="accordeon-body noactive">
+										Запасные части
+									</div>
+									<div class="accordeon-head"><span class="list">+</span> Аналогичный товар</div>
+									<div class="accordeon-body noactive">
+										<?foreach($product->recommended_products as $recommended):?>
+											<div class="accordeon-item">
+												<div class="check_col">&nbsp;</div>
+												<div class="img_col">
+													<?if(isset($recommended->img)):?>
+														<a href="<?=$recommended->full_url?>"><img src="<?=$recommended->img->catalog_small_url?>" width="138" /></a>
+													<?endif;?>
+												</div>
+												<div class="description_col">
+													<?=$recommended->name?>
+												</div>
+												<div class="price_col">
+													<div>Цена розничная: <del><?=$recommended->price?> р.</del> <span class="discount">-<?=$recommended->discount?>%</span></div>
+													<div>Цена на сайте: <span class="top-price"><?=$recommended->sale_price?></span> р.</div>
+													<div>Наличие: <span class="blue-label"><?=$recommended->location?></span></div>
+												</div>
+											</div>
+											<div style="clear: both;"></div>
+										<?endforeach;?>
+									</div>
+								</div>
+								
+
 							</div>
 						</article>
 					</main>
@@ -109,5 +148,16 @@
 			</div>
 		</div>
 	</body>
-	
+	<script>
+		$('.accordeon-head').click(function() {
+		$(this).next().slideToggle().toggleClass('noactive');
+		if ($(this).find('span'))
+		{
+			if ($(this).find('span').html() == '+')
+				$(this).find('span').html('-');
+			else
+				$(this).find('span').html('+');
+		}
+	});
+	</script>
 </html>
