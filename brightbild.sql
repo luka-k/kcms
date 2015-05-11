@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 11 2015 г., 15:09
+-- Время создания: Май 11 2015 г., 20:22
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -19,6 +19,24 @@ SET time_zone = "+00:00";
 --
 -- База данных: `brightbild`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `accessories_products`
+--
+
+CREATE TABLE IF NOT EXISTS `accessories_products` (
+  `product1_id` int(11) DEFAULT NULL,
+  `product2_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `accessories_products`
+--
+
+INSERT INTO `accessories_products` (`product1_id`, `product2_id`) VALUES
+(1, 64);
 
 -- --------------------------------------------------------
 
@@ -1658,7 +1676,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4952952922758938faf695bf8398a9f2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1431345472, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('c52a27e002c4bddb1d08670df7cc59f7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1431356015, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -1716,6 +1734,24 @@ INSERT INTO `collections` (`id`, `parent_id`, `name`, `sort`, `description`, `me
 (29, 0, 'Black & White', 0, '', '', '', '', 'Black & White', '0000-00-00', '', ''),
 (30, 0, 'Viva', 0, '', '', '', '', 'Viva', '0000-00-00', '', ''),
 (31, 0, 'Yoga', 0, '', '', '', '', 'Yoga', '0000-00-00', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `components_products`
+--
+
+CREATE TABLE IF NOT EXISTS `components_products` (
+  `product1_id` int(11) DEFAULT NULL,
+  `product2_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `components_products`
+--
+
+INSERT INTO `components_products` (`product1_id`, `product2_id`) VALUES
+(1, 67);
 
 -- --------------------------------------------------------
 
@@ -3480,7 +3516,8 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
 INSERT INTO `recommended_products` (`product1_id`, `product2_id`) VALUES
 (1, 1),
 (1, 2),
-(1, 3);
+(1, 3),
+(1, 6);
 
 -- --------------------------------------------------------
 
