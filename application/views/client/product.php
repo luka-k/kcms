@@ -87,18 +87,20 @@
 								</div>
 								<div style="clear: both;"></div>
 								
-								
-								
 								<div class="accordeon">
-									<div class="accordeon-head"><span class="list">+</span> Стоимость товара с выбранными комплектующими/запчастями</div>
-									<div class="accordeon-body noactive">
-										Выбранные сопутствующие
+									<div class="accordeon-head-1"><span class="list">-</span> 
+										Стоимость товара с выбранными комплектующими/запчастями
+										<a href="#" class="precart_to_cart" onclick="precart_to_cart('<?=$product->id?>'); return false;">Все в корзину</a>
+										<span class="pre_cart_price"><?=$product->price?> р.</span>
 									</div>
-									<div class="accordeon-head"><span class="list">+</span> Комплектующие товары</div>
-									<div class="accordeon-body noactive">
+									<div id="pre_cart" class="accordeon-body">
+										
+									</div>
+									<div class="accordeon-head"><span class="list">-</span> Комплектующие товары</div>
+									<div id="comp" class="accordeon-body">
 										<?foreach($product->components_products as $components):?>
-											<div class="accordeon-item">
-												<div class="check_col">&nbsp;</div>
+											<div id="comp-<?=$components->id?>" class="accordeon-item clearfix">
+												<div class="check_col"><input type="checkbox" class="ch-comp-<?=$components->id?>" onchange="precart('<?=$components->id?>', 'comp', '<?=$product->price?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($components->img)):?>
 														<a href="<?=$components->full_url?>"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
@@ -136,20 +138,19 @@
 														<?endforeach;?>
 													</div>
 												</div>
-												<div class="price_col">
+												<div class="price_col price-comp-<?=$components->id?>">
 													<div>Цена розничная: <del><?=$components->price?> р.</del> <span class="discount">-<?=$components->discount?>%</span></div>
 													<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
 													<div>Наличие: <span class="blue-label"><?=$components->location?></span></div>
 												</div>
 											</div>
-											<div style="clear: both;"></div>
 										<?endforeach;?>
 									</div>
-									<div class="accordeon-head"><span class="list">+</span> Запасные части</div>
-									<div class="accordeon-body noactive">
+									<div class="accordeon-head"><span class="list">-</span> Запасные части</div>
+									<div id="acc" class="accordeon-body">
 										<?foreach($product->accessories_products as $accessories):?>
-											<div class="accordeon-item">
-												<div class="check_col">&nbsp;</div>
+											<div id="acc-<?=$accessories->id?>" class="accordeon-item clearfix">
+												<div class="check_col"><input type="checkbox" class="ch-acc-<?=$accessories->id?>" onchange="precart('<?=$accessories->id?>', 'acc', '<?=$product->price?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($accessories->img)):?>
 														<a href="<?=$accessories->full_url?>"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
@@ -187,19 +188,18 @@
 														<?endforeach;?>
 													</div>
 												</div>
-												<div class="price_col">
+												<div class="price_col price-acc-<?=$accessories->id?> clearfix">
 													<div>Цена розничная: <del><?=$accessories->price?> р.</del> <span class="discount">-<?=$accessories->discount?>%</span></div>
 													<div>Цена на сайте: <span class="top-price"><?=$accessories->sale_price?></span> р.</div>
 													<div>Наличие: <span class="blue-label"><?=$accessories->location?></span></div>
 												</div>
 											</div>
-											<div style="clear: both;"></div>
 										<?endforeach;?>
 									</div>
-									<div class="accordeon-head"><span class="list">+</span> Аналогичный товар</div>
-									<div class="accordeon-body noactive">
+									<div class="accordeon-head"><span class="list">-</span> Аналогичный товар</div>
+									<div class="accordeon-body">
 										<?foreach($product->recommended_products as $recommended):?>
-											<div class="accordeon-item">
+											<div class="accordeon-item clearfix">
 												<div class="check_col">&nbsp;</div>
 												<div class="img_col">
 													<?if(isset($recommended->img)):?>
@@ -243,8 +243,9 @@
 													<div>Цена на сайте: <span class="top-price"><?=$recommended->sale_price?></span> р.</div>
 													<div>Наличие: <span class="blue-label"><?=$recommended->location?></span></div>
 												</div>
+												
 											</div>
-											<div style="clear: both;"></div>
+											
 										<?endforeach;?>
 									</div>
 								</div>
@@ -274,12 +275,12 @@
 	<script>
 		$('.accordeon-head').click(function() {
 		$(this).next().slideToggle().toggleClass('noactive');
-		if ($(this).find('span'))
+		if ($(this).find('span.list'))
 		{
-			if ($(this).find('span').html() == '+')
-				$(this).find('span').html('-');
+			if ($(this).find('span.list').html() == '+')
+				$(this).find('span.list').html('-');
 			else
-				$(this).find('span').html('+');
+				$(this).find('span.list').html('+');
 		}
 	});
 	</script>

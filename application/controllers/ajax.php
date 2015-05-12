@@ -41,7 +41,7 @@ class Ajax extends CI_Controller {
 	public function add_to_cart()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$product = $this->products->get_item_by(array("id" => $info->item_id));
+		$product = $this->products->get_item($info->item_id);
 		
 		if(!empty($product->discount))
 		{
@@ -157,4 +157,6 @@ class Ajax extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	
 }

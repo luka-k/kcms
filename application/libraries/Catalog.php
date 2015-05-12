@@ -171,5 +171,8 @@ class CI_Catalog {
 		return $nok_tree;
 	}
 	
+	public function get_pre_cart()
+	{
 	
+	}
 }

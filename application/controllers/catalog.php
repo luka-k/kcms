@@ -209,7 +209,8 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
-		
+		//var_dump($this->session->unset_userdata("cart_contents"));
+		$this->session->unset_userdata("pre_cart");
 		$data = array(
 			'title' => $content->product->name,
 			'meta_keywords' => $content->product->meta_keywords,
@@ -219,7 +220,7 @@ class Catalog extends Client_Controller {
 			'new_products' => $this->products->prepare_list($new_products)
 		);
 		
-		
+		//var_dump($this->session->userdata('pre_cart'));
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"));
 		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"));
 		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"));

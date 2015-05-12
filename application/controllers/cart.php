@@ -75,4 +75,165 @@ class Cart extends Client_Controller
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/cart.php', $data);
 	}
+	
+	public function add_to_precart()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$pre_cart = array(
+			"items" => array(),
+			"total_qty" => 0,
+			"total_price" => 0
+		);
+		if($this->session->userdata('pre_cart')) $pre_cart = $this->session->userdata('pre_cart');
+		
+		$product = $this->products->get_item($info->id);
+		$product = $this->characteristics->get_product_characteristics($product);
+		$item = array(
+			"id" => $product->id,
+			"name" => $product->name,
+			"price" => $product->price,
+			"qty" => 1,
+			"item_total" => $product->price
+		);
+		$item_id = md5($info->id);
+		$pre_cart['items'][$item_id] = $item;
+		
+		$total_qty = 0;
+		$total_price = 0;
+		foreach($pre_cart['items'] as $item)
+		{
+			$total_price += $item['price']*$item['qty'];
+			$total_qty += $item['qty'];		
+		}
+
+		$pre_cart['total_qty'] = $total_qty;
+		$pre_cart['total_price'] = $total_price + $info->price;
+		$this->session->set_userdata(array('pre_cart' => $pre_cart));
+		
+		$data = array(
+			'item_id' => $item_id,
+			'item_qty' => 1,
+			'item_price' => $product->price,
+			'item_total' => $product->price,
+			'total_price' => $pre_cart['total_price'],
+			'id' => $info->id,
+			'type' => $info->type,
+			'action' => "add"
+		);
+		echo json_encode($data);
+	}
+	
+	public function update_precart(){
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$pre_cart = $this->session->userdata('pre_cart');
+		if($info->action == "plus")
+		{
+			$pre_cart['items'][$info->item_id]['qty']++;
+			$pre_cart['total_price'] = $pre_cart['total_price'] + $pre_cart['items'][$info->item_id]['price'];
+		}
+		else
+		{
+			if($pre_cart['items'][$info->item_id]['qty'] > 1)
+			{
+				$pre_cart['items'][$info->item_id]['qty']--;
+				$pre_cart['total_price'] = $pre_cart['total_price'] - $pre_cart['items'][$info->item_id]['price'];
+			}
+		}
+		
+		$pre_cart['items'][$info->item_id]['item_total'] = $pre_cart['items'][$info->item_id]['qty']*$pre_cart['items'][$info->item_id]['price'];
+		
+		$this->session->set_userdata(array('pre_cart' => $pre_cart));
+		
+		$data = array(
+			'item_id' => $info->item_id,
+			'item_qty' => $pre_cart['items'][$info->item_id]['qty'],
+			'item_total' => $pre_cart['items'][$info->item_id]['item_total'],
+			'total_price' => $pre_cart['total_price'],
+		);
+		echo json_encode($data);
+		
+	}
+	
+	public function delete_from_precart()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$item_id = md5($info->id);
+		$pre_cart = $this->session->userdata('pre_cart');
+		
+		$product = $this->products->get_item($pre_cart['items'][$item_id]['id']);
+		$product = $this->products->set_sale_price($product);
+		
+		$pre_cart['total_price'] = $pre_cart['total_price'] - $pre_cart['items'][$item_id]['item_total'];
+		unset($pre_cart['items'][$item_id]);
+		$this->session->set_userdata(array('pre_cart' => $pre_cart));
+		
+		
+		$data = array(
+			'item_id' => $item_id,
+			'total_price' => $pre_cart['total_price'],
+			'type' => $info->type,
+			'id' => $info->id,
+			'price' => $product->price,
+			'discount' => $product->discount,
+			'sale_price' => $product->sale_price,
+			'location' => "",
+			'action' => "delete"
+		);
+		echo json_encode($data);
+	}
+	
+	public function precart_to_cart()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$main_product = $this->products->get_item($info->product_id);
+		
+		if(!empty($main_product->discount))
+		{
+			$main_product->price = $main_product->price*(100 - $product->discount)/100;
+		}
+		
+		$cart_item = array(
+			"id" => $main_product->id,
+			"parent_id" => $main_product->parent_id,
+			"name" => $main_product->name,
+			"url" => $main_product->url,
+			"price" => $main_product->price,
+			"discount" => $main_product->discount,
+			"qty" => 1
+		);
+		
+		$item_id = $this->cart->insert($cart_item);
+		
+		$pre_cart = $this->session->userdata('pre_cart');
+		if($pre_cart) foreach($pre_cart['items'] as $item)
+		{	
+			$product = $this->products->get_item($item['id']);
+		
+			if(!empty($product->discount))
+			{
+				$product->price = $product->price*(100 - $product->discount)/100;
+			}
+		
+			$cart_item = array(
+				"id" => $product->id,
+				"parent_id" => $product->parent_id,
+				"name" => $product->name,
+				"url" => $product->url,
+				"price" => $product->price,
+				"discount" => $product->discount,
+				"qty" => $item['qty']
+			);
+			
+			$item_id = $this->cart->insert($cart_item);
+		}
+		
+		$data['total_qty'] = $this->cart->total_qty();
+		$data['total_price'] = $this->cart->total_price();
+		$data['product_word'] = $this->string_edit->set_word_form("товар", $data['total_qty']);
+		
+		echo json_encode($data);
+	}	
 }

@@ -95,6 +95,24 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 			background: url(/template/client/images-new/icon-cart.png) 0 0 no-repeat;
 			color: black;
 		}
+		
+		.clearfix
+  {
+  margin:0;
+  padding:0;
+  }
+ 
+.clearfix:after 
+  {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  margin:0;
+  padding:0;
+  font-size:0;
+}
+
 .right-contacts  ul{
 			list-style:none;
 			font-size: 14px;
@@ -932,10 +950,10 @@ div.news{
 	font-size:14px;
 }
 
-.accordeon-head{
-	padding:5px 0;
+.accordeon-head, .accordeon-head-1{
 	cursor:pointer;
 	color:#000099;
+	height:26px;
 	font-weight:bold;
 	background:#CCCCCC;
 }
@@ -955,6 +973,7 @@ div.news{
 .accordeon-body .check_col{
 	width:4%;
 	float:left;
+	text-align:center;
 }
 
 .accordeon-body .img_col{
@@ -987,4 +1006,49 @@ div.news{
 	margin:0 0 10px 0;
 }
 
+.precart_to_cart{
+	display:inline-block;
+	float:right;
+	background:#FF0000;
+	color:#fff;
+	font-size:12px;
+	height:20px;
+	padding:4px 20px 2px 5px;
+	text-decoration:none;
+}
 
+.pre_cart_price{
+	display:inline-block;
+	float:right;
+	border:1px solid #949494;
+	background:#fff;
+	height:18px;
+	padding:2px 10px 4px 10px;
+}
+
+.s_price{
+	width:30%;
+	float:left;
+}
+
+.s_qty{
+	width:40%;
+	float:left;
+}
+
+.s_qty a{
+	width:20%;
+	text-align:center;
+	font-size:14px;
+	text-decoration:none;
+	color:#FF0000;
+}
+
+.s_qty .qty{
+	width:60%;
+}
+
+.s_total{
+	width:30%;
+	float:left;
+}
