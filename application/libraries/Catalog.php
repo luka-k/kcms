@@ -112,7 +112,7 @@ class CI_Catalog {
 			$nok_tree[$sn->value] = array();
 			if(in_array($sn->object_id, $ids)) $to_save[] = $sn->value;
 		}
-		var_dump($to_delete);
+		//var_dump($to_delete);
 
 		foreach($shortnames as $sn)
 		{
