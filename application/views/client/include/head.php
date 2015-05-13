@@ -1,39 +1,27 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>bрайтbилd - интернет магазин</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title><?=$settings->site_title?>
 	
-	
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-		<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
-		<!-- Add jQuery library -->
-			
-		 
-		 
-		<link rel="stylesheet" href="<?=base_url()?>/template/client/css/style-new.css" type="text/css">
-		<link rel="stylesheet" href="<?=base_url()?>/template/client/css/jquery-ui.css">
-		
-		<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/easydropdown.css"/>
-		
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
-		
-		<script src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
-	
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
-		<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
-	
-	<link href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
-	<script type="text/javascript">var current_id = 0;</script> 
-	
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
-	<!-- Add jQuery library -->
-		
-	<script src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
 	
-	<script src="<?=base_url()?>template/client/js/cart.js"></script>
+	<link rel="stylesheet" href="<?=base_url()?>/template/client/css/style-new.css" type="text/css">
+	<link rel="stylesheet" href="<?=base_url()?>/template/client/css/jquery-ui.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/easydropdown.css"/> <!--Крассивые select-->
+	<link href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+		
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script><!--Крассивые select-->
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+	
+	<script>var current_id = 0;</script> 
 		
 	<script>
 		(function($){
@@ -310,11 +298,11 @@
 	}
 	
 	$('.fancybox').fancybox();
-
-    $('.js-close-fancybox').on('click', function(){
-      $.fancybox.close();
-      return false;
-    });
+	
+	$('.js-close-fancybox').on('click', function(){
+		$.fancybox.close();
+		return false;
+	});
 	
 	
 	</script>	
