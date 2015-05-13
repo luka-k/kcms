@@ -88,12 +88,12 @@
 								<div style="clear: both;"></div>
 								
 								<div class="accordeon">
-									<div class="accordeon-head-1"><span class="list">-</span> 
-										Стоимость товара с выбранными комплектующими/запчастями
+									<div class="accordeon-head-1">
+										<span class="acc-h"><span class="list">-</span> Стоимость товара с выбранными комплектующими/запчастями</span>
 										<a href="#" class="precart_to_cart" onclick="precart_to_cart('<?=$product->id?>'); return false;">Все в корзину</a>
 										<span class="pre_cart_price"><?=$product->price?> р.</span>
 									</div>
-									<div id="pre_cart" class="accordeon-body">
+									<div id="pre_cart" class="accordeon-body acc-b">
 										
 									</div>
 									<div class="accordeon-head"><span class="list">-</span> Комплектующие товары</div>
@@ -274,14 +274,25 @@
 	</body>
 	<script>
 		$('.accordeon-head').click(function() {
-		$(this).next().slideToggle().toggleClass('noactive');
-		if ($(this).find('span.list'))
-		{
-			if ($(this).find('span.list').html() == '+')
-				$(this).find('span.list').html('-');
-			else
-				$(this).find('span.list').html('+');
-		}
-	});
+			$(this).next().slideToggle().toggleClass('noactive');
+			if ($(this).find('span.list'))
+			{
+				if ($(this).find('span.list').html() == '+')
+					$(this).find('span.list').html('-');
+				else
+					$(this).find('span.list').html('+');
+			}
+		});
+		
+		$('.acc-h').click(function() {
+			$('.acc-b').slideToggle().toggleClass('noactive');
+			if ($(this).find('span.list'))
+			{
+				if ($(this).find('span.list').html() == '+')
+					$(this).find('span.list').html('-');
+				else
+					$(this).find('span.list').html('+');
+			}
+		});
 	</script>
 </html>
