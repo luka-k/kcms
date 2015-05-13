@@ -16,6 +16,7 @@ class Index extends Client_Controller {
 	
 	public function index()
 	{		
+		die(header('Location: /catalog'));
 		//$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
 		$max_value = $max_price = $this->products->get_max('price');
 		$min_value = $min_price = $this->products->get_min('price');

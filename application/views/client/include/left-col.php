@@ -198,6 +198,7 @@
 				</div>
 			</div>
 			<div class="lm-block" style="margin-top:28px; padding-bottom:10px; text-align:center;">
+				<a href="/catalog" class="submit-btn" >Сбросить</a> &nbsp;&nbsp;
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
 		</div>
