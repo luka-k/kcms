@@ -139,9 +139,9 @@
 													</div>
 												</div>
 												<div class="price_col price-comp-<?=$components->id?>">
-													<div>Цена розничная: <del><?=$components->price?> р.</del> <span class="discount">-<?=$components->discount?>%</span></div>
-													<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
-													<div>Наличие: <span class="blue-label"><?=$components->location?></span></div>
+														<div>Цена розничная: <del><?=$components->price?> р.</del> <span class="discount">-<?=$components->discount?>%</span></div>
+														<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
+														<div>Наличие: <span class="blue-label"><?=$components->location?></span></div>
 												</div>
 											</div>
 										<?endforeach;?>

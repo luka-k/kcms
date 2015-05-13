@@ -922,13 +922,15 @@ div.news{
 }
 
 .item-description{
-	width:60%;
+	width: -moz-calc(100% - 230px);
+    width: -webkit-calc(100% - 230px);
+    width: calc(100% - 230px);
 	position:relative;
 	float:left;
 }
 
 .item-buy-info{
-	width:40%;
+	width:230px;
 	position:relative;
 	float:left;
 }
@@ -971,13 +973,13 @@ div.news{
 }
 
 .accordeon-body .check_col{
-	width:4%;
+	width:30px;
 	float:left;
 	text-align:center;
 }
 
 .accordeon-body .img_col{
-	width:15%;
+	width:157px;
 	float:left;
 	text-align:left;
 }
@@ -988,15 +990,18 @@ div.news{
 }
 
 .accordeon-body .description_col{
-	width:50%;
+	width: -moz-calc(100% - 420px);
+    width: -webkit-calc(100% - 420px);
+    width: calc(100% - 420px);
 	float:left;
-	padding-left:3%;
+	padding-left:15px;
 }
 
 .accordeon-body .price_col{
-	width:28%;
+	width:210px;
 	float:left;
 }
+
 
 .accordeon-item{
 	padding:10px 0;
