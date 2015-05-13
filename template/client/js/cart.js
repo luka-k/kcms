@@ -84,12 +84,12 @@ function precart(id, type, price){
 function precart_answer(res){
 	if(res.action == "add"){
 		$('.price-'+res.type+'-'+res.id).html('');
-		$('.price-'+res.type+'-'+res.id).html('<div class="s_price">'+res.item_price+' р.</div><div class="s_qty"><a href="#" class="minus_pc">-</a><span class="'+res.item_id+'-qty">'+res.item_qty+'</span><a href="#" class="plus_pc">+</a></div><dic class="'+res.item_id+'-total s_total">'+res.item_total+' р.</div>');
+		$('.price-'+res.type+'-'+res.id).html('<div class="s_price">'+res.item_price+' р.</div><div class="s_qty"><a href="#" class="minus_pc-'+res.item_id+'">-</a><span class="'+res.item_id+'-qty">'+res.item_qty+'</span><a href="#" class="plus_pc-'+res.item_id+'">+</a></div><dic class="'+res.item_id+'-total s_total">'+res.item_total+' р.</div>');
 	
 		var click_minus = "update_precart('"+res.item_id+"', 'minus'); return false;";
 		var click_plus = "update_precart('"+res.item_id+"', 'plus'); return false;";
-		$('.minus_pc').attr('onclick', click_minus);
-		$('.plus_pc').attr('onclick', click_plus);
+		$('.minus_pc-'+res.item_id).attr('onclick', click_minus);
+		$('.plus_pc-'+res.item_id).attr('onclick', click_plus);
 	
 		$("#pre_cart").append( $('#'+res.type+'-'+res.id) );
 	}
