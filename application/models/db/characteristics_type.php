@@ -68,10 +68,11 @@ class Characteristics_type extends MY_Model
 			
 			
 				
-			$query = $this->db->get("characteristics");
+			$results = $this->db->get("characteristics")->result_array();
+			
 			$values = array();
 
-			foreach($query->result_array() as $result)
+			foreach($results as $result)
 			{
 				$values[] = $result['value'];
 			}
@@ -80,13 +81,14 @@ class Characteristics_type extends MY_Model
 			{
 				$filters[$item->url] = (object)array(
 					"name" => $item->name,
-					"editor" => $item->view_type
+					"editor" => $item->view_type,
+					"values" => $values
 				);
 			
-				if($item->view_type == "multy" || $item->view_type == "single")
+				/*if($item->view_type == "multy" || $item->view_type == "single")
 				{				
 					$filters[$item->url]->values = $values;
-				}
+				}*/
 			}
 			
 			if(isset($selected[$item->name]) && isset($filters[$item->url]))

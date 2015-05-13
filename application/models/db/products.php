@@ -158,11 +158,10 @@ class Products extends MY_Model
 	* @param object $item
 	* @return object
 	*/
-	function prepare($item, $cover = TRUE)
+	function prepare($item, $cover, $ch)
 	{
 		if(!empty($item))
 		{
-			if(!is_object($item)) $item = (object)$item;
 			$item->full_url = $this->get_url($item);
 
 			$object_info = array(
@@ -183,7 +182,7 @@ class Products extends MY_Model
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
-			$item = $this->characteristics->get_product_characteristics($item);
+			if($ch) $item = $this->characteristics->get_product_characteristics($item);
 			
 			//временно костылик
 			$item->location = "";

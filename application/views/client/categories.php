@@ -41,7 +41,7 @@
 																<?=$item->sku?>
 																</div>
 															</div>
-															<?$counter++?>
+															<?++$counter?>
 														<?endforeach;?>
 														
 													<?endif;?>

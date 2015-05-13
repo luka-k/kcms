@@ -35,6 +35,18 @@ class Characteristics extends MY_Model
 		{
 			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
 			{
+				$this->db->distinct();
+				$this->db->where("type", $item->url);
+				$this->db->where_in("value", $filter[$item->url]);
+				++$counter;
+				$values = $this->_update_values($values);
+			}
+		}
+		
+		/*foreach($filters_type as $item)
+		{
+			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
+			{
 				$do_update = TRUE;
 				switch ($item->view_type)
 				{
@@ -80,7 +92,7 @@ class Characteristics extends MY_Model
 				}
 				if($do_update) $values = $this->_update_values($values);
 			}
-		}
+		}*/
 		if($counter > 1)
 		{
 			$values = array_count_values($values);
@@ -146,10 +158,10 @@ class Characteristics extends MY_Model
 	private function _update_values($values)
 	{
 		$this->db->select('object_id');
-		$query = $this->db->get('characteristics');
-		foreach($query->result_array() as $result)
+		$results = $this->db->get('characteristics')->result();
+		foreach($results as $result)
 		{
-			$values[] = $result['object_id'];
+			$values[] = $result->object_id;
 		}
 		return $values;
 	}

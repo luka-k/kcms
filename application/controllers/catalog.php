@@ -11,6 +11,8 @@ class Catalog extends Client_Controller {
 
 	protected $get = array();
 	protected $post = array();
+	
+	var $time;
 
 	public function __construct()
 	{
@@ -49,7 +51,6 @@ class Catalog extends Client_Controller {
 		
 		$data = array(
 			'title' => "Каталог",
-			'select_item' => '',
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
 			'price_from' => $price_from,
 			'price_to' => $price_to,
@@ -106,12 +107,9 @@ class Catalog extends Client_Controller {
 	*/
 	private function category($content)
 	{	
-		$parent_id = 0;
 		$data['category'] = new stdClass;
 		if($content <> "root")
 		{
-			$parent_id = $content->id;
-
 			$data = array(
 				'title' => $content->name,
 				'meta_keywords' => $content->meta_keywords,
@@ -147,18 +145,8 @@ class Catalog extends Client_Controller {
 		$filters_wlt = $this->post;
 		unset($filters_wlt[$last_type_filter]);
 
-		//Костыление диапозонов
-		$filters_wlt['price_from'] = $this->standart_data['price_from'];
-		$filters_wlt['price_to'] = $this->standart_data['price_to'];
-		$filters_wlt['width_from'] = $this->standart_data['width_from'];
-		$filters_wlt['width_to'] = $this->standart_data['width_to'];
-		$filters_wlt['height_from'] = $this->standart_data['height_from'];
-		$filters_wlt['height_to'] = $this->standart_data['height_to'];
-		$filters_wlt['depth_from'] = $this->standart_data['depth_from'];
-		$filters_wlt['depth_to'] = $this->standart_data['depth_to'];
-
 		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
-		//var_dump($products);
+		
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
 		$filters = $this->characteristics_type->get_filters($products, $this->post);
@@ -197,7 +185,7 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
-
+		
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -216,14 +204,13 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'product' => $this->products->prepare($content->product, FALSE),
-			'new_products' => $this->products->prepare_list($new_products)
+			'product' => $this->products->prepare($content->product, FALSE, TRUE),
 		);
 		
 		//var_dump($this->session->userdata('pre_cart'));
-		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"));
-		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"));
-		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"));
+		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"), TRUE);
+		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"), TRUE);
+		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"), TRUE);
 		
 		//var_dump($data['product']);
 		$data = array_merge($this->standart_data, $data);

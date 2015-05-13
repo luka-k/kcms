@@ -108,7 +108,7 @@
 										       name="shortdesc[<?=$key?>]"
 											   value="<?=$item_2?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
-										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?$show_counter++?><?endif;?>
+										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?++$show_counter?><?endif;?>
 									    />
 									    <a href="#"><?=$item_2?></a>
 								    </li>
@@ -118,7 +118,7 @@
 						</ul>
 					<?endif;?>
 				</li>
-				<?$nok_counter++?>
+				<?++$nok_counter?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
@@ -175,7 +175,7 @@
 									   name="collection_checked[]" 
 									   value="<?=$level_2->id?>"
 									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
-									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?$show_counter++?><?endif;?>
+									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter?><?endif;?>
 								/>
 								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
 							</li>

@@ -65,35 +65,9 @@ class CI_Catalog {
 		{
 			$ids[] = $p->id;
 		}
-		
 		return $ids;
 	}
-	
-	public function get_max_for_filtred($products, $field)
-	{
-		$max = 0;
-		foreach($products as $product)
-		{
-			if($product->$field > $max) $max = $product->$field;
-		}
-		return $max;
-	}
-	
-	public function get_min_for_filtred($products, $field)
-	{
-		$min = 0;
-		if(!empty($products))
-		{
-			$min = $products[0]->$field;
-			foreach($products as $product)
-			{
-				if($product->$field < $min) $min = $product->$field;
-			}
-			
-		}
-		return $min;
-	}
-	
+		
 	public function get_filters_info($filters, $type, $ch)
 	{
 		$filters_info = "";
@@ -169,10 +143,5 @@ class CI_Catalog {
 		ksort($nok_tree, SORT_STRING);
 		
 		return $nok_tree;
-	}
-	
-	public function get_pre_cart()
-	{
-	
 	}
 }

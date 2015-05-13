@@ -1,7 +1,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title><?=$settings->site_title?>
+	<title><?=$settings->site_title?></title>
 	
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />

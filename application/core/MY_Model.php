@@ -550,11 +550,11 @@ class MY_Model extends CI_Model
 	* @param object $info
 	* @return object
 	*/
-	public function prepare_list($info)
+	public function prepare_list($info, $ch = FALSE)
 	{
 		foreach($info as $key => $item)
 		{
-			$info[$key] = $this->prepare($item);
+			$info[$key] = $this->prepare($item, TRUE, $ch);
 		}
 		return $info;
 	}

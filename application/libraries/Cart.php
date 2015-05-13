@@ -120,6 +120,10 @@ class CI_Cart {
 	public function get_all()
 	{
 		$this->cart_contents = $this->CI->session->userdata('cart_contents');
+		if($this->cart_contents)foreach($this->cart_contents['items'] as $key => $item)
+		{
+			$this->cart_contents['items'][$key] = (object)$item;
+		}
 		return $this->cart_contents['items'];
 	}
 	
