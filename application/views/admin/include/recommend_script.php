@@ -39,6 +39,8 @@
 			
 			var r_link = answer.base_url+"admin/content/item/edit/products/"+item.id;
 			$('a.r_link').attr('href', r_link);
+			
+			$("#recommended_input").val("");
 		}	
 	}
 	
