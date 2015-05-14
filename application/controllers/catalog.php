@@ -124,7 +124,28 @@ class Catalog extends Client_Controller {
 		$data['special'] = $this->products->prepare_list($special);
 		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
-		$data['category']->products = $this->products->prepare_list($this->products->get_list(FALSE));
+		
+		
+		// сортировка вывода
+		$products = $this->products->prepare_list($this->products->get_list(FALSE));
+		$product_sorts = array();
+		$collections = $this->collections->get_list(false);
+		$collection_names = array();
+		foreach ($collections as $collection)
+		{
+			$collection_names[$collection->id] = $collection->name;
+		}
+		foreach ($products as $product)
+		{
+		
+			$this->db->select("collection_parent_id");
+			$this->db->where_in("child_id", array($product->id));
+			$ids = $this->db->get("product2collection")->result();
+			$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
+		}
+		array_multisort($product_sorts, $products);
+		
+		$data['category']->products = $products;
 		$data['total_rows'] = count($data['category']->products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
@@ -192,7 +213,26 @@ class Catalog extends Client_Controller {
 	
 		$data = array_merge($this->standart_data, $data);
 		$data['category'] = new stdClass;
-		$data['category']->products = $this->products->prepare_list($products);
+		
+		// сортировка вывода
+		$products = $this->products->prepare_list($products);
+		$product_sorts = array();
+		$collections = $this->collections->get_list(false);
+		$collection_names = array();
+		foreach ($collections as $collection)
+		{
+			$collection_names[$collection->id] = $collection->name;
+		}
+		foreach ($products as $product)
+		{
+			$this->db->select("collection_parent_id");
+			$this->db->where_in("child_id", array($product->id));
+			$ids = $this->db->get("product2collection")->result();
+			$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
+		}
+		array_multisort($product_sorts, $products);
+		
+		$data['category']->products = $products;
 		
 		$this->load->view("client/categories", $data);
 	}
