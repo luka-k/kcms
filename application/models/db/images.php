@@ -204,7 +204,7 @@ class Images extends MY_Model
 	public function get_cover($factors = array())
 	{
 		if(!empty($factors))
-		{		
+		{	
 			$factors['is_cover'] = "1";
 			$image = $this->get_item_by($factors);
 		}

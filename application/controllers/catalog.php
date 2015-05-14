@@ -11,13 +11,11 @@ class Catalog extends Client_Controller {
 
 	protected $get = array();
 	protected $post = array();
-	
-	var $time;
 
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->config->load('characteristics');
 		
 		$this->get = $this->input->get();
@@ -125,12 +123,12 @@ class Catalog extends Client_Controller {
 		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
-		
 		// сортировка вывода
 		$products = $this->products->prepare_list($this->products->get_list(FALSE));
 		$product_sorts = array();
 		$collections = $this->collections->get_list(false);
 		$collection_names = array();
+		
 		foreach ($collections as $collection)
 		{
 			$collection_names[$collection->id] = $collection->name;
@@ -149,7 +147,7 @@ class Catalog extends Client_Controller {
 		$data['total_rows'] = count($data['category']->products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
-		//var_dump($data['category']->products);	
+	
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -233,7 +231,7 @@ class Catalog extends Client_Controller {
 		array_multisort($product_sorts, $products);
 		
 		$data['category']->products = $products;
-		
+
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -262,7 +260,7 @@ class Catalog extends Client_Controller {
 		
 		//var_dump($data['product']);
 		$data = array_merge($this->standart_data, $data);
-
+		var_dump(microtime(true) - $this->time);
 		$this->load->view("client/product", $data);
 	}
 	

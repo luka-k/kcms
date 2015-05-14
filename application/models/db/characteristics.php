@@ -30,18 +30,6 @@ class Characteristics extends MY_Model
 		$id = array();
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
-		
-		/*foreach($filters_type as $item)
-		{
-			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
-			{
-				$this->db->distinct();
-				$this->db->where("type", $item->url);
-				$this->db->where_in("value", $filter[$item->url]);
-				//++$counter;
-				//$values = $this->_update_values($values);
-			}
-		}*/
 
 		if(isset($filter["color"]))
 		{
