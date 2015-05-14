@@ -112,7 +112,7 @@ class CI_Catalog {
 			$nok_tree[$sn->value] = array();
 			if(in_array($sn->object_id, $ids)) $to_save[] = $sn->value;
 		}
-
+		
 		foreach($shortnames as $sn)
 		{
 			$shortdesc = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));

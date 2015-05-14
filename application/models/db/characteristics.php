@@ -31,68 +31,80 @@ class Characteristics extends MY_Model
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
-		foreach($filters_type as $item)
+		/*foreach($filters_type as $item)
 		{
 			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
 			{
 				$this->db->distinct();
 				$this->db->where("type", $item->url);
 				$this->db->where_in("value", $filter[$item->url]);
-				++$counter;
-				$values = $this->_update_values($values);
-			}
-		}
-		
-		/*foreach($filters_type as $item)
-		{
-			if(isset($filter[$item->url])&&!empty($filter[$item->url]))
-			{
-				$do_update = TRUE;
-				switch ($item->view_type)
-				{
-					case "text":
-						$this->db->where(array("type" => $item->url, "value" => $filter[$item->url]));
-						$counter++;
-						break;
-					case "multy":
-						$this->db->distinct();
-						$this->db->where("type", $item->url);
-						$this->db->where_in("value", $filter[$item->url]);
-						$counter++;
-						break;
-					case "single":
-						$this->db->where(array("type" => $item->url, "value" => $filter[$item->url]));
-						$counter++;
-						break;
-					case "interval":
-						$filter[$item->url][0] = (integer)$filter[$item->url][0];
-						$filter[$item->url][1] = (integer)$filter[$item->url][1];
-						if(!empty($filter[$item->url][0])&&!empty($filter[$item->url][1]))
-						{
-							$this->db->where("type", $item->url);
-							$where = "value BETWEEN {$filter[$item->url][0]} AND {$filter[$item->url][1]}";
-							$this->db->where($where);
-							$counter++;
-						}
-						elseif(!empty($filter[$item->url][0])||!empty($filter[$item->url][1]))
-						{
-							
-							$this->db->where("type", $item->url);
-							
-							if(!empty($filter[$item->url][0])) $this->db->where("value >=", $filter[$item->url][0]); 
-							if(!empty($filter[$item->url][1])) $this->db->where("value <=", $filter[$item->url][1]);
-							$counter++;
-						}	
-						else
-						{
-							$do_update = FALSE;
-							$counter--;
-						}
-						break;
-				}
-				if($do_update) $values = $this->_update_values($values);
+				//++$counter;
+				//$values = $this->_update_values($values);
 			}
 		}*/
+
+		if(isset($filter["color"]))
+		{
+			$this->db->distinct();
+			$this->db->where("type", "color");
+			$this->db->where_in("value", $filter["color"]);
+			$values = $this->_update_values($values);
+			++$counter;
+		}
+		
+		if(isset($filter["turn"]))
+		{
+			$this->db->distinct();
+			$this->db->where("type", "turn");
+			$this->db->where_in("value", $filter["turn"]);
+			$values = $this->_update_values($values);
+			++$counter;
+		}
+		
+		if(isset($filter["finishing"]))
+		{
+			$this->db->distinct();
+			$this->db->where("type", "finishing");
+			$this->db->where_in("value", $filter["finishing"]);
+			$values = $this->_update_values($values);
+			++$counter;
+		}
+		
+		if(isset($filter["shortname"]) && isset($filter["shortdesc"]))
+		{
+			$this->db->distinct();
+			
+			$this->db->where("type", "shortname");
+			$this->db->where("type", "shortdesc");
+				
+			$this->db->or_where_in("value", $filter["shortname"]);
+			$this->db->or_where_in("value", $filter["shortdesc"]);			
+			$values = $this->_update_values($values);
+			++$counter;
+			
+		}
+		else
+		{
+			if(isset($filter["shortname"]))
+			{
+				$this->db->distinct();
+				$this->db->where("type", "shortname");
+				$this->db->where_in("value", $filter["shortname"]);
+			}
+			
+			if(isset($filter["shortdesc"]))
+			{
+				$this->db->distinct();
+				$this->db->where("type", "shortdesc");
+				$this->db->where_in("value", $filter["shortdesc"]);
+			}
+			
+			
+			$values = $this->_update_values($values);
+			
+			++$counter;
+		}
+		
 		if($counter > 1)
 		{
 			$values = array_count_values($values);

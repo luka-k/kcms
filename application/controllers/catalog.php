@@ -143,12 +143,20 @@ class Catalog extends Client_Controller {
 		$last_type_filter = $this->post['last_type_filter'];
 		//wlt - without last type
 		$filters_wlt = $this->post;
-		unset($filters_wlt[$last_type_filter]);
-
+		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
+		{
+			unset($filters_wlt['shortname']);
+			unset($filters_wlt['shortdesc']);
+		}
+		else
+		{
+			unset($filters_wlt[$last_type_filter]);
+		}
+		
 		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
 		
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
-		
+		//var_dump($products_wlt);
 		$filters = $this->characteristics_type->get_filters($products, $this->post);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
