@@ -260,7 +260,7 @@ class Catalog extends Client_Controller {
 		
 		//var_dump($data['product']);
 		$data = array_merge($this->standart_data, $data);
-		var_dump(microtime(true) - $this->time);
+		
 		$this->load->view("client/product", $data);
 	}
 	
