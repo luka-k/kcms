@@ -91,8 +91,9 @@ class Content extends Admin_Controller
 		else
 		{
 			$parent = $type == "emails" ? "type" : "parent_id";
-			$data["parent_id"] = $id;
+			
 			$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+			$data["parent_id"] = $id;
 			$data['sortable'] = TRUE;
 		}
 		
@@ -117,13 +118,11 @@ class Content extends Admin_Controller
 	*/
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
-		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
-
 		$parent_id = $this->input->get('parent_id');
 		
 		$data = array(
 			'title' => "Редактировать",
-			'left_column' => $left_column,
+			'left_column' => isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off",
 			'editors' => $this->$type->editors,
 			'type' => $type,
 			'parent_id' => $parent_id,
@@ -146,9 +145,14 @@ class Content extends Admin_Controller
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
-		$is_characteristics = editors_get_name_field('ch', $data['editors']);
-		if(!empty($is_characteristics)) $data['ch_select'] = $this->characteristics_type->get_list(FALSE);
+		$image_field = editors_get_name_field('img', $data['editors']);
+		$double_image_field = editors_get_name_field('double_img', $data['editors']);
 		
+		$characteristics_field = editors_get_name_field('ch', $data['editors']);
+		if($characteristics_field) $data['ch_select'] = $this->characteristics_type->get_list(FALSE);
+		
+		$recommend_field = editors_get_name_field('recommend', $data['editors']);
+	
 		if($action == "edit")
 		{
 			if($id == FALSE)
@@ -156,7 +160,8 @@ class Content extends Admin_Controller
 				$data['content'] = set_empty_fields($data['editors']);
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
-				if(!empty($is_characteristics)) $data['content']->characteristics = array();
+				if($characteristics_field) $data['content']->characteristics = array();
+				if($recommend_field)$content->recommended = array();
 				if($type == "emails") $data['content']->type = 2;				
 			}	
 			else
@@ -164,14 +169,12 @@ class Content extends Admin_Controller
 				$data['content'] = $this->$type->get_item($id);
 				
 				// Галлерея
-				$is_image = editors_get_name_field('img', $data['editors']);
-				if($is_image) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id)));
+				if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id)));
 				
 				// Двойная галлерея
-				$is_double_image = editors_get_name_field('double_img', $data['editors']);
-				if($is_double_image)
+				if($double_image_field)
 				{
-					$field = get_editors_field($data['editors'], $is_double_image);
+					$field = get_editors_field($data['editors'], $double_image_field);
 					if($field) foreach($field[4] as $image_type)
 					{
 						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
@@ -179,7 +182,7 @@ class Content extends Admin_Controller
 				}
 				
 				// Характеристики
-				if(!empty($is_characteristics))
+				if($characteristics_field)
 				{
 					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
 					foreach($data['content']->characteristics as $characteristic)
@@ -192,8 +195,7 @@ class Content extends Admin_Controller
 				}
 				
 				// Рекомендованные
-				$is_recommend = editors_get_name_field('recommend', $data['editors']);
-				if($is_recommend) $data['content']->recommended = $this->products->get_recommended($id);
+				if($recommend_field) $data['content']->recommended = $this->products->get_recommended($id);
 			}
 			$this->load->view('admin/item.php', $data);
 		}
@@ -215,64 +217,52 @@ class Content extends Admin_Controller
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
 			}
-			
-			$field_name = editors_get_name_field('img', $data['editors']);
-			//Получаем id эдитора который предназначен для загрузки изображения
 
-			/*****************************************
-			/ Требует более серьезного рефакторинга
-			/****************************************/
-			if(!empty($field_name))
+			//Изображения
+			$object_info = array(
+				"object_type" => $type,
+				"object_id" => $data['content']->id
+			);
+			
+			if(!empty($image_field))
 			{
-				$object_info = array(
-					"object_type" => $type,
-					"object_id" => $data['content']->id
-				);
-					
-				if (isset($_FILES[$field_name]))
+				if (isset($_FILES[$image_field]))
 				{
-					if(is_array($_FILES[$field_name]['name']))
+					if(is_array($_FILES[$image_field]['name']))
 					{
-						foreach($_FILES[$field_name]['error'] as $key => $error)
+						foreach($_FILES[$image_field]['error'] as $key => $error)
 						{
 							if($error == UPLOAD_ERR_OK)
 							{
 								$file = array(
-									"name" => $_FILES[$field_name]['name'][$key],
-									"type" => $_FILES[$field_name]['type'][$key],
-									"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+									"name" => $_FILES[$image_field]['name'][$key],
+									"type" => $_FILES[$image_field]['type'][$key],
+									"tmp_name" => $_FILES[$image_field]['tmp_name'][$key]
 								);
-
+ 
 								$this->images->upload_image($file, $object_info);
 							}
 						}
 					}
 					else
 					{
-						if($_FILES[$field_name]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$field_name], $object_info);
+						if($_FILES[$image_field]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$image_field], $object_info);
 					}
 				}
 			}
 				
-			$field_name = editors_get_name_field('double_img', $data['editors']);
-			
-			if(!empty($field_name))
+			if(!empty($double_image_field))
 			{
-				$object_info = array(
-					"object_type" => $type,
-					"object_id" => $data['content']->id
-				);
-				
-				if (isset($_FILES[$field_name]))
+				if (isset($_FILES[$double_image_field]))
 				{
-					foreach($_FILES[$field_name]['error'] as $key => $error)
+					foreach($_FILES[$double_image_field]['error'] as $key => $error)
 					{
 						if($error == UPLOAD_ERR_OK)
 						{
 							$file = array(
-								"name" => $_FILES[$field_name]['name'][$key],
-								"type" => $_FILES[$field_name]['type'][$key],
-								"tmp_name" => $_FILES[$field_name]['tmp_name'][$key]
+								"name" => $_FILES[$double_image_field]['name'][$key],
+								"type" => $_FILES[$double_image_field]['type'][$key],
+								"tmp_name" => $_FILES[$double_image_field]['tmp_name'][$key]
 							);
 						
 							$object_info['image_type'] = $key;
@@ -281,9 +271,6 @@ class Content extends Admin_Controller
 					}
 				}	
 			}
-			/*****************************************************
-			/ Конец куска требующего рефакторинга
-			/****************************************************/
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
@@ -295,7 +282,7 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->get_item($id);
 			
-			if(!empty($is_characteristics)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			if(!empty($characteristics_field)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
 			
 			$data['content']->id = NULL;
 			$data['content']->url = "";
@@ -322,9 +309,9 @@ class Content extends Admin_Controller
 	public function delete_item($type, $id)
 	{
 		// Удаляем картинки связанные с элементом
-		$is_images = editors_get_name_field('img', $this->$type->editors);
+		$image_fields = editors_get_name_field('img', $this->$type->editors);
 		$is_dbl_img = editors_get_name_field('double_img', $this->$type->editors);
-		if($is_images || $is_dbl_img)
+		if($image_fields || $is_dbl_img)
 		{
 			$item_images = $this->images->get_list(array("object_type" => $type, "object_id" => $id));
 			if($item_images) foreach($item_images as $image)
@@ -334,8 +321,8 @@ class Content extends Admin_Controller
 		}
 		
 		// Удаляем характеристики связанные с товаром.
-		$is_characteristics = editors_get_name_field('ch', $this->$type->editors);
-		if($is_characteristics)
+		$characteristics_field = editors_get_name_field('ch', $this->$type->editors);
+		if($characteristics_field)
 		{
 			$item_characteristics = $this->characteristics->get_list(array("object_type" => $type, "object_id" => $id));
 			if($item_characteristics) foreach($item_characteristics as $ch)
@@ -345,8 +332,8 @@ class Content extends Admin_Controller
 		}
 		
 		// Удаляем рекомендованные элементы
-		$is_recommended = editors_get_name_field('recommend', $this->$type->editors);
-		if($is_recommended)	$this->products->delete_recommended($id);
+		$recommend_fielded = editors_get_name_field('recommend', $this->$type->editors);
+		if($recommend_fielded)	$this->products->delete_recommended($id);
 	
 		$item = $this->$type->get_item($id);
 		$this->$type->delete($id);
