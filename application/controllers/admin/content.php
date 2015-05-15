@@ -65,15 +65,13 @@ class Content extends Admin_Controller
 	public function items($type, $id = FALSE)
 	{		
 		$name = editors_get_name_field('name', $this->$type->editors);
-		
-		$left_column = isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
 
 		$data = array(
 			'title' => "Страницы",
-			'left_column' => $left_column,
+			'url' => $this->uri->uri_string(),
+			'left_column' => isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off",
 			'type' => $type,
 			'name' => $name,
-			'url' => $this->uri->uri_string()
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
@@ -92,7 +90,7 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$type == "emails" ? $parent = "type" : $parent = "parent_id";
+			$parent = $type == "emails" ? "type" : "parent_id";
 			$data["parent_id"] = $id;
 			$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
 			$data['sortable'] = TRUE;
@@ -104,7 +102,6 @@ class Content extends Admin_Controller
 			{
 				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => $type, "object_id" => $item->id));
 			}
-			$data['images'] = TRUE;
 		}
 		
 		$this->load->view('admin/items.php', $data);
@@ -121,7 +118,7 @@ class Content extends Admin_Controller
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$left_column =  isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off";
-		$name = editors_get_name_field('name', $this->$type->editors);
+
 		$parent_id = $this->input->get('parent_id');
 		
 		$data = array(
