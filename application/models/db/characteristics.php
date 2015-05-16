@@ -40,6 +40,15 @@ class Characteristics extends MY_Model
 			++$counter;
 		}
 		
+		if(isset($filter["material"]))
+		{
+			$this->db->distinct();
+			$this->db->where("type", "material");
+			$this->db->where_in("value", $filter["material"]);
+			$values = $this->_update_values($values);
+			++$counter;
+		}
+		
 		if(isset($filter["turn"]))
 		{
 			$this->db->distinct();
@@ -71,7 +80,7 @@ class Characteristics extends MY_Model
 			++$counter;
 			
 		}
-		else
+		elseif(isset($filter["shortname"]) || isset($filter["shortdesc"]))
 		{
 			if(isset($filter["shortname"]))
 			{
@@ -143,6 +152,7 @@ class Characteristics extends MY_Model
 			$this->db->order_by($order, $direction); 
 			$query = $this->db->get("products"/*, $limit, $from*/);
 			$result = $query->result();
+
 			if(!empty($result)) return $result;
 		}
 	

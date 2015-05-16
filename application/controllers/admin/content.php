@@ -263,9 +263,7 @@ class Content extends Admin_Controller
 						
 					}	
 				}
-				
-				
-			
+
 				// убрать для загрузки фото
 				if (false)
 					foreach ($images as $i => $im)
