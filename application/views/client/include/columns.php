@@ -1,7 +1,7 @@
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"><?= $total_rows?></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
 				 
 <div id="secondcolumn9" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('turn'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('turn'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['turn']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['turn']->values as $turn):?>
@@ -21,7 +21,7 @@
 </div>
 				
 <div id="secondcolumn8" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('finishing'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('finishing'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['finishing']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['finishing']->values as $finishing):?>
@@ -41,7 +41,7 @@
 </div>
 				
 <div id="secondcolumn7" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('material'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('material'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['material']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['material']->values as $material):?>
@@ -61,7 +61,7 @@
 </div>
 				
 <div id="secondcolumn6" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('color'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('color'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['color']->values)):?>
 		<ul class="level1">
 			<?foreach($filters['color']->values as $color):?>
@@ -81,7 +81,7 @@
 </div>
 				
 <div id="secondcolumn5" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('nok'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('nok'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($nok)):?>
 		<ul class="level1">
 			<?$nok_counter = 1?>
@@ -125,7 +125,7 @@
 </div>
 		
 <div id="secondcolumn4" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('sku'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('sku'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
 		<?foreach($sku_tree as $s):?>
 			<li>
@@ -152,7 +152,7 @@
 </div>
 				
 <div id="secondcolumn3" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
 		<?foreach($collection as $c):?>
 			<li>
@@ -190,7 +190,7 @@
 </div>
 				
 <div id="secondcolumn2" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('manufacturer'); return false;">сбросить фильтр</a></div>
+	<div class="clear_filter"><a href="#" onclick="clear_filter('manufacturer'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
 		<?foreach($manufacturer as $m):?>
 			<li>
