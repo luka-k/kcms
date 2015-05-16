@@ -30,75 +30,61 @@ class Characteristics extends MY_Model
 		$id = array();
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
+		
+		foreach($filters_type as $f)
+		{
+			if($f->url <> "shortname" || $f->url <> "shortdesc")
+			{
+				if(isset($filter[$f->url]))
+				{
+					$this->db->distinct();
+					$this->db->where("type", $f->url);
+					$this->db->where_in("value", $filter[$f->url]);
+					$values = $this->_update_values($values);
+					++$counter;
+				}
+			}
+		}
+		
+		if(isset($filter["shortdesc"]))
+		{
+			foreach($filter["shortdesc"] as $shortdesc)
+			{
+				$sd = explode ("/", $shortdesc);
 
-		if(isset($filter["color"]))
-		{
-			$this->db->distinct();
-			$this->db->where("type", "color");
-			$this->db->where_in("value", $filter["color"]);
-			$values = $this->_update_values($values);
-			++$counter;
-		}
-		
-		if(isset($filter["material"]))
-		{
-			$this->db->distinct();
-			$this->db->where("type", "material");
-			$this->db->where_in("value", $filter["material"]);
-			$values = $this->_update_values($values);
-			++$counter;
-		}
-		
-		if(isset($filter["turn"]))
-		{
-			$this->db->distinct();
-			$this->db->where("type", "turn");
-			$this->db->where_in("value", $filter["turn"]);
-			$values = $this->_update_values($values);
-			++$counter;
-		}
-		
-		if(isset($filter["finishing"]))
-		{
-			$this->db->distinct();
-			$this->db->where("type", "finishing");
-			$this->db->where_in("value", $filter["finishing"]);
-			$values = $this->_update_values($values);
-			++$counter;
-		}
-		
-		if(isset($filter["shortname"]) && isset($filter["shortdesc"]))
-		{
-			$this->db->distinct();
-			
-			$this->db->where("type", "shortname");
-			$this->db->where("type", "shortdesc");
-				
-			$this->db->or_where_in("value", $filter["shortname"]);
-			$this->db->or_where_in("value", $filter["shortdesc"]);			
-			$values = $this->_update_values($values);
-			++$counter;
-			
-		}
-		elseif(isset($filter["shortname"]) || isset($filter["shortdesc"]))
-		{
-			if(isset($filter["shortname"]))
-			{
-				$this->db->distinct();
 				$this->db->where("type", "shortname");
-				$this->db->where_in("value", $filter["shortname"]);
-			}
-			
-			if(isset($filter["shortdesc"]))
-			{
-				$this->db->distinct();
+				$this->db->where("value", $sd[0]);
+				$this->db->select('object_id');
+				$results = $this->db->get('characteristics')->result();
+				
+				$object_ids = array();
+				if(!empty($results))foreach($results as $r)
+				{
+					$object_ids[] = $r->object_id;
+				}	
+
 				$this->db->where("type", "shortdesc");
-				$this->db->where_in("value", $filter["shortdesc"]);
+				$this->db->where("value", $sd[1]);
+				$this->db->where_in("object_id", $object_ids);
+				$result = $this->db->get('characteristics')->result();
+
+				if(!empty($result))foreach($result as $r)
+				{
+					$values[] = $r->object_id;
+				}
 			}
-			
-			
-			$values = $this->_update_values($values);
-			
+		}
+		
+		if(isset($filter["shortname"]))
+		{
+			$this->db->where("type", "shortname");
+			$this->db->where_in("value", $filter["shortname"]);
+			$this->db->select('object_id');
+			$result = $this->db->get('characteristics')->result();
+			if($result) foreach($result as $r)
+			{
+				$values[] = $r->object_id;
+			}
 			++$counter;
 		}
 		

@@ -106,7 +106,7 @@
 										<input type="checkbox" 
 											   class="nok-branch-<?=$nok_counter?> nok-filter"
 										       name="shortdesc[<?=$key?>]"
-											   value="<?=$item_2?>"
+											   value="<?=$item_1?>/<?=$item_2?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
 										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?++$show_counter?><?endif;?>
 									    />
