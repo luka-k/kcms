@@ -51,7 +51,7 @@ class Content extends Admin_Controller
 		{
 			$total++;
 			//if ($total > 20) die('done');
-			$manufacturer = (string) $el->Изготовитель->ОфициальноеНаименование;
+			$manufacturer = (string) $el->Изготовитель->Наименование;
 			$id = (string) $el->Ид;
 			$name = (string) $el->Наименование;
 			echo $total.': '.$name."\n";
@@ -75,13 +75,13 @@ class Content extends Admin_Controller
 					case 'Группа товаров 1':
 						$cat1 = explode(';', (string) $param->Значение);
 						break;
-					case 'Группа товаров 2':
+					case 'Группа товаров 2 уровня':
 						$cat2 = (string) $param->Значение;
 						break;
 					case 'Полное наименование':
 						$data['name'] = (string) $param->Значение;
 						break;
-					case 'Коллекция/Серия1':
+					case 'Коллекция (серия) 1':
 						$collections = explode('(', (string) $param->Значение);
 						foreach ($collections as $i => $collection)
 						{
@@ -146,7 +146,7 @@ class Content extends Admin_Controller
 							if(!empty($f)) $filters['turn'][$i] = $f;
 						}
 						break;
-					case 'Файл':
+					case 'ОписаниеФайла':
 						$images[] = '1c/'. ( (string) $param->Значение);
 						break;
 				}
@@ -263,7 +263,9 @@ class Content extends Admin_Controller
 						
 					}	
 				}
-
+				
+				
+			
 				// убрать для загрузки фото
 				if (false)
 					foreach ($images as $i => $im)
