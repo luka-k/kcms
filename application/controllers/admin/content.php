@@ -678,7 +678,14 @@ class Content extends Admin_Controller
 	
 		$item = $this->$type->get_item($id);
 		$this->$type->delete($id);
-		redirect(base_url().'admin/content/items/'.$type."/".$item->parent_id);
+		if(isset($item->parent_id))
+		{
+			redirect(base_url().'admin/content/items/'.$type."/".$item->parent_id);
+		}
+		else
+		{
+			redirect(base_url().'admin/content/items/'.$type);
+		}
 	}
 	
 	/**

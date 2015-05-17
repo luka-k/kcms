@@ -120,11 +120,16 @@ class Categories extends MY_Model
 		$this->db->where("parent_id", $id);
 		$this->db->delete("products");
 		
-		$sub_categories = $this->get_list(array("parent_id" => $id));
+		$this->db->where("category_parent_id", $id);
+		$sub_categories = $this->db->get("category2category")->result();
 		if($sub_categories) foreach($sub_categories as $item)
 		{
-			$this->delete($item->id);
+			$this->delete($item->child_id);
 		}
+		
+		$this->db->where("category_parent_id", $id);
+		$this->db->or_where("child_id", $id);
+		$this->db->delete("category2category");
 	}
 	
 	/**
