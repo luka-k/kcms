@@ -58,7 +58,7 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
-	public function get_tree($products = FALSE, $selected = array())
+	public function get_tree($products = FALSE, $selected = array(), $type = "site")
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 		$filtred_ids = array();
@@ -67,8 +67,13 @@ class Categories extends MY_Model
 		{
 			$filtred_ids[] = $p->parent_id;
 		}
-
+		
 		$tree = $this->_get_tree(0, "category_parent_id", $filtred_ids, $selected);
+		
+		if($type == "site")foreach($tree as $i => $t)
+		{
+			if(empty($t->childs)) unset($tree[$i]);
+		}
 		
 		return $tree;
 	}

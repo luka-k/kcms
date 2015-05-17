@@ -351,7 +351,7 @@ class Content extends Admin_Controller
 			'type' => $type,
 			'name' => $name,
 			'url' => $this->uri->uri_string(),
-			'tree' => $this->categories->get_tree(0, "category_parent_id")
+			'tree' => $this->categories->get_tree(0, "category_parent_id", "admin")
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
@@ -360,7 +360,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "category_parent_id") : $this->$type->get_tree(0, "parent_id");
+			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "category_parent_id", "admin") : $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($id == "all")
@@ -419,7 +419,7 @@ class Content extends Admin_Controller
 			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
 			
-		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id", "admin");
 		$data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);

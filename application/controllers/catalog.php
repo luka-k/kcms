@@ -147,7 +147,7 @@ class Catalog extends Client_Controller {
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
 	
-		var_dump(microtime(true) - $this->start);
+		//var_dump(microtime(true) - $this->start);
 		$this->load->view("client/categories", $data);
 	}
 	
