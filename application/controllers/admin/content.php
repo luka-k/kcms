@@ -419,7 +419,7 @@ class Content extends Admin_Controller
 			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
 	
-		$data['selects']['parent_id'] = $this->categories->get_tree(0, "category_parent_id");
+		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
 		$data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
@@ -512,7 +512,7 @@ class Content extends Admin_Controller
 			
 			//fixing - привязка
 			$fixing_name = editors_get_name_field('fixing', $data['editors']);
-			$fixing_base = $type == "category" ? "category2category" : "product2category";
+			$fixing_base = $type == "categories" ? "category2category" : "product2category";
 			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
