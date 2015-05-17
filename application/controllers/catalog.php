@@ -252,6 +252,7 @@ class Catalog extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE, TRUE),
 		);
+		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 		
 		//var_dump($this->session->userdata('pre_cart'));
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"), TRUE);
