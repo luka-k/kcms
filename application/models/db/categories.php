@@ -61,7 +61,6 @@ class Categories extends MY_Model
 	public function get_tree($products = FALSE, $selected = array())
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
-
 		$filtred_ids = array();
 		
 		if($products) foreach($products as $p)
@@ -71,11 +70,6 @@ class Categories extends MY_Model
 
 		$tree = $this->_get_tree(0, "category_parent_id", $filtred_ids, $selected);
 		
-		foreach($tree as $i => $t)
-		{
-			if(empty($t->childs)) unset($tree[$i]);
-		}
-		
 		return $tree;
 	}
 	
@@ -83,8 +77,7 @@ class Categories extends MY_Model
 	{
 		if(!isset($selected['categories_checked'])) $selected['categories_checked'] = array();//костыли костылики
 		
-		$query = $this->db->get_where('category2category', array($parent_id_field => $parent_id)); 
-		$items = $query->result();
+		$items = $this->db->get_where('category2category', array($parent_id_field => $parent_id))->result(); 
 
 		$branches = array();
 		if (!empty($items)) foreach($items as $item)
@@ -108,10 +101,8 @@ class Categories extends MY_Model
 				$names[$i] = $b->name;
 				$branches[$i]->childs = $this->_get_tree($b->id, $parent_id_field, $filtred_ids, $selected);
 			}
-		
 			array_multisort($names, SORT_ASC, $branches);
 		}
-		
 		return $branches;	
 	}
 	

@@ -11,11 +11,13 @@ class Catalog extends Client_Controller {
 
 	protected $get = array();
 	protected $post = array();
+	
+	var $start;
 
 	public function __construct()
 	{
 		parent::__construct();
-
+		$this->start = microtime(true); 
 		$this->config->load('characteristics');
 		
 		$this->get = $this->input->get();
@@ -46,6 +48,8 @@ class Catalog extends Client_Controller {
 		if(!empty($this->post['depth_from'])) $depth_from = preg_replace("/[^0-9]/", "", $this->post['depth_from']);
 		$depth_max = $depth_to = $this->products->get_max('depth');
 		if(!empty($this->post['depth_to'])) $depth_to = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
+		
+		
 		
 		$data = array(
 			'title' => "Каталог",
@@ -115,12 +119,7 @@ class Catalog extends Client_Controller {
 				'category' => $content
 			);
 		}
-		
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3, $this->get['order'], $this->get['direction']);
-		
-		$data['special'] = $this->products->prepare_list($special);
-		$data['new_products'] = $this->products->prepare_list($new_products);
+
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 		// сортировка вывода
@@ -148,6 +147,7 @@ class Catalog extends Client_Controller {
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
 	
+		var_dump(microtime(true) - $this->start);
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -175,7 +175,7 @@ class Catalog extends Client_Controller {
 		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
 		
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
-		//var_dump($products_wlt);
+
 		$filters = $this->characteristics_type->get_filters($products, $this->post);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
@@ -243,7 +243,7 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
-		//var_dump($this->session->unset_userdata("cart_contents"));
+
 		$this->session->unset_userdata("pre_cart");
 		$data = array(
 			'title' => $content->product->name,
@@ -253,13 +253,11 @@ class Catalog extends Client_Controller {
 			'product' => $this->products->prepare($content->product, FALSE, TRUE),
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
-		
-		//var_dump($this->session->userdata('pre_cart'));
+
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"), TRUE);
 		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"), TRUE);
 		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"), TRUE);
-		
-		//var_dump($data['product']);
+
 		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view("client/product", $data);

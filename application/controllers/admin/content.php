@@ -418,7 +418,7 @@ class Content extends Admin_Controller
 			'url' => "/".$this->uri->uri_string(),
 			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
-	
+			
 		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id");
 		$data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
