@@ -107,7 +107,7 @@ class Content extends Admin_Controller
 							if(!empty($f)) $filters['color'][$i] = $f;
 						}
 						break;
-					case 'Название':
+					case 'Название товара':
 						$value = (string) $param->Значение;
 						if(!empty($value)) $filters['shortname'] = $value;
 						/*$filter = explode('/', (string) $param->Значение);
@@ -116,7 +116,7 @@ class Content extends Admin_Controller
 							if(!empty($f)) $filters['shortname'][$i] = $f;
 						}*/
 						break;
-					case 'Описание':
+					case 'Описание товара':
 						$value = (string) $param->Значение;
 						if(!empty($value)) $filters['shortdesc'] = $value; 
 						/*$filter = explode('/', (string) $param->Значение);

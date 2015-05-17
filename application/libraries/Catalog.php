@@ -103,16 +103,16 @@ class CI_Catalog {
 	{
 		$nok_tree = array();
 		$shortdescs = array();
-		$to_delete = array();
+		$to_save = array();
 
 		$shortnames = $this->CI->characteristics->get_list(array("type" => "shortname"), FALSE, FALSE, "value", "asc");
-		
+
 		foreach($shortnames as $sn)
 		{
 			$nok_tree[$sn->value] = array();
 			if(in_array($sn->object_id, $ids)) $to_save[] = $sn->value;
 		}
-		
+		//var_dump($nok_tree);
 		foreach($shortnames as $sn)
 		{
 			$shortdesc = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
@@ -141,7 +141,6 @@ class CI_Catalog {
 		}
 		
 		ksort($nok_tree, SORT_STRING);
-		
 		return $nok_tree;
 	}
 }
