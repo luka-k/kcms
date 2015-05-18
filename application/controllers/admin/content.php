@@ -80,7 +80,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
+			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
 		}
 		
 		if($id == "all")
@@ -132,7 +132,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
+			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id", "admin") : set_disabled_option($this->$type->get_tree(0, "parent_id", "admin"), $id);
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}

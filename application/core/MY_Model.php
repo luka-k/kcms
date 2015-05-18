@@ -500,21 +500,18 @@ class MY_Model extends CI_Model
 	* @param string $parent_field
 	* @return array
 	*/
-	public function get_tree($parent_id, $parent_field)
-	{
-		return $this->get_sub_tree($parent_id, $parent_field);
-	}
 	
-	public function get_sub_tree($parent_id, $parent_field)
+	public function get_tree($parent_id, $parent_field, $action = "site")
 	{
 		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
-		$branches = $this->prepare_list($branches);
+		if($action == "admin") $branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{
-			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_field);
+			$branches[$i]->childs = $this->get_tree($b->id, $parent_field);
 			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "sort", "asc"));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
-		}		
+		}			
+
 		return $branches;
 	}
 	
