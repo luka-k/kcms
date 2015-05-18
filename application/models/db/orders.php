@@ -64,7 +64,10 @@ class Orders extends MY_Model
 	*/
 	function get_order_id()
 	{
-		return uniqid();
+		$this->db->select_max("id");
+		$id = $this->db->get($this->_table)->row()->id;
+		$order_id = $id + START_ORDER_ID;
+		return $order_id;
 	}
 	
 	/**
