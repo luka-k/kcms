@@ -35,7 +35,7 @@ function update_items(res){
 	$('#total_price').text(res['total_price']);
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);
-	$('#'+res['item_id']).text(res['item_total']);
+	$('#item_total-'+res['item_id']).text(res['item_total']);
 	
 	$('#cart-empty').attr("style", "display:none");
 	$('#cart-full').attr("style", "display:inline");

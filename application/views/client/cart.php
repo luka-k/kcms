@@ -56,7 +56,7 @@
 									</form> <!-- /.cart-amount -->
 								</td>
 								<td>
-									<div class="cart-table__price"><span id="<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
+									<div class="cart-table__price"><span id="item_total-<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
 								</td>
 								<td>
 									<button type="button" class="button button--normal" onclick="delete_item('<?=$item_id?>')">Удалить</button>
