@@ -32,7 +32,7 @@
 		if(answer != "error"){
 			var item = answer.product_2;
 			
-			$(".last_recommended").before("<tr id='recommended-"+item.id+"' class='recommended_item'><td><a href=''>"+item.name+"</a></td><td><a href='#' class='del' onclick=''>удалить</a></td></tr>");
+			$(".last_recommended").before("<tr id='recommended-"+item.id+"' class='recommended_item'><td><a href=''>"+item.name+"</a></td><td><a href='#' class='del' onclick=''>Удалить</a></td></tr>");
 			
 			var del_link = "delete_recommended('"+answer.base_url+"', '"+item.id+"', '"+item.name+"'); return false;"
 			$('a.del').attr('onclick', del_link);

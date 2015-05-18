@@ -416,6 +416,15 @@ class Content extends Admin_Controller
 	}
 	
 	/**
+	* Удаление рекомендованного товара
+	*/
+	public function delete_recommended($id, $object_id)
+	{
+		$this->products->delete_recommended($id);
+		redirect(base_url().'admin/content/item/edit/products/'.$object_id);
+	}
+	
+	/**
 	* Редактирование на странице списка товаров - спецпредложения и новинка
 	*/
 	public function advanced()
