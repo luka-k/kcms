@@ -504,7 +504,7 @@ class MY_Model extends CI_Model
 	public function get_tree($parent_id, $parent_field, $action = "site")
 	{
 		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
-		if($action == "admin") $branches = $this->prepare_list($branches);
+		if($action == "site") $branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_tree($b->id, $parent_field);
