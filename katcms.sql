@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 17 2015 г., 09:19
+-- Время создания: Май 18 2015 г., 12:26
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -52,10 +52,15 @@ CREATE TABLE IF NOT EXISTS `articles` (
 INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`, `lastmod`, `changefreq`, `priority`) VALUES
 (1, 0, 'Блог', '0000-00-00', 0, '', '', '', '', 'blog', '2015-04-16', '', '0.1'),
 (3, 0, 'Новости', '0000-00-00', 0, '', '', '', '', 'novosti', '0000-00-00', '', ''),
-(5, 3, 'Первая новость', '2015-01-01', 0, '<p>Текст первой новости</p>\r\n', '', '', '', 'pervaya-novost', '2015-04-06', '', '0.1'),
-(6, 3, 'Вторая новость', '2015-04-06', 0, '<p>Текст второй новости</p>\r\n', '', '', '', 'vtoraya-novost', '2015-04-06', '', '0.1'),
+(5, 3, 'Первая новость', '2015-01-01', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'pervaya-novost', '2015-04-21', '', '0.1'),
+(6, 3, 'Вторая новость', '2015-04-06', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'vtoraya-novost', '2015-04-21', '', '0.1'),
 (8, 0, 'Контакты', '0000-00-00', 0, '', '', '', '', 'kontakty', '0000-00-00', '', ''),
-(9, 0, 'Статья с огромным на', '2015-03-17', 0, '', '', '', '', 'statya-s-ogromnym-nazvaniem-nu-prosto-ogromnejshim-nazvaniem-dlya-proverki-redaktora-menyu-da-i-voobshe-malo-li-gde-prigoditsya-statya-s-ogromnym-nazvaniem', '2015-03-17', '', '0.1');
+(10, 3, 'Третья новость', '2015-04-21', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'tretya-novost', '2015-04-21', '', '0.1'),
+(11, 3, 'Четвертая новость', '2015-04-21', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'chetvertaya-novost', '2015-04-21', '', '0.1'),
+(12, 1, 'Перва запись в блоге', '2015-04-01', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'perva-zapis-v-bloge', '2015-04-21', '', '0.1'),
+(13, 1, 'Вторая запись в блоге', '2015-04-09', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'vtoraya-zapis-v-bloge', '2015-04-21', '', '0.1'),
+(14, 1, 'Третья запись в блоге', '2015-04-16', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'tretya-zapis-v-bloge', '2015-04-21', '', '0.1'),
+(15, 1, 'Четвертая запись в блоге', '2015-04-21', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '', '', '', 'chetvertaya-zapis-v-bloge', '2015-04-21', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -87,10 +92,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `parent_id`, `description`) VALUES
-(1, 1, 0, 'Шины', '', '', '', 'shiny', '2015-04-06', '', '0.1', 0, ''),
+(1, 1, 0, 'Шины', '', '', '', 'shiny', '2015-05-15', '', '0.1', 0, ''),
 (2, 1, 0, 'Диски', '', '', '', 'diski', '2015-04-06', '', '0.1', 0, ''),
 (3, 1, 0, 'Аксессуары', '', '', '', 'aksessuary', '2015-04-06', '', '0.1', 0, ''),
-(4, 1, 0, 'Легковые', '', '', '', 'legkovye', '2015-04-06', '', '0.1', 1, ''),
+(4, 1, 0, 'Легковые', '', '', '', 'legkovye', '2015-05-15', '', '0.1', 1, ''),
 (5, 1, 0, 'Грузовые', '', '', '', 'gruzovye', '2015-04-06', '', '0.1', 1, ''),
 (8, 1, 0, 'Штампованные', '', '', '', 'shtampovanye', '2015-04-06', '', '0.1', 2, ''),
 (9, 1, 0, 'Легкосплавные', '', '', '', 'legkosplavnye', '2015-04-06', '', '0.1', 2, ''),
@@ -110,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Дамп данных таблицы `characteristics`
@@ -121,7 +126,8 @@ INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`
 (15, 'diametr', '16', 'products', 1),
 (16, 'diametr', '14', 'products', 2),
 (17, 'cvet', 'Черный', 'products', 2),
-(18, 'diametr', '24', 'products', 7);
+(18, 'diametr', '24', 'products', 7),
+(19, 'cvet', 'black', 'products', 1);
 
 -- --------------------------------------------------------
 
@@ -143,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `characteristics_type` (
 --
 
 INSERT INTO `characteristics_type` (`id`, `name`, `category`, `url`, `view_type`) VALUES
-(1, 'Цвет', 0, 'cvet', 'text'),
+(1, 'Цвет', 0, 'cvet', 'multy'),
 (2, 'Диаметр', 0, 'diametr', 'multy');
 
 -- --------------------------------------------------------
@@ -167,11 +173,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('313b13decb14f18b4a5e98fdd69a9a5e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429194041, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:3:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №1";s:3:"url";s:7:"shina-1";s:5:"price";s:4:"3000";s:3:"qty";i:5;s:10:"item_total";i:15000;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:7:{s:2:"id";s:1:"3";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №3";s:3:"url";s:7:"shina-3";s:5:"price";s:4:"3400";s:3:"qty";i:9;s:10:"item_total";i:30600;}s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";i:3;s:10:"item_total";i:21120;}}s:9:"total_qty";i:17;s:10:"cart_total";i:66720;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('6013e51e114dc28d69ff9d46ee272e61', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429190188, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}'),
-('794138aa3737288ddecc610e462b5883', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429191314, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";s:1:"4";s:10:"item_total";i:28160;}s:32:"c81e728d9d4c2f636f067f89cc14862c";a:7:{s:2:"id";s:1:"2";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №2";s:3:"url";s:7:"shina-2";s:5:"price";s:4:"4000";s:3:"qty";s:1:"1";s:10:"item_total";i:4000;}}s:9:"total_qty";i:5;s:10:"cart_total";i:32160;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('b1d6da126514b01f901af7be9b46a3f3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429251237, ''),
-('c8207c3a8dca9b836a2e03323421c59b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429193827, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('f239b73c8fe2648c2a54316a45919695', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0', 1431940919, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
 --
 
 INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
-(1, 1, 'Новый заказ', 'Кллиент  %user_name% оформил заказ № %order_id%.', 'Администратору при заказе'),
+(1, 1, 'Новый заказ', '<p>Клиент %user_name% оформил заказ № %order_id%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Администратору при заказе'),
 (2, 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
 (3, 1, 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%', 'Клиенту при изменении статуса заказа'),
 (4, 1, 'Регистрация в магазине', '%user_name%, спасибо за регистрацию в нашем магазине. \r\nВаш логин %login%\r\nВаш пароль %password%', 'При регистрации'),
@@ -239,16 +241,14 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=110 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
-(20, '', 1, 'settings', 1, '', '/n/o/no-photo-available.png'),
 (85, '1212823312-image-1206444062-1', 1, 'products', 2, '', '/1/2/1212823312-image-1206444062-1.jpg'),
-(86, '20-lm7-1076', 1, 'products', 1, '', '/2/0/20-lm7-1076.jpg'),
 (87, 'images', 1, 'products', 3, '', '/i/m/images.jpg'),
 (88, 'shiny-161460', 1, 'products', 4, '', '/s/h/shiny-161460.jpg'),
 (89, 'zimnie-shiny-kontinental-4', 1, 'products', 5, '', '/z/i/zimnie-shiny-kontinental-4.jpg'),
@@ -258,7 +258,13 @@ INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `ima
 (93, '82445', 1, 'products', 9, '', '/8/2/82445.jpg'),
 (94, '2125803', 1, 'products', 10, '', '/2/1/2125803.png'),
 (95, '52632871-1', 1, 'products', 11, '', '/5/2/52632871-1.jpg'),
-(96, 'nasos-mm', 1, 'products', 12, '', '/n/a/nasos-mm.jpg');
+(96, 'nasos-mm', 1, 'products', 12, '', '/n/a/nasos-mm.jpg'),
+(99, 'winter-210-snowcontrol-serie-iii', 0, 'products', 3, '', '/w/i/winter-210-snowcontrol-serie-iii.jpg'),
+(100, 'continental-vanco-winter-contact-2[2]', 0, 'products', 4, '', '/c/o/continental-vanco-winter-contact-2[2].jpg'),
+(101, '26434', 0, 'products', 5, '', '/2/6/26434.jpg'),
+(102, '20-lm7-1076[1]', 0, 'products', 6, '', '/2/0/20-lm7-1076[1].jpg'),
+(106, 'no-photo-available', 1, 'settings', 1, '', '/n/o/no-photo-available.png'),
+(109, 'pryanik', 1, 'products', 1, '', '/p/r/pryanik.jpg');
 
 -- --------------------------------------------------------
 
@@ -292,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=42 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -322,7 +328,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
 (33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
-(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/');
+(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
+(41, 1, 'Новости', 5, 2, '', 'link', 'admin/content/items/articles/3');
 
 -- --------------------------------------------------------
 
@@ -346,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 --
 -- Дамп данных таблицы `orders`
@@ -375,7 +382,8 @@ INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `u
 (22, '552fb9f5cb744', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
 (23, '552fba43a44e2', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
 (24, '552fba982474a', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(25, '552fbad8e3083', '', 'admin', '', '8-950-123-45', '', 13500, 0, 0, '2015-04-16 00:00:00', 1);
+(25, '552fbad8e3083', '', 'admin', '', '8-950-123-45', '', 13500, 0, 0, '2015-04-16 00:00:00', 1),
+(26, '5559af78a2501', '', 'admin', '', '8-950-123-45', '', 28160, 0, 0, '2015-05-18 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -392,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Дамп данных таблицы `orders_products`
@@ -416,7 +424,8 @@ INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `
 (18, '552fba43a44e2', 1, 'Шина №1', '3000', 3),
 (19, '552fba43a44e2', 9, 'Диск штампованный №1', '1500', 1),
 (20, '552fbad8e3083', 2, 'Шина №2', '4000', 3),
-(21, '552fbad8e3083', 9, 'Диск штампованный №1', '1500', 1);
+(21, '552fbad8e3083', 9, 'Диск штампованный №1', '1500', 1),
+(22, '5559af78a2501', 7, 'Шина грузовая №1', '7040', 4);
 
 -- --------------------------------------------------------
 
@@ -446,24 +455,24 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 4, 1, 0, 'Шина №1', '001sh', 3000, 0, '', '', '', 'shina-1', '2015-04-15', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
-(2, 4, 1, 1, 'Шина №2', 'sh344', 4000, 0, '', '', '', 'shina-2', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
-(3, 4, 1, 2, 'Шина №3', '023sh', 3400, 0, '', '', '', 'shina-3', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
-(4, 4, 1, 3, 'Шина №4', 'sh453', 3345, 0, '', '', '', 'shina-4', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 0),
-(5, 4, 1, 4, 'Шина №6', 'sh445w', 4500, 0, '', '', '', 'shina-6', '2015-04-06', '', '0.1', '', 0, 0),
-(6, 4, 1, 5, 'Шина №5', 'sh34w', 4200, 0, '', '', '', 'shina-5', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 0),
+(1, 4, 1, 0, 'Шина №1', '001sh', 3000, 0, '', '', '', 'shina-1', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
+(2, 4, 1, 1, 'Шина №2', 'sh344', 4000, 0, '', '', '', 'shina-2', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
+(3, 4, 1, 2, 'Шина №3', '023sh', 3400, 0, '', '', '', 'shina-3', '2015-04-21', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
+(4, 4, 1, 3, 'Шина №4', 'sh453', 3345, 0, '', '', '', 'shina-4', '2015-04-21', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 0),
+(5, 4, 1, 4, 'Шина №6', 'sh445w', 4500, 0, '', '', '', 'shina-6', '2015-04-21', '', '0.1', '', 0, 0),
+(6, 4, 1, 5, 'Шина №5', 'sh34w', 4200, 0, '', '', '', 'shina-5', '2015-04-21', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 0),
 (7, 5, 1, 0, 'Шина грузовая №1', 'wg34', 8000, 12, '', '', '', 'shina-gruzovaya-1', '2015-04-06', '', '0.1', '', 1, 1),
-(8, 5, 1, 0, 'Шина грузовая №2', 'wg3434', 8400, 0, '', '', '', 'shina-gruzovaya-2', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 0),
+(8, 5, 1, 0, 'Шина грузовая №2', 'wg3434', 8400, 0, '', '', '', 'shina-gruzovaya-2', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 1),
 (9, 2, 1, 0, 'Диск штампованный №1', 'd45', 1500, 0, '', '', '', 'disk-shtampovannyj-1', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 1, 0),
-(10, 9, 1, 0, 'Диск легкосплавный №1', 'da34', 3500, 0, '', '', '', 'disk-legkosplavnyj-1', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 0),
-(11, 9, 1, 0, 'Диск легкосплавный №2', 'da23', 4300, 14, '', '', '', 'disk-legkosplavnyj-2', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 0),
+(10, 9, 1, 0, 'Диск легкосплавный №1', 'da34', 3500, 0, '', '', '', 'disk-legkosplavnyj-1', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 1),
+(11, 9, 1, 0, 'Диск легкосплавный №2', 'da23', 4300, 14, '', '', '', 'disk-legkosplavnyj-2', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
 (12, 10, 1, 0, 'Насос ручной', 'pr3435', 560, 0, '', '', '', 'nasos-ruchnoj', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 1, 0);
 
 -- --------------------------------------------------------
@@ -477,6 +486,13 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
   `product2_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Дамп данных таблицы `recommended_products`
+--
+
+INSERT INTO `recommended_products` (`product1_id`, `product2_id`) VALUES
+(1, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -489,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `admin_email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `order_string` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `site_description` text COLLATE utf8_unicode_ci NOT NULL,
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
   `site_offline` int(11) DEFAULT '0',
@@ -505,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Ваш заказ оформлен', '', '', '2015-03-06', 0, '', 2, 6, 1);
+(1, 'greenWEELS', 'admin@admin.ru', 'admin', 'Ваш заказ оформлен', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-04-21', 0, '', 2, 6, 1);
 
 -- --------------------------------------------------------
 

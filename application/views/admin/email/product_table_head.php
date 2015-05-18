@@ -1,5 +1,5 @@
 <table>
-	<tdead>
+	<thead>
 		<tr>
 		<td>№</td>
 		<td>Продукт</td>
@@ -7,5 +7,5 @@
 		<td>Количество</td>
 		<td>Сумма</td>
 		</tr>
-	</tdead>
+	</thead>
 	<tbody>
