@@ -9,9 +9,9 @@
 		<input type="hidden" name="view_image" value="view_image"/>
 		
 		<?$counter = 1?>
-		<div class="col_12">
+		<div class="col_12 sortable-images">
 			<?foreach($content->images as $image):?>
-				<div class="col_3">
+				<div id="images-<?=$image->id?>" class="col_3">
 					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->catalog_small_url?>" width="100%"/></a>
 					<div class="col_6">
 						<?if($image->is_cover == 0):?>

@@ -169,7 +169,7 @@ class Content extends Admin_Controller
 				$data['content'] = $this->$type->get_item($id);
 				
 				// Галлерея
-				if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id)));
+				if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id), FALSE, FALSE, "sort", "asc"));
 				
 				// Двойная галлерея
 				if($double_image_field)
@@ -177,7 +177,7 @@ class Content extends Admin_Controller
 					$field = get_editors_field($data['editors'], $double_image_field);
 					if($field) foreach($field[4] as $image_type)
 					{
-						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type)));
+						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type), FALSE, FALSE, "sort", "asc"));
 					}
 				}
 				

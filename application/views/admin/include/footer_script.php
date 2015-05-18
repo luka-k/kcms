@@ -15,6 +15,21 @@
 		});
 	});
 	
+	$(function() {
+		$('.sortable-images').sortable({
+			cursor:'move',
+			cursorAt:{left:5},
+			update: function (event, ui) {
+				var data = $(this).sortable('serialize');
+				$.ajax({
+					data: data,
+					type: 'POST',
+					url: '/admin/admin_ajax/sortable/'
+				});
+			}
+		});
+	});
+	
 	function delete_item(base_url, type, item_id, item_name){
 		var href;
 		href = base_url+"admin/content/delete_item/"+type+"/"+item_id;

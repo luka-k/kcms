@@ -163,7 +163,7 @@ class Products extends MY_Model
 			}
 			else
 			{
-				$item->images = $this->images->prepare_list($this->images->get_list($object_info));
+				$item->images = $this->images->prepare_list($this->images->get_list($object_info, FALSE, FALSE, "sort", "asc"));
 			}
 			
 			$item = $this->set_sale_price($item);
