@@ -18,7 +18,7 @@ class Index extends Client_Controller {
 	{		
 		//$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
 		$max_value = $max_price = $this->products->get_max('price');
-		$min_value = $min_price = $this->products->get_min('price');
+		$min_value = $min_price = $this->products->get_min('price'); 
 		
 		$special = $this->products->get_list(array("is_special" => 1), FALSE, 4);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
