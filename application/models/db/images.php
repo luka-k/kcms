@@ -54,7 +54,7 @@ class Images extends MY_Model
 		$upload_path = $this->config->item('upload_path');
 		
 		$img_info = $this->get_unique_info($img['name']);
-		print_r($img_info);
+		
 		$img_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
 			
 		if(isset($img['type']))
