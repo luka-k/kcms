@@ -34,8 +34,8 @@
 						Корзина пуста
 					</span>
 					<span  id="cart-full" style="<?if(!empty($cart_items)):?>display:inline;<?else:?>display:none;<?endif;?>">
-						<span id="total_qty" class="red"><?=$total_qty?></span> <span class="product_word"><?=$product_word?></span> <br />
-						на сумму <span class="red"><span id="total_price"><?=$total_price?></span> р.</span>
+						<span class="red total_qty"><?=$total_qty?></span> <span class="product_word"><?=$product_word?></span> <br />
+						на сумму <span class="red"><span class="total_price"><?=$total_price?></span> р.</span>
 					</span>
 				</span> <!-- /.header-cart__cost -->
 			</a> <!-- /.header-cart -->

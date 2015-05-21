@@ -58,14 +58,16 @@ class Ajax extends CI_Controller {
 		);
 		
 		$item_id = $this->cart->insert($cart_item);
-
-		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_price'] = $this->cart->total_price();
-		$data['product_word'] = $this->string_edit->set_word_form("товар", $data['total_qty']);
-		$data['item_id'] = $item_id;
 		$item = $this->cart->get($item_id);
+		
+		$data = array(
+			'item_id' => $item_id,
+			'item_qty' => $item['qty'],
+			'total_qty' => $this->cart->total_qty(),
+			'total_price' => $this->cart->total_price(),
+			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty())
+		);
 
-		$data['item_qty'] = $item['qty'];
 		echo json_encode($data);
 	}
 	
@@ -83,7 +85,8 @@ class Ajax extends CI_Controller {
 			'item_total' => $item['item_total'],
 			'item_qty' => $item['qty'],
 			'total_qty' => $this->cart->total_qty(),
-			'total_price' => $this->cart->total_price()		
+			'total_price' => $this->cart->total_price(),
+			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty())
 		);
 	
 		echo json_encode($data);
