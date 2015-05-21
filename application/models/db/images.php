@@ -54,7 +54,7 @@ class Images extends MY_Model
 		$upload_path = $this->config->item('upload_path');
 		
 		$img_info = $this->get_unique_info($img['name']);
-		
+		print_r($img_info);
 		$img_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
 			
 		if(isset($img['type']))
@@ -203,14 +203,14 @@ class Images extends MY_Model
 	*/
 	public function get_cover($factors = array())
 	{
-		/*if(!empty($factors))
+		if(!empty($factors))
 		{	
 			$factors['is_cover'] = "1";
 			$image = $this->get_item_by($factors);
 		}
 		
-		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));*/
-		$image = $this->get_item_by(array("object_type" => "settings"));
+		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));
+//		$image = $this->get_item_by(array("object_type" => "settings"));
 		
 		return $this->get_urls($image);
 	}

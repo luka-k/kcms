@@ -293,6 +293,108 @@ class Content extends Admin_Controller
 		}
 	}
 	
+	public function load1CImages($upload_jpg = false)
+	{
+		$xmlstr = file_get_contents('1c/import.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		ini_set('display_errors', 1);
+		$total = 0;
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$total++;
+			$id = (string) $el->Ид;
+			$name = (string) $el->Наименование;
+			//echo $total.': '.$id."\n";
+			
+			$images = array();
+			$jpgs = array();
+			
+			$mainImage = (string) $el->Картинка;
+			if ($mainImage)
+				$images[] = '1c/'. $mainImage;
+			
+			$data = array(
+				'1c_id' => $id
+			);
+			
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
+			{
+				switch ((string) $param->Наименование)
+				{
+					case 'ОписаниеФайла':
+						$image = '1c/'.( (string) $param->Значение);
+						if ($image != $mainImage)
+							$images[] =  $image;
+						break;
+				}
+			}
+			$product = ($this->products->get_item_by(array('1c_id' => $data['1c_id'])));
+			if (!$product)
+				continue;
+			if ($this->images->get_list(array('object_type'=>'products', 'object_id' => $product->id))) 
+				continue;
+			 
+			foreach ($images as $i => $im)
+			{
+				$im = explode('#', $im);
+				$im = $im[0];
+				if (strstr($im, '.tif'))
+				{
+					$newim = str_replace('.tif', '.tiff', $im);
+					if (file_exists(FCPATH.$im) && !file_exists(FCPATH.$newim))
+						rename (FCPATH.$im, FCPATH.$newim);
+					$jpg = str_replace('.tif', '.jpg', FCPATH.$im);
+					$jpgs[$jpg] = true;
+					if (!file_exists($jpg))
+					{
+						echo  FCPATH.$im."\n";
+						$tiff = new Imagick(FCPATH.$newim);
+						
+						//$tiff->thumbnailImage(100, 100);
+						$tiff->setImageFormat('jpg');
+						$tiff->setCompressionQuality(97);
+						$tiff->writeImage($jpg);
+					}
+				
+				}
+				if (strstr($im, '.pdf'))
+				{
+					$jpg = str_replace('.pdf', '.jpg', FCPATH.$im);
+					$jpgs[$jpg] = true;
+					if (!file_exists($jpg))
+					{
+						$pdf = new Imagick();
+						$pdf->setResolution(200,200);
+						$pdf->readImage(FCPATH.$im);
+						$pdf->setImageFormat('jpg');
+						$pdf->setCompressionQuality(97);
+						$pdf->writeImage($jpg);
+					}
+				}
+				
+				if ($upload_jpg)
+				{
+					$i = 0;
+					foreach ($jpgs as $jpg => $ok)
+					{
+						echo $jpg.' '.$product->id."\n";
+						$filename = explode('/', $jpg);
+						$filename = $filename[count($filename)-1];
+						$this->images->upload_image(array('name' => $filename, 'tmp_name' => $jpg), array('object_type' => 'products', 'object_id' => $product->id, 'is_cover' => ($i == 0 ? 1 : 0)));
+						$i++;
+					}
+					//if ($i)
+						//die('ok');
+				}
+			}
+				
+		}
+		die('ok');
+	}
+	
 	/**
 	* Импорт
 	* Может стоит вынести импорт в отдельный контроллер?
