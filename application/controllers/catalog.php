@@ -209,6 +209,7 @@ class Catalog extends Client_Controller {
 				'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
 				'sku_ch' => $this->catalog->get_filters_info($this->post, "products", "sku_checked"),
 				'shortname_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortname"),
+				'shortdesc_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortdesc"),
 				'color_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "color"),
 				'material_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "material"),
 				'finishing_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "finishing"),

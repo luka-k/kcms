@@ -30,7 +30,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$categories_ch[0]?></span>
 						<?if(count($categories_ch) > 1):?>
-							, ... [<?= count($categories_ch)?>]
+							[<?= count($categories_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -45,7 +45,7 @@
 					<?else:?>
 						<?=$manufacturer_ch[0]?>
 						<?if(count($manufacturer_ch) > 1):?>
-							, ... [<?= count($manufacturer_ch)?>]
+							[<?= count($manufacturer_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -60,7 +60,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$collections_ch[0]?></span>
 						<?if(count($collections_ch) > 1):?>
-							, ... [<?= count($collections_ch)?>]
+							[<?= count($collections_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -75,7 +75,7 @@
 					<?else:?>
 						<?=$sku_ch[0]?>
 						<?if(count($sku_ch) > 1):?>
-							, ... [<?= count($sku_ch)?>]
+							[<?= count($sku_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -85,13 +85,18 @@
 					Название/Описание/Комплектация:
 				</div>
 				<div class="lm-item" prop="secondcolumn5">
-					<?if(empty($shortname_ch)):?>
-						Все названия
-					<?else:?>
+					<?if(!empty($shortname_ch)):?>
 						<span class="lm-title"><?=$shortname_ch[0]?></span>
 						<?if(count($shortname_ch) > 1):?>
-							, ... [<?= count($shortname_ch)?>]
+							[<?= count($shortname_ch)?>]
 						<?endif;?>
+					<?elseif(!empty($shortdesc_ch)):?>
+						<span class="lm-title"><?=$shortdesc_ch[0]?></span>
+						<?if(count($shortdesc_ch) > 1):?>
+							[<?= count($shortdesc_ch)?>]
+						<?endif;?>	
+					<?else:?>
+						Все названия
 					<?endif;?>
 				</div>
 			</div>
@@ -105,7 +110,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$color_ch[0]?></span>
 						<?if(count($color_ch) > 1):?>
-							, ... [<?= count($color_ch)?>]
+							[<?= count($color_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -120,7 +125,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$material_ch[0]?></span>
 						<?if(count($material_ch) > 1):?>
-							, ... [<?= count($material_ch)?>]
+							[<?= count($material_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -135,7 +140,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$finishing_ch[0]?></span>
 						<?if(count($finishing_ch) > 1):?>
-							, ... [<?= count($finishing_ch)?>]
+							[<?= count($finishing_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -150,7 +155,7 @@
 					<?else:?>
 						<span class="lm-title"><?=$turn_ch[0]?></span>
 						<?if(count($turn_ch) > 1):?>
-							, ... [<?= count($turn_ch)?>]
+							[<?= count($turn_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
