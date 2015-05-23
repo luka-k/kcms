@@ -28,7 +28,7 @@
 					<?if(empty($categories_ch)):?>
 						Все товары
 					<?else:?>
-						<?=$categories_ch[0]?>
+						<span class="lm-title"><?=$categories_ch[0]?></span>
 						<?if(count($categories_ch) > 1):?>
 							, ... [<?= count($categories_ch)?>]
 						<?endif;?>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="lm-item" prop="secondcolumn2">
 					<?if(empty($manufacturer_ch)):?>
-						Все производители
+						<span class="lm-title">Все производители</span>
 					<?else:?>
 						<?=$manufacturer_ch[0]?>
 						<?if(count($manufacturer_ch) > 1):?>
@@ -58,7 +58,7 @@
 					<?if(empty($collections_ch)):?>
 						Все коллекции
 					<?else:?>
-						<?=$collections_ch[0]?>
+						<span class="lm-title"><?=$collections_ch[0]?></span>
 						<?if(count($collections_ch) > 1):?>
 							, ... [<?= count($collections_ch)?>]
 						<?endif;?>
@@ -71,7 +71,7 @@
 				</div>
 				<div class="lm-item" prop="secondcolumn4">
 					<?if(empty($sku_ch)):?>
-						Все артикулы
+						<span class="lm-title">Все артикулы</span>
 					<?else:?>
 						<?=$sku_ch[0]?>
 						<?if(count($sku_ch) > 1):?>
@@ -88,7 +88,7 @@
 					<?if(empty($shortname_ch)):?>
 						Все названия
 					<?else:?>
-						<?=$shortname_ch[0]?>
+						<span class="lm-title"><?=$shortname_ch[0]?></span>
 						<?if(count($shortname_ch) > 1):?>
 							, ... [<?= count($shortname_ch)?>]
 						<?endif;?>
@@ -103,7 +103,7 @@
 					<?if(empty($color_ch)):?>
 						Все цвета
 					<?else:?>
-						<?=$color_ch[0]?>
+						<span class="lm-title"><?=$color_ch[0]?></span>
 						<?if(count($color_ch) > 1):?>
 							, ... [<?= count($color_ch)?>]
 						<?endif;?>
@@ -118,7 +118,7 @@
 					<?if(empty($material_ch)):?>
 						Все материалы
 					<?else:?>
-						<?=$material_ch[0]?>
+						<span class="lm-title"><?=$material_ch[0]?></span>
 						<?if(count($material_ch) > 1):?>
 							, ... [<?= count($material_ch)?>]
 						<?endif;?>
@@ -133,7 +133,7 @@
 					<?if(empty($finishing_ch)):?>
 						Все варианты
 					<?else:?>
-						<?=$finishing_ch[0]?>
+						<span class="lm-title"><?=$finishing_ch[0]?></span>
 						<?if(count($finishing_ch) > 1):?>
 							, ... [<?= count($finishing_ch)?>]
 						<?endif;?>
@@ -148,7 +148,7 @@
 					<?if(empty($turn_ch)):?>
 						Все варианты
 					<?else:?>
-						<?=$turn_ch[0]?>
+						<span class="lm-title"><?=$turn_ch[0]?></span>
 						<?if(count($turn_ch) > 1):?>
 							, ... [<?= count($turn_ch)?>]
 						<?endif;?>

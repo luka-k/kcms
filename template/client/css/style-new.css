@@ -427,6 +427,15 @@ color:#ec1c24;
 			font-size: 12px;
 			color: #ec1c24;
 		}
+		
+		#s_left .lm-title{
+			display:block;
+			float:left;
+			max-width: 190px;
+			overflow:hidden;
+			white-space:nowrap;
+			text-overflow: clip;
+		}
 		#s_left .lm-item:hover{
 			background: #b3b3b3 url(/template/client/images-new/icon-left.png) 245px 3px no-repeat;
 		}

@@ -309,9 +309,9 @@
 	
 	<script>
 		$(document).ready(function(){
+			$('#ajax_from').val(10);
+		
 			$("#product-scroll").scroll(function() {
-				var inProgress = false;
-				
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
 
@@ -322,10 +322,11 @@
 		});
 		
 		function answer(res){
-			console.log(res.ajax_from);
 			$("#product-scroll").append(res.content);
 			$('#ajax_from').val(res.ajax_from);
 		}
+		
+		
 	</script>
 
 	<?if(isset($filters_checked["width_from"])):?>
