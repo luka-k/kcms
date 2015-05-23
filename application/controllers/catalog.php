@@ -78,6 +78,7 @@ class Catalog extends Client_Controller {
 			'sku' => array(),
 			'nok' => array(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
+			'ajax_from' => ""
 		);
 	
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -148,7 +149,7 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 	
 		$this->benchmark->mark('code_end');
-		//var_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
+		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -157,85 +158,100 @@ class Catalog extends Client_Controller {
 	*/
 	public function filtred()
 	{	
-		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
-		$products_ids = $this->catalog->get_products_ids($products);
+		$cache_id = md5(serialize($this->post));
 		
-		$last_type_filter = $this->post['last_type_filter'];
-		//wlt - without last type
-		$filters_wlt = $this->post;
-		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
-		{
-			unset($filters_wlt['shortname']);
-			unset($filters_wlt['shortdesc']);
-		}
-		else
-		{
-			unset($filters_wlt[$last_type_filter]);
-		}
-		
-		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
-		
-		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
-		
-		$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, 0);
-		
-		$filters = $this->characteristics_type->get_filters($products, $this->post);
-		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
-		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
+		$cache = $this->file_cache->get($cache_id);
 
-		$data = array(
-			'breadcrumbs' => $this->breadcrumbs->get(),
-			'filters_checked' => $this->post,
-			'filters' => $filters,
-			'total_rows' => count($products),
-			'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products, $this->post),
-			'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
-			'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
-			'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
-			'categories_ch' => $this->catalog->get_filters_info($this->post, "categories", "categories_checked"),
-			'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked"),
-			'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
-			'sku_ch' => $this->catalog->get_filters_info($this->post, "products", "sku_checked"),
-			'shortname_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortname"),
-			'color_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "color"),
-			'material_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "material"),
-			'finishing_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "finishing"),
-			'turn_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "turn"),
-			'ajax_from' => 10
-		);
-		
-		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
+		if($cache)
 		{
-			$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt);
+			$data = $cache;
+			$this->benchmark->mark('code_end');
 		}
 		else
-		{
-			$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
-		}
+		{	
+			$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
+			$products_ids = $this->catalog->get_products_ids($products);
+		
+			$last_type_filter = $this->post['last_type_filter'];
+			//wlt - without last type
+			$filters_wlt = $this->post;
+			if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
+			{
+				unset($filters_wlt['shortname']);
+				unset($filters_wlt['shortdesc']);
+			}
+			else
+			{
+				unset($filters_wlt[$last_type_filter]);
+			}
+		
+			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
+		
+			$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
+		
+			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, 0);
+		
+			$filters = $this->characteristics_type->get_filters($products, $this->post);
+			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
+			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
+
+			$data = array(
+				'breadcrumbs' => $this->breadcrumbs->get(),
+				'filters_checked' => $this->post,
+				'filters' => $filters,
+				'total_rows' => count($products),
+				'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products, $this->post),
+				'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
+				'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
+				'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturer->get_tree($products_wlt) : $this->manufacturer->get_tree($products, $this->post),
+				'categories_ch' => $this->catalog->get_filters_info($this->post, "categories", "categories_checked"),
+				'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked"),
+				'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
+				'sku_ch' => $this->catalog->get_filters_info($this->post, "products", "sku_checked"),
+				'shortname_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortname"),
+				'color_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "color"),
+				'material_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "material"),
+				'finishing_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "finishing"),
+				'turn_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "turn"),
+				'ajax_from' => ""
+			);
+		
+			if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
+			{
+				$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt);
+			}
+			else
+			{
+				$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
+			}
 	
-		$data = array_merge($this->standart_data, $data);
-		$data['category'] = new stdClass;
+			$data = array_merge($this->standart_data, $data);
+			$data['category'] = new stdClass;
 		
-		// сортировка вывода
-		$products = $products;
-		$product_sorts = array();
-		$collections = $this->collections->get_list(false);
-		$collection_names = array();
-		foreach ($collections as $collection)
-		{
-			$collection_names[$collection->id] = $collection->name;
-		}
-		foreach ($products as $product)
-		{
-			$this->db->select("collection_parent_id");
-			$this->db->where_in("child_id", array($product->id));
-			$ids = $this->db->get("product2collection")->result();
-			$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
-		}
-		array_multisort($product_sorts, $products);
+			// сортировка вывода
+			$products = $products;
+			$product_sorts = array();
+			$collections = $this->collections->get_list(false);
+			$collection_names = array();
+			foreach ($collections as $collection)
+			{
+				$collection_names[$collection->id] = $collection->name;
+			}
+			foreach ($products as $product)
+			{
+				$this->db->select("collection_parent_id");
+				$this->db->where_in("child_id", array($product->id));
+				$ids = $this->db->get("product2collection")->result();
+				$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
+			}
+			array_multisort($product_sorts, $products);
 		
-		$data['category']->products = $this->products->prepare_list($products_for_content);
-
+			$data['category']->products = $this->products->prepare_list($products_for_content);
+			
+			$this->file_cache->insert($cache_id, $data);
+			$this->benchmark->mark('code_end');
+		}
+		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/categories", $data);
 	}
 	

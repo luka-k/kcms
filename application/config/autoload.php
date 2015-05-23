@@ -63,7 +63,8 @@ $autoload['libraries'] = array(
 	'wishlist',
 	'url',
 	'string_edit',
-	'breadcrumbs'
+	'breadcrumbs',
+	'file_cache'
 );
 
 
