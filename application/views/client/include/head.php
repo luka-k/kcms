@@ -306,6 +306,27 @@
 	
 	
 	</script>	
+	
+	<script>
+		$(document).ready(function(){
+			$("#product-scroll").scroll(function() {
+				var inProgress = false;
+				
+				var div_sh = $(this)[0].scrollHeight;
+				var div_h = $(this).height();
+
+				if($(this).scrollTop() >= div_sh - div_h){
+					$.post('/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+				}
+			});
+		});
+		
+		function answer(res){
+			console.log(res.ajax_from);
+			$("#product-scroll").append(res.content);
+			$('#ajax_from').val(res.ajax_from);
+		}
+	</script>
 
 	<?if(isset($filters_checked["width_from"])):?>
 		<script>

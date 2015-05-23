@@ -11,13 +11,13 @@ class Catalog extends Client_Controller {
 
 	protected $get = array();
 	protected $post = array();
-	
-	var $start;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->start = microtime(true); 
+		
+		$this->benchmark->mark('code_start');
+		
 		$this->config->load('characteristics');
 		
 		$this->get = $this->input->get();
@@ -49,7 +49,7 @@ class Catalog extends Client_Controller {
 		$depth_max = $depth_to = $this->products->get_max('depth');
 		if(!empty($this->post['depth_to'])) $depth_to = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
 		
-		
+		//$this->session->sess_destroy("cart_contents");
 		
 		$data = array(
 			'title' => "Каталог",
@@ -77,7 +77,7 @@ class Catalog extends Client_Controller {
 			'collection' => array(),
 			'sku' => array(),
 			'nok' => array(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 		);
 	
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -123,7 +123,7 @@ class Catalog extends Client_Controller {
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 		// сортировка вывода
-		$products = $this->products->prepare_list($this->products->get_list(FALSE));
+		$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10));
 		$product_sorts = array();
 		$collections = $this->collections->get_list(false);
 		$collection_names = array();
@@ -143,11 +143,12 @@ class Catalog extends Client_Controller {
 		array_multisort($product_sorts, $products);
 		
 		$data['category']->products = $products;
-		$data['total_rows'] = count($data['category']->products);
+		$data['total_rows'] = count($this->products->get_list(FALSE));
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data = array_merge($this->standart_data, $data);
 	
-		//var_dump(microtime(true) - $this->start);
+		$this->benchmark->mark('code_end');
+		//var_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -175,7 +176,9 @@ class Catalog extends Client_Controller {
 		$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
 		
 		$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
-
+		
+		$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, 0);
+		
 		$filters = $this->characteristics_type->get_filters($products, $this->post);
 		$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 		if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
@@ -197,7 +200,8 @@ class Catalog extends Client_Controller {
 			'color_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "color"),
 			'material_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "material"),
 			'finishing_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "finishing"),
-			'turn_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "turn")
+			'turn_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "turn"),
+			'ajax_from' => 10
 		);
 		
 		if($last_type_filter == "shortname" || $last_type_filter == "shortdesc")
@@ -213,7 +217,7 @@ class Catalog extends Client_Controller {
 		$data['category'] = new stdClass;
 		
 		// сортировка вывода
-		$products = $this->products->prepare_list($products);
+		$products = $products;
 		$product_sorts = array();
 		$collections = $this->collections->get_list(false);
 		$collection_names = array();
@@ -230,7 +234,7 @@ class Catalog extends Client_Controller {
 		}
 		array_multisort($product_sorts, $products);
 		
-		$data['category']->products = $products;
+		$data['category']->products = $this->products->prepare_list($products_for_content);
 
 		$this->load->view("client/categories", $data);
 	}
@@ -267,6 +271,28 @@ class Catalog extends Client_Controller {
 	{
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 		echo count($products);
+	}
+	
+	public function ajax_more()
+	{
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, $this->post['from']);
+
+		$content = "";
+		
+		if($products) foreach($products as $item)
+		{
+			$product = array("item" => $this->products->prepare($item, TRUE, FALSE));
+			$content.= $this->load->view('client/include/ajax_product.php', $product, TRUE);
+		}
+
+		$ajax_from = $this->post['from'] + 10;
+		
+		$data = array(
+			"content" => $content,
+			"ajax_from" => $ajax_from
+		);
+		
+		echo json_encode($data);
 	}
 }
 

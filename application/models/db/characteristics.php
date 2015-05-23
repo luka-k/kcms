@@ -136,8 +136,7 @@ class Characteristics extends MY_Model
 			if(!empty($id)) $this->db->where_in("id", $id);
 			
 			$this->db->order_by($order, $direction); 
-			$query = $this->db->get("products"/*, $limit, $from*/);
-			$result = $query->result();
+			$result = $limit == FALSE ? $this->db->get("products")->result() : $this->db->get("products", $limit, $from)->result();
 
 			if(!empty($result)) return $result;
 		}
