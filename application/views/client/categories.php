@@ -60,7 +60,7 @@
 				</aside>
                           </div>
                  </div>
-				 <? if (empty($filters_checked)): ?>
+				 <? if (count($filters_checked) < 4): ?>
 				 <div id="shadow"></div>
 				 <? endif ?>
 			
