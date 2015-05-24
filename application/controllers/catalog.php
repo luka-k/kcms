@@ -124,24 +124,7 @@ class Catalog extends Client_Controller {
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 		// сортировка вывода
-		$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10));
-		$product_sorts = array();
-		$collections = $this->collections->get_list(false);
-		$collection_names = array();
-		
-		foreach ($collections as $collection)
-		{
-			$collection_names[$collection->id] = $collection->name;
-		}
-		foreach ($products as $product)
-		{
-		
-			$this->db->select("collection_parent_id");
-			$this->db->where_in("child_id", array($product->id));
-			$ids = $this->db->get("product2collection")->result();
-			$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
-		}
-		array_multisort($product_sorts, $products);
+		$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, "sort", "asc"));
 		
 		$data['category']->products = $products;
 		$data['total_rows'] = count($this->products->get_list(FALSE));
@@ -227,26 +210,8 @@ class Catalog extends Client_Controller {
 			}
 	
 			$data = array_merge($this->standart_data, $data);
-			$data['category'] = new stdClass;
-		
-			// сортировка вывода
-			$products = $products;
-			$product_sorts = array();
-			$collections = $this->collections->get_list(false);
-			$collection_names = array();
-			foreach ($collections as $collection)
-			{
-				$collection_names[$collection->id] = $collection->name;
-			}
-			foreach ($products as $product)
-			{
-				$this->db->select("collection_parent_id");
-				$this->db->where_in("child_id", array($product->id));
-				$ids = $this->db->get("product2collection")->result();
-				$product_sorts[] = $collection_names[$ids[0]->collection_parent_id] . $product->sku;
-			}
-			array_multisort($product_sorts, $products);
-		
+			
+			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
 			$this->file_cache->insert($cache_id, $data);
