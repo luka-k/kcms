@@ -31,27 +31,13 @@ class Characteristics extends MY_Model
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
-		foreach($filters_type as $f)
-		{
-			if($f->url <> "shortname" || $f->url <> "shortdesc")
-			{
-				if(isset($filter[$f->url]))
-				{
-					$this->db->distinct();
-					$this->db->where("type", $f->url);
-					$this->db->where_in("value", $filter[$f->url]);
-					$values = $this->_update_values($values);
-					++$counter;
-				}
-			}
-		}
-		
+		$ff = array();
 		if(isset($filter["shortdesc"]))
 		{
 			foreach($filter["shortdesc"] as $shortdesc)
 			{
 				$sd = explode ("/", $shortdesc);
-
+	 			
 				$this->db->where("type", "shortname");
 				$this->db->where("value", $sd[0]);
 				$this->db->select('object_id');
@@ -71,10 +57,12 @@ class Characteristics extends MY_Model
 				if(!empty($result))foreach($result as $r)
 				{
 					$values[] = $r->object_id;
+					$ff[] = $r->object_id;
 				}
 			}
+
 		}
-		
+
 		if(isset($filter["shortname"]))
 		{
 			$this->db->where("type", "shortname");
@@ -83,17 +71,32 @@ class Characteristics extends MY_Model
 			$result = $this->db->get('characteristics')->result();
 			if($result) foreach($result as $r)
 			{
-				$values[] = $r->object_id;
+				if(!in_array($r->object_id, $ff))$values[] = $r->object_id;
 			}
 			++$counter;
 		}
 		
+		foreach($filters_type as $f)
+		{
+			if($f->url <> "shortname" && $f->url <> "shortdesc")
+			{
+				if(isset($filter[$f->url]))
+				{
+					$this->db->distinct();
+					$this->db->where("type", $f->url);
+					$this->db->where_in("value", $filter[$f->url]);
+					$values = $this->_update_values($values);
+					++$counter;
+				}
+			}
+		}
+
 		if($counter > 1)
 		{
 			$values = array_count_values($values);
 			foreach($values as $key => $counter_value)
 			{
-				if($counter_value > 1) $id[] = $key;
+				if($counter_value == $counter) $id[] = $key;
 			}
 		}
 		else
