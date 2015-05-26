@@ -1,5 +1,4 @@
 function fancy_to_cart(item_id, name, qty){	
-	$('#input_item_id').attr("value", item_id);
 	$('.fancy_product_name').text(name);
 		
 	$.fancybox.open("#to-cart");
@@ -17,12 +16,12 @@ function add_to_cart(item_id, qty){
 	
 	$.post ("/ajax/add_to_cart/", json_str, function(answer){
 		update_total(answer);
+		$('#input_qty').attr("value", answer.item_qty);
+		$('#input_item_id').attr("value", answer.item_id);
 	}, "json");
 }
-	
-function update_cart(item_id, qty, action){
-	data = new Object();
-	
+
+function update_qty(item_id, qty, action){
 	if(action == "plus"){
 		qty++;
 	}
@@ -31,6 +30,12 @@ function update_cart(item_id, qty, action){
 		qty--;
 	}
 	
+	update_cart(item_id, qty);
+}
+	
+function update_cart(item_id, qty){
+	data = new Object();
+
 	data.item_id = item_id;
 	data.qty = qty;
 	

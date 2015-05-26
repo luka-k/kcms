@@ -50,9 +50,9 @@
 								</td>
 								<td>
 									<form action="#" class="form cart-amount" method="post">
-										<button type="button"  class="button button--normal cart-amount__button" onclick="update_cart('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'minus')">-</button>
+										<button type="button"  class="button button--normal cart-amount__button" onclick="update_qty('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'minus')">-</button>
 										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
-										<button type="button" class="button button--normal cart-amount__button" onclick="update_cart('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'plus')">+</button>
+										<button type="button" class="button button--normal cart-amount__button" onclick="update_qty('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'plus')">+</button>
 									</form> <!-- /.cart-amount -->
 								</td>
 								<td>
