@@ -83,7 +83,7 @@
 				<div class="cart-order">
 					<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
 					
-					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
+					<form action="<?=base_url()?>order/new_order" class="form" method="post">
 						<div class="cart-order__form">
 							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 							<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>

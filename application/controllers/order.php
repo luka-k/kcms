@@ -18,7 +18,7 @@ class Order extends Client_Controller
 	/**
 	* Оформление заказа
 	*/
-	public function edit_order()
+	public function new_order()
 	{
 		$orders_info = $this->input->post();
 		

@@ -186,14 +186,14 @@
   };
 
 
-  //Показываем дополнительные поля при оформлении заказа
-  app.cartOrderExtra = function(){
-    var $extra = $('.cart-order__extra');
-    $('.cart-order__extra-link').on('click', function(){
-      $extra.slideToggle();
-      return false;
-    })
-  }
+	//Показываем дополнительные поля при оформлении заказа
+	app.cartOrderExtra = function(){
+		var $extra = $('.cart-order__extra');
+		$('.cart-order__extra-link').on('click', function(){
+			$extra.slideToggle();
+			return false;
+		})
+	}
 
 
 /* ==========================================================================
