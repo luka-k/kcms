@@ -15,7 +15,7 @@
     this.catalogRange(); // диапазон цен в каталоге
     this.catalogLoadMore(); // загрузка дополнительных товаров в каталоге и анимашка стрелок
 
-    this.cartAmount(); // Изменение количества товаров в корзине
+   // this.cartAmount(); // Изменение количества товаров в корзине
     this.cartOrderExtra(); // Показываем доп поля в оформлении заказа
     
     this.dealersMap(); // Карта РФ в дилерах
@@ -185,39 +185,6 @@
 
   };
 
-
-/* ==========================================================================
- * Корзина
- * ========================================================================== */
-
-  //Изменение количества товаров в корзине
-  app.cartAmount = function(){
-    var $amountButtons = $('.cart-amount__button');
-
-    $amountButtons.on('click', function(){
-
-      var action = $(this).html().trim(),
-          $target = $(this).parent().find('input'),
-          curValue = $target.val();
-
-      if (action === '+'){
-      
-        $target.val( ++curValue );
-		
-      
-      }else{
-        
-        if (curValue < 2) curValue = 2;
-
-        $target.val( --curValue );
-
-      }
-	  
-	  var item_id = $(this).attr('item_id');
-	  update_cart(item_id, document.getElementById('qty-'+item_id).value);
-      return false;
-    });
-  };
 
   //Показываем дополнительные поля при оформлении заказа
   app.cartOrderExtra = function(){

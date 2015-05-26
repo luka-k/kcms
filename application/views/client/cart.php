@@ -50,16 +50,16 @@
 								</td>
 								<td>
 									<form action="#" class="form cart-amount" method="post">
-										<button type="button"  class="button button--normal cart-amount__button" item_id="<?=$item_id?>">-</button>
+										<button type="button"  class="button button--normal cart-amount__button" onclick="update_cart('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'minus')">-</button>
 										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
-										<button type="button" class="button button--normal cart-amount__button" item_id="<?=$item_id?>">+</button>
+										<button type="button" class="button button--normal cart-amount__button" onclick="update_cart('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'plus')">+</button>
 									</form> <!-- /.cart-amount -->
 								</td>
 								<td>
 									<div class="cart-table__price"><span id="item_total-<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
 								</td>
 								<td>
-									<button type="button" class="button button--normal" onclick="delete_item('<?=$item_id?>')">Удалить</button>
+									<button type="button" class="button button--normal" onclick="delete_cart_item('<?=$item_id?>')">Удалить</button>
 								</td>
 							</tr>
 						<?endforeach;?>

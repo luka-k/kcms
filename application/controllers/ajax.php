@@ -101,8 +101,12 @@ class Ajax extends CI_Controller {
 	
 		$this->cart->delete($info->item_id);
 		
- 		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_price'] = $this->cart->total_price();		
+		$data = array(
+			'item_id' => $info->item_id,
+			'total_qty' => $this->cart->total_qty(),
+			'total_price' => $this->cart->total_price(),
+		);
+		
 		echo json_encode($data);
 	}
 		
