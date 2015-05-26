@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 		$(this).addClass('hover');
 	},
 	function(){
-		$(this).find('ul').stop(true, true).fadeOut('slow');
+		$(this).find('ul').stop(true, true).fadeOut('fast');
 		$(this).removeClass('hover');
 	});
 
