@@ -186,7 +186,7 @@ class Catalog extends Client_Controller {
 	{	
 		$cache_id = md5(serialize($this->post));
 		$cache = $this->file_cache->get($cache_id);
-		$cache = FALSE;
+		//$cache = FALSE;
 		if($cache)
 		{
 			$data = $cache;
