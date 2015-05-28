@@ -12,10 +12,8 @@ function my_dump($dump)
 function add_log($type, $message)
 {
 	$file_path = FCPATH."logs/".$type.".log";
-	$file = fopen($file_path, "a");
 	$message = date("d/m/Y H:i:s")." - ".$message."\r\n";
-	fwrite($file, $message);
-	fclose($file);
+	file_put_contents($file_path, $message, FILE_APPEND);
 }
 
 function get_logs_names()
@@ -61,8 +59,18 @@ function get_log($type)
 */
 function clear_log($type)
 {
-	$file_path = FCPATH."logs/".$type.".log";
-	$file = fopen($file_path, "w");
-	ftruncate($file, 0);
-	fclose($file);
+	if($type == "all")
+	{
+		$logs = get_logs_names();
+		if(!empty($logs))foreach($logs as $log_name)
+		{
+			$file_path = FCPATH."logs/".$log_name.".log";
+			file_put_contents($file_path, "");
+		}
+	}
+	else
+	{
+		$file_path = FCPATH."logs/".$type.".log";
+		file_put_contents($file_path, "");
+	}
 }

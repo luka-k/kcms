@@ -40,18 +40,7 @@ class Logs extends Admin_Controller
 	
 	public function clear($type = "all")
 	{
-		if($type == "all")
-		{
-			$logs = get_logs_names();
-			if(!empty($logs))foreach($logs as $log_name)
-			{
-				clear_log($log_name);
-			}
-		}
-		else
-		{
-			clear_log($type);
-		}
+		clear_log($type);
 		redirect(base_url()."admin/logs");
 	}
 }
