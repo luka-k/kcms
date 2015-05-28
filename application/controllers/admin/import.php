@@ -165,8 +165,50 @@ class Import extends Admin_Controller
 			
 			echo "start updating...\n";
 			
-			// TODO: заполнить базу!!!
+			if(!empty($recommended_1))foreach($recommended_1 as $sku)
+			{
+				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
+				if($anchor_product)
+				{
+					$data = array(
+						"product1_id" => $product->id,
+						"product2_id" => $anchor_product->id
+					);
+					
+					$this->recommended_products->insert($data);
+					echo $anchor_product->name." аналогичный товар к ".$product->name."\n";
+				}
 			
+			}
+			if(!empty($recommended_2))foreach($recommended_2 as $sku)
+			{
+				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
+				if($anchor_product)
+				{
+					$data = array(
+						"product1_id" => $product->id,
+						"product2_id" => $anchor_product->id
+					);
+					
+					$this->components_products->insert($data);
+					echo $anchor_product->name." комплектующая часть к ".$product->name."\n";
+				}
+			}
+			
+			if(!empty($recommended_3))foreach($recommended_3 as $sku)
+			{
+				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
+				if($anchor_product)
+				{
+					$data = array(
+						"product1_id" => $product->id,
+						"product2_id" => $anchor_product->id
+					);
+					
+					$this->accessories_products->insert($data);
+					echo $anchor_product->name." запчасть к ".$product->name."\n";
+				}
+			}
 		}
 	}
 				
