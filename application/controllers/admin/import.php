@@ -16,7 +16,7 @@ class Import extends Admin_Controller
 		parent::__construct();
 	}
 	
-		public function load1COffers()
+	public function load1COffers()
 	{
 		$xmlstr = file_get_contents('1c/offers.xml');
 		$xml = new SimpleXMLElement($xmlstr);
@@ -37,6 +37,139 @@ class Import extends Admin_Controller
 		}
 	}
 	
+	public function load1CCategories()
+	{
+		// удаляем все привязки
+		$this->db->delete('category2category');
+		
+		
+		$xmlstr = file_get_contents('1c/import.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		$total = 0;
+
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$total++;
+			$id = (string) $el->Ид;
+			$sku = (string) $el->Артикул;
+			$cat1 = array(); // Группы товаров 1
+			
+			$data = array(
+				'1c_id' => $id,
+				'sku' => $sku
+			);
+			
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
+			{
+				switch ((string) $param->Наименование)
+				{
+					case 'Группы товаров 1 уровня':
+						$cat1 = explode(';', (string) $param->Значение);
+						break;
+					case 'Группа товаров 2 уровня':
+						$cat2 = (string) $param->Значение;
+						break;
+				}
+			}
+			
+			echo "start updating...\n";
+			
+			
+			if ($cat2)
+			{
+				$category = $this->categories->get_item_by(array('name' => $cat2));
+				if (!$category)
+				{
+					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2)));
+					$category = $this->categories->get_item($this->db->insert_id());
+				}
+				
+				foreach ($cat1 as $c1)
+				{
+					$c1 = trim($c1);
+					if (!$c1) continue;
+					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
+					if (!$parentcategory)
+					{
+						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1)));
+						$pid = $this->db->insert_id();
+						$parentcategory = $this->categories->get_item($pid);
+					
+						$category2category = array(
+							'category_parent_id' => 0,
+							'child_id' => $pid
+						); 
+						
+						if (!$this->db->get_where('category2category', $category2category)->result())				
+							$this->db->insert('category2category', $category2category);
+						
+					}
+					
+					$category2category = array(
+						'category_parent_id' => $parentcategory->id,
+						'child_id' => $category->id
+					);
+					
+					if (!$this->db->get_where('category2category', $category2category)->result())				
+						$this->db->insert('category2category', $category2category);
+				}
+			}
+		}
+	}
+	
+	public function load1CRecommended()
+	{	
+		$xmlstr = file_get_contents('1c/import.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		$total = 0;
+
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$total++;
+			$id = (string) $el->Ид;
+			$sku = (string) $el->Артикул;
+			$recommended_1 = array(); // Продаваемые совместно
+			$recommended_2 = array(); // Аналоги
+			$recommended_3 = array(); // Запчасти
+			
+			$data = array(
+				'1c_id' => $id,
+				'sku' => $sku
+			);
+			
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
+			{
+				switch ((string) $param->Наименование)
+				{
+					case 'Продаваемые совместно':
+						$recommended_1 = explode(',', (string) $param->Значение);
+						break;
+					case 'Аналоги':
+						$recommended_2 = explode(',', (string) $param->Значение);
+						break;
+					case 'Запчасти':
+						$recommended_3 = explode(',', (string) $param->Значение);
+						break;
+				}
+			}
+			
+			$product = $this->products->get_item_by(array('1c_id' => $data['1c_id']));
+			if (!$product) 
+				continue;
+			
+			echo "start updating...\n";
+			
+			// TODO: заполнить базу!!!
+			
+		}
+	}
+				
 	public function load1C()
 	{
 		$xmlstr = file_get_contents('1c/import.xml');
