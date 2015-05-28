@@ -1,82 +1,76 @@
 ;(function(){
-
-  "use strict";
-
-  var app = {};
-
-  app.init = function(){
-    this.fancyBoxes(); // Модальные окна
-    this.validate(); // валидация форм
-    this.bxslider(); // слайдеры на главной и в товаре
-    
-    this.productImages(); // смена картинок в товаре
-    this.productExtraTabs(); // табы в описании товара
-    
-    this.catalogRange(); // диапазон цен в каталоге
-    this.catalogLoadMore(); // загрузка дополнительных товаров в каталоге и анимашка стрелок
-
-   // this.cartAmount(); // Изменение количества товаров в корзине
-    this.cartOrderExtra(); // Показываем доп поля в оформлении заказа
-    
-    this.dealersMap(); // Карта РФ в дилерах
-
-  };
+	"use strict";
+	
+	var app = {};
+	
+	app.init = function(){
+		this.fancyBoxes(); // Модальные окна
+		this.validate(); // валидация форм
+		this.bxslider(); // слайдеры на главной и в товаре
+		
+		this.productImages(); // смена картинок в товаре
+		this.productExtraTabs(); // табы в описании товара
+		this.catalogRange(); // диапазон цен в каталоге
+		this.catalogLoadMore(); // загрузка дополнительных товаров в каталоге и анимашка стрелок
+		
+		this.cartOrderExtra(); // Показываем доп поля в оформлении заказа
+		
+		this.dealersMap(); // Карта РФ в дилерах
+	};
 
 
 /* ==========================================================================
  * Модальные окна
  * ========================================================================== */
-  
-  app.fancyOptions = {
-    padding: 0,
-    scrolling: 'no',
-    autoCenter : false,
-    fitToView: false,
-    helpers: {
-        overlay: {
-            locked: false // if true (default), the content will be locked into overlay
-        }
-    }
-  };
-  app.fancyBoxes = function(){
-
-    $('.fancybox').fancybox(this.fancyOptions);
-    $('.fancyimage').fancybox({
-      maxWidth: 900
-    });
+ 
+	app.fancyOptions = {
+		padding: 0,
+		scrolling: 'no',
+		autoCenter : false,
+		fitToView: false,
+		helpers: {
+			overlay: {
+				locked: false // if true (default), the content will be locked into overlay
+			}
+		}
+	};
 	
-    $('.js-close-fancybox').on('click', function(){
-      $.fancybox.close();
-      return false;
-    });
-
-  };
+	app.fancyBoxes = function(){
+		$('.fancybox').fancybox(this.fancyOptions);
+		$('.fancyimage').fancybox({
+			maxWidth: 900
+		});
+		
+		$('.js-close-fancybox').on('click', function(){
+			$.fancybox.close();
+			return false;
+		});
+	};
   
 /* ==========================================================================
  * Слайдеры
  * ========================================================================== */
 
-  app.bxslider = function(){
+	app.bxslider = function(){
+	
+		$('.promo__slider').bxSlider({
+			controls: false,
+			auto: true
+		})
 
-    $('.promo__slider').bxSlider({
-      controls: false,
-      auto: true
-    })
+		var thumbsCount = $('.product-images-thumbs__item').length;
 
-    var thumbsCount = $('.product-images-thumbs__item').length;
-
-    if (thumbsCount > 4){
-      $('.product-images-thumbs').bxSlider({
-        pager: false,
-        mode: 'vertical',
-        minSlides: 4,
-        maxSlides: 4,
-        moveSlides: 1,
-        adaptiveHeight: false
-      });
-    }
-
-  };
+		if (thumbsCount > 4){
+			$('.product-images-thumbs').bxSlider({
+				pager: false,
+				mode: 'vertical',
+				minSlides: 4,
+				maxSlides: 4,
+				moveSlides: 1,
+				adaptiveHeight: false
+			});
+		}
+	};
 
 
 /* ==========================================================================

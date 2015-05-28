@@ -3,7 +3,7 @@
  *========================================================================= */
 
 $(function() {
-	$.post( "/ajax/selected_days/", function(res) {
+	$.post("/ajax/selected_days/", function(res) {
 	
 		events = JSON.parse(res);
 

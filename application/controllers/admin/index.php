@@ -17,14 +17,14 @@ class Index extends Admin_Controller
 	}
 
 	public function index()
-	{		
+	{	
 		$data = array(
 			'title' => "Главная",
 			'error' => "",
 			'url' => $this->uri->uri_string()
 		);
 		$data = array_merge($this->standart_data, $data);
-
+				
 		$this->load->view('admin/admin.php', $data);
 	}
 }

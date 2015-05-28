@@ -29,7 +29,15 @@ class Ajax extends CI_Controller {
 			"USER_PHONE" => $post->phone
 		);
 		
-		$this->emails->send_system_mail($settings->admin_email, 6, $message_info);
+		if($this->emails->send_system_mail($settings->admin_email, 6, $message_info))
+		{
+			$log = "Отправлено письмо на адрес - ".$settings->admin_email." от пользователя - ".$post->name; 
+			add_log("callback", $log);
+		}
+		else
+		{
+			add_log("ajax", "Отправка не удалась");
+		}
 		
 		$data['message'] = "ok";
 		echo json_encode($data);

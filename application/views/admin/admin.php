@@ -6,7 +6,6 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 			<div class="col_12">
-					
 			</div>
 		</div>
 	</div>
