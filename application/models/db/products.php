@@ -88,7 +88,7 @@ class Products extends MY_Model
 		$anchor_products = array();
 	
 		$this->db->where('product1_id', $id);
-		$this->db->or_where('product2_id', $id); //Если надо сделать привязку только в одну сторону убрать эту строку
+		//$this->db->or_where('product2_id', $id); //Если надо сделать привязку только в одну сторону убрать эту строку
 		$query = $this->db->get($base."_products");
 		$result = $query->result();
 		
