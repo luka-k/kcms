@@ -11,45 +11,28 @@ function my_dump($dump)
 */
 function add_log($type, $message)
 {
-	$file_path = FCPATH."logs/".$type.".log";
-	$message = date("d/m/Y H:i:s")." - ".$message."\r\n";
+	$file_path = FCPATH."logs/logs-".date("d-m-Y").".log";
+	$message = date("H:i:s")." - ".$type." - ".$message."\r\n";
 	file_put_contents($file_path, $message, FILE_APPEND);
-}
-
-function get_logs_names()
-{
-	$logs = array();
-	$dir = opendir(FCPATH."logs/");
-		
-	while(FALSE !== ($file = readdir($dir)))
-	{
-		if($file !== "." && $file !== "..")
-		{
-			$file_name = explode(".", $file); 
-			$logs[] = $file_name[0];
-		}
-	}
-	
-	return $logs;
 }
 
 /**
 *
 *
 */
-function get_log($type)
+function get_log()
 {	
-	$file_path = FCPATH."logs/".$type.".log";
+	$file_path = FCPATH."logs/logs-".date("d-m-Y").".log";
 	
 	$log = array();
-	
-	$file = fopen($file_path, "r");
-	while(($log_item = fgets($file)) !== false)
+	if(file_exists($file_path))
 	{
-		$item = explode(" - ", $log_item, 2);
-		$log[$item[0]] = $item[1];
+		$file = fopen($file_path, "r");
+		while(($log_item = fgets($file)) !== false)
+		{
+			$log[] = explode(" - ", $log_item, 3);
+		}
 	}
-	
 	return $log;
 }
 
@@ -57,20 +40,9 @@ function get_log($type)
 *
 *
 */
-function clear_log($type)
+function clear_log()
 {
-	if($type == "all")
-	{
-		$logs = get_logs_names();
-		if(!empty($logs))foreach($logs as $log_name)
-		{
-			$file_path = FCPATH."logs/".$log_name.".log";
-			file_put_contents($file_path, "");
-		}
-	}
-	else
-	{
-		$file_path = FCPATH."logs/".$type.".log";
-		file_put_contents($file_path, "");
-	}
+	$file_path = FCPATH."logs/logs-".date("d-m-Y").".log";
+	file_put_contents($file_path, "");
+
 }

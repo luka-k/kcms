@@ -17,30 +17,20 @@ class Logs extends Admin_Controller
 	
 	public function index()
 	{
-		$logs = get_logs_names();
 		
 		$data = array(
 			'title' => "Логи",
-			'logs' => $logs
+			'log_items' => get_log()
 		);
 		
-		if($logs)
-		{
-			$log_type = $this->input->get("log_type");
-			if($log_type == FALSE) $log_type = $logs[0];
-			
-			$data['log_items'] = get_log($log_type);
-			$data['viewed_log'] = $log_type;		
-			
-		}
 		$data = array_merge($this->standart_data, $data);
 	
 		$this->load->view('admin/logs.php', $data);
 	}
 	
-	public function clear($type = "all")
+	public function clear()
 	{
-		clear_log($type);
+		clear_log();
 		redirect(base_url()."admin/logs");
 	}
 }
