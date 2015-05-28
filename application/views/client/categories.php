@@ -58,10 +58,10 @@
 						<?endforeach;?>
 					</div>
 				</aside>
-                          </div>
-                 </div>
+			</div>
+		</div>
 				 <? if (count($filters_checked) < 4): ?>
-				 <div id="shadow"></div>
+					<div id="shadow"></div>
 				 <? endif ?>
 			
 			</form>

@@ -111,24 +111,67 @@ class Catalog extends Client_Controller {
 	private function category($content)
 	{	
 		$data['category'] = new stdClass;
+		$filters_checked = array(
+			"filter" => TRUE, 
+			"last_type_filter" => "categories_checked", 
+			"from" => 0,
+		);
+		
 		if($content <> "root")
 		{
+			$category_anchor = $this->db->get_where("category2category", array("child_id" => $content->id))->result();
+
+			$products = array();
+			if(count($category_anchor) == 1 && $category_anchor[0]->category_parent_id == 0)
+			{
+				$filters_checked['parent_checked'] = array(0 => $content->id);
+				$sub_categories = $this->db->get_where("category2category", array("category_parent_id" => $content->id))->result();
+				if($sub_categories) foreach($sub_categories as $category)
+				{
+					$filters_checked['categories_checked'][] = $category->child_id;
+				}
+				$products = $this->characteristics->get_products_by_filter($filters_checked, "sort", "asc", 10, 0);
+				$products = $this->products->prepare_list($products);
+				
+				$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, "sort", "asc"));
+			}
+			else
+			{
+				$products = $this->products->prepare_list($this->products->get_list(array("parent_id" => $content->id), 0, 10, "sort", "asc"));
+				$filters_checked['categories_checked'] = array(0 => $content->id);
+				
+				$total_rows = $this->products->get_list(array("parent_id" => $content->id), FALSE, FALSE, "sort", "asc");
+			}
+			
+			$products_ids = $this->catalog->get_products_ids($products);
+			
 			$data = array(
 				'title' => $content->name,
 				'meta_keywords' => $content->meta_keywords,
 				'meta_description' => $content->meta_description,
-				'category' => $content
+				'category' => $content,
+				'filters_checked' => $filters_checked,
+				'left_menu' => $this->categories->get_tree(),
+				'collection' => $this->collections->get_tree($products_ids),
+				'manufacturer' => $this->manufacturer->get_tree($products),
+				'sku_tree' => $this->manufacturer->get_tree($products),
+				'nok' => $this->catalog->get_nok_tree($products_ids),
+				'categories_ch' => array(0 => $content->name),
 			);
+		}
+		else
+		{
+			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, "sort", "asc"));
+			$products_ids = $this->catalog->get_products_ids($products);
+			
+			$total_rows = count($this->products->get_list(FALSE));
 		}
 
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
-		// сортировка вывода
-		$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, "sort", "asc"));
-		
 		$data['category']->products = $products;
-		$data['total_rows'] = count($this->products->get_list(FALSE));
-		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
+		$data['total_rows'] = $total_rows;
+		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
 		$data = array_merge($this->standart_data, $data);
 	
 		$this->benchmark->mark('code_end');
@@ -142,9 +185,8 @@ class Catalog extends Client_Controller {
 	public function filtred()
 	{	
 		$cache_id = md5(serialize($this->post));
-		
 		$cache = $this->file_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			$data = $cache;

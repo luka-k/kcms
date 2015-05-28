@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
 	<body>
-		
+	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 		<? require 'include/header.php'?>
 		
 		<div id="wrapper">
@@ -255,9 +255,9 @@
 						</article>
 					</main>
 				</div>
-				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
-					<? require 'include/left-col.php'?>
-				</form>
+				
+				<? require 'include/left-col.php'?>
+				
 				<aside id="s_right">
 					<h1>Новости</h1>
 					<div class="menuright">
@@ -271,6 +271,10 @@
 				</aside>
 			</div>
 		</div>
+		<? if (count($filters_checked) < 4): ?>
+			<div id="shadow"></div>
+		<? endif ?>
+	</form>
 	</body>
 	<script>
 		$('.accordeon-head').click(function() {
