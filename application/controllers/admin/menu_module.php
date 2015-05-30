@@ -161,6 +161,9 @@ class Menu_module extends Admin_Controller
 	
 	public function menu_item(){
 		$info = json_decode(file_get_contents('php://input', true));
+		
+		if(!isset($info->type)) add_log("menu_module", "не задан id пункта");
+		
 		$item = $this->menus_items->get_item($info->id);
 		
 		$data['item'] = $item;

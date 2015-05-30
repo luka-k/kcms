@@ -33,7 +33,7 @@ function get_log()
 			$log[] = explode(" - ", $log_item, 3);
 		}
 	}
-	return $log;
+	return array_reverse($log);
 }
 
 /**

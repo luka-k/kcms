@@ -6,10 +6,10 @@ function fancy_to_cart(item_id, name, qty){
 	add_to_cart(item_id, qty);
 }
 
-function add_to_cart(item_id, qty){
+function add_to_cart(product_id, qty){
 	data = new Object();
 	
-	data.item_id = item_id;
+	data.product_id = product_id;
 	data.qty = qty;
 	
 	var json_str = JSON.stringify(data);

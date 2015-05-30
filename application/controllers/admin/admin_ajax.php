@@ -35,8 +35,10 @@ class Admin_ajax extends Admin_Controller
 	function autocomplete()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		$type = $info->type;
-		$items = $this->characteristics->get_list(array("type" => $type));
+		
+		if(!isset($info->type)) add_log("characteristics_autocomplete", "Не задан типфильра для автозаполнения");
+		
+		$items = $this->characteristics->get_list(array("type" => $info->type));
 		$available_tags = array();
 		foreach($items as $i)
 		{
@@ -53,6 +55,8 @@ class Admin_ajax extends Admin_Controller
 	public function add_recommend()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+		
+		if(!isset($info->name)) add_log("characteristics", "Не задан тип фильтра для автозаполнения");
 		
 		$product_2 = $this->products->get_item_by(array("name" => $info->name));
 		

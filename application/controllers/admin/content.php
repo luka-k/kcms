@@ -361,6 +361,8 @@ class Content extends Admin_Controller
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 		
+		if(!isset($info->name)) add_log("images", "Не задано имя изображения");
+		
 		$this->images->update($info->id, array("name" => $info->name));
 	}
 	
@@ -382,8 +384,9 @@ class Content extends Admin_Controller
 		$info = json_decode(file_get_contents('php://input', true));
 		if(!isset($info->id))
 		{
-			$this->characteristics->insert($info);
-			$info->id = $this->db->insert_id();
+			$info->id = $this->characteristics->insert($info);
+			
+			if(!isset($info->id)) add_log("characteristics", "Добавление характеристики не удалось");
 			
 			$ch_select = $this->characteristics_type->get_list(FALSE);
 			
@@ -431,14 +434,9 @@ class Content extends Admin_Controller
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 		
+		if(!isset($info->type)) add_log("advanced", "не задан тип поля для обновления на лету");
+		if(!isset($info->value)) add_log("advanced", "не задано значение для обновления поля ".$info->type);
 		
-		if($info->type == "new")
-		{
-			$this->products->update($info->id, array("is_new" => $info->value));
-		}
-		elseif($info->type == "special")
-		{
-			$this->products->update($info->id, array("is_special" => $info->value));
-		}
+		$this->products->update($info->id, array("is_".$info->type => $info->value));
 	}
 }
