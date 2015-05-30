@@ -6,9 +6,19 @@ class Manufacturer extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', "name"),
-			'url' => array('Url', 'text'),
+			'is_active' => array('Включено', 'checkbox'),
 			'phone' => array('Телефон', 'text'),
+			'email' => array('email', 'text'),
+			'country' => array('Страна', 'text'),
+			'city' => array('city', 'text'),
 			'link' => array('Ссылка на сайт', 'text')
+		),	
+		'SEO' => array(
+			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
+			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
+			'url' => array('Url', 'text'),
+			'seo_text' => array('seo_text', 'tiny'),
 		),		
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image', 'img')
