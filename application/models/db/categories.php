@@ -30,15 +30,18 @@ class Categories extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'category_parent_id' => array('Родительская категория', 'category2category', 'fixing'),
-			'is_active' => array('Активен', 'checkbox'),
+			'is_active' => array('выключен', 'checkbox'),
 			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
+			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
+			'accusative_name' => array('В винительном падеже. Купить...', 'text', 'trim|htmlspecialchars'),
+			'genitive_name' => array('В родительном падеже. Каталог...', 'text', 'trim|htmlspecialchars'),
+			'seo_text' => array('seo_text', 'tiny-2'),
 			'changefreq' => array('changefreq', 'text'),
 			'priority' => array('priority', 'priority'),
 			'lastmod' => array('lastmod', 'hidden')
