@@ -142,7 +142,8 @@ $autoload['model'] = array(
 	'db/characteristics',
 	'db/characteristics_type',
 	'db/manufacturer',
-	'db/collections'
+	'db/collections',
+	'db/services'
 );
 
 
