@@ -46,6 +46,8 @@ class Content extends Admin_Controller
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "category_parent_id", "admin") : $this->$type->get_tree(0, "parent_id");
 		}
 		
+		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
+		
 		if($id == "all")
 		{
 			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
@@ -115,6 +117,8 @@ class Content extends Admin_Controller
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}
+		
+		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
 		
 		if($type == "characteristics_type") 
 		{
@@ -199,6 +203,15 @@ class Content extends Admin_Controller
 			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
+			
+			//Документы
+			if($type == "documents" && isset($_FILES["upload_document"]))
+			{
+				if($_FILES["upload_document"]['error'] == UPLOAD_ERR_OK)
+				{				
+					$data['content']->url = $this->documents->upload($_FILES["upload_document"], $data['content']->id);
+				}					
+			}
 					
 			if($data['content']->id == FALSE)
 			{
@@ -230,9 +243,6 @@ class Content extends Admin_Controller
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
 
-			/*****************************************
-			/ Требует более серьезного рефакторинга
-			/****************************************/
 			if(!empty($field_name))
 			{
 				$object_info = array(
@@ -292,9 +302,6 @@ class Content extends Admin_Controller
 					}
 				}	
 			}
-			/*****************************************************
-			/ Конец куска требующего рефакторинга
-			/****************************************************/
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;

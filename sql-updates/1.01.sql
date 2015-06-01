@@ -37,8 +37,21 @@ INSERT INTO `services` (`id`, `name`, `parent_id`, `is_active`, `sort`, `url`, `
 (5, 'обслуживание/ремонт столярных изделий', 2, 1, 0, 'obsluzhivanie-remont-stolyarnyh-izdelij', '', '', '', ''),
 (6, 'перетяжка мебели', 2, 1, 0, 'peretyazhka-mebeli', '', '', '', '');
 
+
+/*Документы*/
+CREATE TABLE documents (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+	is_active TINYINT(1),
+	sort INT(11),
+	description TEXT,
+	url VARCHAR(255)
+);
+
 /*Изменение в меню*/
 UPDATE `menus_items` SET `parent_id` = '6' WHERE `id` =35;
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort` , `description`, `item_type`, `url`) VALUES
-(37, 1, 'Услуги', 6, 6, '', 'link', '/admin/content/items/services/all');
+(37, 1, 'Услуги', 6, 6, '', 'link', '/admin/content/items/services/all'),
+(38, 1, 'Услуги', 6, 6, '', 'link', '/admin/content/items/documents/all');
+

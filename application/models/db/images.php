@@ -88,7 +88,7 @@ class Images extends MY_Model
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 		
-		$upload_path = $this->config->item('upload_path');
+		$upload_path = $this->config->item('images_upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
 		if($thumb_config_name) foreach ($thumb_config as $thumb_dir_name => $configs) 
@@ -174,7 +174,7 @@ class Images extends MY_Model
 	*
 	* @param string $img_name
 	*/
-	public function get_unique_info($img_name)
+	public function get_unique_info($img_name) 
 	{
 		$image = explode(".", $img_name);
 		//Чистим от лишних символов и транлитируем имя файла.
