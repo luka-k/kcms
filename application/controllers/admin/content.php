@@ -132,6 +132,20 @@ class Content extends Admin_Controller
 			$data['selects']['view_type'] = $this->config->item('view_type');
 		}
 		
+		if($type == "manufacturer")
+		{
+			$this->db->distinct();
+			$this->db->select("manufacturer_id");
+			$result = $this->db->get("manufacturer2categorygoods")->result();
+			
+			$data['distributors'] = array();
+			if($result) foreach($result as $r)
+			{
+				$distributor = $this->manufacturer->get_item($r->manufacturer_id);
+				$data['distributors'][] = $distributor;
+			}
+		}
+		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		$is_characteristics = editors_get_name_field('ch', $data['editors']);
@@ -166,6 +180,13 @@ class Content extends Admin_Controller
 					$data['category_by_manufacturer'] = $this->categories->get_tree($products, array());
 					
 					$data['content']->category_id = $this->documents->get_parent_ids("document2category", "category_id", "document_id", $id);
+				}
+				
+				if($type == "manufacturer")
+				{
+					$data['content']->category_id = $this->documents->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $id);
+					$data['content']->goods_category_id = $this->documents->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
+					$data['content']->distributor = $this->documents->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
 				}
 				
 				// Галлерея
@@ -225,6 +246,8 @@ class Content extends Admin_Controller
 			if($type == "documents")
 			{
 				if(isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
+				
+				
 	
 				if(isset($_FILES["upload_document"]))
 				{
@@ -264,11 +287,29 @@ class Content extends Admin_Controller
 					$this->db->where('document_id', $data['content']->id);
 					$this->db->delete("document2category");
 				}
+				
+				if($type == "manufacturer")
+				{
+					$this->db->where('manufacturer_id', $data['content']->id);
+					$this->db->delete("manufacturer2category");
+					
+					$this->db->where('manufacturer_id', $data['content']->id);
+					$this->db->delete("manufacturer2categorygoods");
+					
+					$this->db->where('distributor_2', $data['content']->id);
+					$this->db->delete("manufacturer2manufacturer");
+				}
 			}
 			
 			if($fixing_name) $this->$type->insert_fixing_info($fixing_base, $fixing_name, "child_id", $data['content']->id);
 			if($type == "products") $this->$type->insert_fixing_info("product2collection", "collection_parent_id", "child_id", $data['content']->id);
 			if($type == "documents") $this->$type->insert_fixing_info("document2category", "category_id", "document_id", $data['content']->id);
+			if($type == "manufacturer")
+			{
+				$this->$type->insert_fixing_info("manufacturer2category", "category_id", "manufacturer_id", $data['content']->id);
+				$this->$type->insert_fixing_info("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $data['content']->id);
+				$this->$type->insert_fixing_info("manufacturer2manufacturer", "distributor", "distributor_2", $data['content']->id);
+			}
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения

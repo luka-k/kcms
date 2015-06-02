@@ -11,7 +11,10 @@ class Manufacturer extends MY_Model
 			'email' => array('email', 'text'),
 			'country' => array('Страна', 'text'),
 			'city' => array('city', 'text'),
-			'link' => array('Ссылка на сайт', 'text')
+			'link' => array('Ссылка на сайт', 'text'),
+			'category_id' => array('Категория', 'manufacturer2category'),
+			'goods_category_id' => array('Категория товаров', 'manufacturer2category'),
+			'distributor' => array('Продавцы', 'manufacturer2manufacturer'),
 		),	
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

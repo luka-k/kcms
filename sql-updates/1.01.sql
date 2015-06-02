@@ -15,6 +15,22 @@ ALTER TABLE categories ADD accusative_name VARCHAR(255) after name;
 ALTER TABLE categories ADD genitive_name VARCHAR(255) after accusative_name;
 ALTER TABLE categories ADD seo_text text after url;
 
+/*привязка производителей и категорий*/
+CREATE TABLE manufacturer2category(
+	category_id INT(11),
+	manufacturer_id INT(11)
+)
+
+CREATE TABLE manufacturer2categorygoods(
+	goods_category_id INT(11),
+	manufacturer_id INT(11)
+)
+
+CREATE TABLE manufacturer2manufacturer(
+	distributor INT(11),
+	distributor_2 INT(11)
+)
+
 /*services*/
 CREATE TABLE services (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
