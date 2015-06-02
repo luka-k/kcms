@@ -1,4 +1,45 @@
 <script>
+	$(document).ready(function(){
+		$(".manufacturer_id").on('change', function(){
+			data = $(this).val()
+
+			var json_str = JSON.stringify(data);
+			$.post ("/admin/admin_ajax/categories_by_manufacturer/", json_str, function(answer){
+				$("#categories_by_manufacturer").html("");
+				$("#categories_by_manufacturer").append(answer);
+			}, "json");
+		});
+	});
+	
+	function checked_tree(parent_id, type, action){
+		var form = $('#form1'),
+		inputs = form.find('input.'+type+'-branch-'+parent_id);
+
+		var counter_1 = 0;
+		var counter_2 = 0;
+		inputs.each(function(){
+			var element = $(this);
+			if(action == "fork"){
+				if($("#"+type+"-fork-"+parent_id).prop("checked")){
+					element.prop("checked", true);
+				}else{
+					element.prop("checked", false);
+				}
+			}else if(action == "child"){
+				counter_1++;
+				if(element.prop("checked") == false){
+					$("#"+type+"-fork-"+parent_id).prop("checked", false);
+				}else{
+					counter_2++;
+				}
+				
+				if(counter_1 == counter_2){
+					$("#"+type+"-fork-"+parent_id).prop("checked", true);
+				}
+			}
+		});
+	}
+	
 	$(function() {
 		$('.sortable').sortable({
 			cursor:'move',
@@ -14,7 +55,7 @@
 			}
 		});
 	});
-	
+		
 	function delete_item(base_url, type, item_id, item_name){
 		var href;
 		href = base_url+"admin/content/delete_item/"+type+"/"+item_id;

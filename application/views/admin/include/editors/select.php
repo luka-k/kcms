@@ -1,8 +1,8 @@
 <div  class="col_12">
 	<div class="col_2"><label for="lbl_<?=$editors_counter?>"><?=$edit[0]?></label></div>
 	<div class="col_10">
-		<select id="lbl_<?=$editors_counter?>" class="col_12"  name="<?=$edit_name?>">
-			<option <?if ($content->$edit_name == 0):?>selected<?endif;?> value="0">Родитель</option>
+		<select id="lbl_<?=$editors_counter?>" class="<?=$edit_name?> col_12"  name="<?=$edit_name?>">
+			<option <?if ($content->$edit_name == 0):?>selected<?endif;?> value="0">Сделайте свой выбор</option>
 			<?php foreach ($selects[$edit_name] as $select): ?>
 				<option class="option-1 <?if(!empty($select->childs)):?>have_child<?endif;?>" value="<?=$select->id?>" <?if ($content->$edit_name == $select->id):?>selected<?endif;?><?if(isset($select->disabled)):?>disabled<?endif;?>>
 					<?=$select->name?>

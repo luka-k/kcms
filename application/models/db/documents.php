@@ -14,8 +14,11 @@ class Documents extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'is_active' => array('выключен', 'checkbox'),
-			'sort' => array('Сортировка', 'text'),
-			'description' => array('Описание', 'tiny', 'trim')
+			'doc_type' => array('Тип', 'doc_type', '', ''),
+			'manufacturer_id' => array('Производитель', 'select', '', ''),
+			'category_id' => array('Производитель', 'd2c', '', ''),
+			'sort' => array('Сортировка', 'hidden'),
+			'description' => array('Описание', 'textarea', 'trim')
 		),
 		'Файл' => array(
 			'url' => array('ссылка', 'text', ''),

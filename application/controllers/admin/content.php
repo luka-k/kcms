@@ -118,11 +118,17 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $tree;
 		}
 		
-		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
+		if($type == "documents") 
+		{
+			$data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
+			
+			$this->config->load('types');
+			$data['doc_types'] = $this->config->item('doc_type');
+		}
 		
 		if($type == "characteristics_type") 
 		{
-			$this->config->load('characteristics');
+			$this->config->load('types');
 			$data['selects']['view_type'] = $this->config->item('view_type');
 		}
 		
@@ -142,14 +148,25 @@ class Content extends Admin_Controller
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 				if($type == "products") $data['content']->collections_id = array();
-				if($type == "emails") $data['content']->type = 2;				
+				if($type == "emails") $data['content']->type = 2;		
+				if($type = "documents") $data['category_by_manufacturer'] = $this->categories->get_tree(FALSE, array(), "admin");
 			}	
 			else
 			{			
 				$data['content'] = $this->$type->get_item($id);
 				
-				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", "category_parent_id", $id);
-				if($type == "products") $data['content']->collections_id = $this->products->get_parent_ids("product2collection", "collection_parent_id", $id);
+				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", "category_parent_id", "child_id", $id);
+				if($type == "products") $data['content']->collections_id = $this->products->get_parent_ids("product2collection", "collection_parent_id", "child_id", $id);
+				
+				if($type == "documents")
+				{
+					$data['content']->doc_type = explode(":", $data['content']->doc_type);
+					
+					$products = $this->products->get_list(array("manufacturer_id" => $data['content'] -> manufacturer_id));
+					$data['category_by_manufacturer'] = $this->categories->get_tree($products, array());
+					
+					$data['content']->category_id = $this->documents->get_parent_ids("document2category", "category_id", "document_id", $id);
+				}
 				
 				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
@@ -205,12 +222,17 @@ class Content extends Admin_Controller
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 			
 			//Документы
-			if($type == "documents" && isset($_FILES["upload_document"]))
+			if($type == "documents")
 			{
-				if($_FILES["upload_document"]['error'] == UPLOAD_ERR_OK)
-				{				
-					$data['content']->url = $this->documents->upload($_FILES["upload_document"], $data['content']->id);
-				}					
+				if(isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
+	
+				if(isset($_FILES["upload_document"]))
+				{
+					if($_FILES["upload_document"]['error'] == UPLOAD_ERR_OK)
+					{				
+						$data['content']->url = $this->documents->upload($_FILES["upload_document"], $data['content']->id);
+					}
+				}
 			}
 					
 			if($data['content']->id == FALSE)
@@ -235,10 +257,18 @@ class Content extends Admin_Controller
 					$this->db->where('child_id', $data['content']->id);
 					$this->db->delete("product2collection");
 				}
+				
+				
+				if($type == "documents")
+				{
+					$this->db->where('document_id', $data['content']->id);
+					$this->db->delete("document2category");
+				}
 			}
 			
-			if($fixing_name) $this->$type->insert_fixing_info($fixing_base, $fixing_name, $data['content']->id);
-			if($type == "products") $this->$type->insert_fixing_info("product2collection", "collection_parent_id", $data['content']->id);
+			if($fixing_name) $this->$type->insert_fixing_info($fixing_base, $fixing_name, "child_id", $data['content']->id);
+			if($type == "products") $this->$type->insert_fixing_info("product2collection", "collection_parent_id", "child_id", $data['content']->id);
+			if($type == "documents") $this->$type->insert_fixing_info("document2category", "category_id", "document_id", $data['content']->id);
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения

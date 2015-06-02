@@ -4,7 +4,7 @@
 		<select id="lbl_<?=$editors_counter?>"  
 				name="<?=$edit_name?>" 
 				class="col_12">
-			<option>Выберите тип</option>
+			<option>Выберите</option>
 			<?php foreach ($selects[$edit_name] as $value => $name): ?>
 				<option value="<?=$value?>" <?if($value == $content->$edit_name):?>selected<?endif;?>>
 					<?=$name?>

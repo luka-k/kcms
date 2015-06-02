@@ -18,7 +18,7 @@ class Catalog extends Client_Controller {
 		
 		$this->benchmark->mark('code_start');
 		
-		$this->config->load('characteristics');
+		$this->config->load('types');
 		
 		$this->get = $this->input->get();
 		$this->post = $this->input->post();

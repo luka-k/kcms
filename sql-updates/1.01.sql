@@ -43,10 +43,17 @@ CREATE TABLE documents (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
 	is_active TINYINT(1),
+	doc_type VARCHAR(255),
+	manufacturer_id int(11),
 	sort INT(11),
 	description TEXT,
 	url VARCHAR(255)
 );
+
+CREATE TABLE document2category(
+	category_id INT(11),
+	document_id INT(11)
+)
 
 /*Изменение в меню*/
 UPDATE `menus_items` SET `parent_id` = '6' WHERE `id` =35;

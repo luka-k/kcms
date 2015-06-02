@@ -87,4 +87,16 @@ class Admin_ajax extends Admin_Controller
 			
 		echo json_encode($answer);
 	}
+	
+	public function categories_by_manufacturer()
+	{
+		$manufacturer_id = json_decode(file_get_contents('php://input', true));
+		
+		$products = $this->products->get_list(array("manufacturer_id" => $manufacturer_id));
+		$data['category_by_manufacturer'] = $this->categories->get_tree($products, array());
+		
+		$content = $this->load->view('admin/include/ajax_tree.php', $data, TRUE);
+		
+		echo json_encode($content);
+	}
 }
