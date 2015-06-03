@@ -1,6 +1,6 @@
-<div class="category_select col_12 clearfix">
+<div class="category_select col_12 clearfix" >
 	<div for="lbl_<?=$editors_counter?>" class="col_2"><?=$edit[0]?></div>
-	<div class="col_10">
+	<div class="col_10" style="height:250px; overflow-y:scroll;">
 		<?$ch_counter = 0?>
 		<?foreach ($selects[$edit_name] as $select): ?>
 			<div class="col_12 clearfix">
@@ -10,7 +10,8 @@
 					    type="checkbox" 
 					    name="<?=$edit_name?>[]" 
 					    value="<?=$select->id?>" 
-						<?foreach($content->collections_id as $collection_id):?> <?if($collection_id == $select->id):?>checked<?endif;?> <?endforeach;?>/>
+						<?if(in_array($select->id, $content->product2collection)):?>checked<?endif;?>
+					/>
 				</div>
 				<div class="col_11"><label for="cch-2_<?=$ch_counter?>"><b><?=$select->name?></b></label></div>
 				<?$ch_counter++?>
@@ -24,7 +25,8 @@
 											   type="checkbox" 
 											   name="<?=$edit_name?>[]" 
 											   value="<?=$level->id?>" 
-											   <?foreach($content->collections_id as $collection_id):?> <?if($collection_id == $level->id):?>checked<?endif;?> <?endforeach;?> "/>
+											   <?if(in_array($level->id, $content->product2collection)):?>checked<?endif;?>"
+										/>
 									</div>
 									<div class="col_11"><label for="cch-2_<?=$ch_counter?>"><?=$level->name?></label></div>
 							</div>

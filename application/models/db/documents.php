@@ -16,7 +16,7 @@ class Documents extends MY_Model
 			'is_active' => array('выключен', 'checkbox'),
 			'doc_type' => array('Тип', 'doc_type', '', ''),
 			'manufacturer_id' => array('Производитель', 'select', '', ''),
-			'category_id' => array('Производитель', 'd2c', '', ''),
+			'document2category' => array('Производитель', 'document2category', '', ''),
 			'sort' => array('Сортировка', 'hidden'),
 			'description' => array('Описание', 'textarea', 'trim')
 		),

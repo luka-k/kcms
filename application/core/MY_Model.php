@@ -558,50 +558,7 @@ class MY_Model extends CI_Model
 		}
 		return $info;
 	}
-	
-	/**
-	* Возращает ids родительских категорий
-	*
-	* @param string $base - база из которой брать привязки("category2category", "product2category")
-	* @param string $field_name
-	* @param integer $child_id
-	*/
-	public function get_parent_ids($base, $field_name_1, $field_name_2, $child_id)
-	{
-		$query = $this->db->get_where($base, array($field_name_2 => $child_id));
-		$items = $query->result_array();
-
-		$parent_ids = array();
-		foreach($items as $item)
-		{
-			$parent_ids[] = $item[$field_name_1];
-		}
 		
-		return $parent_ids;
-	}
-	
-	/**
-	*
-	*
-	*/
-	public function insert_fixing_info($fixing_base, $field_name_1, $field_name_2, $id)
-	{
-		$fixing_info = $this->input->post($field_name_1);
-				
-		if($fixing_info && is_array($fixing_info))
-		{
-			$fixing_info = array_unique($fixing_info);
-			foreach($fixing_info  as $item)
-			{	
-				$this->db->insert($fixing_base, array($field_name_1 => $item, $field_name_2 => $id));
-			}
-		}
-		else
-		{
-			$this->db->insert($fixing_base, array($field_name_1 => 0, $field_name_2 => $id));
-		}
-	}
-	
 	/**
 	* Обрабатывает данные перед внесением в базу
 	*

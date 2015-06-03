@@ -31,7 +31,7 @@ class Products extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'manufacturer_id' => array('Производитель', 'select'),
 			'parent_id' => array('Категория', 'select_parent_id'),
-			'collection_parent_id' => array('Коллекция', 'product2collection', 'fixing_2'),
+			'product2collection' => array('Коллекция', 'product2collection'),
 			'manufacturer_id' => array('Производитель', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
 			'is_new' => array('Новинка', 'checkbox'),

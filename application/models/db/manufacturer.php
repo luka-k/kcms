@@ -12,9 +12,9 @@ class Manufacturer extends MY_Model
 			'country' => array('Страна', 'text'),
 			'city' => array('city', 'text'),
 			'link' => array('Ссылка на сайт', 'text'),
-			'category_id' => array('Категория', 'manufacturer2category'),
-			'goods_category_id' => array('Категория товаров', 'manufacturer2category'),
-			'distributor' => array('Продавцы', 'manufacturer2manufacturer'),
+			'manufacturer2category' => array('Категория', 'manufacturer2category'),
+			'manufacturer2categorygoods' => array('Категория товаров', 'manufacturer2category'),
+			'manufacturer2manufacturer' => array('Продавцы', 'manufacturer2manufacturer'),
 		),	
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

@@ -2,7 +2,7 @@
 	<div class="col_2"><?=$edit['0']?></div>
 	<div class="col_10" style="height:250px; overflow-y:scroll;">
 		<div class="col_12">
-			<?foreach($selects['category_parent_id'] as $category):?>
+			<?foreach($selects['category2category'] as $category):?>
 				<div>
 					<input type="checkbox" 
 						   id="<?=$edit_name?>-fork-<?=$category->id?>"

@@ -104,9 +104,9 @@ class Content extends Admin_Controller
 			'tree' => $this->categories->get_tree(0, "category_parent_id")
 		);
 			
-		$data['selects']['category_parent_id'] = $this->categories->get_tree(0, "category_parent_id", "admin");
+		$data['selects']['category2category'] = $this->categories->get_tree(0, "category_parent_id", "admin");
 		$data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
-		$data['selects']['collection_parent_id'] = $this->collections->get_tree(0, "parent_id");
+		$data['selects']['product2collection'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturer->get_list(FALSE);
 
 		$data = array_merge($this->standart_data, $data);
@@ -138,11 +138,11 @@ class Content extends Admin_Controller
 			$this->db->select("manufacturer_id");
 			$result = $this->db->get("manufacturer2categorygoods")->result();
 			
-			$data['distributors'] = array();
+			$data['manufacturer2manufacturer'] = array();
 			if($result) foreach($result as $r)
 			{
 				$distributor = $this->manufacturer->get_item($r->manufacturer_id);
-				$data['distributors'][] = $distributor;
+				$data['manufacturer2manufacturer'][] = $distributor;
 			}
 		}
 		
@@ -163,30 +163,30 @@ class Content extends Admin_Controller
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 				if($type == "products") $data['content']->collections_id = array();
 				if($type == "emails") $data['content']->type = 2;		
-				if($type = "documents") $data['category_by_manufacturer'] = $this->categories->get_tree(FALSE, array(), "admin");
+				if($type = "documents") $data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
 			}	
 			else
 			{			
 				$data['content'] = $this->$type->get_item($id);
 				
-				if($type == "categories") $data['content']->parent_id = $this->categories->get_parent_ids("category2category", "category_parent_id", "child_id", $id);
-				if($type == "products") $data['content']->collections_id = $this->products->get_parent_ids("product2collection", "collection_parent_id", "child_id", $id);
+				if($type == "categories") $data['content']->category2category = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $id);
+				if($type == "products") $data['content']->product2collection = $this->table2table->get_parent_ids("product2collection", "collection_parent_id", "child_id", $id);
 				
 				if($type == "documents")
 				{
 					$data['content']->doc_type = explode(":", $data['content']->doc_type);
 					
 					$products = $this->products->get_list(array("manufacturer_id" => $data['content'] -> manufacturer_id));
-					$data['category_by_manufacturer'] = $this->categories->get_tree($products, array());
+					$data['document2category'] = $this->categories->get_tree($products, array());
 					
-					$data['content']->category_id = $this->documents->get_parent_ids("document2category", "category_id", "document_id", $id);
+					$data['content']->document2category = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $id);
 				}
 				
 				if($type == "manufacturer")
 				{
-					$data['content']->category_id = $this->documents->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $id);
-					$data['content']->goods_category_id = $this->documents->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
-					$data['content']->distributor = $this->documents->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
+					$data['content']->manufacturer2category = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $id);
+					$data['content']->manufacturer2categorygoods = $this->table2table->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
+					$data['content']->manufacturer2manufacturer = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
 				}
 				
 				// Галлерея
@@ -234,11 +234,7 @@ class Content extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post();
-			
-			//fixing - привязка
-			$fixing_name = editors_get_name_field('fixing', $data['editors']);
-			$fixing_base = $type == "categories" ? "category2category" : "product2category";
-			
+					
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 			
@@ -269,46 +265,26 @@ class Content extends Admin_Controller
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
 				
-				if($fixing_name)
-				{
-					$this->db->where('child_id', $data['content']->id);
-					$this->db->delete($fixing_base);
-				}
-				
-				if($type == "products")
-				{
-					$this->db->where('child_id', $data['content']->id);
-					$this->db->delete("product2collection");
-				}
-				
-				
-				if($type == "documents")
-				{
-					$this->db->where('document_id', $data['content']->id);
-					$this->db->delete("document2category");
-				}
-				
+				if($type == "categories") $this->table2table->delete_fixing("category2category", "child_id", $data['content']->id);
+				if($type == "products") $this->table2table->delete_fixing("product2collection", "child_id", $data['content']->id);
+				if($type == "documents") $this->table2table->delete_fixing("document2category", "document_id", $data['content']->id);
 				if($type == "manufacturer")
 				{
-					$this->db->where('manufacturer_id', $data['content']->id);
-					$this->db->delete("manufacturer2category");
-					
-					$this->db->where('manufacturer_id', $data['content']->id);
-					$this->db->delete("manufacturer2categorygoods");
-					
-					$this->db->where('distributor_2', $data['content']->id);
-					$this->db->delete("manufacturer2manufacturer");
+					$this->table2table->delete_fixing("manufacturer2category", "manufacturer_id", $data['content']->id);
+					$this->table2table->delete_fixing("manufacturer2categorygoods", "manufacturer_id", $data['content']->id);
+					$this->table2table->delete_fixing("manufacturer2manufacturer", "distributor_2", $data['content']->id);
 				}
 			}
 			
-			if($fixing_name) $this->$type->insert_fixing_info($fixing_base, $fixing_name, "child_id", $data['content']->id);
-			if($type == "products") $this->$type->insert_fixing_info("product2collection", "collection_parent_id", "child_id", $data['content']->id);
-			if($type == "documents") $this->$type->insert_fixing_info("document2category", "category_id", "document_id", $data['content']->id);
+			//Привязки таблиц
+			if($type == "categories") $this->table2table->set_tables_fixing("category2category", "category_parent_id", "child_id", $data['content']->id);
+			if($type == "products") $this->table2table->set_tables_fixing("product2collection", "collection_parent_id", "child_id", $data['content']->id);
+			if($type == "documents") $this->table2table->set_tables_fixing("document2category", "category_id", "document_id", $data['content']->id);
 			if($type == "manufacturer")
 			{
-				$this->$type->insert_fixing_info("manufacturer2category", "category_id", "manufacturer_id", $data['content']->id);
-				$this->$type->insert_fixing_info("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $data['content']->id);
-				$this->$type->insert_fixing_info("manufacturer2manufacturer", "distributor", "distributor_2", $data['content']->id);
+				$this->table2table->set_tables_fixing("manufacturer2category", "category_id", "manufacturer_id", $data['content']->id);
+				$this->table2table->set_tables_fixing("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $data['content']->id);
+				$this->table2table->set_tables_fixing("manufacturer2manufacturer", "distributor", "distributor_2", $data['content']->id);
 			}
 			
 			$field_name = editors_get_name_field('img', $data['editors']);

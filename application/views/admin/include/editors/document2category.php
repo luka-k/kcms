@@ -2,7 +2,7 @@
 	<div class="col_2"><?=$edit['0']?></div>
 	<div id="categories_by_manufacturer" class="col_10">
 		<div class="col_12">
-			<?foreach($category_by_manufacturer as $category):?>
+			<?foreach($document2category as $category):?>
 				<div>
 					<input type="checkbox" 
 						   id="c-fork-<?=$category->id?>"
