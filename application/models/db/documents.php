@@ -22,7 +22,7 @@ class Documents extends MY_Model
 		),
 		'Файл' => array(
 			'url' => array('ссылка', 'text', ''),
-			'upload_document' =>  array('Загрузка файла', 'upload_document'),
+			'upload_file' =>  array('Загрузка файла', 'upload_file', 'upload_file'),
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
@@ -39,29 +39,28 @@ class Documents extends MY_Model
         parent::__construct();
 	}
 	
-	public function upload($file, $doc_id)
+	public function get_doc_by_manufacturer($id)
 	{
-		$upload_path = $this->config->item('files_upload_path');
+		$result = $this->db->get_where($this->_table, array("manufacturer_id" => $id))->result();
 		
-		$file_info = $this->images->get_unique_info($file['name']);
-		$file_path = trim(make_upload_path($file_info->name, $upload_path).$file_info->name);
-					
-		if(!move_uploaded_file($file["tmp_name"], $file_path)) return FALSE;
-		
-		if($doc_id)
-		{
-			$document = $this->get_item($doc_id);
-			if(!empty($document->url))
-			{
-				if(file_exists($upload_path.$document->url)) unlink($upload_path.$document->url);
-			}
-		}
-		
-		return $file_info->url;
+		return $result;
 	}
-	
+		
 	function prepare($item)
 	{
-		return $item;
+		if(!empty($item))
+		{
+			$file = $this->files->get_item_by(array("object_id" => $item->id, "object_type" => "documents"));
+			if($file)
+			{
+				$file = $this->files->prepare($file);
+				$item->full_url = $file->full_url;
+			}
+			else
+			{
+				$item->full_url = $file->url;
+			}
+			return $item;
+		}
 	}
 }

@@ -284,7 +284,7 @@ class Images extends MY_Model
 		$img = $this->get_item_by(array('object_type' => $object_info['object_type'], 'id' =>$object_info['id']));
 		$this->delete($object_info['id']);
 		
-		$upload_path = $this->config->item('upload_path');
+		$upload_path = $this->config->item('images_upload_path');
 		$thumb_info = $this->config->item('thumb_config');
 		foreach ($thumb_info as $path => $item)
 		{

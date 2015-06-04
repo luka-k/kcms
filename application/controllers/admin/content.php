@@ -163,7 +163,8 @@ class Content extends Admin_Controller
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 				if($type == "products") $data['content']->collections_id = array();
 				if($type == "emails") $data['content']->type = 2;		
-				if($type = "documents") $data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
+				if($type == "documents") $data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
+				if($type == "manufacturer") $data['content']->documents = array();
 			}	
 			else
 			{			
@@ -184,6 +185,7 @@ class Content extends Admin_Controller
 				
 				if($type == "manufacturer")
 				{
+					if($type == "manufacturer") $data['content']->documents = $this->documents->prepare_list($this->documents->get_doc_by_manufacturer($id));
 					$data['content']->manufacturer2category = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $id);
 					$data['content']->manufacturer2categorygoods = $this->table2table->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
 					$data['content']->manufacturer2manufacturer = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
@@ -204,6 +206,10 @@ class Content extends Admin_Controller
 					}
 				}
 				
+				// Файлы
+				$is_file = editors_get_name_field('upload_file', $data['editors']);
+				if($is_file) $data['content']->files = $this->files->prepare_list($this->files->get_list(array("object_type" => $type, "object_id" => $data['content']->id)));
+
 				// Характеристики
 				if(!empty($is_characteristics))
 				{
@@ -234,26 +240,13 @@ class Content extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post();
-					
-			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
-			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 			
 			//Документы
-			if($type == "documents")
-			{
-				if(isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
-				
-				
-	
-				if(isset($_FILES["upload_document"]))
-				{
-					if($_FILES["upload_document"]['error'] == UPLOAD_ERR_OK)
-					{				
-						$data['content']->url = $this->documents->upload($_FILES["upload_document"], $data['content']->id);
-					}
-				}
-			}
-					
+			if($type == "documents" && isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
+								
+			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
+			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
+								
 			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
@@ -276,6 +269,7 @@ class Content extends Admin_Controller
 				}
 			}
 			
+					
 			//Привязки таблиц
 			if($type == "categories") $this->table2table->set_tables_fixing("category2category", "category_parent_id", "child_id", $data['content']->id);
 			if($type == "products") $this->table2table->set_tables_fixing("product2collection", "collection_parent_id", "child_id", $data['content']->id);
@@ -349,6 +343,21 @@ class Content extends Admin_Controller
 					}
 				}	
 			}
+			
+			if(isset($_FILES["upload_file"]))
+			{
+				if($_FILES["upload_file"]['error'] == UPLOAD_ERR_OK)
+				{				
+					$object_info = array(
+						"object_type" => $type,
+						"object_id" => $data['content']->id
+					);
+					$file_url = $this->files->upload($_FILES["upload_file"], $object_info);
+				}
+				
+				if($type == "documents") $this->documents->update($data['content']->id, array("url" => $file_url));
+			}
+			
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
@@ -447,6 +456,20 @@ class Content extends Admin_Controller
 		$info = json_decode(file_get_contents('php://input', true));
 		
 		$this->images->update($info->id, array("name" => $info->name));
+	}
+	
+	/**
+	* Удаление файла
+	* 
+	* @param string $type - тип изображения(категория)
+	* @param integer $id - id изображения
+	* @param integer $tab - номер вкладки с изображениями.
+	*/
+	public function delete_file($type, $id, $tab)
+	{
+		$item_id = $this->files->delete($id);
+		
+		redirect(base_url().'admin/content/item/edit/'.$type."/".$item_id."#tab_".$tab);
 	}
 	
 	/**

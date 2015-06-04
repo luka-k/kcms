@@ -25,7 +25,13 @@ class Manufacturer extends MY_Model
 		),		
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image', 'img')
-		)
+		),
+		'Складские остатки' => array(
+			'upload_file' =>  array('Складские остатки', 'upload_file', 'upload_file'),
+		),
+		'Документы' => array(
+			'documents' =>  array('Документы', 'documents'),
+		),
 	);
 	
 	function __construct()

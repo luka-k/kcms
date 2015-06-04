@@ -78,3 +78,12 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort` , `descr
 (37, 1, 'Услуги', 6, 6, '', 'link', '/admin/content/items/services/all'),
 (38, 1, 'Услуги', 6, 6, '', 'link', '/admin/content/items/documents/all');
 
+CREATE TABLE IF NOT EXISTS `files` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+	`object_id` int(11) NOT NULL,
+	`url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `object_type_object_id` (`object_type`,`object_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11;
+

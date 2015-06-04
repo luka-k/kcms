@@ -145,6 +145,7 @@ $autoload['model'] = array(
 	'db/collections',
 	'db/services',
 	'db/documents',
+	'db/files',
 	'table2table'
 );
 
