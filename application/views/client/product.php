@@ -271,9 +271,11 @@
 				</aside>
 			</div>
 		</div>
-		<? if (count($filters_checked) < 4): ?>
-			<div id="shadow"></div>
-		<? endif ?>
+		
+		<div id="shadow">
+			<a href="<?=base_url()?>catalog/filtred/<?=$last_cache_id?>" class="shadow-btn">Перейти к списку товаров</a>
+		</div>
+		
 	</form>
 	</body>
 	<script>

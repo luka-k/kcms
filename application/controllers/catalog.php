@@ -182,14 +182,16 @@ class Catalog extends Client_Controller {
 	/**
 	* Вывод товаров по фильтру
 	*/
-	public function filtred()
+	public function filtred($last_cache_id = FALSE)
 	{	
-		$cache_id = md5(serialize($this->post));
+		
+		$cache_id = $last_cache_id ? $last_cache_id : md5(serialize($this->post));
 		$cache = $this->filters_cache->get($cache_id);
 		//$cache = FALSE;
 		if($cache)
 		{
 			$data = $cache;
+			$this->filters_cache->set_last($cache_id);
 			$this->benchmark->mark('code_end');
 		}
 		else
@@ -257,6 +259,7 @@ class Catalog extends Client_Controller {
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
 			$this->filters_cache->insert($cache_id, $data);
+			$this->filters_cache->set_last($cache_id);
 			$this->benchmark->mark('code_end');
 		}
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
@@ -270,6 +273,10 @@ class Catalog extends Client_Controller {
 	*/
 	private function product($content)
 	{
+		$cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
+		//$cache = FALSE;
+		//if($cache) $data = $cache;
+		//my_dump($cache_data);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 
 		$this->session->unset_userdata("pre_cart");
@@ -279,6 +286,23 @@ class Catalog extends Client_Controller {
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE, TRUE),
+			'filters_checked' => $cache_data['filters_checked'],
+			'filters' => $cache_data['filters'],
+			'left_menu' => $cache_data['left_menu'],
+			'collection' => $cache_data['collection'],
+			'manufacturer' => $cache_data['manufacturer'],
+			'sku_tree' => $cache_data['sku_tree'],
+			'categories_ch' => $cache_data['categories_ch'],
+			'manufacturer_ch' => $cache_data['manufacturer_ch'],
+			'collections_ch' => $cache_data['collections_ch'],
+			'sku_ch' => $cache_data['sku_ch'],
+			'shortname_ch' => $cache_data['shortname_ch'],
+			'shortdesc_ch' => $cache_data['shortdesc_ch'],
+			'color_ch' => $cache_data['color_ch'],
+			'material_ch' => $cache_data['material_ch'],
+			'finishing_ch' => $cache_data['finishing_ch'],
+			'turn_ch' => $cache_data['turn_ch'],
+			'last_cache_id' => $this->session->userdata('last_cache_id')
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 

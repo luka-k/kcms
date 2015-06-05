@@ -28,5 +28,10 @@ class Filters_cache extends MY_Model
 	{
 		$cache = $this->get_item_by(array("id" => $cache_id));
 		return $cache ? unserialize($cache->cache_data): FALSE;
-	}	
+	}
+	
+	public function set_last($cache_id)
+	{
+		$this->session->set_userdata(array('last_cache_id' => $cache_id));
+	}
 }

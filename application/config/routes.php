@@ -47,6 +47,7 @@ $route['registration/(:any)'] = 'registration/$1';
 
 $route['catalog/count'] = 'catalog/count';
 $route['catalog/ajax_more'] = 'catalog/ajax_more';
+$route['catalog/filtred/(:any)'] = 'catalog/filtred/$1';
 $route['catalog'] = 'catalog/index';
 $route['catalog/(:any)'] = 'catalog/index/$1';
 $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
