@@ -1,0 +1,32 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+* Filers_cache class
+*
+* @package		kcms
+* @subpackage	Models
+* @category	    Filters_cache
+*/
+class Filters_cache extends MY_Model
+{
+	function __construct()
+	{
+        parent::__construct();
+	}
+	
+	public function insert($cache_id, $cache_data)
+	{
+		$data = array(
+			"id" => $cache_id,
+			"cache_data" => serialize($cache_data)
+		);
+
+		$this->db->insert($this->_table, $data);
+	}
+	
+	public function get($cache_id)
+	{
+		$cache = $this->get_item_by(array("id" => $cache_id));
+		return $cache ? unserialize($cache->cache_data): FALSE;
+	}	
+}

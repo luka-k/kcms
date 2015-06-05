@@ -185,7 +185,7 @@ class Catalog extends Client_Controller {
 	public function filtred()
 	{	
 		$cache_id = md5(serialize($this->post));
-		$cache = $this->file_cache->get($cache_id);
+		$cache = $this->filters_cache->get($cache_id);
 		//$cache = FALSE;
 		if($cache)
 		{
@@ -256,7 +256,7 @@ class Catalog extends Client_Controller {
 			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
-			$this->file_cache->insert($cache_id, $data);
+			$this->filters_cache->insert($cache_id, $data);
 			$this->benchmark->mark('code_end');
 		}
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
