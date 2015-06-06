@@ -92,7 +92,9 @@ class Catalog extends Client_Controller {
 		
 		if(isset($this->post['filter']))
 		{
-			 $this->filtred();
+			
+		
+			 $this->get_by_filter();
 		}
 		else
 		{		
@@ -182,17 +184,14 @@ class Catalog extends Client_Controller {
 	/**
 	* Вывод товаров по фильтру
 	*/
-	public function filtred($last_cache_id = FALSE)
+	public function get_by_filter()
 	{	
-		
-		$cache_id = $last_cache_id ? $last_cache_id : md5(serialize($this->post));
+		$cache_id = md5(serialize($this->post));
 		$cache = $this->filters_cache->get($cache_id);
 		//$cache = FALSE;
 		if($cache)
 		{
-			$data = $cache;
-			$this->filters_cache->set_last($cache_id);
-			$this->benchmark->mark('code_end');
+			redirect(base_url()."catalog/filter/".$cache_id);
 		}
 		else
 		{	
@@ -259,10 +258,17 @@ class Catalog extends Client_Controller {
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
 			$this->filters_cache->insert($cache_id, $data);
-			$this->filters_cache->set_last($cache_id);
 			$this->benchmark->mark('code_end');
+			
+			redirect(base_url()."catalog/filter/".$cache_id);
 		}
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
+	}
+	
+	public function filter($cache_id)
+	{
+		$this->filters_cache->set_last($cache_id);
+		$data = $this->filters_cache->get($cache_id);		
 		$this->load->view("client/categories", $data);
 	}
 	
@@ -274,9 +280,7 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
-		//$cache = FALSE;
-		//if($cache) $data = $cache;
-		//my_dump($cache_data);
+
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 
 		$this->session->unset_userdata("pre_cart");

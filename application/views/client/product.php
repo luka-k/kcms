@@ -273,11 +273,12 @@
 		</div>
 		
 		<div id="shadow">
-			<a href="<?=base_url()?>catalog/filtred/<?=$last_cache_id?>" class="shadow-btn">Перейти к списку товаров</a>
+			<a href="<?=base_url()?>catalog/filter/<?=$last_cache_id?>" class="shadow-btn">Обратно к списку товаров</a>
 		</div>
 		
 	</form>
 	</body>
+
 	<script>
 		$('.accordeon-head').click(function() {
 			$(this).next().slideToggle().toggleClass('noactive');
