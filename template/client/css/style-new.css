@@ -595,9 +595,22 @@ color:#ec1c24;
 			text-align:center;
 		}
 		
+		#full-shadow {
+			display: block;
+			position: absolute;
+			z-index: 10;
+			left: 6px;
+			top: 92px;
+			width: 271px;
+			height: 613px;
+			z-index: 9999;
+			background: url(/template/client/images-new/shadow-back.png);
+			text-align:center;
+		}
+		
 		.shadow-btn{
 			position: relative;
-			top:12px;
+			top:32px;
 			margin:0 auto;
 			text-decoration:none;
 			background: #7f8fa8;
