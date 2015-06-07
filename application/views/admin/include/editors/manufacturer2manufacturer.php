@@ -1,7 +1,7 @@
 <div  class="col_12">
 	<input type="hidden" name="<?=$edit_name?>[]" value=""/>
 	<div class="col_2"><?=$edit['0']?></div>
-	<div class="col_10">
+	<div class="col_10" style="height:250px; overflow-y:scroll;">
 		<div class="col_12">
 			<?$ch_counter = 1?>
 			<?foreach($manufacturer2manufacturer as $d):?>

@@ -15,18 +15,21 @@ class Admin_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+				
 		$is_logged = $this->session->userdata('logged_in');
 		$user_groups = (array)$this->session->userdata('user_groups');
 		
-		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));	
+		if ((!$is_logged)||(!in_array("admin", $user_groups))) die(redirect(base_url().'admin/registration/login'));
 		
 		$this->standart_data = array(
 			'error' => "",
 			'url' => $this->uri->uri_string(),
 			"menu" => $this->dynamic_menus->get_menu(1)->items,
-			"user" => (array)$this->session->userdata('user')
+			"user" => (array)$this->session->userdata('user'),
+			"user_groups" => $user_groups
 		);
+		
+		if(!$this->users_groups->access_by_manufacturer($this->standart_data['user'])) die(redirect(base_url().'admin/content/access_disabled'));
 		
 		$this->load->helper('admin');
 	}

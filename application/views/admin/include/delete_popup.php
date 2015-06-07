@@ -3,7 +3,7 @@
 	<div class="pop-up">
 		<div>
 			Вы точно уверены что хотите удалалить - <strong id="item_name"></strong>
-			<?if($type == "categories"):?> и все связанные с ней товары и подкатегории<?endif;?>?
+			<?if(isset($type) && $type == "categories"):?> и все связанные с ней товары и подкатегории<?endif;?>?
 		</div><br/>
 		<a href="" class="delete_button button small">Удалить?</a>
 		<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>

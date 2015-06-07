@@ -108,7 +108,7 @@ class Users_module extends Admin_Controller
 			'url' => "/".$this->uri->uri_string()
 		);	
 		$data = array_merge($this->standart_data, $data);
-				
+
 		if($action == "edit")
 		{
 			if($id == FALSE)
@@ -128,8 +128,8 @@ class Users_module extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->users->editors_post();
-
-			if($id == FALSE)
+			
+			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
 				$this->users->insert($data['content']);
@@ -142,8 +142,7 @@ class Users_module extends Admin_Controller
 			}
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
-			//Получаем id эдитора который предназначен для загрузки изображения
-			//Если например нужно две галлереи для товара то делаем в функции editors_get_name_field $field_name массивом и пробегаем ниже по нему
+			
 			if(!empty($field_name))
 			{
 				$object_info = array(

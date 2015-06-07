@@ -148,6 +148,8 @@ class Content extends Admin_Controller
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
+		if($type == "users_groups") $data['manufacturer2manufacturer'] = $this->manufacturer->get_list(FALSE);
+		
 		$is_characteristics = editors_get_name_field('ch', $data['editors']);
 		if(!empty($is_characteristics)) $data['ch_select'] = $this->characteristics_type->get_list(FALSE);
 		
@@ -165,6 +167,7 @@ class Content extends Admin_Controller
 				if($type == "emails") $data['content']->type = 2;		
 				if($type == "documents") $data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
 				if($type == "manufacturer") $data['content']->documents = array();
+				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	
 			else
 			{			
@@ -190,6 +193,8 @@ class Content extends Admin_Controller
 					$data['content']->manufacturer2categorygoods = $this->table2table->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
 					$data['content']->manufacturer2manufacturer = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
 				}
+				
+				if($type == "users_groups") $data['content']->users_group2manufacturer = $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $id);
 				
 				// Галлерея
 				$is_image = editors_get_name_field('img', $data['editors']);
@@ -267,6 +272,8 @@ class Content extends Admin_Controller
 					$this->table2table->delete_fixing("manufacturer2categorygoods", "manufacturer_id", $data['content']->id);
 					$this->table2table->delete_fixing("manufacturer2manufacturer", "distributor_2", $data['content']->id);
 				}
+				
+				if($type == "users_groups")	$this->table2table->delete_fixing("users_group2manufacturer", "user_group_id", $data['content']->id);
 			}
 			
 					
@@ -280,6 +287,8 @@ class Content extends Admin_Controller
 				$this->table2table->set_tables_fixing("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $data['content']->id);
 				$this->table2table->set_tables_fixing("manufacturer2manufacturer", "distributor", "distributor_2", $data['content']->id);
 			}
+			
+			if($type == "users_groups")	$this->table2table->set_tables_fixing("users_group2manufacturer", "manufacturer_id", "user_group_id", $data['content']->id);
 			
 			$field_name = editors_get_name_field('img', $data['editors']);
 			//Получаем id эдитора который предназначен для загрузки изображения
@@ -385,6 +394,18 @@ class Content extends Admin_Controller
 			}			
 			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}
+	}
+	
+	public function access_disabled()
+	{
+		$data = array(
+			'title' => "Доступ закрыт",
+			'error' => "",
+			'url' => $this->uri->uri_string()
+		);
+		$data = array_merge($this->standart_data, $data);
+
+		$this->load->view('admin/access_disabled', $data);
 	}
 		
 	/**

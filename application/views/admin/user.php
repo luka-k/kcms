@@ -25,8 +25,8 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
+										<a href="#delete_user" class="btn small lightbox">Удалить</a>
 									</div>
 													
 									<!--editors-->
@@ -39,13 +39,13 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
-										<a href="#delete" class="btn small lightbox">Удалить</a>
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
+										<a href="#delete_user" class="btn small lightbox">Удалить</a>
 									</div>	
 								</div>
 								
 								<!--delete popup-->
-								<div id="delete" style="display:none;">
+								<div id="delete_user" style="display:none;">
 									<div class="pop-up">
 										<div>
 											Вы точно уверены что хотите удалить - <strong><?=$content->name?></strong>?
