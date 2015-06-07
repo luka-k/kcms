@@ -112,6 +112,8 @@ class Catalog extends Client_Controller {
 	*/
 	private function category($content)
 	{	
+		$this->session->unset_userdata('last_cache_id');
+		
 		$data['category'] = new stdClass;
 		$filters_checked = array(
 			"filter" => TRUE, 
@@ -142,7 +144,7 @@ class Catalog extends Client_Controller {
 				$products = $this->products->prepare_list($this->products->get_list(array("parent_id" => $content->id), 0, 10, "sort", "asc"));
 				$filters_checked['categories_checked'] = array(0 => $content->id);
 				
-				$total_rows = $this->products->get_list(array("parent_id" => $content->id), FALSE, FALSE, "sort", "asc");
+				$total_rows = count($this->products->get_list(array("parent_id" => $content->id), FALSE, FALSE, "sort", "asc"));
 			}
 			
 			$products_ids = $this->catalog->get_products_ids($products);
@@ -279,7 +281,9 @@ class Catalog extends Client_Controller {
 	*/
 	private function product($content)
 	{
-		$cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
+		$last_cache_id = $this->session->userdata('last_cache_id');
+		$cache_data = array();
+		if($last_cache_id) $cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
 
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
 
@@ -290,29 +294,33 @@ class Catalog extends Client_Controller {
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE, TRUE),
-			'filters_checked' => $cache_data['filters_checked'],
-			'filters' => $cache_data['filters'],
-			'left_menu' => $cache_data['left_menu'],
-			'collection' => $cache_data['collection'],
-			'manufacturer' => $cache_data['manufacturer'],
-			'sku_tree' => $cache_data['sku_tree'],
-			'categories_ch' => $cache_data['categories_ch'],
-			'manufacturer_ch' => $cache_data['manufacturer_ch'],
-			'collections_ch' => $cache_data['collections_ch'],
-			'sku_ch' => $cache_data['sku_ch'],
-			'shortname_ch' => $cache_data['shortname_ch'],
-			'shortdesc_ch' => $cache_data['shortdesc_ch'],
-			'color_ch' => $cache_data['color_ch'],
-			'material_ch' => $cache_data['material_ch'],
-			'finishing_ch' => $cache_data['finishing_ch'],
-			'turn_ch' => $cache_data['turn_ch'],
-			'last_cache_id' => $this->session->userdata('last_cache_id')
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "recommended"), TRUE);
 		$data['product']->components_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "components"), TRUE);
 		$data['product']->accessories_products = $this->products->prepare_list($this->products->get_anchor($data['product']->id, "accessories"), TRUE);
+		
+		if(!empty($cache_data))
+		{
+			$data['filters_checked'] = $cache_data['filters_checked'];
+			$data['filters'] = $cache_data['filters'];
+			$data['left_menu'] = $cache_data['left_menu'];
+			$data['collection'] = $cache_data['collection'];
+			$data['manufacturer'] = $cache_data['manufacturer'];
+			$data['sku_tree'] = $cache_data['sku_tree'];
+			$data['categories_ch'] = $cache_data['categories_ch'];
+			$data['manufacturer_ch'] = $cache_data['manufacturer_ch'];
+			$data['collections_ch'] = $cache_data['collections_ch'];
+			$data['sku_ch'] = $cache_data['sku_ch'];
+			$data['shortname_ch'] = $cache_data['shortname_ch'];
+			$data['shortdesc_ch'] = $cache_data['shortdesc_ch'];
+			$data['color_ch'] = $cache_data['color_ch'];
+			$data['material_ch'] = $cache_data['material_ch'];
+			$data['finishing_ch'] = $cache_data['finishing_ch'];
+			$data['turn_ch'] = $cache_data['turn_ch'];
+			$data['last_cache_id'] = $this->session->userdata('last_cache_id');
+		}
 
 		$data = array_merge($this->standart_data, $data);
 		
