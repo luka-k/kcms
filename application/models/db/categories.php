@@ -30,7 +30,7 @@ class Categories extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'category2category' => array('Родительская категория', 'category2category'),
-			'is_active' => array('выключен', 'checkbox'),
+			'is_active' => array('Активна', 'checkbox'),
 			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),

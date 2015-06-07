@@ -14,7 +14,7 @@ class Services extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'parent_id' => array('Родитель', 'select'),
-			'is_active' => array('выключен', 'checkbox'),
+			'is_active' => array('Активна', 'checkbox'),
 			'sort' => array('Сортировка', 'text')
 		),
 		'SEO' => array(
@@ -22,7 +22,7 @@ class Services extends MY_Model
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'seo_text' => array('seo_text', 'tiny-2')
+			'seo_text' => array('seo_text', 'tiny')
 		)
 	);
 	

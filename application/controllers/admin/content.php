@@ -240,6 +240,8 @@ class Content extends Admin_Controller
 				$is_accessories = editors_get_name_field('accessories', $data['editors']);
 				if($is_accessories) $data['content']->accessories = $this->products->get_anchor($id, "accessories");
 			}
+			
+			my_dump($data['content']);
 			$this->load->view('admin/item.php', $data);
 		}
 		elseif($action == "save")

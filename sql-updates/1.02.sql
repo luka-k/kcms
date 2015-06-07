@@ -18,3 +18,7 @@ CREATE TABLE IF NOT EXISTS `users_group2manufacturer`(
 	KEY `manufacturer_id` (`manufacturer_id`),
 	KEY `user_group_id` (`user_group_id`)
 )
+
+/*manufacturer*/
+
+ALTER TABLE `manufacturer` CHANGE `is_active` `is_active` TINYINT( 1 ) NULL DEFAULT '1';

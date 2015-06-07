@@ -13,12 +13,12 @@ class Documents extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
-			'is_active' => array('выключен', 'checkbox'),
+			'is_active' => array('Активна', 'checkbox'),
 			'doc_type' => array('Тип', 'doc_type', '', ''),
 			'manufacturer_id' => array('Производитель', 'select', '', ''),
 			'document2category' => array('Категория', 'document2category', '', ''),
 			'sort' => array('Сортировка', 'hidden'),
-			'description' => array('Описание', 'textarea', 'trim')
+			'description' => array('Описание', 'tiny', 'trim')
 		),
 		'Файл' => array(
 			'url' => array('ссылка', 'text', ''),

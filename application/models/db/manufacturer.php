@@ -6,7 +6,7 @@ class Manufacturer extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', "name"),
-			'is_active' => array('Включено', 'checkbox'),
+			'is_active' => array('Активна', 'checkbox'),
 			'phone' => array('Телефон', 'text'),
 			'email' => array('email', 'text'),
 			'country' => array('Страна', 'text'),
