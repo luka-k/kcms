@@ -193,6 +193,32 @@ class MY_Model extends CI_Model
 	}
 	
 	/**
+	* Получение уникальной информации для загрузки(перенес сюда что бы и с файлами работало)
+	*
+	* @param string $img_name
+	*/
+	public function get_unique_info($file_name) 
+	{
+		$file = explode(".", $file_name);
+		//Чистим от лишних символов и транлитируем имя файла.
+		$file[0] = $this->string_edit->slug($file[0]);
+		$name = $file[0].".".$file[1];
+		$url = make_upload_path($name, NULL).$name;
+	
+		$count = 1;
+		while(!($this->is_unique(array("url" => $url))))
+		{
+			$name = $file[0]."[".$count."]".".".$file[1];
+			$url = make_upload_path($name, NULL).$name;
+			$count++;
+		};
+		$unique_info = new stdClass();
+		$unique_info->name = $name;
+		$unique_info->url = $url;
+		return $unique_info;
+	}
+	
+	/**
 	* Добавляет данные в таблицу
 	*
 	* @param array $data

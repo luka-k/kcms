@@ -168,33 +168,7 @@ class Images extends MY_Model
 		}
 		return TRUE;
 	}
-	
-	/**
-	* Получение уникальной информации для загрузки изображения
-	*
-	* @param string $img_name
-	*/
-	public function get_unique_info($img_name) 
-	{
-		$image = explode(".", $img_name);
-		//Чистим от лишних символов и транлитируем имя файла.
-		$image[0] = $this->string_edit->slug($image[0]);
-		$img_name = $image[0].".".$image[1];
-		$url = make_upload_path($img_name, NULL).$img_name;
-	
-		$count = 1;
-		while(!($this->is_unique(array("url" => $url))))
-		{
-			$img_name = $image[0]."[".$count."]".".".$image[1];
-			$url = make_upload_path($img_name, NULL).$img_name;
-			$count++;
-		};
-		$img_info = new stdClass();
-		$img_info->name = $img_name;
-		$img_info->url = $url;
-		return $img_info;
-	}
-	
+		
 	/**
 	* Получение обложки элемента
 	*

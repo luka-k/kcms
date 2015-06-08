@@ -57,7 +57,10 @@ class Content extends Admin_Controller
 		{
 			if($type == "categories")
 			{
-				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+				$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $id);
+				
+				$this->db->where_in("id", $child_ids);
+				$data['content'] = $this->db->get("categories")->result();				
 			}
 			else
 			{
@@ -241,7 +244,6 @@ class Content extends Admin_Controller
 				if($is_accessories) $data['content']->accessories = $this->products->get_anchor($id, "accessories");
 			}
 			
-			my_dump($data['content']);
 			$this->load->view('admin/item.php', $data);
 		}
 		elseif($action == "save")
@@ -364,9 +366,9 @@ class Content extends Admin_Controller
 						"object_id" => $data['content']->id
 					);
 					$file_url = $this->files->upload($_FILES["upload_file"], $object_info);
+					
+					$this->documents->update($data['content']->id, array("url" => $file_url));
 				}
-				
-				if($type == "documents") $this->documents->update($data['content']->id, array("url" => $file_url));
 			}
 			
 				
@@ -491,7 +493,7 @@ class Content extends Admin_Controller
 	public function delete_file($type, $id, $tab)
 	{
 		$item_id = $this->files->delete($id);
-		
+		if($type == "documents") $this->documents->update($item_id, array("url" => ""));
 		redirect(base_url().'admin/content/item/edit/'.$type."/".$item_id."#tab_".$tab);
 	}
 	

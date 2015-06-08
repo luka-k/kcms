@@ -19,7 +19,7 @@ class Files extends MY_Model
 	{
 		$upload_path = $this->config->item('files_upload_path');
 		
-		$file_info = $this->images->get_unique_info($file['name']);
+		$file_info = $this->files->get_unique_info($file['name']);
 		$file_path = trim(make_upload_path($file_info->name, $upload_path).$file_info->name);
 					
 		if(!move_uploaded_file($file["tmp_name"], $file_path)) return FALSE;
