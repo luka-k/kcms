@@ -51,12 +51,12 @@ class Images extends MY_Model
 	public function upload_image($img, $object_info)
 	{
 		//Подключаем настройки
-		$upload_path = $this->config->item('upload_path');
+		$upload_path = $this->config->item('images_upload_path');
 		
 		$img_info = $this->get_unique_info($img['name']);
-		
+	
 		$img_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
-			
+		
 		if(isset($img['type']))
 		{
 			//Загружаем оригинал
