@@ -185,7 +185,7 @@ class Categories extends MY_Model
 		$c2c = $query->row();
 		$item = $this->categories->get_item_by(array("id" => $c2c->category_parent_id));
 		$item_url[]  = $item->url;
-		$item_url[] = 'catalog';
+		$item_url[] = 'shop/catalog';
 		return $item_url;
 	}	
 	

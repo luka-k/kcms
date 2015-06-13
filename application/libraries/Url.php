@@ -30,11 +30,11 @@ class CI_Url {
 
 		if(!$url)
 		{
-			return $segment_number == 2 ? "root" : FALSE;
+			return $segment_number == 3 ? "root" : FALSE; /*2*/
 		}
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url));
-		
+
 		if(empty($child))
 		{
 			$child = $parent;

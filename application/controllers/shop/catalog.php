@@ -88,18 +88,16 @@ class Catalog extends Client_Controller {
 	
 	public function index()
 	{
-		$this->breadcrumbs->add("catalog", "Каталог");
+		$this->breadcrumbs->add("shop/catalog", "Каталог");
 		
 		if(isset($this->post['filter']))
 		{
-			
-		
 			 $this->get_by_filter();
 		}
 		else
 		{		
-			$content = $this->url->catalog_url_parse(2);
-			if($content == FALSE) redirect(base_url()."pages/page_404"); 
+			
+			$content = $this->url->catalog_url_parse(3);/*2*/ 
 			
 			isset($content->product) ? $this->product($content) : $this->category($content);
 		}

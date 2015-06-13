@@ -43,25 +43,31 @@ $route['404_override'] = 'pages/page_404';
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
-$route['registration/(:any)'] = 'registration/$1';
+/**
+* Магазин
+*/
+$route['shop/catalog/count'] = 'shop/catalog/count';
+$route['shop/catalog/ajax_more'] = 'shop/catalog/ajax_more';
+$route['shop/catalog/filter/(:any)'] = 'shop/catalog/filter/$1';
+$route['shop/catalog'] = 'shop/catalog/index';
+$route['shop/catalog/(:any)'] = 'shop/catalog/index/$1';
+$route['shop/catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';
 
-$route['catalog/count'] = 'catalog/count';
-$route['catalog/ajax_more'] = 'catalog/ajax_more';
-$route['catalog/filter/(:any)'] = 'catalog/filter/$1';
-$route['catalog'] = 'catalog/index';
-$route['catalog/(:any)'] = 'catalog/index/$1';
-$route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
+$route['cabinet'] = 'shop/cabinet';
+
+$route['order/(:any)/(:num)'] = 'shop/order/$1/$2';
+
+/**
+* Каталог
+*/
 
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 
-$route['cabinet'] = 'cabinet';
-
-$route['order/(:any)/(:num)'] = 'order/$1/$2';
-
 $route['search'] = 'search';
 
+$route['registration/(:any)'] = 'registration/$1';
 $route['sitemap.xml'] = 'sitemap/index/xml';
 
 /* End of file routes.php */

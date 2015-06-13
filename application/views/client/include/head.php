@@ -176,8 +176,8 @@
 			$('#total_count').html('...');
 			$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
 			$('#searchpopupbtn').fadeIn('slow');
-			$.post('/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
-		}
+			$.post('<?=base_url()?>shop/catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+		}/*убрать shop*/
 		
 		
 		function clear_filter(type){
@@ -316,8 +316,8 @@
 				var div_h = $(this).height();
 
 				if($(this).scrollTop() >= div_sh - div_h){
-					$.post('/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
-				}
+					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+				}/*убрать shop*/
 			});
 		});
 		

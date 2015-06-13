@@ -6,7 +6,7 @@
 		<div class="catalog-btn"><a href="/">Каталог производителей</a></div>
 		<div class="top-menu">
 			<ul>
-				<li><a href="<?=base_url()?>catalog" class="active">Магазин</a></li>
+				<li><a href="<?=base_url()?>shop/catalog" class="active">Магазин</a></li><!--catalog-->
 				<li><a href="/">Доставка и Оплата</a></li>
 				<li><a href="/">bрайтbилd</a></li>
 				<li><a href="/">Контакты</a></li>
