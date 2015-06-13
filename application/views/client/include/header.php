@@ -3,7 +3,7 @@
 <header>
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
-		<div class="catalog-btn"><a href="/">Каталог производителей</a></div>
+		<div class="catalog-btn"><a href="<?=base_url()?>catalog">Каталог производителей</a></div>
 		<div class="top-menu">
 			<ul>
 				<li><a href="<?=base_url()?>shop/catalog" class="active">Магазин</a></li><!--catalog-->
