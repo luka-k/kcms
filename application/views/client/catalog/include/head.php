@@ -67,31 +67,25 @@
 				box_counter++;
 			});
 		});
-		
-		
 	</script>
 	
 	<script>
 		$(window).load(function(){
-		$('.up-item').click(function() {
-			var down_items = $(".leftmenu").find(".down-item");
-			var menu_item = this;
-			down_items.each(function () {
+			$(".main-item").click(function(){
+				var down_item = $(".leftmenu").find(".down-item");
+				
+				$(down_item).next().toggleClass('active');
+				$(down_item).toggleClass('up-item');
+				$(down_item).toggleClass('down-item');
+				
+				if($(down_item).attr("id") == $(this).attr("id")) return false;
+
 				$(this).next().toggleClass('active');
-				$(this).toggleClass('down-item');
 				$(this).toggleClass('up-item');
+				$(this).toggleClass('down-item');
 			});
-			$(this).next().toggleClass('active');
-			$(this).toggleClass('up-item');
-			$(this).toggleClass('down-item');
 		});
 
-		$('.down-item').click(function() {
-			$(this).next().toggleClass('active');
-			$(this).toggleClass('down-item');
-			$(this).toggleClass('up-item');
-		});
-		});
 	</script>
 		
 </head>
