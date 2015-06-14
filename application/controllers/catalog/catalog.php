@@ -17,7 +17,7 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$data = array(
-			'left_menu' => $this->categories->get_tree(),
+			'left_menu' => $this->categories->prepare_list($this->categories->get_tree()),
 			'manufacturers' => $this->manufacturer->prepare_list($this->manufacturer->get_list(FALSE)),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
 		);

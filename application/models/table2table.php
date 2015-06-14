@@ -14,8 +14,8 @@ class Table2table extends MY_Model
 	public function set_tables_fixing($table, $first_field, $second_field, $id)
 	{
 		$fixing_info = $this->input->post($table);
-			
-		if($fixing_info)
+
+		if($fixing_info <> FALSE)
 		{
 			if(is_array($fixing_info))
 			{
@@ -25,8 +25,9 @@ class Table2table extends MY_Model
 					$this->db->insert($table, array($first_field => $item, $second_field => $id));
 				}
 			}
-			else
+			elseif($fixing_info == "parent")
 			{
+				
 				$this->db->insert($table, array($first_field => 0, $second_field => $id));
 			}
 		}

@@ -67,6 +67,31 @@
 				box_counter++;
 			});
 		});
+		
+		
+	</script>
+	
+	<script>
+		$(window).load(function(){
+		$('.up-item').click(function() {
+			var down_items = $(".leftmenu").find(".down-item");
+			var menu_item = this;
+			down_items.each(function () {
+				$(this).next().toggleClass('active');
+				$(this).toggleClass('down-item');
+				$(this).toggleClass('up-item');
+			});
+			$(this).next().toggleClass('active');
+			$(this).toggleClass('up-item');
+			$(this).toggleClass('down-item');
+		});
+
+		$('.down-item').click(function() {
+			$(this).next().toggleClass('active');
+			$(this).toggleClass('down-item');
+			$(this).toggleClass('up-item');
+		});
+		});
 	</script>
 		
 </head>

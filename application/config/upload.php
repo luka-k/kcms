@@ -21,13 +21,6 @@ $config['thumb_config'] = array(
 		'h' => 100,
 		'far' => 1,
 		"bg" => "ffffff"	
-	),
-	"slider" => array(
-		'w' => 1600,
-		'h' => 352,
-		'zc' => 1,
-		'far' => 1,
-		"bg" => "ffffff"	
 	)
 );
 

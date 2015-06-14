@@ -280,7 +280,6 @@ class Content extends Admin_Controller
 				if($type == "users_groups")	$this->table2table->delete_fixing("users_group2manufacturer", "user_group_id", $data['content']->id);
 			}
 			
-					
 			//Привязки таблиц
 			if($type == "categories") $this->table2table->set_tables_fixing("category2category", "category_parent_id", "child_id", $data['content']->id);
 			if($type == "products") $this->table2table->set_tables_fixing("product2collection", "collection_parent_id", "child_id", $data['content']->id);

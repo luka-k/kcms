@@ -233,7 +233,7 @@ header .right-contacts {
 }
 
 .main-item:focus{
-  color: red;
+  /*color: red;*/
   outline:none;
 }
 
@@ -242,35 +242,55 @@ header .right-contacts {
 	display: none;
 }
 
-.main-item:focus ~ .sub-menu,
+.sub-menu.active{
+	display:block;
+}
+
+/*.main-item:focus ~ .sub-menu,
 .main-item:active ~ .sub-menu,
 .sub-menu:hover {
 	display: block;
 	outline:none;
-}
+}*/
 
-.main-item {
+.main-item.up-item{
 	position: relative;
 	display: inline-block;
 	margin-bottom: 7px;
 	font-size: 14px;
 	padding-left: 15px;
+	padding-right:13px;
+	background: url(../images/after.png) right no-repeat;
 	border:none;
 	outline:none;
 }
 
-.main-item:focus:after{
+.main-item.down-item{
+	color: red;
+	outline:none;
+	position: relative;
+	display: inline-block;
+	margin-bottom: 7px;
+	font-size: 14px;
+	padding-left: 15px;
+	padding-right:15px;
+	background: url(../images/triangal.png) right no-repeat;
+	border:none;
+	outline:none;
+}
+
+/*.main-item:focus:after{
   content: "";
   position: absolute;
-  background: url(../images/triangal.png);
+  background: url(../images/triangal.png) ;
   width: 13px;
   height: 6px;
   background-repeat: round;
   right: -13px;
   top: 7px;
-}
+}*/
 
-.main-item:after {
+/*.main-item:after {
   content: "";
   position: absolute;
   background: url(../images/after.png);
@@ -279,7 +299,7 @@ header .right-contacts {
   background-repeat: no-repeat;
   right: -13px;
   top: 8px;
-}
+}*/
 
 .menu-pic{
 	display:block;

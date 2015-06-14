@@ -179,7 +179,7 @@ class Categories extends MY_Model
 		$item_url = array();
 		$item_url[] = $item->url;
 		
-		$item = $this->categories->get_item_by(array("id" => $item->parent_id));
+		//$item = $this->categories->get_item_by(array("id" => $item->parent_id));
 		$item_url[]  = $item->url;
 		$query = $this->db->get_where('category2category', array("child_id" => $item->id)); 
 		$c2c = $query->row();
@@ -200,7 +200,7 @@ class Categories extends MY_Model
 		if(!empty($item))
 		{
 			$item->img = $this->images->get_cover(array('object_type' => 'categories', 'object_id' => $item->id));
-			$item->full_url = $this->get_url($item);
+			//$item->full_url = $this->get_url($item);
 			return $item;
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿<div  class="col_12">
 	<div for="lbl_<?=$editors_counter?>" class="col_2"><?=$edit[0]?></div>
+	<input type="hidden" name="<?=$edit_name?>" value="parent">
 	<div class="col_10">
 		<table>
 			<?php foreach ($selects[$edit_name] as $select): ?>
