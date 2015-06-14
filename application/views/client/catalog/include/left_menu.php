@@ -10,7 +10,7 @@
 			<?if(!empty($item->childs)):?>
 				<ul class="sub-menu">
 					<?foreach($item->childs as $sub_item):?>
-						<li><a href="#1"><?=$sub_item->name?></a></li>
+						<li><a href="<?=base_url()?>catalog/<?=$item->url?>/<?=$sub_item->url?>"><?=$sub_item->name?></a></li>
 					<?endforeach;?>
 				</ul>
 			<?endif;?>
