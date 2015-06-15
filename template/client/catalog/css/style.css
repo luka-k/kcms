@@ -480,24 +480,26 @@ main {
 	width: -moz-calc(100% - 171px);
     width: -webkit-calc(100% - 171px);
     width: calc(100% - 171px);
+	overflow:hidden;
 }
 
 .manufacturer-categories-list ul{
 	text-align:left;
-	margin:5px 0;
+	margin:2px 0;
 }
 
-.manufacturer-categories-list ul .col{
-	width:151px;
+.manufacturer-categories-list ul .manu_col{
+	/*width:151px;*/
 	float:left;
-	margin-right:15px;
+	margin-right:25px;
 }
 
 .manufacturer-categories-list li {
 	font-size: 11px;
-	margin-bottom: 5px;
+	margin-bottom: 7px;
 	padding-left: 12px;
 	position: relative;
+	white-space:nowrap;
 }
 
 .manufacturer-categories-list li:before {
@@ -512,6 +514,15 @@ main {
 
 .manufacturer-categories-list li a:hover{
 	color:red;
+}
+
+.list-row .mCSB_container{
+	margin-bottom:0px;
+}
+
+.list-row .mCSB_scrollTools{
+	display:none;
+	visibility:hidden;
 }
 
 .catalog .title {

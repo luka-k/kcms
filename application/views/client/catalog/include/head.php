@@ -39,6 +39,10 @@
 				$(".img-row").mCustomScrollbar({
 					axis:"x"
 				});
+				
+				$(".list-row").mCustomScrollbar({
+					axis:"x"
+				});
 					
 			});
 		})(jQuery);
@@ -64,6 +68,27 @@
 				var images = $(this).find(".cat_img-"+box_counter);
 				img_width = $(images[0]).width();
 				$(this).width(images.length * (img_width + 10));
+				box_counter++;
+			});
+		});
+		
+		$(function(){
+			var img_boxes = $("#manufacturers").find(".img_box");
+				
+			var box_counter = 1;
+			
+			list_width = $(".manufacturer-categories-list").width();
+			console.log(list_width);
+			var column_width = (list_width - 75)/3;
+			console.log(column_width);
+			$('.manu_col').width(column_width);
+			
+			img_boxes.each(function () {
+				var images = $(this).find(".cat_img-"+box_counter);
+
+				var qty_of_colums = Math.ceil(images.length/4);
+
+				$(".i-b-"+box_counter).width(qty_of_colums * (column_width + 25));
 				box_counter++;
 			});
 		});

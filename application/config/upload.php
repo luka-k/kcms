@@ -21,6 +21,12 @@ $config['thumb_config'] = array(
 		'h' => 100,
 		'far' => 1,
 		"bg" => "ffffff"	
+	),
+	"manufacturer" => array(
+		'w' => 162,
+		'h' => 72,
+		'far' => 1,
+		"bg" => "ffffff"	
 	)
 );
 

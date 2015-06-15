@@ -125,7 +125,6 @@ class Manufacturer extends MY_Model
 
 		$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
 	
-		
 		$this->db->where_in("id", $categories_ids);
 		$categories = $this->db->get("categories")->result();
 		return $categories;

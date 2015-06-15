@@ -26,25 +26,27 @@
 									<div class="manufacturer-title">
 										Каталог производителей - <?=$page_title?>
 									</div>
-									<div class="manufacturers">
+									<div id="manufacturers" class="manufacturers">
+										<?$manufacturer_counter = 1?>
 										<?foreach($manufacturers as $m):?>
 										<div class="manufacturer-item">
 											<div class="manufacturer-logo">
-												<a href=""><img src="<?=$m->img->catalog_mid_url?>" alt="<?$m->name?>"/></a>
+												<a href=""><img src="<?=$m->img->manufacturer_url?>" alt="<?$m->name?>"/></a>
 											</div>
-											<div class="manufacturer-categories-list">
-												<ul>
-													<div class="col">
+											<div class="manufacturer-categories-list list-row">
+												<ul class="img_box i-b-<?=$manufacturer_counter?>">
+													<div class="manu_col">
 														<?$cat_counter = 1?>
 														<?foreach($m->categories as $category):?>
-															<li><a href=""><?=$category->name?></a></li>
+															<li class="cat_img-<?=$manufacturer_counter?>"><a href=""><?=$category->name?></a></li>
 															<?$cat_counter++?>
-															<?if($cat_counter == 5):?></div><div class="col"><?$cat_counter = 1?><?endif;?>
+															<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
 														<?endforeach;?>
 													</div>
 												</ul>
 											</div>
 										</div>
+										<?$manufacturer_counter++?>
 										<?endforeach;?>
 									</div>
 								</div>
