@@ -78,22 +78,22 @@
 		});
 		
 		$(function(){
-			var img_boxes = $("#manufacturers").find(".img_box");
+			var list_boxes = $("#manufacturers").find(".list_box");
 				
 			var box_counter = 1;
 			
 			list_width = $(".manufacturer-categories-list").width();
-			console.log(list_width);
-			var column_width = (list_width - 75)/3;
-			console.log(column_width);
+
+			var column_width = (list_width - 60)/3;
+			
 			$('.manu_col').width(column_width);
 			
-			img_boxes.each(function () {
-				var images = $(this).find(".cat_img-"+box_counter);
+			list_boxes.each(function () {
+				var columns = $(this).find(".cat_list-"+box_counter);
 
-				var qty_of_colums = Math.ceil(images.length/4);
+				var qty_of_colums = Math.ceil(columns.length/4);
 
-				$(".i-b-"+box_counter).width(qty_of_colums * (column_width + 25));
+				$(".l-b-"+box_counter).width(qty_of_colums * (column_width + 25));
 				box_counter++;
 			});
 		});
