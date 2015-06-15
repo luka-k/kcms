@@ -31,7 +31,12 @@
 					axis:"y", //set both axis scrollbars
 					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 				});
-					
+				
+				$("#scroll-left").mCustomScrollbar({
+					axis:"y", //set both axis scrollbars
+					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
+				});
+
 				$(".catalog-row").mCustomScrollbar({
 					axis:"x"
 				});

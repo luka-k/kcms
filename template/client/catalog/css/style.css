@@ -232,8 +232,16 @@ header .right-contacts {
 	overflow:hidden;
 }
 
+/*.list-row .mCSB_container{
+	margin-bottom:0px;
+}*/
+
+.leftmenu .mCSB_scrollTools{
+	display:none;
+	visibility:hidden;
+}
+
 .main-item:focus{
-  /*color: red;*/
   outline:none;
 }
 
@@ -245,13 +253,6 @@ header .right-contacts {
 .sub-menu.active{
 	display:block;
 }
-
-/*.main-item:focus ~ .sub-menu,
-.main-item:active ~ .sub-menu,
-.sub-menu:hover {
-	display: block;
-	outline:none;
-}*/
 
 .main-item.up-item{
 	position: relative;
@@ -278,28 +279,6 @@ header .right-contacts {
 	border:none;
 	outline:none;
 }
-
-/*.main-item:focus:after{
-  content: "";
-  position: absolute;
-  background: url(../images/triangal.png) ;
-  width: 13px;
-  height: 6px;
-  background-repeat: round;
-  right: -13px;
-  top: 7px;
-}*/
-
-/*.main-item:after {
-  content: "";
-  position: absolute;
-  background: url(../images/after.png);
-  height: 6px;
-  width: 9px;
-  background-repeat: no-repeat;
-  right: -13px;
-  top: 8px;
-}*/
 
 .menu-pic{
 	display:block;
