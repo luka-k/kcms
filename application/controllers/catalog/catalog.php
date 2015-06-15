@@ -12,18 +12,39 @@ class Catalog extends Client_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		
 	}
 	
 	public function index()
 	{
+		$this->breadcrumbs->add("catalog", "Каталог");
+		$content = $this->url->catalog_url_parse(2);
+
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
-			'manufacturers' => $this->manufacturer->prepare_list($this->manufacturer->get_list(FALSE)),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),	
 		);
-		//my_dump($data['left_menu']);
-		$data = array_merge($this->standart_data, $data);
 		
-		$this->load->view("client/catalog/index", $data);
+		//my_dump();
+		if($content == "root")
+		{
+			$data['manufacturers'] = $this->manufacturer->prepare_list($this->manufacturer->get_list(FALSE));
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
+			$data = array_merge($this->standart_data, $data);
+			$this->load->view("client/catalog/index", $data);
+		}
+		else
+		{
+			$data['page_title'] = $content->name;
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
+			
+			$manufacturers = $this->manufacturer->prepare_list($this->manufacturer->get_by_category($content));
+			
+			//my_dump($manufacturers);
+			$data['manufacturers'] = $manufacturers;
+			$data = array_merge($this->standart_data, $data);
+			$this->load->view("client/catalog/manufacturer_by_category", $data);
+		}
 	}
 }

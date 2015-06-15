@@ -97,7 +97,7 @@ class Catalog extends Client_Controller {
 		else
 		{		
 			
-			$content = $this->url->catalog_url_parse(3);/*2*/ 
+			$content = $this->url->shop_url_parse(3);/*2*/ 
 			
 			isset($content->product) ? $this->product($content) : $this->category($content);
 		}

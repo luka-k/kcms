@@ -18,13 +18,13 @@ class CI_Url {
 	}
 	
 	/**
-	* Парсер url каталога
+	* Парсер url каталога магазина
 	*
 	* @param integer $segment_number
 	* @param integer $parent
 	* @return object
 	*/
-	public function catalog_url_parse($segment_number, $parent = FALSE)
+	public function shop_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
 
@@ -52,6 +52,33 @@ class CI_Url {
 		
 			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->catalog_url_parse($segment_number + 1, $child);	
 		}	
+		return $child;
+	}
+	
+	/**
+	* Парсер url каталога
+	*
+	* @param integer $segment_number
+	* @param integer $parent
+	* @return object
+	*/
+	public function catalog_url_parse($segment_number, $parent = FALSE)
+	{
+		$url = $this->CI->uri->segment($segment_number);
+		//my_dump($url);
+		if(!$url)
+		{
+			return $segment_number == 2 ? "root" : FALSE; /*2*/
+		}
+		
+		$child = $this->CI->categories->get_item_by(array('url' => $url));
+
+		$this->CI->breadcrumbs->add($url, $child->name);
+
+		if(empty($child)) return false;
+
+		if($this->CI->uri->segment($segment_number + 1)) return $this->catalog_url_parse($segment_number + 1, $child);
+
 		return $child;
 	}
 	

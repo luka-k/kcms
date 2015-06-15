@@ -53,15 +53,17 @@ $route['shop/catalog'] = 'shop/catalog/index';
 $route['shop/catalog/(:any)'] = 'shop/catalog/index/$1';
 $route['shop/catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';
 
-$route['cabinet'] = 'shop/cabinet';
-
-$route['order/(:any)/(:num)'] = 'shop/order/$1/$2';
-
 /**
 * Каталог
 */
 
 $route['catalog'] = 'catalog/catalog/index';
+$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
+$route['catalog/(:any)/(:num)'] = 'catalog/catalog/index/$1/$2';
+
+$route['cabinet'] = 'shop/cabinet';
+
+$route['order/(:any)/(:num)'] = 'shop/order/$1/$2';
 
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';

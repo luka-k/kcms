@@ -83,6 +83,54 @@ class Manufacturer extends MY_Model
 		return $manufacturer;
 	}
 	
+	public function get_by_category($category)
+	{
+		//my_dump($category);
+		$parent_id = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $category->id);
+		
+		$manufacturers_ids = array();
+		if($parent_id[0] == 0)
+		{
+			$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $category->id);
+			if($child_ids) foreach($child_ids as $id)
+			{
+				$category_manufacturers = $this->table2table->get_parent_ids("manufacturer2category", "manufacturer_id", "category_id", $id);
+				$manufacturers_ids = array_merge($manufacturers_ids, $category_manufacturers);
+			}
+		}
+		else
+		{
+			$manufacturers_ids = $this->table2table->get_parent_ids("manufacturer2category", "manufacturer_id", "category_id", $category->id);
+		}
+		
+		$manufacturers = array();
+		
+		$manufacturers_ids = array_unique($manufacturers_ids);
+		$this->db->where_in("id", $manufacturers_ids);
+		$manufacturers = $this->db->get("manufacturer")->result();
+		
+		foreach($manufacturers as $i => $m)
+		{
+			$manufacturers[$i]->categories = $this->_get_subcategories($m->id);
+		}
+		
+		return $manufacturers;
+	}
+	
+	private function _get_subcategories($manufacturer_id)
+	{
+		$categories_ids = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+		
+		$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
+
+		$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
+	
+		
+		$this->db->where_in("id", $categories_ids);
+		$categories = $this->db->get("categories")->result();
+		return $categories;
+	}
+	
 	public function prepare($item)
 	{
 		if(!empty($item))
