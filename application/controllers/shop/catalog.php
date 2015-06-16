@@ -98,7 +98,6 @@ class Catalog extends Client_Controller {
 		{		
 			
 			$content = $this->url->shop_url_parse(3);/*2*/ 
-			
 			isset($content->product) ? $this->product($content) : $this->category($content);
 		}
 	}
@@ -191,7 +190,7 @@ class Catalog extends Client_Controller {
 		//$cache = FALSE;
 		if($cache)
 		{
-			redirect(base_url()."catalog/filter/".$cache_id);
+			redirect(base_url()."shop/catalog/filter/".$cache_id);
 		}
 		else
 		{	

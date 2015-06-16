@@ -41,7 +41,7 @@ class CI_Url {
 			$child->product = $this->CI->products->get_item_by(array('url' => $url));
 			if(!$child->product) return FALSE;
 			
-			$manufacturer = $this->CI->manufacturer->get_item($child->product->manufacturer_id);
+			$manufacturer = $this->CI->manufacturers->get_item($child->product->manufacturer_id);
 			$breadcrumb = (string)$manufacturer->name." ".(string)$child->product->sku;
 			$this->CI->breadcrumbs->add($url, $breadcrumb);	
 		}
@@ -50,7 +50,7 @@ class CI_Url {
 			$this->CI->breadcrumbs->add($url, $child->name);
 			$child->parent = $parent;
 		
-			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->catalog_url_parse($segment_number + 1, $child);	
+			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->shop_url_parse($segment_number + 1, $child);	
 		}	
 		return $child;
 	}
