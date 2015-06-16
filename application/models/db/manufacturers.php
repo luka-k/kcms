@@ -107,7 +107,7 @@ class Manufacturers extends MY_Model
 		
 		$manufacturers_ids = array_unique($manufacturers_ids);
 		$this->db->where_in("id", $manufacturers_ids);
-		$manufacturers = $this->db->get("manufacturer")->result();
+		$manufacturers = $this->db->get("manufacturers")->result();
 		
 		foreach($manufacturers as $i => $m)
 		{
@@ -134,7 +134,7 @@ class Manufacturers extends MY_Model
 	{
 		if(!empty($item))
 		{
-			$item->img = $this->images->get_cover(array('object_type' => 'manufacturer', 'object_id' => $item->id));
+			$item->img = $this->images->get_cover(array('object_type' => 'manufacturers', 'object_id' => $item->id));
 			return $item;
 		}
 	}

@@ -20,7 +20,7 @@
 									</div>
 									<div class="manufacturer">
 										<?foreach($manufacturers as $m):?>
-											<div class="manufacturer-item">
+											<div class="manufacturer-icon">
 												<a href=""><img src="<?=$m->img->catalog_mid_url?>" alt="pic"/></a>
 											</div>
 										<?endforeach;?>

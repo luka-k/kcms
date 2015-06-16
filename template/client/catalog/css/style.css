@@ -394,13 +394,14 @@ main {
 	width:100%;
 }
 
-.manufacturer-item{
+#main_page .manufacturer-icon{
 	display:relative;
 	float:left;
 	width: 23.333333333333%;
 	margin-left: 0.83333333333333%;
 	margin-right: 0.83333333333333%;
 	text-align:center;
+	border:none;
 }
 
 #main_page .catalog h1{
@@ -429,6 +430,8 @@ main {
 }
 
 .manufacturer-item{
+	position:relative;
+	float:left;
 	width:100%;
 	margin:0 0;
 	padding:15px 0;
