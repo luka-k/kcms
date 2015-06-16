@@ -477,6 +477,10 @@ main {
 	white-space:nowrap;
 }
 
+.manufacturer-categories-list li.active {
+	font-weight:bold;
+}
+
 .manufacturer-categories-list li:before {
 	content: ".";
 	position: absolute;

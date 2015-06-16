@@ -29,7 +29,7 @@ class Catalog extends Client_Controller {
 		//my_dump();
 		if($content == "root")
 		{
-			$data['manufacturers'] = $this->manufacturer->prepare_list($this->manufacturer->get_list(FALSE));
+			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE));
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data = array_merge($this->standart_data, $data);
 			$this->load->view("client/catalog/index", $data);
@@ -38,8 +38,9 @@ class Catalog extends Client_Controller {
 		{
 			$data['page_title'] = $content->name;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
-			
-			$manufacturers = $this->manufacturer->prepare_list($this->manufacturer->get_by_category($content));
+			$data['active_category'] = $content->url;
+	
+			$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content));
 			
 			//my_dump($manufacturers);
 			$data['manufacturers'] = $manufacturers;
