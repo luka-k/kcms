@@ -58,7 +58,17 @@ class Documents extends MY_Model
 			}
 			else
 			{
-				$item->full_url = $file->url;
+				$item->full_url = $item->url;
+			}
+			$item->images = $this->images->prepare_list($this->images->get_list(array('object_type' => 'documents', 'object_id' => $item->id)));
+			
+			$categories_ids = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $item->id);
+			$item->categories = array();
+	
+			if($categories_ids)
+			{
+				$this->db->where_in("id", $categories_ids);
+				$item->categories = $this->prepare_list($this->db->get("categories")->result());
 			}
 			return $item;
 		}

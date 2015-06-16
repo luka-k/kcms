@@ -138,4 +138,18 @@ class Manufacturers extends MY_Model
 			return $item;
 		}
 	}
+	
+	public function prepare_for_catalog($item)
+	{
+		$item = $this->prepare($item);
+		
+		$item->categories = $this->_get_subcategories($item->id);
+		
+		$distributors_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
+		
+		$this->db->where_in("id", $distributors_ids);
+		$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
+	
+		return $item;
+	}
 }

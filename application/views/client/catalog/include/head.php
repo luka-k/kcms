@@ -22,7 +22,7 @@
 		(function($){
 			$(window).load(function(){
 				$("#scroll-left").height($(window).height() - 105);
-				$("#slider-scroll").height($(window).height() - 100);
+				$(".logo-column").height($(window).height() - 103);
 				
 				$("#scroll-content").height($(window).height() - 95);
 				$("#scroll-right").height($(window).height() - 102);
@@ -32,9 +32,10 @@
 					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 				});
 				
-				$("#scroll-left").mCustomScrollbar({
+				$(".logo-column").mCustomScrollbar({
 					axis:"y", //set both axis scrollbars
 					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
+					scrollbarPosition: "outside"
 				});
 
 				$(".catalog-row").mCustomScrollbar({

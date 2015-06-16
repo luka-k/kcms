@@ -23,7 +23,7 @@ class Catalog extends Client_Controller {
 
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),	
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
 		);
 		
 		//my_dump();

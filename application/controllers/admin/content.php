@@ -168,7 +168,12 @@ class Content extends Admin_Controller
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
 				if($type == "products") $data['content']->collections_id = array();
 				if($type == "emails") $data['content']->type = 2;		
-				if($type == "documents") $data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
+				if($type == "documents") 
+				{
+					$data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
+					$data['content']->doc_type = array();
+					$data['content']->document2category = array();
+				}
 				if($type == "manufacturers") $data['content']->documents = array();
 				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	

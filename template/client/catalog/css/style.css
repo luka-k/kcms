@@ -46,9 +46,14 @@ main {
 }
 
 .blue {
+	float:left;
 	font-size: 14px;
 	color: #0066ff;
 	text-decoration: underline;
+}
+
+.bold-text{
+	text-decoration:uppercase;
 }
 
 /******************header*****************/
@@ -358,17 +363,18 @@ main {
 }
 
 .logo-column{
+	width: 156px;
 	margin-top:10px;
 }
 
 .some10{
   padding-top: 15px;
   width: 156px;
-  height: 1135px;
 }
 
 .pic-block {
-  margin-bottom: 13px;
+	width: 156px;
+	margin-bottom: 13px;
 }
 
 .content{
@@ -398,6 +404,7 @@ main {
 	display:relative;
 	float:left;
 	width: 23.333333333333%;
+	min-height:72px;
 	margin-left: 0.83333333333333%;
 	margin-right: 0.83333333333333%;
 	text-align:center;
@@ -687,7 +694,7 @@ main {
 
 .point {
 	position: relative;
-	padding-left: 10px;
+	padding-left: 15px;
 	font-size: 12px;
 }
 
@@ -699,8 +706,8 @@ main {
 	border-radius: 50%;
 	background: blue;
 	background-repeat: no-repeat;
-	top: 6px;
-	left: 0px;
+	top: 7px;
+	left: 5px;
 }
 
 .all-items{
@@ -739,8 +746,10 @@ main {
 }
 
 .pdf {
+	float:left;
 	position: relative;
 }
+
 .pdf:after {
 	content: "";
 	position: absolute;
@@ -842,13 +851,15 @@ main {
 }
 
 #slider-scroll .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+	margin-left: 3px;
 	background: red !important;
 	width: 1px !important;
 }
 #slider-scroll .mCSB_scrollTools .mCSB_draggerRail{
+	margin-left: 3px;
 	background: #009CD3 !important;
 	width: 1px !important;
 }
 #slider-scroll .mCSB_container{
-	width: 156px !important;
+	width: 176px !important;
 }
