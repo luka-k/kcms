@@ -14,11 +14,12 @@ class Manufacturer extends Client_Controller {
 		parent::__construct();
 	}
 	
-	public function index($url)
+	public function index($url, $doc_type = FALSE)
 	{
 		$manufacturer = $this->manufacturers->get_item_by(array("url" => $url));
 		
-		$manufacturer->documents = $this->documents->prepare_list($this->documents->get_list(FALSE));
+		$documents = $this->documents->get_list(array("manufacturer_id" => $manufacturer->id));
+		$manufacturer->documents = $this->documents->prepare_list($documents);
 
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
@@ -28,6 +29,7 @@ class Manufacturer extends Client_Controller {
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'doc_type' => "Каталоги"
 		);
+		
 		//my_dump($data['manufacturer']);
 		$data = array_merge($data, $this->standart_data);
 		$this->load->view("client/catalog/manufacturer", $data);
