@@ -601,6 +601,7 @@ main {
 }
 
 .catalog-menu {
+	position:relative;
 	width:100%;
 	line-height: 18px;
 	margin-bottom: 10px;
@@ -622,6 +623,12 @@ main {
 	padding-bottom: 5px;
 	display: inline-block;
 	/*white-space:nowrap;*/
+}
+
+.navigation-mini.fixed {
+ position: fixed;
+ top: 10px; /*здесь указываем отступ сверху*/
+ z-index: 9999; /*устанавливаем блок поверх всех элементов на странице*/
 }
 
 .navigation-mini a {

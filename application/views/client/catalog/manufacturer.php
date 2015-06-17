@@ -67,7 +67,7 @@
 										</table>
 									</div>
 									
-									<div class="catalog-menu">
+									<div class="catalog-menu clearfix">
 										<p>Фабрика <span class="bold-text"><?=$manufacturer->name?></span> ( <a href="<?=$manufacturer->link?>"><?=$manufacturer->link?></a>, <?=$manufacturer->country?>) производит следующие группы товаров:</p>
 										
 										<div class="category">
@@ -77,7 +77,7 @@
 										</div>
 									</div>
 									
-									<nav class="navigation-mini">
+									<nav class="navigation-mini floating">
 							
 										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/all">Все документы</a>
 										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/catalogs">Каталоги</a>
@@ -105,10 +105,11 @@
 								</div>
                             </nav>
                             <div class="all-items">
+								<?$cat_image_counter = 1?>
 								<?foreach($manufacturer->documents as $doc):?>
 									<div class="items clearfix">
 										<div class="item-pic">
-											<img src="<?=$doc->images[0]->catalog_small_url?>" height="237" width="170" alt="pic">
+											<a href="<?=$doc->full_url?>" target="_blank"><img src="<?=$doc->images[0]->catalog_small_url?>" height="237" width="170" alt="<?=$doc->name?>"></a>
 										</div>
 										<div class="item-box clearfix">
 											<div class="box-title">
@@ -124,12 +125,17 @@
 											<div id="catalog_img" class="catalog-row">
 												<ul class="img_box">
 													<?foreach($doc->images as $img):?>
-														<li class="cat_img-1"><img src="<?=$img->catalog_small_url?>" /></li>
+														<li class="cat_img-<?=$cat_image_counter?>">
+															<a href="<?=$img->full_url?>" class="fancybox">
+																<img src="<?=$img->catalog_small_url?>" alt="<?=$doc->name?>"/>
+															</a>
+														</li>
 													<?endforeach;?>
 												</ul>
 											</div>
 										</div>
 									</div>
+									<?$cat_image_counter++?>
 								<?endforeach;?>
                             </div>
 

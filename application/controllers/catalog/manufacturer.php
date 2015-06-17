@@ -19,7 +19,7 @@ class Manufacturer extends Client_Controller {
 		$manufacturer = $this->manufacturers->get_item_by(array("url" => $url));
 		
 		$manufacturer->documents = $this->documents->prepare_list($this->documents->get_list(FALSE));
-		//my_dump($manufacturer->documents);
+
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),

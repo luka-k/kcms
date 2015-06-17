@@ -10,10 +10,15 @@
 	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/normalize.css"/>
 	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/css/easydropdown.css"/> <!--Крассивые select-->
+	<!-- Стили popup -->
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.css?v=2.1.5" />
 		
 	<!---------------------------JS----------------------------->
 	<script src="<?=base_url()?>template/client/catalog/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/catalog/js/jquery.easydropdown.js"></script><!--Крассивые select-->
+	<!-- Скрипт popup -->
+	<script src="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+	
 
 	<!---------------Скроллбар---------------->
 	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/jquery.mCustomScrollbar.css"/>
@@ -115,7 +120,36 @@
 				$(this).toggleClass('up-item');
 				$(this).toggleClass('down-item');
 			});
+			
+			$('.fancybox').fancybox({
+				padding: 0,
+				scrolling: 'no',
+				autoCenter : false,
+				fitToView: false,
+				helpers: {
+					overlay: {
+						locked: false // if true (default), the content will be locked into overlay
+					}
+				}
+			});
+			
+		$(function(){
+			var first = $(".floating").offset().top;
+			var line = $(".catalog").offset().top;
+			var item_width = $(".floating").width();
+				
+			$("#scroll-content").scroll(function() {
+				var top = $("#scroll-content").scrollTop();
+
+				if(top >= first - line)
+				{
+					$('.floating').addClass('fixed');
+					$(".floating").css({top: line, width: item_width});
+				}
+				else $('.floating').removeClass('fixed');
+			});
 		});
+	});
 
 	</script>
 		
