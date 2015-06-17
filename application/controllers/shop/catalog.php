@@ -230,7 +230,7 @@ class Catalog extends Client_Controller {
 				'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'categories_ch' => $this->catalog->get_filters_info($this->post, "categories", "categories_checked"),
-				'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturer", "manufacturer_checked"),
+				'manufacturer_ch' => $this->catalog->get_filters_info($this->post, "manufacturers", "manufacturer_checked"),
 				'collections_ch' => $this->catalog->get_filters_info($this->post, "collections", "collection_checked"),
 				'sku_ch' => $this->catalog->get_filters_info($this->post, "products", "sku_checked"),
 				'shortname_ch' => $this->catalog->get_filters_info($this->post, "characteristics", "shortname"),
@@ -259,7 +259,7 @@ class Catalog extends Client_Controller {
 			$this->filters_cache->insert($cache_id, $data);
 			$this->benchmark->mark('code_end');
 			
-			redirect(base_url()."catalog/filter/".$cache_id);
+			redirect(base_url()."shop/catalog/filter/".$cache_id);
 		}
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 	}
