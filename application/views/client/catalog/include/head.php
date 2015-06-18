@@ -150,6 +150,13 @@
 			});
 		});
 	});
+	
+	function manufacturer_submit(url)
+	{
+		console.log("ok");
+		$('#manufacturer-form').attr('action', '<?=base_url()?>manufacturer/' + url);
+		$('#manufacturer-form').submit();
+	}
 
 	</script>
 		

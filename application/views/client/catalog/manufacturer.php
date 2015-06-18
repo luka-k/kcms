@@ -18,12 +18,14 @@
 								<div id="slider-scroll" class="slider">
 
 									<div class="for-select">
-										<select name="" class="dropdown">
-											<option value="1" disabled="" selected="selected" >выбор производителя</option>
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
+										<select name="" class="dropdown" onchange="manufacturer_submit(this.options[this.selectedIndex].value);">
+											<option value="1" disabled="" selected="selected">выбор производителя</option>
 											<?foreach($manufacturers as $m):?>
-												<option value="<?=$m->id?>"><?=$m->name?></option>
+												<option value="<?=$m->url?>"><?=$m->name?></option>
 											<?endforeach;?>
 										</select>
+										</form>
 									</div>
 								
 									<div class="logo-column">

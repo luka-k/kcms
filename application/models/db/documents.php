@@ -46,9 +46,12 @@ class Documents extends MY_Model
 		return $result;
 	}
 	
-	public function get_doc_by_type()
+	public function get_by_type($manufacturer_id, $doc_type)
 	{
-	
+		$this->db->where("manufacturer_id", $manufacturer_id);
+		$this->db->like("doc_type", $doc_type);
+		$documents = $this->db->get($this->_table)->result();
+		return $documents;
 	}
 		
 	function prepare($item)

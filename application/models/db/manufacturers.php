@@ -119,14 +119,19 @@ class Manufacturers extends MY_Model
 	
 	private function _get_subcategories($manufacturer_id)
 	{
-		$categories_ids = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+		$categories = array();
 		
-		$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
-
-		$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
+		$categories_ids = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+		if(!empty($categories_ids))
+		{
+			$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
+		
+			$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
 	
-		$this->db->where_in("id", $categories_ids);
-		$categories = $this->db->get("categories")->result();
+			$this->db->where_in("id", $categories_ids);
+			$categories = $this->db->get("categories")->result();
+		}
+		
 		return $categories;
 	}
 	

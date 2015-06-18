@@ -18,7 +18,7 @@ class Manufacturer extends Client_Controller {
 	{
 		$manufacturer = $this->manufacturers->get_item_by(array("url" => $url));
 		
-		$documents = $this->documents->get_list(array("manufacturer_id" => $manufacturer->id));
+		$documents = $doc_type ? $this->documents->get_by_type($manufacturer->id, $doc_type) : $this->documents->get_list(array("manufacturer_id" => $manufacturer->id));
 		$manufacturer->documents = $this->documents->prepare_list($documents);
 
 		$data = array(
