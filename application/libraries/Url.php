@@ -59,27 +59,55 @@ class CI_Url {
 	* Парсер url каталога
 	*
 	* @param integer $segment_number
-	* @param integer $parent
 	* @return object
 	*/
 	public function catalog_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-		//my_dump($url);
+
 		if(!$url)
 		{
-			return $segment_number == 2 ? "root" : FALSE; /*2*/
+			return $segment_number == 2 ? "root" : FALSE; 
 		}
+		$content = new stdClass();
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url));
+		if(empty($child))
+		{
+			$manufacturer = $this->CI->manufacturers->get_item_by(array("url" => $url));
+			if(empty($manufacturer))
+			{
+				$this->CI->config->load('types');
+				$doc_types = $this->CI->config->item('doc_type');
+				
+				if(!array_key_exists($url, $doc_types)) return FALSE;
 
-		$this->CI->breadcrumbs->add($url, $child->name);
+				$content->doc_type = array(
+					'value' => $url,
+					'title' => $doc_types[$url]
+				);
+			}
+			else
+			{
+				$this->CI->breadcrumbs->add($url, $manufacturer->name);
+				$content->manufacturer = $manufacturer;
+				$content->doc_type = FALSE;
+			}
+			
+			$content->parent_category = $parent->parent_category;
+			$content->category = $parent->category;
+			if(isset($parent->manufacturer)) $content->manufacturer = $parent->manufacturer;
+		}
+		else
+		{
+			$this->CI->breadcrumbs->add($url, $child->name);
+			$content->category = $child;
+			if($parent) $content->parent_category = $parent->category;
+		}
+		
+		if($this->CI->uri->segment($segment_number + 1)) return $this->catalog_url_parse($segment_number + 1, $content);
 
-		if(empty($child)) return false;
-
-		if($this->CI->uri->segment($segment_number + 1)) return $this->catalog_url_parse($segment_number + 1, $child);
-
-		return $child;
+		return $content;
 	}
 	
 	/**
