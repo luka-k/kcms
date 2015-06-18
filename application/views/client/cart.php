@@ -66,7 +66,7 @@
 												<div class="page-cart__order">
 													<div class="cart-order">
 					
-													<form action="<?=base_url()?>order/edit_order" id="order_form" class="form" method="post">
+													<form action="<?=base_url()?>shop/order/edit_order" id="order_form" class="form" method="post">
 													
 														<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 														<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>

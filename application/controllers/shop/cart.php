@@ -66,7 +66,7 @@ class Cart extends Client_Controller
 			'depth_min' => $depth_min,
 			'depth_max' => $depth_max,
 			'left_menu' => $this->categories->get_tree(),
-			'manufacturer' => $this->manufacturer->get_tree(FALSE),
+			'manufacturer' => $this->manufacturers->get_tree(FALSE),
 			'action' => $this->input->get('action'),
 			'select_item' => '',
 			'order_string' => $this->standart_data['settings']->order_string

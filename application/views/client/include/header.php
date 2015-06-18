@@ -21,7 +21,7 @@
 			</ul>
 		</div>
 		<div class="minicart">
-			<a href="<?=base_url()?>cart"> <span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</a>
+			<a href="<?=base_url()?>shop/cart"> <span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</a>
 		</div>
 	</div>
 </header>
