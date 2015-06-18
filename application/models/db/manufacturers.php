@@ -132,6 +132,12 @@ class Manufacturers extends MY_Model
 			$categories = $this->db->get("categories")->result();
 		}
 		
+		if($categories) foreach($categories as $i => $c)
+		{
+			$parent_id = $this->db->get_where("category2category", array("child_id" => $c->id))->row()->category_parent_id;
+			if($parent_id) $categories[$i]->parent_category = $this->categories->get_item($parent_id);
+		}
+		
 		return $categories;
 	}
 	

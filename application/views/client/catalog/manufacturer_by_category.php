@@ -39,7 +39,7 @@
 														<?$cat_counter = 1?>
 														<?foreach($m->categories as $category):?>
 															<li class="cat_list-<?=$manufacturer_counter?> <?if($category->url == $active_category):?>active<?endif;?>">
-																<a href=""><?=$category->name?></a>
+																<a href="<?=base_url()?><?=$category->parent_category->url?>/<?=$category->url?>/<?=$m->url?>"><?=$category->name?></a>
 															</li>
 															<?$cat_counter++?>
 															<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
