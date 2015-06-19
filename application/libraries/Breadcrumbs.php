@@ -13,7 +13,7 @@ class Breadcrumbs
 	
     function __construct()
 	{
-		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
+		//$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
 	}
 	
 	/**
@@ -38,11 +38,14 @@ class Breadcrumbs
 	public function get()
 	{
 		$bc = $this->breadcrumbs;
-		$url = '';
+		$url = "";
 		$output = array();
+		
 		foreach ($bc as $i => $b)
 		{
-			$url = $url . $b['url'] . '/';
+			$url = $url.$b['url'];
+			
+			if($i <> 0) $url = $url.'/';
 			if (!$b['name'])
 				continue;
 			$output[] = array(
@@ -52,6 +55,7 @@ class Breadcrumbs
 				'last' => $i == count($bc)-1 ? true : false
 			);
 		}
+		
 		return $output;
 	}
 }

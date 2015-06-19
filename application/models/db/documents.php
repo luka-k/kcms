@@ -47,7 +47,7 @@ class Documents extends MY_Model
 	}
 	
 	public function get_by_filter($manufacturer_id, $category = FALSE, $doc_type = FALSE)
-	{
+	{	
 		if($category)
 		{
 			$category_parent = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $category->id);
@@ -66,7 +66,7 @@ class Documents extends MY_Model
 				$documents_ids = $this->table2table->get_parent_ids("document2category", "document_id", "category_id", $category->id);
 			}
 		}	
-			
+
 		$this->db->where("manufacturer_id", $manufacturer_id);
 		if(!empty($documents_ids)) $this->db->where_in("id", $documents_ids);
 		if($doc_type) $this->db->like("doc_type", $doc_type);

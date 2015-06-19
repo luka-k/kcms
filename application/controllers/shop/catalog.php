@@ -88,6 +88,7 @@ class Catalog extends Client_Controller {
 	
 	public function index()
 	{
+		$this->breadcrumbs->add(base_url(), "Главная");
 		$this->breadcrumbs->add("shop/catalog", "Каталог");
 		
 		if(isset($this->post['filter']))

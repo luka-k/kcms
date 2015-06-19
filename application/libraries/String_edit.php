@@ -180,4 +180,16 @@ class String_edit {
 		return $out_short_description;
 	}
 	
+	/** 
+	* Преобразвование в верхиний регистр первого символа строки для многобайтовых кодировок
+	*
+	*/
+	public function my_ucfirst($str)
+	{
+		$first_char = mb_substr($str, 0, 1, 'UTF-8');
+		$up_first_char = mb_convert_case($first_char, MB_CASE_TITLE, "UTF-8");
+
+		return $up_first_char.mb_strimwidth($str, 1, mb_strlen($str));
+	}
+	
 }

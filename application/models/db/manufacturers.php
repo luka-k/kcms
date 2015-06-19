@@ -85,7 +85,6 @@ class Manufacturers extends MY_Model
 	
 	public function get_by_category($category)
 	{
-		//my_dump($category);
 		$parent_id = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $category->id);
 		
 		$manufacturers_ids = array();

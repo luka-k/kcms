@@ -40,7 +40,10 @@
 								</div>
 								
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="title"><!--Ванная комната ---> <?=$manufacturer->name?> - <?=$doc_type?></div>
+									
+									<div class="title">
+										<?if(isset($active_category)):?><?=$this->string_edit->my_ucfirst($active_category->name)?> - <?endif;?><?=$manufacturer->name?> - <?=$doc_type?>
+									</div>
 									
 									<div class="catalog-head">
 										<table>

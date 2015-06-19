@@ -18,7 +18,7 @@ class Catalog extends Client_Controller {
 	
 	public function index()
 	{
-		$this->breadcrumbs->add("catalog", "Каталог");
+		$this->breadcrumbs->add(base_url()."catalog/", "Производители");
 		$content = $this->url->catalog_url_parse(2);
 		//my_dump($content);
 		$data = array(
@@ -67,16 +67,12 @@ class Catalog extends Client_Controller {
 		$manufacturer = $content->manufacturer;
 
 		$documents = $this->documents->get_by_filter($content->manufacturer->id, $content->category, $content->doc_type['value']);
-		if($content->doc_type)
-		{
-			$active_doc_type = $content->doc_type['title'];
-		}
-		else
-		{
-			$active_doc_type = "Каталоги";
-		}
+
+		$active_doc_type = $content->doc_type['title'];
 		
 		$manufacturer->documents = $this->documents->prepare_list($documents);
+		
+		$this->breadcrumbs->add("", $active_doc_type);
 		
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
@@ -84,6 +80,7 @@ class Catalog extends Client_Controller {
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
+			'active_category' => $content->category,
 			'doc_type' => $active_doc_type
 		);
 		

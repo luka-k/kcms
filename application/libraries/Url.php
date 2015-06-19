@@ -91,7 +91,10 @@ class CI_Url {
 			{
 				$this->CI->breadcrumbs->add($url, $manufacturer->name);
 				$content->manufacturer = $manufacturer;
-				$content->doc_type = FALSE;
+				$content->doc_type = array(
+					'value' => "catlogs",
+					'title' => "каталоги"
+				);
 			}
 			
 			$content->parent_category = $parent->parent_category;
