@@ -37,7 +37,8 @@ class Manufacturer extends Client_Controller {
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get("catalog"),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
-			'doc_type' => $active_doc_type
+			'doc_type' => $active_doc_type,
+			'menu_link' => "manufacturer"
 		);
 		
 		//my_dump($data['manufacturer']);

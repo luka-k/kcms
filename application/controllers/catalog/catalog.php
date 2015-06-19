@@ -74,6 +74,8 @@ class Catalog extends Client_Controller {
 		
 		$this->breadcrumbs->add("", $active_doc_type);
 		
+		$menu_link = "catalog/".$content->parent_category->url."/".$content->category->url;
+
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
@@ -81,7 +83,8 @@ class Catalog extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'active_category' => $content->category,
-			'doc_type' => $active_doc_type
+			'doc_type' => $active_doc_type,
+			'menu_link' => $menu_link
 		);
 		
 		$this->load->view("client/catalog/manufacturer", $data);

@@ -69,7 +69,7 @@ class Documents extends MY_Model
 
 		$this->db->where("manufacturer_id", $manufacturer_id);
 		if(!empty($documents_ids)) $this->db->where_in("id", $documents_ids);
-		if($doc_type) $this->db->like("doc_type", $doc_type);
+		if($doc_type && $doc_type <> "all") $this->db->like("doc_type", $doc_type);
 		$documents = $this->db->get($this->_table)->result();
 		
 		return $documents;

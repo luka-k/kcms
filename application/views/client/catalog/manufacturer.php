@@ -32,7 +32,7 @@
 										<div class="some10">
 											<?foreach($manufacturers as $m):?>
 												<div class="pic-block">
-													<a href="<?=base_url()?>manufacturer/<?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>"></a>
+													<a href="<?=base_url()?><?=$menu_link?>/<?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>"></a>
 												</div>
 											<?endforeach;?>
 										</div>
@@ -84,12 +84,12 @@
 									
 									<nav class="navigation-mini floating">
 							
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/all">Все документы</a>
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/catalogs">Каталоги</a>
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/prices">Прайсы</a>
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/collections">Брошюры по коллекциям</a>
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/special">Брошюры специальные</a>
-										<a href="<?=base_url()?>manufacturer/<?=$manufacturer->url?>/tech" class="del">Техническая информация</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all">Все документы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs">Каталоги</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices">Прайсы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections">Брошюры по коллекциям</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/special">Брошюры специальные</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="del">Техническая информация</a>
 								
 										<div>
 									<div class="main-a-0">

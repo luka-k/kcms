@@ -8,6 +8,7 @@ $config['view_type'] = array(
 );
 
 $config['doc_type'] = array(
+	"all" => "все документы",
 	"catalogs" => "каталоги",
 	"prices" => "прайсы",
 	"collections" => "брошюры по коллекциям",
