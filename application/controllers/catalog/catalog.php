@@ -74,7 +74,9 @@ class Catalog extends Client_Controller {
 		
 		$this->breadcrumbs->add("", $active_doc_type);
 		
-		$menu_link = "catalog/".$content->parent_category->url."/".$content->category->url;
+		$menu_link = "catalog/";
+		if(isset($content->parent_category)) $menu_link = $menu_link.$content->parent_category->url."/";
+		$menu_link = $menu_link.$content->category->url;
 
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),

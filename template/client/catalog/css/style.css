@@ -775,6 +775,28 @@ main {
 	width:100%;
 }
 
+#catalog_select .point-2 {
+	position: relative;
+	padding-left: 15px;
+	font-size: 12px;
+	height: 5px;
+	width: 5px;
+	border-radius: 50%;
+	background: blue;
+}
+
+#catalog_select.point:before {
+	content: "";
+	position: absolute;
+	height: 5px;
+	width: 5px;
+	border-radius: 50%;
+	background: blue;
+	background-repeat: no-repeat;
+	top: 7px;
+	left: 5px;
+}
+
 .catalog-row {
 	position: relative;
 	display:inline-block;

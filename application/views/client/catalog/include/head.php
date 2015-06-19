@@ -62,10 +62,7 @@
 			var $selects = $('.catalog_select');
 					
 			$selects.easyDropDown({
-				wrapperClass: 'metro',
-				onChange: function(selected){
-				// do something
-				}
+				wrapperClass: 'metro'
 			});
 		});
 	</script>
@@ -151,10 +148,15 @@
 		});
 	});
 	
-	function manufacturer_submit(url)
+	function manufacturer_submit(controller, url)
 	{
-		console.log("ok");
-		$('#manufacturer-form').attr('action', '<?=base_url()?>manufacturer/' + url);
+		$('#manufacturer-form').attr('action', '<?=base_url()?>'+controller+'/' + url);
+		$('#manufacturer-form').submit();
+	}
+	
+	function manufacturer_submit_by_category(url, manufacturer)
+	{
+		$('#manufacturer-form').attr('action', '<?=base_url()?>catalog/'+url+'/' + manufacturer);
 		$('#manufacturer-form').submit();
 	}
 

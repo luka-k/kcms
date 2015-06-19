@@ -140,6 +140,37 @@ class Manufacturers extends MY_Model
 		return $categories;
 	}
 	
+	private function _get_categories_tree($manufacturer_id)
+	{
+		$categories_tree = array();
+		
+		$categories_ids = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+
+		if(!empty($categories_ids))
+		{
+			$this->db->where_in("child_id", $categories_ids);
+			$result = $this->db->get_where("category2category", array("category_parent_id" => 0))->result();
+			
+			if($result)foreach($result as $i => $r)
+			{				
+				$categories_tree[$i] = $this->categories->get_item($r->child_id);
+				
+				$categories_tree[$i]->childs = array();
+				
+				$this->db->where_in("child_id", $categories_ids);
+				$sub_result = $this->db->get_where("category2category", array("category_parent_id" => $r->child_id))->result();
+				
+				if($sub_result)foreach($sub_result as $j => $s_r)
+				{
+					$categories_tree[$i]->childs[$j] = $this->categories->get_item($s_r->child_id);
+					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
+				}
+			}
+		}
+		
+		return $categories_tree;
+	}
+	
 	public function prepare($item)
 	{
 		if(!empty($item))
@@ -153,8 +184,8 @@ class Manufacturers extends MY_Model
 	{
 		$item = $this->prepare($item);
 		
-		$item->categories = $this->_get_subcategories($item->id);
-		
+		$item->categories = $this->_get_categories_tree($item->id);
+		$item->subcategories = $this->_get_subcategories($item->id);
 		$distributors_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
 		
 		$this->db->where_in("id", $distributors_ids);

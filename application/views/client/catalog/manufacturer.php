@@ -19,7 +19,7 @@
 
 									<div class="for-select">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-										<select name="" class="dropdown" onchange="manufacturer_submit(this.options[this.selectedIndex].value);">
+										<select name="" class="dropdown" onchange="manufacturer_submit('<?=$menu_link?>',this.options[this.selectedIndex].value);">
 											<option value="1" disabled="" selected="selected">выбор производителя</option>
 											<?foreach($manufacturers as $m):?>
 												<option value="<?=$m->url?>"><?=$m->name?></option>
@@ -76,7 +76,7 @@
 										<p>Фабрика <span class="bold-text"><?=$manufacturer->name?></span> ( <a href="<?=$manufacturer->link?>"><?=$manufacturer->link?></a>, <?=$manufacturer->country?>) производит следующие группы товаров:</p>
 										
 										<div class="category">
-											<?foreach($manufacturer->categories as $category):?>
+											<?foreach($manufacturer->subcategories as $category):?>
 												<div style="float:left;"><a href="#" class="point"><?=$category->name?></a></div>
 											<?endforeach;?>
 										</div>
@@ -97,9 +97,14 @@
 									</div>								
 									<div class="main-a width-auto">
 								
-										<select name="" id="selectm" class="catalog_select">
+										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit_by_category(this.value, '<?=$manufacturer->url?>');">
 											<?foreach($manufacturer->categories as $category):?>
 												<option value="<?=$category->url?>"><?=$category->name?></option>
+												<?if(!empty($category->childs)):?>
+													<?foreach($category->childs as $ch):?>
+														<option value="<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
+													<?endforeach;?>
+												<?endif;?>
 											<?endforeach;?>
 										</select>
 	
