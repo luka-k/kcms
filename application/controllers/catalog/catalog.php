@@ -20,13 +20,12 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add(base_url()."catalog/", "Производители");
 		$content = $this->url->catalog_url_parse(2);
-		//my_dump($content);
+
 		$data = array(
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
 		);
 		
-		//my_dump();
 		if($content == "root")
 		{
 			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE));
@@ -56,7 +55,6 @@ class Catalog extends Client_Controller {
 		
 		$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category));
 			
-		//my_dump($manufacturers);
 		$data['manufacturers'] = $manufacturers;
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view("client/catalog/manufacturer_by_category", $data);

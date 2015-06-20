@@ -15,6 +15,7 @@ class Manufacturers extends MY_Model
 			'manufacturer2category' => array('Категория', 'manufacturer2category'),
 			'manufacturer2categorygoods' => array('Категория товаров', 'manufacturer2category'),
 			'manufacturer2manufacturer' => array('Продавцы', 'manufacturer2manufacturer'),
+			'manufacturer2service' => array('Услуги', 'manufacturer2service')
 		),	
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),

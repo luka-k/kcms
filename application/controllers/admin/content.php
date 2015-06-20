@@ -147,6 +147,8 @@ class Content extends Admin_Controller
 				$distributor = $this->manufacturers->get_item($r->manufacturer_id);
 				$data['manufacturer2manufacturer'][] = $distributor;
 			}
+			
+			$data['manufacturer2service'] = $this->services->get_list(FALSE);
 		}
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
@@ -174,7 +176,11 @@ class Content extends Admin_Controller
 					$data['content']->doc_type = array();
 					$data['content']->document2category = array();
 				}
-				if($type == "manufacturers") $data['content']->documents = array();
+				if($type == "manufacturers")
+				{
+					$data['content']->documents = array();
+					$data['content']->manufacturer2service = array();
+				}
 				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	
 			else
@@ -200,6 +206,7 @@ class Content extends Admin_Controller
 					$data['content']->manufacturer2category = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $id);
 					$data['content']->manufacturer2categorygoods = $this->table2table->get_parent_ids("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $id);
 					$data['content']->manufacturer2manufacturer = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $id);
+					$data['content']->manufacturer2service = $this->table2table->get_parent_ids("manufacturer2service", "service_id", "manufacturer_id", $id);
 				}
 				
 				if($type == "users_groups") $data['content']->users_group2manufacturer = $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $id);
@@ -280,6 +287,7 @@ class Content extends Admin_Controller
 					$this->table2table->delete_fixing("manufacturer2category", "manufacturer_id", $data['content']->id);
 					$this->table2table->delete_fixing("manufacturer2categorygoods", "manufacturer_id", $data['content']->id);
 					$this->table2table->delete_fixing("manufacturer2manufacturer", "distributor_2", $data['content']->id);
+					$this->table2table->delete_fixing("manufacturer2service", "manufacturer_id", $data['content']->id);
 				}
 				
 				if($type == "users_groups")	$this->table2table->delete_fixing("users_group2manufacturer", "user_group_id", $data['content']->id);
@@ -294,6 +302,7 @@ class Content extends Admin_Controller
 				$this->table2table->set_tables_fixing("manufacturer2category", "category_id", "manufacturer_id", $data['content']->id);
 				$this->table2table->set_tables_fixing("manufacturer2categorygoods", "goods_category_id", "manufacturer_id", $data['content']->id);
 				$this->table2table->set_tables_fixing("manufacturer2manufacturer", "distributor", "distributor_2", $data['content']->id);
+				$this->table2table->set_tables_fixing("manufacturer2service", "service_id", "manufacturer_id", $data['content']->id);
 			}
 			
 			if($type == "users_groups")	$this->table2table->set_tables_fixing("users_group2manufacturer", "manufacturer_id", "user_group_id", $data['content']->id);

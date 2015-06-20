@@ -41,7 +41,6 @@ class Manufacturer extends Client_Controller {
 			'menu_link' => "manufacturer"
 		);
 		
-		//my_dump($data['manufacturer']);
 		$data = array_merge($data, $this->standart_data);
 		$this->load->view("client/catalog/manufacturer", $data);
 	}
