@@ -32,6 +32,7 @@ class Manufacturer extends Client_Controller {
 		$manufacturer->documents = $this->documents->prepare_list($documents);
 
 		$data = array(
+			'title' => $manufacturer->meta_description,//Я думаю требует переделки
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),

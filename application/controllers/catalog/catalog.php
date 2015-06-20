@@ -22,6 +22,7 @@ class Catalog extends Client_Controller {
 		$content = $this->url->catalog_url_parse(2);
 
 		$data = array(
+			'title' => $this->standart_data['settings']->site_title,
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"))
 		);
@@ -46,6 +47,7 @@ class Catalog extends Client_Controller {
 	public function by_category($content)
 	{
 		$data = array(
+			'title' => $this->string_edit->my_ucfirst($content->category->name).' - каталог производителей. Купить '.$content->category->name.' в магазине в Санкт-Петербурге на заказ | Брайтбилд',
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -77,6 +79,7 @@ class Catalog extends Client_Controller {
 		$menu_link = $menu_link.$content->category->url;
 
 		$data = array(
+			'title' => 'Каталоги на '.$content->category->name.' – от производителя AeT. Каталог '.$content->category->genitive_name.' фирмы AeT - продажа в магазинах Санкт-Петербурга | bрайтbилd',
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
