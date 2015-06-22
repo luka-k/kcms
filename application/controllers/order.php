@@ -37,12 +37,6 @@ class Order extends Client_Controller
 			'status_id' => 1
 		);
 		
-		$this->orders->insert($new_order);
-		$order_id = $this->db->insert_id();
-		
-		if(isset($orders_info['email'])) $new_order['user_email'] = $orders_info['email'];
-		if(isset($orders_info['email'])) $new_order['user_address'] = $orders_info['address'];
-			
 		$message_info = array(
 			"order_code" => $order_code,
 			"user_name" => $orders_info['name'],
@@ -57,6 +51,12 @@ class Order extends Client_Controller
 			$this->emails->send_system_mail($user->email, 2, $message_info);
 		}
 		
+		$this->orders->insert($new_order);
+		$order_id = $this->db->insert_id();
+		
+		if(isset($orders_info['email'])) $new_order['user_email'] = $orders_info['email'];
+		if(isset($orders_info['email'])) $new_order['user_address'] = $orders_info['address'];
+			
 		$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
 
 		foreach($cart_items as $item)

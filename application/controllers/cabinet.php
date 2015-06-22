@@ -26,10 +26,11 @@ class Cabinet extends Client_Controller {
 			
 			$date = new DateTime($order->date);
 			
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
+			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
 			
 			$this->orders_info[$key] = (object)array(
-				"order_id" => $order->order_id,
+				"id" => $order->id,
+				"order_code" => $order->order_code,
 				"status" => $order->status_id,
 				"order_products" => $order_items,
 				'selects' => array(
