@@ -15,6 +15,11 @@ function add_to_cart(product_id, qty){
 	var json_str = JSON.stringify(data);
 	
 	$.post ("/ajax/add_to_cart/", json_str, function(answer){
+		if(answer.total_qty = 1){
+			$('#cart-empty').css("display", "none");
+			$('#cart-full').css("display", "inline");
+		}
+
 		update_total(answer);
 		$('#input_qty').attr("value", answer.item_qty);
 		$('#input_item_id').attr("value", answer.item_id);
@@ -57,6 +62,10 @@ function delete_cart_item(item_id){
 	$.post ("/ajax/delete_item/", json_str,  function(answer){
 		update_total(answer);
 		delete_item(answer);
+		if(answer.total_qty == 0){
+			$('#cart-full').css("display", "none");
+			$('#cart-empty').css("display", "inline");
+		}
 	}
 	, "json");
 }
