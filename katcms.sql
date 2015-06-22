@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 18 2015 г., 12:26
+-- Время создания: Июн 22 2015 г., 17:40
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -173,7 +173,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('f239b73c8fe2648c2a54316a45919695', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0', 1431940919, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
+('5b4a85a41f0240308fc9ae3e30986402', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0', 1434983728, 'a:4:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}'),
+('a3fd76121c497e9bbe77bc5cc9092f65', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0', 1434980390, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -216,9 +217,9 @@ CREATE TABLE IF NOT EXISTS `emails` (
 --
 
 INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
-(1, 1, 'Новый заказ', '<p>Клиент %user_name% оформил заказ № %order_id%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Администратору при заказе'),
-(2, 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
-(3, 1, 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%', 'Клиенту при изменении статуса заказа'),
+(1, 1, 'Новый заказ', '<p>Клиент %user_name% оформил заказ № %order_code%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Администратору при заказе'),
+(2, 1, 'Заказ %order_code% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
+(3, 1, 'Статус Вашего заказа изменен', '<p>Уважаемый %user_name%. Статус Вашего заказа %order_code% изменен на %order_status%</p>\r\n', 'Клиенту при изменении статуса заказа'),
 (4, 1, 'Регистрация в магазине', '%user_name%, спасибо за регистрацию в нашем магазине. \r\nВаш логин %login%\r\nВаш пароль %password%', 'При регистрации'),
 (5, 1, 'Ваш пароль изменен', '<p>%user_name%, Ваш пароль в интернет магазине изменен.</p>\r\n\r\n<p>Новые данные доступа:</p>\r\n\r\n<p>Ваш логин %login%</p>\r\n\r\n<p>Ваш пароль %password%</p>\r\n', 'При изменении пароля'),
 (6, 1, 'Заказан обратный звонок', '<p>Клиент %USER_NAME%, оставил номер телефона - %USER_PHONE%</p>\r\n', 'Обратный звонок'),
@@ -239,32 +240,34 @@ CREATE TABLE IF NOT EXISTS `images` (
   `object_id` int(11) NOT NULL,
   `image_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=110 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=111 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
-INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
-(85, '1212823312-image-1206444062-1', 1, 'products', 2, '', '/1/2/1212823312-image-1206444062-1.jpg'),
-(87, 'images', 1, 'products', 3, '', '/i/m/images.jpg'),
-(88, 'shiny-161460', 1, 'products', 4, '', '/s/h/shiny-161460.jpg'),
-(89, 'zimnie-shiny-kontinental-4', 1, 'products', 5, '', '/z/i/zimnie-shiny-kontinental-4.jpg'),
-(90, 'continental-vanco-winter-contact-2', 1, 'products', 6, '', '/c/o/continental-vanco-winter-contact-2.jpg'),
-(91, 'image007', 1, 'products', 7, '', '/i/m/image007.jpg'),
-(92, '94068', 1, 'products', 8, '', '/9/4/94068.jpg'),
-(93, '82445', 1, 'products', 9, '', '/8/2/82445.jpg'),
-(94, '2125803', 1, 'products', 10, '', '/2/1/2125803.png'),
-(95, '52632871-1', 1, 'products', 11, '', '/5/2/52632871-1.jpg'),
-(96, 'nasos-mm', 1, 'products', 12, '', '/n/a/nasos-mm.jpg'),
-(99, 'winter-210-snowcontrol-serie-iii', 0, 'products', 3, '', '/w/i/winter-210-snowcontrol-serie-iii.jpg'),
-(100, 'continental-vanco-winter-contact-2[2]', 0, 'products', 4, '', '/c/o/continental-vanco-winter-contact-2[2].jpg'),
-(101, '26434', 0, 'products', 5, '', '/2/6/26434.jpg'),
-(102, '20-lm7-1076[1]', 0, 'products', 6, '', '/2/0/20-lm7-1076[1].jpg'),
-(106, 'no-photo-available', 1, 'settings', 1, '', '/n/o/no-photo-available.png'),
-(109, 'pryanik', 1, 'products', 1, '', '/p/r/pryanik.jpg');
+INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`, `sort`) VALUES
+(85, '1212823312-image-1206444062-1', 1, 'products', 2, '', '/1/2/1212823312-image-1206444062-1.jpg', 0),
+(87, 'images', 1, 'products', 3, '', '/i/m/images.jpg', 0),
+(88, 'shiny-161460', 1, 'products', 4, '', '/s/h/shiny-161460.jpg', 0),
+(89, 'zimnie-shiny-kontinental-4', 1, 'products', 5, '', '/z/i/zimnie-shiny-kontinental-4.jpg', 0),
+(90, 'continental-vanco-winter-contact-2', 1, 'products', 6, '', '/c/o/continental-vanco-winter-contact-2.jpg', 0),
+(91, 'image007', 1, 'products', 7, '', '/i/m/image007.jpg', 0),
+(92, '94068', 1, 'products', 8, '', '/9/4/94068.jpg', 0),
+(93, '82445', 1, 'products', 9, '', '/8/2/82445.jpg', 0),
+(94, '2125803', 1, 'products', 10, '', '/2/1/2125803.png', 0),
+(95, '52632871-1', 1, 'products', 11, '', '/5/2/52632871-1.jpg', 0),
+(96, 'nasos-mm', 1, 'products', 12, '', '/n/a/nasos-mm.jpg', 0),
+(99, 'winter-210-snowcontrol-serie-iii', 0, 'products', 3, '', '/w/i/winter-210-snowcontrol-serie-iii.jpg', 0),
+(100, 'continental-vanco-winter-contact-2[2]', 0, 'products', 4, '', '/c/o/continental-vanco-winter-contact-2[2].jpg', 0),
+(101, '26434', 0, 'products', 5, '', '/2/6/26434.jpg', 0),
+(102, '20-lm7-1076[1]', 0, 'products', 6, '', '/2/0/20-lm7-1076[1].jpg', 0),
+(106, 'no-photo-available', 1, 'settings', 1, '', '/n/o/no-photo-available.png', 0),
+(109, 'pryanik', 1, 'products', 1, '', '/p/r/pryanik.jpg', 1),
+(110, 'continental-vanco-winter-contact-2[1]', 0, 'products', 1, '', '/c/o/continental-vanco-winter-contact-2[1].jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -339,7 +342,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_name` text COLLATE utf8_unicode_ci NOT NULL,
   `user_email` text COLLATE utf8_unicode_ci NOT NULL,
@@ -351,39 +354,18 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `order_id` (`order_id`),
+  UNIQUE KEY `order_id` (`order_code`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
-(1, '5521471393232', '1', 'admin', 'admin@admin.ru', '8-950-123-45', '', 1000, 3, 1, '2015-04-05 00:00:00', 3),
-(2, '552fa59f36732', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(5, '552fa6a2e3c49', '', 'Павел', '', '8-950-014-56-56', '', 3400, 0, 0, '2015-04-16 00:00:00', 1),
-(6, '552fa6b1c933f', '', 'Павел', '', '8-950-014-56-56', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(7, '552fa829e4660', '', 'Павел', '', '345357467', '', 7040, 0, 0, '2015-04-16 00:00:00', 1),
-(8, '552fb11d7a25d', '', 'Павел', '', '345357467', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(9, '552fb179bd343', '', 'admin', '', '8-950-123-45', '', 7040, 0, 0, '2015-04-16 00:00:00', 1),
-(10, '552fb1e197b4f', '', 'admin', '', '8-950-123-45', '', 3400, 0, 0, '2015-04-16 00:00:00', 1),
-(11, '552fb20db62a4', '', 'admin', '', '8-950-123-45', '', 3400, 0, 0, '2015-04-16 00:00:00', 1),
-(12, '552fb26de06b2', '', 'admin', '', '8-950-123-45', '', 1500, 0, 0, '2015-04-16 00:00:00', 1),
-(13, '552fb32d28de4', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(14, '552fb48732987', '', 'admin', '', '8-950-123-45', '', 7040, 0, 0, '2015-04-16 00:00:00', 1),
-(15, '552fb4abebbaa', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(16, '552fb4e1253f3', '', 'admin', '', '8-950-123-45', '', 7040, 0, 0, '2015-04-16 00:00:00', 1),
-(17, '552fb645923e6', '', 'admin', '', '8-950-123-45', '', 3000, 0, 0, '2015-04-16 00:00:00', 1),
-(18, '552fb96c6f047', '', 'admin', '', '8-950-123-45', '', 3000, 0, 0, '2015-04-16 00:00:00', 1),
-(19, '552fb99dbb393', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(20, '552fb9de54cd6', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
-(21, '552fb9ed08584', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
-(22, '552fb9f5cb744', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
-(23, '552fba43a44e2', '', 'admin', '', '8-950-123-45', '', 10500, 0, 0, '2015-04-16 00:00:00', 1),
-(24, '552fba982474a', '', 'admin', '', '8-950-123-45', '', 0, 0, 0, '2015-04-16 00:00:00', 1),
-(25, '552fbad8e3083', '', 'admin', '', '8-950-123-45', '', 13500, 0, 0, '2015-04-16 00:00:00', 1),
-(26, '5559af78a2501', '', 'admin', '', '8-950-123-45', '', 28160, 0, 0, '2015-05-18 00:00:00', 1);
+INSERT INTO `orders` (`id`, `order_code`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
+(1, '230786', '', 'admin', '', '8-950-123-45', '', 3000, 3, 1, '2015-06-22 00:00:00', 1),
+(2, '230787', '', 'admin', '', '8-950-123-45', '', 7040, 0, 0, '2015-06-22 00:00:00', 1),
+(3, '230788', '1', 'admin', '', '8-950-123-45', '', 8400, 0, 0, '2015-06-22 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -400,32 +382,16 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `orders_products`
 --
 
 INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
-(1, '5521471393232', 20, 'Товар 4', '1000', 1),
-(2, '552fa6a2e3c49', 3, 'Шина №3', '3400', 1),
-(3, '552fa829e4660', 7, 'Шина грузовая №1', '7040', 1),
-(4, '552fb179bd343', 7, 'Шина грузовая №1', '7040', 1),
-(5, '552fb1e197b4f', 3, 'Шина №3', '3400', 1),
-(6, '552fb20db62a4', 3, 'Шина №3', '3400', 1),
-(7, '552fb26de06b2', 9, 'Диск штампованный №1', '1500', 1),
-(8, '552fb48732987', 7, 'Шина грузовая №1', '7040', 1),
-(9, '552fb4e1253f3', 7, 'Шина грузовая №1', '7040', 1),
-(10, '552fb645923e6', 1, 'Шина №1', '3000', 1),
-(11, '552fb96c6f047', 1, 'Шина №1', '3000', 1),
-(12, '552fb9de54cd6', 1, 'Шина №1', '3000', 3),
-(14, '552fb9ed08584', 1, 'Шина №1', '3000', 3),
-(16, '552fb9f5cb744', 1, 'Шина №1', '3000', 3),
-(18, '552fba43a44e2', 1, 'Шина №1', '3000', 3),
-(19, '552fba43a44e2', 9, 'Диск штампованный №1', '1500', 1),
-(20, '552fbad8e3083', 2, 'Шина №2', '4000', 3),
-(21, '552fbad8e3083', 9, 'Диск штампованный №1', '1500', 1),
-(22, '5559af78a2501', 7, 'Шина грузовая №1', '7040', 4);
+(1, '1', 1, 'Шина №1', '3000', 1),
+(2, '2', 7, 'Шина грузовая №1', '7040', 1),
+(3, '3', 8, 'Шина грузовая №2', '8400', 1);
 
 -- --------------------------------------------------------
 
@@ -462,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 4, 1, 0, 'Шина №1', '001sh', 3000, 0, '', '', '', 'shina-1', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
+(1, 4, 1, 0, 'Шина №1', '001sh', 3000, 0, '', '', '', 'shina-1', '2015-05-18', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
 (2, 4, 1, 1, 'Шина №2', 'sh344', 4000, 0, '', '', '', 'shina-2', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
 (3, 4, 1, 2, 'Шина №3', '023sh', 3400, 0, '', '', '', 'shina-3', '2015-04-21', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
 (4, 4, 1, 3, 'Шина №4', 'sh453', 3345, 0, '', '', '', 'shina-4', '2015-04-21', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 0),
@@ -472,7 +438,7 @@ INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article
 (8, 5, 1, 0, 'Шина грузовая №2', 'wg3434', 8400, 0, '', '', '', 'shina-gruzovaya-2', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 1),
 (9, 2, 1, 0, 'Диск штампованный №1', 'd45', 1500, 0, '', '', '', 'disk-shtampovannyj-1', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 1, 0),
 (10, 9, 1, 0, 'Диск легкосплавный №1', 'da34', 3500, 0, '', '', '', 'disk-legkosplavnyj-1', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 0, 1),
-(11, 9, 1, 0, 'Диск легкосплавный №2', 'da23', 4300, 14, '', '', '', 'disk-legkosplavnyj-2', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
+(11, 9, 1, 0, 'Диск легкосплавный №2', 'da23', 4300, 14, '', '', '', 'disk-legkosplavnyj-2', '2015-04-06', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
 (12, 10, 1, 0, 'Насос ручной', 'pr3435', 560, 0, '', '', '', 'nasos-ruchnoj', '2015-04-06', '', '0.1', '&lt;p&gt;&lt;span style=&quot;color:rgb(0, 0, 0); font-family:arial,helvetica,sans; font-size:11px&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/span&gt;&lt;/p&gt;', 1, 0);
 
 -- --------------------------------------------------------
