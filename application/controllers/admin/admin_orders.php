@@ -29,10 +29,10 @@ class Admin_orders extends Admin_Controller
 		{
 			$orders = $this->orders->get_list(FALSE);
 		}
-		elseif($filter == "by_order_id")
+		elseif($filter == "by_order_code")
 		{
-			$order_id = $this->input->post("order_id");
-			$orders = $this->orders->get_list(array("order_id" => $order_id));
+			$order_code = $this->input->post("order_code");
+			$orders = $this->orders->get_list(array("order_code" => $order_code));
 		}
 		else
 		{
@@ -46,10 +46,11 @@ class Admin_orders extends Admin_Controller
 			
 			$date = new DateTime($order->date);
 
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->order_id));
+			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
 			
-			$orders_info[$key] = (object)array(
-				"order_id" => $order->order_id,
+			$orders_info[$key] = (object)array( 
+				"id" => $order->id,
+				"order_code" => $order->order_code,
 				"status_id" => $order->status_id,
 				"order_products" => $order_items,
 				"delivery_id" => $order->delivery_id,
@@ -84,9 +85,10 @@ class Admin_orders extends Admin_Controller
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 
-		$this->orders->update($info->order_id, array("{$info->type}" => $info->value));
+		$this->orders->update($info->id, array("{$info->type}" => $info->value));
 		
-		$order = $this->orders->get_item_by(array("order_id" => $info->order_id));
+		$order = $this->orders->get_item($info->id);
+		
 		$status_id = $this->config->item('order_status');
 		
 		foreach($status_id as $key => $value)
@@ -98,7 +100,7 @@ class Admin_orders extends Admin_Controller
 		{
 			case "status_id": $data['message'] = "Статус заказа изменен"; 
 				$message_info = array(
-					"order_id" => $info->order_id,
+					"order_code" => $order->order_code,
 					"user_name" => $order->user_name,
 					"order_status" => $status
 				);

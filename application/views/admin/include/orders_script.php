@@ -1,7 +1,8 @@
 <script>
-function change_field(order_id, value, type){
+function change_field(id, value, type){
 	data = new Object();
-	data.order_id = order_id;
+	data.id = id;
+	console.log(id);
 	data.value = value;
 	data.type = type;
 	var json_str = JSON.stringify(data);

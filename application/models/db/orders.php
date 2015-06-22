@@ -37,8 +37,6 @@ class Orders extends MY_Model
 		),
 	);
 	
-	protected $_primary_key = 'order_id';
-	
 	function __construct()
 	{
         parent::__construct();
@@ -50,19 +48,19 @@ class Orders extends MY_Model
 	* @param integer $id
 	* @return bool
 	*/
-	function update($id, $data = FALSE)
+	/*function update($id, $data = FALSE)
 	{
 		if (!$id) return FALSE;
 		
-		$data ? $this->db->where($this->_primary_key, $id)->update($this->_table, $data) : $this->db->where($this->_primary_key, $id)->update($this->_table);
-	}	
+		$data ? $this->db->where("id", $id)->update($this->_table, $data) : $this->db->where($this->_primary_key, $id)->update($this->_table);
+	}*/	
 	
 	/**
 	* Возвращает уникальный id для внесения заказа в базу
 	*
 	* @return string
 	*/
-	function get_order_id()
+	function get_order_code()
 	{
 		$this->db->select_max("id");
 		$id = $this->db->get($this->_table)->row()->id;

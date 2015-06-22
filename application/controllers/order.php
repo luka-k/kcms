@@ -26,10 +26,10 @@ class Order extends Client_Controller
 		$total_price = $this->cart->total_price();
 		$total_qty = $this->cart->total_qty();
 		
-		$order_id = $this->orders->get_order_id();
+		$order_code = $this->orders->get_order_code();
 		
 		$new_order = array(
-			'order_id' => $order_id,
+			'order_code' => $order_code,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
 			'total' => $total_price,
@@ -38,12 +38,13 @@ class Order extends Client_Controller
 		);
 		
 		$this->orders->insert($new_order);
+		$order_id = $this->db->insert_id();
 		
 		if(isset($orders_info['email'])) $new_order['user_email'] = $orders_info['email'];
 		if(isset($orders_info['email'])) $new_order['user_address'] = $orders_info['address'];
 			
 		$message_info = array(
-			"order_id" => $order_id,
+			"order_code" => $order_code,
 			"user_name" => $orders_info['name'],
 			"products" => $cart_items
 		);
