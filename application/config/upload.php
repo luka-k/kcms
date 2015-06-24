@@ -27,8 +27,15 @@ $config['thumb_config'] = array(
 		'h' => 72,
 		'far' => 1,
 		"bg" => "ffffff"	
+	),
+	"small_map" => array(
+		'w' => 300,
+		'h' => 150,
+		'far' => 1,
+		'zc' => 1,
+		"bg" => "ffffff"	
 	)
 );
 
-/* End of file upload_config.php */
-/* Location: ./application/config/upload_config.php */
+/* End of file upload.php */
+/* Location: ./application/config/upload.php */

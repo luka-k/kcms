@@ -146,6 +146,7 @@ $autoload['model'] = array(
 	'db/documents',
 	'db/files',
 	'db/filters_cache',
+	'db/offices',
 	'table2table'
 );
 

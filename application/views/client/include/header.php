@@ -9,7 +9,7 @@
 				<li><a href="<?=base_url()?>shop/catalog" class="active">Магазин</a></li><!--catalog-->
 				<li><a href="/">Доставка и Оплата</a></li>
 				<li><a href="/">bрайтbилd</a></li>
-				<li><a href="/">Контакты</a></li>
+				<li><a href="<?=base_url()?>contacts">Контакты</a></li>
 				<li class="right"><a href="<?=base_url()?>articles/novosti/">Новости</a></li>
 			</ul>
 		</div>

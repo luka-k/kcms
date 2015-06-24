@@ -181,5 +181,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/manufacturer_script.php"?>
 	</body>
 </html>

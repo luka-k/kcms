@@ -327,6 +327,39 @@ main {
 	margin:0;
 }
 
+main.contacts{
+	padding: 20px 0 0 290px;
+	min-height: 450px;
+	margin:0;
+}
+
+.contacts .contact_item{
+	position:relative;
+	margin-bottom:20px;
+}
+
+.contacts .contact_description{
+	position:relative;
+	float:left;
+	width: -moz-calc(100% - 640px);
+    width: -webkit-calc(100% - 640px);
+    width: calc(100% - 640px);
+}
+
+.contacts .map{
+	position:relative;
+	float:left;
+	width:300px;
+	margin-right:20px;
+}
+
+.contacts .ya_map{
+	position:relative;
+	float:left;
+	width:300px;
+	margin-right:20px;
+}
+
 /*************breadcrumbs************/
 
 .breadcrumbs {
@@ -387,6 +420,10 @@ main {
 	width: -moz-calc(100% - 181px);
     width: -webkit-calc(100% - 181px);
     width: calc(100% - 181px);
+}
+
+.contacts{
+	width:100%;
 }
 
 #main_page .catalog{

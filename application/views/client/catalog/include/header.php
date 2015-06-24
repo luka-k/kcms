@@ -11,7 +11,7 @@
 				<li><a href="#"> Подрядчики </a></li>
 				<li><a href="#"> bрайтbилd </a></li>
 				<li><a href="#"> Складские остатки </a></li>
-				<li><a href="#"> Контакты </a></li>
+				<li><a href="<?=base_url()?>contacts"> Контакты </a></li>
 				<li class="right"><a href="#"> Новости </a></li>
 			</ul>
 		</div>

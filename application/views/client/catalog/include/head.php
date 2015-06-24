@@ -104,7 +104,7 @@
 	
 	<script>
 		$(window).load(function(){
-			$(".main-item").click(function(){
+			$(".ddlist").click(function(){
 				var down_item = $(".leftmenu").find(".down-item");
 				
 				$(down_item).next().toggleClass('active');
@@ -122,30 +122,13 @@
 				padding: 0,
 				scrolling: 'no',
 				autoCenter : false,
-				fitToView: false,
+				fitToView: true,
 				helpers: {
 					overlay: {
 						locked: false // if true (default), the content will be locked into overlay
 					}
 				}
 			});
-			
-		$(function(){
-			var first = $(".floating").offset().top;
-			var line = $(".catalog").offset().top;
-			var item_width = $(".floating").width();
-				
-			$("#scroll-content").scroll(function() {
-				var top = $("#scroll-content").scrollTop();
-
-				if(top >= first - line)
-				{
-					$('.floating').addClass('fixed');
-					$(".floating").css({top: line, width: item_width});
-				}
-				else $('.floating').removeClass('fixed');
-			});
-		});
 	});
 	
 	function manufacturer_submit(controller, url)
