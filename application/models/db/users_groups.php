@@ -40,8 +40,8 @@ class Users_groups extends MY_Model
 	
 	public function access_by_manufacturer($user)
 	{
-		$module_enable = array("content", "users_module");
-		$table_enable = array("products", "documents", "manufacturer", "users");
+		$module_enable = array("content");
+		$table_enable = array("products", "documents", "manufacturers");
 		
 		$uri = $this->uri->segment_array();
 		if(count($uri) < 2) return TRUE;
@@ -54,7 +54,7 @@ class Users_groups extends MY_Model
 			$manufacturer_access = array_merge($manufacturer_access, $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $group));
 		}
 		
-		if(empty($manufacturer_access)) return TRUE;
+		//if(empty($manufacturer_access)) return TRUE;
 
 		if(in_array($uri[2], $module_enable))
 		{		
@@ -62,7 +62,7 @@ class Users_groups extends MY_Model
 			{
 				switch($uri[5])
 				{
-					case "manufacturer":
+					case "manufacturers":
 						$manufacturer_id = $this->uri->segment(6);
 						break;
 					case "products":
