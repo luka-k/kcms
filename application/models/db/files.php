@@ -23,8 +23,10 @@ class Files extends MY_Model
 		$file_path = trim(make_upload_path($file_info->name, $upload_path).$file_info->name);
 					
 		if(!move_uploaded_file($file["tmp_name"], $file_path)) return FALSE;
-		
+
 		$data = array(
+			"name" => $file['name'],
+			"file_type" => $file_info->file_type,
 			"object_type" => $object_info['object_type'],
 			"object_id" => $object_info['object_id'],
 			"url" => $file_info->url

@@ -388,6 +388,10 @@ main.contacts{
 	position: relative;
 }
 
+.slider.inventory-slider{
+	margin-left:22px;
+}
+
 .for-select{
 	position: absolute;
 	width: 156px;
@@ -426,10 +430,20 @@ main.contacts{
 	width:100%;
 }
 
-#main_page .catalog{
+#main_page .catalog, #inventory .catalog{
 	margin-top:25px;
 	padding:0;
 	width:100%;
+}
+
+#inventory .catalog{
+	margin-top:25px;
+	padding:0;
+	width:100%;
+}
+
+.inventory_item{
+	margin-bottom:15px;
 }
 
 #by_category .catalog{
