@@ -117,6 +117,19 @@ class Manufacturers extends MY_Model
 		return $manufacturers;
 	}
 	
+	public function get_have_inventory()
+	{
+		$manufacturers = array();
+		
+		$files = $this->files->get_list(array("object_type" => "manufacturers"));
+		if($files)foreach($files as $file)
+		{
+			$manufacturers[] =  $this->manufacturers->get_item($file->object_id);
+		}
+		
+		return $manufacturers;
+	}
+	
 	private function _get_subcategories($manufacturer_id)
 	{
 		$categories = array();

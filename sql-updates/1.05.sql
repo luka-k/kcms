@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS `offices` (
   `ya_map` text,
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE files ADD COLUMN name VARCHAR(255) AFTER id;
+ALTER TABLE files ADD COLUMN file_type VARCHAR(255) AFTER name;

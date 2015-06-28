@@ -215,6 +215,7 @@ class MY_Model extends CI_Model
 		$unique_info = new stdClass();
 		$unique_info->name = $name;
 		$unique_info->url = $url;
+		$unique_info->file_type = $file[1];
 		return $unique_info;
 	}
 	
