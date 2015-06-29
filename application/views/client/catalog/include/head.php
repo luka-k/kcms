@@ -3,8 +3,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		
 	<title><?=$title?></title>
-		
-	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
+	
+	<meta name="description" content="<?=$meta_description?>" />
+	<meta name="keywords" content="<?=$meta_keywords?>" />
+	
+	<link rel="Shortcut Icon" type="image/x-icon" href="<?=base_url()?>template/client/catalog/images/favicon.ico" />
 		
 	<!------------------------Styles---------------------------->
 	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/normalize.css"/>
