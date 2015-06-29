@@ -41,9 +41,9 @@
 								
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
 									
-									<div class="title">
+									<h1 class="title">
 										<?if(isset($active_category)):?><?=$this->string_edit->my_ucfirst($active_category->name)?> - <?endif;?><?=$manufacturer->name?> - <?=$doc_type?>
-									</div>
+									</h1>
 									
 									<div class="catalog-head">
 										<table>
@@ -157,7 +157,7 @@
 				
 				<!-----leftcol------>
 				<aside id="s_left">
-					<h1>Все товары</h1>
+					<h1><?=$above_menu_title?></h1>
 					<?require "include/left_menu.php"?>
 				</aside><!--end_leftcol-->
                    

@@ -497,8 +497,11 @@ main.contacts{
 }
 
 .manufacturer-title{
-	font-size:14px;
+	padding:0;
+	margin:0;
 	font-weight:bold;
+	color: #000099;
+	font-size: 12px;x;
 }
 
 .manufacturers{
@@ -587,7 +590,7 @@ main.contacts{
 .catalog .title {
   margin-top: 0px;
   color: #000099;
-  font-size: 11px;
+  font-size: 12px;
   font-weight:bold;
   margin-bottom: 8px;
 }

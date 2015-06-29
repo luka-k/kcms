@@ -23,15 +23,15 @@
 											<?endforeach;?>
 										</select>
 									</div>
-									<div class="manufacturer-title">
+									<h1 class="manufacturer-title">
 										Каталог производителей - <?=$page_title?>
-									</div>
+									</h1>
 									<div id="manufacturers" class="manufacturers">
 										<?$manufacturer_counter = 1?>
 										<?foreach($manufacturers as $m):?>
 										<div class="manufacturer-item">
 											<div class="manufacturer-logo">
-												<a href=""><img src="<?=$m->img->manufacturer_url?>" alt="<?=$m->name?>"/></a>
+												<a href="<?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" alt="<?=$m->name?>"/></a>
 											</div>
 											<div class="manufacturer-categories-list list-row">
 												<ul class="list_box l-b-<?=$manufacturer_counter?>">
@@ -60,7 +60,7 @@
 				
 				<!-----leftcol------>
 				<aside id="s_left">
-					<h1>Все товары</h1>
+					<h1><?=$above_menu_title?></h1>
 					<?require "include/left_menu.php"?>
 				</aside><!--end_leftcol-->
                    
