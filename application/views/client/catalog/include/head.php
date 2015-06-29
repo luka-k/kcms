@@ -107,7 +107,7 @@
 	
 	<script>
 		$(window).load(function(){
-			$(".ddlist").click(function(){
+			/*$(".ddlist").click(function(){
 				var down_item = $(".leftmenu").find(".down-item");
 				
 				$(down_item).next().toggleClass('active');
@@ -119,7 +119,7 @@
 				$(this).next().toggleClass('active');
 				$(this).toggleClass('up-item');
 				$(this).toggleClass('down-item');
-			});
+			});*/
 			
 			$('.fancybox').fancybox({
 				padding: 0,
