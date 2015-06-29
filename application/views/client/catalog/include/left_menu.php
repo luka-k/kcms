@@ -8,7 +8,7 @@
 			</a> 
 			
 			<?if(!empty($item->childs)):?>
-				<ul class="sub-menu">
+				<ul class="sub-menu <?if($left_active_item == $item->url):?>active<?endif;?>">
 					<?foreach($item->childs as $sub_item):?>
 						<li><a href="<?=base_url()?>catalog/<?=$item->url?>/<?=$sub_item->url?>"><?=$sub_item->name?></a></li>
 					<?endforeach;?>
@@ -17,4 +17,4 @@
 		</div>
 		<?$item_counter++?>
 	<?endforeach;?>
-</div>						
+</div>				
