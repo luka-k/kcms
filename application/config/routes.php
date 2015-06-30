@@ -68,12 +68,20 @@ else
 
 $route['cart'] = 'shop/cart/index';
 
-$route['inventory'] = 'catalog/inventory/index';
-$route['inventory/(:any)'] = 'catalog/inventory/index/$1';
+$route['manufacturer/(:any)'] = 'catalog/manufacturer/index/$1';
 
 $route['bb'] = 'catalog/brightbild/index';
 
-$route['manufacturer/(:any)'] = 'catalog/manufacturer/index/$1';
+$route['inventory'] = 'catalog/inventory/index';
+$route['inventory/(:any)'] = 'catalog/inventory/index/$1';
+
+$route['vendors'] = 'catalog/prodavcy/index';
+$route['vendors/(:any)'] = 'catalog/vendors/index/$1';
+$route['vendors/(:any)/(:num)'] = 'catalog/vendors/index/$1/$2';
+
+$route['prodavcy'] = 'catalog/prodavcy/index';
+$route['prodavcy/(:any)'] = 'catalog/prodavcy/index/$1';
+$route['prodavcy/(:any)/(:num)'] = 'catalog/prodavcy/index/$1/$2';
 
 $route['cabinet'] = 'shop/cabinet';
 

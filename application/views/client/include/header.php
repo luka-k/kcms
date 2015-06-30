@@ -1,7 +1,7 @@
 <header>
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
-		<div class="catalog-btn"><a href="http://brightbuild.me/catalog">Каталог производителей</a></div>><!--ru-->
+		<div class="catalog-btn"><a href="http://brightbuild.me/catalog">Каталог производителей</a></div><!--ru-->
 		<div class="top-menu">
 			<ul>
 				<li><a href="<?=base_url()?>catalog" class="active">Магазин</a></li>

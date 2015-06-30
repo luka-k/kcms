@@ -185,6 +185,37 @@ class Manufacturers extends MY_Model
 		return $categories_tree;
 	}
 	
+	public function get_vendors($category_id = FALSE)
+	{
+		$vendors = array();
+				
+		if($category_id)
+		{
+			$parent_id = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $category_id);
+			if($parent_id[0] == 0)
+			{
+				$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $category_id);
+
+				$this->db->where_in("goods_category_id", $child_ids);
+			}
+			else
+			{
+				$this->db->where("goods_category_id", $category_id);
+			}
+		}
+		$this->db->distinct();
+		$this->db->select("manufacturer_id");
+		
+		$result = $this->db->get("manufacturer2categorygoods")->result();
+		if($result) foreach($result as $i => $item)
+		{
+			$vendors[$i] = $this->get_item($item->manufacturer_id);
+			$vendors[$i]->categories = $this->_get_subcategories($item->manufacturer_id);
+		}
+		
+		return $vendors;
+	}
+	
 	public function prepare($item)
 	{
 		if(!empty($item))
