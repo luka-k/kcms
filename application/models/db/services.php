@@ -23,6 +23,9 @@ class Services extends MY_Model
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'seo_text' => array('seo_text', 'tiny')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'image', 'img')
 		)
 	);
 	
@@ -38,6 +41,7 @@ class Services extends MY_Model
 	
 	function prepare($item)
 	{
+		$item->img = $this->images->get_cover(array('object_type' => 'services', 'object_id' => $item->id));
 		return $item;
 	}
 }

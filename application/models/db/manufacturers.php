@@ -154,6 +154,25 @@ class Manufacturers extends MY_Model
 		return $categories;
 	}
 	
+	public function _get_services($manufacturer_id)
+	{
+		$services = array();
+		
+		$services_ids = $this->table2table->get_parent_ids("manufacturer2service", "service_id", "manufacturer_id", $manufacturer_id);
+		if(!empty($services_ids))
+		{
+			$this->db->where_in("id", $services_ids);
+			$services = $this->db->get("services")->result();
+		}
+		
+		if($services) foreach($services as $i => $c)
+		{
+			if($c->parent_id == 0) unset($services[$i]);
+		}
+		
+		return $services;
+	}
+	
 	private function _get_categories_tree($manufacturer_id, $type = 'catalog')
 	{
 		$categories_tree = array();
@@ -203,6 +222,23 @@ class Manufacturers extends MY_Model
 		return $categories_tree;
 	}
 	
+	public function _get_services_tree($manufacturer_id)
+	{
+		$services_tree = array();
+		
+		$services_ids = $this->table2table->get_parent_ids('manufacturer2service', 'service_id', 'manufacturer_id', $manufacturer_id);
+		
+		$parent_services = $this->services->get_list(array('parent_id' => 0));
+		if($parent_services) foreach($parent_services as $i => $p_s)
+		{
+			$services_tree[$i] = $p_s;
+
+			$services_tree[$i]->childs = $this->services->get_list(array('parent_id' => $p_s->id));
+		}
+		
+		return $services_tree;
+	}
+	
 	public function get_vendors($category_id = FALSE)
 	{
 		$vendors = array();
@@ -232,6 +268,45 @@ class Manufacturers extends MY_Model
 		}
 		
 		return $vendors;
+	}
+	
+	public function get_contractors($service = FALSE)
+	{
+		$contractors = array();
+		
+		if($service)
+		{
+			if($service->parent_id == 0)
+			{
+				$sub_services = $this->services->get_list(array("parent_id" => $service->id));
+				if($sub_services)
+				{
+					$services_ids = array();
+					
+					foreach($sub_services as $ss)
+					{
+						
+						 $services_ids[] = $ss->id;
+					}
+					$this->db->where_in("service_id", $services_ids);
+				}
+			}
+			else
+			{
+				$this->db->where("service_id", $service->id);
+			}
+		}
+		$this->db->distinct();
+		$this->db->select("manufacturer_id");
+		
+		$result = $this->db->get("manufacturer2service")->result();
+		if($result) foreach($result as $i => $item)
+		{
+			$contractors[$i] = $this->get_item($item->manufacturer_id);
+			$contractors[$i]->services = $this->_get_services($item->manufacturer_id);
+		}
+		
+		return $contractors;
 	}
 	
 	public function prepare($item)
@@ -266,6 +341,13 @@ class Manufacturers extends MY_Model
 		$distributed_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
 		$this->db->where_in("id", $distributed_ids);
 		$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
+		return $item;
+	}
+	
+	public function prepare_for_contractor($item)
+	{
+		$item = $this->prepare($item);
+		$item->services = $this->_get_services_tree($item->id);
 		return $item;
 	}
 }

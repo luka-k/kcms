@@ -17,9 +17,9 @@
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
 									<div class="vendors_description"><?=$content_description?></div>
 									<div class="manufacturer">
-										<?foreach($vendors as $v):?>
+										<?foreach($contractors as $c):?>
 											<div class="manufacturer-icon">
-												<a href="<?=base_url()?>vendor/<?=$v->url?>"><img src="<?=$v->img->manufacturer_url?>" alt="<?=$v->name?>"/></a>
+												<a href="<?=base_url()?>contractor/<?=$c->url?>"><img src="<?=$c->img->manufacturer_url?>" alt="<?=$c->name?>"/></a>
 											</div>
 										<?endforeach;?>
 									</div>
@@ -33,7 +33,7 @@
 				<!-----leftcol------>
 				<aside id="s_left">
 					<h1>Каталог продавцов</h1>
-					<?require "include/vendors_left_menu.php"?>
+					<?require "include/contractors_left_menu.php"?>
 				</aside><!--end_leftcol-->
                    
 				<!-----rightcol----->

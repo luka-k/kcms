@@ -29,7 +29,7 @@ class Prodavcy extends Client_Controller {
 		);
 		
 		$content = $this->url->catalog_url_parse(2);
-
+		
 		if($content == 'root')
 		{
 			

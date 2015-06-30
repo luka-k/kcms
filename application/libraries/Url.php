@@ -112,6 +112,44 @@ class CI_Url {
 		return $content;
 	}
 	
+	public function contractors_url_parse($segment_number, $parent = FALSE)
+	{
+		$url = $this->CI->uri->segment($segment_number);
+
+		if(!$url)
+		{
+			return $segment_number == 2 ? "root" : FALSE; 
+		}
+		
+		$content = new stdClass();
+		
+		$child = $this->CI->services->get_item_by(array('url' => $url));
+		
+		if(empty($child))
+		{
+			$manufacturer = $this->CI->manufacturers->get_item_by(array("url" => $url));
+			
+			if(empty($manufacturer)) return FALSE;
+			
+			$this->CI->breadcrumbs->add($url, $manufacturer->name);
+			$content->manufacturer = $manufacturer;
+			
+			if(isset($parent->parent_service)) $content->parent_service = $parent->parent_service;
+
+			$content->service = $parent->service;
+		}
+		else
+		{
+			$this->CI->breadcrumbs->add($url, $child->name);
+			$content->service = $child;
+			if($parent) $content->parent_service = $parent->service;
+		}
+		
+		if($this->CI->uri->segment($segment_number + 1)) return $this->contractors_url_parse($segment_number + 1, $content);
+		
+		return $content;
+	}
+	
 	/**
 	* Парсер url
 	*

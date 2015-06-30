@@ -148,7 +148,7 @@ class Content extends Admin_Controller
 				$data['manufacturer2manufacturer'][] = $distributor;
 			}
 			
-			$data['manufacturer2service'] = $this->services->get_list(FALSE);
+			$data['manufacturer2service'] = $this->services->get_tree(0, "parent_id");
 		}
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);

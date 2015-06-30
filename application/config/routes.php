@@ -85,6 +85,16 @@ $route['prodavcy'] = 'catalog/prodavcy/index';
 $route['prodavcy/(:any)'] = 'catalog/prodavcy/index/$1';
 $route['prodavcy/(:any)/(:num)'] = 'catalog/prodavcy/index/$1/$2';
 
+$route['contractors'] = 'catalog/podrjadchiki/index';
+$route['contractors/(:any)'] = 'catalog/podrjadchiki/index/$1';
+$route['contractors/(:any)/(:num)'] = 'catalog/podrjadchiki/index/$1/$2';
+
+$route['contractor/(:any)'] = 'catalog/podrjadchiki/contractor/$1';
+
+$route['podrjadchiki'] = 'catalog/podrjadchiki/index';
+$route['podrjadchiki/(:any)'] = 'catalog/podrjadchiki/index/$1';
+$route['podrjadchiki/(:any)/(:num)'] = 'catalog/podrjadchiki/index/$1/$2';
+
 $route['cabinet'] = 'shop/cabinet';
 
 $route['order/(:any)/(:num)'] = 'shop/order/$1/$2';
