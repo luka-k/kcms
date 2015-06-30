@@ -54,8 +54,6 @@ class Client_Controller extends CI_Controller
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
 		$this->standart_data = array(
-			'meta_keywords' => $settings->site_keywords,
-			'meta_description' => $settings->site_description,
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),
 			"total_price" => $this->cart->total_price(),

@@ -92,6 +92,7 @@ class Catalog extends Client_Controller {
 			'meta_keywords'  => $content->category->name.' от '.$manufacturer->name.',  '.$content->category->name.' '.$manufacturer->name.' продажа в Санкт-Петербурге',
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
+			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get(),

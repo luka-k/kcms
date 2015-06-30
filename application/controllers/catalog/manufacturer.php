@@ -32,8 +32,12 @@ class Manufacturer extends Client_Controller {
 		$manufacturer->documents = $this->documents->prepare_list($documents);
 
 		$data = array(
-			'title' => $manufacturer->meta_description,//Я думаю требует переделки
+			'title' => 'Каталоги от производителя '.$manufacturer->name.' | Брайтбилд',
+			'meta_description' => 'Каталоги  от производителя '.$manufacturer->name.' производство '.$manufacturer->country.'. По всем вопросам обращайтесь к сотрудникам компании Брайтбилд в Санкт-Петербурге.',
+			'meta_keywords'  => 'каталоги '.$manufacturer->name.' продажа в Спб, каталог '.$manufacturer->name,
+			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
+			'left_active_item' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get("catalog"),
@@ -43,6 +47,7 @@ class Manufacturer extends Client_Controller {
 		);
 		
 		$data = array_merge($data, $this->standart_data);
+
 		$this->load->view("client/catalog/manufacturer", $data);
 	}
 }

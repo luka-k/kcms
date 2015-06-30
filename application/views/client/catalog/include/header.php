@@ -2,11 +2,11 @@
 	<div class="maxw clearfix">
 		<a href="/"><img class="logo" src="<?=base_url()?>/template/client/catalog/images/logo.png" /></a>
 				
-		<div class="catalog-btn"><a href="http://shop.brightbild.ru/catalog">Интернет магазин</a></div>
+		<div class="catalog-btn"><a href="http://shop.brightbuild.ru/catalog">Интернет магазин</a></div>
 				
 		<div class="top-menu">
 			<ul class="clearfix">
-				<li><a href="#"> Производители </a></li>
+				<li><a href="<?=base_url()?>catalog"> Производители </a></li>
 				<li><a href="#"> Продавцы </a></li>
 				<li><a href="#"> Подрядчики </a></li>
 				<li><a href="<?=base_url()?>bb"> bрайтbилd </a></li>
