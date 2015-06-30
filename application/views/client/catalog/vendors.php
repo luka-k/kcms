@@ -15,9 +15,7 @@
 							<div id="" class="main-content clearfix">
 
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="main_description">
-										<?=$settings->site_description?>
-									</div>
+									<div class="vendors_description"><?=$content_description?></div>
 									<div class="manufacturer">
 										<?foreach($vendors as $v):?>
 											<div class="manufacturer-icon">
@@ -34,7 +32,7 @@
 				
 				<!-----leftcol------>
 				<aside id="s_left">
-					<h1>Все товары</h1>
+					<h1>Каталог продавцов</h1>
 					<?require "include/vendors_left_menu.php"?>
 				</aside><!--end_leftcol-->
                    

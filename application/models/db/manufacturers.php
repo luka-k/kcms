@@ -154,15 +154,26 @@ class Manufacturers extends MY_Model
 		return $categories;
 	}
 	
-	private function _get_categories_tree($manufacturer_id)
+	private function _get_categories_tree($manufacturer_id, $type = 'catalog')
 	{
 		$categories_tree = array();
 		
-		$categories_ids = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+		if($type == 'vendor')
+		{
+			$table = 'manufacturer2categorygoods';
+			$field = 'goods_category_id';
+		}
+		else
+		{
+			$table = 'manufacturer2category';
+			$field = 'category_id';
+		}
+		
+		$categories_ids = $this->table2table->get_parent_ids($table, $field, "manufacturer_id", $manufacturer_id);
 
 		if(!empty($categories_ids))
 		{
-			$this->db->where_in("child_id", $categories_ids);
+			//$this->db->where_in("child_id", $categories_ids);
 			$result = $this->db->get_where("category2category", array("category_parent_id" => 0))->result();
 			
 			if($result)foreach($result as $i => $r)
@@ -182,6 +193,13 @@ class Manufacturers extends MY_Model
 			}
 		}
 		
+		$categories_tree = $this->categories->prepare_list($categories_tree);
+
+		foreach($categories_tree as $i => $branch)
+		{
+			if(empty($branch->childs)) unset($categories_tree[$i]);
+		}
+
 		return $categories_tree;
 	}
 	
@@ -236,6 +254,18 @@ class Manufacturers extends MY_Model
 		$this->db->where_in("id", $distributors_ids);
 		$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
 	
+		return $item;
+	}
+	
+	public function prepare_for_vendor($item)
+	{
+		$item = $this->prepare($item);
+		$item->categories = $this->_get_categories_tree($item->id, 'vendor');
+		$item->subcategories = $this->_get_subcategories($item->id);
+		
+		$distributed_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
+		$this->db->where_in("id", $distributed_ids);
+		$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
 		return $item;
 	}
 }

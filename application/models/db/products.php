@@ -126,7 +126,11 @@ class Products extends MY_Model
 	*/
 	public function get_url($item)
 	{
-		$item_full_url = $this->categories->make_full_url($item);
+		$item_full_url[] = $item->url;
+		
+		$item = $this->categories->get_item_by(array("id" => $item->parent_id));
+		
+		$item_full_url = array_merge($item_full_url, $this->categories->make_full_url($item));
 		
 		$full_url = implode("/", array_reverse($item_full_url));
 		$full_url = base_url().$full_url;

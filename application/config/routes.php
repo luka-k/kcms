@@ -79,6 +79,8 @@ $route['vendors'] = 'catalog/prodavcy/index';
 $route['vendors/(:any)'] = 'catalog/vendors/index/$1';
 $route['vendors/(:any)/(:num)'] = 'catalog/vendors/index/$1/$2';
 
+$route['vendor/(:any)'] = 'catalog/prodavcy/vendor/$1';
+
 $route['prodavcy'] = 'catalog/prodavcy/index';
 $route['prodavcy/(:any)'] = 'catalog/prodavcy/index/$1';
 $route['prodavcy/(:any)/(:num)'] = 'catalog/prodavcy/index/$1/$2';

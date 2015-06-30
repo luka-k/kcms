@@ -436,6 +436,13 @@ main.contacts{
 	width:100%;
 }
 
+#vendor .catalog{
+	width: -moz-calc(100% - 181px);
+    width: -webkit-calc(100% - 181px);
+    width: calc(100% - 181px);
+}
+
+
 .main_description h3{
 	font-weight: bold;
 	font-size: 18px;
@@ -460,6 +467,15 @@ main.contacts{
 	font-size: 22px;
 	font-size:arial;
 }
+
+.vendors_description{
+	color: #0000A0;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center;
+}
+
+
 
 .inventory_item{
 	margin-bottom:15px;

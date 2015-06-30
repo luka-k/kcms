@@ -18,8 +18,8 @@
 									<div class="manufacturer-select">
 										<select name="" class="dropdown">
 											<option value="" disabled="" selected="selected" >выбор продавца</option>
-											<?foreach($vendors as $m):?>
-												<option value="<?=$m->id?>"><?=$m->name?></option>
+											<?foreach($vendors as $v):?>
+												<option value="<?=$v->id?>"><?=$v->name?></option>
 											<?endforeach;?>
 										</select>
 									</div>
