@@ -37,29 +37,34 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['default_controller'] = "index";
+
 $route['404_override'] = 'pages/page_404';
 
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
-/**
-* Магазин
-*/
-$route['shop/catalog/count'] = 'shop/catalog/count';
-$route['shop/catalog/ajax_more'] = 'shop/catalog/ajax_more';
-$route['shop/catalog/filter/(:any)'] = 'shop/catalog/filter/$1';
-$route['shop/catalog'] = 'shop/catalog/index';
-$route['shop/catalog/(:any)'] = 'shop/catalog/index/$1';
-$route['shop/catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';
+$url = $_SERVER['HTTP_HOST'];
+$host = explode('.', $url);
 
-/**
-* Каталог
-*/
-
-$route['catalog'] = 'catalog/catalog/index';
-$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
-$route['catalog/(:any)/(:num)'] = 'catalog/catalog/index/$1/$2';
+if($host[0] == "shop")
+{
+	$route['default_controller'] = "shop/index";
+	
+	$route['catalog/count'] = 'shop/catalog/count';
+	$route['catalog/ajax_more'] = 'shop/catalog/ajax_more';
+	$route['catalog/filter/(:any)'] = 'shop/catalog/filter/$1';
+	$route['catalog'] = 'shop/catalog/index';
+	$route['catalog/(:any)'] = 'shop/catalog/index/$1';
+	$route['catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';
+}
+else
+{
+	$route['default_controller'] = "index";
+	
+	$route['catalog'] = 'catalog/catalog/index';
+	$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
+	$route['catalog/(:any)/(:num)'] = 'catalog/catalog/index/$1/$2';
+}
 
 $route['inventory'] = 'catalog/inventory/index';
 $route['inventory/(:any)'] = 'catalog/inventory/index/$1';

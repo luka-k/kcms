@@ -471,15 +471,21 @@ main.contacts{
 }
 
 #main_page .manufacturer-icon{
-	display:relative;
-	float:left;
-	width: 23.333333333333%;
-	min-height:72px;
-	margin-left: 0.83333333333333%;
-	margin-right: 0.83333333333333%;
+	display:inline-block;
+	/*float:left;*/
+	width:156px;
+	height:72px;
+	margin:0 10px 0 10px;
 	text-align:center;
 	border:none;
+	vertical-align: top;
 }
+
+#main_page .manufacturer{
+	margin-top:15px;
+	width:100%;
+}
+
 
 #main_page .catalog h1{
 	margin:0;
@@ -501,7 +507,7 @@ main.contacts{
 	margin:0;
 	font-weight:bold;
 	color: #000099;
-	font-size: 12px;x;
+	font-size: 12px;
 }
 
 .manufacturers{

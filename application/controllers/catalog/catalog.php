@@ -24,7 +24,8 @@ class Catalog extends Client_Controller {
 			'meta_description' => 'Строительный портал Брайтбилд. Вся актуальная информация о производителях и поставщиках в области строительства, ремонта и создания интерьера',
 			'meta_keywords' => '',
 			'left_menu' => $this->categories->get_tree(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc'))
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'left_active_item' => ""
 		);
 		
 		if($content == 'root')
