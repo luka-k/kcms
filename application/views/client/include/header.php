@@ -1,12 +1,10 @@
-<?require_once "columns.php"?>
-
 <header>
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
-		<div class="catalog-btn"><a href="<?=base_url()?>catalog">Каталог производителей</a></div>
+		<div class="catalog-btn"><a href="http://brightbild.ru/catalog">Каталог производителей</a></div>
 		<div class="top-menu">
 			<ul>
-				<li><a href="<?=base_url()?>shop/catalog" class="active">Магазин</a></li><!--catalog-->
+				<li><a href="<?=base_url()?>catalog" class="active">Магазин</a></li>
 				<li><a href="/">Доставка и Оплата</a></li>
 				<li><a href="/">bрайтbилd</a></li>
 				<li><a href="<?=base_url()?>contacts">Контакты</a></li>
@@ -21,7 +19,7 @@
 			</ul>
 		</div>
 		<div class="minicart">
-			<a href="<?=base_url()?>shop/cart"> <span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</a>
+			<a href="<?=base_url()?>cart"> <span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</a>
 		</div>
 	</div>
 </header>

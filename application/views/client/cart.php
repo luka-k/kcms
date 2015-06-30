@@ -126,7 +126,7 @@
 						</main>
 					</div>
 					
-				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/catalog/" >
+				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 					<? require 'include/left-col.php'?>
 				</form>
 				</div>

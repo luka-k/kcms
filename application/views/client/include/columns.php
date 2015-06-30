@@ -234,7 +234,7 @@
 									   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'child'); $('#last_type_filter').val('categories_checked')"
 									   <?if(isset($filters_checked['categories_checked']) && in_array($item_2->id, $filters_checked['categories_checked'])):?>checked<?$show_counter++?><?endif;?>
 								/>
-								<a href="<?=base_url()?>shop/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
+								<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?=$item_2->url?>"><?=$item_2->name?></a>
 							</li>
 						<?endforeach;?>
 						<?if($show_counter > 0):?><script>document.getElementById('sub-parent-<?=$item_1->id?>').style.display='block';$("#pll-<?=$item_1->id?>").html("-");</script><?endif;?>

@@ -27,10 +27,9 @@ class CI_Url {
 	public function shop_url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);
-
 		if(!$url)
 		{
-			return $segment_number == 3 ? "root" : FALSE; /*2*/
+			return $segment_number ==  2 ? "root" : FALSE;
 		}
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url));

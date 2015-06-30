@@ -89,7 +89,7 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$this->breadcrumbs->add(base_url(), "Главная");
-		$this->breadcrumbs->add("shop/catalog", "Каталог");
+		$this->breadcrumbs->add("catalog", "Каталог");
 		
 		if(isset($this->post['filter']))
 		{
@@ -98,7 +98,8 @@ class Catalog extends Client_Controller {
 		else
 		{		
 			
-			$content = $this->url->shop_url_parse(3);/*2*/ 
+			$content = $this->url->shop_url_parse(2);
+
 			isset($content->product) ? $this->product($content) : $this->category($content);
 		}
 	}
@@ -191,7 +192,7 @@ class Catalog extends Client_Controller {
 		//$cache = FALSE;
 		if($cache)
 		{
-			redirect(base_url()."shop/catalog/filter/".$cache_id);
+			redirect(base_url()."catalog/filter/".$cache_id);
 		}
 		else
 		{	
@@ -260,7 +261,7 @@ class Catalog extends Client_Controller {
 			$this->filters_cache->insert($cache_id, $data);
 			$this->benchmark->mark('code_end');
 			
-			redirect(base_url()."shop/catalog/filter/".$cache_id);
+			redirect(base_url()."catalog/filter/".$cache_id);
 		}
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 	}

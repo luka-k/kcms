@@ -48,7 +48,7 @@ $host = explode('.', $url);
 
 if($host[0] == "shop")
 {
-	$route['default_controller'] = "shop/index";
+	$route['default_controller'] = "shop/catalog";
 	
 	$route['catalog/count'] = 'shop/catalog/count';
 	$route['catalog/ajax_more'] = 'shop/catalog/ajax_more';
@@ -65,6 +65,8 @@ else
 	$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
 	$route['catalog/(:any)/(:num)'] = 'catalog/catalog/index/$1/$2';
 }
+
+$route['cart'] = 'shop/cart/index';
 
 $route['inventory'] = 'catalog/inventory/index';
 $route['inventory/(:any)'] = 'catalog/inventory/index/$1';

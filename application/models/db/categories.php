@@ -161,19 +161,6 @@ class Categories extends MY_Model
 	* @param object $item
 	* @return array
 	*/
-	/*public function make_full_url($item)
-	{
-		$item_url = array();
-		$item_url[] = $item->url;
-		while($item->parent_id <> 0)
-		{
-			$parent_id = $item->parent_id;
-			$item = $this->get_item($parent_id);
-			$item_url[] = $item->url;
-		}
-		$item_url[] = 'catalog';
-		return $item_url;
-	}	*/
 	
 	public function make_full_url($item)
 	{
@@ -186,7 +173,7 @@ class Categories extends MY_Model
 		$c2c = $query->row();
 		$item = $this->categories->get_item_by(array("id" => $c2c->category_parent_id));
 		$item_url[]  = $item->url;
-		$item_url[] = 'shop/catalog';
+		$item_url[] = 'catalog';
 		return $item_url;
 	}	
 	
