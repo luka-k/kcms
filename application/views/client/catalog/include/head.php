@@ -34,6 +34,11 @@
 				
 				$("#scroll-content").height($(window).height() - 95);
 				$("#scroll-right").height($(window).height() - 102);
+				
+				$("#scroll-left").mCustomScrollbar({
+					axis:"y", //set both axis scrollbars
+					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
+				});
 					
 				$("#slider-scroll").mCustomScrollbar({
 					axis:"y", //set both axis scrollbars

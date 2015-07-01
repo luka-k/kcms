@@ -241,8 +241,28 @@ header .right-contacts {
 }
 
 .leftmenu .mCSB_scrollTools{
-	display:none;
-	visibility:hidden;
+
+}
+
+.leftmenu .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+	margin-left: 3px;
+	background:#919295;
+	width: 1px !important;
+}
+.leftmenu .mCSB_scrollTools .mCSB_draggerRail{
+	margin-left: 3px;
+	background:#F1F3F9;
+	width: 1px !important;
+}
+
+.leftmenu .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.leftmenu .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+	background:#48484A;
+	/*filter:"alpha(opacity=0)"; -ms-filter:"alpha(opacity=90)"; /* old ie */
+}
+.leftmenu .mCSB_container{
+	
+	width: 176px !important;
 }
 
 .main-item:focus{
@@ -295,7 +315,6 @@ header .right-contacts {
 
 .menu-text{
 	display:block;
-	max-width:200px;
 	float:left;
 	padding-top:2px;
 }
