@@ -18,6 +18,8 @@ class Inventory extends Client_Controller {
 	{
 		$data = array(
 			'title' => "Складские остатки",
+			'meta_description' => '',
+			'meta_keywords' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_have_inventory()),
 		);

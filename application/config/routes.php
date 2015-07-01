@@ -70,6 +70,8 @@ $route['cart'] = 'shop/cart/index';
 
 $route['manufacturer/(:any)'] = 'catalog/manufacturer/index/$1';
 
+$route['getdoc/(:any)'] = 'getdoc/index/$1';
+
 $route['bb'] = 'catalog/brightbild/index';
 
 $route['inventory'] = 'catalog/inventory/index';
