@@ -111,7 +111,11 @@
 	
 									</div>
 									<div class="main-a-2 main-a-3">
-										<a href="#" class="main-a-2 del-2">Новости colombo</a>
+										<?if($is_news):?>
+											<a href="<?=base_url()?>articles/novosti/<?=$manufacturer->url?>" class="main-a-2 del-2">Новости colombo</a>
+										<?else:?>
+											&nbsp;
+										<?endif;?>
 									</div> 
 								</div>
                             </nav>

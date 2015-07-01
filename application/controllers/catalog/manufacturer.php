@@ -43,8 +43,12 @@ class Manufacturer extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get("catalog"),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'doc_type' => $active_doc_type,
+			'is_news' => FALSE,
 			'menu_link' => "manufacturer"
 		);
+		
+		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));
+		if($news_count > 0) $data['is_news'] = TRUE;
 		
 		$data = array_merge($data, $this->standart_data);
 

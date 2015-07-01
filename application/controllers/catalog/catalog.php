@@ -102,8 +102,12 @@ class Catalog extends Client_Controller {
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'active_category' => $content->category,
 			'doc_type' => $active_doc_type,
+			'is_news' => FALSE,
 			'menu_link' => $menu_link
 		);
+		
+		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));
+		if($news_count > 0) $data['is_news'] = TRUE;
 				
 		$this->load->view("client/catalog/manufacturer", $data);
 	}
