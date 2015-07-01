@@ -40,17 +40,16 @@
 					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 				});
 					
-				$("#slider-scroll").mCustomScrollbar({
-					axis:"y", //set both axis scrollbars
-					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
-				});
-				
-				$(".logo-column").mCustomScrollbar({
-					axis:"y", //set both axis scrollbars
-					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
-					scrollbarPosition: "outside"
-				});
+				if ($('.logotype.active').offset())
+				{
+					$(".logo-column").mCustomScrollbar({
+						axis:"y", //set both axis scrollbars
+						setTop: ($('.logotype.active').offset().top-115)+"px",
+						advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
+					});
+				}
 
+			
 				$(".catalog-row").mCustomScrollbar({
 					axis:"x"
 				});

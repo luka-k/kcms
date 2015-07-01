@@ -423,8 +423,12 @@ main.contacts{
 }
 
 .logo-column{
-	width: 156px;
+	/*width: 156px;*/
 	margin-top:10px;
+}
+
+.logo-column img.active{
+	border:1px solid red;
 }
 
 .some10{

@@ -101,7 +101,7 @@ class Catalog extends Client_Controller {
 			'doc_type' => $active_doc_type,
 			'menu_link' => $menu_link
 		);
-		
+				
 		$this->load->view("client/catalog/manufacturer", $data);
 	}
 }

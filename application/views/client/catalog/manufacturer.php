@@ -15,24 +15,26 @@
 							<?require 'include/breadcrumbs.php'?>
 								
 							<div id="" class="main-content clearfix">
-								<div id="slider-scroll" class="slider">
-
-									<div class="for-select">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-										<select name="" class="dropdown" onchange="manufacturer_submit('<?=$menu_link?>',this.options[this.selectedIndex].value);">
-											<option value="1" disabled="" selected="selected">выбор производителя</option>
-											<?foreach($manufacturers as $m):?>
-												<option value="<?=$m->url?>"><?=$m->name?></option>
-											<?endforeach;?>
-										</select>
-										</form>
-									</div>
 								
+								<div class="for-select">
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
+									<select name="" class="dropdown" onchange="manufacturer_submit('<?=$menu_link?>',this.options[this.selectedIndex].value);">
+										<option value="1" disabled="" selected="selected">выбор производителя</option>
+										<?foreach($manufacturers as $m):?>
+											<option value="<?=$m->url?>"><?=$m->name?></option>
+										<?endforeach;?>
+									</select>
+									</form>
+								</div>
+								
+								<div id="slider-scroll" class="slider">
 									<div class="logo-column">
 										<div class="some10">
 											<?foreach($manufacturers as $m):?>
 												<div class="pic-block">
-													<a href="<?=base_url()?><?=$menu_link?>/<?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>"></a>
+													<a href="<?=base_url()?><?=$menu_link?>/<?=$m->url?>">
+														<img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>" class="logotype <?if($m->url == $manufacturer->url):?>active<?endif;?>" />
+													</a>
 												</div>
 											<?endforeach;?>
 										</div>
