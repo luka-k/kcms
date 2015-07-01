@@ -60,8 +60,11 @@ class Catalog extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'page_title' => $content->category->name,
 			'active_category' => $content->category->url
-			
 		);
+		
+		$data['a_link'] = "";
+		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
+		$data['a_link'] .= $content->category->url."/";
 		
 		$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category));
 
