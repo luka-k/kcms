@@ -66,6 +66,14 @@ class Catalog extends Client_Controller {
 		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
 		$data['a_link'] .= $content->category->url."/";
 		
+		$data['shop_link_title'] = ': ';
+		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
+		$data['shop_link_title'] .= $content->category->name;
+		
+		$data['shop_link'] = '';
+		if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
+		$data['shop_link'] .= $content->category->url.'/';
+
 		$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category));
 
 		$data['manufacturers'] = $manufacturers;
@@ -93,6 +101,7 @@ class Catalog extends Client_Controller {
 			'title' => $this->string_edit->my_ucfirst($content->category->name).' '.$manufacturer->name.' производство '.$manufacturer->country.'. Каталог '.$content->category->genitive_name.' фирмы '.$manufacturer->name.' - продажа в магазинах Санкт-Петербурга | Брайтбилд',
 			'meta_description' => $this->string_edit->my_ucfirst($content->category->name).' от производителя '.$manufacturer->name.' производство '.$manufacturer->country.'. Онлайн каталог с официального сайта фирмы '.$manufacturer->name.'. '.$this->string_edit->my_ucfirst($content->category->name).' фирмы '.$manufacturer->name.' станет прекрасным дополнением к интерьеру Вашего дома. Купить '.$content->category->name.' в Санкт-Петербурге',
 			'meta_keywords'  => $content->category->name.' от '.$manufacturer->name.',  '.$content->category->name.' '.$manufacturer->name.' продажа в Санкт-Петербурге',
+			'shop_link' => 'huy',
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
@@ -105,6 +114,16 @@ class Catalog extends Client_Controller {
 			'is_news' => FALSE,
 			'menu_link' => $menu_link
 		);
+		
+		$data['shop_link_title'] = ': ';
+		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
+		$data['shop_link_title'] .= $content->category->name.' - ';
+		$data['shop_link_title'] .= $manufacturer->name;
+		
+		$data['shop_link'] = '';
+		if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
+		$data['shop_link'] .= $content->category->url.'/';
+		$data['shop_link'] .= $manufacturer->url;
 		
 		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));
 		if($news_count > 0) $data['is_news'] = TRUE;

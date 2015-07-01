@@ -29,29 +29,41 @@ class CI_Url {
 		$url = $this->CI->uri->segment($segment_number);
 		if(!$url)
 		{
-			return $segment_number ==  2 ? "root" : FALSE;
+			return $segment_number ==  2 ? 'root' : FALSE;
 		}
+		$content = new stdClass();
 		
 		$child = $this->CI->categories->get_item_by(array('url' => $url));
 
 		if(empty($child))
 		{
-			$child = $parent;
-			$child->product = $this->CI->products->get_item_by(array('url' => $url));
-			if(!$child->product) return FALSE;
-			
-			$manufacturer = $this->CI->manufacturers->get_item($child->product->manufacturer_id);
-			$breadcrumb = (string)$manufacturer->name." ".(string)$child->product->sku;
-			$this->CI->breadcrumbs->add($url, $breadcrumb);	
+			$content->category = $parent;
+			$product = $this->CI->products->get_item_by(array('url' => $url));
+			if(!$product) 
+			{
+				$content->manufacturer = $this->CI->manufacturers->get_item_by(array('url' => $url));
+				if(!$content->manufacturer) return FALSE;
+				$this->CI->breadcrumbs->add($url, $content->manufacturer->name);
+			}
+			else
+			{
+				$content->product = $product;
+				$manufacturer = $this->CI->manufacturers->get_item($product->manufacturer_id);
+				$breadcrumb = (string)$manufacturer->name.' '.(string)$product->sku;
+				$this->CI->breadcrumbs->add($url, $breadcrumb);
+			}	
 		}
 		else
 		{
 			$this->CI->breadcrumbs->add($url, $child->name);
+			
 			$child->parent = $parent;
+			$content->category = $child;
+			
 		
 			if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->shop_url_parse($segment_number + 1, $child);	
 		}	
-		return $child;
+		return $content;
 	}
 	
 	/**

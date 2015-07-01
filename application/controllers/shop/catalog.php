@@ -99,7 +99,7 @@ class Catalog extends Client_Controller {
 		{		
 			
 			$content = $this->url->shop_url_parse(2);
-
+			//my_dump($content);
 			isset($content->product) ? $this->product($content) : $this->category($content);
 		}
 	}
@@ -120,55 +120,86 @@ class Catalog extends Client_Controller {
 			"from" => 0,
 		);
 		
-		if($content <> "root")
-		{
-			$category_anchor = $this->db->get_where("category2category", array("child_id" => $content->id))->result();
-
-			$products = array();
-			if(count($category_anchor) == 1 && $category_anchor[0]->category_parent_id == 0)
-			{
-				$filters_checked['parent_checked'] = array(0 => $content->id);
-				$sub_categories = $this->db->get_where("category2category", array("category_parent_id" => $content->id))->result();
-				if($sub_categories) foreach($sub_categories as $category)
-				{
-					$filters_checked['categories_checked'][] = $category->child_id;
-				}
-				$products = $this->characteristics->get_products_by_filter($filters_checked, "sort", "asc", 10, 0);
-				$products = $this->products->prepare_list($products);
-				
-				$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, "sort", "asc"));
-			}
-			else
-			{
-				$products = $this->products->prepare_list($this->products->get_list(array("parent_id" => $content->id), 0, 10, "sort", "asc"));
-				$filters_checked['categories_checked'] = array(0 => $content->id);
-				
-				$total_rows = count($this->products->get_list(array("parent_id" => $content->id), FALSE, FALSE, "sort", "asc"));
-			}
-			
-			$products_ids = $this->catalog->get_products_ids($products);
-			
-			$data = array(
-				'title' => $content->name,
-				'meta_keywords' => $content->meta_keywords,
-				'meta_description' => $content->meta_description,
-				'category' => $content,
-				'filters_checked' => $filters_checked,
-				'left_menu' => $this->categories->get_tree(),
-				'collection' => $this->collections->get_tree($products_ids),
-				'manufacturer' => $this->manufacturers->get_tree($products),
-				'sku_tree' => $this->manufacturers->get_tree($products),
-				'nok' => $this->catalog->get_nok_tree($products_ids),
-				'categories_ch' => array(0 => $content->name),
-			);
-		}
-		else
+		if($content == "root")
 		{
 			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, "sort", "asc"));
 			$products_ids = $this->catalog->get_products_ids($products);
 			
 			$total_rows = count($this->products->get_list(FALSE));
 		}
+		else
+		{
+			if(isset($content->category->id))
+			{
+				$category_anchor = $this->db->get_where("category2category", array("child_id" => $content->category->id))->result();
+
+				$products = array();
+				if(count($category_anchor) == 1 && $category_anchor[0]->category_parent_id == 0)
+				{
+					$filters_checked['parent_checked'] = array(0 => $content->category->id);
+					$sub_categories = $this->db->get_where("category2category", array("category_parent_id" => $content->category->id))->result();
+					if($sub_categories) foreach($sub_categories as $category)
+					{
+						$filters_checked['categories_checked'][] = $category->child_id;
+					}
+				
+					if(isset($content->manufacturer)) $filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+				
+					$products = $this->characteristics->get_products_by_filter($filters_checked, "sort", "asc", 10, 0);
+					$products = $this->products->prepare_list($products);
+				
+					$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, "sort", "asc"));
+				}
+				else
+				{
+					$param = array("parent_id" => $content->category->id);
+
+					$filters_checked['categories_checked'] = array(0 => $content->category->id);
+				
+					if(isset($content->manufacturer))
+					{
+						$param['manufacturer_id'] = $content->manufacturer->id;
+						$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+					}
+					$products = $this->products->prepare_list($this->products->get_list($param, 0, 10, "sort", "asc"));
+				
+				
+					$total_rows = count($this->products->get_list($param, FALSE, FALSE, "sort", "asc"));
+				}
+			}
+			else
+			{
+				$products = $this->products->prepare_list($this->products->get_list(array("manufacturer_id" => $content->manufacturer->id), 0, 10, "sort", "asc"));
+				$total_rows = count($this->products->get_list(array("manufacturer_id" => $content->manufacturer->id), FALSE, FALSE, "sort", "asc"));
+			}
+			
+			$products_ids = $this->catalog->get_products_ids($products);
+			
+			$data = array(
+				'category' => $content,
+				'filters_checked' => $filters_checked,
+				'left_menu' => $this->categories->get_tree(),
+				'collection' => $this->collections->get_tree($products_ids),
+				'manufacturer' => $this->manufacturers->get_tree($products),
+				'sku_tree' => $this->manufacturers->get_tree($products),
+				'nok' => $this->catalog->get_nok_tree($products_ids)
+			);
+			
+			if(!empty($content->category))
+			{
+				$data['title'] = $content->category->name;
+				$data['meta_keywords'] = $content->category->meta_keywords;
+				$data['meta_description'] = $content->category->meta_description;
+				$data['categories_ch'] = array(0 => $content->category->name);
+			}
+			else
+			{
+				$data['title'] = $content->manufacturer->name;
+				$data['meta_keywords'] = $content->manufacturer->meta_keywords;
+				$data['meta_description'] = $content->manufacturer->meta_description;
+			}
+		}
+
 
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		

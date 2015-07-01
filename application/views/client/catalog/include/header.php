@@ -2,7 +2,11 @@
 	<div class="maxw clearfix">
 		<a href="/"><img class="logo" src="<?=base_url()?>/template/client/catalog/images/logo.png" /></a>
 				
-		<div class="catalog-btn"><a href="http://shop.brightbuild.me/catalog">Интернет магазин</a></div><!--ru-->
+		<div class="catalog-btn">
+			<a href="http://shop.brightbuild.me/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>">
+				Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>
+			</a>
+		</div><!--ru-->
 				
 		<div class="top-menu">
 			<ul class="clearfix">

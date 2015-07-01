@@ -30,11 +30,15 @@ class Manufacturer extends Client_Controller {
 		$this->breadcrumbs->add("", $active_doc_type);
 		
 		$manufacturer->documents = $this->documents->prepare_list($documents);
+		
+		$shop_link_title = ': '.$manufacturer->name;
 
 		$data = array(
 			'title' => 'Каталоги от производителя '.$manufacturer->name.' | Брайтбилд',
 			'meta_description' => 'Каталоги  от производителя '.$manufacturer->name.' производство '.$manufacturer->country.'. По всем вопросам обращайтесь к сотрудникам компании Брайтбилд в Санкт-Петербурге.',
 			'meta_keywords'  => 'каталоги '.$manufacturer->name.' продажа в Спб, каталог '.$manufacturer->name,
+			'shop_link_title' => $shop_link_title,
+			'shop_link' => $manufacturer->url,
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
 			'left_active_item' => '',
