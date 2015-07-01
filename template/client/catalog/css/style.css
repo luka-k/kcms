@@ -224,6 +224,9 @@ header .right-contacts {
 	margin:4px 0 9px 22px;
 	color: #0099ff;
 	font-weight:bold;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
 }
 
 #s_left .leftmenu {
@@ -292,6 +295,7 @@ header .right-contacts {
 
 .menu-text{
 	display:block;
+	max-width:200px;
 	float:left;
 	padding-top:2px;
 }

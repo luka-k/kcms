@@ -28,16 +28,16 @@
 									</h1>
 									<div id="manufacturers" class="manufacturers">
 										<?$contractors_counter = 1?>
-										<?foreach($contractors as $c):?>
+										<?foreach($contractors as $contractor):?>
 										<div class="manufacturer-item">
 											<div class="manufacturer-logo">
-												<a href="<?=base_url()?>podrjadchiki/<?=$a_link?><?=$c->url?>"><img src="<?=$с->img->manufacturer_url?>" alt="<?=$c->name?>"/></a>
+												<a href="<?=base_url()?>podrjadchiki/<?=$a_link?><?=$contractor->url?>"><img src="<?=$contractor->img->manufacturer_url?>" alt="<?=$contractor->name?>"/></a>
 											</div>
 											<div class="manufacturer-categories-list list-row">
 												<ul class="list_box l-b-<?=$contractors_counter?>">
 													<div class="manu_col">
 														<?$cat_counter = 1?>
-														<?foreach($с->services as $service):?>
+														<?foreach($contractor->services as $service):?>
 															<li class="cat_list-<?=$contractors_counter?>">
 																<a nohref><?=$service->name?></a>
 															</li>
