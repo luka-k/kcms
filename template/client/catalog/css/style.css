@@ -93,19 +93,19 @@ header .catalog-btn {
 header .catalog-btn  a{
 	font-size:11px;
 	font-weight:bold;
-	color:#3399ff;
+	color:#C20000;
 	margin-top:2px;
 	margin-bottom:2px;
 	text-decoration: underline;;
 }
 
 header .catalog-btn  a:hover{
-	color:#ec1c24;
+	color:#C20000;
 }
 
 header .top-menu {
 	position: absolute;
-	top:37px;
+	top:34px;
 	left:290px;
 	list-style:none;
 }
@@ -161,7 +161,7 @@ header .right-contacts {
 	float:left;
 	font-size:15px;
 	color:#000;
-	font-weight:normal;
+	font-weight:bold;
 	text-decoration:none;
 }
 
@@ -197,7 +197,7 @@ header .right-contacts {
 
 .top-menu li ul li a:hover{
 	color:#ec1c24;
-}	
+}		
 
 /*****************************************/
 
@@ -824,7 +824,8 @@ main.contacts{
 
 .point {
 	position: relative;
-	padding-left: 15px;
+	margin-right:5px;
+	padding-left: 10px;
 	font-size: 12px;
 }
 
@@ -836,8 +837,8 @@ main.contacts{
 	border-radius: 50%;
 	background: blue;
 	background-repeat: no-repeat;
-	top: 7px;
-	left: 5px;
+	top: 8px;
+	left: 0;
 }
 
 .all-items{

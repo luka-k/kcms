@@ -17,7 +17,8 @@
 		</div>
 		<div class="right-contacts">
 			<ul>
-				<li class="phone">+7 911 831 1025</li>
+				<li class="phone">+7 (812) 633-04-20</li>
+				<li class="phone">+7 (911) 831-10-25</li>
 				<li>info@brightbuild.ru</li>
 				<li class="right">&copy; Брайтбилд-2015</li>
 			</ul>
