@@ -79,7 +79,7 @@
 										
 										<div class="category">
 											<?foreach($manufacturer->subcategories as $category):?>
-												<div style="float:left;"><a href="#" class="point"><?=$category->name?></a></div>
+												<div style="float:left;" class="point"><?=$category->name?></div>
 											<?endforeach;?>
 										</div>
 									</div>
@@ -90,7 +90,6 @@
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs">Каталоги</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices">Прайсы</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections">Брошюры по коллекциям</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/special">Брошюры специальные</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="del">Техническая информация</a>
 								
 										<div>
