@@ -239,11 +239,30 @@ class Manufacturers extends MY_Model
 		
 		foreach($services_tree as $i => $branch)
 		{
-			if(empty($branch->childs)) unset($services_tree[$i]);
+			if(empty($branch->childs)) 
+			{
+				unset($services_tree[$i]);
+			}
+			else
+			{
+				$volume = array();
+				foreach ($services_tree[$i]->childs as $key => $row) 
+				{
+					$volume[$key]  = $row->name;
+				}
+				array_multisort($volume, SORT_ASC, $services_tree[$i]->childs);
+			}
 		}
 		
+		$volume = array();
+		foreach ($services_tree as $key => $row) 
+		{
+			$volume[$key]  = $row->name;
+		}
+		array_multisort($volume, SORT_ASC, $services_tree);
+		
 		$services_tree = $this->services->prepare_list($services_tree);
-
+		
 		return $services_tree;
 	}
 	
