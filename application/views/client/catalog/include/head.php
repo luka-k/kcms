@@ -94,8 +94,10 @@
 			var box_counter = 1;
 			
 			list_width = $(".manufacturer-categories-list").width();
-
-			var column_width = (list_width - 60)/3;
+			
+			col_qty = $(".manufacturer-categories-list").attr("colqty")
+			
+			var column_width = (list_width - (20 * col_qty))/col_qty; //костыли костылики
 			
 			$('.manu_col').width(column_width);
 			
@@ -103,7 +105,7 @@
 				var columns = $(this).find(".cat_list-"+box_counter);
 
 				var qty_of_colums = Math.ceil(columns.length/4);
-
+				
 				$(".l-b-"+box_counter).width(qty_of_colums * (column_width + 25));
 				box_counter++;
 			});

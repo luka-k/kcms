@@ -33,7 +33,7 @@
 											<div class="manufacturer-logo">
 												<a href="<?=base_url()?>vendor/<?=$v->url?>"><img src="<?=$v->img->manufacturer_url?>" alt="<?=$v->name?>"/></a>
 											</div>
-											<div class="manufacturer-categories-list list-row">
+											<div class="manufacturer-categories-list list-row" colqty="3">
 												<ul class="list_box l-b-<?=$manufacturer_counter?>">
 													<div class="manu_col">
 														<?$cat_counter = 1?>

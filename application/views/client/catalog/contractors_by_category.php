@@ -33,7 +33,7 @@
 											<div class="manufacturer-logo">
 												<a href="<?=base_url()?>podrjadchiki/<?=$a_link?><?=$contractor->url?>"><img src="<?=$contractor->img->manufacturer_url?>" alt="<?=$contractor->name?>"/></a>
 											</div>
-											<div class="manufacturer-categories-list list-row">
+											<div class="manufacturer-categories-list list-row" colqty="2">
 												<ul class="list_box l-b-<?=$contractors_counter?>">
 													<div class="manu_col">
 														<?$cat_counter = 1?>
