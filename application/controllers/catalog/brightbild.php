@@ -21,6 +21,7 @@ class Brightbild extends Client_Controller {
 		
 		$data = array(
 			"title" => "Брайтбилд - комплектация объектов",
+			'top_active' => 'bb',
 			"brightbild" => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => $parent_id))),
 			"last_news" => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 		);

@@ -24,6 +24,7 @@ class Podrjadchiki extends Client_Controller {
 			'meta_keywords' => 'Услуги для строительства и ремонта, Брайтбилд, Брайтбилд',
 			'left_menu' => $this->services->get_tree(0, 'parent_id'),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'top_active' => 'contractors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'content_description' => 'Подрядчики для строительства, ремонта, производства, оказания услуг на сайте brightbuild'
@@ -83,6 +84,7 @@ class Podrjadchiki extends Client_Controller {
 			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'top_active' => 'contractors',
 			'left_active_item' => isset($content->parent_service) ? $content->parent_service->url : $content->service->url,
 			'submenu_active_item' => isset($content->parent_service) ? $content->service->url : '',
 			'breadcrumbs' => $this->breadcrumbs->get(),

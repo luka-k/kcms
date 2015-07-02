@@ -10,12 +10,12 @@
 				
 		<div class="top-menu">
 			<ul class="clearfix">
-				<li><a href="<?=base_url()?>catalog"> Производители </a></li>
-				<li><a href="<?=base_url()?>vendors"> Продавцы </a></li>
-				<li><a href="<?=base_url()?>contractors"> Подрядчики </a></li>
-				<li><a href="<?=base_url()?>bb"> bрайтbилd </a></li>
-				<li><a href="<?=base_url()?>inventory"> Складские остатки </a></li>
-				<li><a href="<?=base_url()?>contacts"> Контакты </a></li>
+				<li class="<?if($top_active == 'catalog'):?>current<?endif;?>"><a href="<?=base_url()?>catalog"> Производители </a></li>
+				<li class="<?if($top_active == 'vendors'):?>current<?endif;?>"><a href="<?=base_url()?>vendors"> Продавцы </a></li>
+				<li class="<?if($top_active == 'contractors'):?>current<?endif;?>"><a href="<?=base_url()?>contractors"> Подрядчики </a></li>
+				<li class="<?if($top_active == 'bb'):?>current<?endif;?>"><a href="<?=base_url()?>bb"> bрайтbилd </a></li>
+				<li class="<?if($top_active == 'inventory'):?>current<?endif;?>"><a href="<?=base_url()?>inventory"> Складские остатки </a></li>
+				<li class="<?if($top_active == 'contacts'):?>current<?endif;?>"><a href="<?=base_url()?>contacts"> Контакты </a></li>
 				<li class="right"><a href="#"> Новости </a></li>
 			</ul>
 		</div>

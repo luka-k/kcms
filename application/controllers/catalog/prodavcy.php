@@ -24,6 +24,7 @@ class Prodavcy extends Client_Controller {
 			'meta_keywords' => 'Товары и услуги для строительства, Брайтбилд, Брайтбилд',
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'top_active' => 'vendors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'content_description' => 'Продавцы товаров для строительства, ремонта, интерьера на сайте brightbuild'
@@ -82,6 +83,7 @@ class Prodavcy extends Client_Controller {
 			'left_menu' => $this->categories->get_tree(),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'top_active' => 'vendors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'vendors' => $this->manufacturers->prepare_list($this->manufacturers->get_vendors()),

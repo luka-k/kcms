@@ -28,6 +28,7 @@ class Contractor extends Client_Controller {
 			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'top_active' => 'contractors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'h1_title' => $contractor->name,
