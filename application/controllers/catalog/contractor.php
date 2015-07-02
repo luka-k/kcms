@@ -27,7 +27,6 @@ class Contractor extends Client_Controller {
 			'meta_description' => 'Компания '.$contractor->name.' в Санкт-Петербурге производит обслуживание/ремонт сантехники. По всем вопросам обращайтесь к консультантам компании',
 			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
-			'left_menu' => $this->services->get_tree(0, 'parent_id'),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'left_active_item' => "",
 			'h1_title' => $contractor->name,
@@ -36,6 +35,8 @@ class Contractor extends Client_Controller {
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
 		
+		$data['left_menu'] = $this->manufacturers->_get_services_tree($contractor->id);
+		//my_dump($data['left_menu']);
 		$data = array_merge($data, $this->standart_data);
 
 		$this->load->view("client/catalog/contractor", $data);

@@ -159,6 +159,7 @@ class Manufacturers extends MY_Model
 		$services = array();
 		
 		$services_ids = $this->table2table->get_parent_ids("manufacturer2service", "service_id", "manufacturer_id", $manufacturer_id);
+
 		if(!empty($services_ids))
 		{
 			$this->db->where_in("id", $services_ids);
@@ -227,15 +228,22 @@ class Manufacturers extends MY_Model
 		$services_tree = array();
 		
 		$services_ids = $this->table2table->get_parent_ids('manufacturer2service', 'service_id', 'manufacturer_id', $manufacturer_id);
-		
+
 		$parent_services = $this->services->get_list(array('parent_id' => 0));
 		if($parent_services) foreach($parent_services as $i => $p_s)
 		{
 			$services_tree[$i] = $p_s;
-
+			if(!empty($services_ids))$this->db->where_in('id', $services_ids);
 			$services_tree[$i]->childs = $this->services->get_list(array('parent_id' => $p_s->id));
 		}
 		
+		foreach($services_tree as $i => $branch)
+		{
+			if(empty($branch->childs)) unset($services_tree[$i]);
+		}
+		
+		$services_tree = $this->services->prepare_list($services_tree);
+
 		return $services_tree;
 	}
 	

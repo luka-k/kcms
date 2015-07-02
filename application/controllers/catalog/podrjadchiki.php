@@ -80,13 +80,14 @@ class Podrjadchiki extends Client_Controller {
 			'meta_description' => 'Компания '.$contractor->name.' в Санкт-Петербурге производит обслуживание/ремонт сантехники. По всем вопросам обращайтесь к консультантам компании',
 			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
-			'left_menu' => $this->services->get_tree(0, 'parent_id'),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'left_active_item' => "",
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'contractors' => $this->manufacturers->prepare_list($this->manufacturers->get_contractors()),
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
+		
+		$data['left_menu'] = $this->manufacturers->_get_services_tree($contractor->id);
 		
 		$data['h1_title'] = '';
 		if(isset($content->service)) $data['h1_title'] .= $content->service->name.' - ';
