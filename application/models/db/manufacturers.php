@@ -312,10 +312,9 @@ class Manufacturers extends MY_Model
 					
 					foreach($sub_services as $ss)
 					{
-						
 						 $services_ids[] = $ss->id;
 					}
-					$this->db->where_in("service_id", $services_ids);
+					if($services_ids) $this->db->where_in("service_id", $services_ids);
 				}
 			}
 			else
@@ -366,7 +365,7 @@ class Manufacturers extends MY_Model
 		$item->subcategories = $this->_get_subcategories($item->id);
 		
 		$distributed_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
-		$this->db->where_in("id", $distributed_ids);
+		if($distributed_ids) $this->db->where_in("id", $distributed_ids);
 		$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
 		return $item;
 	}
