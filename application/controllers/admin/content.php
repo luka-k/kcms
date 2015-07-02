@@ -34,7 +34,7 @@ class Content extends Admin_Controller
 			'type' => $type,
 			'name' => $name,
 			'url' => $this->uri->uri_string(),
-			'tree' => $this->categories->get_tree(0, "category_parent_id", "admin")
+			'tree' => $this->categories->get_tree(FALSE, array(), "admin")
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
@@ -43,7 +43,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "category_parent_id", "admin") : $this->$type->get_tree(0, "parent_id");
+			if($type <> "products") $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		}
 		
 		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
@@ -104,10 +104,10 @@ class Content extends Admin_Controller
 			'type' => $type,
 			'parent_id' => $parent_id,
 			'url' => "/".$this->uri->uri_string(),
-			'tree' => $this->categories->get_tree(0, "category_parent_id")
+			'tree' => $this->categories->get_tree(FALSE, array(), "admin")
 		);
 			
-		$data['selects']['category2category'] = $this->categories->get_tree(0, "category_parent_id", "admin");
+		$data['selects']['category2category'] =$this->categories->get_tree(FALSE, array(), "admin");
 		$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
 		$data['selects']['product2collection'] = $this->collections->get_tree(0, "parent_id");
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
@@ -116,7 +116,7 @@ class Content extends Admin_Controller
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$tree =  $type == "products" ? $this->categories->get_tree(0, "category_parent_id") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
+			$tree =  $type == "products" ? $this->categories->get_tree(FALSE, array(), "admin") : set_disabled_option($this->$type->get_tree(0, "parent_id"), $id);
 			$data['tree'] = $tree;
 			$data['selects']['parent_id'] = $tree;
 		}
