@@ -230,7 +230,6 @@ header .right-contacts {
 }
 
 #s_left .leftmenu {
-	width: 271px;
 	background: url(../images/leftcolumn-bg.png) repeat;
 	margin-left: 6px;
 	padding-top: 10px;
@@ -261,8 +260,6 @@ header .right-contacts {
 	/*filter:"alpha(opacity=0)"; -ms-filter:"alpha(opacity=90)"; /* old ie */
 }
 .leftmenu .mCSB_container{
-	
-	width: 176px !important;
 }
 
 .main-item:focus{
@@ -278,33 +275,22 @@ header .right-contacts {
 	display:block;
 }
 
-.main-item.up-item{
+.main-item{
 	position: relative;
 	display: inline-block;
 	margin-bottom: 7px;
 	font-size: 14px;
 	padding-left: 15px;
-	padding-right:13px;
-	background: url(../images/after.png) right no-repeat;
 	border:none;
 	outline:none;
 }
 
-.main-item.down-item{
-	color: red;
-	outline:none;
-	position: relative;
-	display: inline-block;
-	margin-bottom: 7px;
-	font-size: 14px;
-	padding-left: 15px;
-	padding-right:15px;
-	background: url(../images/triangal.png) right no-repeat;
-	border:none;
-	outline:none;
+.main-item.down-item {
+	color:red;
 }
 
 .menu-pic{
+	position: relative;
 	display:block;
 	float:left;
 	width:24px;
@@ -314,9 +300,28 @@ header .right-contacts {
 }
 
 .menu-text{
+	position: relative;
 	display:block;
 	float:left;
 	padding-top:2px;
+	max-width:185px;
+}
+
+.triangle{
+	position: relative;
+	display:inline-block;
+	width:9px;
+	height:4px;
+	margin-top:6px;
+	margin-left:5px;
+}
+
+.up-item .triangle{
+	background: url(../images/after.png) center no-repeat;
+}
+
+.down-item .triangle{
+	background: url(../images/triangal.png) center no-repeat;
 }
 
 .sub-menu li {
@@ -1014,5 +1019,4 @@ main.contacts{
 	width: 1px !important;
 }
 #slider-scroll .mCSB_container{
-	width: 176px !important;
 }

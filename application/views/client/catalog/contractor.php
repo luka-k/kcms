@@ -29,7 +29,9 @@
 										<div class="some10">
 											<?foreach($contractors as $c):?>
 												<div class="pic-block">
-													<a href="<?=base_url()?>contractor/<?=$c->url?>"><img src="<?=$c->img->manufacturer_url?>" height="78" width="164" alt="<?=$c->name?>"></a>
+													<a href="<?=base_url()?>contractor/<?=$c->url?>">
+														<img src="<?=$c->img->manufacturer_url?>" height="78" width="164" alt="<?=$c->name?>" class="logotype <?if($c->url == $contractor->url):?>active<?endif;?>" />
+													</a>
 												</div>
 											<?endforeach;?>
 										</div>
