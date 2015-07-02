@@ -18,7 +18,7 @@
 									<div class="for-select">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
 										<select name="" class="dropdown" onchange="manufacturer_submit('vendor', this.options[this.selectedIndex].value);">
-											<option value="1" disabled="" selected="selected">выбор подрядчика</option>
+											<option value="1" disabled="" selected="selected">Выбор подрядчика</option>
 											<?foreach($contractors as $c):?>
 												<option value="<?=$c->url?>"><?=$c->name?></option>
 											<?endforeach;?>
@@ -37,7 +37,9 @@
 								</div>
 								
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<h1 class="title" style="padding-left: 10px;padding-top:2px;margin-top: 0px;"><?=$contractor->name?></h1>
+									<h1 class="title" style="padding-left: 10px;padding-top:2px;margin-top: 0px;">
+										<?=$h1_title?>
+									</h1>
 									<div class="top-gp">
 										<div class="main-logo" style="float: left;padding-right: 20px;">									
 											<a href="http://<?=$contractor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><img alt="<?=$contractor->name?> производитель <?=$contractor->name?>" title="<?=$contractor->name?> продажа в СПб" src="<?=$contractor->img->manufacturer_url?>" /></a>
@@ -51,7 +53,7 @@
 										<span class="country"></span>
 									</div><br>
 									
-									<div style="margin-top: 3px;width: 100%;">
+									<div style="margin-top: 25px;width: 90%;">
 										<?if(!empty($contractor->services)):?>
 											<ul id="myul" style="width: 100%; margin-left:20px; float: left; ">
 												<?foreach($contractor->services as $service):?>

@@ -43,7 +43,7 @@ class Podrjadchiki extends Client_Controller {
 		}
 		elseif(isset($content->manufacturer))
 		{
-			$this->contractor($content->manufacturer->url, FALSE);
+			$this->contractor($content);
 		}
 		else
 		{
@@ -70,17 +70,15 @@ class Podrjadchiki extends Client_Controller {
 		}
 	}
 	
-	public function contractor($url, $action = TRUE)
+	public function contractor($content)
 	{
-		if($action) $this->breadcrumbs->add(base_url()."podrjadchiki/", "Подрядчики");
-		
-		$contractor = $this->manufacturers->get_item_by(array("url" => $url));
-		if($action) $this->breadcrumbs->add($contractor->url, $contractor->name);
+		$contractor = $this->manufacturers->get_item_by(array("url" => $content->manufacturer->url));
+		$this->breadcrumbs->add($contractor->url, $contractor->name);
 		
 		$data = array(
-			'title' => $contractor->name.' Каталог фирмы '.$contractor->name.' | bрайтbилd',
-			'meta_description' => '',
-			'meta_keywords' => '',
+			'title' => 'обслуживание/ремонт сантехники от компании '.$contractor->name.' в Санкт-Петербурге | bрайтbилd',
+			'meta_description' => 'Компания '.$contractor->name.' в Санкт-Петербурге производит обслуживание/ремонт сантехники. По всем вопросам обращайтесь к консультантам компании',
+			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
 			'left_menu' => $this->services->get_tree(0, 'parent_id'),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
@@ -90,6 +88,9 @@ class Podrjadchiki extends Client_Controller {
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
 		
+		$data['h1_title'] = '';
+		if(isset($content->service)) $data['h1_title'] .= $content->service->name.' - ';
+		$data['h1_title'] .= $contractor->name;
 		
 		$data = array_merge($data, $this->standart_data);
 

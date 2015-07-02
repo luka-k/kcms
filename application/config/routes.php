@@ -91,7 +91,7 @@ $route['contractors'] = 'catalog/podrjadchiki/index';
 $route['contractors/(:any)'] = 'catalog/podrjadchiki/index/$1';
 $route['contractors/(:any)/(:num)'] = 'catalog/podrjadchiki/index/$1/$2';
 
-$route['contractor/(:any)'] = 'catalog/podrjadchiki/contractor/$1';
+$route['contractor/(:any)'] = 'catalog/contractor/index/$1';
 
 $route['podrjadchiki'] = 'catalog/podrjadchiki/index';
 $route['podrjadchiki/(:any)'] = 'catalog/podrjadchiki/index/$1';

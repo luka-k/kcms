@@ -65,7 +65,7 @@ class Categories extends MY_Model
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 		$filtred_ids = array();
-		
+
 		if($products) foreach($products as $p)
 		{
 			$filtred_ids[] = $p->parent_id;
