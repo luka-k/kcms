@@ -42,6 +42,7 @@ class Manufacturer extends Client_Controller {
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
 			'left_active_item' => '',
+			'submenu_active_item' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get("catalog"),

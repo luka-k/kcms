@@ -10,7 +10,7 @@
 			<?if(!empty($item->childs)):?>
 				<ul class="sub-menu <?if($left_active_item == $item->url):?>active<?endif;?>">
 					<?foreach($item->childs as $sub_item):?>
-						<li><a href="<?=base_url()?>catalog/<?=$item->url?>/<?=$sub_item->url?>"><?=$sub_item->name?></a></li>
+						<li><a href="<?=base_url()?>catalog/<?=$item->url?>/<?=$sub_item->url?>" class="<?if($submenu_active_item == $sub_item->url):?>active<?endif;?>"><?=$sub_item->name?></a></li>
 					<?endforeach;?>
 				</ul>
 			<?endif;?>

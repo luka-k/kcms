@@ -24,7 +24,8 @@ class Prodavcy extends Client_Controller {
 			'meta_keywords' => 'Товары и услуги для строительства, Брайтбилд, Брайтбилд',
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
-			'left_active_item' => "",
+			'left_active_item' => '',
+			'submenu_active_item' => '',
 			'content_description' => 'Продавцы товаров для строительства, ремонта, интерьера на сайте brightbuild'
 		);
 		
@@ -52,6 +53,7 @@ class Prodavcy extends Client_Controller {
 			$data['meta_keywords'] = 'продавцы '.$name.' в Санкт-Петербурге.';
 			$data['above_menu_title'] = $content->category->name;
 			$data['left_active_item'] = isset($content->parent_category) ? $content->parent_category->url : $content->category->url;
+			if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['page_title'] = $content->category->name;
 			$data['active_category'] = $content->category->url;
@@ -80,7 +82,8 @@ class Prodavcy extends Client_Controller {
 			'left_menu' => $this->categories->get_tree(),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
-			'left_active_item' => "",
+			'left_active_item' => '',
+			'submenu_active_item' => '',
 			'vendors' => $this->manufacturers->prepare_list($this->manufacturers->get_vendors()),
 			'vendor' => $this->manufacturers->prepare_for_vendor($vendor)
 		);

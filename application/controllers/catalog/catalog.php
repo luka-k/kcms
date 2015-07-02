@@ -25,7 +25,8 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => '',
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
-			'left_active_item' => ""
+			'left_active_item' => '',
+			'submenu_active_item' => '',
 		);
 		
 		if($content == 'root')
@@ -56,11 +57,14 @@ class Catalog extends Client_Controller {
 			'above_menu_title' => $content->category->name,
 			'left_menu' => $this->categories->get_tree(),
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
+			'submenu_active_item' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'page_title' => $content->category->name,
 			'active_category' => $content->category->url
 		);
+		
+		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 		
 		$data['a_link'] = "";
 		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
@@ -105,6 +109,7 @@ class Catalog extends Client_Controller {
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_tree(),
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
+			'submenu_active_item' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -114,6 +119,8 @@ class Catalog extends Client_Controller {
 			'is_news' => FALSE,
 			'menu_link' => $menu_link
 		);
+		
+		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 		
 		$data['shop_link_title'] = ': ';
 		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
