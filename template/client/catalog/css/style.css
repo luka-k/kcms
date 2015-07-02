@@ -221,7 +221,8 @@ header .right-contacts {
 
 #s_left h1{
 	font-size: 12px;
-	margin:4px 0 9px 22px;
+	line-height:14px;
+	margin:4px 0 7px 22px;
 	color: #0099ff;
 	font-weight:bold;
 	overflow:hidden;

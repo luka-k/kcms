@@ -65,12 +65,17 @@ class Documents extends MY_Model
 			{
 				$documents_ids = $this->table2table->get_parent_ids("document2category", "document_id", "category_id", $category->id);
 			}
-		}	
+		}
+		/*my_dump($manufacturer_id);
+		my_dump($category);
+		my_dump($documents_ids);*/
 
 		$this->db->where("manufacturer_id", $manufacturer_id);
 		if(!empty($documents_ids)) $this->db->where_in("id", $documents_ids);
 		if($doc_type && $doc_type <> "all") $this->db->like("doc_type", $doc_type);
 		$documents = $this->db->get($this->_table)->result();
+		
+		sort($documents);
 		
 		return $documents;
 	}

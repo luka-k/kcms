@@ -16,12 +16,14 @@
 		
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
 									<div class="manufacturer-select">
-										<select name="" class="dropdown">
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
+										<select name="" class="dropdown" onchange="manufacturer_submit('vendor', this.options[this.selectedIndex].value);">
 											<option value="" disabled="" selected="selected" >выбор продавца</option>
 											<?foreach($vendors as $v):?>
-												<option value="<?=$v->id?>"><?=$v->name?></option>
+												<option value="<?=$v->url?>"><?=$v->name?></option>
 											<?endforeach;?>
 										</select>
+										</form>
 									</div>
 									<h1 class="manufacturer-title">
 										Каталог продавцов - <?=$page_title?>

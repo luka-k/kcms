@@ -70,7 +70,7 @@ class Catalog extends Client_Controller {
 		
 		$data['a_link'] = "";
 		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
-		$data['a_link'] .= $content->category->url."/";
+		$data['a_link'] .= $content->category->url;
 		
 		$data['shop_link_title'] = ': ';
 		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
