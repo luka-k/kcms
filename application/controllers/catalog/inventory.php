@@ -35,7 +35,7 @@ class Inventory extends Client_Controller {
 			$param = array("object_type" => "manufacturers");
 		}
 		
-		$data['inventories'] = $this->files->prepare_list($this->files->get_list($param));
+		$data['inventories'] = $this->files->prepare_list($this->files->get_list($param, FALSE, FALSE, 'name', 'asc'));
 		
 		$data = array_merge($data, $this->standart_data);
 		$this->load->view("client/catalog/inventory", $data);

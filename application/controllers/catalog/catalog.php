@@ -32,7 +32,7 @@ class Catalog extends Client_Controller {
 		
 		if($content == 'root')
 		{
-			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE));
+			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc'));
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data = array_merge($this->standart_data, $data);
 			$this->load->view("client/catalog/index", $data);
@@ -114,7 +114,7 @@ class Catalog extends Client_Controller {
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
 			'submenu_active_item' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
-			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
+			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'active_category' => $content->category,

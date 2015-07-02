@@ -114,6 +114,13 @@ class Manufacturers extends MY_Model
 			$manufacturers[$i]->categories = $this->_get_subcategories($m->id);
 		}
 		
+		$volume = array();
+		foreach ($manufacturers as $key => $row) 
+		{
+			$volume[$key]  = $row->name;
+		}
+		array_multisort($volume, SORT_ASC, $manufacturers);
+		
 		return $manufacturers;
 	}
 	
@@ -151,7 +158,7 @@ class Manufacturers extends MY_Model
 		{
 			$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
 		
-			//$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
+			$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
 	
 			$this->db->where_in("id", $categories_ids);
 			$categories = $this->db->get("categories")->result();
@@ -162,6 +169,13 @@ class Manufacturers extends MY_Model
 			$parent_id = $this->db->get_where("category2category", array("child_id" => $c->id))->row()->category_parent_id;
 			if($parent_id) $categories[$i]->parent_category = $this->categories->get_item($parent_id);
 		}
+		
+		$volume = array();
+		foreach ($categories as $key => $row) 
+		{
+			$volume[$key]  = $row->name;
+		}
+		array_multisort($volume, SORT_ASC, $categories);
 		
 		return $categories;
 	}
@@ -227,10 +241,20 @@ class Manufacturers extends MY_Model
 		
 		$categories_tree = $this->categories->prepare_list($categories_tree);
 
+		$volume = array();
 		foreach($categories_tree as $i => $branch)
 		{
-			if(empty($branch->childs)) unset($categories_tree[$i]);
+			if(empty($branch->childs)) 
+			{
+				unset($categories_tree[$i]);
+			}
+			else
+			{
+				$volume[$i]  = $branch->name;
+			}
 		}
+
+		array_multisort($volume, SORT_ASC, $categories_tree);
 
 		return $categories_tree;
 	}
@@ -306,6 +330,8 @@ class Manufacturers extends MY_Model
 			$vendors[$i]->categories = $this->_get_subcategories($item->manufacturer_id, 'vendor');
 		}
 		
+		sort($vendors);
+		
 		return $vendors;
 	}
 	
@@ -343,6 +369,8 @@ class Manufacturers extends MY_Model
 			$contractors[$i] = $this->get_item($item->manufacturer_id);
 			$contractors[$i]->services = $this->_get_services($item->manufacturer_id);
 		}
+		
+		sort($contractors);
 		
 		return $contractors;
 	}
