@@ -887,6 +887,7 @@ div.news{
 	margin:30px 20px 0 20px;
 	padding:10px 20px;
 	border:2px solid #7E7E7B;
+	overflow:hidden;
 }
 
 #s_right .manufacturers ul{

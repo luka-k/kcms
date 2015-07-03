@@ -51,7 +51,7 @@
 					
 					<? require 'include/news-left-col.php'?>
 					<aside id="s_right" class="news">
-						<div class="manufacturers">
+						<div id="manufacturers_col" class="manufacturers">
 							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="news-form" action="<?=base_url()?>articles/novosti">
 								<select name="manufacturer_id" class="dropdown" onchange="document.forms['news-form'].setAttribute('action', '<?=base_url()?>articles/novosti?m_id='+this.options[this.selectedIndex].value); submit('news-form'); return false;">
 									<option>Выберите по бренду</option>

@@ -16,7 +16,7 @@
 				<li class="<?if($top_active == 'bb'):?>current<?endif;?>"><a href="<?=base_url()?>bb"> bрайтbилd </a></li>
 				<li class="<?if($top_active == 'inventory'):?>current<?endif;?>"><a href="<?=base_url()?>inventory"> Складские остатки </a></li>
 				<li class="<?if($top_active == 'contacts'):?>current<?endif;?>"><a href="<?=base_url()?>contacts"> Контакты </a></li>
-				<li class="right"><a href="#"> Новости </a></li>
+				<li class="right"><a href="<?=base_url()?>articles/novosti/"> Новости </a></li>
 			</ul>
 		</div>
 		<div class="right-contacts">
