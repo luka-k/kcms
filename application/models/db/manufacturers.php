@@ -197,6 +197,13 @@ class Manufacturers extends MY_Model
 			if($c->parent_id == 0) unset($services[$i]);
 		}
 		
+		$volume = array();
+		foreach ($services as $key => $row) 
+		{
+			$volume[$key]  = $row->name;
+		}
+		array_multisort($volume, SORT_ASC, $services);
+		
 		return $services;
 	}
 	
@@ -290,14 +297,14 @@ class Manufacturers extends MY_Model
 			}
 		}
 		
+		$services_tree = $this->services->prepare_list($services_tree);
+		
 		$volume = array();
 		foreach ($services_tree as $key => $row) 
 		{
 			$volume[$key]  = $row->name;
 		}
 		array_multisort($volume, SORT_ASC, $services_tree);
-		
-		$services_tree = $this->services->prepare_list($services_tree);
 		
 		return $services_tree;
 	}

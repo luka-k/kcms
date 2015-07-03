@@ -549,7 +549,16 @@ class MY_Model extends CI_Model
 			//$branches[$i]->count_sub_products = count($this->catalog->get_products($b->id, "sort", "asc"));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}		
+		
+		$volume = array();
+		foreach ($branches as $key => $row) 
+		{
+			$volume[$key]  = $row->name;
+		}
+		array_multisort($volume, SORT_ASC, $branches);
+		
 		return $branches;
+		
 	}
 	
 	/*
