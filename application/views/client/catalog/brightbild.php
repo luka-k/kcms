@@ -15,7 +15,7 @@
 							<div id="" class="main-content clearfix">
 		
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="main_description">
+									<div class="bb_description">
 										<div class="bb_main_block">
 											<?foreach($brightbild as $bb):?>
 												<div class="bb_block" id="bb-<?=$bb->id?>">

@@ -22,6 +22,7 @@ class Contacts extends Client_Controller {
 			'title' => 'Контакты',
 			'meta_description' => '',
 			'meta_keywords' => '',
+			'top_active' => 'contacts',
 			'contacts' => $this->offices->prepare_list($this->offices->get_list(FALSE))
 		);
 		$data = array_merge($this->standart_data, $data);

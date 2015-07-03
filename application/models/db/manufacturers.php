@@ -12,6 +12,7 @@ class Manufacturers extends MY_Model
 			'country' => array('Страна', 'text'),
 			'city' => array('city', 'text'),
 			'link' => array('Ссылка на сайт', 'text'),
+			'description' => array('Описание', 'tiny'),
 			'manufacturer2category' => array('Категория', 'manufacturer2category'),
 			'manufacturer2categorygoods' => array('Категория товаров', 'manufacturer2category'),
 			'manufacturer2manufacturer' => array('Продавцы', 'manufacturer2manufacturer'),

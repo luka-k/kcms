@@ -155,6 +155,10 @@
 									<?$cat_image_counter++?>
 								<?endforeach;?>
                             </div>
+							
+							<div>
+								<?=$manufacturer->description?>
+							</div>
 
                         </div>
 							</div>
