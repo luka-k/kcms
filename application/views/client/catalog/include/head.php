@@ -34,7 +34,7 @@
 				$(".logo-column").height($(window).height() - 103);
 				
 				$("#scroll-content").height($(window).height() - 95);
-				$("#scroll-right").height($(window).height() - 102);
+				$("#scroll-right").height($(window).height() - 105);
 				
 				$("#scroll-left").mCustomScrollbar({
 					axis:"y", //set both axis scrollbars

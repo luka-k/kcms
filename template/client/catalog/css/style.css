@@ -231,9 +231,9 @@ header .right-contacts {
 }
 
 #s_left .leftmenu {
-	background: url(../images/leftcolumn-bg.png) repeat;
+	background: url(../images/leftcolumn-bg.png) repeat-x;
 	margin-left: 6px;
-	padding-top: 10px;
+	padding-top: 15px;
 	-webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
 	-moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
 	box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
@@ -994,8 +994,8 @@ main.contacts{
 	width: 295px;
 	height: 606px;
 	margin-right: 6px;
-	padding-top: 6px;
-	background: url(../images/leftcolumn-bg.png) repeat;
+	padding-top: 12px;
+	background: url(../images/rightcolumn-bg.png) repeat-x;
 	overflow:hidden;
 } 
 					
@@ -1010,16 +1010,24 @@ main.contacts{
 	font-size: 12px;
 	margin-left: 22px;
 	margin-top: 6px;
-	color: #0099ff;
+	color: #0000C8;
 	font-weight:bold;
 }
 
 #s_right .item_text{
 	font-size: 11px;
 	margin-left: 22px;
-	margin-top: 4px;
+	margin-top: 9px;
 	color: #000;
 	line-height: 16px;
+}
+
+#s_right .item_text .news_date{
+	display:inline-block;
+	float:left;
+	margin-right:3px;
+	color: #0000C8;
+	font-weight:bold;
 }
 
 /****scrollbar****/

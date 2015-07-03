@@ -39,15 +39,7 @@
                    
 				<!-----rightcol----->
                 <aside id="s_right">
-					<h1>Новости</h1>
-					<div id="scroll-right" class="rightmenu">
-						<?foreach($last_news as $item):?>
-							<div class="news_item">
-								<h2><?=$item->name?></h2>
-								<div class="item_text"><?=$item->description?></div>
-							</div>
-						<?endforeach;?>
-					</div>
+					<?require "include/news_collumn.php"?>
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
