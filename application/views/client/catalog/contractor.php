@@ -17,7 +17,7 @@
 								<div id="slider-scroll" class="slider">
 									<div class="for-select">
 										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-										<select name="" class="dropdown" onchange="manufacturer_submit('vendor', this.options[this.selectedIndex].value);">
+										<select name="" class="dropdown" onchange="manufacturer_submit('contractor', this.options[this.selectedIndex].value);">
 											<option value="1" disabled="" selected="selected">Выбор подрядчика</option>
 											<?foreach($contractors as $c):?>
 												<option value="<?=$c->url?>"><?=$c->name?></option>
