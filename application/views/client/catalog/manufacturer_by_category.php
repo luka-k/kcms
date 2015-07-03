@@ -24,7 +24,7 @@
 										<?foreach($manufacturers as $m):?>
 										<div class="manufacturer-item">
 											<div class="manufacturer-logo">
-												<a href="<?=$a_link?><?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" alt="<?=$m->name?>"/></a>
+												<a href="<?=base_url()?>catalog/<?=$a_link?>/<?=$m->url?>"><img src="<?=$m->img->manufacturer_url?>" alt="<?=$m->name?>"/></a>
 											</div>
 											<div class="manufacturer-categories-list list-row" colqty="3">
 												<ul class="list_box l-b-<?=$manufacturer_counter?>">
@@ -32,7 +32,7 @@
 														<?$cat_counter = 1?>
 														<?foreach($m->categories as $category):?>
 															<li class="cat_list-<?=$manufacturer_counter?> <?if($category->url == $active_category):?>active<?endif;?>">
-																<a href="<?=base_url()?>catalog/<?=$a_link?><?=$m->url?>"><?=$category->name?></a>
+																<a href="<?=base_url()?>catalog/<?=$a_link?>/<?=$m->url?>"><?=$category->name?></a>
 															</li>
 															<?$cat_counter++?>
 															<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
