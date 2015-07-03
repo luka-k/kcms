@@ -121,6 +121,7 @@ class Catalog extends Client_Controller {
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
 			'active_category' => $content->category,
 			'doc_type' => $active_doc_type,
+			'active_doc' => $content->doc_type['value'],
 			'is_news' => FALSE,
 			'menu_link' => $menu_link
 		);

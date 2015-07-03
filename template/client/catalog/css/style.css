@@ -786,14 +786,15 @@ main.contacts{
 	border-right: 1px solid black;
 	padding-right: 4px;
 	white-space:nowrap;
-	/*font-weight: bold;*/
+	font-weight: bold;
 }
 
 .navigation-mini li-:last-child {
 	padding-right: 0;
 }
 
-.navigation-mini a:hover {
+.navigation-mini a:hover,
+.navigation-mini a.active{
 	color: #cc0000;
 }
 

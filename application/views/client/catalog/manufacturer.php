@@ -86,11 +86,11 @@
 									
 									<nav class="navigation-mini floating">
 							
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all">Все документы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs">Каталоги</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices">Прайсы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections">Брошюры по коллекциям</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="del">Техническая информация</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="<?if($active_doc == 'all"'):?>active<?endif;?>">Все документы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="<?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="<?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="<?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="del <?if($active_doc == 'tech'):?>active<?endif;?>">Техническая информация</a>
 								
 										<div>
 									<div class="main-a-0">
@@ -124,7 +124,11 @@
 								<?foreach($manufacturer->documents as $doc):?>
 									<div class="items clearfix">
 										<div class="item-pic">
-											<a href="<?=$doc->full_url?>" target="_blank"><img src="<?=$doc->images[0]->catalog_small_url?>" height="237" width="170" alt="<?=$doc->name?>"></a>
+											<a href="<?=$doc->full_url?>" target="_blank">
+												<?if($doc->images):?>
+													<img src="<?=$doc->images[0]->catalog_small_url?>" height="237" width="170" alt="<?=$doc->name?>">
+												<?endif;?>
+											</a>
 										</div>
 										<div class="item-box clearfix">
 											<div class="box-title">
