@@ -97,18 +97,16 @@
 										&nbsp;
 									</div>								
 									<div class="main-a width-auto">
-								
 										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit_by_category(this.value, '<?=$manufacturer->url?>');">
 											<?foreach($manufacturer->categories as $category):?>
-												<option value="<?=$category->url?>"><?=$category->name?></option>
+												<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="<?=$category->url?>"><?=$category->name?></option>
 												<?if(!empty($category->childs)):?>
 													<?foreach($category->childs as $ch):?>
-														<option value="<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
+														<option <?if($active_category_item == $ch->url):?>selected<?endif;?> value="<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
 													<?endforeach;?>
 												<?endif;?>
 											<?endforeach;?>
 										</select>
-	
 									</div>
 									<div class="main-a-2 main-a-3">
 										<?if($is_news):?>

@@ -119,13 +119,13 @@ class Catalog extends Client_Controller {
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
-			'active_category' => $content->category,
+			'active_category_item' => $content->category->url,
 			'doc_type' => $active_doc_type,
 			'active_doc' => $content->doc_type['value'],
 			'is_news' => FALSE,
 			'menu_link' => $menu_link
 		);
-		
+
 		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 		
 		$data['shop_link_title'] = ': ';
