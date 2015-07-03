@@ -390,7 +390,7 @@ class Manufacturers extends MY_Model
 		
 		$item->categories = $this->_get_categories_tree($item->id);
 		$item->subcategories = $this->_get_subcategories($item->id);
-		$distributors_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
+		$distributors_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
 		
 		$this->db->where_in("id", $distributors_ids);
 		$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
