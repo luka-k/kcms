@@ -78,8 +78,10 @@ class Pages extends Client_Controller {
 		header("HTTP/1.0 404 Not Found");
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$data = array(
-			'title' => "Страница не найдена",
+			'title' => 'Страница не найдена',
+			'above_menu_title' => 'Страница не найдена',
 			'select_item' => "",
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'settings' => $this->settings->get_item_by(array('id' => 1)),
 		);
 		
