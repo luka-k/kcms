@@ -15,16 +15,7 @@
 							<div id="" class="main-content clearfix">
 		
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="manufacturer-select">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-										<select name="" class="dropdown" onchange="manufacturer_submit('podrjadchiki/<?=$a_link?>',this.options[this.selectedIndex].value);">
-											<option value="" disabled="" selected="selected" >Выбор подрядчика</option>
-											<?foreach($contractors as $с):?>
-												<option value="<?=$с->url?>"><?=$с->name?></option>
-											<?endforeach;?>
-										</select>
-										</form>
-									</div>
+									
 									<h1 class="manufacturer-title">
 										Каталог подрядчиков - <?=$page_title?>
 									</h1>

@@ -15,16 +15,7 @@
 							<div id="" class="main-content clearfix">
 		
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="manufacturer-select">
-										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-										<select name="" class="dropdown" onchange="manufacturer_submit('catalog/<?=$a_link?>',this.options[this.selectedIndex].value);">
-											<option value="" disabled="" selected="selected" >выбор производителя</option>
-											<?foreach($manufacturers as $m):?>
-												<option value="<?=$m->url?>"><?=$m->name?></option>
-											<?endforeach;?>
-										</select>
-										</form>
-									</div>
+									
 									<h1 class="manufacturer-title">
 										Каталог производителей - <?=$page_title?>
 									</h1>
