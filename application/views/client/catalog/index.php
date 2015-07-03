@@ -15,9 +15,8 @@
 							<div id="" class="main-content clearfix">
 
 								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
-									<div class="main_description">
-										<?=$settings->site_description?>
-									</div>
+									<h1 style="padding-left: 10px;padding-top:2px;margin-top: 0px;"><?=$page_title?></h1>
+									<div class="main_description"><?=$page_description?></div>
 									<div class="manufacturer">
 										<?foreach($manufacturers as $m):?>
 											<div class="manufacturer-icon">

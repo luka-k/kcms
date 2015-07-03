@@ -31,7 +31,13 @@ class Settings extends MY_Model
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
-			'site_description' => array('Описание сайта', 'tiny', 'trim'),
+			'site_description' => array('Описание сайта', 'textarea', 'trim'),
+			'catalog_h1' =>  array('Заголовок каталога', 'text', 'trim'),
+			'catalog_description' =>  array('Текст на главной каталога', 'tiny', 'trim'),
+			'vendors_h1' =>  array('Заголовок производителей', 'text', 'trim'),
+			'vendors_description' =>  array('Текст на главной производителей', 'tiny-2', 'trim'),
+			'contractor_h1' =>  array('Заголовок подрядчиков', 'text', 'trim'),
+			'contractor_description' =>  array('Текст на главной подрядчиков', 'tiny-3', 'trim'),
 			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(

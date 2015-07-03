@@ -22,12 +22,14 @@ class Podrjadchiki extends Client_Controller {
 			'title' => 'Брайтбилд — услуги по строительству и ремонту в интерьере дома.',
 			'meta_description' => 'Подрядчики и услуги для строительства и ремонта в интерьере в Санкт-Петербурге.',
 			'meta_keywords' => 'Услуги для строительства и ремонта, Брайтбилд, Брайтбилд',
+			'page_title' => $this->standart_data['settings']->contractor_h1,
+			'page_description' => htmlspecialchars_decode($this->standart_data['settings']->contractor_description),
 			'left_menu' => $this->services->get_tree(0, 'parent_id'),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'top_active' => 'contractors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
-			'content_description' => 'Подрядчики для строительства, ремонта, производства, оказания услуг на сайте brightbuild'
+			'content_description' => ''
 		);
 		
 		$content = $this->url->contractors_url_parse(2);

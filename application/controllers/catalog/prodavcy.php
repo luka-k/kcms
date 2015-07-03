@@ -22,12 +22,14 @@ class Prodavcy extends Client_Controller {
 			'title' => 'Брайтбилд — продавцы товаров для строительства и ремонта интерьера.',
 			'meta_description' => 'Продавцы товаров для строительства и ремонта в Санкт-Петербурге.',
 			'meta_keywords' => 'Товары и услуги для строительства, Брайтбилд, Брайтбилд',
+			'page_title' => $this->standart_data['settings']->vendors_h1,
+			'page_description' => htmlspecialchars_decode($this->standart_data['settings']->vendors_description),
 			'left_menu' => $this->categories->get_tree(),
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'top_active' => 'vendors',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
-			'content_description' => 'Продавцы товаров для строительства, ремонта, интерьера на сайте brightbuild'
+			'content_description' => ''
 		);
 		
 		$content = $this->url->catalog_url_parse(2);

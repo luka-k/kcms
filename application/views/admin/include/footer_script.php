@@ -114,7 +114,11 @@
 		var ckeditor = CKEDITOR.replace('editor');
 		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
 			
-		var ckeditor_2 = CKEDITOR.replace('editor_2');			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+		var ckeditor_2 = CKEDITOR.replace('editor_2');			
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+		
+		var ckeditor_3 = CKEDITOR.replace('editor_3');			
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_3});
 	});
 
 </script>
