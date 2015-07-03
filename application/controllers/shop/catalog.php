@@ -170,6 +170,7 @@ class Catalog extends Client_Controller {
 			else
 			{
 				$products = $this->products->prepare_list($this->products->get_list(array("manufacturer_id" => $content->manufacturer->id), 0, 10, "sort", "asc"));
+				$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
 				$total_rows = count($this->products->get_list(array("manufacturer_id" => $content->manufacturer->id), FALSE, FALSE, "sort", "asc"));
 			}
 			
