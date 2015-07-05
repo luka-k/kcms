@@ -58,8 +58,6 @@ class Manufacturers extends MY_Model
 				$sku[$p->manufacturer_id][] = $p->sku;
 			}
 		
-			if(isset($selected['manufacturer_checked'])) array_merge($m_ids, $selected['manufacturer_checked']);
-		
 			foreach($sku as $i => $articls)
 			{
 				asort($articls, SORT_STRING);
@@ -67,13 +65,13 @@ class Manufacturers extends MY_Model
 			}
 		
 		
-			$this->db->order_by("name", "asc"); 
-			if(!empty($m_ids)) $this->db->where_in("id", array_unique($m_ids));
+			$this->db->order_by('name', 'asc'); 
+			if(!empty($m_ids)) $this->db->where_in('id', array_unique($m_ids));
 			$manufacturer = $this->db->get($this->_table)->result();
 		
-			if(isset($selected["sku_checked"])) foreach($selected["sku_checked"] as $sk)
+			if(isset($selected['sku_checked'])) foreach($selected['sku_checked'] as $sk)
 			{	
-				$product = $this->products->get_item_by(array("sku" => $sk));	
+				$product = $this->products->get_item_by(array('sku' => $sk));	
 				$sku[$product->manufacturer_id][] = $sk; 
 			}
 		

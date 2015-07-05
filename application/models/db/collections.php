@@ -46,8 +46,8 @@ class Collections extends MY_Model
 	);
 	
 	public $admin_left_column = array(
-		"items_tree" => "collections_tree",
-		"item_tree" => "collections_tree",
+		'items_tree' => 'collections_tree',
+		'item_tree' => 'collections_tree',
 	);
 	
 	function __construct()
@@ -64,8 +64,8 @@ class Collections extends MY_Model
 
 		$filtred_ids = array();
 		
-		$this->db->where_in("child_id", $ids);
-		$result = $this->db->get("product2collection")->result();
+		$this->db->where_in('child_id', $ids);
+		$result = $this->db->get('product2collection')->result();
 		foreach($result as $r)
 		{
 			$filtred_ids[] = $r->collection_parent_id;
@@ -80,7 +80,7 @@ class Collections extends MY_Model
 	{
 		
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
-		$branches = $this->get_list(array("parent_id" => $parent_id), FALSE, FALSE, "name", "asc");
+		$branches = $this->get_list(array('parent_id' => $parent_id), FALSE, FALSE, 'name', 'asc');
 		$branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{

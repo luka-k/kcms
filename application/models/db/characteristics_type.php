@@ -27,10 +27,10 @@ class Characteristics_type extends MY_Model
 	*/
 	public $editors = array(
 		'Основное' => array(
-			'id' => array("id", "hidden"),
-			'name' => array("Название типа", "text", "trim|htmlspecialchars|name", 'require'),
-			'view_type' => array("Тип отображения", "simple_select"),
-			'url' => array("Тип фильтра", "hidden", "substituted[name]")
+			'id' => array('id', 'hidden'),
+			'name' => array('Название типа', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'view_type' => array('Тип отображения', 'simple_select'),
+			'url' => array('Тип фильтра', 'hidden', 'substituted[name]')
 		)
 	);
 	
@@ -44,7 +44,7 @@ class Characteristics_type extends MY_Model
 	*
 	* @return array
 	*/
-	public function get_filters($products = "all", $selected = FALSE)
+	public function get_filters($products = 'all', $selected = FALSE)
 	{
 		$filters = array();
 		$characteristics_type = $this->get_list(FALSE);
@@ -52,23 +52,21 @@ class Characteristics_type extends MY_Model
 		if(!empty($products)) foreach($characteristics_type as $item)
 		{
 			$this->db->distinct();
-			$this->db->order_by("value", "asc"); 
-			$this->db->select("value");
-			$this->db->where("type", $item->url);
+			$this->db->order_by('value', 'asc'); 
+			$this->db->select('value');
+			$this->db->where('type', $item->url);
 
-			if($products <> "all")
+			if($products <> 'all')
 			{	
 				$ids = array();
 				foreach($products as $p)
 				{
 					$ids[] = $p->id;
 				}
-				$this->db->where_in("object_id", $ids);
+				$this->db->where_in('object_id', $ids);
 			}
 			
-			
-				
-			$results = $this->db->get("characteristics")->result_array();
+			$results = $this->db->get('characteristics')->result_array();
 			
 			$values = array();
 
@@ -80,9 +78,9 @@ class Characteristics_type extends MY_Model
 			if(!empty($values))
 			{
 				$filters[$item->url] = (object)array(
-					"name" => $item->name,
-					"editor" => $item->view_type,
-					"values" => $values
+					'name' => $item->name,
+					'editor' => $item->view_type,
+					'values' => $values
 				);
 			
 				/*if($item->view_type == "multy" || $item->view_type == "single")

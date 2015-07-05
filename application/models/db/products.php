@@ -73,8 +73,8 @@ class Products extends MY_Model
 	}
 	
 	public $admin_left_column = array(
-		"items_tree" => "products_tree", //дерево для списка элементов
-		"item_tree" => "products_tree", // дерево для страницы редактирования элемента
+		'items_tree' => 'products_tree', //дерево для списка элементов
+		'item_tree' => 'products_tree', // дерево для страницы редактирования элемента
 	);
 	
 	/**
@@ -89,7 +89,7 @@ class Products extends MY_Model
 	
 		$this->db->where('product1_id', $id);
 		//$this->db->or_where('product2_id', $id); //Если надо сделать привязку только в одну сторону убрать эту строку
-		$query = $this->db->get($base."_products");
+		$query = $this->db->get($base.'_products');
 		$result = $query->result();
 		
 		$products_id = array();
@@ -115,7 +115,7 @@ class Products extends MY_Model
 	{
 		$this->db->where('product1_id', $id);
 		$this->db->or_where('product2_id', $id); 
-		$this->db->delete("recommended_products");
+		$this->db->delete('recommended_products');
 	}
 	
 	/**
@@ -128,11 +128,11 @@ class Products extends MY_Model
 	{
 		$item_full_url[] = $item->url;
 		
-		$item = $this->categories->get_item_by(array("id" => $item->parent_id));
+		$item = $this->categories->get_item_by(array('id' => $item->parent_id));
 		
 		$item_full_url = array_merge($item_full_url, $this->categories->make_full_url($item));
 		
-		$full_url = implode("/", array_reverse($item_full_url));
+		$full_url = implode('/', array_reverse($item_full_url));
 		$full_url = base_url().$full_url;
 		return $full_url;		
 	}
@@ -149,10 +149,7 @@ class Products extends MY_Model
 		{
 			$item->sale_price = $item->price*(100 - $item->discount)/100;
 		}
-		
-		//var_dump($item->discount);
-		
-		//$item->sale_price = $item->price*(100 - $item->discount)/100;
+
 		return $item;
 	}
 	
@@ -169,8 +166,8 @@ class Products extends MY_Model
 			$item->full_url = $this->get_url($item);
 
 			$object_info = array(
-				"object_type" => 'products',
-				"object_id" => $item->id
+				'object_type' => 'products',
+				'object_id' => $item->id
 			);
 			
 			if($cover)
@@ -189,7 +186,7 @@ class Products extends MY_Model
 			if($ch) $item = $this->characteristics->get_product_characteristics($item);
 			
 			//временно костылик
-			$item->location = "";
+			$item->location = '';
 			return $item;
 		}			
 	}
