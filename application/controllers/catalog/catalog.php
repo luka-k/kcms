@@ -17,6 +17,7 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$this->breadcrumbs->add(base_url()."catalog/", "Производители");
+			
 		$content = $this->url->catalog_url_parse(2);
 
 		$data = array(
@@ -89,6 +90,14 @@ class Catalog extends Client_Controller {
 	
 	public function manufacturer($content)
 	{
+		if($this->uri->segment(count($this->uri->segment_array())) == 'catalogs') 
+		{
+			$redirect_link = "catalog/";
+			if(isset($content->parent_category)) $redirect_link = $redirect_link.$content->parent_category->url."/";
+			$redirect_link = $redirect_link.$content->category->url.'/';
+			$redirect_link = $redirect_link.$content->manufacturer->url;
+			redirect(base_url().$redirect_link);
+		}
 		$manufacturer = $content->manufacturer;
 
 		$documents = $this->documents->get_by_filter($content->manufacturer->id, $content->category, $content->doc_type['value']);
