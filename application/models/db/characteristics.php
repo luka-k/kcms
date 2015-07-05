@@ -32,14 +32,14 @@ class Characteristics extends MY_Model
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
 		$ff = array();
-		if(isset($filter["shortdesc"]))
+		if(isset($filter['shortdesc']))
 		{
-			foreach($filter["shortdesc"] as $shortdesc)
+			foreach($filter['shortdesc'] as $shortdesc)
 			{
-				$sd = explode ("/", $shortdesc);
+				$sd = explode ('/', $shortdesc);
 	 			
-				$this->db->where("type", "shortname");
-				$this->db->where("value", $sd[0]);
+				$this->db->where('type', 'shortname');
+				$this->db->where('value', $sd[0]);
 				$this->db->select('object_id');
 				$results = $this->db->get('characteristics')->result();
 				
@@ -49,9 +49,9 @@ class Characteristics extends MY_Model
 					$object_ids[] = $r->object_id;
 				}	
 
-				$this->db->where("type", "shortdesc");
-				$this->db->where("value", $sd[1]);
-				$this->db->where_in("object_id", $object_ids);
+				$this->db->where('type', 'shortdesc');
+				$this->db->where('value', $sd[1]);
+				$this->db->where_in('object_id', $object_ids);
 				$result = $this->db->get('characteristics')->result();
 
 				if(!empty($result))foreach($result as $r)
@@ -63,10 +63,10 @@ class Characteristics extends MY_Model
 
 		}
 
-		if(isset($filter["shortname"]))
+		if(isset($filter['shortname']))
 		{
-			$this->db->where("type", "shortname");
-			$this->db->where_in("value", $filter["shortname"]);
+			$this->db->where('type', 'shortname');
+			$this->db->where_in('value', $filter['shortname']);
 			$this->db->select('object_id');
 			$result = $this->db->get('characteristics')->result();
 			if($result) foreach($result as $r)
@@ -78,13 +78,13 @@ class Characteristics extends MY_Model
 		
 		foreach($filters_type as $f)
 		{
-			if($f->url <> "shortname" && $f->url <> "shortdesc")
+			if($f->url <> 'shortname' && $f->url <> 'shortdesc')
 			{
 				if(isset($filter[$f->url]))
 				{
 					$this->db->distinct();
-					$this->db->where("type", $f->url);
-					$this->db->where_in("value", $filter[$f->url]);
+					$this->db->where('type', $f->url);
+					$this->db->where_in('value', $filter[$f->url]);
 					$values = $this->_update_values($values);
 					++$counter;
 				}
@@ -108,38 +108,38 @@ class Characteristics extends MY_Model
 		{
 			if(isset($filter['collection_checked']))
 			{
-				$this->db->where_in("collection_parent_id", $filter['collection_checked']);
-				$this->db->select("child_id");
-				$ids = $this->db->get("product2collection")->result();
+				$this->db->where_in('collection_parent_id', $filter['collection_checked']);
+				$this->db->select('child_id');
+				$ids = $this->db->get('product2collection')->result();
 				$product_ids = array();
 				foreach($ids as $item)
 				{
 					$product_ids[] = $item->child_id;
 				}
-				$this->db->where_in("id", $product_ids);
+				$this->db->where_in('id', $product_ids);
 			}
 			
 			//Если указан пункт в наличии 
-			if(isset($filter['is_active'])) $this->db->where("is_active", 1);
+			if(isset($filter['is_active'])) $this->db->where('is_active', 1);
 			
 			//фильтрация по категории
-			if(isset($filter['categories_checked'])) $this->db->where_in("parent_id", $filter['categories_checked']);
+			if(isset($filter['categories_checked'])) $this->db->where_in('parent_id', $filter['categories_checked']);
 
 			//фильтрация по производителю
-			if(isset($filter['manufacturer_checked'])) $this->db->where_in("manufacturer_id", $filter['manufacturer_checked']);
+			if(isset($filter['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filter['manufacturer_checked']);
 			
 			//фильтрация по артикулу
 			if(isset($filter['sku_checked'])) $this->db->where_in("sku", $filter['sku_checked']);
 			
-			if(isset($filter['width_from']) && isset($filter['width_to'])) $this->set_range_param("width", $filter['width_from'], $filter['width_to']);
-			if(isset($filter['height_from']) && isset($filter['height_to']))  $this->set_range_param("height", $filter['height_from'], $filter['height_to']);
-			if(isset($filter['depth_from']) && isset($filter['depth_to']))  $this->set_range_param("depth", $filter['depth_from'], $filter['depth_to']);
-			if(isset($filter['price_from']) && isset($filter['price_to']))  $this->set_range_param("price", $filter['price_from'], $filter['price_to']);
+			if(isset($filter['width_from']) && isset($filter['width_to'])) $this->set_range_param('width', $filter['width_from'], $filter['width_to']);
+			if(isset($filter['height_from']) && isset($filter['height_to']))  $this->set_range_param('height', $filter['height_from'], $filter['height_to']);
+			if(isset($filter['depth_from']) && isset($filter['depth_to']))  $this->set_range_param('depth', $filter['depth_from'], $filter['depth_to']);
+			if(isset($filter['price_from']) && isset($filter['price_to']))  $this->set_range_param('price', $filter['price_from'], $filter['price_to']);
 			
-			if(!empty($id)) $this->db->where_in("id", $id);
+			if(!empty($id)) $this->db->where_in('id', $id);
 			
 			$this->db->order_by($order, $direction); 
-			$result = $limit == FALSE ? $this->db->get("products")->result() : $this->db->get("products", $limit, $from)->result();
+			$result = $limit == FALSE ? $this->db->get("products")->result() : $this->db->get('products', $limit, $from)->result();
 
 			if(!empty($result)) return $result;
 		}
@@ -168,8 +168,8 @@ class Characteristics extends MY_Model
 	{
 		if(isset($from) && isset($to))
 		{
-			$from = preg_replace("/[^0-9]/", "", $from);
-			$to = preg_replace("/[^0-9]/", "", $to);
+			$from = preg_replace('/[^0-9]/', '', $from);
+			$to = preg_replace('/[^0-9]/', '', $to);
 
 			$where = "{$type} BETWEEN {$from} AND {$to}";
 			$this->db->where($where);

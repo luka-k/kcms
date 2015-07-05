@@ -103,8 +103,8 @@ class CI_Url {
 				$this->CI->breadcrumbs->add($url, $manufacturer->name);
 				$content->manufacturer = $manufacturer;
 				$content->doc_type = array(
-					'value' => "catalogs",
-					'title' => "каталоги"
+					'value' => 'catalogs',
+					'title' => 'каталоги'
 				);
 			}
 			
@@ -130,7 +130,7 @@ class CI_Url {
 
 		if(!$url)
 		{
-			return $segment_number == 2 ? "root" : FALSE; 
+			return $segment_number == 2 ? 'root' : FALSE; 
 		}
 		
 		$content = new stdClass();
@@ -179,17 +179,17 @@ class CI_Url {
 
 		if(!$child)
 		{
-			$child = $this->CI->articles->get_item_by(array("url" => $url));
+			$child = $this->CI->articles->get_item_by(array('url' => $url));
 			
 			if(!$child) return FALSE;
 			
-			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
+			$segment_number == 2 ? $this->CI->breadcrumbs->add('articles/'.$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 
 			return $this->CI->uri->segment($segment_number+1) ? $this->url_parse($segment_number + 1, $child) : $this->get_child_info($child, $url);
 		}
 		else
 		{
-			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
+			$segment_number == 2 ? $this->CI->breadcrumbs->add('articles/'.$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 			
 			if ($this->CI->uri->segment($segment_number+1))
 			{
@@ -197,7 +197,7 @@ class CI_Url {
 			}
 			else
 			{
-				$child = $this->CI->articles->get_item_by(array("url" => $url));
+				$child = $this->CI->articles->get_item_by(array('url' => $url));
 				
 				if(!$child) return FALSE;
 				
@@ -216,11 +216,11 @@ class CI_Url {
 	*/
 	private function get_child_info($child, $url)
 	{
-		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id), FALSE, FALSE, "date", "desc");
+		$child->articles = $this->CI->articles->get_list(array('parent_id' => $child->id), FALSE, FALSE, 'date', 'desc');
 		
 		if (!$child->articles)
 		{
-			$child->article = $this->CI->articles->get_item_by(array("url" => $url));
+			$child->article = $this->CI->articles->get_item_by(array('url' => $url));
 			if (!$child->article) return FALSE;
 		}
 		return $child;

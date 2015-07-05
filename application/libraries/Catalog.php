@@ -28,7 +28,7 @@ class CI_Catalog {
 				$volume[$key]  = $row->$order;
 			}
 						
-			$sort =  $direction == "asc" ? SORT_ASC : SORT_DESC;
+			$sort =  $direction == 'asc' ? SORT_ASC : SORT_DESC;
 			array_multisort($volume, $sort, $products);
 		}
 		
@@ -43,9 +43,9 @@ class CI_Catalog {
 	*/
 	public function _get_products($category_id)
 	{
-		$products = $this->CI->products->get_list(array("parent_id" => $category_id));
+		$products = $this->CI->products->get_list(array('parent_id' => $category_id));
 			
-		$sub_categories = $this->CI->categories->get_list(array("parent_id" => $category_id));
+		$sub_categories = $this->CI->categories->get_list(array('parent_id' => $category_id));
 		
 		if($sub_categories) foreach($sub_categories as $category)
 		{
@@ -70,20 +70,20 @@ class CI_Catalog {
 		
 	public function get_filters_info($filters, $type, $ch)
 	{
-		$filters_info = "";
+		$filters_info = '';
 		if(!empty($filters[$ch]))
 		{
 			switch($type){
-				case "characteristics":
+				case 'characteristics':
 					foreach($filters[$ch] as $key => $item)
 					{
 						$filters_info[] = $item;
 					}
 					break;
-				case "products":
+				case 'products':
 					foreach($filters[$ch] as $key => $item)
 					{
-						$filters_info[] = $this->CI->$type->get_item_by(array("sku" => $item))->sku;
+						$filters_info[] = $this->CI->$type->get_item_by(array('sku' => $item))->sku;
 					}
 					break;
 				default:
@@ -105,17 +105,17 @@ class CI_Catalog {
 		$shortdescs = array();
 		$to_save = array();
 
-		$shortnames = $this->CI->characteristics->get_list(array("type" => "shortname"), FALSE, FALSE, "value", "asc");
+		$shortnames = $this->CI->characteristics->get_list(array('type' => 'shortname'), FALSE, FALSE, 'value', 'asc');
 
 		foreach($shortnames as $sn)
 		{
 			$nok_tree[$sn->value] = array();
 			if(in_array($sn->object_id, $ids)) $to_save[] = $sn->value;
 		}
-		//var_dump($nok_tree);
+
 		foreach($shortnames as $sn)
 		{
-			$shortdesc = $this->CI->characteristics->get_list(array("type" => "shortdesc", "object_id" => $sn->object_id));
+			$shortdesc = $this->CI->characteristics->get_list(array('type' => 'shortdesc', 'object_id' => $sn->object_id));
 			
 			foreach($shortdesc as $sd)
 			{

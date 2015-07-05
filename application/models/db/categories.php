@@ -71,9 +71,9 @@ class Categories extends MY_Model
 			$filtred_ids[] = $p->parent_id;
 		}
 		
-		$tree = $this->_get_tree(0, "category_parent_id", $filtred_ids, $selected);
+		$tree = $this->_get_tree(0, 'category_parent_id', $filtred_ids, $selected);
 		
-		if($type == "site")foreach($tree as $i => $t)
+		if($type == 'site')foreach($tree as $i => $t)
 		{
 			if(empty($t->childs)) unset($tree[$i]);
 		}
@@ -92,12 +92,12 @@ class Categories extends MY_Model
 		{
 			if($parent_id <> 0)
 			{
-				$branch = $this->get_item_by(array("id" => $item->child_id));
+				$branch = $this->get_item_by(array('id' => $item->child_id));
 				if(in_array($item->child_id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
 			}
 			else
 			{
-				$branches[] = $this->get_item_by(array("id" => $item->child_id));
+				$branches[] = $this->get_item_by(array('id' => $item->child_id));
 			}
 		}
 		
@@ -123,22 +123,22 @@ class Categories extends MY_Model
 	*/
 	public function delete($id)
 	{
-		$this->db->where("id", $id);
+		$this->db->where('id', $id);
 		$this->db->delete($this->_table);
 		
-		$this->db->where("parent_id", $id);
-		$this->db->delete("products");
+		$this->db->where('parent_id', $id);
+		$this->db->delete('products');
 		
-		$this->db->where("category_parent_id", $id);
-		$sub_categories = $this->db->get("category2category")->result();
+		$this->db->where('category_parent_id', $id);
+		$sub_categories = $this->db->get('category2category')->result();
 		if($sub_categories) foreach($sub_categories as $item)
 		{
 			$this->delete($item->child_id);
 		}
 		
-		$this->db->where("category_parent_id", $id);
-		$this->db->or_where("child_id", $id);
-		$this->db->delete("category2category");
+		$this->db->where('category_parent_id', $id);
+		$this->db->or_where('child_id', $id);
+		$this->db->delete('category2category');
 	}
 	
 	/**
@@ -167,9 +167,9 @@ class Categories extends MY_Model
 		$item_url = array();
 		
 		$item_url[]  = $item->url;
-		$query = $this->db->get_where('category2category', array("child_id" => $item->id)); 
+		$query = $this->db->get_where('category2category', array('child_id' => $item->id)); 
 		$c2c = $query->row();
-		$item = $this->categories->get_item_by(array("id" => $c2c->category_parent_id));
+		$item = $this->categories->get_item_by(array('id' => $c2c->category_parent_id));
 		if($item) $item_url[]  = $item->url;
 		$item_url[] = 'catalog';
 		return $item_url;
