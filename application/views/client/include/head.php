@@ -26,16 +26,21 @@
 	<script>
 		(function($){
 			$(window).load(function(){
-				$(".scroll-content").height($( window ).height() - 105);
-				$(".scroll-contentd").height($( window ).height() - 105);
+				$("#product-scroll").height($( window ).height() - 75);
+				$(".menuright").height($( window ).height() - 105);
+				$(".leftmenu").height($( window ).height() - 105);
+				$(".secondcolumn").height($( window ).height() - 105);
+				$("#shadow").height($( window ).height() - 200);
+				$("#full-shadow").height($( window ).height() - 105);
+				$("#wrapper").height($( window ).height() - 75);
 				$("#leftscroll").height($( "#leftscroll" ).height() + 0);
 				$("#good_page_scroll").height($( window ).height() - 115);
-				$("#manufacturers_col").height($( window ).height() - 130);
 				$(".scroll-content").mCustomScrollbar({
 					scrollButtons:{
 						enable:true
 					}
 				});
+
 				$(".horscroll-content").mCustomScrollbar({
 					horizontalScroll:true,
 					scrollButtons:{
@@ -170,6 +175,13 @@
 					$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
 					$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 				});
+				
+				
+				
+					$(".leftmenu").mCustomScrollbar({
+						axis:"y", //set both axis scrollbars
+						advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
+					});
 			});
 		})(jQuery);
 
@@ -315,8 +327,7 @@
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
-
-				if($(this).scrollTop() >= div_sh - div_h){
+				if($(this).scrollTop() >= div_sh - div_h ){
 					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
 				}/*убрать shop*/
 			});

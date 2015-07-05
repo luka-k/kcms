@@ -130,7 +130,7 @@ border-right: 2px solid #000;
 border-right: none;
 }
 .right-contacts li.phone {
-	background: url(/template/client/images-new/icon-phone.png) 0px 0px no-repeat;
+	background: url(http://brightbuild.ru/images/icon-phone.png) 0px 0px no-repeat;
 	padding-left: 16px;
 }
 
@@ -139,8 +139,8 @@ border-right: none;
 }
 .top-menu  li{
 float:left;
-margin-right: 35px;
-padding-right: 35px;
+margin-right: 25px;
+padding-right: 25px;
 line-height: 16px;
 padding-bottom: 2px;
 border-right: 2px solid #000;
@@ -152,9 +152,9 @@ border-right: none;
 
 .top-menu  li a{
 float:left;
-font-size:16px;
+font-size:15px;
 color:#000;
-font-weight:normal;
+font-weight:bold;
 text-decoration:none;
 }
 
@@ -196,8 +196,7 @@ color:#ec1c24;
       #wrapper {
                 position: relative;
                 margin: 0 auto;
-                height: auto !important;
-                height: 100%;
+				overflow-y: hidden;
                 padding:0px 0;
         }
 
@@ -237,7 +236,7 @@ color:#ec1c24;
 			background: url(/template/client/images-new/icon-home.png) 0 0 no-repeat;
 			font-size: 12px;
 			padding-left: 22px;
-			margin-top: 0px;
+			margin-top: 4px;
 			width: 250px;
 			float: left;
 			font-weight: normal;
@@ -292,6 +291,7 @@ color:#ec1c24;
 			padding-right: 10px;
 		}
 		.product-price {
+			width: 180px; 
 			float: right;
 			padding-right: 10px;
 		}
@@ -372,9 +372,10 @@ color:#ec1c24;
 		#s_left .leftmenu {
 			width: 271px;
 			height: 606px;
-			background: url(/template/client/images-new/leftcolumn-bg.png) repeat-x;
+			background: #c6cee8 url(/template/client/images-new/leftcolumn-bg.png) repeat-x;
 			margin-left: 6px;
 			padding-top: 6px;
+			overflow-y: hidden;
 			
     -webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
        -moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
@@ -399,25 +400,12 @@ color:#ec1c24;
 			margin-top: 4px;
 			color: #000099;
 		}
-		#s_right .item_text{
-	font-size: 11px;
-	margin-left: 22px;
-	margin-top: 9px;
-	color: #000;
-	line-height: 16px;
-}
-
-#s_right .item_text p{
-	margin:0;
-	padding:0;
-}
-		
-		#s_right .item_text .news_date{
-			display:inline-block;
-			float:left;
-			margin-right:3px;
-			color: #0000C8;
-			font-weight:bold;
+		#s_right p{
+			font-size: 11px;
+			margin-left: 22px;
+			margin-top: 4px;
+			color: #000;
+			line-height: 16px;
 		}
 		
 		#s_left .lm-block{
@@ -522,7 +510,7 @@ color:#ec1c24;
 						height: 606px;
 						margin-right: 6px;
 						padding-top: 6px;
-						background: url(/template/client/images-new/rightcolumn-bg.png) repeat-x;
+						background: #eae8e7 url(/template/client/images-new/rightcolumn-bg.png) repeat-x;
                     } 
 					
 					
@@ -557,7 +545,7 @@ color:#ec1c24;
 			position: absolute;
 			z-index: 10;
 			left: 280px;
-			top: 28px;
+			top: 91px;
 			height: 606px;
 			overflow-y: scroll;
 			background: #b3b3b3;
@@ -887,7 +875,6 @@ div.news{
 	margin:30px 20px 0 20px;
 	padding:10px 20px;
 	border:2px solid #7E7E7B;
-	overflow:hidden;
 }
 
 #s_right .manufacturers ul{
@@ -964,18 +951,18 @@ div.news{
 
 .product_content{
 	margin-left:-190px;
-	padding:0 0 0 190px;
+	padding:0 0 0 220px;
 	position:relative;
 	float:left;
-	width: -moz-calc(100% - 200px);
-    width: -webkit-calc(100% - 200px);
-    width: calc(100% - 200px);
-}
-
-.item-description{
 	width: -moz-calc(100% - 230px);
     width: -webkit-calc(100% - 230px);
     width: calc(100% - 230px);
+}
+
+.item-description{
+	width: -moz-calc(100% - 260px);
+    width: -webkit-calc(100% - 260px);
+    width: calc(100% - 260px);
 	position:relative;
 	float:left;
 }
@@ -1041,9 +1028,9 @@ div.news{
 }
 
 .accordeon-body .description_col{
-	width: -moz-calc(100% - 420px);
-    width: -webkit-calc(100% - 420px);
-    width: calc(100% - 420px);
+	width: -moz-calc(100% - 450px);
+    width: -webkit-calc(100% - 450px);
+    width: calc(100% - 450px);
 	float:left;
 	padding-left:15px;
 }
@@ -1108,3 +1095,55 @@ div.news{
 	width:30%;
 	float:left;
 }
+
+
+/* This is the moving lens square underneath the mouse pointer. */
+.cloud-zoom-lens {
+	border: 0px solid #888;
+	margin:-4px;	/* Set this to minus the border thickness. */
+	background-color:#fff;	
+	cursor:move;		
+}
+
+/* This is for the title text. */
+.cloud-zoom-title {
+	font-family:Arial, Helvetica, sans-serif;
+	position:absolute !important;
+	background-color:#000;
+	color:#fff;
+	padding:3px;
+	width:100%;
+	text-align:center;	
+	font-weight:bold;
+	font-size:10px;
+	top:0px;
+}
+
+/* This is the zoom window. */
+.cloud-zoom-big {
+	border:0px solid #ccc;
+	position: absolute;
+	left: -300px;
+	top: 0;
+	overflow:hidden;
+}
+
+/* This is the loading message. */
+.cloud-zoom-loading {
+	color:white;	
+	background:#222;
+	padding:3px;
+	border:1px solid #000;
+}
+
+
+
+.cloud-zoom-big{
+	border: 1px solid black;
+    width: 430px !important;
+    height: 430px !important;
+	background-color: #fff;
+	background-repeat: no-repeat;
+}
+
+.img_col {padding-right: 30px;}
