@@ -143,8 +143,12 @@ class Catalog extends Client_Controller {
 						$filters_checked['categories_checked'][] = $category->child_id;
 					}
 				
-					if(isset($content->manufacturer)) $filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
-				
+					if(isset($content->manufacturer)) 
+					{
+						$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+						$manufacturer_ch = array(0 => $content->manufacturer->name);
+					}
+
 					$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
 					$products = $this->products->prepare_list($products);
 				
@@ -160,9 +164,9 @@ class Catalog extends Client_Controller {
 					{
 						$param['manufacturer_id'] = $content->manufacturer->id;
 						$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+						$manufacturer_ch = array(0 => $content->manufacturer->name);
 					}
 					$products = $this->products->prepare_list($this->products->get_list($param, 0, 10, 'sort', 'asc'));
-				
 				
 					$total_rows = count($this->products->get_list($param, FALSE, FALSE, 'sort', 'asc'));
 				}
@@ -179,6 +183,7 @@ class Catalog extends Client_Controller {
 			$data = array(
 				'category' => $content,
 				'filters_checked' => $filters_checked,
+				'manufacturer_ch' => $manufacturer_ch,
 				'left_menu' => $this->categories->get_tree(),
 				'collection' => $this->collections->get_tree($products_ids),
 				'manufacturer' => $this->manufacturers->get_tree($products),
@@ -201,14 +206,13 @@ class Catalog extends Client_Controller {
 			}
 		}
 
-
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 		$data['category']->products = $products;
 		$data['total_rows'] = $total_rows;
 		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
 		$data = array_merge($this->standart_data, $data);
-	
+		
 		$this->benchmark->mark('code_end');
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/shop/categories", $data);
