@@ -59,7 +59,7 @@ if($host[0] == "shop")
 }
 else
 {
-	$route['default_controller'] = "index";
+	$route['default_controller'] = "catalog/index";
 	
 	$route['catalog'] = 'catalog/catalog/index';
 	$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
