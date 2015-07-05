@@ -6,7 +6,7 @@
 		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 		<? require 'include/header.php'?>
 		
-		<div id="wrapper">
+		<div id="wrapper" >
 			<div class="section maxw">
 				<div class="mainwrap">
 					<main>
@@ -60,11 +60,15 @@
 				</aside>
 			</div>
 		</div>
-				 <? if (count($filters_checked) < 4): ?>
-					<div id="shadow"></div>
-				 <? endif ?>
-			
-			</form>
+		
+		<? if (count($filters_checked) < 4): ?>
+			<div id="shadow"></div>
+		<? endif ?>
+		</form>
 	</body>
 	
+	<?require_once 'include/shop_scripts.php'?>
+	<?require_once 'include/scroll_scripts.php'?>
+	<?require_once 'include/range_scripts.php'?>
+	<?require_once 'include/left_menu_scripts.php'?>
 </html>

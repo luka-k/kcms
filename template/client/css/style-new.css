@@ -221,7 +221,6 @@ color:#ec1c24;
         
         main {
         	padding: 0 310px 0 290px;
-        	min-height: 450px;
                 margin:0;
         }
 		
@@ -361,15 +360,15 @@ color:#ec1c24;
                     #s_left {
                     	float: left;
                     	width: 281px;
-			z-index: 999;
+						z-index: 999;
                     	margin-left: -100%;
                         left:0;
                     	position: relative;
-                    	min-height: 612px;
                     }
         
               
 		#s_left .leftmenu {
+			overflow:hidden;
 			width: 271px;
 			height: 606px;
 			background: url(/template/client/images-new/leftcolumn-bg.png) repeat-x;
