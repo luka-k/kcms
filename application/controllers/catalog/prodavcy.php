@@ -60,6 +60,7 @@ class Prodavcy extends Client_Controller {
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['page_title'] = $content->category->name;
 			$data['active_category'] = $content->category->url;
+			$data['level'] = isset($content->parent_category) ? 2 : 1;
 			
 			$data['vendors'] = $this->manufacturers->prepare_list($this->manufacturers->get_vendors($content->category->id));
 

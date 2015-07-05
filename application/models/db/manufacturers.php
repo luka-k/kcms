@@ -333,7 +333,7 @@ class Manufacturers extends MY_Model
 		if($result) foreach($result as $i => $item)
 		{
 			$vendors[$i] = $this->get_item($item->manufacturer_id);
-			$vendors[$i]->categories = $this->_get_subcategories($item->manufacturer_id, 'vendor');
+			$vendors[$i]->categories = $this->_get_categories_tree($item->manufacturer_id, 'vendor');
 		}
 		
 		sort($vendors);

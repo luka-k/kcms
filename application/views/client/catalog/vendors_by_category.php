@@ -31,11 +31,23 @@
 													<div class="manu_col">
 														<?$cat_counter = 1?>
 														<?foreach($v->categories as $category):?>
-															<li class="cat_list-<?=$manufacturer_counter?> <?if($category->url == $active_category):?>active<?endif;?>">
-																<?=$category->name?>
-															</li>
-															<?$cat_counter++?>
-															<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
+															<?if($level == 1):?>
+																<li class="cat_list-<?=$manufacturer_counter?> <?if($category->url == $active_category):?>active<?endif;?>">
+																	<?=$category->name?>
+																</li>
+																<?$cat_counter++?>
+																<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
+															<?else:?>
+																<?if(isset($category->childs)):?>
+																	<?foreach($category->childs as $sub):?>
+																		<li class="cat_list-<?=$manufacturer_counter?> <?if($sub->url == $active_category):?>active<?endif;?>">
+																			<?=$sub->name?>
+																		</li>
+																		<?$cat_counter++?>
+																		<?if($cat_counter == 5):?></div><div class="manu_col"><?$cat_counter = 1?><?endif;?>
+																	<?endforeach;?>
+																<?endif;?>
+															<?endif;?>
 														<?endforeach;?>
 													</div>
 												</ul>
