@@ -94,7 +94,7 @@ class Podrjadchiki extends Client_Controller {
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
 		
-		$data['left_menu'] = $this->manufacturers->_get_services_tree($contractor->id);
+		$data['left_menu'] = $this->services->get_tree(0, 'parent_id');
 		
 		$data['h1_title'] = '';
 		if(isset($content->service)) $data['h1_title'] .= $content->service->name.' - ';

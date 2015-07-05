@@ -37,7 +37,7 @@ class Contractor extends Client_Controller {
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
 		
-		$data['left_menu'] = $this->manufacturers->_get_services_tree($contractor->id);
+		$data['left_menu'] = $this->services->get_tree(0, 'parent_id');
 		//my_dump($data['left_menu']);
 		$data = array_merge($data, $this->standart_data);
 
