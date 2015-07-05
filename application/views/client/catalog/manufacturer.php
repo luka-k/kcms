@@ -62,7 +62,7 @@
 														<ul class="img_box">
 															<?foreach($manufacturer->distributors as $distributor):?>
 																<li class="cat_img-0">
-																	<a href="<?=base_url()?>vendors/<?=$distributor->url?>">
+																	<a href="<?=base_url()?>vendor/<?=$distributor->url?>">
 																		<img src="<?=$distributor->img->manufacturer_url?>" alt="<?=$distributor->name?>">
 																	</a>
 																</li>
