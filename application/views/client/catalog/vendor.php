@@ -80,7 +80,7 @@
 										</p>
 										<?foreach($vendor->distributed as $d):?>
 											<a href="<?=base_url()?>manufacturer/<?=$d->url?>">
-												<img src="<?=$d->img->manufacturer_url?>" style="float: left;" />
+												<img src="<?=$d->img->manufacturer_url?>" style="float: left;" alt='<?=$d->name?>'/>
 											</a>
 										<?endforeach;?>
 									</div>

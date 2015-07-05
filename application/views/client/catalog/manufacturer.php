@@ -86,7 +86,7 @@
 									
 									<nav class="navigation-mini floating">
 							
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="<?if($active_doc == 'all"'):?>active<?endif;?>">Все документы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="<?if($active_doc == 'all'):?>active<?endif;?>">Все документы</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="<?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="<?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
 										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="<?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
