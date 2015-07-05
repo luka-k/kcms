@@ -12,7 +12,7 @@
 		$("#good_page_scroll").height($( window ).height() - 115);
 	})(jQuery);
 </script>
-<?if(count($filters_checked) > 3):?>
+<?if(isset($filters_checked) && count($filters_checked) > 3):?>
 	<script>
 		$(".leftmenu").mCustomScrollbar({
 			axis:"y", //set both axis scrollbars

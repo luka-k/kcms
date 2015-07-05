@@ -135,4 +135,8 @@
 			<? if (empty($filters_checked)): ?><div id="shadow"></div><? endif ?>
 		
 	</body>
+	
+	<?require_once 'include/shop_scripts.php'?>
+	<?require_once 'include/scroll_scripts.php'?>
+	<?require_once 'include/left_menu_scripts.php'?>
 </html>

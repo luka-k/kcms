@@ -73,7 +73,7 @@ class Cart extends Client_Controller
 		);
 
 		$data = array_merge($this->standart_data, $data);
-		$this->load->view('client/cart.php', $data);
+		$this->load->view('client/shop/cart.php', $data);
 	}
 	
 	public function add_to_precart()

@@ -35,7 +35,11 @@
 													<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="100" /></a>
 												<?endif;?>
 											</div>
-											<div class="product-name"><a href="<?=$item->full_url?>"><?=$item->name?></a></div>
+											<div class="product-name">
+												<a href="<?=$item->full_url?>">
+													<?=$item->name?>
+												</a>
+											</div>
 											<div class="product-sku"><?=$item->sku?></div>
 										</div>
 									<?endforeach;?>

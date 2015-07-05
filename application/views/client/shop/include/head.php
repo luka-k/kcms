@@ -21,16 +21,7 @@
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
 	
-	<script>var current_id = 0;</script> 
-		
-	<script>
-		
-	
-	
-	
-	
-	</script>	
-	
+
 	<script>
 		$(document).ready(function(){
 			$('#ajax_from').val(10);
