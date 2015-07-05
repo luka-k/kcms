@@ -42,6 +42,14 @@
 									<div class="product_content">
 										<div class="item-description">
 											<div class="item-name"><?=$product->name?></div>
+											<div class="item-manufacturername"><?=$product->manufacturer_name?></div><!--Производитель-->
+											<div class="item-colllections">
+												<?$counter = 1?>
+												<?foreach($product->collection_name as $name):?>
+													<?=$name?><?if($counter <> count($product->collection_name)):?>,<?endif;?> 
+													<?$counter++?>
+												<?endforeach;?>
+											</div><!--Колекции-->
 											<div class="item-color">
 												<?$counter = 1?>
 												<?foreach($product->color as $color):?>

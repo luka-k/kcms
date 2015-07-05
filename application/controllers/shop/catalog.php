@@ -324,7 +324,7 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'product' => $this->products->prepare($content->product, FALSE, TRUE),
+			'product' => $this->products->prepare($content->product, FALSE),
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 

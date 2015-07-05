@@ -159,7 +159,7 @@ class Products extends MY_Model
 	* @param object $item
 	* @return object
 	*/
-	function prepare($item, $cover, $ch)
+	function prepare($item, $cover)
 	{
 		if(!empty($item))
 		{
@@ -183,8 +183,17 @@ class Products extends MY_Model
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
-			if($ch) $item = $this->characteristics->get_product_characteristics($item);
+			$item = $this->characteristics->get_product_characteristics($item);
 			
+			$item->manufacturer_name = $this->manufacturers->get_item($item->manufacturer_id)->name;
+
+			$item->collection_name = array();
+			
+			$result = $this->db->get_where("product2collection", array('child_id' => $item->id))->result();
+			if($result) foreach($result as $r)
+			{
+				$item->collection_name[] = $this->manufacturers->get_item($r->collection_parent_id)->name;
+			}
 			//временно костылик
 			$item->location = '';
 			return $item;

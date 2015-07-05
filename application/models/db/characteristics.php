@@ -178,11 +178,12 @@ class Characteristics extends MY_Model
 	
 	public function get_product_characteristics($item)
 	{
-		$item->color = $this->characteristics->get_list(array("type" => "color", "object_id" => $item->id));
-		$item->shortname = $this->characteristics->get_item_by(array("type" => "shortname", "object_id" => $item->id));
-		$item->shortdesc = $this->characteristics->get_list(array("type" => "shortdesc", "object_id" => $item->id));
-		$item->finishing = $this->characteristics->get_list(array("type" => "finishing", "object_id" => $item->id));
-		$item->turn = $this->characteristics->get_list(array("type" => "turn", "object_id" => $item->id));
+		$item->color = $this->get_list(array("type" => "color", "object_id" => $item->id));
+		$item->material = $this->get_list(array("type" => "material", "object_id" => $item->id));
+		$item->shortname = $this->get_item_by(array("type" => "shortname", "object_id" => $item->id));
+		$item->shortdesc = $this->get_list(array("type" => "shortdesc", "object_id" => $item->id));
+		$item->finishing = $this->get_list(array("type" => "finishing", "object_id" => $item->id));
+		$item->turn = $this->get_list(array("type" => "turn", "object_id" => $item->id));
 		
 		return $item;
 	}

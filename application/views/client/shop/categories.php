@@ -36,11 +36,38 @@
 												<?endif;?>
 											</div>
 											<div class="product-name">
-												<a href="<?=$item->full_url?>">
-													<?=$item->name?>
-												</a>
+												<a href="<?=$item->full_url?>"><?=$item->name?></a></br>
+												<?=$item->manufacturer_name?>
+
+												<?foreach($item->collection_name as $name):?>
+													<?=$name?>
+												<?endforeach;?>
+												
+												<?=$item->sku?></br>
+	
+												<?foreach($item->color as $color):?>
+													<?=$color->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->material as $material):?>
+													<?=$material->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->finishing as $finishing):?>
+													<?=$finishing->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->turn as $turn):?>
+													<?=$turn->value?>
+												<?endforeach;?>
+												</br>
+
+												<?=$item->shortname->value?> 
+												
+												<?foreach($item->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?>
 											</div>
-											<div class="product-sku"><?=$item->sku?></div>
 										</div>
 									<?endforeach;?>
 								<?endif;?>
