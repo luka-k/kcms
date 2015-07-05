@@ -90,7 +90,7 @@ class Podrjadchiki extends Client_Controller {
 			'left_active_item' => isset($content->parent_service) ? $content->parent_service->url : $content->service->url,
 			'submenu_active_item' => isset($content->parent_service) ? $content->service->url : '',
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'contractors' => $this->manufacturers->prepare_list($this->manufacturers->get_contractors()),
+			'contractors' => $this->manufacturers->prepare_list($this->manufacturers->get_contractors($content->service)),
 			'contractor' => $this->manufacturers->prepare_for_contractor($contractor)
 		);
 		
