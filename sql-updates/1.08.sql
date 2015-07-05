@@ -1,0 +1,1 @@
+ALTER TABLE `manufacturers` CHANGE `phone` `phone` varchar(255) NULL DEFAULT '1';
