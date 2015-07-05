@@ -10,7 +10,7 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<div style="height: 700px; overflow-y: auto;">
+							<div id="product-scroll" style="height: 700px; overflow-y: auto;">
 								<div class="p_brdcr"><? require 'include/breadcrumbs.php' ?></div>
 								<div style="clear: both;"></div>
 
@@ -42,6 +42,14 @@
 									<div class="product_content">
 										<div class="item-description">
 											<div class="item-name"><?=$product->name?></div>
+											<div class="item-manufacturername"><?=$product->manufacturer_name?></div><!--Производитель-->
+											<div class="item-colllections">
+												<?$counter = 1?>
+												<?foreach($product->collection_name as $name):?>
+													<?=$name?><?if($counter <> count($product->collection_name)):?>,<?endif;?> 
+													<?$counter++?>
+												<?endforeach;?>
+											</div><!--Колекции-->
 											<div class="item-color">
 												<?$counter = 1?>
 												<?foreach($product->color as $color):?>
@@ -279,27 +287,9 @@
 	</form>
 	</body>
 
-	<script>
-		$('.accordeon-head').click(function() {
-			$(this).next().slideToggle().toggleClass('noactive');
-			if ($(this).find('span.list'))
-			{
-				if ($(this).find('span.list').html() == '+')
-					$(this).find('span.list').html('-');
-				else
-					$(this).find('span.list').html('+');
-			}
-		});
-		
-		$('.acc-h').click(function() {
-			$('.acc-b').slideToggle().toggleClass('noactive');
-			if ($(this).find('span.list'))
-			{
-				if ($(this).find('span.list').html() == '+')
-					$(this).find('span.list').html('-');
-				else
-					$(this).find('span.list').html('+');
-			}
-		});
-	</script>
+	<?require_once 'include/product_scripts.php'?>
+	<?require_once 'include/shop_scripts.php'?>
+	<?require_once 'include/scroll_scripts.php'?>
+	<?require_once 'include/range_scripts.php'?>
+	<?require_once 'include/left_menu_scripts.php'?>
 </html>

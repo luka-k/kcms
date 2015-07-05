@@ -211,7 +211,7 @@ class Catalog extends Client_Controller {
 	
 		$this->benchmark->mark('code_end');
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
-		$this->load->view("client/categories", $data);
+		$this->load->view("client/shop/categories", $data);
 	}
 	
 	/**
@@ -302,7 +302,7 @@ class Catalog extends Client_Controller {
 	{
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);		
-		$this->load->view('client/categories', $data);
+		$this->load->view('client/shop/categories', $data);
 	}
 	
 	/**
@@ -324,7 +324,7 @@ class Catalog extends Client_Controller {
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'product' => $this->products->prepare($content->product, FALSE, TRUE),
+			'product' => $this->products->prepare($content->product, FALSE),
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 
@@ -355,7 +355,7 @@ class Catalog extends Client_Controller {
 
 		$data = array_merge($this->standart_data, $data);
 		
-		$this->load->view('client/product', $data);
+		$this->load->view('client/shop/product', $data);
 	}
 	
 	public function count()

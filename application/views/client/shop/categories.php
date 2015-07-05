@@ -6,7 +6,7 @@
 		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 		<? require 'include/header.php'?>
 		
-		<div id="wrapper">
+		<div id="wrapper" >
 			<div class="section maxw">
 				<div class="mainwrap">
 					<main>
@@ -35,8 +35,39 @@
 													<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="100" /></a>
 												<?endif;?>
 											</div>
-											<div class="product-name"><a href="<?=$item->full_url?>"><?=$item->name?></a></div>
-											<div class="product-sku"><?=$item->sku?></div>
+											<div class="product-name">
+												<a href="<?=$item->full_url?>"><?=$item->name?></a></br>
+												<?=$item->manufacturer_name?>
+
+												<?foreach($item->collection_name as $name):?>
+													<?=$name?>
+												<?endforeach;?>
+												
+												<?=$item->sku?></br>
+	
+												<?foreach($item->color as $color):?>
+													<?=$color->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->material as $material):?>
+													<?=$material->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->finishing as $finishing):?>
+													<?=$finishing->value?>
+												<?endforeach;?>
+												
+												<?foreach($item->turn as $turn):?>
+													<?=$turn->value?>
+												<?endforeach;?>
+												</br>
+
+												<?=$item->shortname->value?> 
+												
+												<?foreach($item->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?>
+											</div>
 										</div>
 									<?endforeach;?>
 								<?endif;?>
@@ -60,11 +91,15 @@
 				</aside>
 			</div>
 		</div>
-				 <? if (count($filters_checked) < 4): ?>
-					<div id="shadow"></div>
-				 <? endif ?>
-			
-			</form>
+		
+		<? if (count($filters_checked) < 4): ?>
+			<div id="shadow"></div>
+		<? endif ?>
+		</form>
 	</body>
 	
+	<?require_once 'include/shop_scripts.php'?>
+	<?require_once 'include/scroll_scripts.php'?>
+	<?require_once 'include/range_scripts.php'?>
+	<?require_once 'include/left_menu_scripts.php'?>
 </html>
