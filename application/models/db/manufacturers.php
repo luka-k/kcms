@@ -105,8 +105,11 @@ class Manufacturers extends MY_Model
 		$manufacturers = array();
 		
 		$manufacturers_ids = array_unique($manufacturers_ids);
-		$this->db->where_in("id", $manufacturers_ids);
-		$manufacturers = $this->db->get("manufacturers")->result();
+		if($manufacturers_ids) 
+		{
+			$this->db->where_in("id", $manufacturers_ids);
+			$manufacturers = $this->db->get("manufacturers")->result();
+		}
 		
 		foreach($manufacturers as $i => $m)
 		{
@@ -398,8 +401,12 @@ class Manufacturers extends MY_Model
 		$item->subcategories = $this->_get_subcategories($item->id);
 		$distributors_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
 		
-		$this->db->where_in("id", $distributors_ids);
-		$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
+		$item->distributors = array();
+		if($distributors_ids )
+		{
+			$this->db->where_in("id", $distributors_ids);
+			$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
+		}
 	
 		return $item;
 	}

@@ -97,12 +97,13 @@
 										&nbsp;
 									</div>								
 									<div class="main-a width-auto">
-										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit_by_category(this.value, '<?=$manufacturer->url?>');">
+										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>');">
+											<option <?if($active_category_item == ''):?>selected<?endif;?> value="manufacturer/">Все группы товаров</option>
 											<?foreach($manufacturer->categories as $category):?>
-												<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="<?=$category->url?>"><?=$category->name?></option>
+												<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="catalog/<?=$category->url?>"><?=$category->name?></option>
 												<?if(!empty($category->childs)):?>
 													<?foreach($category->childs as $ch):?>
-														<option <?if($active_category_item == $ch->url):?>selected<?endif;?> value="<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
+														<option <?if($active_category_item == $ch->url):?>selected<?endif;?> value="catalog/<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
 													<?endforeach;?>
 												<?endif;?>
 											<?endforeach;?>
