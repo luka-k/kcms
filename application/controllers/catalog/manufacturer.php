@@ -41,7 +41,7 @@ class Manufacturer extends Client_Controller {
 			'shop_link_title' => $shop_link_title,
 			'shop_link' => $manufacturer->url,
 			'above_menu_title' => $manufacturer->name,
-			'left_menu' => $this->categories->get_tree(),
+			'left_menu' => 'left_menu' => $this->categories->get_another_tree(),,
 			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',

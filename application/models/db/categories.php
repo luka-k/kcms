@@ -115,6 +115,63 @@ class Categories extends MY_Model
 		return $branches;	
 	}
 	
+	public function get_another_tree($type = 'catalog')
+	{
+		$categories_tree = array();
+		
+		if($type == 'vendor')
+		{
+			$table = 'manufacturer2categorygoods';
+			$field = 'goods_category_id';
+		}
+		else
+		{
+			$table = 'manufacturer2category';
+			$field = 'category_id';
+		}
+		
+		$categories_ids = array();
+		
+		$result = $this->db->get($table)->result();
+		if($result) foreach($result as $r)
+		{
+			$categories_ids[] = $r->$field;
+		}
+
+		if(!empty($categories_ids))
+		{
+			$result = $this->db->get_where("category2category", array("category_parent_id" => 0))->result();
+			
+			if($result)foreach($result as $i => $r)
+			{				
+				$categories_tree[$i] = $this->categories->get_item($r->child_id);
+				
+				$categories_tree[$i]->childs = array();
+				
+				$this->db->where_in("child_id", $categories_ids);
+				$sub_result = $this->db->get_where("category2category", array("category_parent_id" => $r->child_id))->result();
+				
+				if($sub_result)foreach($sub_result as $j => $s_r)
+				{
+					$categories_tree[$i]->childs[$j] = $this->categories->get_item($s_r->child_id);
+					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
+				}
+			}
+		}
+		
+		$categories_tree = $this->categories->prepare_list($categories_tree);
+
+		$volume = array();
+		foreach($categories_tree as $i => $branch)
+		{
+			$volume[$i]  = $branch->name;
+		}
+
+		array_multisort($volume, SORT_ASC, $categories_tree);
+
+		return $categories_tree;
+	}
+	
 	/**
 	* Удаление категории
 	* 
