@@ -48,6 +48,5 @@
 			<?endif;?>
 		</div>
 
-		</div> <!-- /.menu__search -->
 	</div> <!-- /.menu__wrap wrap -->
 </div> <!-- /.menu -->
