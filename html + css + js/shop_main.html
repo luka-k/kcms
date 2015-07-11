@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!--> 
+	<html class="no-js">
+<!--<![endif]-->
+
+<?/* require 'include/head.php' */?>
+
+<head>
+	<title>Книжный дом</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+		
+	<link type="text/css" rel="stylesheet" href="../template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
+	<link type="text/css" rel="stylesheet" href="../template/js/jquery-ui/jquery-ui.css" media="all" /> <!--fancybox css-->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link type="text/css" rel="stylesheet" href="css/style.css" media="all" />  <!--custom css-->
+	<link type="text/css" rel="stylesheet" href="css/grid.css" media="all" />
+		
+	<script type="text/javascript" src="js/jquery.min.js"></script> <!--jquery js-->
+	<script type="text/javascript" src="../template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
+	<script type="text/javascript" src="../template/js/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/cart.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/wishlist.js"></script>
+	<script type="text/javascript" src="js/datepicker.js"></script>
+	<!--<script type="text/javascript" src="js/main.js"></script>-->
+	<script type="text/javascript" src="js/slideshow.js"></script>  
+	<script type="text/javascript" src="js/tabcontent.js"></script>
+	
+	<!-- Slider -->
+	<script src="<?=base_url()?>template/client/js/bxslider/jquery.bxslider.min.js"></script>
+	
+	<!-- Обработка и валидация форм -->
+	<script src="<?=base_url()?>template/client/js/vendor/jquery.form.min.js"></script>
+	<script src="<?=base_url()?>template/client/js/vendor/jquery.validate.min.js"></script>
+	
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+			function htmSlider(num){
+				var slideWrap = jQuery('.slide-wrap-'+num);
+				var nextLink = jQuery('.next-slide-'+num);
+				var prevLink = jQuery('.prev-slide-'+num);
+				var playLink = jQuery('.auto');
+				var is_animate = false;
+				var slideWidth = jQuery('.slide-item-'+num).outerWidth();
+				var scrollSlider = slideWrap.position().left - slideWidth;
+		
+				nextLink.click(function(){
+					if(!slideWrap.is(':animated')) {
+						slideWrap.animate({left: scrollSlider}, 300, function(){
+							slideWrap
+							.find('.slide-item-'+num+':first')
+							.appendTo(slideWrap)
+							.parent()
+							.css({'left': 0});
+						});
+					}
+				});
+ 
+				prevLink.click(function(){
+					if(!slideWrap.is(':animated')) {
+						slideWrap
+						.css({'left': scrollSlider})
+						.find('.slide-item-'+num+':last')
+						.prependTo(slideWrap)
+						.parent()
+						.animate({left: 0}, 300);
+					}
+				});
+			}
+ 
+			htmSlider(1);
+			htmSlider(2);
+		});
+	</script>
+</head>
+
+<body>
+	<!--[if lt IE 8]>
+		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+	<![endif]-->
+	
+	<?/* require 'include/top-menu.php'*/?>
+	
+	<div class="menu clearfix" id="menu">
+		<div class="menu__wrap wrap">
+			<div class="menu_lang">
+				<span class="rus">&nbsp;</span>
+				<span class="eng">&nbsp;</span>
+			</div>
+			<!--<a href="/">
+				<div class="menu_main">
+					На главную
+				</div>
+			</a>-->
+			<nav class="menu__nav">
+				<a href="/">
+					<div class="menu_main">На главную</div></a>
+		
+				<ul class="menu-nav shop">
+					<li class="menu-nav__item">
+						<a href="#" class="menu-nav__href">Новости</a>
+					</li>
+					<li class="menu-nav__item">
+						<a href="#" class="menu-nav__href">Оплата и доставка</a>
+					</li>
+					<li class="menu-nav__item">
+						<a href="#" class="menu-nav__href">Контакты</a>
+					</li>
+				</ul> <!-- /.menu -->
+			</nav> <!-- /.menu__nav -->
+		
+			<div class="menu-enter">
+				<a href="<?=base_url()?>cabinet">
+					<span class="avatar">&nbsp;</span>S. Konstantinov
+				</a>|
+				<a href="<?=base_url()?>cart/" class="enter-cart">
+					<span id="total_qty" class="total-qty">26</span>
+				</a>|
+				<a href="" class="logout">&nbsp;</a>
+			</div>
+		</div> <!-- /.menu__wrap wrap -->
+	</div> <!-- /.menu -->
+	
+	<?/* require 'include/header.php'*/?>
+	<header class="header shop clearfix" id="header">
+		<div class="header__wrap wrap">
+			<div class="header__logo">
+				<a href="/" class="logo shop">&nbsp;</a>
+			</div> <!-- /.header__logo -->
+		
+			<div class="header__phone">
+				<div class="header-phone">
+					<div class="header-phone__number">/123/456-89-00</div> <!-- /.header-phone__number -->
+				</div> <!-- /.header-phone -->
+			</div> <!-- /.header__phone -->
+		
+			<div class="header__callback">
+				<div class="header-callback">
+					<div class="header-phone__callback">
+						<a href="#callback" class="header-phone__callback-link lightbox">обратный звонок</a>
+					</div> <!-- /.header-phone__callback -->
+				</div> <!-- /.header-login -->
+			</div> <!-- /.header__login -->
+		
+			<div class="header__social">
+				<a href="" class="twiter"></a>
+				<a href="" class="facebook" ></a>
+				<a href="" class="vk"></a>
+			</div> <!-- /.header__cart -->
+		</div> <!-- /.header__wrap wrap -->
+	</header> <!-- /.header -->
+	<? require 'include/slider.php'?>
+        
+	<div class="main-catalog" id="main-catalog">
+		<div class="main-catalog__wrap wrap">
+			
+			<aside class="left_side">
+				<div class="shop-catalog-nav-button">
+					<a href="<?base_url()?>catalog" class="catalog-button">Каталог</a>
+				</div> 
+				
+				<div class="shop-catlog-filters">
+					<div class="catlog-filters-title">Поиск по параметрам</div>
+					
+					<div class="catalog-filter-item">
+						<div class="filter-name">Издательство</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Longman</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1" checked />
+							<label for="lbl_1">Macmillan</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Hueber</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Longman</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Macmillan</label>
+						</div>
+					</div>
+					
+					<div class="catalog-filter-item">
+						<div class="filter-name">Язык</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Английский</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1" checked />
+							<label for="lbl_1">Немецкий</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Французкий</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Итальянский</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Испанский</label>
+						</div>
+					</div>
+					
+					<div class="catalog-filter-item">
+						<div class="filter-name">Уровень</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Уровень 1</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1" checked />
+							<label for="lbl_1">Уровень 2</label>
+						</div>
+					</div>
+					
+					<div class="catalog-filter-item">
+						<div class="filter-name">Тип</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1"/>
+							<label for="lbl_1">Тип 1</label>
+						</div>
+						
+						<div class="filter-ch">
+							<input type="checkbox" id="lbl_1" name="" value="1" checked />
+							<label for="lbl_1">Тип 2</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="shop-catalog-news">
+					<div class="title">Новости</div>
+					<div class="news-item">
+						<div class="date">16.04.2015</div>
+						<a href="#">
+							<div class="text">
+								Совместный проект ООО "Книжный Дом" (Санкт-Петербург) и галереи Волошина(Берлин): западноевропейское исскуство. 
+							</div>
+						</a>
+					</div>
+					<div class="news-item">
+						<div class="date">16.04.2015</div>
+						<a href="#">
+							<div class="text">
+								Совместный проект ООО "Книжный Дом" (Санкт-Петербург) и галереи Волошина(Берлин): западноевропейское исскуство. 
+							</div>
+						</a>
+					</div>
+					<div class="news-link"><a href="">все новости &rarr;</a></div>
+				</div>
+				<div class="shop-catalog-events">
+					<div class="title">События</div>
+					<div id="this_mounth" class="datepicker" category=""></div>
+					<div class="event-link"><a href="">все события &rarr;</a></div>
+				</div>
+			</aside>			
+				
+			<div class="catalog">				
+				<div class="shop-catalog-nav-search">
+					<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
+						<input type="text" id="search_input" class="form__input shop-search__input search" name="name" placeholder="Поиск по сайту"/>
+					</form>
+					<a href="" class="shop-search__button">&nbsp;</a>
+				</div> <!-- /.main-catalog-nav__columns -->
+				
+				<div id="shop-slideshow">
+				<ul class="slideshow rounded">
+					<li class="tmpSlide">
+						<img width="844" height="360" src="images/slider/slider-1.png" class="attachment-full wp-post-image" alt="" />		  
+					</li>
+					<li class="tmpSlide">
+						<img width="844" height="360" src="images/slider/slider-2.png" class="attachment-full wp-post-image" alt="" />		  
+					</li>
+					<li class="tmpSlide">
+						<img width="844" height="360" src="images/slider/slider-3.png" class="attachment-full wp-post-image" alt="" />		  
+					</li>
+					<li class="tmpSlide">
+						<img width="844" height="360" src="images/slider/slider-4.png" class="attachment-full wp-post-image" alt="" />		  
+					</li>
+				</ul>
+			</div>
+
+				<div class="catalog__list clearfix">
+					<h2 class="catalog__subtitle">Актуальные книги</h2>
+					<div class="catalog-slider">
+						<div name="prev" class="navy prev-slide-1">&nbsp;</div>
+						<div name="next" class="navy next-slide-1">&nbsp;</div>
+					
+						<div class="slide-list">
+							<div class="slide-wrap-1">
+									<div class="slide-item-1">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Просвещение</a>
+												<a href="#" class="catalog-item__name">Horizonte 7 Arbeitsbuch</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="#"><img src="images/catalog/001.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">424 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-1">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">А.В. Петроченков</a>
+												<a href="#" class="catalog-item__name">2000 самых употребительных английских слов.</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/002.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-1">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">С.А. Матвеев</a>
+												<a href="#" class="catalog-item__name">500 самых важных слов английского языка</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/003.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-1">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Intellect</a>
+												<a href="#" class="catalog-item__name">"Intellect 25 кадр" английский язык (25 000 слов)</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/004.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-1">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Living Language</a>
+												<a href="#" class="catalog-item__name">100 % Английский начальный уровень+ 8CD</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/005.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">260 р.</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- /.catalog__list -->
+				
+				
+				
+				<div class="catalog__list clearfix">
+					<h2 class="catalog__subtitle">Выгодное предложение</h2>
+				
+					<div class="catalog-slider">
+						<div name="prev" class="navy prev-slide-2">&nbsp;</div>
+						<div name="next" class="navy next-slide-2">&nbsp;</div>
+					
+						<div class="slide-list">
+							<div class="slide-wrap-2">
+									<div class="slide-item-2">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Просвещение</a>
+												<a href="#" class="catalog-item__name">Horizonte 7 Arbeitsbuch</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/001.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">424 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-2">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">А.В. Петроченков</a>
+												<a href="#" class="catalog-item__name">2000 самых употребительных английских слов.</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/002.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-2">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">С.А. Матвеев</a>
+												<a href="#" class="catalog-item__name">500 самых важных слов английского языка</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/003.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-2">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Intellect</a>
+												<a href="#" class="catalog-item__name">"Intellect 25 кадр" английский язык (25 000 слов)</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/004.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">200 р.</div>
+										</div>
+									</div>
+									<div class="slide-item-2">
+										<div class="catalog-item">
+											<div class="catalog-item-top">
+												<a href="#" class="catalog-item__autor">Living Language</a>
+												<a href="#" class="catalog-item__name">100 % Английский начальный уровень+ 8CD</a>
+											</div>
+											<div class="catalog-item__image-box">
+												<a href="№"><img src="images/catalog/005.jpg" alt="item" class="catalog-item__image" /></a>
+											</div> <!-- /.catalog-item__image-box -->
+											<div class="catalog-item__price">260 р.</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- /.catalog__list -->
+			</div> <!-- /.catalog -->
+		</div> <!-- /.main-catalog__wrap wrap -->
+	</div> <!-- /.main-catalog -->
+
+	<? /*require 'include/footer.php'*/?>
+	<? /*require 'include/footer.php'*/?>
+	<div class="footer-top">&nbsp;</div>
+	<div class="footer-middle">
+		<div class="footer__wrap wrap">
+			<div class="footer__contacts">
+				<div class="contacts-info">
+					<div class="contacts-info__item _1">
+						<div class="contacts-info__copy">&copy; 2015 Книжный дом</div> <!-- /.contacts-info__copy -->
+					</div> <!-- /.contacts-info__item -->
+			
+					<div class="contacts-info__item _2">
+						<div class="footer-mail">info@bookhouse.ru</div>
+					</div>
+			
+					<div class="contacts-info__item _3">
+						<div class="footer-address">Санкт-Петербург,</br> ул. Малая Конющенная, 5</div>
+					</div>
+				
+					<div class="contacts-info__item _4">
+						<div class="footer-phone">/812/380-73-00</br>/812/380-73-22</div>
+					</div>
+				
+				</div> <!-- /.contacts-info -->
+			</div>
+		</div> <!-- /.footer__contacts -->
+	</div>
+	
+	<footer class="footer" id="footer">
+		<div class="footer__wrap wrap">
+			<div class="contacts-info">
+				<div class="contacts-info__item _1">
+					<div class="footer-title">Магазин</br> на малой конющенной</div> 
+					будни: 9.30 - 20.00</br>
+					суббота, воскресенье: 11.00 - 18.00
+				</div> <!-- /.contacts-info__item -->
+				
+				<div class="contacts-info__item _2">
+					<div class="footer-title">Издательский отдел</div>
+					будни: 10.00 - 18.00</br>
+				</div>
+				
+				<div class="contacts-info__item _3">
+					<div class="footer-title">Экзаменационный центр</div>
+					ул. Большая Конюшенная, 8</br>
+					Тел. 244-54-88</br>
+					будни: 11.00 - 19.00</br>
+					суббота, воскресенье: выходной
+				</div>
+				
+				<div class="contacts-info__item _4">
+					<div class="footer-title">Букхауз</div>
+					Проспект Испытателей, 7А</br>
+					Тел. 995-73-74</br>
+					будни: 11.00 - 20.00</br>
+					Обед: 14.00 - 15.00
+				</div>
+				
+			</div> <!-- /.contacts-info -->	
+		</div> <!-- /.footer__wrap wrap -->
+	</footer> <!-- /.header -->
+	
+	<?/* require 'include/modal.php'*/?>
+
+    </body>
+	<script>
+		$( ".datepicker" ).datepicker();
+	</script>
+</html>

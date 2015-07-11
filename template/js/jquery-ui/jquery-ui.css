@@ -311,19 +311,19 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-datepicker {
-	width: 260px;
+	width: 230px;
 	padding: .2em .2em 0;
 	display: none;
-	font-family: 'Myriad Pro', sans-serif;
+	font-family: 'RobotoSlabRegular', sans-serif;
 	background:none;
 	color:#3B3B3B;
 }
 
 .page-news__calendar.ui-datepicker {
-	width: 260px;
+	width: 230px;
 	padding: .2em .2em 0;
 	display: none;
-	font-family: 'Myriad Pro', sans-serif;
+	font-family: 'RobotoSlabRegular', sans-serif;
 	background:#619AEB;
 	color:#3B3B3B;
 }
@@ -877,9 +877,10 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #FFC614;
+	border: 1px solid #cfddef; /*мои стили*/
 	background:none;
-	color: #3B3B3B;;
+	color: #3B3B3B;
+	
 }
 .ui-widget-content a {
 	color:#3B3B3B;
