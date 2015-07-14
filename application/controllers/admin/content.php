@@ -147,6 +147,12 @@ class Content extends Admin_Controller
 			$data['selects']['view_type'] = $this->config->item('view_type');
 		}
 		
+		if($type == "sliders") 
+		{
+			$this->config->load('types');
+			$data['selects']['type'] = $this->config->item('sliders');
+		}
+		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		$is_characteristics = editors_get_name_field('ch', $data['editors']);

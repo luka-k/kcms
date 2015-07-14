@@ -16,18 +16,19 @@ class Index extends Client_Controller {
 	
 	public function index()
 	{		
-		//$slider = $this->slider->get_list(FALSE, FALSE, FALSE, "sort", "asc");
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 5);
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 5);
-		
-		$last_news = $this->articles->get_list(array("parent_id" => 1));
-		
+		$this->config->load('articles');
+		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), 3, 0, 'date', 'desc');
+		$last_events = $this->articles->get_list(array("parent_id" => $this->config->item('events_id')), 3, 0, 'date', 'desc');
+
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,
+			'keywords' => '',
+			'description' => '',
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'select_item' => '',
-			'special' => $this->products->prepare_list($special),
-			'new_products' => $this->products->prepare_list($new_products),
+			'slider' => $this->sliders->prepare_list($this->sliders->get_list(array('type' => 0), FALSE, FALSE, "sort", "asc")),
 			'last_news' => $this->articles->prepare_list($last_news),
+			'last_events' => $this->articles->prepare_list($last_events)
 		);
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/main.php', $data);

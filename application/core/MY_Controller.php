@@ -50,6 +50,8 @@ class Client_Controller extends CI_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
+		$departments = $this->departments->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
+		
 		$this->standart_data = array(
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
@@ -58,8 +60,8 @@ class Client_Controller extends CI_Controller
 			"total_price" => $this->cart->total_price(),
 			"total_qty" => $this->cart->total_qty(),
 			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
-			"top_menu" => $this->dynamic_menus->get_menu(2)->items,
-			'settings' => $settings
+			'settings' => $this->settings->prepare($settings),
+			'departments' => $this->departments->prepare_list($departments)
 		);
 	}
 }

@@ -13,4 +13,4 @@ $config['set_word_form'] = array(
 | Using for identification characters in short description
 |
 */
-$config['characters_in_short_description'] = '140';
+$config['characters_in_short_description'] = '75';

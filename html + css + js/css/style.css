@@ -573,6 +573,7 @@ span
 	width:33px;
 	height:33px;
 	background: url(../images/rus.png) no-repeat;
+	text-decoration:none;/*!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 }
 
 .menu_lang .eng{
@@ -582,6 +583,7 @@ span
 	width:33px;
 	height:33px;
 	background: url(../images/eng.png) no-repeat;
+	text-decoration:none;/*!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 }
 
 .menu__nav{
@@ -667,7 +669,7 @@ span
 	padding:0 0 0 10px;
 	margin:-7px 0px 0px 8px;
 	background:#42638b;
-	color#a294c0;
+	color:#a294c0;
 }
 
 .menu-enter a{

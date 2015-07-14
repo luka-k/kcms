@@ -29,7 +29,9 @@ class Settings extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'site_title' => array('Название сайта', 'text', 'trim'),
-			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
+			'email' => array('e-mail', 'text', 'trim|htmlspecialchars'),
+			'address' => array('адресс', 'text'),
+			'phones' => array('телефоны</br> <i>(через точку с запятой)</i>', 'text'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
 			'site_description' => array('Описание сайта', 'tiny', 'trim'),
 			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim')
@@ -46,5 +48,11 @@ class Settings extends MY_Model
 	function __construct()
 	{
         parent::__construct();
+	}
+	
+	public function prepare($item)
+	{
+		$item->phones = explode('; ', $item->phones);
+		return $item;
 	}
 }
