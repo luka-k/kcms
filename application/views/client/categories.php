@@ -1,139 +1,191 @@
 <!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
 
-<? require 'include/head.php' ?>
+<?require 'include/head.php'?>
 
 <body>
 	<!--[if lt IE 8]>
 		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
 	<![endif]-->
 	
-	<? require 'include/top-menu.php'?>
-	<? require 'include/header.php'?>
-	<div class="page page-catalog" id="page-catalog">
-		<div class="page-wrap wrap">
-		
-			<div class="main-catalog-nav" id="main-catalog-nav">
-				<div class="main-catalog-nav__wrap wrap">
-					
-					<div class="main-catalog-nav-button">
-						<a href="<?base_url()?>catalog" class="catalog-button">&nbsp;</a>
-					</div> 
-			
-					<div class="main-catalog-nav-search">
-						<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
-							<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
-						</form>
-					</div> <!-- /.main-catalog-nav__columns -->
-				</div> <!-- /.main-catalog-nav__wrap wrap -->
-			</div> <!-- /.main-catalog-nav -->
-			
-			<div class="page-catalog__nav">
-				<? require 'include/left-sidebar.php'?>
-			</div> <!-- /.page-catalog__nav -->
-			
-			<div class="page-catalog__content">
-				
-				<div class="page-catalog__products"> 
-						
-						<div class="slider">
-							<img src="<?=base_url()?>template/client/images/slider.png" width="817px"/>
-						</div>
+	<?require 'include/top-menu.php'?>
 
-						<div class="catalog">
-							<?if(!isset($category->products)):?>
+	
+	<? require 'include/header.php'?>
+        
+	<div class="main-catalog" id="main-catalog">
+		<div class="main-catalog__wrap wrap">
+			
+			<?require_once 'include/leftside.php'?>			
+				
+			<div class="catalog">				
+				<div class="shop-catalog-nav-search">
+					<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
+						<input type="text" id="search_input" class="form__input shop-search__input search" name="name" placeholder="Поиск по сайту"/>
+					</form>
+					<a href="" class="shop-search__button">&nbsp;</a>
+				</div> <!-- /.main-catalog-nav__columns -->
+				
+				<? require 'include/shop_slider.php'?>
+
+				<?if($category == 'root'):?>
+					<?if(!empty($new_products)):?>
+						<div class="catalog__list clearfix">
 							<h2 class="catalog__subtitle">Актуальные книги</h2>
-							<div class="catalog-slider">
-								<div name="prev" class="navy prev-slide-2">&nbsp;</div>
-								<div name="next" class="navy next-slide-2">&nbsp;</div>
-					
-								<div class="slide-list">
-									<div class="slide-wrap-2">
-										<?foreach($new_products as $new_item):?>
-											<div class="slide-item-2">
-												<div class="catalog-item">
-													<div class="catalog-item-top">
-														<a href="<?=$new_item->full_url?>" class="catalog-item__autor"><?=$new_item->autor?></a>
-														<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
-													</div>
-													<div class="catalog-item__image-box">
-														<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
-													</div> <!-- /.catalog-item__image-box -->
-													<div class="catalog-item__price"><?=$new_item->price?> р.</div>
-												</div>
-											</div>
-										<?endforeach;?>	
-									</div>
-								</div>
-							</div>
-							
-							<h2 class="catalog__subtitle">Выгодное предложение</h2>
 							<div class="catalog-slider">
 								<div name="prev" class="navy prev-slide-1">&nbsp;</div>
 								<div name="next" class="navy next-slide-1">&nbsp;</div>
 					
 								<div class="slide-list">
 									<div class="slide-wrap-1">
-										<?foreach($special as $special_item):?>
+										<?foreach($new_products as $np):?>
 											<div class="slide-item-1">
 												<div class="catalog-item">
 													<div class="catalog-item-top">
-														<a href="<?=$special_item->full_url?>" class="catalog-item__autor"><?=$special_item->autor?></a>
-														<a href="<?=$special_item->full_url?>" class="catalog-item__name"><?=$special_item->name?></a>
+														<a href="<?=$np->full_url?>" class="catalog-item__autor"><?=$np->autor?></a>
+														<a href="<?=$np->full_url?>" class="catalog-item__name"><?=$np->name?></a>
 													</div>
 													<div class="catalog-item__image-box">
-														<a href="<?=$special_item->full_url?>"><img src="<?=$special_item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
+														<a href="<?=$np->full_url?>">
+															<img src="<?=$np->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$np->name?>" />
+														</a>
 													</div> <!-- /.catalog-item__image-box -->
-													<div class="catalog-item__price"><?=$special_item->price?> р.</div>
+													<div class="catalog-item__price"><?=$np->price?> р.</div>
 												</div>
 											</div>
-										<?endforeach;?>	
+										<?endforeach;?>
 									</div>
 								</div>
 							</div>
-							<?else:?>
-								<div class="catalog-slider">
-									<div name="prev" class="navy prev-slide-1">&nbsp;</div>
-									<div name="next" class="navy next-slide-1">&nbsp;</div>
+						</div> <!-- /.catalog__list -->
+					<?endif;?>
+				
+					<?if(!empty($special_products)):?>
+						<div class="catalog__list clearfix">
+							<h2 class="catalog__subtitle">Выгодное предложение</h2>
+				
+							<div class="catalog-slider">
+								<div name="prev" class="navy prev-slide-2">&nbsp;</div>
+								<div name="next" class="navy next-slide-2">&nbsp;</div>
 					
-									<div class="slide-list">
-										<div class="slide-wrap-1">
-											<?foreach($category->products as $item):?>
-												<div class="slide-item-1">
-													<div class="catalog-item">
-														<div class="catalog-item-top">
-															<a href="<?=$item->full_url?>" class="catalog-item__autor"><?=$item->autor?></a>
-															<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
-														</div>
-														<div class="catalog-item__image-box">
-															<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
-														</div> <!-- /.catalog-item__image-box -->
-														<div class="catalog-item__price"><?=$item->price?> р.</div>
+								<div class="slide-list">
+									<div class="slide-wrap-2">
+										<?foreach($special_products as $sp):?>
+											<div class="slide-item-2">
+												<div class="catalog-item">
+													<div class="catalog-item-top">
+														<a href="<?=$sp->full_url?>" class="catalog-item__autor"><?=$sp->autor?></a>
+														<a href="<?=$sp->full_url?>" class="catalog-item__name"><?=$sp->name?></a>
 													</div>
+													<div class="catalog-item__image-box">
+														<a href="<?=$sp->full_url?>">
+															<img src="<?=$sp->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$sp->name?>"/>
+														</a>
+													</div> <!-- /.catalog-item__image-box -->
+													<div class="catalog-item__price"><?=$sp->price?> р.</div>
 												</div>
-											<?endforeach;?>	
-										</div>
+											</div>
+										<?endforeach;?>
+							
 									</div>
+								</div>
 							</div>
-							<?endif;?>
+						</div> <!-- /.catalog__list -->
+					<?endif;?>
+				<?else:?>
+					<?require_once 'include/breadcrumbs.php'?>
+					<div class="catalog_books clearfix">
+						<?if(isset($category->name)):?>
+							<h2 class="catalog__subtitle"><?=$category->name?></h2>
+						<?endif;?>
 						
-							<!--<div class="catalog__load load-link">
-								<a href="#load" class="load-link__href">Еще товары</a>
-							</div> <!-- /.catalog__load -->
-						</div> <!-- /.catalog -->
+						<div class="books_list">
+							<?$product_counter = 1?>
+							<?foreach($products as $p):?>
+								<div class="books-item <?if($product_counter == 5):?>last <?$product_counter = 0?><?endif;?>">
+									<div class="books-item-top">
+										<a href="<?=$p->full_url?>" class="books-item__autor"><?=$p->autor?></a>
+										<a href="<?=$p->full_url?>" class="books-item__name"><?=$p->name?></a>
+									</div>
+									<div class="books-item__image-box">
+										<a href="<?=$p->full_url?>"><img src="<?=$p->img->catalog_small_url?>" class="books-item__image" alt="<?=$p->name?>"/></a>
+									</div> <!-- /.catalog-item__image-box -->
+									<div class="books-item__price"><?=$p->price?> р.</div>
+								</div>
+								<?$product_counter++?>
+							<?endforeach;?>
+						</div>
+					</div>
+				<?endif;?>
+			</div> <!-- /.catalog -->
+		</div> <!-- /.main-catalog__wrap wrap -->
+	</div> <!-- /.main-catalog -->
 
-				</div> <!-- /.page-catalog__products -->
-			</div> <!-- /.page-catalog__content -->
-	</div> <!-- /.page-catalog__wrap wrap -->
-</div> <!-- /.page-catalog -->
-        
-	<? require 'include/footer.php'?>
-    <? require 'include/modal.php'?>  
+	<? /*require 'include/footer.php'*/?>
+	<? /*require 'include/footer.php'*/?>
+	<div class="footer-top">&nbsp;</div>
+	<div class="footer-middle">
+		<div class="footer__wrap wrap">
+			<div class="footer__contacts">
+				<div class="contacts-info">
+					<div class="contacts-info__item _1">
+						<div class="contacts-info__copy">&copy; 2015 Книжный дом</div> <!-- /.contacts-info__copy -->
+					</div> <!-- /.contacts-info__item -->
+			
+					<div class="contacts-info__item _2">
+						<div class="footer-mail">info@bookhouse.ru</div>
+					</div>
+			
+					<div class="contacts-info__item _3">
+						<div class="footer-address">Санкт-Петербург,</br> ул. Малая Конющенная, 5</div>
+					</div>
+				
+					<div class="contacts-info__item _4">
+						<div class="footer-phone">/812/380-73-00</br>/812/380-73-22</div>
+					</div>
+				
+				</div> <!-- /.contacts-info -->
+			</div>
+		</div> <!-- /.footer__contacts -->
+	</div>
+	
+	<footer class="footer" id="footer">
+		<div class="footer__wrap wrap">
+			<div class="contacts-info">
+				<div class="contacts-info__item _1">
+					<div class="footer-title">Магазин</br> на малой конющенной</div> 
+					будни: 9.30 - 20.00</br>
+					суббота, воскресенье: 11.00 - 18.00
+				</div> <!-- /.contacts-info__item -->
+				
+				<div class="contacts-info__item _2">
+					<div class="footer-title">Издательский отдел</div>
+					будни: 10.00 - 18.00</br>
+				</div>
+				
+				<div class="contacts-info__item _3">
+					<div class="footer-title">Экзаменационный центр</div>
+					ул. Большая Конюшенная, 8</br>
+					Тел. 244-54-88</br>
+					будни: 11.00 - 19.00</br>
+					суббота, воскресенье: выходной
+				</div>
+				
+				<div class="contacts-info__item _4">
+					<div class="footer-title">Букхауз</div>
+					Проспект Испытателей, 7А</br>
+					Тел. 995-73-74</br>
+					будни: 11.00 - 20.00</br>
+					Обед: 14.00 - 15.00
+				</div>
+				
+			</div> <!-- /.contacts-info -->	
+		</div> <!-- /.footer__wrap wrap -->
+	</footer> <!-- /.header -->
+	
+	<?/* require 'include/modal.php'*/?>
+
     </body>
+	<script>
+		$( ".datepicker" ).datepicker();
+	</script>
 </html>
-

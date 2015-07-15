@@ -24,8 +24,8 @@ class Admin_Controller extends CI_Controller
 		$this->standart_data = array(
 			'error' => "",
 			'url' => $this->uri->uri_string(),
-			"menu" => $this->dynamic_menus->get_menu(1)->items,
-			"user" => (array)$this->session->userdata('user')
+			'menu' => $this->dynamic_menus->get_menu(1)->items,
+			'user' => (array)$this->session->userdata('user')
 		);
 		
 		$this->load->helper('admin');
@@ -46,15 +46,17 @@ class Client_Controller extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-				
+			
+		$this->config->load('articles');
+		
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
 		$departments = $this->departments->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
 		
 		$this->standart_data = array(
-			'meta_keywords' => $settings->site_keywords,
-			'meta_description' => $settings->site_description,
+			'keywords' => $settings->site_keywords,
+			'description' => $settings->site_description,
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),
 			"total_price" => $this->cart->total_price(),

@@ -28,9 +28,9 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
+			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
 			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
-			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
 			'autor' => array('Автор', 'text', 'trim|htmlspecialchars', 'require'),
 			'is_new' => array('Новинка', 'checkbox'),
 			'is_special' => array('Специальное предложение', 'checkbox'),

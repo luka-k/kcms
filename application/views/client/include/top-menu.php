@@ -5,16 +5,16 @@
 			<a href="" class="eng">&nbsp;</a>
 		</div>
 		
-		<?if(isset($shop)):?>
-			<a href="<?=base_url()?>">
-				<div class="menu_main">
-					На главную
-				</div>
-			</a>
-		<?endif;?>
 		
 		<nav class="menu__nav">
-			<ul class="menu-nav main">
+			<?if(isset($shop)):?>
+				<a href="<?=base_url()?>">
+					<div class="menu_main">
+						На главную
+					</div>
+				</a>
+			<?endif;?>
+			<ul class="menu-nav <?if(isset($shop)):?>shop<?else:?>main<?endif;?>">
 				<?foreach($top_menu as $item):?>
 					<li class="menu-nav__item">
 						<a href="<?=$item->full_url?>" class="menu-nav__href <?if($item->url == $select_item)?>active"><?=$item->name?></a>
