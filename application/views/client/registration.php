@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
+<html>
 <? require 'include/head.php' ?>
     
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 
-	<? require 'include/header.php'?>
 	<? require 'include/top-menu.php'?>
+	<? require 'include/header.php'?>
 
 	<div class="page page-about">
 		<div class="page-cart__order">
@@ -41,7 +32,7 @@
 							</div> <!-- /.form__line -->
 							
 							<div class="form__button">
-								<button type="submit" class="button button--normal button--auto-width" >Войти</button>
+								<a href="#" class="button" onclick="validate_form('enter_form');">Войти</a>
 								<a href="<?=base_url()?>account/restore_password/" style="float:right;">Забыли пароль?</a>
 							</div> <!-- /.form__button -->
 						</form>
@@ -49,7 +40,7 @@
 					<div id="vk_auth"></div>
 				</div>
 							
-				<a href="#extra" class="cart-order__extra-link <?if($activity <> "enter"):?>hidden<?endif;?>">Регистрация</a>
+				<a href="#" class="cart-order__extra-link <?if($activity <> "enter"):?>hidden<?endif;?>">Регистрация</a>
 							
 				<div class="cart-order__extra <?if($activity <> "reg"):?>hidden<?endif;?>" id="extra">
 					<form action="<?=base_url()?>/account/new_user" id="registr_form" method="post">
@@ -69,7 +60,7 @@
 						</div> <!-- /.form__line -->
 						
 						<div class="form__button">
-							<button type="submit" class="button button--normal button--auto-width" >Регистрация</button>
+							<button type="submit" class="button" >Регистрация</button>
 						</div> <!-- /.form__button -->
 						
 					</form>

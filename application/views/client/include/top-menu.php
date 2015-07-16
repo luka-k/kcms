@@ -25,9 +25,9 @@
 				
 		<div class="menu-enter">
 			<?if(empty($user)):?>
-				<a href="#">Вход</a><span style="color:#a294c0">|</span>
-				<a href="#">Регистрация</a><span style="color:#a294c0">|</span>
-				<a href="#" class="enter-cart"><span id="total_qty" class="total-qty">0</span></a>
+				<a href="<?=base_url()?>account/registration?activity=enter">Вход</a><span style="color:#a294c0">|</span>
+				<a href="<?=base_url()?>account/registration?activity=reg">Регистрация</a><span style="color:#a294c0">|</span>
+				<a href="<?=base_url()?>cart/" class="enter-cart"><span id="total_qty" class="total-qty">0</span></a>
 			<?else:?>
 				<a href="<?=base_url()?>cabinet" class="user_name">
 					<span class="avatar">&nbsp;</span><?=$user->name?>
@@ -35,7 +35,7 @@
 				<a href="<?=base_url()?>cart/" class="enter-cart">
 					<span id="total_qty" class="total-qty">0</span>
 				</a>|
-				<a href="" class="logout">&nbsp;</a>
+				<a href="<?=base_url()?>account/do_exit" class="logout">&nbsp;</a>
 			<?endif;?>
 		</div>
 			

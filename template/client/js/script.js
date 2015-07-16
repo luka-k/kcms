@@ -27,7 +27,7 @@ function autocomp_answer(res){
 *******************************************************************/
 
 function validation (element, errorClass) {
-	var input = element.find('.validate'),
+	var input = element.find('.required'),
 	isError = false;
 
 	input.on('focus', function () {
@@ -81,3 +81,11 @@ function callback_submit(form_id){
 		}, 3000);
 	}, 'json');	
 }
+
+$(document).ready(function() {
+	$('.cart-order__extra-link').click(function() {
+		var extra = $('.cart-order__extra');
+		extra.slideToggle();
+		return false;
+	});
+});

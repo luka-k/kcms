@@ -25,9 +25,12 @@ class Account extends Client_Controller
 		$activity = $this->input->get('activity');
 		$data = array(
 			'title' => "Регистрация",
+			'keywords' => '',
+			'description' => '',
+			'select_item' => '',
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'error' => "",
-			'select_item' => "",
-			'settings' => $this->settings->get_item_by(array("id" => 1)),
+			'select_item' => '',
 			'activity' => $activity
 		);
 		$data = array_merge($this->standart_data, $data);
@@ -187,9 +190,13 @@ class Account extends Client_Controller
 	{
 		$data = array(
 			'title' => "Регистрация",
+			'keywords' => '',
+			'description' => '',
+			'select_item' => '',
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'error' => "",
-			'select_item' => "",
-			'activity' => "reg"
+			'select_item' => '',
+			'activity' => 'reg'
 		);
 		$data = array_merge($this->standart_data, $data);
 			

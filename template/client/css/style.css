@@ -57,71 +57,29 @@
 /* ==========================================================================
  * Кнопки
  * ========================================================================== */
-.button
-{
-    font-family: 'RobotoSlabRegular', sans-serif;
-
-    display: inline-block;
-
-    width: 100%;
+.button{
+	display: inline-block;
 
     text-align: center;
-    vertical-align: top;
     text-decoration: none;
 
     border: 0;
     outline: none;
 }
-.button:hover
-{
+
+.button{
+	padding:5px 25px;
+	font-size:18px;
+	color:#fff;
+	background:#5a9def;
+}
+
+.button:hover{
     text-decoration: none;
+	background:#ff8c04;
 }
-.button--normal
-{
-    font-size: 16px;
-    font-weight: 600;
 
-    height: 34px;
-    padding: 0 0 0 0;
 
-    text-transform: uppercase;
-
-    color: #fff;
-    background: #5a9dee;
-}
-.button--normal:hover
-{
-    background: #5a9dee;
-}
-.button--normal:active
-{
-    background: #bf3724;
-}
-.button--grey
-{
-    color: #000;
-    background: #eee;
-}
-.button--grey:hover
-{
-    background: #f3f3f3;
-}
-.button--grey:active
-{
-    background: #e6e6e6;
-}
-.button--s
-{
-    font-size: 12px;
-
-    padding: 3px 8px 3px 8px;
-}
-.button--auto-width
-{
-    width: auto;
-    padding-right: 30px;
-    padding-left: 30px;
-}
 
 /* ==========================================================================
  * Формы
@@ -169,7 +127,7 @@
 .form__button
 {
     margin-top: 16px;
-	text-align:center;
+	text-align:left;
 }
 .form__input,
 .form__select,
@@ -260,6 +218,10 @@
     margin-right: 5px;
 }
 
+input.error{
+	outline:1px solid red;
+}
+
 /* ==========================================================================
  * radio
  * ========================================================================== */
@@ -345,8 +307,7 @@
 /* ==========================================================================
  * Оформление
  * ========================================================================== */
-html
-{
+html{
     font-family: 'RobotoSlabRegular', sans-serif;
 
     min-width: 1000px;
@@ -358,21 +319,20 @@ html
             text-size-adjust: none;
 }
 
-a
-{
+a{
     text-decoration: none;
 
     color: inherit;
 }
-a:hover
-{
+
+a:hover{
     text-decoration: underline;
 }
 
-p,
-span
-{
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=);
+.form__input, input[type=password]{
+	padding:5px 3px;
+	border:none;
+	background:#cfddef;
 }
 
 .clearfix:after{
@@ -1369,10 +1329,6 @@ ul.tabs li.active a:hover{
 
 .filter-range{
 	width:65px;
-	padding:0 3px;
-	height:23px;
-	border:none;
-	background:#cfddef;
 	text-align:right;
 }
 
@@ -2256,14 +2212,14 @@ aside .title{
     text-align: center;
 }
 
-.cart-order__extra-link
-{
+.cart-order__extra-link{
     display: inline-block;
 
     margin: 0 0 10px 0;
 
     color: #333;
     border-bottom: 1px dotted;
+	text-align:center;
 }
 .cart-order__extra-link:hover
 {
