@@ -3,7 +3,7 @@
 					<a href="<?base_url()?>catalog" class="catalog-button">Каталог</a>
 				</div> 
 				
-				<?require_once 'left-menu.php'?>
+				<?if(isset($left_menu)):?><?require_once 'left-menu.php'?><?endif;?>
 				
 				<div class="shop-catlog-filters">
 					<div class="catlog-filters-title">Поиск по параметрам</div>
@@ -30,29 +30,32 @@
 								</div>
 							<?endif;?>
 						<?endforeach;?>
-					
+				
 						<div class="catalog-filter-item">
 							<div class="filter-name">Цена</div>
 							<input type="text" class="filter-range" name="" value="<?=$min_price?>" onchange='$("#filter_form").submit()'/> - <input type="text" class="filter-range" name="" value="<?=$max_price?>" onchange='$("#filter_form").submit()'/> руб.
 						</div>
 					</form>
 				</div>
+
+				<?if(!isset($is_news)):?>
+					<div class="shop-catalog-news">
+						<div class="title">Новости</div>
+						<?foreach($last_news as $ln):?>
+							<div class="news-item">
+								<div class="date"><?=$ln->date?></div>
+								<a href="<?=$ln->full_url?>">
+									<div class="text"><?=$ln->short_description?></div>
+								</a>
+							</div>
+						<?endforeach;?>
+						<div class="news-link"><a href="<?=base_url()?>articles/novosti">все новости &rarr;</a></div>
+					</div>
+				<?endif;?>
 				
-				<div class="shop-catalog-news">
-					<div class="title">Новости</div>
-					<?foreach($last_news as $ln):?>
-						<div class="news-item">
-							<div class="date"><?=$ln->date?></div>
-							<a href="#">
-								<div class="text"><?=$ln->short_description?></div>
-							</a>
-						</div>
-					<?endforeach;?>
-					<div class="news-link"><a href="">все новости &rarr;</a></div>
-				</div>
 				<div class="shop-catalog-events">
 					<div class="title">События</div>
 					<div id="this_mounth" class="datepicker" category=""></div>
-					<div class="event-link"><a href="">все события &rarr;</a></div>
+					<div class="event-link"><a href="<?=base_url()?>articles/sobytiya">все события &rarr;</a></div>
 				</div>
 			</aside>

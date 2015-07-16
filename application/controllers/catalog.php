@@ -132,8 +132,8 @@ class Catalog extends Client_Controller {
 	{
 		$data = array(
 			'title' => $content->product->name,
-			'meta_keywords' => $content->product->meta_keywords,
-			'meta_description' => $content->product->meta_description,
+			'keywords' => $content->product->meta_keywords,
+			'description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE)
 		);

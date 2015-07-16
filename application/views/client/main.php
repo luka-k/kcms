@@ -43,12 +43,12 @@
 							<div class="tab-item">
 								<div class="item_date"><?=$news_item->date?></div>
 								<div class="item_text">
-									<a href=""><?=$news_item->short_description?></a>
+									<a href="<?=$news_item->full_url?>"><?=$news_item->short_description?></a>
 								</div>
 							</div>
 						<?endforeach;?>
 						<div class="tab-link">
-							<a href="">все новости &rarr;</a>
+							<a href="<?=base_url()?>articles/novosti">все новости &rarr;</a>
 						</div>
 					</div>
 					<div id="tab2" class="tabswitcher tab_content">
@@ -57,13 +57,13 @@
 							<div class="tab-item <?if($event_counter == 2):?>deep-grey<?endif;?>">
 								<div class="item_date"><?=$event_item->date?></div>
 								<div class="item_text">
-									<a href=""><?=$event_item->short_description?></a>
+									<a href="<?=$event_item->full_url?>"><?=$event_item->short_description?></a>
 								</div>
 							</div>
 							<?$event_counter++?>
 						<?endforeach;?>
 						<div class="tab-link">
-							<a href="#">все события &rarr;</a>
+							<a href="<?=base_url()?>articles/sobytiya">все события &rarr;</a>
 						</div>
 					</div>
 				</div>
