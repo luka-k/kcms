@@ -1,247 +1,160 @@
 ﻿<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
+<html class="no-js">
 
-<? require 'include/head.php' ?>
+<?require 'include/head.php'?>
 
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 
-	<? require 'include/top-menu.php'?>
-	<? require 'include/header.php'?>
-	
-	<? require 'include/breadcrumbs.php'?>
-	<div class="page page-product" id="product">
-		<div class="page__wrap wrap">
-			<div class="main-catalog-nav" id="main-catalog-nav">
-				<div class="main-catalog-nav__wrap wrap">
-					
-					<div class="main-catalog-nav-button">
-						<a href="<?base_url()?>catalog" class="catalog-button">&nbsp;</a>
-					</div> 
+	<?require 'include/top-menu.php'?>
+	<?require 'include/header.php'?>
+        
+	<div class="main-catalog" id="main-catalog">
+		<div class="main-catalog__wrap wrap">
 			
-					<div class="main-catalog-nav-search">
-						<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
-							<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
-						</form>
-					</div> <!-- /.main-catalog-nav__columns -->
-				</div> <!-- /.main-catalog-nav__wrap wrap -->
-			</div> <!-- /.main-catalog-nav -->
-		
-			<div class="page-product__top">
-				<div class="page-product__images product-images">
-					<div class="product-images__big-image-box">
-						<?foreach($product->images as $images):?>
-							<a href="<?=$images->full_url?>" class="product-images__href fancyimage" data-fancybox-group="big">
-								<img    src="<?=$images->catalog_big_url?>" 
-										width="470" 
-										height="470" 
-										alt="image" 
-										class="product-images__big-image"/>
-							</a>
-						<?endforeach;?>
-					</div> <!-- /.product-images__big-image-box -->
-					
-					<div class="product-images__thumbs">
-						<ul class="product-images-thumbs">
-							<?foreach($product->images as $images):?>
-								<li class="product-images-thumbs__item">
-									<a  href="<?=$images->catalog_big_url?>"
-										data-full-image="<?=$images->full_url?>"
-										class="product-images-thumbs__href">
-											<img src="<?=$images->catalog_small_url?>" alt="image" class="product-images-thumbs__image" />
-									</a>
-								</li> <!-- /.product-images-thumbs__item -->
-							<?endforeach;?>
-						</ul> <!-- /.product-images-thumbs -->
-					</div> <!-- /.product-images__thumbs -->
-				</div> <!-- /.product__images .product-images -->
+			<?require_once 'include/leftside.php'?>	
 			
-				<div class="page-product__main-info product-main-info">
-					<h1 class="product-main-info__title"><?=$product->name?></h1>
-					<div class="product-main-info__desc"><?=$product->name?></div> <!-- /.product-main-info__desc -->
-						<ul class="product-main-info__characteristics">
-							<li class="product-main-info__characteristic">
-								<strong>Артикул</strong> <?=$product->article?>
-							</li> <!-- /.product-main-info__characteristic -->
-						</ul> <!-- /.product-main-info__characteristics -->
-						
-						<div class="product-main-info__text">
-							<?=$product->short_description?>
-						</div> <!-- /.product-main-info__text -->
-						
-						<div class="product-main-info__price">
-							<div class="product-price">
-								<?if(isset($product->sale_price)):?>
-									<!-- Цена со скидкой -->
-									<div class="product-price__old">
-										Старая цена: <span><?=$product->price?> р.</span>
-									</div> <!-- /.product-price__old -->
-									
-									<div class="product-price__new">
-										Новая цена: <span><?=$product->sale_price?> р.</span>
-									</div> <!-- /.product-price__new -->
-								<?else:?>
-									<div class="product-price__normal">
-										Цена: <span><?=$product->price?> р.</span>
-									</div> <!-- /.product-price__normal -->
-                                <?endif;?>
-							</div> <!-- /.catalog-item-price -->
-						</div> <!-- /.product-main-info__price -->
-						
-						<div class="product-main-info__buttons">
-							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$product->id?>', '<?=$product->name?>', 1); return false;">Купить</button>
-							</div> <!-- /.product-main-info__button -->
-							
-							<div class="product-main-info__button">
-								<button class="button button--normal button--grey fancybox" data-fancybox-href="#callback">Быстрый заказ</button>
-							</div> <!-- /.product-main-info__button -->
-							
-						</div> <!-- /.product-main-info__buttons -->
-						
-						<!--<div class="product-main-info__match skew">
-							<button class="button button--normal button--s button--grey">Добавить к сравнению</button>
-						</div> <!-- /.product-main-info__match -->
-				</div> <!-- /.product__main-info -->
-			</div> <!-- /.product__top -->
+			<div class="catalog">				
+				<div class="shop-catalog-nav-search">
+					<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
+						<input type="text" id="search_input" class="form__input shop-search__input search" name="name" placeholder="Поиск по сайту"/>
+					</form>
+					<a href="" class="shop-search__button">&nbsp;</a>
+				</div> <!-- /.main-catalog-nav__columns -->
+				
+				<?require 'include/shop_slider.php'?>
+				<?require 'include/breadcrumbs.php'?>
 			
-			<div class="page-product__extra-info product-extra-info">
-				<div class="product-extra-info__tabs-box">
-					<div class="product-extra-info__tabs">
-						
-						<div class="product-extra-info__tab-box">
-							<a href="#tab1" class="product-extra-info__tab active">Описание</a>
-						</div> <!-- /.product-extra-info__tab-box -->
-											
-						<!--<div class="product-extra-info__tab-box">
-							<a href="#tab3" class="product-extra-info__tab">Технические характеристики</a>
-						</div> <!-- /.product-extra-info__tab-box-->
-						
-						<!--<div class="product-extra-info__tab-box">
-							<a href="#tab4" class="product-extra-info__tab">Расходные материалы</a>
-						</div> <!-- /.product-extra-info__tab-box -->
-					</div> <!-- /.product-extra-info__tabs -->
-				</div> <!-- /.product-extra-info__tabs-box -->
-				
-				<div class="product-extra-info__blocks">
-					<div class="product-extra-info__block" id="tab1">
-						<div class="product-extra-info__text">
-							<?=$product->description?>
-						</div> <!-- /.product-extra-info__text -->
-					</div> <!-- /.product-extra-info__block -->
-					
-					<!--<div class="product-extra-info__block" id="tab3">
-						<div class="product-extra-info__table">
-							<table class="info-table">
-								<tbody>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-									<tr>	
-										<td>Параметр</td>
-										<td>Информация</td>
-									</tr>
-								</tbody>
-							</table> <!-- /.info-table -->
-						<!--</div> <!-- /.product-extra-info__table -->
-					<!--</div> <!-- /.product-extra-info__block -->
-					
-					<!--<div class="product-extra-info__block" id="tab4">
-						<div class="product-extra-info__text">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, consequuntur quos inventore quisquam quae sed labore doloremque eum et atque provident voluptatibus dolore in quas cupiditate accusantium dolor, laboriosam, ea?</p>
-						</div> <!-- /.product-extra-info__text -->
-					<!--</div> <!-- /.product-extra-info__block -->
-				</div> <!-- /.product-extra-info__blocks -->
-			</div> <!-- /.product__extra-info .product-extra-info -->
-			
-			<div class="product__catalog catalog">
-				<?if(!empty($product->recommended_products)):?>
-					<h2 class="catalog__subtitle">Рекомендуемые товары</h2>
-				
-				<div class="catalog__list catalog__list--border-bottom">
-				
-					<?foreach($product->recommended_products as $r_p):?>
-						<div class="catalog__item">
-							<div class="catalog-item">
-								<div class="catalog-item__image-box">
-									<a href="<?=$r_p->full_url?>"><img src="<?=$r_p->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-								</div> <!-- /.catalog-item__image-box -->
-							
-								<a href="<?=$r_p->full_url?>" class="catalog-item__name"><?=$r_p->name?></a>
-							
-								<div class="catalog-item__desc">
-									<p><?=$r_p->description?></p>
-								</div> <!-- /.catalog-item__desc -->
-							
-								<div class="catalog-item__bottom">
-									<div class="catalog-item__price"><?=$r_p->price?>р.</div> <!-- /.catalog-item__price -->
-								
-									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$r_p->id?>', '<?=$r_p->name?>', 1); return false;">Купить</button>
-									</div> <!-- /.catalog-item__button -->
-								</div> <!-- /.catalog-item__bottom -->
-							</div> <!-- /.catalog-item -->
-						</div> <!-- /.catalog__item -->
-					<?endforeach?>
-				</div> <!-- /.catalog__list -->
-				<?endif;?>
-				
-				<h2 class="catalog__subtitle">Актуальные книги</h2>
-				
-				<div class="catalog-slider">
-						<div name="prev" class="navy prev-slide-1">&nbsp;</div>
-						<div name="next" class="navy next-slide-1">&nbsp;</div>
-					
-						<div class="slide-list">
-							<div class="slide-wrap-1">
-								<?foreach($new_products as $new_item):?>
-									<div class="slide-item-1">
-										<div class="catalog-item">
-											<div class="catalog-item-top">
-												<a href="<?=$new_item->full_url?>" class="catalog-item__autor"><?=$new_item->autor?></a>
-												<a href="<?=$new_item->full_url?>" class="catalog-item__name"><?=$new_item->name?></a>
-											</div>
-											<div class="catalog-item__image-box">
-												<a href="<?=$new_item->full_url?>"><img src="<?=$new_item->img->catalog_mid_url?>" alt="item" class="catalog-item__image" /></a>
-											</div> <!-- /.catalog-item__image-box -->
-											<div class="catalog-item__price"><?=$new_item->price?> р.</div>
-										</div>
-									</div>
-								<?endforeach;?>	
-							</div>
+			<div class="catalog_book">
+				<div class="book_title"><?=$product->name?></div>
+				<div class="book_content">
+					<div class="book_cover">
+						<img src="images/catalog/001.jpg" alt="" />
+					</div>
+					<div class="book_info">
+						<div class="book_autor">Автор: <span class="autor_name"><?=$product->autor?></span></div>
+						<div class="in_stock">в наличии</div>
+						<div style="margin-top:20px">
+							<?if(!empty($product->year)):?>
+								<div class="info_item">
+									<div class="info_title">Год:</div>
+									<div class="info_value"><?=$product->year?> г.</div>
+								</div>
+							<?endif;?>
+							<?if(!empty($product->cover)):?>
+								<div class="info_item">
+									<div class="info_title">Обложка:</div>
+									<div class="info_value"><?=$product->cover?></div>
+								</div>
+							<?endif;?>
+							<?if(!empty($product->amount)):?>
+								<div class="info_item">
+									<div class="info_title">Объем:</div>
+									<div class="info_value"><?=$product->amount?> страниц</div>
+								</div>
+							<?endif;?>
 						</div>
 					</div>
-			</div> <!-- /.product__catalog .catalog -->
-		</div> <!-- /.product__wrap wrap -->
-	</div> <!-- /.product -->
-		
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
+					<div class="buy_info">
+						<div class="price"><?=$product->price?> руб.</div>
+						<div class="to_cart">
+							<a href="" class="to_cart_button">В корзину</a>
+						</div>
+					</div>
+				</div>
+				<div class="book_description"><?=$product->description?></div>
+			</div>			
+				
+			<?if(!empty($product->recommended_products)):?>
+				<div class="anchor_books clearfix">
+					<h2 class="catalog__subtitle">С этим товаром смотрят</h2>
+				
+					<div class="anchor_list">
+						<?foreach($product->recommended_products as $rp):?>
+							<div class="anchor-item">
+								<div class="anchor-item-top">
+									<a href="#" class="anchor-item__autor"><?=$rp->autor?></a>
+									<a href="#" class="anchor-item__name"><?=$rp->name?></a>
+								</div>
+								<div class="anchor-item__image-box">
+									<a href="<?=$rp->full_url?>">
+										<img src="<?=$rp->img->catalog_small_url?>" class="anchor-item__image" alt="<?=$rp->name?>"/>
+									</a>
+								</div> <!-- /.catalog-item__image-box -->
+								<div class="anchor-item__price"><?=$rp->price?> р.</div>
+							</div>
+						<?endforeach;?>	
+					</div> <!-- /.catalog__list -->
+				</div> <!-- /.catalog -->
+			<?endif;?>
+		</div> <!-- /.main-catalog__wrap wrap -->
+	</div> <!-- /.main-catalog -->
+
+	<? /*require 'include/footer.php'*/?>
+	<? /*require 'include/footer.php'*/?>
+	<div class="footer-top">&nbsp;</div>
+	<div class="footer-middle">
+		<div class="footer__wrap wrap">
+			<div class="footer__contacts">
+				<div class="contacts-info">
+					<div class="contacts-info__item _1">
+						<div class="contacts-info__copy">&copy; 2015 Книжный дом</div> <!-- /.contacts-info__copy -->
+					</div> <!-- /.contacts-info__item -->
+			
+					<div class="contacts-info__item _2">
+						<div class="footer-mail">info@bookhouse.ru</div>
+					</div>
+			
+					<div class="contacts-info__item _3">
+						<div class="footer-address">Санкт-Петербург,</br> ул. Малая Конющенная, 5</div>
+					</div>
+				
+					<div class="contacts-info__item _4">
+						<div class="footer-phone">/812/380-73-00</br>/812/380-73-22</div>
+					</div>
+				
+				</div> <!-- /.contacts-info -->
+			</div>
+		</div> <!-- /.footer__contacts -->
+	</div>
+	
+	<footer class="footer" id="footer">
+		<div class="footer__wrap wrap">
+			<div class="contacts-info">
+				<div class="contacts-info__item _1">
+					<div class="footer-title">Магазин</br> на малой конющенной</div> 
+					будни: 9.30 - 20.00</br>
+					суббота, воскресенье: 11.00 - 18.00
+				</div> <!-- /.contacts-info__item -->
+				
+				<div class="contacts-info__item _2">
+					<div class="footer-title">Издательский отдел</div>
+					будни: 10.00 - 18.00</br>
+				</div>
+				
+				<div class="contacts-info__item _3">
+					<div class="footer-title">Экзаменационный центр</div>
+					ул. Большая Конюшенная, 8</br>
+					Тел. 244-54-88</br>
+					будни: 11.00 - 19.00</br>
+					суббота, воскресенье: выходной
+				</div>
+				
+				<div class="contacts-info__item _4">
+					<div class="footer-title">Букхауз</div>
+					Проспект Испытателей, 7А</br>
+					Тел. 995-73-74</br>
+					будни: 11.00 - 20.00</br>
+					Обед: 14.00 - 15.00
+				</div>
+				
+			</div> <!-- /.contacts-info -->	
+		</div> <!-- /.footer__wrap wrap -->
+	</footer> <!-- /.header -->
+	
+	<?/* require 'include/modal.php'*/?>
 
     </body>
+	<script>
+		$( ".datepicker" ).datepicker();
+	</script>
 </html>

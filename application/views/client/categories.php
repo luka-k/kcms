@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <?require 'include/head.php'?>
 
 <body>
@@ -92,8 +92,8 @@
 						</div> <!-- /.catalog__list -->
 					<?endif;?>
 				<?else:?>
-					<?require_once 'include/breadcrumbs.php'?>
 					<div class="catalog_books clearfix">
+						<?require_once 'include/breadcrumbs.php'?>
 						<?if(isset($category->name)):?>
 							<h2 class="catalog__subtitle"><?=$category->name?></h2>
 						<?endif;?>
