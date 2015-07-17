@@ -59,6 +59,11 @@
  * ========================================================================== */
 .button{
 	display: inline-block;
+	
+	padding:9px 25px;
+	font-size:18px;
+	color:#fff;
+	background:#ff8c04;
 
     text-align: center;
     text-decoration: none;
@@ -67,19 +72,10 @@
     outline: none;
 }
 
-.button{
-	padding:5px 25px;
-	font-size:18px;
-	color:#fff;
-	background:#5a9def;
-}
-
 .button:hover{
     text-decoration: none;
-	background:#ff8c04;
+	background:#f84209;
 }
-
-
 
 /* ==========================================================================
  * Формы
@@ -136,7 +132,6 @@
     width: 100%;
     padding: 5px 0 5px 20px;
 
-    border: 1px solid #eee;
     outline: none;
     background: #eee;
 
@@ -828,13 +823,17 @@ a:hover{
     background: #fff;
 }
 
-.menu-search__button{
+.search__button{
+	position:absolute;
     display: inline-block;
-    width: 20px;
-    height: 23px;
-    content: '';
-    text-indent: -9999px;
-    background-position: -46px 0;
+	top:18px;
+	right:20px;
+    width: 30px;
+    height: 30px;
+}
+
+.search__button:hover{
+	text-decoration:none;
 }
 
 .main-catalog-nav-search .menu-search__input{
@@ -2195,20 +2194,25 @@ aside .title{
     font-weight: 600;
 }
 
-.cart-amount
-{
+.cart-amount{
     text-align: center;
 }
-.cart-amount__button
-{
+
+.cart-amount__button{
+	position:relative;
     width: 30px;
+	height:33px;
+	margin:0;
     padding: 2px;
 }
-.cart-amount__input
-{
-    width: 40px;
-    padding: 7px 0 7px;
 
+.cart-amount__input{
+	position:relative;
+	display:inline-block;
+    width: 40px;
+	height:33px;
+	margin:0;
+    padding: 7px 0 7px;
     text-align: center;
 }
 

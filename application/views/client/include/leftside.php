@@ -1,6 +1,6 @@
 <aside class="left_side">
 				<div class="shop-catalog-nav-button">
-					<a href="<?base_url()?>catalog" class="catalog-button">Каталог</a>
+					<a href="<?=base_url()?>catalog" class="catalog-button">Каталог</a>
 				</div> 
 				
 				<?if(isset($left_menu)):?><?require_once 'left-menu.php'?><?endif;?>

@@ -61,7 +61,7 @@ class Cabinet extends Client_Controller {
 			'keywords' => '',
 			'description' => '',
 			'select_item' => '',
-			'top_menu' => $this->dynamic_menus->get_menu(2)->items,
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'user' => $this->users->get_item($this->standart_data['user']->id),
 			'orders' => $this->orders_info,
 			'status_id' => $this->config->item('order_status'),

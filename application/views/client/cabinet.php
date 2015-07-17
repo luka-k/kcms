@@ -5,7 +5,7 @@
 <body>
 	<? require 'include/top-menu.php'?>
 	<? require 'include/header.php'?>
-	
+	<? require 'include/catalog-nav.php'?>
 
 	<div class="page page-about">
 		<div class="page__wrap wrap">
