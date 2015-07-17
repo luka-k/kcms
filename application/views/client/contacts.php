@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
+<!DOCTYPE html> 
+<html>
 
 <? require 'include/head.php' ?>
 
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 	
 	<? require 'include/top-menu.php'?>
 	<? require 'include/header.php'?>
-	<? require 'include/breadcrumbs.php'?>
+	<? require 'include/catalog-nav.php'?>
 	
 	<div class="page page-contacts">
 		<div class="page__wrap wrap">
+		
+		<? require 'include/breadcrumbs.php'?>
 		
 		<h1 class="page__title">Контакты</h1>
 		
@@ -27,17 +21,21 @@
 		<div class="page-contacts__info">
 			<div class="contacts-info">
 			
-				<div class="contacts-info__item">
-					<div class="contacts-info__copy">&copy; 2014 Книжный дом</div> <!-- /.contacts-info__copy -->
-					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
+				<div class="contacts-info__item _1">
+					<div class="contacts-info__copy">&copy; 2015 Книжный дом</div> <!-- /.contacts-info__copy -->
 				</div> <!-- /.contacts-info__item -->
+			
+				<div class="contacts-info__item _2">
+					<div class="footer-mail"><?=$settings->email?></div>
+				</div>
+			
+				<div class="contacts-info__item _3">
+					<div class="footer-address"><?=$settings->address?></div>
+				</div>
 				
-				<div class="contacts-info__item">
-					<div class="contacts-info-phone">
-						<div class="contacts-info-phone__city">Санкт-Петербург</div> <!-- /.contacts-info-phone__city -->
-						<div class="contacts-info-phone__number">8(123)457-89-00</div> <!-- /.contacts-info-phone__number -->
-					</div> <!-- /.contacts-info-phone -->
-				</div> <!-- /.contacts-info__item -->
+				<div class="contacts-info__item _4">
+					<div class="footer-phone"><?=$settings->phones[0]?></br><?=$settings->phones[1]?></div>
+				</div>
 				
 			</div> <!-- /.contacts-info -->
 		</div> <!-- /.page-contacts__contacts --> 
@@ -45,7 +43,7 @@
 		<h3>СВЯЖИТЕСЬ С НАМИ</h3>
 		
 		<div class="page__form">
-			<form action="#" class="form" where="validate_ajax" method="post">
+			<form action="#" class="form" id="callback" method="post">
 				<input type="hidden" name="contacts" value="true"/>
 				<div class="page-form">
 					<div class="page-form__block">
@@ -69,7 +67,7 @@
 					</div> <!-- /.page-form__block -->
 					
 					<div class="form__button page-form__button">
-						<button class="button button--normal button--auto-width">Отправить</button>
+						<button class="button" onclick="callback_submit('callback'); return false;">Отправить</button>
 					</div> <!-- /.form__button -->
 				</div> <!-- /.page-form -->
 			</form> <!-- /.form -->

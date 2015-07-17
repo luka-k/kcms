@@ -330,6 +330,11 @@ a:hover{
 	background:#cfddef;
 }
 
+.form__textarea{
+	border:none;
+	background:#cfddef;
+}
+
 .clearfix:after{
     display: inline-block;
     width: 100%;

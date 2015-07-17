@@ -19,7 +19,10 @@ class Contacts extends Client_Controller {
 		$this->breadcrumbs->add("contacts", "Контакты");
 		
 		$data = array(
-			"title" => "Контакты",
+			"title" => 'Контакты',
+			'keywords' => '',
+			'description' => '',
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			"select_item" => "contacts",
 			'breadcrumbs' => $this->breadcrumbs->get()
 		);
