@@ -1,133 +1,110 @@
-<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
+<!DOCTYPE html> 
+<html>
 
 <? require 'include/head.php' ?>
 
 <body>
-
-<!--[if lt IE 8]>
-	<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-<![endif]-->
-
 	<? require 'include/top-menu.php'?>
 	<? require 'include/header.php'?>
-	<? require 'include/breadcrumbs.php'?>
+	<? require 'include/catalog-nav.php'?>
 	
 	<div class="page page-cart">
 		<div class="page__wrap wrap">
-		<div class="main-catalog-nav" id="main-catalog-nav">
-				<div class="main-catalog-nav__wrap wrap">
-					
-					<div class="main-catalog-nav-button">
-						<a href="<?base_url()?>catalog" class="catalog-button">&nbsp;</a>
-					</div> 
-			
-					<div class="main-catalog-nav-search">
-						<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
-							<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
-						</form>
-					</div> <!-- /.main-catalog-nav__columns -->
-				</div> <!-- /.main-catalog-nav__wrap wrap -->
-			</div> <!-- /.main-catalog-nav -->
-		<?if(!empty($action)):?>
-			<?=$settings->order_string?>
-		<?else:?>
-			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
-			<?if(!empty($cart_items)):?>
-			<div class="page-cart__products">
-				<table class="cart-table">
-					<tbody>
-						<tr>
-							<th></th>
-							<th>Наименование</th>
-							<th>Цена</th>
-							<th>Количество</th>
-							<th>Стоимость</th>
-							<th></th>
-						</tr>
-						
-						<?foreach($cart_items as $item_id => $item):?>
-							<tr id="cart-<?=$item_id?>">
-								<td>
-									<img src="<?=$item->img->catalog_small_url?>" alt="image" width="100" class="cart-table__image" />
-								</td>
-								<td>
-									<a href="<?=$item->full_url?>" class="cart-table__name"><?=$item->name?></a>
-								</td>
-								<td>
-									<div class="cart-table__price"><?=$item->price?></div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<form action="#" class="form cart-amount" method="post">
-										<button type="button"  class="button button--normal cart-amount__button" item_id="<?=$item_id?>">-</button>
-										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
-										<button type="button" class="button button--normal cart-amount__button" item_id="<?=$item_id?>">+</button>
-									</form> <!-- /.cart-amount -->
-								</td>
-								<td>
-									<div class="cart-table__price"><span id="<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<button type="button" class="button button--normal" onclick="delete_item('<?=$item_id?>')">Удалить</button>
-								</td>
+			<? require 'include/breadcrumbs.php'?>
+			<?if(!empty($action)):?>
+				<?=$settings->order_string?>
+			<?else:?>
+				<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
+				<?if(!empty($cart_items)):?>
+				<div class="page-cart__products">
+					<table class="cart-table">
+						<tbody>
+							<tr>
+								<th></th>
+								<th>Наименование</th>
+								<th>Цена</th>
+								<th>Количество</th>
+								<th>Стоимость</th>
+								<th></th>
 							</tr>
-						<?endforeach;?>
+						
+							<?foreach($cart_items as $item_id => $item):?>
+								<tr id="cart-<?=$item_id?>">
+									<td>
+										<img src="<?=$item->img->catalog_small_url?>" alt="image" width="100" class="cart-table__image" />
+									</td>
+									<td>
+										<a href="<?=$item->full_url?>" class="cart-table__name"><?=$item->name?></a>
+									</td>
+									<td>
+										<div class="cart-table__price"><?=$item->price?></div> <!-- /.cart-table__price -->
+									</td>
+									<td>
+										<form action="#" class="form cart-amount" method="post">
+											<button type="button"  class="button cart-amount__button" item_id="<?=$item_id?>">-</button>
+											<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
+											<button type="button" class="button cart-amount__button" item_id="<?=$item_id?>">+</button>
+										</form> <!-- /.cart-amount -->
+									</td>
+									<td>
+										<div class="cart-table__price"><span id="<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
+									</td>
+									<td>
+										<button type="button" class="button button--normal" onclick="delete_item('<?=$item_id?>')">Удалить</button>
+									</td>
+								</tr>
+							<?endforeach;?>
 							
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td colspan="2">
-								<div class="cart-table__price">
-									Итого <span><span class="total_price"><?=$total_price?></span>р.</span>
-								</div> <!-- /.cart-table__price -->
-							</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table> <!-- /.cart-table -->
-			</div> <!-- /.page-cart__products -->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td colspan="2">
+									<div class="cart-table__price">
+										Итого <span><span class="total_price"><?=$total_price?></span>р.</span>
+									</div> <!-- /.cart-table__price -->
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table> <!-- /.cart-table -->
+				</div> <!-- /.page-cart__products -->
 			
-			<div class="page-cart__order">
-				<div class="cart-order">
-					<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
+				<div class="page-cart__order">
+					<div class="cart-order">
+						<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
 					
-					<form action="<?=base_url()?>order/edit_order" class="form" method="post">
-						<div class="cart-order__form">
-							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
-							<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
-							<div class="form__line">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
-							</div> <!-- /.form__line -->
-							
-							<div class="form__line">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
-							</div> <!-- /.form__line -->
-							
-							<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
-							
-							<div class="cart-order__extra hidden" id="extra">
+						<form action="<?=base_url()?>order/edit_order" class="form" method="post">
+							<div class="cart-order__form">
+								<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
+								<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
 								<div class="form__line">
-									<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
+									<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
 								</div> <!-- /.form__line -->
+							
+								<div class="form__line">
+									<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
+								</div> <!-- /.form__line -->
+							
+								<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
+							
+								<div class="cart-order__extra hidden" id="extra">
+									<div class="form__line">
+										<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
+									</div> <!-- /.form__line -->
 				
-								<div class="form__line">
-									<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
-								</div> <!-- /.form__line -->
-							</div> <!-- /.cart-order__extra -->
+									<div class="form__line">
+										<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
+									</div> <!-- /.form__line -->
+								</div> <!-- /.cart-order__extra -->
 							
-							<div class="form__button cart-order__button">
-								<button type="submit" class="button button--normal button--auto-width">Оформить заказ</button>
-							</div> <!-- /.form__button -->
-						</div> <!-- /.cart-order__form -->
-					</form> <!-- /.form -->
-				</div> <!-- /.cart-order -->
-			</div> <!-- /.page-cart__order -->
+								<div class="form__button cart-order__button">
+									<button type="submit" class="button button--normal button--auto-width">Оформить заказ</button>
+								</div> <!-- /.form__button -->
+							</div> <!-- /.cart-order__form -->
+						</form> <!-- /.form -->
+					</div> <!-- /.cart-order -->
+				</div> <!-- /.page-cart__order -->
 			<?else:?>
 				Корзина пуста
 			<?endif;?>

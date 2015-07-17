@@ -23,6 +23,7 @@ class Cart extends Client_Controller
 		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		$data = array(
 			'title' => "Корзина",
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'selects' => array(
 				'delivery_id' => $this->config->item('method_delivery'),
