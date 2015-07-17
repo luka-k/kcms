@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <?require 'include/head.php'?>
 
 <body>
@@ -8,8 +8,6 @@
 	<![endif]-->
 	
 	<?require 'include/top-menu.php'?>
-
-	
 	<? require 'include/header.php'?>
         
 	<div class="main-catalog" id="main-catalog">

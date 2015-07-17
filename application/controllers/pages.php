@@ -22,6 +22,9 @@ class Pages extends Client_Controller {
 		
 		$root = $this->articles->get_item_by(array('url' => $this->uri->segment(2)));
 		
+		$template = 'client/articles.php';
+		if(($root->id == $this->config->item('news_id')) || ($root->id == $this->config->item('events_id')))$template = 'client/news.php';
+		
 		if(isset($content->article))
 		{
 			$sub_template = 'single';
@@ -67,7 +70,7 @@ class Pages extends Client_Controller {
 		if($root->id == $this->config->item('news_id')) $data['is_news'] = TRUE;
 
 		$data = array_merge($this->standart_data, $data);
-		$this->load->view('client/news.php', $data);
+		$this->load->view($template, $data);
 	}
 	
 	/**
