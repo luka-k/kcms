@@ -605,7 +605,7 @@ a:hover{
 }
 
 .menu-nav__item:hover {
-	color:#000;
+	color:#fff;
 }
 
 .menu-nav__href{
@@ -614,14 +614,16 @@ a:hover{
     height: 29px;
     text-decoration: none;
     text-transform: uppercase;
+	color:#000;
 }
 
 .menu-nav__href:hover{
     text-decoration: none;
+	color: #fff;
 }
 
 .menu-nav__href.active{
-    color: #000;
+    color: #fff;
 }
 
 .menu-enter{

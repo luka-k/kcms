@@ -17,7 +17,7 @@
 			<ul class="menu-nav <?if(isset($shop)):?>shop<?else:?>main<?endif;?>">
 				<?foreach($top_menu as $item):?>
 					<li class="menu-nav__item">
-						<a href="<?=$item->full_url?>" class="menu-nav__href <?if($item->url == $select_item)?>active"><?=$item->name?></a>
+						<a href="<?=$item->full_url?>" class="menu-nav__href <?if($item->url == $select_item):?>active<?endif;?>"><?=$item->name?></a>
 					</li>
 				<?endforeach;?>
 			</ul> <!-- /.menu -->

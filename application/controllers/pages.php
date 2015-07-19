@@ -50,13 +50,13 @@ class Pages extends Client_Controller {
 		}
 		
 		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), 3, 0, 'date', 'desc');
-	
+
 		$data = array(
 			'title' => $content->name,
 			'keywords' => $content->meta_keywords,
 			'description' => $content->meta_description,
 			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
-			'select_item' => "",
+			'select_item' => $this->uri->uri_string(),
 			'filters' => $this->characteristics_type->get_filters(),
 			'max_price' => $this->products->get_max('price'),
 			'min_price' => $this->products->get_min('price'),
