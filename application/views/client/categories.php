@@ -164,7 +164,4 @@
 			htmSlider(2);
 		});
 	</script>
-	<script>
-		$( ".datepicker" ).datepicker();
-	</script>
 </html>

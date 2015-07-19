@@ -135,7 +135,9 @@ class Ajax extends CI_Controller {
 	
 	public function selected_days()
 	{
-		$news = $this->articles->get_list(array("parent_id" => 1));
+		$this->config->load('articles');
+		$news = $this->articles->get_list(array("parent_id" => $this->config->item('events_id')));
+
 		$selected_dates = array();
 		foreach($news as $item)
 		{

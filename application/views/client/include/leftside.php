@@ -55,7 +55,7 @@
 				
 				<div class="shop-catalog-events">
 					<div class="title">События</div>
-					<div id="this_mounth" class="datepicker" category=""></div>
+					<div id="this_mounth" class="datepicker"></div>
 					<div class="event-link"><a href="<?=base_url()?>articles/sobytiya">все события &rarr;</a></div>
 				</div>
 			</aside>

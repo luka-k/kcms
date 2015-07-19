@@ -94,7 +94,4 @@
 	<?require 'include/modal.php'?>
 
     </body>
-	<script>
-		$( ".datepicker" ).datepicker();
-	</script>
 </html>

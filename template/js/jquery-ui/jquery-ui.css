@@ -1259,15 +1259,15 @@ body .ui-tooltip {
 
 
 .highlight .ui-state-default{
-	background: #cc3b26;
+	background:#f7330b;
 	border:none;
 	color: #fff;
 }
 
 .ui-datepicker-today .ui-state-highlight {
-	background:#515151;
+	background:#f7330b;
 	color: #fff;
-	border:1px solid #515151;
+	border:1px solid #f7330b;
 }
 
 
