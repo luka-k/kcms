@@ -78,6 +78,9 @@ class Catalog extends Client_Controller {
 	{	
 		$data['category'] = $content;	
 		
+		$data['left_active'] =
+		$data['left_parent_active'] = '';
+		
 		if($content == "root")
 		{
 			$data['new_products'] = $this->products->prepare_list($this->products->get_list(array("is_new" => 1), FALSE, 5));
@@ -89,9 +92,11 @@ class Catalog extends Client_Controller {
 			$data['keywords'] = $content->meta_keywords;
 			$data['description'] = $content->meta_description;
 			
+			$data['left_active'] = $content->url;
+			if(!empty($content->parent)) $data['left_parent_active'] = $content->parent->url;
+			
 			$data['products'] = $this->products->prepare_list($this->catalog->get_products($content->id, $this->standart_data['order'], $this->standart_data['direction']));
 			$data['filters'] = $this->characteristics_type->get_filters($data['products']);
-			
 		}
 		
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
@@ -137,6 +142,8 @@ class Catalog extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE)
 		);
+		
+		
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
 		

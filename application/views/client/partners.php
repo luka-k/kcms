@@ -20,7 +20,9 @@
 		<?foreach($partners as $partner):?>
 			<div class="partner-item <?if($partners_counter == 5):?>last <?$partners_counter = 0?><?endif;?>">
 				<a href="http://<?=$partner->link?>">
-					<img src="<?=$partner->img->catalog_mid_url?>" alt="<?=$partner->name?>" />
+					<div class="partner-item_imgbox">
+						<img src="<?=$partner->img->catalog_mid_url?>" alt="<?=$partner->name?>" />
+					</div>
 					<div class="partner-name"><?=$partner->name?></div>
 				</a>
 			</div>
