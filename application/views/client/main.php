@@ -37,7 +37,7 @@
 					<li id="tab_2" class="tab-title last"><a href="#tab2" class="second" onclick="return false;">События</a></li>
 				</ul>
 				
-				<div class="tabcontents rounded">
+				<div class="tabcontents">
 					<div id="tab1" class="tabswitcher tab_content">
 						<?foreach($last_news as $news_item):?>
 							<div class="tab-item">
@@ -86,7 +86,7 @@
 			<div class="main-category-item deep-blue">
 				<a href="">
 					<div class="category-icon">
-						<img src="<?=base_url()?>template/client/images/main-category-1.png"/>
+						<img src="<?=base_url()?>template/client/images/main-category-2.png"/>
 					</div>
 					<div class="category-title">
 						Издательство
@@ -96,7 +96,7 @@
 			<div class="main-category-item green">
 				<a href="#">
 					<div class="category-icon">
-						<img src="<?=base_url()?>template/client/images/main-category-1.png"/>
+						<img src="<?=base_url()?>template/client/images/main-category-3.png"/>
 					</div>
 					<div class="category-title">
 						Учебно-методическоий</br> центр
@@ -106,7 +106,7 @@
 			<div class="main-category-item red last">
 				<a href="#">
 					<div class="category-icon">
-						<img src="<?=base_url()?>template/client/images/main-category-1.png"/>
+						<img src="<?=base_url()?>template/client/images/main-category-4.png"/>
 					</div>
 					<div class="category-title">
 						Экзаменационный</br> центр
