@@ -14,7 +14,7 @@
 		
 		<? require 'include/breadcrumbs.php'?>
 		
-		<h1 class="page__title">Контакты</h1>
+		<h2 class="catalog__subtitle">Контакты</h2>
 		
 		<div class="page__content"><!-- тут может быть текст --></div> <!-- /.page__content -->
 		
@@ -40,7 +40,7 @@
 			</div> <!-- /.contacts-info -->
 		</div> <!-- /.page-contacts__contacts --> 
 		
-		<h3>СВЯЖИТЕСЬ С НАМИ</h3>
+		<h2 class="catalog__subtitle">Свяжитесь с нами</h2>
 		
 		<div class="page__form">
 			<form action="#" class="form" id="callback" method="post">
