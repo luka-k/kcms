@@ -27,6 +27,7 @@ class Sitemap extends Client_Controller
 		
 		$data = array(
 			'title' => "Карта сайта",
+			'top_menu' => $this->dynamic_menus->get_menu(3)->items,
 			'select_item' => '',
 			'open_tag' => '<?xml version="1.0" encoding="UTF-8"?>',
 			'content' => $content
