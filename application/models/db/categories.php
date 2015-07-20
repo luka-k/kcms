@@ -93,7 +93,10 @@ class Categories extends MY_Model
 			if($parent_id <> 0)
 			{
 				$branch = $this->get_item_by(array('id' => $item->child_id));
-				if(in_array($item->child_id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
+				if(!empty($branch))
+				{
+					if(in_array($item->child_id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
+				}
 			}
 			else
 			{

@@ -254,8 +254,10 @@ class Catalog extends Client_Controller {
 	public function get_by_filter()
 	{	
 		$cache_id = md5(serialize($this->post));
+		
+		my_dump($this->post);
 		$cache = $this->filters_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);

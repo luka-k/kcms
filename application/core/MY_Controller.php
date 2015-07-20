@@ -64,7 +64,7 @@ class Client_Controller extends CI_Controller
 			"top_menu" => $this->dynamic_menus->get_menu(4)->items,
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'desc')),
 			'settings' => $settings,
-			"seo_meta_description" => $seo->meta_desription,
+			"seo_meta_description" => $seo->meta_description,
 			"seo_meta_title" => $seo->meta_title,
 			"seo_meta_keywords" => $seo->meta_keywords,
 			"seo_description" => $seo->description

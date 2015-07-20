@@ -167,7 +167,7 @@ class Products extends MY_Model
 
 			$item->price = floor($item->price);
 			$item->sale_price = floor($item->sale_price);
-			$item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
+			if($item->price <> 0) $item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
 			$object_info = array(
 				'object_type' => 'products',
 				'object_id' => $item->id
