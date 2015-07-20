@@ -53,8 +53,8 @@ class Client_Controller extends CI_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
-		$seo = $this->seo->get_item_by(array('url' => $_SERVER['REQUEST_URI']));
 		
+
 		$this->standart_data = array(
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),
@@ -63,12 +63,18 @@ class Client_Controller extends CI_Controller
 			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
 			"top_menu" => $this->dynamic_menus->get_menu(4)->items,
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'desc')),
-			'settings' => $settings,
-			"seo_meta_description" => $seo->meta_description,
-			"seo_meta_title" => $seo->meta_title,
-			"seo_meta_keywords" => $seo->meta_keywords,
-			"seo_description" => $seo->description
+			'settings' => $settings
 		);
+		
+		$seo = $this->seo->get_item_by(array('url' => $_SERVER['REQUEST_URI']));
+
+		if(!empty($seo))
+		{
+			$this->standart_data["seo_meta_description"] = $seo->meta_description;
+			$this->standart_data["seo_meta_title"] = $seo->meta_title;
+			$this->standart_data["seo_meta_keywords"] = $seo->meta_keywords;
+			$this->standart_data["seo_description"] = $seo->description;
+		}
 	}
 }
 
