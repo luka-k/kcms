@@ -35,7 +35,7 @@
 				
 				<!-----leftcol------>
 				<aside id="s_left">
-					<h1>Все товары</h1>
+					<h1>Каталог производителей</h1>
 					<?require "include/left_menu.php"?>
 				</aside><!--end_leftcol-->
                    
@@ -45,5 +45,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

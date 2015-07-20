@@ -322,6 +322,10 @@
 	font-weight:normal;
 	
 }
+.metro .selected
+{
+	padding-right: 20px;
+}
 
 .metro.disabled,  .metro.selected{
 	color: #CC0000;

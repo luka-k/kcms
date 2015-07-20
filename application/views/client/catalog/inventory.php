@@ -22,6 +22,11 @@
 											</a>
 										</div>
 									<?endforeach;?>
+									
+										<div class="inventory_item">
+											<a href="/ostatki" target="_blank">
+	<img src="<?=base_url()?>template/client/catalog/images/link.png" alt="<?=$inv->name?>" /> Остатки СПб <?= date('d.m.Y', filectime('/home/admin/web/shop.brightbuild.ru/public_html/1c_exchange/offers0_1.xml'));?> 
+	</a>
 								</div>
 							</div>
 						</article>
@@ -61,5 +66,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

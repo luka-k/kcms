@@ -43,8 +43,8 @@
 											<a href="<?=$vendor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><img alt="<?=$vendor->name?> производитель <?=$vendor->name?>" title="<?=$vendor->name?> продажа в СПб" src="<?=$vendor->img->manufacturer_url?>" /></a>
 										</div>
 										<div>
-											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a href="http://www.bogema-stroy.ru" rel="nofollow" target="_blank" style="color:#009bdb"><?=$vendor->link?></a></p>
-											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a target="_blank" style="color:#009bdb" href="mailto:bogema-spb@mail.ru"><?=$vendor->email?></a></p>
+											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a href="http://<?=$vendor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><?=$vendor->link?></a></p>
+											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a target="_blank" style="color:#009bdb" href="mailto:<?=$vendor->email?>"><?=$vendor->email?></a></p>
 											<p style="line-height:12px;font-size: 13px;padding-bottom: 8px;"><?=$vendor->phone?></p>
 											<p style="line-height:12px;font-size: 13px;padding-bottom: 8px;"><?=$vendor->city?></p>
 										</div>
@@ -104,5 +104,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

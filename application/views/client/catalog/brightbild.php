@@ -53,5 +53,6 @@
 				$('#bb-'+id).css('background-color', '#c6cee8');
 			}
 		</script>
+		<?require "include/footer.php"?>
 	</body>
 </html>

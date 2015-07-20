@@ -58,5 +58,6 @@
 			</div>
 		</div>
 		<?require "catalog/include/contacts_script.php"?>
+		<?require 'include/footer.php';?>
 	</body>
 </html>

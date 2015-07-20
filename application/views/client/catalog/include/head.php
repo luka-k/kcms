@@ -1,14 +1,14 @@
-<!DOCTYPE html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		
-	<title><?=$title?></title>
+	<title><?=$seo_meta_title ? $seo_meta_title : $title?></title>
 	
 	<meta name="description" content="<?=$meta_description?>" />
 	<meta name="keywords" content="<?=$meta_keywords?>" />
 	
 	<link rel="Shortcut Icon" type="image/x-icon" href="<?=base_url()?>template/client/catalog/images/favicon.ico" />
+		<meta content="<?=base_url()?>template/client/catalog/images/bb_house.jpg" property="og:image" />
 		
 	<!------------------------Styles---------------------------->
 	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/normalize.css"/>
@@ -30,13 +30,18 @@
 	<script>
 		(function($){
 			$(window).load(function(){
-				$("#scroll-left").height($(window).height() - 105);
+				$("#scroll-left").height($(window).height() - 110);
 				$(".logo-column").height($(window).height() - 103);
 				
 				$("#scroll-content").height($(window).height() - 95);
 				$("#scroll-right").height($(window).height() - 105);
 				
 				$("#scroll-left").mCustomScrollbar({
+					axis:"y", //set both axis scrollbars
+					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
+				});
+					
+				$("#scroll-right").mCustomScrollbar({
 					axis:"y", //set both axis scrollbars
 					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 				});
@@ -61,6 +66,28 @@
 				
 				$(".list-row").mCustomScrollbar({
 					axis:"x"
+				});
+				
+				$('#scroll-content').scroll(function() {
+					if ($(this).scrollTop() < 60)
+					{
+						$('header').css('margin-top', -$(this).scrollTop() + 'px');
+						$("#scroll-left").height($(window).height() - 110+$(this).scrollTop());
+						$(".logo-column").height($(window).height() - 103+$(this).scrollTop());
+						
+						$("#scroll-content").height($(window).height() - 95+$(this).scrollTop());
+						$("#scroll-right").height($(window).height() - 105+$(this).scrollTop());
+						$('.navigation-mini').css('top', 91-$(this).scrollTop());
+					} else {
+						$('header').css('margin-top', -60 + 'px');
+						$("#scroll-left").height($(window).height() - 110+60);
+						$(".logo-column").height($(window).height() - 103+60);
+						
+						$("#scroll-content").height($(window).height() - 95+60);
+						$("#scroll-right").height($(window).height() - 105+60);
+						
+						$('.navigation-mini').css('top', 91-60);
+					}
 				});
 					
 			});
@@ -99,6 +126,7 @@
 			
 			var column_width = (list_width - (20 * col_qty))/col_qty; //костыли костылики
 			
+			if (column_width> 160) column_width = 160;
 			$('.manu_col').width(column_width);
 			
 			list_boxes.each(function () {
@@ -106,7 +134,7 @@
 
 				var qty_of_colums = Math.ceil(columns.length/4);
 				
-				$(".l-b-"+box_counter).width(qty_of_colums * (column_width + 25));
+				//$(".l-b-"+box_counter).width(qty_of_colums * (column_width + 25));
 				box_counter++;
 			});
 		});

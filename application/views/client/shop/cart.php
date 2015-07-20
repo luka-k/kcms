@@ -49,8 +49,8 @@
 																		<a href="#" class="cart-delete" onclick="delete_item('<?=$item_id?>')">x</a>
 																	</td>
 																</tr>
-															<?endforeach;?>
 															<?$cart_counter++?>
+															<?endforeach;?>
 															<tr>
 																<td></td>
 																<td></td>
@@ -139,4 +139,5 @@
 	<?require_once 'include/shop_scripts.php'?>
 	<?require_once 'include/scroll_scripts.php'?>
 	<?require_once 'include/left_menu_scripts.php'?>
+		<?require "include/footer.php"?>
 </html>

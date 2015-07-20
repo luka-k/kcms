@@ -344,6 +344,58 @@ class Manufacturers extends MY_Model
 		return $vendors;
 	}
 	
+	public function get_manufacturers($category_id = FALSE)
+	{
+		$manufacturers = array();
+				
+		if($category_id)
+		{
+			$parent_id = $this->table2table->get_parent_ids("category2category", "category_parent_id", "child_id", $category_id);
+			if($parent_id[0] == 0)
+			{
+				$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $category_id);
+
+				$this->db->where_in("category_id", $child_ids);
+			}
+			else
+			{
+				$this->db->where("category_id", $category_id);
+			}
+		}
+		$this->db->distinct();
+		$this->db->select("manufacturer_id");
+		
+		$result = $this->db->get("manufacturer2category")->result();
+		if($result) foreach($result as $i => $item)
+		{
+			$manufacturers[$i] = $this->get_item($item->manufacturer_id);
+			$manufacturers[$i]->categories = $this->_get_categories_tree($item->manufacturer_id, 'vendor');
+		}
+		
+		$names = array();
+		foreach ($manufacturers as $m)
+		{
+			$names[] = $m->name;
+		}
+		array_multisort($names, $manufacturers);
+		
+		return $manufacturers;
+	}
+	
+	public function get_manufacturers_with_news()
+	{
+		$manufacturers = $this->manufacturers->get_list(FALSE, 0, 0, 'name', 'asc');
+		
+		foreach ($manufacturers as $i => $m)
+		{
+			$news = $this->articles->get_item_by(array('manufacturer_id' => $m->id));
+			if (!$news)
+				unset($manufacturers[$i]);
+		}
+		
+		return $manufacturers;
+	}
+	
 	public function get_contractors($service = FALSE)
 	{
 		$contractors = array();
@@ -407,6 +459,9 @@ class Manufacturers extends MY_Model
 			$this->db->where_in("id", $distributors_ids);
 			$item->distributors = $this->prepare_list($this->db->get("manufacturers")->result());
 		}
+		
+		if ($this->uri->segment(1) != 'manufacturer' || ($this->uri->segment(3) != ''))
+			$item->description = '';
 	
 		return $item;
 	}
@@ -417,9 +472,13 @@ class Manufacturers extends MY_Model
 		$item->categories = $this->_get_categories_tree($item->id, 'vendor');
 		$item->subcategories = $this->_get_subcategories($item->id);
 		
-		$distributed_ids = $this->table2table->get_parent_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
-		if($distributed_ids) $this->db->where_in("id", $distributed_ids);
-		$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
+		$distributed_ids = $this->table2table->get_child_ids("manufacturer2manufacturer", "distributor", "distributor_2", $item->id);
+		
+		if($distributed_ids) 
+		{
+			$this->db->where_in("id", $distributed_ids);
+			$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
+		}
 		return $item;
 	}
 	

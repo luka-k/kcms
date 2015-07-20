@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
 	<body>
-			<? require 'include/header.php'?>
+			<? require 'catalog/include/header.php'?>
 		
 			<div id="wrapper">
 				<div class="section maxw">
@@ -54,16 +54,16 @@
 						<div id="manufacturers_col" class="manufacturers">
 							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="news-form" action="<?=base_url()?>articles/novosti">
 								<select name="manufacturer_id" class="dropdown" onchange="document.forms['news-form'].setAttribute('action', '<?=base_url()?>articles/novosti?m_id='+this.options[this.selectedIndex].value); submit('news-form'); return false;">
-									<option>Выберите по бренду</option>
-									<?foreach($manufacturers as $m):?>
+									<option value="">Выберите по бренду</option>
+									<?foreach($manufacturers_with_news as $m):?>
 										<option value="<?=$m->id?>"><?=$m->name?></option>
 									<?endforeach;?>
 								</select>
 							</form>
-							<ul>
-								<?foreach($manufacturers as $m):?>
+							<ul style="height: auto;">
+								<?foreach($manufacturers_with_news as $m):?>
 									<li>
-										<a href="<?=base_url()?>articles/novosti?m_id=<?=$m->id?>"><img src="<?=$m->img->catalog_small_url?>"/></a>
+										<a href="<?=base_url()?>articles/novosti?m_id=<?=$m->id?>"><img <?= $content->manufacturer_id == $m->id || $_GET['m_id'] == $m->id ? 'class="active"': ''?> src="<?=$m->img->manufacturer_url?>"/></a>
 									</li>
 								<?endforeach;?>
 							</ul>
@@ -71,5 +71,6 @@
 					</aside>
 				</div>
 			</div>		
+		<?require 'include/footer.php';?>
 	</body>
 </html>

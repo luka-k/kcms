@@ -54,6 +54,28 @@ class Table2table extends MY_Model
 		return $parent_ids;
 	}
 	
+	
+	/**
+	* Возращает ids детских категорий
+	*
+	* @param string $table - таблица из которой брать привязки("category2category", "product2category")
+	* @param string $first_field
+	* @param string $second_field
+	* @param integer $child_id
+	*/
+	public function get_child_ids($table, $first_field, $second_field, $child_id)
+	{
+		$result = $this->db->get_where($table, array($first_field => $child_id))->result();
+
+		$parent_ids = array();
+		if($result) foreach($result as $r)
+		{
+			$parent_ids[] = $r->$second_field;
+		}
+		
+		return $parent_ids;
+	}
+	
 	public function delete_fixing($table, $second_field, $id)
 	{
 		$this->db->where($second_field, $id);

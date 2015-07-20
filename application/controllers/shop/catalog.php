@@ -77,7 +77,6 @@ class Catalog extends Client_Controller {
 			'collection' => array(),
 			'sku' => array(),
 			'nok' => array(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'ajax_from' => ''
 		);
 	
@@ -211,6 +210,37 @@ class Catalog extends Client_Controller {
 		$data['category']->products = $products;
 		$data['total_rows'] = $total_rows;
 		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
+		$data = array_merge($this->standart_data, $data);
+		
+		$this->benchmark->mark('code_end');
+		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
+		$this->load->view("client/shop/categories", $data);
+	}
+	
+	public function sale()
+	{
+		$this->session->unset_userdata('last_cache_id');
+		$data['category'] = new stdClass;
+		$filters_checked = array(
+			'filter' => TRUE, 
+			'last_type_filter' => 'categories_checked', 
+			'from' => 0,
+		);
+		
+			$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'sort', 'asc'));
+			$products_ids = $this->catalog->get_products_ids($products);
+			
+			$total_rows = count($this->products->get_list(array('sale' => 1)));
+		
+
+		$data['breadcrumbs'] = $this->breadcrumbs->get();
+		
+		$data['category']->products = $products;
+		$data['total_rows'] = $total_rows;
+		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(array('sale' => 1)));
+		
+		$data['no_ajax'] = true;
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		$this->benchmark->mark('code_end');
@@ -364,6 +394,7 @@ class Catalog extends Client_Controller {
 	
 	public function count()
 	{
+		file_put_contents('download/log.log', serialize($_POST));
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 		echo count($products);
 	}
@@ -377,7 +408,7 @@ class Catalog extends Client_Controller {
 		if($products) foreach($products as $item)
 		{
 			$product = array('item' => $this->products->prepare($item, TRUE, FALSE));
-			$content.= $this->load->view('client/include/ajax_product', $product, TRUE);
+			$content.= $this->load->view('client/shop/include/ajax_product', $product, TRUE);
 		}
 
 		$ajax_from = $this->post['from'] + 10;

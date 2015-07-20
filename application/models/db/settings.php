@@ -44,6 +44,11 @@ class Settings extends MY_Model
 			'site_keywords' => array('Ключевые слова', 'text'),
 			'lastmod' => array('lastmod', 'hidden')
 		),
+		'Цены' => array(
+			'percent_euro' => array('Процент на евро', 'text'),
+			'percent_roz' => array('Процент с розничной цены', 'text'),
+			'percent_discount' => array('Процент распродажи', 'text')
+		),
 		'Изображение' => array(
 			'upload_image' => array('Изображение по умолчанию', 'image', 'img')
 		)

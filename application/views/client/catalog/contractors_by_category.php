@@ -63,5 +63,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

@@ -181,6 +181,9 @@
                 my = event.pageY;
             });
             //////////////////////////////////////////////////////////////////////					
+            $mouseTrap.bind('click', this, function (event) {
+				$('#fancy_opener').click();
+			});
             $mouseTrap.bind('mouseleave', this, function (event) {
                 clearTimeout(controlTimer);
                 //event.data.removeBits();                

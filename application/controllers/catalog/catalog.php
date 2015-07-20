@@ -25,7 +25,6 @@ class Catalog extends Client_Controller {
 			'meta_description' => 'Строительный портал Брайтбилд. Вся актуальная информация о производителях и поставщиках в области строительства, ремонта и создания интерьера',
 			'meta_keywords' => '',
 			'left_menu' => $this->categories->get_another_tree(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
@@ -33,7 +32,7 @@ class Catalog extends Client_Controller {
 		
 		if($content == 'root')
 		{
-			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc'));
+			$data['manufacturers'] = $this->manufacturers->prepare_list($this->manufacturers->get_manufacturers());
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data = array_merge($this->standart_data, $data);
 			$this->load->view("client/catalog/index", $data);
@@ -61,7 +60,6 @@ class Catalog extends Client_Controller {
 			'top_active' => 'catalog',
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
 			'submenu_active_item' => '',
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'page_title' => $content->category->name,
 			'active_category' => $content->category->url
@@ -116,13 +114,11 @@ class Catalog extends Client_Controller {
 			'title' => $this->string_edit->my_ucfirst($content->category->name).' '.$manufacturer->name.' производство '.$manufacturer->country.'. Каталог '.$content->category->genitive_name.' фирмы '.$manufacturer->name.' - продажа в магазинах Санкт-Петербурга | Брайтбилд',
 			'meta_description' => $this->string_edit->my_ucfirst($content->category->name).' от производителя '.$manufacturer->name.' производство '.$manufacturer->country.'. Онлайн каталог с официального сайта фирмы '.$manufacturer->name.'. '.$this->string_edit->my_ucfirst($content->category->name).' фирмы '.$manufacturer->name.' станет прекрасным дополнением к интерьеру Вашего дома. Купить '.$content->category->name.' в Санкт-Петербурге',
 			'meta_keywords'  => $content->category->name.' от '.$manufacturer->name.',  '.$content->category->name.' '.$manufacturer->name.' продажа в Санкт-Петербурге',
-			'shop_link' => 'huy',
 			'above_menu_title' => $manufacturer->name,
 			'left_menu' => $this->categories->get_another_tree(),
 			'top_active' => 'catalog',
 			'left_active_item' => isset($content->parent_category) ? $content->parent_category->url : $content->category->url,
 			'submenu_active_item' => '',
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category)),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'manufacturer' => $this->manufacturers->prepare_for_catalog($manufacturer),
@@ -148,6 +144,7 @@ class Catalog extends Client_Controller {
 		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));
 		if($news_count > 0) $data['is_news'] = TRUE;
 				
+		$data = array_merge($this->standart_data, $data);
 		$this->load->view("client/catalog/manufacturer", $data);
 	}
 }

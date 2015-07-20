@@ -33,7 +33,7 @@
 		$('.secondcolumn input').click(function() {
 			show_popup();
 				
-			$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
 			$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 		});
 	})(jQuery);
@@ -42,7 +42,7 @@
 		$('#total_count').html('...');
 		$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
 		$('#searchpopupbtn').fadeIn('slow');
-		$.post('<?=base_url()?>catalog/count', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+		$.post('<?=base_url()?>catalog/count/', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 	}
 		
 		

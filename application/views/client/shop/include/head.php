@@ -6,11 +6,11 @@
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
 	
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style-new.css" >
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style-new.css?v2" >
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css"  href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/easydropdown.css"/> <!--Крассивые select-->
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/css/jquery.mCustomScrollbar.css"/>
 		
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
@@ -25,7 +25,7 @@
 	<script>
 		$(document).ready(function(){
 			$('#ajax_from').val(10);
-		
+		<? if (!$no_ajax):?>
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
@@ -34,6 +34,11 @@
 					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
 				}/*убрать shop*/
 			});
+		<?endif?>
+				$("#scroll-right").mCustomScrollbar({
+					axis:"y", //set both axis scrollbars
+					advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
+				});
 		});
 		
 		function answer(res){

@@ -21,7 +21,6 @@ class Inventory extends Client_Controller {
 			'meta_description' => '',
 			'meta_keywords' => '',
 			'top_active' => 'inventory',
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc")),
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_have_inventory()),
 		);
 		

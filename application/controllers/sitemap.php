@@ -25,6 +25,12 @@ class Sitemap extends Client_Controller
 			$content = array_merge($content, $this->$type->prepare_list($this->$type->get_list(FALSE)));
 		}
 		
+		foreach ($this->manufacturers->get_list(FALSE) as $manufacturer)
+		{
+			$manufacturer->full_url = 'http://brightbuild.ru/manufacturer/'.strtolower($manufacturer->url);
+			$content[] = $manufacturer;
+		}
+		
 		$data = array(
 			'title' => "Карта сайта",
 			'select_item' => '',

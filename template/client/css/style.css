@@ -61,6 +61,7 @@ height:100%;
  }
  
 ul{list-style-type:none;}
+li.leftsubmenu a{font-size: 14px;}
 
 .wrap{
  float:left;

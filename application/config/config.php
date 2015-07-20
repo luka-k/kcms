@@ -372,7 +372,7 @@ $config['wishlist'] = 'kcms';
 * Контроллеры для добавления в sitemap
 */
 
-$config['sitemap_types'] = array("articles", "categories", "products");
+$config['sitemap_types'] = array("articles", "categories");
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
-	<? require 'include/head.php' ?>	
+	<? $no_ajax = true; require 'include/head.php' ?>	
 	<body>
 	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/catalog/" >
 		<? require 'include/header.php'?>
@@ -19,6 +19,7 @@
 										<?if(!empty($product->images)):?>
 											<div id="box">
 												<a href='<?= $product->images[0]->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+												<a href='<?= $product->images[0]->full_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
 											</div>
 									
 											<?if(count($product->images)>1):?>
@@ -27,8 +28,11 @@
 														<?$counter = 1?>
 														<?foreach ($product->images as $img):?>
 															<div class="thumb <?if($counter == 3):?>left<?endif;?>">
-																<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>' ">
+																<a href='<?= $img->full_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
 																	<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
+																</a>
+																<a href='<?= $img->full_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
+																	<img  src="<?= $img->catalog_small_url?>" alt="" />
 																</a>
 															</div>
 														<?$counter++?>
@@ -41,50 +45,50 @@
 									
 									<div class="product_content">
 										<div class="item-description">
-											<div class="item-name"><?=$product->name?></div>
-											<div class="item-manufacturername"><?=$product->manufacturer_name?></div><!--Производитель-->
-											<div class="item-colllections">
-												<?$counter = 1?>
-												<?foreach($product->collection_name as $name):?>
-													<?=$name?><?if($counter <> count($product->collection_name)):?>,<?endif;?> 
-													<?$counter++?>
-												<?endforeach;?>
-											</div><!--Колекции-->
-											<div class="item-color">
-												<?$counter = 1?>
+											<strong>
+												<?=$product->manufacturer_name?>
+
+												<?= $product->collection_name ?>
+												
+												<?=$product->sku?></strong><br />
+	
+												<?= $product->sizes_string?>
+												
+												
 												<?foreach($product->color as $color):?>
-													<?=$color->value?><?if($counter <> count($product->color)):?>,<?endif;?> 
-													<?$counter++?>
+													<?=$color->value?><?endforeach;
+													if ($product->color && $product->material) echo '/';
+													foreach($product->material as $material):?><?=$material->value?>
 												<?endforeach;?>
-											</div>
-											<div class="item-shortname"><?=$product->shortname->value?></div>
-											<div class="item-shortdesc">
-												<?$counter = 1?>
-												<?foreach($product->shortdesc as $shortdesc):?>
-													<?=$shortdesc->value?><?if($counter <> count($product->shortdesc)):?>,<?endif;?> 
-													<?$counter++?>
-												<?endforeach;?>
-											</div>
-											<div class="item-finishing">
-												<?$counter = 1?>
+												
 												<?foreach($product->finishing as $finishing):?>
-													<?=$finishing->value?><?if($counter <> count($product->finishing)):?>,<?endif;?> 
-													<?$counter++?>
-												<?endforeach;?>
-											</div>
-											<div class="item-turn">
-												<?$counter = 1?>
+													<?=$finishing->value?><?endforeach;?><? if ($product->turn) echo ', ';?>
 												<?foreach($product->turn as $turn):?>
-													<?=$turn->value?><?if($counter <> count($product->turn)):?>,<?endif;?> 
-													<?$counter++?>
+													<?=$turn->value?>
 												<?endforeach;?>
-											</div>
+												<br />
+
+												<strong><?=$product->shortname->value?> </strong>
+												
+												<?foreach($product->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?><br>
+												<? if ($product->sale):?>
+												<strong><span style="color: red;">Распродажа!</span></strong>
+												<?endif?>
 										</div>
 										<div class="item-buy-info">
 											<div class="product-price">
-												<p>Цена розничная: <del><?=$product->price?> р.</del> <span class="discount">-<?=$product->discount?>%</span></p>
+											<?if (!$product->price && !$product->sale_price):?>
+												<p>Цена: <span class="no-price">по запросу</span></p>
+											
+											<?else:?>
+											<?if ($product->price):?>
+												<p>Цена розничная: <?=$product->price?> р.<!-- <span class="discount">-<?=$product->discount?>%</span>--></p>
+											<? endif?>
 												<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
-												<p>Наличие: <span class="blue-label"><?=$product->location?></span></p>
+											<?endif?>
+												<p>Наличие: <span class="blue-label"><?=$product->qty ? 'на складе СПб' : 'по запросу'?></span></p>
 												<p><a href="" onclick="add_to_cart('<?=$product->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
 											</div>
 										</div>
@@ -99,11 +103,13 @@
 									<div class="accordeon-head-1">
 										<span class="acc-h"><span class="list">-</span> Стоимость товара с выбранными комплектующими/запчастями</span>
 										<a href="#" class="precart_to_cart" onclick="precart_to_cart('<?=$product->id?>'); return false;">Все в корзину</a>
-										<span class="pre_cart_price"><?=$product->price?> р.</span>
+										<span class="pre_cart_price"><?=$product->sale_price?> р.</span>
 									</div>
 									<div id="pre_cart" class="accordeon-body acc-b">
 										
 									</div>
+									
+									<? if ($product->components_products): ?>
 									<div class="accordeon-head"><span class="list">-</span> Комплектующие товары</div>
 									<div id="comp" class="accordeon-body">
 										<?foreach($product->components_products as $components):?>
@@ -115,45 +121,60 @@
 													<?endif;?>
 												</div>
 												<div class="description_col">
-													<div class="item-name"><?=$components->name?></div>
+												<div class="item-name"><strong>
+												<?=$components->manufacturer_name?>
+
+												<?= $components->collection_name ?>
+												
+												<?=$components->sku?></strong></div>
 													<div class="item-color">
-														<?$counter = 1?>
-														<?foreach($components->color as $color):?>
-															<?=$color->value?><?if($counter <> count($components->color)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<?= $components->sizes_string?>
+												
+												
+												<?foreach($components->color as $color):?>
+													<?=$color->value?><?endforeach;
+													if ($components->color && $components->material) echo '/';
+													foreach($components->material as $material):?><?=$material->value?>
+												<?endforeach;?>
+												
+												<?foreach($components->finishing as $finishing):?>
+													<?=$finishing->value?><?endforeach;?><? if ($components->turn) echo ', ';?>
+												<?foreach($components->turn as $turn):?>
+													<?=$turn->value?>
+												<?endforeach;?>
 													</div>
-													<div class="item-shortname"><?=$components->shortname->value?></div>
+													
+													<div class="item-shortname"><strong><?=$components->shortname->value?> </strong>
+												
+												<?foreach($components->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?></div>
 													<div class="item-shortdesc">
-														<?$counter = 1?>
-														<?foreach($components->shortdesc as $shortdesc):?>
-															<?=$shortdesc->value?><?if($counter <> count($components->shortdesc)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-finishing">
-														<?$counter = 1?>
-														<?foreach($components->finishing as $finishing):?>
-															<?=$finishing->value?><?if($counter <> count($components->finishing)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-turn">
-														<?$counter = 1?>
-														<?foreach($components->turn as $turn):?>
-															<?=$turn->value?><?if($counter <> count($components->turn)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<? if ($components->sale):?>
+												<strong><span style="color: red;">Распродажа!</span></strong>
+												<?endif?>
 													</div>
 												</div>
 												<div class="price_col price-comp-<?=$components->id?>">
-														<div>Цена розничная: <del><?=$components->price?> р.</del> <span class="discount">-<?=$components->discount?>%</span></div>
+													<?if (!$components->price && !$components->sale_price):?>
+														<div>Цена: <span class="no-price">по запросу</span></div>
+													
+													<?else:?>
+													<?if ($components->price):?>
+														<div>Цена розничная: <?=$components->price?> р.<!-- <span class="discount">-<?=$components->discount?>%</span>--></div>
+													<? endif?>
 														<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
-														<div>Наличие: <span class="blue-label"><?=$components->location?></span></div>
+													<?endif?>
+														<div>Наличие: <span class="blue-label"><?=$components->qty ? 'на складе СПб' : 'по запросу'?></span></div>
+														<div><a href="" onclick="add_to_cart('<?=$components->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></div>
 												</div>
 											</div>
 										<?endforeach;?>
 									</div>
+									<?endif?>
+									<?if ($product->accessories_products): ?>
 									<div class="accordeon-head"><span class="list">-</span> Запасные части</div>
 									<div id="acc" class="accordeon-body">
 										<?foreach($product->accessories_products as $accessories):?>
@@ -165,45 +186,60 @@
 													<?endif;?>
 												</div>
 												<div class="description_col">
-													<div class="item-name"><?=$accessories->name?></div>
+												<div class="item-name"><strong>
+												<?=$accessories->manufacturer_name?>
+
+												<?= $accessories->collection_name ?>
+												
+												<?=$accessories->sku?></strong></div>
 													<div class="item-color">
-														<?$counter = 1?>
-														<?foreach($accessories->color as $color):?>
-															<?=$color->value?><?if($counter <> count($accessories->color)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<?= $accessories->sizes_string?>
+												
+												
+												<?foreach($accessories->color as $color):?>
+													<?=$color->value?><?endforeach;
+													if ($accessories->color && $accessories->material) echo '/';
+													foreach($accessories->material as $material):?><?=$material->value?>
+												<?endforeach;?>
+												
+												<?foreach($accessories->finishing as $finishing):?>
+													<?=$finishing->value?><?endforeach;?><? if ($accessories->turn) echo ', ';?>
+												<?foreach($accessories->turn as $turn):?>
+													<?=$turn->value?>
+												<?endforeach;?>
 													</div>
-													<div class="item-shortname"><?=$accessories->shortname->value?></div>
+													
+													<div class="item-shortname"><strong><?=$accessories->shortname->value?> </strong>
+												
+												<?foreach($accessories->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?></div>
 													<div class="item-shortdesc">
-														<?$counter = 1?>
-														<?foreach($accessories->shortdesc as $shortdesc):?>
-															<?=$shortdesc->value?><?if($counter <> count($accessories->shortdesc)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-finishing">
-														<?$counter = 1?>
-														<?foreach($accessories->finishing as $finishing):?>
-															<?=$finishing->value?><?if($counter <> count($accessories->finishing)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-turn">
-														<?$counter = 1?>
-														<?foreach($accessories->turn as $turn):?>
-															<?=$turn->value?><?if($counter <> count($accessories->turn)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<? if ($accessories->sale):?>
+												<strong><span style="color: red;">Распродажа!</span></strong>
+												<?endif?>
 													</div>
 												</div>
 												<div class="price_col price-acc-<?=$accessories->id?> clearfix">
-													<div>Цена розничная: <del><?=$accessories->price?> р.</del> <span class="discount">-<?=$accessories->discount?>%</span></div>
-													<div>Цена на сайте: <span class="top-price"><?=$accessories->sale_price?></span> р.</div>
-													<div>Наличие: <span class="blue-label"><?=$accessories->location?></span></div>
+													<?if (!$accessories->price && !$accessories->sale_price):?>
+														<div>Цена: <span class="no-price">по запросу</span></div>
+													
+													<?else:?>
+													<?if ($accessories->price):?>
+														<div>Цена розничная: <?=$accessories->price?> р.<!-- <span class="discount">-<?=$accessories->discount?>%</span>--></div>
+													<? endif?>
+														<div>Цена на сайте: <span class="top-price"><?=$accessories->sale_price?></span> р.</div>
+													<?endif?>
+														<div>Наличие: <span class="blue-label"><?=$accessories->qty ? 'на складе СПб' : 'по запросу'?></span></div>
+														<div><a href="" onclick="add_to_cart('<?=$accessories->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></div>
 												</div>
 											</div>
 										<?endforeach;?>
 									</div>
+									<?endif?>
+									<?if ($product->recommended_products): ?>
 									<div class="accordeon-head"><span class="list">-</span> Аналогичный товар</div>
 									<div class="accordeon-body">
 										<?foreach($product->recommended_products as $recommended):?>
@@ -215,47 +251,61 @@
 													<?endif;?>
 												</div>
 												<div class="description_col">
-													<div class="item-name"><?=$recommended->name?></div>
+												<div class="item-name"><strong>
+												<?=$recommended->manufacturer_name?>
+
+												<?= $recommended->collection_name ?>
+												
+												<?=$recommended->sku?></strong></div>
 													<div class="item-color">
-														<?$counter = 1?>
-														<?foreach($recommended->color as $color):?>
-															<?=$color->value?><?if($counter <> count($recommended->color)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<?= $recommended->sizes_string?>
+												
+												
+												<?foreach($recommended->color as $color):?>
+													<?=$color->value?><?endforeach;
+													if ($recommended->color && $recommended->material) echo '/';
+													foreach($recommended->material as $material):?><?=$material->value?>
+												<?endforeach;?>
+												
+												<?foreach($recommended->finishing as $finishing):?>
+													<?=$finishing->value?><?endforeach;?><? if ($recommended->turn) echo ', ';?>
+												<?foreach($recommended->turn as $turn):?>
+													<?=$turn->value?>
+												<?endforeach;?>
 													</div>
-													<div class="item-shortname"><?=$recommended->shortname->value?></div>
+													
+													<div class="item-shortname"><strong><?=$recommended->shortname->value?> </strong>
+												
+												<?foreach($recommended->shortdesc as $shortdesc):?>
+													<?=$shortdesc->value?>
+												<?endforeach;?></div>
 													<div class="item-shortdesc">
-														<?$counter = 1?>
-														<?foreach($recommended->shortdesc as $shortdesc):?>
-															<?=$shortdesc->value?><?if($counter <> count($recommended->shortdesc)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-finishing">
-														<?$counter = 1?>
-														<?foreach($recommended->finishing as $finishing):?>
-															<?=$finishing->value?><?if($counter <> count($recommended->finishing)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
-													</div>
-													<div class="item-turn">
-														<?$counter = 1?>
-														<?foreach($recommended->turn as $turn):?>
-															<?=$turn->value?><?if($counter <> count($recommended->turn)):?>,<?endif;?> 
-															<?$counter++?>
-														<?endforeach;?>
+														
+												<? if ($recommended->sale):?>
+												<strong><span style="color: red;">Распродажа!</span></strong>
+												<?endif?>
 													</div>
 												</div>
 												<div class="price_col">
-													<div>Цена розничная: <del><?=$recommended->price?> р.</del> <span class="discount">-<?=$recommended->discount?>%</span></div>
-													<div>Цена на сайте: <span class="top-price"><?=$recommended->sale_price?></span> р.</div>
-													<div>Наличие: <span class="blue-label"><?=$recommended->location?></span></div>
+													<?if (!$recommended->price && !$recommended->sale_price):?>
+														<div>Цена: <span class="no-price">по запросу</span></div>
+													
+													<?else:?>
+													<?if ($recommended->price):?>
+														<div>Цена розничная: <?=$recommended->price?> р.<!-- <span class="discount">-<?=$recommended->discount?>%</span>--></div>
+													<? endif?>
+														<div>Цена на сайте: <span class="top-price"><?=$recommended->sale_price?></span> р.</div>
+													<?endif?>
+														<div>Наличие: <span class="blue-label"><?=$recommended->qty ? 'на складе СПб' : 'по запросу'?></span></div>
+														<div><a href="" onclick="add_to_cart('<?=$recommended->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></div>
 												</div>
 												
 											</div>
 											
 										<?endforeach;?>
 									</div>
+									<?endif?>
 								</div>
 								
 
@@ -268,11 +318,11 @@
 				
 				<aside id="s_right">
 					<h1>Новости</h1>
-					<div class="menuright">
-						<?foreach($last_news as $item):?>
+					<div class="menuright" id="scroll-right">
+						<?foreach($last_news as $product):?>
 							<div class="news_item">
-								<h2><?=$item->name?></h2>
-								<div class="item_text"><?=$item->description?></div>
+								<h2><a href="<?=$product->full_url?>" style="color: #0000C8"><?=$product->name?></a></h2>
+								<div class="item_text"><span class="news_date"><?=$product->date?></span> <?=$product->description?></div>
 							</div>
 						<?endforeach;?>
 					</div>
@@ -292,4 +342,6 @@
 	<?require_once 'include/scroll_scripts.php'?>
 	<?require_once 'include/range_scripts.php'?>
 	<?require_once 'include/left_menu_scripts.php'?>
+		<?require "include/footer.php"?>
+		<script>$('.fancybox').fancybox();</script>
 </html>

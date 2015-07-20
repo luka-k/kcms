@@ -48,7 +48,7 @@
 										</div>
 										<div>
 											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a href="http://<?=$contractor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><?=$contractor->link?></a></p>
-											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a target="_blank" style="color:#009bdb" href="mailto:bogema-spb@mail.ru"><?=$contractor->email?></a></p>
+											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a target="_blank" style="color:#009bdb" href="mailto:<?=$contractor->email?>"><?=$contractor->email?></a></p>
 											<p style="line-height:12px;font-size: 13px;padding-bottom: 8px;"><?=$contractor->phone?></p>
 											<p style="line-height:12px;font-size: 13px;padding-bottom: 8px;"><?=$contractor->city?></p>
 										</div>
@@ -94,5 +94,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

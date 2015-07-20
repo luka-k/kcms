@@ -25,48 +25,59 @@
 									<?foreach($category->products as $item):?>
 										<div class="product">
 											<div class="product-price">
-												<p>Цена розничная: <del><?=$item->price?> р.</del> <span class="discount">-<?=$item->discount?>%</span></p>
+											<?if (!$item->price && !$item->sale_price):?>
+												<p>Цена: <span class="no-price">по запросу</span></p>
+											
+											<?else:?>
+											<?if ($item->price):?>
+												<p>Цена розничная: <?=$item->price?> р.<!-- <span class="discount">-<?=$item->discount?>%</span>--></p>
+											<? endif?>
 												<p>Цена на сайте: <span class="top-price"><?=$item->sale_price?></span> р.</p>
-												<p>Наличие: <span class="blue-label"><?=$item->location?></span></p>
+											<?endif?>
+												<p>Наличие: <span class="blue-label"><?=$item->qty ? 'на складе СПб' : 'по запросу'?></span></p>
 												<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
 											</div>
 											<div class="product-image">
 												<?if(isset($item->img)):?>
-													<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="100" /></a>
+													<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
+												<?else:?>
+													<a href="<?=$item->full_url?>"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
 												<?endif;?>
 											</div>
 											<div class="product-name">
-												<a href="<?=$item->full_url?>"><?=$item->name?></a></br>
+											<!-- <small style="color: blue;">
+												<?=$item->name?></small><br> -->
+												<a href="<?=$item->full_url?>"><strong>
 												<?=$item->manufacturer_name?>
 
-												<?foreach($item->collection_name as $name):?>
-													<?=$name?>
-												<?endforeach;?>
+												<?= $item->collection_name ?>
 												
-												<?=$item->sku?></br>
+												<?=$item->sku?></strong></a></br>
 	
-												<?foreach($item->color as $color):?>
-													<?=$color->value?>
-												<?endforeach;?>
+												<?= $item->sizes_string?>
 												
-												<?foreach($item->material as $material):?>
-													<?=$material->value?>
+												
+												<?foreach($item->color as $color):?>
+													<?=$color->value?><?endforeach;
+													if ($item->color && $item->material) echo '/';
+													foreach($item->material as $material):?><?=$material->value?>
 												<?endforeach;?>
 												
 												<?foreach($item->finishing as $finishing):?>
-													<?=$finishing->value?>
-												<?endforeach;?>
-												
+													<?=$finishing->value?><?endforeach;?><? if ($item->turn) echo ', ';?>
 												<?foreach($item->turn as $turn):?>
 													<?=$turn->value?>
 												<?endforeach;?>
 												</br>
 
-												<?=$item->shortname->value?> 
+												<strong><?=$item->shortname->value?> </strong>
 												
 												<?foreach($item->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
-												<?endforeach;?>
+												<?endforeach;?><br>
+												<? if ($item->sale):?>
+												<strong><span style="color: red;">Распродажа!</span></strong>
+												<?endif?>
 											</div>
 										</div>
 									<?endforeach;?>
@@ -80,11 +91,11 @@
                                  
                 <aside id="s_right">
 					<h1>Новости</h1>
-					<div class="menuright">
+					<div class="menuright" id="scroll-right">
 						<?foreach($last_news as $item):?>
 							<div class="news_item">
-								<h2><?=$item->name?></h2>
-								<div class="item_text"><?=$item->description?></div>
+								<h2><a href="<?=$item->full_url?>" style="color: #0000C8"><?=$item->name?></a></h2>
+								<div class="item_text"><span class="news_date"><?=$item->date?></span> <?=$item->description?></div>
 							</div>
 						<?endforeach;?>
 					</div>
@@ -102,4 +113,5 @@
 	<?require_once 'include/scroll_scripts.php'?>
 	<?require_once 'include/range_scripts.php'?>
 	<?require_once 'include/left_menu_scripts.php'?>
+	<?require "include/footer.php"?>
 </html>

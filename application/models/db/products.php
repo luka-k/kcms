@@ -165,6 +165,9 @@ class Products extends MY_Model
 		{
 			$item->full_url = $this->get_url($item);
 
+			$item->price = floor($item->price);
+			$item->sale_price = floor($item->sale_price);
+			$item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
 			$object_info = array(
 				'object_type' => 'products',
 				'object_id' => $item->id
@@ -176,10 +179,10 @@ class Products extends MY_Model
 			}
 			else
 			{
-				$item->images = $this->images->prepare_list($this->images->get_list($object_info));
+				$item->images = $this->images->prepare_list($this->images->get_list($object_info, 0, 0, 'is_cover', 'desc'));
 			}
 			
-			$item = $this->set_sale_price($item);
+			//$item = $this->set_sale_price($item);
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
@@ -190,10 +193,27 @@ class Products extends MY_Model
 			$item->collection_name = array();
 			
 			$result = $this->db->get_where("product2collection", array('child_id' => $item->id))->result();
+			$main_collection = '';
+			$sub_collections = array();
 			if($result) foreach($result as $r)
 			{
-				$item->collection_name[] = $this->manufacturers->get_item($r->collection_parent_id)->name;
+				if ($r->is_main)
+					$main_collection = $this->collections->get_item($r->collection_parent_id)->name;
+				else 
+					$sub_collections[] = $this->collections->get_item($r->collection_parent_id)->name;
 			}
+			$item->collection_name = $main_collection;
+			if ($sub_collections)
+				$item->collection_name .= ' ('.implode(';', $sub_collections).')';
+			
+			$sizes = array();
+			if ($item->width)
+				$sizes[] = $item->width;
+			if ($item->height)
+				$sizes[] = 'h'.$item->height;
+			if ($item->depth)
+				$sizes[] = $item->depth;
+			$item->sizes_string = implode('x',$sizes);
 			//временно костылик
 			$item->location = '';
 			return $item;

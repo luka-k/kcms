@@ -1,15 +1,15 @@
 <script>
 	(function($){
-		$("#product-scroll").height($( window ).height() - 70);
-		$(".menuright").height($( window ).height() - 105);
-		$(".leftmenu").height($( window ).height() - 105);
+		$("#product-scroll").height($( window ).height() - 68);
+		$(".menuright").height($( window ).height() - 100);
+		$(".leftmenu").height($( window ).height() - 100);
 		
-		$(".secondcolumn").height($( window ).height() - 105);
-		$("#shadow").height($( window ).height() - 195);
-		$("#full-shadow").height($( window ).height() - 105);
-		$("#wrapper").height($( window ).height() - 95);
+		$(".secondcolumn").height($( window ).height() -70);
+		$("#shadow").height($( window ).height() - 193);
+		$("#full-shadow").height($( window ).height() - 93);
+		$("#wrapper").height($( window ).height() - 65);
 		
-		$("#good_page_scroll").height($( window ).height() - 115);
+		$("#good_page_scroll").height($( window ).height() - 80);
 	})(jQuery);
 </script>
 <?if(isset($filters_checked) && count($filters_checked) > 3):?>

@@ -145,6 +145,7 @@ $autoload['model'] = array(
 	'db/services',
 	'db/documents',
 	'db/files',
+	'db/seo',
 	'db/filters_cache',
 	'db/offices',
 	'table2table'

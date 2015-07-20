@@ -24,12 +24,11 @@ class Index extends Client_Controller {
 			'meta_keywords' => '',
 			'page_title' => $this->standart_data['settings']->catalog_h1,
 			'page_description' => htmlspecialchars_decode($this->standart_data['settings']->catalog_description),
-			'left_menu' => $this->categories->get_tree(),
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
+			'left_menu' => $this->categories->get_another_tree(),
 			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
-			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc')),
+			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_manufacturers()),
 			'breadcrumbs' => $this->breadcrumbs->get()
 		);
 

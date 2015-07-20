@@ -73,9 +73,10 @@ class Documents extends MY_Model
 		$this->db->where("manufacturer_id", $manufacturer_id);
 		if(!empty($documents_ids)) $this->db->where_in("id", $documents_ids);
 		if($doc_type && $doc_type <> "all") $this->db->like("doc_type", $doc_type);
+		$this->db->order_by('sort', 'asc');
 		$documents = $this->db->get($this->_table)->result();
 		
-		sort($documents);
+		//sort($documents);
 		
 		return $documents;
 	}
@@ -94,6 +95,20 @@ class Documents extends MY_Model
 			{
 				$item->full_url = $item->url;
 			}
+			
+			$item->type_icon = 'pdf';
+			if ($item->files && unserialize($item->files))
+			{
+				$item->type_icon = 'folder';
+			} elseif (strstr($item->url, '.xls'))
+			{
+				$item->type_icon = 'xls';
+			} elseif (strstr($item->url, '.doc'))
+			{
+				$item->type_icon = 'doc';
+			}
+			
+			
 			$item->images = $this->images->prepare_list($this->images->get_list(array('object_type' => 'documents', 'object_id' => $item->id)));
 			
 			$categories_ids = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $item->id);

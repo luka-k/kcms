@@ -146,6 +146,8 @@ class Categories extends MY_Model
 			{				
 				$categories_tree[$i] = $this->categories->get_item($r->child_id);
 				
+				if (!$categories_tree[$i]->is_active) {unset($categories_tree[$i]);continue;}
+				
 				$categories_tree[$i]->childs = array();
 				
 				$this->db->where_in("child_id", $categories_ids);
@@ -156,6 +158,14 @@ class Categories extends MY_Model
 					$categories_tree[$i]->childs[$j] = $this->categories->get_item($s_r->child_id);
 					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
 				}
+				
+				$volume = array();
+				foreach($categories_tree[$i]->childs as $j => $branch)
+				{
+					$volume[$j]  = $branch->name;
+				}
+
+				array_multisort($volume, SORT_ASC, $categories_tree[$i]->childs);
 			}
 		}
 		

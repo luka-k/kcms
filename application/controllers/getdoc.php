@@ -28,7 +28,8 @@ class Getdoc extends CI_Controller {
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
 
-			echo file_get_contents(DOCUMENTS_PATH.$file->url);
+			$this->config->load('upload');
+			echo file_get_contents($this->config->item('files_upload_path').'/'.$file->url);
 		}
 	}
 }

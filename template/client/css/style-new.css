@@ -130,7 +130,7 @@ border-right: 2px solid #000;
 border-right: none;
 }
 .right-contacts li.phone {
-	background: url(http://brightbuild.ru/images/icon-phone.png) 0px 0px no-repeat;
+	background: url(../catalog/images/icon-phone.png) 0px 0px no-repeat;
 	padding-left: 16px;
 }
 
@@ -236,7 +236,8 @@ color:#ec1c24;
 			font-size: 12px;
 			padding-left: 22px;
 			margin-top: 4px;
-			width: 250px;
+			/*width: 250px;*/
+			margin-right: 10px;
 			float: left;
 			font-weight: normal;
 			color: #000099;
@@ -292,11 +293,12 @@ color:#ec1c24;
 		.product-price {
 			width: 180px; 
 			float: right;
-			padding-right: 10px;
+			padding-right: 20px;
 		}
 		.product-price p {
 			padding: 0;
 			margin: 0;
+			font-size: 14px;
 			line-height: 22px;
 		}
 		.product-name {
@@ -326,11 +328,11 @@ color:#ec1c24;
 			padding: 0px 3px;
 			background: #ec1c24;
 		}
-		.product .blue-label{
+		.product .blue-label, .product-price .blue-label, .price_col .blue-label{
 			color: #000099;
 			font-weight: bold;
 		}
-		.product .top-price{
+		.product .top-price, .product-price .top-price, .price_col .top-price{
 			color: #ec1c24;
 			font-size: 16px;
 			font-weight: bold;
@@ -386,6 +388,9 @@ color:#ec1c24;
 			margin-left: 22px;
 			margin-top: 4px;
 			color: #0099ff;
+			overflow:hidden;
+			white-space:nowrap;
+			text-overflow: ellipsis;
 		}
 		#s_right h1{
 			font-size: 12px;
@@ -401,8 +406,6 @@ color:#ec1c24;
 		}
 		#s_right p{
 			font-size: 11px;
-			margin-left: 22px;
-			margin-top: 4px;
 			color: #000;
 			line-height: 16px;
 		}
@@ -520,7 +523,7 @@ color:#ec1c24;
 			z-index: 20;
 			left: 530px;
 			text-align: right;
-			font-size: 12px;
+			font-size: 11px;
 			top: 91px;
 			width: 110px;
 			color:#000;
@@ -532,7 +535,7 @@ color:#ec1c24;
 			margin: 0;
 			padding: 0;
 			line-height: 14px;
-			font-size: 12px;
+			font-size: 11px;
 			margin-right: 3px;
 			padding-right: 3px;
 		}
@@ -887,6 +890,11 @@ div.news{
 	height:76px;
 	border:1px solid #7E7E7B;
 }
+#s_right .manufacturers ul img.active{
+	width:174px;
+	height:76px;
+	border:1px solid #ff0000;
+}
 
 /********************************************
 * СТраница продукта
@@ -993,6 +1001,7 @@ div.news{
 	cursor:pointer;
 	color:#000099;
 	height:26px;
+	margin-bottom: 1px;
 	font-weight:bold;
 	background:#CCCCCC;
 }
@@ -1031,7 +1040,7 @@ div.news{
     width: -webkit-calc(100% - 450px);
     width: calc(100% - 450px);
 	float:left;
-	padding-left:15px;
+	padding-left:20px;
 }
 
 .accordeon-body .price_col{
@@ -1146,3 +1155,62 @@ div.news{
 }
 
 .img_col {padding-right: 30px;}
+
+/***********rightcol**********/
+
+#s_right {
+	position: relative;
+	float: right;
+    width: 310px;
+	margin-left: -310px;
+	right:0;
+	min-height: 450px;
+} 
+
+#s_right .rightmenu {
+	width: 295px;
+	height: 606px;
+	margin-right: 6px;
+	padding-top: 12px;
+	background: #eae8e7 url(../images/rightcolumn-bg.png) repeat-x;
+	overflow:hidden;
+} 
+					
+#s_right h1{
+	font-size: 12px;
+	margin:4px 0 9px 22px;
+	color: #0099ff;
+	font-weight:bold;
+}
+
+#s_right h2{
+	font-size: 12px;
+	margin-left: 22px;
+	margin-top: 6px;
+	color: #0000C8;
+	font-weight:bold;
+}
+
+#s_right .item_text{
+	font-size: 11px;
+	margin-left: 22px;
+	margin-top: 9px;
+	color: #000;
+	line-height: 16px;
+}
+
+#s_right .item_text p{
+	padding: 0;
+}
+
+#s_right .item_text .news_date{
+	display:inline-block;
+	float:left;
+	margin-right:3px;
+	color: #0000C8;
+	font-weight:bold;
+}
+#s_right .item_text a{
+	color: #0000C8;
+	text-decoration: underline;
+}

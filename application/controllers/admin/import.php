@@ -18,8 +18,10 @@ class Import extends Admin_Controller
 	
 	public function load1COffers()
 	{
-		$xmlstr = file_get_contents('1c/offers.xml');
+		$xmlstr = file_get_contents('1c_exchange/offers0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
+		
+		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		 
@@ -32,8 +34,34 @@ class Import extends Admin_Controller
 				echo $name."\n";
 				continue;
 			}
-			$price = (string) $el->Цены->Цена->ЦенаЗаЕдиницу;
-			$this->products->update($product->id, array('price' => $price));
+			
+			$price = 0;
+			$sale_price = 0;
+			$price_ru = 0;
+			$price_eur = 0;
+			foreach ( $el->Цены->Цена as $item)
+			{
+				if ((string) $item->ИдТипаЦены == 'd21e8793-6e5c-11e4-a943-e8de2701d5f9' && (string) $item->Валюта == 'RUB')
+				{
+					$price = (string) $item->ЦенаЗаЕдиницу;
+				}
+				if ((string) $item->ИдТипаЦены == 'f4aca4ac-6e24-11e4-a943-e8de2701d5f9' && (string) $item->Валюта == 'EUR')
+				{
+					$price_eur = (string) $item->ЦенаЗаЕдиницу;
+				}
+			}
+			if ($price_eur && !$price_ru)
+			{
+				$price_ru = $price_eur * 61.9183;
+				$price_ru = (100 + $settings->percent_euro) / 100 * $price_ru;
+			}
+			$price = $price_ru;
+			if (!$sale_price && $price)
+			{
+				$sale_price = (100 - $settings->percent_roz) / 100 * $price;
+			}
+			
+			$this->products->update($product->id, array('price' => $price, 'sale_price' => $sale_price));
 		}
 	}
 	
@@ -43,7 +71,7 @@ class Import extends Admin_Controller
 		$this->db->delete('category2category');
 		
 		
-		$xmlstr = file_get_contents('1c/import.xml');
+		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -122,7 +150,7 @@ class Import extends Admin_Controller
 	
 	public function load1CRecommended()
 	{	
-		$xmlstr = file_get_contents('1c/import.xml');
+		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -165,7 +193,7 @@ class Import extends Admin_Controller
 			
 			echo "start updating...\n";
 			
-			if(!empty($recommended_1))foreach($recommended_1 as $sku)
+			if(!empty($recommended_2))foreach($recommended_2 as $sku)
 			{
 				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
 				if($anchor_product)
@@ -180,7 +208,7 @@ class Import extends Admin_Controller
 				}
 			
 			}
-			if(!empty($recommended_2))foreach($recommended_2 as $sku)
+			if(!empty($recommended_1))foreach($recommended_1 as $sku)
 			{
 				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
 				if($anchor_product)
@@ -214,7 +242,7 @@ class Import extends Admin_Controller
 				
 	public function load1C()
 	{
-		$xmlstr = file_get_contents('1c/import.xml');
+		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -247,7 +275,7 @@ class Import extends Admin_Controller
 			{
 				switch ((string) $param->Наименование)
 				{
-					case 'Группа товаров 1':
+					case 'Группы товаров 1 уровня':
 						$cat1 = explode(';', (string) $param->Значение);
 						break;
 					case 'Группа товаров 2 уровня':
@@ -275,6 +303,10 @@ class Import extends Admin_Controller
 					case 'Глубина':
 						$value = (string) $param->Значение;
 						if(!empty($value)) $data['depth'] = (string) $param->Значение;
+						break;
+					case 'Распродажа':
+						$value = (string) $param->Значение;
+						if($value == 'true') $data['sale'] = 1;
 						break;
 					case 'Цвет':
 						$filter = explode('/', (string) $param->Значение);
@@ -323,22 +355,21 @@ class Import extends Admin_Controller
 						}
 						break;
 					case 'ОписаниеФайла':
-						$images[] = '1c/'. ( (string) $param->Значение);
+						$images[] = '1c_exchange/'. ( (string) $param->Значение);
 						break;
 				}
 			}
 			$data['sort'] .= $sku;
-
-			if ($this->products->get_item_by(array('1c_id' => $data['1c_id']))) 
-				continue;
+			$_product = ($this->products->get_item_by(array('1c_id' => $data['1c_id']))); 
+	//			continue;
 			 
 			echo "start inserting...\n";
 			
-			$_manufacturer = $this->manufacturer->get_item_by(array('name' => $manufacturer));
+			$_manufacturer = $this->manufacturers->get_item_by(array('name' => $manufacturer));
 			if (!$_manufacturer)
 			{
-				$this->manufacturer->insert(array('name' => $manufacturer, 'url' => $this->string_edit->slug($manufacturer)));
-				$_manufacturer = $this->manufacturer->get_item($this->db->insert_id());
+				$this->manufacturers->insert(array('name' => $manufacturer, 'url' => $this->string_edit->slug($manufacturer)));
+				$_manufacturer = $this->manufacturers->get_item($this->db->insert_id());
 			}
 			echo "manufacturer_id=".$_manufacturer->id."\n";
 				
@@ -401,15 +432,21 @@ class Import extends Admin_Controller
 				$data['price'] = 0;
 				$data['manufacturer_id'] = $_manufacturer->id;
 				$data['url'] = $this->string_edit->slug($data['name']);
-				$this->products->insert($data);
-				$product_id = $this->db->insert_id();
-				
+				if (!$_product)
+				{
+					$this->products->insert($data);
+					$product_id = $this->db->insert_id();
+				} else {
+					$this->products->update($_product->id,$data);
+					$product_id = $_product->id;
+				}
 			
-				foreach ($my_collections as $collection_id)
+				foreach ($my_collections as $_i => $collection_id)
 				{
 					$product2collection = array(
 						'collection_parent_id' => $collection_id,
-						'child_id' => $product_id
+						'child_id' => $product_id,
+						'is_main' => !$_i
 					); 
 					
 					if (!$this->db->get_where('product2collection', $product2collection)->result())				
@@ -469,9 +506,10 @@ class Import extends Admin_Controller
 		}
 	}
 	
-	public function load1CImages($upload_jpg = false)
+	public function update1CImageCovers()
 	{
-		$xmlstr = file_get_contents('1c/import.xml');
+		$this->db->query('UPDATE images SET is_cover = 0 WHERE object_type="products"');
+		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -486,11 +524,12 @@ class Import extends Admin_Controller
 			//echo $total.': '.$id."\n";
 			
 			$images = array();
-			$jpgs = array();
-			
-			$mainImage = (string) $el->Картинка;
-			if ($mainImage)
-				$images[] = '1c/'. $mainImage;
+			$main_image = false;
+			foreach ($el->Картинка as $im)
+			{
+				if (!$main_image)
+					$main_image = $im;
+			}
 			
 			$data = array(
 				'1c_id' => $id
@@ -501,19 +540,90 @@ class Import extends Admin_Controller
 				switch ((string) $param->Наименование)
 				{
 					case 'ОписаниеФайла':
-						$image = '1c/'.( (string) $param->Значение);
-						if ($image != $mainImage)
-							$images[] =  $image;
+						$image = ( (string) $param->Значение);
+						if (!$main_image)
+							$main_image = $image;
+						break;
+				}
+			}
+			$product = ($this->products->get_item_by(array('1c_id' => $data['1c_id'])));
+			if (!$product || !$main_image)
+				continue;
+			$main_image = basename($main_image);
+			$main_image = explode('.', $main_image);
+			$main_image = trim($main_image[0]);
+			$this->db->query('UPDATE images SET is_cover = 1 WHERE object_type="products" AND object_id="'.$product->id.'" AND url LIKE "%'.$main_image.'%"');
+			echo('UPDATE images SET is_cover = 1 WHERE object_type="products" AND object_id="'.$product->id.'" AND url LIKE "%'.$main_image.'%"<br>');
+				
+		}
+		die('ok');
+	}
+	
+	public function load1CImages($upload_jpg = false)
+	{
+		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		ini_set('display_errors', 1);
+		$total = 0;
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			$total++;
+			$id = (string) $el->Ид;
+			$name = (string) $el->Наименование;
+			//echo $total.': '.$id."\n";
+			
+			$images = array();
+			$uniq_images = array();
+			$jpgs = array();
+			
+			foreach ($el->Картинка as $im)
+			{
+				$images[] = '1c_exchange/'. $im;
+			}
+			
+			$data = array(
+				'1c_id' => $id
+			);
+			
+			foreach ($el->ЗначенияРеквизитов->ЗначениеРеквизита as $param)
+			{
+				switch ((string) $param->Наименование)
+				{
+					case 'ОписаниеФайла':
+						$image = '1c_exchange/'.( (string) $param->Значение);
+						$images[] =  $image;
 						break;
 				}
 			}
 			$product = ($this->products->get_item_by(array('1c_id' => $data['1c_id'])));
 			if (!$product)
 				continue;
-			if ($this->images->get_list(array('object_type'=>'products', 'object_id' => $product->id))) 
-				continue;
-			 
-			foreach ($images as $i => $im)
+			$product_images = $this->images->get_list(array('object_type'=>'products', 'object_id' => $product->id)); 
+			$product_image_names = array();
+			foreach ($product_images as $im)
+			{
+				$fname = explode('.', basename($im->url));
+				if (!$product_image_names[$fname[0]])
+				{
+					$product_image_names[] = $fname[0];
+				}
+			}
+			$image_names =  array();
+			foreach ($images as $im)
+			{
+				$fname = explode('.', basename($im));
+				if (!isset($image_names[$fname[0]]))
+				{
+					$image_names[$fname[0]] = 1;
+					if (!in_array(str_replace('_', '-', $fname[0]), $product_image_names))
+					if (!in_array($fname[0], $product_image_names))
+						$uniq_images[] = $im;
+				}
+			}
+			foreach ($uniq_images as $i => $im)
 			{
 				$im = explode('#', $im);
 				$im = $im[0];
@@ -535,7 +645,7 @@ class Import extends Admin_Controller
 						$tiff->writeImage($jpg);
 					}
 				
-				}
+				} else
 				if (strstr($im, '.pdf'))
 				{
 					$jpg = str_replace('.pdf', '.jpg', FCPATH.$im);
@@ -549,9 +659,28 @@ class Import extends Admin_Controller
 						$pdf->setCompressionQuality(97);
 						$pdf->writeImage($jpg);
 					}
+				} else
+				if (strstr($im, '.gif'))
+				{
+					$jpg = str_replace('.gif', '.jpg', FCPATH.$im);
+					$jpgs[$jpg] = true;
+					if (!file_exists($jpg))
+					{
+						$gif = new Imagick();
+						//$gif->setResolution(200,200);
+						$gif->readImage(FCPATH.$im);
+						$gif->setImageFormat('jpg');
+						$gif->setCompressionQuality(97);
+						$gif->writeImage($jpg);
+					}
+				} else
+				if (strstr($im, '.jpg') || strstr($im, '.jpeg') )
+				{
+					$jpg = FCPATH.$im;
+					$jpgs[$jpg] = true;
 				}
+			}
 				
-				if ($upload_jpg)
 				{
 					$i = 0;
 					foreach ($jpgs as $jpg => $ok)
@@ -559,13 +688,13 @@ class Import extends Admin_Controller
 						echo $jpg.' '.$product->id."\n";
 						$filename = explode('/', $jpg);
 						$filename = $filename[count($filename)-1];
-						$this->images->upload_image(array('name' => $filename, 'tmp_name' => $jpg), array('object_type' => 'products', 'object_id' => $product->id, 'is_cover' => ($i == 0 ? 1 : 0)));
+						if ($upload_jpg)
+							$this->images->upload_image(array('name' => $filename, 'tmp_name' => $jpg), array('object_type' => 'products', 'object_id' => $product->id));
 						$i++;
 					}
 					//if ($i)
 						//die('ok');
-				}
-			}
+				} 
 				
 		}
 		die('ok');

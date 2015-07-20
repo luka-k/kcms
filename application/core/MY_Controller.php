@@ -53,6 +53,8 @@ class Client_Controller extends CI_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
+		$seo = $this->seo->get_item_by(array('url' => $_SERVER['REQUEST_URI']));
+		
 		$this->standart_data = array(
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),
@@ -60,7 +62,12 @@ class Client_Controller extends CI_Controller
 			"total_qty" => $this->cart->total_qty(),
 			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
 			"top_menu" => $this->dynamic_menus->get_menu(4)->items,
-			'settings' => $settings
+			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'desc')),
+			'settings' => $settings,
+			"seo_meta_description" => $seo->meta_desription,
+			"seo_meta_title" => $seo->meta_title,
+			"seo_meta_keywords" => $seo->meta_keywords,
+			"seo_description" => $seo->description
 		);
 	}
 }

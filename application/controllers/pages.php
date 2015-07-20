@@ -28,7 +28,7 @@ class Pages extends Client_Controller {
 		{
 			$sub_template = "single-news";
 			$template = $root->id == 1 ? "client/news.php" : "client/article.php";
-			$page->articles = $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1), 10, 0, "date", "asc"));
+			$page->articles = $this->articles->prepare_list($this->articles->get_list(array("parent_id" => 1, "manufacturer_id" => $page->manufacturer_id), 10, 0, "date", "desc"));
 			$content = $page;
 		}		
 		elseif(isset($page->articles))
@@ -76,6 +76,7 @@ class Pages extends Client_Controller {
 	
 		$data = array(
 			'title' => $content->name,
+			'top_active' => 'articles',
 			'meta_keywords' => $content->meta_keywords,
 			'meta_description' => $content->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -83,6 +84,7 @@ class Pages extends Client_Controller {
 			'select_item' => "",
 			'content' => $content,
 			'manufacturers' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
+			'manufacturers_with_news' => $this->manufacturers->prepare_list($this->manufacturers->get_manufacturers_with_news()),
 			//'selected_manufacturer' => $selected_manufacturer,
 			'sub_template' => $sub_template,
 			'price_from' => $price_from,
@@ -118,7 +120,6 @@ class Pages extends Client_Controller {
 			'title' => 'Страница не найдена',
 			'above_menu_title' => 'Страница не найдена',
 			'select_item' => "",
-			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'asc')),
 			'settings' => $this->settings->get_item_by(array('id' => 1)),
 		);
 		

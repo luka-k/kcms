@@ -44,6 +44,9 @@
 										<?$manufacturer_counter++?>
 										<?endforeach;?>
 									</div>
+										<div class="seo_description">
+											<?= $seo_description?>
+										</div>
 								</div>
 								
 							</div>
@@ -63,5 +66,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		<?require "include/footer.php"?>
 	</body>
 </html>

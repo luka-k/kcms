@@ -42,13 +42,14 @@ class Transfer extends Admin_Controller
 						'name' => $this->_categories[$parent['branch_id']]['name']
 					);
 			}
-			
+			$images = unserialize($manufacturer['images']);
 			$this->_manufacturers[$manufacturer['id']] = array(
 				'name' => $manufacturer['name'],
 				'url' => $manufacturer['url'],
 				'country' => $manufacturer['country'],
 				'link' => $manufacturer['link'],
 				'email' => $manufacturer['email'],
+				'image' => $images[0]['filename'],
 				'phone' => $manufacturer['phone'],
 				'city' => $manufacturer['city'],
 				'categories' => $my_categories
@@ -82,6 +83,27 @@ class Transfer extends Admin_Controller
 					'phone' => $manufacturer['phone'],
 					'city' => $manufacturer['city']
 				));
+			}
+		}
+	}
+	
+	public function transfer_manufacturers_images()
+	{
+		foreach ($this->_manufacturers as $manufacturer)
+		{
+			
+			$m = $this->manufacturers->get_item_by(array('name' => strtoupper($manufacturer['name'])));
+			if ($m)
+			{
+				/*$this->images->insert(array(
+					'object_type' => 'manufacturers',
+					'object_id' => $m->id,
+					'is_cover' => 1,
+					'url' => '/logos/'.$manufacturer['image'],
+					'name' => $manufacturer['image']
+				));*/
+				file_put_contents('/home/admin/web/shop.brightbuild.ru/public_html/download/images/logos/'.$manufacturer['image'],
+				file_get_contents('/home/admin/web/test.brightbuild.ru/public_html/upload/cache/'.str_replace('.', '-162x72.', $manufacturer['image'])));
 			}
 		}
 	}
@@ -290,6 +312,60 @@ class Transfer extends Admin_Controller
 		}
 	}
 	
+	public function transfer_docs_images()
+	{
+		$c = 0;
+		foreach ($this->documents->get_list(false) as $doc)
+		{
+			$r = mysql_fetch_assoc(mysql_query('SELECT * FROM vkr_document WHERE link = "'. $doc->url.'"', $this->old_db_connection));
+			if (!$r && $doc->id == 468)
+				$r =  mysql_fetch_assoc(mysql_query('SELECT * FROM vkr_document WHERE id = 187'));
+			if ($r)
+			{
+				$images = unserialize($r['images']);
+				$object_info = array(
+					"object_type" => 'documents',
+					"object_id" => $doc->id
+				);
+				if ($this->images->get_item_by($object_info))
+				{
+					echo '+'; 
+					continue;
+				}
+				foreach($images as $im)
+				{
+					$c++;
+					$img = array('name' => $im['filename'],
+								 'tmp_name' => '/home/admin/web/test.brightbuild.ru/public_html/upload/'.$im['filename']);
+					if($im['filename'])
+						$this->images->upload_image($img, $object_info);
+				}
+					//file_put_contents('/home/admin/web/shop.brightbuild.ru/public_html/download/images/docs/'.$im['filename'],
+				//file_get_contents('/home/admin/web/test.brightbuild.ru/public_html/upload/cache/'.str_replace('.', '-162x72.', $manufacturer['image'])));
+			} else echo 'ERROR in '.$doc->id.'<br>'."\n";
+			
+		}
+		echo 'TOTAL: '.$c.'<br>'."\n";
+	}
+	
+	public function transfer_docs_sorts()
+	{
+		$c = 0;
+		foreach ($this->documents->get_list(false) as $doc)
+		{
+			$r = mysql_fetch_assoc(mysql_query('SELECT * FROM vkr_document WHERE link = "'. $doc->url.'"', $this->old_db_connection));
+			if (!$r && $doc->id == 468)
+				$r =  mysql_fetch_assoc(mysql_query('SELECT * FROM vkr_document WHERE id = 187'));
+			if ($r)
+			{
+				$this->documents->update($doc->id, array('sort' => $r['sort']));
+				echo $r['sort'].' in '.$doc->id.'<br>'."\n";
+			} else echo 'ERROR in '.$doc->id.'<br>'."\n";
+			
+		}
+		echo 'TOTAL: '.$c.'<br>'."\n";
+	}
+	
 	public function load_services()
 	{
 		$q = mysql_query('SELECT * FROM vkr_branchu ORDER BY level ASC', $this->old_db_connection);
@@ -318,6 +394,12 @@ class Transfer extends Admin_Controller
 		
 		switch ($data)
 		{
+			case 'docsort':
+				$this->transfer_docs_sorts();
+				break;
+			case 'images':
+				$this->transfer_docs_images();
+				break;
 			case 'manufacturers':
 				print_r($this->_manufacturers);
 				//$this->transfer_manufacturers();

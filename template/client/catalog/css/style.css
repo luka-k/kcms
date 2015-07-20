@@ -231,7 +231,7 @@ header .right-contacts {
 }
 
 #s_left .leftmenu {
-	background: url(../images/leftcolumn-bg.png) repeat-x;
+	background: url(../images/leftcolumn-bg.png) repeat;
 	margin-left: 6px;
 	padding-top: 15px;
 	-webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
@@ -330,8 +330,11 @@ header .right-contacts {
 	
 }
 
+.manufacturer-categories-list {
+	height: 74px;
+}
 .sub-menu li {
-	font-size: 11px;
+	font-size: 14px;
 	margin-bottom: 10px;
 	padding-left: 60px;
 	position: relative;
@@ -456,6 +459,9 @@ main.contacts{
 	margin-bottom: 13px;
 }
 
+.logotype {
+	width: 146px;
+}
 .content{
 	overflow-y:scroll;
 }
@@ -778,17 +784,32 @@ main.contacts{
 .navigation-mini.fixed {
  position: fixed;
  top: 10px; /*здесь указываем отступ сверху*/
- z-index: 9999; /*устанавливаем блок поверх всех элементов на странице*/
+ z-index: 800; /*устанавливаем блок поверх всех элементов на странице*/
 }
 
 .navigation-mini a {
 	font-size: 13px;
-	border-right: 1px solid black;
-	padding-right: 4px;
+	border-right: 2px solid black;
+	padding-right: 3px;
+	padding-left: 0px;
 	white-space:nowrap;
 	font-weight: bold;
 }
-
+@media only screen and (max-width: 1400px)
+{
+.navigation-mini a {
+	border-right: 1px solid black;
+	font-size: 11px;
+}
+}
+@media only screen and (max-width: 1300px)
+{
+.navigation-mini a {
+	border-right: 1px solid black;
+	padding-right: 0px;
+	font-size: 9px;
+}
+}
 .navigation-mini li-:last-child {
 	padding-right: 0;
 }
@@ -821,6 +842,10 @@ main.contacts{
 	position: relative;
 }
 
+.main-a .metro .selected{
+	font-size: 12px; !important;
+}
+
 .catalog .navigation-mini {
 	background: linear-gradient(to top, #b8ada9 16%, #cfe5f1 55%, #cfe5f1 79%, #918e8f 100%);
 }
@@ -830,11 +855,12 @@ main.contacts{
 }
 
 .navigation-mini .main-a-2 {
-	color: #3399ff !important;
+	color: #3399ff;
 	float: right;
 	border: none;
 	position: relative;
 	padding-right: 23px;
+	top: 2px;
 	font-size: 11px;
 	text-decoration: underline;
 }
@@ -871,7 +897,6 @@ main.contacts{
 
 .all-items{
 	width:100%;
-	height: 820px;
 }
 
 .items {
@@ -920,9 +945,58 @@ main.contacts{
 	background-repeat: no-repeat;
 }
 
+.xls {
+	float:left;
+	position: relative;
+}
+
+.xls:after {
+	content: "";
+	position: absolute;
+	background: url(../images/xls.png);
+	width: 16px;
+	height: 18px;
+	right: -25px;
+	top: 0px;
+	background-repeat: no-repeat;
+}
+
+.doc {
+	float:left;
+	position: relative;
+}
+
+.doc:after {
+	content: "";
+	position: absolute;
+	background: url(../images/txt.png);
+	width: 16px;
+	height: 18px;
+	right: -25px;
+	top: 0px;
+	background-repeat: no-repeat;
+}
+
+.folder {
+	float:left;
+	position: relative;
+}
+
+.folder:after {
+	content: "";
+	position: absolute;
+	background: url(../images/folder.jpg);
+	width: 16px;
+	height: 18px;
+	right: -25px;
+	top: 0px;
+	background-repeat: no-repeat;
+}
+
 .item-menu{
 	position:relative;
 	float:left;
+	height: 72px; 
 	width:100%;
 }
 
@@ -971,6 +1045,10 @@ main.contacts{
 	width:80px;
 }
 
+.catalog-row li img, .item-pic img{
+	border: 1px solid #ccc;
+}
+
 .catalog-row .mCSB_container{
 	margin-bottom:0px;
 }
@@ -996,7 +1074,7 @@ main.contacts{
 	height: 606px;
 	margin-right: 6px;
 	padding-top: 12px;
-	background: url(../images/rightcolumn-bg.png) repeat-x;
+	background: #eae8e7 url(../images/rightcolumn-bg.png) repeat-x;
 	overflow:hidden;
 } 
 					
@@ -1030,6 +1108,10 @@ main.contacts{
 	color: #0000C8;
 	font-weight:bold;
 }
+#s_right .item_text a{
+	color: #0000C8;
+	text-decoration: underline;
+}
 
 /****scrollbar****/
 
@@ -1050,4 +1132,13 @@ main.contacts{
 	width: 1px !important;
 }
 #slider-scroll .mCSB_container{
+}
+
+.seo_description {
+margin-top: 10px;
+margin-bottom: 10px;
+font-size: 11px;
+}
+.seo_description h2{
+font-size: 13px;
 }
