@@ -39,7 +39,7 @@ class Content extends Admin_Controller
 		
 		$data = array_merge($this->standart_data, $data);
 				
-		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
+		$order = "name";
 		$direction = "acs";
 		
 		if($this->db->field_exists('parent_id', $type))
@@ -47,11 +47,7 @@ class Content extends Admin_Controller
 			if($type <> "products") $data['tree'] = $this->$type->get_tree(0);
 		}
 		
-		if($type == "documents") 
-		{
-			$order = 'name';
-			$data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "name", "asc");
-		}
+		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "name", "asc");
 		
 		if($id == "all")
 		{
@@ -114,7 +110,7 @@ class Content extends Admin_Controller
 			
 		$data['selects']['category2category'] =$this->categories->get_tree(FALSE, array(), "admin");
 		$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
-		$data['selects']['product2collection'] = $this->collections->get_tree(0, "parent_id");
+		$data['selects']['product2collection'] = $this->collections->get_tree(0);
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
 
 		$data = array_merge($this->standart_data, $data);
@@ -473,7 +469,7 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			redirect(base_url().'admin/content/items/'.$type);
+			redirect(base_url().'admin/content/items/'.$type.'/all');
 		}
 	}
 	

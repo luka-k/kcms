@@ -633,7 +633,7 @@ class MY_Model extends CI_Model
 					}
 					else
 					{ 
-						$return->$key = $_POST[$key];
+						if(isset($_POST[$key])) $return->$key = $_POST[$key];
 					}
 				}
 			}

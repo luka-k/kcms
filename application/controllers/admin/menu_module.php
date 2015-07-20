@@ -109,7 +109,7 @@ class Menu_module extends Admin_Controller
 				$this->db->select_max('sort');
 				$query = $this->db->get('menus_items');
 				$max_sort = $query->row()->sort;
-				
+				$info->url = '';
 				$info->sort = $max_sort+1;
 				$this->menus_items->insert($info);
 				$info->id = $this->db->insert_id();
