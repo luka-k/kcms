@@ -25,7 +25,7 @@
 	<script>
 		$(document).ready(function(){
 			$('#ajax_from').val(10);
-		<? if (!$no_ajax):?>
+		<? if (!isset($no_ajax)):?>
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
