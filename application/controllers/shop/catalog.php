@@ -350,6 +350,7 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$last_cache_id = $this->session->userdata('last_cache_id');
+
 		$cache_data = array();
 		if($last_cache_id) $cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
 
