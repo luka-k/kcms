@@ -78,10 +78,10 @@ class Collections extends MY_Model
 	
 	private function _get_tree($parent_id, $filtred_ids, $selected)
 	{
-		
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
 		$branches = $this->get_list(array('parent_id' => $parent_id), FALSE, FALSE, 'name', 'asc');
 		$branches = $this->prepare_list($branches);
+
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$sub_tree = $this->_get_tree($b->id, $filtred_ids, $selected);

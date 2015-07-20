@@ -534,7 +534,7 @@ class MY_Model extends CI_Model
 	* @param string $parent_field
 	* @return array
 	*/
-	public function get_tree($parent_id, $parent_field)
+	public function get_tree($parent_id, $parent_field = 'parent_id')
 	{
 		return $this->get_sub_tree($parent_id, $parent_field);
 	}

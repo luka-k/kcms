@@ -118,6 +118,31 @@ class Categories extends MY_Model
 		return $branches;	
 	}
 	
+	public function get_admin_tree($parent_id)
+	{
+		$items = $this->db->get_where('category2category', array('category_parent_id' => $parent_id))->result(); 
+		
+		$branches = array();
+		
+		if (!empty($items)) foreach($items as $item)
+		{
+			$branch = $this->get_item_by(array('id' => $item->child_id));
+			if(!empty($branch)) $branches[] = $branch;
+		}
+		
+		$name = array();
+		if (!empty($branches)) 
+		{
+			foreach($branches as $i => $b)
+			{
+				$names[$i] = $b->name;
+				$branches[$i]->childs = $this->get_admin_tree($b->id);
+			}
+			array_multisort($names, SORT_ASC, $branches);
+		}
+		return $branches;
+	}
+	
 	public function get_another_tree($type = 'catalog')
 	{
 		$categories_tree = array();
