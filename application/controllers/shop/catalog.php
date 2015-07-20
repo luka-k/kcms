@@ -255,9 +255,8 @@ class Catalog extends Client_Controller {
 	{	
 		$cache_id = md5(serialize($this->post));
 		
-		my_dump($this->post);
 		$cache = $this->filters_cache->get($cache_id);
-		$cache = FALSE;
+		//$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -320,24 +319,25 @@ class Catalog extends Client_Controller {
 			{
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
 			}
-	
-			$data = array_merge($this->standart_data, $data);
 			
 			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
 			$this->filters_cache->insert($cache_id, $data);
+	
+			$data = array_merge($this->standart_data, $data);
+		
 			$this->benchmark->mark('code_end');
 			//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 			redirect(base_url()."catalog/filter/".$cache_id);
-		}
-		
+		}	
 	}
 	
 	public function filter($cache_id)
 	{
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);		
+		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/shop/categories', $data);
 	}
 	
