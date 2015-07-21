@@ -8,7 +8,7 @@
 body {
 	height:100%;
 	width:100%;
-	min-width:1260px;
+	/*min-width:1260px;*/
 	font-family: OpenSansBold, Tahoma;
 }
 
@@ -18,7 +18,7 @@ main {
 }
 
 .wrapper {
-	width:1583px;
+	/*width:1583px;*/
 	margin:0 auto;
 }
 
@@ -1166,4 +1166,27 @@ font-size: 11px;
 }
 .seo_description h2{
 font-size: 13px;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+	#s_right {
+		display:none;
+	}
+	
+	main {
+        padding: 0 0 0 290px;
+    }
+		
+	main.cart {
+		padding: 0 0 0 290px;
+	}
+		
+	main.news {
+		padding: 0 0 0 290px;
+	}
+	
+	.catalog{
+	width: 100%;
+}
 }

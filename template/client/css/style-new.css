@@ -1225,3 +1225,22 @@ div.news{
 	color: #0000C8;
 	text-decoration: underline;
 }
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+	#s_right {
+		display:none;
+	}
+	
+	main {
+        padding: 0 0 0 290px;
+    }
+		
+	main.cart {
+		padding: 0 0 0 290px;
+	}
+		
+	main.news {
+		padding: 0 0 0 290px;
+	}
+}
