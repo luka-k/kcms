@@ -117,6 +117,22 @@ header .right-contacts {
 	list-style:none;
 }
 
+header .minicart {
+	position: absolute;
+	right: 24px;
+	top: 33px;
+	font-size: 14px;
+}
+
+header .minicart  a{
+	text-decoration: none;
+	padding-top: 0px;
+	padding-bottom: 3px;
+	padding-left: 20px;
+	background: url(/template/client/images-new/icon-cart.png) 0 0 no-repeat;
+	color: black;
+}
+
 .right-contacts  ul{
 	list-style:none;
 	font-size:14px;
@@ -140,7 +156,12 @@ header .right-contacts {
 	padding-left: 16px;
 }
 
+.top-menu{
+	position:relative;
+}
+
 .top-menu  ul{
+	position:relative;
 	list-style:none;
 }
 
@@ -173,11 +194,15 @@ header .right-contacts {
 	display:none;
 	padding:0;
 	position:absolute;
-	top:18px;
-	left:-10px;
-	background:#fff/*c8c8c8*/;
+	top:16px;
+	margin-left:-22px;
+	background:#c8c8c8;
 	box-shadow:2px 2px 10px rgba(0,0,0,0.5);
 	z-index:110000;
+}
+
+.top-menu li.first ul{
+	margin-left:0px;
 }
 
 .top-menu  li:hover > ul{
@@ -197,7 +222,7 @@ header .right-contacts {
 
 .top-menu li ul li a:hover{
 	color:#ec1c24;
-}		
+}
 
 /*****************************************/
 

@@ -1,14 +1,41 @@
 <header>
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
-		<div class="catalog-btn"><a href="http://brightbuild.ru/catalog">Каталог производителей</a></div><!--ru-->
+		
+		<div class="catalog-btn">
+			<?$url = $_SERVER['HTTP_HOST'];?>
+			<?$host = explode('.', $url);?>
+			<?if($host[0] == 'shop'):?>
+				<a href="http://brightbuild.ru/catalog">Каталог производителей</a>
+			<?else:?>
+				<a href="http://shop.brightbuild.me/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>">
+					Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>
+				</a>
+			<?endif;?>
+		</div><!--ru-->
+		
+		
 		<div class="top-menu">
-			<ul>
-				<li><a href="<?=base_url()?>catalog" class="active">Магазин</a></li>
-				<li><a href="/catalog/sale">Распродажа</a></li>
-				<li><a href="/inventory/" target="_blank">Остатки</a></li>
-				<li><a href="<?=base_url()?>bb/">bрайтbилd</a></li>
-				<li><a href="<?=base_url()?>contacts">Контакты</a></li>
+			<ul class="clearfix">
+				<li class="first <?if($top_active == 'catalog'):?>current<?endif;?>">
+					<a href="#">Каталог</a>
+					<ul>
+						<li class=""><a href="http://brightbuild.me/catalog">Производители</a></li>
+						<li class=""><a href="http://brightbuild.me/vendors">Продавцы</a></li>
+						<li class=""><a href="http://brightbuild.me/contractors">Подрядчики</a></li>
+					</ul>
+				</li>
+				<li class="<?if($top_active == 'shop'):?>current<?endif;?>">
+					<a href="#">Магазин</a>
+					<ul>
+						<li class=""><a href="http://shop.brightbuild.me/catalog">Товары</a></li>
+						<li class=""><a href="http://shop.brightbuild.me/catalog/sale/">Распродажи</a></li>
+						<li class=""><a href="<?=base_url()?>">Оплата/Доставка</a></li>
+					</ul>
+				</li>
+				<li class="<?if($top_active == 'inventory'):?>current<?endif;?>"><a href="<?=base_url()?>inventory">Складские остатки</a></li>
+				<li class="<?if($top_active == 'bb'):?>current<?endif;?>"><a href="<?=base_url()?>bb">bрайтbилd</a></li>
+				<li class="<?if($top_active == 'contacts'):?>current<?endif;?>"><a href="<?=base_url()?>contacts">Контакты</a></li>
 				<li class="right"><a href="<?=base_url()?>articles/novosti/">Новости</a></li>
 			</ul>
 		</div>
