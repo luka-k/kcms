@@ -3,7 +3,7 @@
 	<?require_once 'include/head.php'?>	
 	<body>
 		<!-------------------header--------------------->
-		<? require 'include/header.php'?>
+		<? require FCPATH.'application/views/client/include/header.php'?>
 		<!-----------------end_header-------------------->
 		
 		<div id="wrapper clearfix">
@@ -36,12 +36,12 @@
 				<!-----leftcol------>
 				<aside id="s_left">
 					<h1>Каталог производителей</h1>
-					<?require "include/left_menu.php"?>
+					<?require 'include/left_menu.php'?>
 				</aside><!--end_leftcol-->
                    
 				<!-----rightcol----->
                 <aside id="s_right">
-					<?require "include/news_collumn.php"?>
+					<?require FCPATH.'application/views/client/include/news_collumn.php'?>
 				</aside><!--end_rightcol-->
 			</div>
 		</div>

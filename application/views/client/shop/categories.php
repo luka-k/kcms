@@ -4,7 +4,7 @@
 
 	<body>
 		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
-		<? require 'include/header.php'?>
+		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 		<div id="wrapper" >
 			<div class="section maxw">
@@ -12,7 +12,7 @@
 					<main>
 						<article>
 							<div id="product-scroll" style="height: 700px; overflow-y: scroll;">
-								<? require 'include/breadcrumbs.php' ?>
+								<? require FCPATH.'application/views/client/include/breadcrumbs.php' ?>
 								<div class="sortings">
 									Сортировка: 
 									<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
@@ -90,15 +90,7 @@
 				<? require 'include/left-col.php'?>
                                  
                 <aside id="s_right">
-					<h1>Новости</h1>
-					<div class="menuright" id="scroll-right">
-						<?foreach($last_news as $item):?>
-							<div class="news_item">
-								<h2><a href="<?=$item->full_url?>" style="color: #0000C8"><?=$item->name?></a></h2>
-								<div class="item_text"><span class="news_date"><?=$item->date?></span> <?=$item->description?></div>
-							</div>
-						<?endforeach;?>
-					</div>
+					<?require FCPATH.'application/views/client/include/news_collumn.php'?>
 				</aside>
 			</div>
 		</div>

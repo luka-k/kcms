@@ -144,9 +144,9 @@ function callback_submit(form_id){
 }
 	
 	
-	function sub_form(){
-		var errorClass = 'frame-input_error';
+function sub_form(){
+	var errorClass = 'frame-input_error';
 
-			if (validation($("#order"), errorClass)) return false;
-			$("#order").submit();
-		}
+	if (validation($("#order"), errorClass)) return false;
+	$("#order").submit();
+}

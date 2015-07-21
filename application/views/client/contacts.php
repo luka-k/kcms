@@ -3,7 +3,7 @@
 	<?require_once 'catalog/include/head.php'?>	
 	<body>
 		<!-------------------header--------------------->
-		<? require 'catalog/include/header.php'?>
+		<? require 'include/header.php'?>
 		<!-----------------end_header-------------------->
 		
 		<div id="wrapper clearfix">
@@ -57,7 +57,7 @@
                    
 			</div>
 		</div>
-		<?require "catalog/include/contacts_script.php"?>
-		<?require 'include/footer.php';?>
+		<?require "include/contacts_script.php"?>
+		<?require 'shop/include/footer.php';?>
 	</body>
 </html>

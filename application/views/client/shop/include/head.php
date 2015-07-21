@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
 	
 
 	<script>

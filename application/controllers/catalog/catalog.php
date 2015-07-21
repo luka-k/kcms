@@ -99,11 +99,16 @@ class Catalog extends Client_Controller {
 		$manufacturer = $content->manufacturer;
 
 		$documents = $this->documents->get_by_filter($content->manufacturer->id, $content->category, $content->doc_type['value']);
-
+		
 		$active_doc_type = $content->doc_type['title'];
 		
 		$manufacturer->documents = $this->documents->prepare_list($documents);
-		
+
+		if($manufacturer->documents) foreach($manufacturer->documents as $i => $m_d)
+		{
+			$manufacturer->documents[$i]->categories = $this->categories->prepare_list($m_d->categories);
+		}
+
 		$this->breadcrumbs->add("", $active_doc_type);
 		
 		$menu_link = "catalog/";

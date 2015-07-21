@@ -3,7 +3,7 @@
 	<? $no_ajax = true; require 'include/head.php' ?>	
 	<body>
 	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/catalog/" >
-		<? require 'include/header.php'?>
+		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 		<div id="wrapper">
 			<div class="section maxw">
@@ -11,7 +11,7 @@
 					<main>
 						<article>
 							<div id="product-scroll" style="height: 700px; overflow-y: auto;">
-								<div class="p_brdcr"><? require 'include/breadcrumbs.php' ?></div>
+								<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
 								<div style="clear: both;"></div>
 
 								<div class="product-info">
@@ -317,15 +317,7 @@
 				<? require 'include/left-col.php'?>
 				
 				<aside id="s_right">
-					<h1>Новости</h1>
-					<div class="menuright" id="scroll-right">
-						<?foreach($last_news as $product):?>
-							<div class="news_item">
-								<h2><a href="<?=$product->full_url?>" style="color: #0000C8"><?=$product->name?></a></h2>
-								<div class="item_text"><span class="news_date"><?=$product->date?></span> <?=$product->description?></div>
-							</div>
-						<?endforeach;?>
-					</div>
+					<?require FCPATH.'application/views/client/include/news_collumn.php'?>
 				</aside>
 			</div>
 		</div>

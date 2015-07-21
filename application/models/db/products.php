@@ -166,8 +166,11 @@ class Products extends MY_Model
 			$item->full_url = $this->get_url($item);
 
 			$item->price = floor($item->price);
-			$item->sale_price = floor($item->sale_price);
-			if($item->price <> 0) $item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
+			if(isset($item->sale_price))
+			{			
+				$item->sale_price = floor($item->sale_price);
+				if($item->price <> 0) $item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
+			}
 			$object_info = array(
 				'object_type' => 'products',
 				'object_id' => $item->id
@@ -188,7 +191,7 @@ class Products extends MY_Model
 			
 			$item = $this->characteristics->get_product_characteristics($item);
 			
-			$item->manufacturer_name = $this->manufacturers->get_item($item->manufacturer_id)->name;
+			if(isset($item->manufacturer_id)) $item->manufacturer_name = $this->manufacturers->get_item($item->manufacturer_id)->name;
 
 			$item->collection_name = array();
 			
@@ -207,11 +210,11 @@ class Products extends MY_Model
 				$item->collection_name .= ' ('.implode(';', $sub_collections).')';
 			
 			$sizes = array();
-			if ($item->width)
+			if (isset($item->width))
 				$sizes[] = $item->width;
-			if ($item->height)
+			if (isset($item->height))
 				$sizes[] = 'h'.$item->height;
-			if ($item->depth)
+			if (isset($item->depth))
 				$sizes[] = $item->depth;
 			$item->sizes_string = implode('x',$sizes);
 			//временно костылик

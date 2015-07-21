@@ -62,12 +62,18 @@ class Client_Controller extends CI_Controller
 			"total_qty" => $this->cart->total_qty(),
 			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
 			"top_menu" => $this->dynamic_menus->get_menu(4)->items,
+			'top_active' => '',
 			'last_news' => $this->articles->prepare_list($this->articles->get_list(array('parent_id' => 1), 10, 0, 'date', 'desc')),
 			'settings' => $settings
 		);
 		
 		$seo = $this->seo->get_item_by(array('url' => $_SERVER['REQUEST_URI']));
 
+		$this->standart_data["seo_meta_description"] = '';
+		$this->standart_data["seo_meta_title"] = '';
+		$this->standart_data["seo_meta_keywords"] = '';
+		$this->standart_data["seo_description"] = '';
+		
 		if(!empty($seo))
 		{
 			$this->standart_data["seo_meta_description"] = $seo->meta_description;
@@ -75,6 +81,7 @@ class Client_Controller extends CI_Controller
 			$this->standart_data["seo_meta_keywords"] = $seo->meta_keywords;
 			$this->standart_data["seo_description"] = $seo->description;
 		}
+
 	}
 }
 

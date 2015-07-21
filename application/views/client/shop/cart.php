@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
 	<body>
-			<? require 'include/header.php'?>
+		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 			<div id="wrapper">
 				<div class="section maxw">
@@ -11,7 +11,7 @@
 							<article>
 								<div style="height: 700px; overflow-y: scroll;">
 									
-									<? require 'include/breadcrumbs.php' ?>
+									<? require FCPATH.'application/views/client/include/breadcrumbs.php' ?>
 									<div style="clear: both;"></div>
 									<div class="cart">
 										<?if(!empty($action)):?>
@@ -66,7 +66,7 @@
 												<div class="page-cart__order">
 													<div class="cart-order">
 					
-													<form action="<?=base_url()?>shop/order/edit_order" id="order_form" class="form" method="post">
+													<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" class="order_form" action="<?=base_url()?>shop/order/edit_order">
 													
 														<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 														<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
@@ -108,7 +108,7 @@
 							
 															<div class="cart-collumn-2">
 																<div class="form__button cart-order__button">
-																	<button type="submit" class="order-button" onclick="sub_form(); return false;">Оформить заказ</button>
+																	<a href="#" class="order-button" onclick="validate_form('order'); return false;">Оформить заказ</a>
 																</div> 
 															</div>
 														</div> <!-- /.cart-order__form -->

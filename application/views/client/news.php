@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
-	<? require 'include/head.php' ?>	
+	<?require_once 'shop/include/head.php'?>		
 	<body>
-			<? require 'catalog/include/header.php'?>
+			<? require 'include/header.php'?>
 		
 			<div id="wrapper">
 				<div class="section maxw">
@@ -50,6 +50,7 @@
 					</div>
 					
 					<? require 'include/news-left-col.php'?>
+					
 					<aside id="s_right" class="news">
 						<div id="manufacturers_col" class="manufacturers">
 							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="news-form" action="<?=base_url()?>articles/novosti">
@@ -63,7 +64,7 @@
 							<ul style="height: auto;">
 								<?foreach($manufacturers_with_news as $m):?>
 									<li>
-										<a href="<?=base_url()?>articles/novosti?m_id=<?=$m->id?>"><img <?= $content->manufacturer_id == $m->id || $_GET['m_id'] == $m->id ? 'class="active"': ''?> src="<?=$m->img->manufacturer_url?>"/></a>
+										<a href="<?=base_url()?>articles/novosti?m_id=<?=$m->id?>"><img <?= $content->manufacturer_id == $m->id || $this->input->get('m_id') == $m->id ? 'class="active"': ''?> src="<?=$m->img->manufacturer_url?>"/></a>
 									</li>
 								<?endforeach;?>
 							</ul>
@@ -71,6 +72,6 @@
 					</aside>
 				</div>
 			</div>		
-		<?require 'include/footer.php';?>
+		<?require 'shop/include/footer.php';?>
 	</body>
 </html>

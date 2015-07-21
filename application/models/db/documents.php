@@ -97,6 +97,7 @@ class Documents extends MY_Model
 			}
 			
 			$item->type_icon = 'pdf';
+
 			if ($item->files && unserialize($item->files))
 			{
 				$item->type_icon = 'folder';
@@ -120,7 +121,7 @@ class Documents extends MY_Model
 			if($categories_ids)
 			{
 				$this->db->where_in("id", $categories_ids);
-				$item->categories = $this->prepare_list($this->db->get("categories")->result());
+				$item->categories = $this->db->get("categories")->result();
 			}
 			return $item;
 		}
