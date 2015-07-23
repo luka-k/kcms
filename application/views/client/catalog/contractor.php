@@ -11,7 +11,7 @@
 				<div class="mainwrap">
 					<main id="vendor">
 						<article>
-							<?require "include/breadcrumbs.php"?>
+							<?require FCPATH.'application/views/client/include/breadcrumbs.php'?>
 							<div id="" class="main-content clearfix">
 		
 								<div id="slider-scroll" class="slider">

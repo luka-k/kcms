@@ -30,11 +30,11 @@
 	<script>
 		(function($){
 			$(window).load(function(){
-				$("#scroll-left").height($(window).height() - 110);
-				$(".logo-column").height($(window).height() - 103);
+				$("#scroll-left").height($(window).height() - 115);
+				$(".logo-column").height($(window).height() - 107);
 				
-				$("#scroll-content").height($(window).height() - 95);
-				$("#scroll-right").height($(window).height() - 105);
+				$("#scroll-content").height($(window).height() - 97);
+				$("#scroll-right").height($(window).height() - 110);
 				
 				$("#scroll-left").mCustomScrollbar({
 					axis:"y", //set both axis scrollbars
@@ -69,22 +69,24 @@
 				});
 				
 				$('#scroll-content').scroll(function() {
+					
 					if ($(this).scrollTop() < 60)
 					{
+						console.log('ok');
 						$('header').css('margin-top', -$(this).scrollTop() + 'px');
 						$("#scroll-left").height($(window).height() - 115+$(this).scrollTop());
-						$(".logo-column").height($(window).height() - 103+$(this).scrollTop());
+						$(".logo-column").height($(window).height() - 105+$(this).scrollTop());
 						
-						$("#scroll-content").height($(window).height() - 100+$(this).scrollTop());
-						$("#scroll-right").height($(window).height() - 115+$(this).scrollTop());
+						$("#scroll-content").height($(window).height() - 97+$(this).scrollTop());
+						$("#scroll-right").height($(window).height() - 110+$(this).scrollTop());
 						$('.navigation-mini').css('top', 91-$(this).scrollTop());
 					} else {
 						$('header').css('margin-top', -60 + 'px');
-						$("#scroll-left").height($(window).height() - 112+60);
-						$(".logo-column").height($(window).height() - 103+60);
+						$("#scroll-left").height($(window).height() - 115+60);
+						$(".logo-column").height($(window).height() - 105+60);
 						
 						$("#scroll-content").height($(window).height() - 97+60);
-						$("#scroll-right").height($(window).height() - 112+60);
+						$("#scroll-right").height($(window).height() - 110+60);
 						
 						$('.navigation-mini').css('top', 91-60);
 					}
