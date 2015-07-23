@@ -22,6 +22,12 @@ $config['thumb_config'] = array(
 		'far' => 1,
 		"bg" => "ffffff"	
 	),
+	"document_main" => array(
+		'w' => 168,
+		'h' => 235,
+		'far' => 1,
+		"bg" => "ffffff"	
+	),
 	"product_small" => array(
 		'w' => 222,
 		'h' => 222,

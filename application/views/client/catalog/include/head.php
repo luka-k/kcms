@@ -88,7 +88,7 @@
 						$("#scroll-content").height($(window).height() - 97+60);
 						$("#scroll-right").height($(window).height() - 110+60);
 						
-						$('.navigation-mini').css('top', 91-60);
+						$('.navigation-mini').css('top', 96-60);
 					}
 				});
 					

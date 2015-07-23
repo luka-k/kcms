@@ -8,7 +8,7 @@
 			<?if($host[0] == 'shop'):?>
 				<a href="http://brightbuild.ru/catalog">Каталог производителей</a>
 			<?else:?>
-				<a href="http://shop.brightbuild.me/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>">
+				<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>">
 					Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>
 				</a>
 			<?endif;?>
@@ -20,16 +20,16 @@
 				<li class="first <?if($top_active == 'catalog'):?>current<?endif;?>">
 					<a href="#">Каталог</a>
 					<ul>
-						<li class=""><a href="http://brightbuild.me/catalog">Производители</a></li>
-						<li class=""><a href="http://brightbuild.me/vendors">Продавцы</a></li>
-						<li class=""><a href="http://brightbuild.me/contractors">Подрядчики</a></li>
+						<li class=""><a href="http://brightbuild.ru/catalog">Производители</a></li>
+						<li class=""><a href="http://brightbuild.ru/vendors">Продавцы</a></li>
+						<li class=""><a href="http://brightbuild.ru/contractors">Подрядчики</a></li>
 					</ul>
 				</li>
 				<li class="<?if($top_active == 'shop'):?>current<?endif;?>">
 					<a href="#">Магазин</a>
 					<ul>
-						<li class=""><a href="http://shop.brightbuild.me/catalog">Товары</a></li>
-						<li class=""><a href="http://shop.brightbuild.me/catalog/sale/">Распродажи</a></li>
+						<li class=""><a href="http://shop.brightbuild.ru/catalog">Товары</a></li>
+						<li class=""><a href="http://shop.brightbuild.ru/catalog/sale/">Распродажи</a></li>
 						<li class=""><a href="<?=base_url()?>">Оплата/Доставка</a></li>
 					</ul>
 				</li>

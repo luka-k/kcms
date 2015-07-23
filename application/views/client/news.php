@@ -1,21 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-	<?require_once 'catalog/include/head.php'?>	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+	<?require_once 'shop/include/head.php'?>		
 	<body>
-		<!-------------------header--------------------->
-		<? require FCPATH.'application/views/client/include/header.php'?>
-		<!-----------------end_header-------------------->
+			<? require 'include/header.php'?>
 		
-		<div id="wrapper clearfix">
-			<div class="section maxw clearfix">
-				<div class="mainwrap">
-					<main id="news">
-						<article>
-							<? require 'include/breadcrumbs.php' ?>
-							<div id="" class="main-content clearfix">
-
-								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
+			<div id="wrapper">
+				<div class="section maxw">
+					<div class="mainwrap">
+						<main class="news">
+							<article>
+								<div id="scroll-content" style="height: 700px; overflow-y: auto;">
 									
+									<? require 'include/breadcrumbs.php' ?>
 									<div style="clear: both;"></div>
 									
 									<div class="news">
@@ -49,24 +45,46 @@
 										<?endif;?>
 									</div>
 								</div>
-								
-							</div>
-						</article>
-					</main>
-				</div>
-				
-				<!-----leftcol------>
-				<aside id="s_left">
-					<h1><?=$title?></h1>
-					<?require_once 'include/news-left-col.php'?>
-				</aside>
-                   
-				<!-----rightcol----->
-                <aside id="s_right">
-					<?require FCPATH.'application/views/client/include/news_collumn.php'?>
-				</aside><!--end_rightcol-->
-			</div>
+							</article>
+						</main>
+					</div>
+					
+					<aside id="s_left">
+						<h1><?=$title?></h1>
+	<div id="scroll-left" class="leftmenu">
+		<div class="aside_news_header">
+			<?if(!empty($selected_manufacturer)):?>Новости <?=$selected_manufacturer->name?><?endif;?>
 		</div>
-		<?require "shop/include/footer.php"?>
+		<?foreach($content->articles as $item):?>
+			<div class="aside-news-item">
+				<div class="item_date"><?=$item->date?></div>							
+				<h3 class="item_title"><a href="<?=$item->full_url?>"><?=$item->name?></a></h3>
+			</div>
+		<?endforeach;?>
+	</div>
+</aside>
+					
+					<aside id="s_right" class="news">
+						<div id="manufacturers_col" class="manufacturers">
+							<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="news-form" action="<?=base_url()?>articles/novosti">
+								<select name="manufacturer_id" class="dropdown" onchange="document.forms['news-form'].setAttribute('action', '<?=base_url()?>articles/novosti?m_id='+this.options[this.selectedIndex].value); submit('news-form'); return false;">
+									<option value="">Выберите по бренду</option>
+									<?foreach($manufacturers_with_news as $m):?>
+										<option value="<?=$m->id?>"><?=$m->name?></option>
+									<?endforeach;?>
+								</select>
+							</form>
+							<ul style="height: auto;">
+								<?foreach($manufacturers_with_news as $m):?>
+									<li>
+										<a href="<?=base_url()?>articles/novosti?m_id=<?=$m->id?>"><img <?= $content->manufacturer_id == $m->id || $this->input->get('m_id') == $m->id ? 'class="active"': ''?> src="<?=$m->img->manufacturer_url?>"/></a>
+									</li>
+								<?endforeach;?>
+							</ul>
+						</div>
+					</aside>
+				</div>
+			</div>		
+		<?require 'shop/include/footer.php';?>
 	</body>
 </html>

@@ -12,7 +12,7 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<?require 'include/breadcrumbs.php'?>
+							<?require FCPATH.'application/views/client/include/breadcrumbs.php'?>
 								
 							<div id="" class="main-content clearfix">
 								
@@ -123,11 +123,11 @@
 													if (display_all_news)
 													{
 														$('.news_item').show();
-														$('.navigation-mini .main-a-2').css('color', '#39F');
+														$('.navigation-mini .news_link').css('color', '#39F');
 													} else {
 														$('.news_item').hide();
 														$('.m_news-<?= $manufacturer->id ?>').show();
-														$('.navigation-mini .main-a-2').css('color', '#f00');
+														$('.navigation-mini .news_link').css('color', '#f00');
 													}
 												}
 											</script>

@@ -210,11 +210,11 @@ class Products extends MY_Model
 				$item->collection_name .= ' ('.implode(';', $sub_collections).')';
 			
 			$sizes = array();
-			if (isset($item->width))
+			if (isset($item->width) && $item->width)
 				$sizes[] = $item->width;
-			if (isset($item->height))
+			if (isset($item->height) && $item->height)
 				$sizes[] = 'h'.$item->height;
-			if (isset($item->depth))
+			if (isset($item->depth) && $item->depth)
 				$sizes[] = $item->depth;
 			$item->sizes_string = implode('x',$sizes);
 			//временно костылик
