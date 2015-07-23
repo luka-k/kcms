@@ -21,7 +21,7 @@
 	<script src="<?=base_url()?>template/client/catalog/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/catalog/js/jquery.easydropdown.js"></script><!--Крассивые select-->
 	<!-- Скрипт popup -->
-	<script src="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<script src="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
 	
 
 	<!---------------Скроллбар---------------->
@@ -159,10 +159,14 @@
 			});*/
 			
 			$('.fancybox').fancybox({
+				  afterLoad : function() {
+				   this.title = '' + (this.index + 1) + ' / ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				  },
 				padding: 0,
 				scrolling: 'no',
-				autoCenter : false,
+				autoCenter : true,
 				fitToView: true,
+				mouseWheel : true,
 				helpers: {
 					overlay: {
 						locked: false // if true (default), the content will be locked into overlay

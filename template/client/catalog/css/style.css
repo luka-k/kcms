@@ -102,6 +102,25 @@ header .catalog-btn  a{
 header .catalog-btn  a:hover{
 	color:#C20000;
 }
+.navigation-mini .catalog-btn {
+	font-size:12px;
+	font-weight:bold;
+	color:#3399ff;
+	height:17px;
+	width: 150px;
+	background:url(../images/icon-shop.png) 0px 1px no-repeat;
+}
+
+.navigation-mini .catalog-btn  a{
+	font-size:11px;
+	font-weight:bold;
+	color:#C20000;
+	text-decoration: underline;;
+}
+
+.navigation-mini .catalog-btn  a:hover{
+	color:#C20000;
+}
 
 header .top-menu {
 	position: absolute;
@@ -447,7 +466,7 @@ main.contacts{
 }
 
 .slider {
-	width: 176px;
+	width: 156px;
 	float: left;
 	border: none;
 	margin-right:5px;
@@ -460,7 +479,7 @@ main.contacts{
 
 .for-select{
 	position: absolute;
-	width: 156px;
+	width: 146px;
 	background: #D1C8FF;
 	z-index: 20;
 }
@@ -476,11 +495,11 @@ main.contacts{
 
 .some10{
   padding-top: 15px;
-  width: 156px;
+  width: 146px;
 }
 
 .pic-block {
-	width: 156px;
+	width: 146px;
 	margin-bottom: 13px;
 }
 
@@ -494,9 +513,9 @@ main.contacts{
 /*******catalog*******/
 
 .catalog{
-	width: -moz-calc(100% - 181px);
-    width: -webkit-calc(100% - 181px);
-    width: calc(100% - 181px);
+	width: -moz-calc(100% - 166px);
+    width: -webkit-calc(100% - 166px);
+    width: calc(100% - 166px);
 }
 
 .contacts{
@@ -885,7 +904,7 @@ main.contacts{
 	border: none;
 	position: relative;
 	padding-right: 23px;
-	top: 2px;
+	top: 0px;
 	font-size: 11px;
 	text-decoration: underline;
 }
@@ -905,14 +924,14 @@ main.contacts{
 	position: relative;
 	margin-right:5px;
 	padding-left: 10px;
-	font-size: 12px;
+	font-size: 11px;
 }
 
 .point:before {
 	content: "";
 	position: absolute;
-	height: 5px;
-	width: 5px;
+	height: 3px;
+	width: 3px;
 	border-radius: 50%;
 	background: blue;
 	background-repeat: no-repeat;

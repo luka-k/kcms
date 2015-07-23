@@ -172,8 +172,12 @@ class Catalog extends Client_Controller {
 			}
 			else
 			{
+				if(isset($content->manufacturer)) 
+				{
+					$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+					$manufacturer_ch = array(0 => $content->manufacturer->name);
+				}
 				$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), 0, 10, 'sort', 'asc'));
-				$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
 				$total_rows = count($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), FALSE, FALSE, 'sort', 'asc'));
 			}
 			
@@ -398,7 +402,6 @@ class Catalog extends Client_Controller {
 	
 	public function count()
 	{
-		file_put_contents('download/log.log', serialize($_POST));
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
 		echo count($products);
 	}

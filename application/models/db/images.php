@@ -148,23 +148,30 @@ class Images extends MY_Model
 	}
 	
 	/**
-	* Изменение размеров миниатюру
+	* Изменение размеров миниатюры
+	* 23.07.15 metadiel: добавил переменные для выборочного ресайза
 	*
 	* @return bool
 	*/
-	public function resize_all()
+	public function resize_all($object_type = false, $thumb_type = false, $only_covers = false)
 	{
-		$images= $this->images->get_list(FALSE);
+		$check_array = FALSE;
+		if ($object_type)
+			$check_array['object_type'] = $object_type;
+		if ($only_covers)
+			$check_array['is_cover'] = 1;
+		$images= $this->images->get_list($check_array);
 		foreach ($images as $image)
 		{
-			$upload_path = $this->config->item('upload_path');
+			$upload_path = $this->config->item('images_upload_path');
 			$thumb_config = $this->config->item('thumb_config');
 			
 			foreach($thumb_config as $path => $param)
 			{
-				unlink($upload_path."/".$path.$image->url);
+				if (!$thumb_type || $path == $thumb_type)
+					unlink($upload_path."/".$path.$image->url);
 			}
-			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) return FALSE;
+			$this->generate_thumbs($upload_path . $image->url, $thumb_type);
 		}
 		return TRUE;
 	}

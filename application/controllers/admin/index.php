@@ -27,4 +27,9 @@ class Index extends Admin_Controller
 
 		$this->load->view('admin/admin', $data);
 	}
+	
+	public function resize_images($thumb_type)
+	{
+		$this->images->resize_all($thumb_type);
+	}
 }

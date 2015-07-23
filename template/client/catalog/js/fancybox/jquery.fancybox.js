@@ -725,10 +725,10 @@
 					if (delta !== 0 && !canScroll) {
 						if (F.group.length > 1 && !current.canShrink) {
 							if (deltaY > 0 || deltaX > 0) {
-								F.prev( deltaY > 0 ? 'down' : 'left' );
+								F.prev( deltaY > 0 ? 'right' : 'left' );
 
 							} else if (deltaY < 0 || deltaX < 0) {
-								F.next( deltaY < 0 ? 'up' : 'right' );
+								F.next( deltaY < 0 ? 'left' : 'right' );
 							}
 
 							e.preventDefault();

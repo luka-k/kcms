@@ -88,15 +88,17 @@
 									
 									<nav class="navigation-mini floating">
 									
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="<?if($active_doc == 'all'):?>active<?endif;?>">Все документы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="<?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="<?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="<?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="del <?if($active_doc == 'tech'):?>active<?endif;?>">Техническая информация</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="documents_menu <?if($active_doc == 'all'):?>active<?endif;?>">Все документы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="documents_menu <?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="documents_menu <?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="documents_menu <?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
+										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="documents_menu del <?if($active_doc == 'tech'):?>active<?endif;?>">Техническая информация</a>
 								
 										<div>
-									<div class="main-a-0">
-										&nbsp;
+									<div class="main-a-0" style="top: 2px;">
+										<?if ($this->products->get_list(array('manufacturer_id' => $manufacturer->id))): ?>
+											<div style="height: 17px;width: 151px; margin: 4px 0px 0px 20px; padding-left: 20px; background: url(/template/client/catalog/images/icon-shop.png) 0 4px no-repeat"><a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="main-a-2  del-2 ">Интернет-магазин</a></div>
+										<?endif?>
 									</div>								
 									<div class="main-a width-auto">
 										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>');">
@@ -111,7 +113,7 @@
 											<?endforeach;?>
 										</select>
 									</div>
-									<div class="main-a-2 main-a-3">
+									<div class="main-a-2 main-a-3" style="top: 2px;">
 										<?if($is_news):?>
 											<script>
 												var display_all_news = true;
@@ -129,7 +131,9 @@
 													}
 												}
 											</script>
+											<div style="height: 17px;width: auto; margin: 2px auto;">
 											<a onclick="toggleNews(); return false;" href="<?=base_url()?>articles/novosti?m_id=<?=$manufacturer->id?>" class="main-a-2 del-2 news_link">Новости <?=$manufacturer->name?></a>
+											</div>
 										<?else:?>
 											&nbsp;
 										<?endif;?>
@@ -143,8 +147,8 @@
 										<div class="item-pic">
 											<a href="<?=$doc->full_url?>" target="_blank">
 												<?if($doc->images):?>
-													<img src="<?=$doc->images[0]->catalog_small_url?>" height="237" width="170" alt="<?=$doc->name?>">
-												<?endif;?>
+													<img src="<?=$doc->images[0]->document_main_url?>" style="height: 237px;width:170px;" alt="<?=$doc->name?>">
+												<?endif;?> 
 											</a>
 										</div>
 										<div class="item-box clearfix">
@@ -175,18 +179,21 @@
 												echo '<div style="display: none; margin-top: 8px; font-size: 11px; clear: both;" id="folder_'.$doc->id.'">'.$outstr.'</div>';
 											endif?>
 											<div class="item-menu">
+												<? if ($doc->description):?>
+													<div class="seo_description" style="margin: 0;">
+													<?= html_entity_decode($doc->description) ?>
+													</div>
+												<? endif; ?>
 												<?foreach($doc->categories as $category):?>
 													<div style="float:left;"><a href="#" class="point"><?=$category->name?></a></div>
 												<?endforeach;?>
 												<div style="clear: both;"></div>
-												<div class="seo_description">
-												<?=$doc->description?>
-												</div>
+												
 											</div>
 										
 											<div id="catalog_img" class="catalog-row">
 												<ul class="img_box">
-													<?foreach($doc->images as $img):?>
+													<?foreach($doc->images as $i => $img): if ($i == 0) continue;?>
 														<li class="cat_img-<?=$cat_image_counter?>">
 															<a href="<?=$img->full_url?>" class="fancybox" rel="gallery<?= $doc->id?>">
 																<img src="<?=$img->catalog_small_url?>" alt="<?=$doc->name?>"/>

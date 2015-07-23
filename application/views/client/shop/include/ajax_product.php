@@ -28,9 +28,9 @@
 
 												<?= $item->collection_name ?>
 												
-												<?=$item->sku?></strong></a></br>
+												<?=$item->sku?></strong>
 												
-												<?= $item->sizes_string?>
+												<?= $item->sizes_string?></a></br>
 	
 												<?foreach($item->color as $color):?>
 													<?=$color->value?><?endforeach;

@@ -309,7 +309,9 @@ class Import extends Admin_Controller
 						if($value == 'true') $data['sale'] = 1;
 						break;
 					case 'Цвет':
-						$filter = explode('/', (string) $param->Значение);
+					    // metadiel: пока не разделяем цвета, т.е. хром/золото - это отдельный цвет
+						//$filter = explode('/', (string) $param->Значение);
+						$filter = array((string) $param->Значение);
 						foreach ($filter as $i => $f)
 						{
 							if(!empty($f)) $filters['color'][$i] = $f;

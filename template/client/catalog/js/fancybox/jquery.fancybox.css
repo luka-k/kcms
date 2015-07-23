@@ -201,11 +201,17 @@
 /* Title helper */
 
 .fancybox-title {
+    position: absolute;
+    top: -16px;
+    left: -20px;
+	width: 100px;
+	height: 100px;
 	visibility: hidden;
 	font: normal 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
-	position: relative;
 	text-shadow: none;
 	z-index: 8050;
+	background: url(../../images/bg-pages.png);
+	background-repeat: no-repeat;
 }
 
 .fancybox-opened .fancybox-title {
@@ -215,13 +221,12 @@
 .fancybox-title-float-wrap {
 	position: absolute;
 	bottom: 0;
-	right: 50%;
 	margin-bottom: -35px;
 	z-index: 8050;
 	text-align: center;
 }
 
-.fancybox-title-float-wrap .child {
+.fancybox-title-float-wrapf .child {
 	display: inline-block;
 	margin-right: -100%;
 	padding: 2px 20px;
@@ -235,6 +240,20 @@
 	font-weight: bold;
 	line-height: 24px;
 	white-space: nowrap;
+	border: 2px solid white;
+}
+
+.fancybox-title-float-wrap .child {
+	display: inline-block;
+	margin-right: 30px;
+	padding: 0px 0px;
+	padding-top: 5px;
+	text-shadow: 0 1px 2px #222;
+	color: #FFF;
+	font-weight: bold;
+	line-height: 24px;
+	white-space: nowrap;
+	border: none;
 }
 
 .fancybox-title-outside-wrap {
@@ -257,3 +276,18 @@
 	background: rgba(0, 0, 0, .8);
 }
 
+/*Retina graphics!*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+	   only screen and (min--moz-device-pixel-ratio: 1.5),
+	   only screen and (min-device-pixel-ratio: 1.5){
+
+	#fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
+		background-image: url('fancybox_sprite@2x.png');
+		background-size: 44px 152px; /*The size of the normal image, half the size of the hi-res image*/
+	}
+
+	#fancybox-loading div {
+		background-image: url('fancybox_loading@2x.gif');
+		background-size: 24px 24px; /*The size of the normal image, half the size of the hi-res image*/
+	}
+}

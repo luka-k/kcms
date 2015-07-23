@@ -16,7 +16,7 @@
 		this.down = false,
 		this.inFocus = false,
 		this.disabled = false,
-		this.cutOff = false,
+		this.cutOff = Math.floor(($(window).height() - 110) / 21),
 		this.hasLabel = false,
 		this.keyboardMode = false,
 		this.nativeTouch = true,

@@ -51,7 +51,7 @@ y-axis
 ------------------------------------------------------------------------------------------------------------------------
 */
 
-	.mCSB_inside > .mCSB_container{ margin-right: 30px; }
+	.mCSB_inside > .mCSB_container{ margin-right: 4px; }
 
 	.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden{ margin-right: 0; } /* non-visible scrollbar */
 	
@@ -146,7 +146,7 @@ x-axis
 
 	.mCSB_horizontal.mCSB_inside > .mCSB_container{
 		margin-right: 0;
-		margin-bottom: 30px;
+		margin-bottom: 0px;
 	}
 	
 	.mCSB_horizontal.mCSB_outside > .mCSB_container{ min-height: 100%; }

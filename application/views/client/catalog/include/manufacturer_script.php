@@ -23,8 +23,8 @@
 		});
 		if ($('.floating').width() > 600)
 		{
-			$('.navigation-mini a').css('padding-right', (3 + ($('.floating').width() - 600) / 12) + 'px');
-			$('.navigation-mini a').css('padding-left', (0 + ($('.floating').width() - 600) / 12) + 'px');
+			$('.navigation-mini a.documents_menu').css('padding-right', (3 + ($('.floating').width() - 600) / 12) + 'px');
+			$('.navigation-mini a.documents_menu').css('padding-left', (0 + ($('.floating').width() - 600) / 12) + 'px');
 		}
 	});
 </script>
