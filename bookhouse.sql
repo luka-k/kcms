@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 22 2015 г., 13:49
+-- Время создания: Июл 25 2015 г., 22:18
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.3.29
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -53,7 +53,14 @@ INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`
 (1, 0, 'Новости', '2015-04-19', 0, '', '', '', '', 'novosti', '2015-04-19', '', '0.1'),
 (2, 1, 'Опубликована электронная и печатная версия журнала', '2015-04-16', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'opublikovana-elektronnaya-i-pechatnaya-versiya-zhurnala', '2015-04-19', '', '0.1'),
 (3, 1, 'Опубликована электронная и печатная версия журнала-2', '2015-04-16', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'opublikovana-elektronnaya-i-pechatnaya-versiya-zhurnala-2', '2015-04-19', '', '0.1'),
-(4, 1, 'Новость пробная номер 1', '2015-04-18', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'novost-probnaya-nomer-1', '2015-04-20', '', '0.1');
+(4, 1, 'Новость пробная номер 1', '2015-04-18', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'novost-probnaya-nomer-1', '2015-04-20', '', '0.1'),
+(5, 0, 'События', '2015-07-13', 0, '', '', '', '', 'sobytiya', '2015-07-13', '', '0.1'),
+(6, 5, 'Собитие 1', '2015-03-12', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'sobitie-1', '2015-07-15', '', '0.1'),
+(7, 5, 'Собитие 2', '2015-04-01', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'sobitie-2', '2015-07-15', '', '0.1'),
+(8, 5, 'Собитие 3', '2015-04-16', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n', '', '', '', 'sobitie-3', '2015-07-13', '', '0.1'),
+(9, 0, 'Информация', '2015-07-17', 0, '', '', '', '', 'informaciya', '2015-07-17', '', '0.1'),
+(10, 9, 'О компании', '2015-07-17', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>', '', '', '', 'o-kompanii', '2015-07-17', '', '0.1'),
+(11, 9, 'Оплата и доставка', '2015-07-17', 0, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>', '', '', '', 'oplata-i-dostavka', '2015-07-17', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -78,22 +85,27 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `categories`
 --
 
 INSERT INTO `categories` (`id`, `is_active`, `sort`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `parent_id`, `description`) VALUES
-(1, 1, 0, 'Самоучители', '', '', '', 'samouchiteli', '2015-04-22', '', '0.1', 0, ''),
-(2, 1, 0, 'Словари', '', '', '', 'slovari', '2015-04-22', '', '0.1', 0, ''),
-(3, 1, 0, 'Литература по переводу', '', '', '', 'literatura-po-perevodu', '2015-04-22', '', '0.1', 0, ''),
-(4, 1, 0, 'Английский язык', '', '', '', 'anglijskij-yazyk', '2015-04-22', '', '0.1', 3, ''),
-(5, 1, 0, 'Немецкий язык', '', '', '', 'nemeckij-yazyk', '2015-04-22', '', '0.1', 3, ''),
-(6, 1, 0, 'Французкий язык', '', '', '', 'francuzkij-yazyk', '2015-04-22', '', '0.1', 3, ''),
-(9, 1, 0, 'Английский язык', '', '', '', 'anglijskij-yazyk', '2015-04-22', '', '0.1', 2, ''),
-(10, 1, 0, 'Немецкий язык', '', '', '', 'nemeckij-yazyk', '2015-04-22', '', '0.1', 2, ''),
-(11, 1, 0, 'Французкий язык', '', '', '', 'francuzkij-yazyk', '2015-04-22', '', '0.1', 2, '');
+(1, 1, 0, 'Pearson', '', '', '', 'pearson', '2015-07-14', '', '0.1', 0, ''),
+(2, 1, 0, 'Macmillan', '', '', '', 'macmillan', '2015-07-14', '', '0.1', 0, ''),
+(3, 1, 0, 'Cambridge', '', '', '', 'cambridge', '2015-07-14', '', '0.1', 0, ''),
+(4, 1, 0, 'Heuber', '', '', '', 'heuber', '2015-07-14', '', '0.1', 0, ''),
+(5, 1, 0, 'Раннее обучение', '', '', '', 'rannee-obuchenie', '2015-07-14', '', '0.1', 1, ''),
+(6, 1, 0, 'Начальная школа', '', '', '', 'nachalnaya-shkola', '2015-07-14', '', '0.1', 1, ''),
+(7, 1, 0, 'Средняя и старшая школа', '', '', '', 'srednyaya-i-starshaya-shkola', '2015-07-14', '', '0.1', 1, ''),
+(8, 1, 0, 'Подготовка к ОГЭ и ЕГЭ', '', '', '', 'podgotovka-k-oge-i-ege', '2015-07-14', '', '0.1', 1, ''),
+(9, 1, 0, 'Английский для специальных целей', '', '', '', 'anglijskij-dlya-specialnyh-celej', '2015-07-14', '', '0.1', 1, ''),
+(10, 1, 0, 'Раннее обучение', '', '', '', 'rannee-obuchenie', '2015-07-14', '', '0.1', 2, ''),
+(11, 1, 0, 'Средняя и старшая школа', '', '', '', 'srednyaya-i-starshaya-shkola', '2015-07-14', '', '0.1', 2, ''),
+(12, 1, 0, 'Средняя и старшая школа', '', '', '', 'srednyaya-i-starshaya-shkola', '2015-07-14', '', '0.1', 3, ''),
+(13, 1, 0, 'Английский для специальных целей', '', '', '', 'anglijskij-dlya-specialnyh-celej', '2015-07-14', '', '0.1', 3, ''),
+(14, 1, 0, 'Английский для специальных целей', '', '', '', 'anglijskij-dlya-specialnyh-celej', '2015-07-14', '', '0.1', 4, '');
 
 -- --------------------------------------------------------
 
@@ -109,17 +121,16 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   `object_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=90 ;
 
 --
 -- Дамп данных таблицы `characteristics`
 --
 
 INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`) VALUES
-(1, 'izdatelstvo', 'Издательство 1', 'products', 1),
 (2, 'yazyk', 'Английский', 'products', 1),
 (3, 'uroven', 'Уровень 1', 'products', 1),
-(4, 'tip', 'Тип 1', 'products', 1),
+(4, 'tip', 'Тип 2', 'products', 1),
 (5, 'yazyk', 'Английский', 'products', 2),
 (7, 'uroven', 'Уровень 1', 'products', 2),
 (8, 'izdatelstvo', 'Издательство 2', 'products', 2),
@@ -127,7 +138,83 @@ INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `object_id`
 (10, 'izdatelstvo', 'Издательство 1', 'products', 3),
 (11, 'yazyk', 'Немецкий', 'products', 3),
 (12, 'uroven', 'Уровень 1', 'products', 3),
-(13, 'tip', 'Тип 3', 'products', 3);
+(13, 'tip', 'Тип 3', 'products', 3),
+(14, 'yazyk', 'Английский', 'products', 2),
+(15, 'uroven', 'Уровень 1', 'products', 2),
+(16, 'tip', 'Тип 1', 'products', 2),
+(17, 'yazyk', 'Английский', 'products', 3),
+(18, 'uroven', 'Уровень 1', 'products', 3),
+(19, 'izdatelstvo', 'Издательство 2', 'products', 3),
+(20, 'tip', 'Тип 1', 'products', 3),
+(21, 'yazyk', 'Английский', 'products', 3),
+(22, 'uroven', 'Уровень 1', 'products', 3),
+(23, 'tip', 'Тип 1', 'products', 3),
+(24, 'izdatelstvo', 'Издательство 1', 'products', 4),
+(25, 'yazyk', 'Немецкий', 'products', 4),
+(26, 'uroven', 'Уровень 1', 'products', 4),
+(27, 'tip', 'Тип 3', 'products', 4),
+(28, 'yazyk', 'Английский', 'products', 4),
+(29, 'uroven', 'Уровень 1', 'products', 4),
+(30, 'izdatelstvo', 'Издательство 2', 'products', 4),
+(31, 'tip', 'Тип 1', 'products', 4),
+(32, 'yazyk', 'Английский', 'products', 4),
+(33, 'uroven', 'Уровень 1', 'products', 4),
+(34, 'tip', 'Тип 1', 'products', 4),
+(35, 'izdatelstvo', 'Издательство 1', 'products', 5),
+(36, 'yazyk', 'Немецкий', 'products', 5),
+(37, 'uroven', 'Уровень 1', 'products', 5),
+(38, 'tip', 'Тип 3', 'products', 5),
+(39, 'yazyk', 'Английский', 'products', 5),
+(40, 'uroven', 'Уровень 1', 'products', 5),
+(41, 'izdatelstvo', 'Издательство 2', 'products', 5),
+(42, 'tip', 'Тип 1', 'products', 5),
+(43, 'yazyk', 'Английский', 'products', 5),
+(44, 'uroven', 'Уровень 1', 'products', 5),
+(45, 'tip', 'Тип 1', 'products', 5),
+(46, 'izdatelstvo', 'Издательство 1', 'products', 6),
+(47, 'yazyk', 'Немецкий', 'products', 6),
+(48, 'uroven', 'Уровень 1', 'products', 6),
+(49, 'tip', 'Тип 3', 'products', 6),
+(50, 'yazyk', 'Английский', 'products', 6),
+(51, 'uroven', 'Уровень 1', 'products', 6),
+(52, 'izdatelstvo', 'Издательство 2', 'products', 6),
+(53, 'tip', 'Тип 1', 'products', 6),
+(54, 'yazyk', 'Английский', 'products', 6),
+(55, 'uroven', 'Уровень 1', 'products', 6),
+(56, 'tip', 'Тип 1', 'products', 6),
+(57, 'izdatelstvo', 'Издательство 1', 'products', 7),
+(58, 'yazyk', 'Немецкий', 'products', 7),
+(59, 'uroven', 'Уровень 1', 'products', 7),
+(60, 'tip', 'Тип 3', 'products', 7),
+(61, 'yazyk', 'Английский', 'products', 7),
+(62, 'uroven', 'Уровень 1', 'products', 7),
+(63, 'izdatelstvo', 'Издательство 2', 'products', 7),
+(64, 'tip', 'Тип 1', 'products', 7),
+(65, 'yazyk', 'Английский', 'products', 7),
+(66, 'uroven', 'Уровень 1', 'products', 7),
+(67, 'tip', 'Тип 1', 'products', 7),
+(68, 'izdatelstvo', 'Издательство 1', 'products', 8),
+(69, 'yazyk', 'Немецкий', 'products', 8),
+(70, 'uroven', 'Уровень 1', 'products', 8),
+(71, 'tip', 'Тип 3', 'products', 8),
+(72, 'yazyk', 'Английский', 'products', 8),
+(73, 'uroven', 'Уровень 1', 'products', 8),
+(74, 'izdatelstvo', 'Издательство 2', 'products', 8),
+(75, 'tip', 'Тип 1', 'products', 8),
+(76, 'yazyk', 'Английский', 'products', 8),
+(77, 'uroven', 'Уровень 1', 'products', 8),
+(78, 'tip', 'Тип 1', 'products', 8),
+(79, 'izdatelstvo', 'Издательство 1', 'products', 9),
+(80, 'yazyk', 'Немецкий', 'products', 9),
+(81, 'uroven', 'Уровень 1', 'products', 9),
+(82, 'tip', 'Тип 3', 'products', 9),
+(83, 'yazyk', 'Английский', 'products', 9),
+(84, 'uroven', 'Уровень 1', 'products', 9),
+(85, 'izdatelstvo', 'Издательство 2', 'products', 9),
+(86, 'tip', 'Тип 1', 'products', 9),
+(87, 'yazyk', 'Английский', 'products', 9),
+(88, 'uroven', 'Уровень 1', 'products', 9),
+(89, 'tip', 'Тип 1', 'products', 9);
 
 -- --------------------------------------------------------
 
@@ -175,8 +262,33 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('94a6677838f726a7457a1943bb27ff34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429699454, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('e119725d9c3a709b583b86f10b9a0896', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429698676, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('04e70e459ce4cfba576ab98e5d65a132', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0', 1437337559, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `departments`
+--
+
+CREATE TABLE IF NOT EXISTS `departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `opened` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+
+--
+-- Дамп данных таблицы `departments`
+--
+
+INSERT INTO `departments` (`id`, `name`, `address`, `phone`, `opened`, `sort`) VALUES
+(10, 'Магазин на малой конющенной', '', '', 'будни: 9.30 - 20.00; суббота, воскресенье: 11.00 - 18.00 ', 0),
+(11, 'Издательский отдел', '', '', 'будни: 10.00 - 18.00', 0),
+(12, 'Экзаменационный центр', 'ул. Большая Конюшенная, 8', '244-54-88', 'будни: 11.00 - 19.00; суббота, воскресенье: выходной', 0),
+(13, 'Букхауз', 'Проспект Испытателей, 7А', '995-73-74', 'будни: 11.00 - 20.00; обед: 14.00 - 15.00', 0);
 
 -- --------------------------------------------------------
 
@@ -189,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `dynamic_menus`
@@ -197,7 +309,8 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
 
 INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
 (1, 'Меню админ панели', ''),
-(2, 'Верхнее меню', '');
+(2, 'Меню магазина', ''),
+(3, 'Основное меню', '');
 
 -- --------------------------------------------------------
 
@@ -243,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -258,7 +371,13 @@ INSERT INTO `images` (`id`, `name`, `is_cover`, `object_type`, `object_id`, `ima
 (6, '006', 1, 'products', 6, '', '/0/0/006.jpg'),
 (7, '007', 1, 'products', 7, '', '/0/0/007.jpg'),
 (8, '008', 1, 'products', 8, '', '/0/0/008.jpg'),
-(9, '008[1]', 1, 'products', 9, '', '/0/0/008[1].jpg');
+(9, '008[1]', 1, 'products', 9, '', '/0/0/008[1].jpg'),
+(11, 'slider-1', 1, 'sliders', 3, '', '/s/l/slider-1.png'),
+(12, 'slider-2', 1, 'sliders', 4, '', '/s/l/slider-2.png'),
+(13, 'slider', 1, 'sliders', 5, '', '/s/l/slider.png'),
+(14, 'slider[1]', 1, 'sliders', 6, '', '/s/l/slider[1].png'),
+(15, 'shop-logo', 1, 'partners', 7, '', '/s/h/shop-logo.png'),
+(16, 'shop-logo[1]', 1, 'partners', 8, '', '/s/h/shop-logo[1].png');
 
 -- --------------------------------------------------------
 
@@ -292,21 +411,21 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
 
 --
 -- Дамп данных таблицы `menus_items`
 --
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(4, 1, '<i class=icon-home></i>', 0, 2, '', 'link', 'admin/'),
-(5, 1, 'Статьи', 0, 3, '', 'link', '#'),
-(6, 1, 'Каталог', 0, 4, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 5, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 6, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 7, '', 'link', '#'),
-(10, 1, 'Меню', 0, 8, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 9, '', 'link', '#'),
+(4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
+(5, 1, 'Статьи', 0, 1, '', 'link', '#'),
+(6, 1, 'Каталог', 0, 2, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 6, '', 'link', 'admin/admin_orders'),
+(8, 1, 'Настройки', 0, 7, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 8, '', 'link', '#'),
+(10, 1, 'Меню', 0, 9, '', 'link', 'admin/menu_module/menus'),
+(11, 1, 'Пользователи', 0, 10, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
 (13, 1, 'Категории', 6, 1, '', 'link', 'admin/content/items/categories/'),
 (14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
@@ -320,8 +439,16 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
 (35, 2, 'Новости', 0, 10, '', 'articles', 'novosti'),
-(36, 2, 'Оплата и доставка', 0, 11, '', 'link', '/'),
-(37, 2, 'Контакты', 0, 12, '', 'link', 'contacts');
+(36, 2, 'Оплата и доставка', 0, 11, '', 'link', 'articles/informaciya/oplata-i-dostavka'),
+(37, 2, 'Контакты', 0, 12, '', 'link', 'contacts'),
+(38, 3, 'О компании', 0, 13, '', 'link', 'articles/informaciya/o-kompanii'),
+(39, 3, 'Новости', 0, 14, '', 'link', 'articles/novosti'),
+(40, 3, 'Мероприятия', 0, 15, '', 'link', 'articles/sobytiya'),
+(41, 3, 'Партнеры', 0, 16, '', 'link', 'partneri'),
+(42, 3, 'Контакты', 0, 17, '', 'link', 'contacts'),
+(43, 1, 'Слайдеры', 0, 3, '', 'link', 'admin/content/items/sliders/all'),
+(44, 1, 'Отделы', 0, 5, '', 'link', 'admin/content/items/departments/all'),
+(45, 1, 'Партнеры', 0, 4, '', 'link', 'admin/content/items/partners/all');
 
 -- --------------------------------------------------------
 
@@ -383,6 +510,28 @@ INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `partners`
+--
+
+CREATE TABLE IF NOT EXISTS `partners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `link` text COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Дамп данных таблицы `partners`
+--
+
+INSERT INTO `partners` (`id`, `name`, `link`, `sort`) VALUES
+(7, 'Партнер 1', 'www.link.ru', 0),
+(8, 'Партнер 2', 'www.link.ru', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `products`
 --
 
@@ -393,6 +542,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `sort` int(11) NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `autor` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `year` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cover` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `article` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `price` float NOT NULL DEFAULT '0',
   `discount` tinyint(3) unsigned NOT NULL,
@@ -409,22 +561,22 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `autor`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 4, 1, 0, 'Грамматические трудности перевода с английского языка на русский', 'Л.А. Соколова, Е.П. Трофимова', 'Не обходимо ввести значение', 654, 0, '', '', '', 'grammaticheskie-trudnosti-perevoda-s-anglijskogo-yazyka-na-russkij', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
-(2, 4, 1, 0, 'Идиоматический перевод с русского языка на английский', 'С.С. Кузьмин', 'Не обходимо ввести значение', 330, 0, '', '', '', 'idiomaticheskij-perevod-s-russkogo-yazyka-na-anglijskij', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
-(3, 5, 1, 0, 'Horizonte 7 Arbeitsbuch', 'Просвещение', 'Не обходимо ввести значение', 424, 0, '', '', '', 'horizonte-7-arbeitsbuch', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
-(4, 6, 1, 0, 'Французский язык. Курс устного перевода', '-', 'Не обходимо ввести значение', 154, 0, '', '', '', 'francuzskij-yazyk-kurs-ustnogo-perevoda', '2015-04-22', '', '0.1', '', 1, 0),
-(5, 2, 1, 0, '2000 самых употребительных английских слов.', 'А.В. Петроченков', 'Не обходимо ввести значение', 116, 0, '', '', '', '2000-samyh-upotrebitelnyh-anglijskih-slov', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
-(6, 2, 1, 0, '500 самых важных слов английского языка', 'С.А. Матвеев', 'Не обходимо ввести значение', 60, 0, '', '', '', '500-samyh-vazhnyh-slov-anglijskogo-yazyka', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1),
-(7, 10, 1, 0, 'Deutsch english german english Lernwortschatz. Hueber', 'Hueber', 'Не обходимо ввести значение', 1057, 0, '', '', '', 'deutsch-english-german-english-lernwortschatz-hueber', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 0),
-(8, 1, 1, 0, '&quot;Intellect 25 кадр&quot; английский язык (25 000 слов)', 'Intellect', 'Не обходимо ввести значение', 2000, 0, '', '', '', 'intellect-25-kadr-anglijskij-yazyk-25-000-slov', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 1, 1),
-(9, 1, 1, 0, '100 % Английский начальный уровень+ 8CD', 'Living Language', 'Не обходимо ввести значение', 1538, 0, '', '', '', '100-anglijskij-nachalnyj-uroven-8cd', '2015-04-22', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', 0, 1);
+INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `autor`, `year`, `cover`, `amount`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
+(1, 5, 1, 0, 'Книга 1', 'автор', '2011', 'мягкая', '300', 'k-1', 200, 0, '', '', '', 'kniga-1', '2015-07-16', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 1),
+(2, 5, 1, 0, 'Книга 2', 'автор', '', '', '', 'k-2', 220, 0, '', '', '', 'kniga-2', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 0),
+(3, 9, 1, 0, 'Книга 3', 'автор', '', '', '', 'k-3', 250, 0, '', '', '', 'kniga-3', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
+(4, 11, 1, 0, 'Книга 4', 'автор', '', '', '', 'k-4', 6000, 0, '', '', '', 'kniga-4', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
+(5, 11, 1, 0, 'Книга 5', 'автор', '', '', '', 'k-5', 600, 0, '', '', '', 'kniga-5', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 0),
+(6, 13, 1, 0, 'Книга 6', 'автор', '', '', '', 'k-6', 456, 0, '', '', '', 'kniga-6', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 1),
+(7, 9, 1, 0, 'Книга 7', 'автор', '', '', '', 'k-7', 466, 0, '', '', '', 'kniga-7', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
+(8, 12, 1, 0, 'Книга 8', 'автор', '', '', '', 'k-8', 340, 0, '', '', '', 'kniga-8', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 0, 1),
+(9, 8, 1, 0, 'Книга 9', 'автор', '', '', '', 'k-9', 360, 0, '', '', '', 'kniga-9', '2015-07-14', '', '0.1', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -437,6 +589,14 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
   `product2_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Дамп данных таблицы `recommended_products`
+--
+
+INSERT INTO `recommended_products` (`product1_id`, `product2_id`) VALUES
+(1, 2),
+(1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -445,18 +605,15 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `order_string` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `site_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phones` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_string` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `site_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `site_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
-  `site_offline` int(11) DEFAULT '0',
-  `offline_text` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `main_page_type` int(11) NOT NULL DEFAULT '1',
-  `main_page_id` int(11) NOT NULL,
-  `main_page_cat` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
@@ -464,8 +621,33 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Книжный дом', 'admin@admin.ru', 'admin', 'Ваш заказ оформлен', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', '', '2015-04-20', 0, '', 2, 6, 1);
+INSERT INTO `settings` (`id`, `site_title`, `email`, `address`, `phones`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`) VALUES
+(1, 'Книжный дом', 'info@bookhouse.ru', 'Санкт-Петербург, ул. Малая Конющенная, 5', '/812/380-73-00; /812/380-73-22', 'admin', 'Ваш заказ оформлен', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;', '', '2015-07-13');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sliders`
+--
+
+CREATE TABLE IF NOT EXISTS `sliders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `link` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `name`, `link`, `type`, `sort`) VALUES
+(3, 'Первый слайдер', '', 0, 0),
+(4, 'Второй слайдер', '', 0, 0),
+(5, 'Первый слайд на странице магазина', '', 1, 0),
+(6, 'Второй слайд на странице магазина', '', 1, 0);
 
 -- --------------------------------------------------------
 
