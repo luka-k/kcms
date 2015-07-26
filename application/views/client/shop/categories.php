@@ -12,7 +12,7 @@
 					<main>
 						<article>
 							<div id="product-scroll" style="height: 700px; overflow-y: scroll;">
-								<? require FCPATH.'application/views/client/include/breadcrumbs.php' ?>
+								<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
 								<div class="sortings">
 									Сортировка: 
 									<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
@@ -35,7 +35,7 @@
 												<p>Цена на сайте: <span class="top-price"><?=$item->sale_price?></span> р.</p>
 											<?endif?>
 												<p>Наличие: <span class="blue-label"><?=$item->qty ? 'на складе СПб' : 'по запросу'?></span></p>
-												<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
+												<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></p>
 											</div>
 											<div class="product-image">
 												<?if(isset($item->img)):?>

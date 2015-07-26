@@ -65,7 +65,7 @@
 													<?foreach($service->childs as $sub_category):?>
 														<li  style="font-size: 14px;">
 															<a nohref>
-																<img src="<?=base_url()?>template/client/catalog/images/disc.png" style="padding-bottom: 3px; margin-right:5px;"/>
+																<img src="<?=base_url()?>template/client/images/disc.png" style="padding-bottom: 3px; margin-right:5px;"/>
 																<?=$sub_category->name?>
 															</a>
 														</li>

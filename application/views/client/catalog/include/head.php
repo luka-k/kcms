@@ -8,25 +8,25 @@
 	<meta name="keywords" content="<?=$meta_keywords?>" />
 	
 	<link rel="Shortcut Icon" type="image/x-icon" href="<?=base_url()?>template/client/catalog/images/favicon.ico" />
-		<meta content="<?=base_url()?>template/client/catalog/images/bb_house.jpg" property="og:image" />
+	<meta content="<?=base_url()?>template/client/catalog/images/bb_house.jpg" property="og:image" />
 		
 	<!------------------------Styles---------------------------->
-	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/normalize.css"/>
-	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/css/easydropdown.css"/> <!--Крассивые select-->
-	<!-- Стили popup -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.css?v=2.1.5" />
-		
-	<!---------------------------JS----------------------------->
-	<script src="<?=base_url()?>template/client/catalog/js/jquery.min.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/client/catalog/js/jquery.easydropdown.js"></script><!--Крассивые select-->
-	<!-- Скрипт popup -->
-	<script src="<?=base_url()?>template/client/catalog/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
-	
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/selects_catalog.css"/>
 
-	<!---------------Скроллбар---------------->
-	<link rel="stylesheet" href="<?=base_url()?>template/client/catalog/css/jquery.mCustomScrollbar.css"/>
-	<script src="<?=base_url()?>template/client/catalog/js/jquery.mCustomScrollbar.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/js/fancybox/jquery.fancybox.css?v=2.1.5"/>
+	
+	<link rel="stylesheet" href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css"/>
+ 		
+	<!---------------------------JS----------------------------->
+	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script>
+
+	<script type="text/javascript" src="<?=base_url()?>template/js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.mCustomScrollbar.js"></script>
+	
 	<script>
 		(function($){
 			$(window).load(function(){
@@ -72,7 +72,6 @@
 					
 					if ($(this).scrollTop() < 60)
 					{
-						console.log('ok');
 						$('header').css('margin-top', -$(this).scrollTop() + 'px');
 						$("#scroll-left").height($(window).height() - 115+$(this).scrollTop());
 						$(".logo-column").height($(window).height() - 105+$(this).scrollTop());
@@ -88,7 +87,7 @@
 						$("#scroll-content").height($(window).height() - 97+60);
 						$("#scroll-right").height($(window).height() - 110+60);
 						
-						$('.navigation-mini').css('top', 96-60);
+						$('.navigation-mini').css('top', 96-66);
 					}
 				});
 					
@@ -144,20 +143,6 @@
 	
 	<script>
 		$(window).load(function(){
-			/*$(".ddlist").click(function(){
-				var down_item = $(".leftmenu").find(".down-item");
-				
-				$(down_item).next().toggleClass('active');
-				$(down_item).toggleClass('up-item');
-				$(down_item).toggleClass('down-item');
-				
-				if($(down_item).attr("id") == $(this).attr("id")) return false;
-
-				$(this).next().toggleClass('active');
-				$(this).toggleClass('up-item');
-				$(this).toggleClass('down-item');
-			});*/
-			
 			$('.fancybox').fancybox({
 				  afterLoad : function() {
 				   this.title = '' + (this.index + 1) + ' / ' + this.group.length + (this.title ? ' - ' + this.title : '');

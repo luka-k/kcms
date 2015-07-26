@@ -17,7 +17,7 @@
 									<?foreach($inventories as $inv):?>
 										<div class="inventory_item">
 											<a href="<?=base_url()?>getdoc/<?=$inv->download_code?>" target="_blank">
-												<img src="<?=base_url()?>template/client/catalog/images/<?=$inv->file_type?>.png" alt="<?=$inv->name?>" />
+												<img src="<?=base_url()?>template/client/images/<?=$inv->file_type?>.png" alt="<?=$inv->name?>" />
 												<?=$inv->name?>
 											</a>
 										</div>
@@ -25,7 +25,7 @@
 									
 										<div class="inventory_item">
 											<a href="/ostatki" target="_blank">
-	<img src="<?=base_url()?>template/client/catalog/images/link.png" alt="<?=$inv->name?>" /> Остатки СПб <?= date('d.m.Y', filectime('/home/admin/web/shop.brightbuild.ru/public_html/1c_exchange/offers0_1.xml'));?> 
+	<img src="<?=base_url()?>template/client/images/link.png" alt="<?=$inv->name?>" /> Остатки СПб <?= date('d.m.Y', filectime('/home/admin/web/shop.brightbuild.ru/public_html/1c_exchange/offers0_1.xml'));?> 
 	</a>
 								</div>
 							</div>

@@ -89,7 +89,7 @@
 												<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
 											<?endif?>
 												<p>Наличие: <span class="blue-label"><?=$product->qty ? 'на складе СПб' : 'по запросу'?></span></p>
-												<p><a href="" onclick="add_to_cart('<?=$product->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></p>
+												<p><a href="" onclick="add_to_cart('<?=$product->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></p>
 											</div>
 										</div>
 										
@@ -168,7 +168,7 @@
 														<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
 													<?endif?>
 														<div>Наличие: <span class="blue-label"><?=$components->qty ? 'на складе СПб' : 'по запросу'?></span></div>
-														<div><a href="" onclick="add_to_cart('<?=$components->id?>', 1); return false;"><img src="/template/client/images-new/cartbtn.png" /></a></div>
+														<div><a href="" onclick="add_to_cart('<?=$components->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></div>
 												</div>
 											</div>
 										<?endforeach;?>

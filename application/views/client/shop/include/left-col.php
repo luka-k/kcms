@@ -18,7 +18,7 @@
 		<?endif;?>
 	</h1>
 	
-	<div class="leftmenu">
+	<div class="leftmenu shop">
 			<div class="lm-block">
 				<div class="lm-caption">
 					Группа товаров:

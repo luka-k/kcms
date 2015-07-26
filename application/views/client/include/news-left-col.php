@@ -1,7 +1,9 @@
 <div id="scroll-left" class="leftmenu">
-	<div class="aside_news_header">
-		<?if(!empty($selected_manufacturer)):?>Новости <?=$selected_manufacturer->name?><?endif;?>
-	</div>
+	<?if(!empty($selected_manufacturer)):?>
+		<div class="aside_news_header">
+			Новости <?=$selected_manufacturer->name?>
+		</div>
+	<?endif;?>
 	<?foreach($content->articles as $item):?>
 		<div class="aside-news-item">
 			<div class="item_date"><?=$item->date?></div>							

@@ -6,19 +6,20 @@
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
 	
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style-new.css?v2" >
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/jquery-ui.css">
-	<link rel="stylesheet" type="text/css"  href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/easydropdown.css"/> <!--Крассивые select-->
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/catalog/css/jquery.mCustomScrollbar.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style.css?v2" >
+
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/js/fancybox/jquery.fancybox.css" media="all" /> <!--fancybox css-->
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/selects.css"/> <!--Крассивые select-->
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/jquery.mCustomScrollbar.css"/>
 		
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easydropdown.js"></script><!--Крассивые select-->
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cloud.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery/plugins/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/js/fancybox/jquery.fancybox.js"></script>  <!--fancybox js-->
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.mCustomScrollbar.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/cart.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
 	

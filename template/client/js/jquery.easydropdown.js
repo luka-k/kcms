@@ -16,7 +16,7 @@
 		this.down = false,
 		this.inFocus = false,
 		this.disabled = false,
-		this.cutOff = false,
+		this.cutOff = Math.floor(($(window).height() - 110) / 21),
 		this.hasLabel = false,
 		this.keyboardMode = false,
 		this.nativeTouch = true,
@@ -472,7 +472,9 @@
 		
 		$('select.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
+			
 				settings = json ? $.parseJSON(json) : {}; 
+				console.log(settings);
 			instantiate(this, settings);
 		});
 	});

@@ -1,6 +1,6 @@
 <header>
 	<div class="maxw">
-		<a href="/"><img class="logo" src="/template/client/images-new/logo.png" /></a>
+		<a href="/"><img class="logo" src="/template/client/images/logo.png" /></a>
 		
 		<div class="catalog-btn">
 			<?$url = $_SERVER['HTTP_HOST'];?>
