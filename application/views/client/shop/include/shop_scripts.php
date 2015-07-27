@@ -1,86 +1,60 @@
 <script>
-	function validation (element, errorClass) {
-		var input = element.find('input[type="text"]'),
-		spaces = new RegExp(/^(\s|\u00A0)+|(\s|\u00A0)+$/g),
-		isNecessatily,
-		isError = false;
-			
-		input.on('focus', function () {
-			var el = $(this);
-			if (el.hasClass(errorClass)) el.removeClass(errorClass);
-		});
-			
-		input.each(function () {
-			var el = $(this);
-			if (el.attr('data-necessarily') == 'true' && el.val().replace(spaces, '') == '') {
-				el.addClass(errorClass);
-				isError = true;
-			}
-				
-			if (el.attr('data-id') == 'name' && el.val() == "") {
-				el.addClass(errorClass);
-				isError = true;
-			}
-				
-			if (el.attr('data-id') == 'email' && el.val().match('@') == null) {
-				el.addClass(errorClass);
-				isError = true;
-			}
-				
-			if (el.attr('data-id') == 'phone' && el.val() == null) {
-				el.addClass(errorClass);
-				isError = true;
-			}
-				
-			if (el.attr('data-id') == 'address' && el.val() == null) {
-				el.addClass(errorClass);
-				isError = true;
-			}
-		});
-		return isError;
-	}
-		
-	function sub_form(){
-		var errorClass = 'frame-input_error';
-		if (validation($("#order_form"), errorClass)) return false;
-		$("#order_form").submit();
-	}
-		
-	function autocomp(type){
-		var form = $('.filter-form'),
-		categories_inputs = form.find('input.categories_checked'),
-		categories_checked = {},
-		data = {};
-		var num = 0;
-		categories_inputs.each(function () {
-			var element = $(this);
-			
-			if (element.attr('type') == 'checkbox' && element.prop("checked")) {
-				categories_checked[num] = element.val();
-				num++;
-			}
-		});
+	$(document).ready(function(){
+		$('#ajax_from').val(10);
+		<? if (!isset($no_ajax)):?>
+			$("#product-scroll").scroll(function() {
+				var div_sh = $(this)[0].scrollHeight;
+				var div_h = $(this).height();
 
-		data.type = type;
-		data.url = window.location.pathname;
-			
-		data.categories_checked = categories_checked;
-		var json_str = JSON.stringify(data);
-		$.post ("/ajax/autocomplete/", json_str, autocomp_answer, "json");
-	}
-		
-	function autocomp_answer(res){
-		var availableTags = res.available_tags;
-			
-		$("#"+res.type).autocomplete({
-			source: availableTags
+				if($(this).scrollTop() >= div_sh - div_h){
+					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+				}/*убрать shop*/
+			});
+		<?endif?>
+		$("#scroll-right").mCustomScrollbar({
+			axis:"y", //set both axis scrollbars
+			advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 		});
-	}
-	
-	$('.fancybox').fancybox();
-	
-	$('.js-close-fancybox').on('click', function(){
-		$.fancybox.close();
-		return false;
 	});
+		
+	function answer(res){
+		$("#product-scroll").append(res.content);
+		$('#ajax_from').val(res.ajax_from);
+	}	
 </script>
+
+<?if(isset($filters_checked["width_from"])):?>
+	<script>
+		$( document ).ready(function() {
+			$("#width-low").attr("name", "width_from");
+			$("#width-hi").attr("name", "width_to");
+		});	
+	</script>
+<?endif;?>
+	
+<?if(isset($filters_checked["height_from"])):?>
+	<script>
+		$( document ).ready(function() {
+			$("#height-low").attr("name", "height_from");
+			$("#height-hi").attr("name", "height_to");
+		});	
+	</script>
+<?endif;?>
+	
+<?if(isset($filters_checked["depth_from"])):?>
+	<script>
+		$( document ).ready(function() {
+			$("#depth-low").attr("name", "depth_from");
+			$("#depth-hi").attr("name", "depth_to");
+		});	
+	</script>
+<?endif;?>
+	
+<?if(isset($filters_checked["price_from"])):?>
+	<script>
+		$( document ).ready(function() {
+			$("#price-low").attr("name", "price_from");
+			$("#price-hi").attr("name", "price_to");
+		});	
+	</script>
+<?endif;?>

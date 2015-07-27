@@ -108,7 +108,7 @@
 							
 															<div class="cart-collumn-2">
 																<div class="form__button cart-order__button">
-																	<a href="#" class="order-button" onclick="validate_form('order'); return false;">Оформить заказ</a>
+																	<a href="#" class="order-button" onclick="submit_form('order'); return false;">Оформить заказ</a>
 																</div> 
 															</div>
 														</div> <!-- /.cart-order__form -->

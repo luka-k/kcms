@@ -1453,7 +1453,7 @@ text-align:center;
 	width:50%;
 }
 
-.cart input.frame-input_error{
+.cart input.error{
 	border:1px solid red;
 }
 
@@ -1896,11 +1896,16 @@ text-align:center;
 	line-height: 16px;
 }
 
+#s_right .item_text p{
+	padding: 0;
+}
+
 #s_right .item_text .news_date{
 	display:inline-block;
 	float:left;
-	margin-right:3px;
+	margin-right:5px;
 	color: #0000C8;
+	font-size:12px;
 	font-weight:bold;
 }
 
