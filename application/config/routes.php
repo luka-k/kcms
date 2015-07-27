@@ -58,6 +58,9 @@ if($host[0] == "shop")
 	$route['catalog'] = 'shop/catalog/index';
 	$route['catalog/(:any)'] = 'shop/catalog/index/$1';
 	$route['catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';
+
+	$route['sitemap.xml'] = 'shop/sitemap/index/xml';
+	$route['sitemap'] = 'shop/sitemap/index/html';
 }
 else
 {
@@ -66,6 +69,9 @@ else
 	$route['catalog'] = 'catalog/catalog/index';
 	$route['catalog/(:any)'] = 'catalog/catalog/index/$1';
 	$route['catalog/(:any)/(:num)'] = 'catalog/catalog/index/$1/$2';
+	
+	$route['sitemap.xml'] = 'catalog/sitemap/index/xml';
+	$route['sitemap'] = 'catalog/sitemap/index/html';
 }
 
 $route['cart'] = 'shop/cart/index';
@@ -111,7 +117,6 @@ $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 $route['search'] = 'search';
 
 $route['registration/(:any)'] = 'registration/$1';
-$route['sitemap.xml'] = 'sitemap/index/xml';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

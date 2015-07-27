@@ -124,7 +124,6 @@ class Pages extends Client_Controller {
 		);
 		
 		$data = array_merge($this->standart_data, $data);
-		
 		$this->load->view("client/404", $data);
 	}
 }

@@ -183,7 +183,7 @@ class Categories extends MY_Model
 				
 				if($sub_result)foreach($sub_result as $j => $s_r)
 				{
-					$categories_tree[$i]->childs[$j] = $this->categories->get_item($s_r->child_id);
+					$categories_tree[$i]->childs[$j] = $this->prepare($this->get_item($s_r->child_id));
 					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
 				}
 				
@@ -264,7 +264,7 @@ class Categories extends MY_Model
 		$item_url[]  = $item->url;
 		$query = $this->db->get_where('category2category', array('child_id' => $item->id)); 
 		$c2c = $query->row();
-		$item = $this->categories->get_item_by(array('id' => $c2c->category_parent_id));
+		if($c2c) $item = $this->categories->get_item_by(array('id' => $c2c->category_parent_id));
 		if($item) $item_url[]  = $item->url;
 		$item_url[] = 'catalog';
 		return $item_url;

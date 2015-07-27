@@ -1461,6 +1461,12 @@ text-align:center;
 	height:25px;
 }
 
+/*******sitemap********/
+
+.sitemap ul ul{
+	margin-left:25px;
+}
+
 /********************leftcol**********************/
 #s_left {
 	position: relative;

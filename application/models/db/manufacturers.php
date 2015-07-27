@@ -428,7 +428,14 @@ class Manufacturers extends MY_Model
 		if($result) foreach($result as $i => $item)
 		{
 			$contractors[$i] = $this->get_item($item->manufacturer_id);
-			$contractors[$i]->services = $this->_get_services($item->manufacturer_id);
+			if(!empty($contractors[$i])) 
+			{
+				$contractors[$i]->services = $this->_get_services($item->manufacturer_id);
+			}
+			else
+			{
+				unset($contractors[$i]);
+			}
 		}
 		
 		sort($contractors);
@@ -441,6 +448,9 @@ class Manufacturers extends MY_Model
 		if(!empty($item))
 		{
 			$item->img = $this->images->get_cover(array('object_type' => 'manufacturers', 'object_id' => $item->id));
+			
+			$item->full_url = 'http://brightbuild.ru/manufacturer/'.strtolower($item->url);
+			
 			return $item;
 		}
 	}
@@ -479,6 +489,7 @@ class Manufacturers extends MY_Model
 			$this->db->where_in("id", $distributed_ids);
 			$item->distributed = $this->prepare_list($this->db->get("manufacturers")->result());
 		}
+		
 		return $item;
 	}
 	
@@ -486,6 +497,7 @@ class Manufacturers extends MY_Model
 	{
 		$item = $this->prepare($item);
 		$item->services = $this->_get_services_tree($item->id);
+
 		return $item;
 	}
 }
