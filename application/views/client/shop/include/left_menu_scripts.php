@@ -4,14 +4,14 @@
 			if ($(this).hasClass('active'))
 			{
 				$('.lm-item').removeClass('active');
-				$('.lm-item').stop().animate({width:'249px'},'slow');
+				$('.lm-item').stop().animate({width:'258px'},'slow');
 				$('.secondcolumn').fadeOut('slow');
 				$('#searchpopupbtn').fadeOut('slow');
 			} else {
-				$('.lm-item').stop().animate({width:'249px'},'slow');
+				$('.lm-item').stop().animate({width:'258px'},'slow');
 				$('.lm-item').removeClass('active');
 				$(this).addClass('active');
-				$(this).stop().animate({width:'268px'},'slow');
+				$(this).stop().animate({width:'272px'},'slow');
 				$('.secondcolumn').fadeOut('slow');
 				$('#'+$(this).attr('prop')).fadeIn('slow');
 				$('#searchpopupbtn').fadeOut('slow'); 
@@ -27,7 +27,7 @@
 				else
 					$(this).find('span').html('+');
 			}
-			return false;
+			//return false;
 		});
 				
 		$('.secondcolumn input').click(function() {

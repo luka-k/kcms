@@ -202,7 +202,7 @@
 					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if($m->sku):?><?endif;?><?=$m->name?></a>
+				<a href="<?=base_url()?>catalog/<?=$m->url?>" class="level1_link"><?if($m->sku):?><?endif;?><?=$m->name?></a>
 			</li>
 		<? endforeach ?>
 	</ul>
@@ -221,7 +221,7 @@
 					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork'); $('#last_type_filter').val('categories_checked')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>">+</span> <?endif;?><?=$item_1->name?></a>
+				<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link"><?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>">+</span> <?endif;?><?=$item_1->name?></a>
 				<?if(!empty($item_1->childs)):?>
 					<ul id="sub-parent-<?=$item_1->id?>">
 						<?$show_counter = 0?>
