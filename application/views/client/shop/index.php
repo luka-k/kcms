@@ -15,8 +15,8 @@
 								<div style="clear: both;"></div>
 								
 								<div class="for-select">
-									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>shop/manufacturer/" >
-									<select name="" class="dropdown" onchange="manufacturer_submit('<?=$menu_link?>',this.options[this.selectedIndex].value);">
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
+									<select name="" class="dropdown" onchange="document.location='/catalog/'+this.options[this.selectedIndex].value;">
 										<option value="1" disabled="" selected="selected">выбор производителя</option>
 										<?foreach($manufacturer as $m):?>
 											<option value="<?=$m->url?>"><?=$m->name?></option>
