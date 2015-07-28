@@ -203,6 +203,7 @@ class Categories extends MY_Model
 		foreach($categories_tree as $i => $branch)
 		{
 			$volume[$i]  = $branch->name;
+			$categories_tree[$i] = $this->prepare($branch);
 		}
 
 		array_multisort($volume, SORT_ASC, $categories_tree);

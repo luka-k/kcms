@@ -40,6 +40,8 @@ class Sitemap extends Client_Controller
 			'Статьи' => array() //Может как подругому назвать стоит
 		);
 		
+		//my_dump($content);
+		
 		$single_pages = $this->config->item('sitemap_pages');
 		
 		foreach($single_pages as $name => $link)
