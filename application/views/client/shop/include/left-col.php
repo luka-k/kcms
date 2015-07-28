@@ -164,7 +164,7 @@
 					Размеры:
 					<div style="float: right;font-weight: bold;color: red;padding: 0px 5px; margin-right: 7px;cursor: pointer;" onmouseover="$('#whd').show();" onmouseout="$('#whd').hide();">i</div>
 				</div> 
-				<div style="position: absolute;left: 170px;top: 305px;z-index: 10000;display: none;" id="whd" ><img src="/template/client/img/whd.png" /></div>
+				<div style="position: absolute;left: 170px;top: 305px;z-index: 10000;display: none;" id="whd" ><img src="/template/client/images/whd.png" /></div>
 								
 				<div class="range-input">
 					<input type="text" readonly name="" id="width-hi">
