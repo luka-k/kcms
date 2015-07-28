@@ -222,7 +222,11 @@ class Catalog extends Client_Controller {
 		
 		$this->benchmark->mark('code_end');
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
-		$this->load->view("client/shop/categories", $data);
+		
+		if ($_SERVER['REQUEST_URI'] == '/')
+			$this->load->view("client/shop/index", $data);
+		else
+			$this->load->view("client/shop/categories", $data);
 	}
 	
 	public function sale()

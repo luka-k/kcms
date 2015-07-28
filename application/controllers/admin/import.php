@@ -156,6 +156,9 @@ class Import extends Admin_Controller
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		
 		$total = 0;
+			$this->db->empty_table('components_products');
+			$this->db->empty_table('accessories_products');
+			$this->db->empty_table('recommended_products');
 
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
@@ -192,7 +195,6 @@ class Import extends Admin_Controller
 				continue;
 			
 			echo "start updating...\n";
-			
 			if(!empty($recommended_2))foreach($recommended_2 as $sku)
 			{
 				$anchor_product = $this->products->get_item_by(array("sku" => $sku));
