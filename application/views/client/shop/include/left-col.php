@@ -11,7 +11,11 @@
 					Все товары
 				<?endif;?>
 			<?else:?>
-				<?=$categories_ch[0]?>
+				<?if(!empty($parent_ch)):?>
+					<?=$parent_ch[0]?>
+				<?else:?>
+					<?=$categories_ch[0]?>
+				<?endif;?>
 			<?endif;?>(<?=$total_rows ?>)
 		<?else:?>
 			<?=$title?>

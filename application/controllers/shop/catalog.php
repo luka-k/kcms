@@ -198,14 +198,14 @@ class Catalog extends Client_Controller {
 			
 			if(!empty($content->category))
 			{
-				$data['title'] = $content->category->name;
+				$data['title'] = $content->category->name.' | интернет-магазин bрайтbилd';
 				$data['meta_keywords'] = $content->category->meta_keywords;
 				$data['meta_description'] = $content->category->meta_description;
 				$data['categories_ch'] = array(0 => $content->category->name);
 			}
 			else
 			{
-				$data['title'] = $content->manufacturer->name;
+				$data['title'] = $content->manufacturer->name.' | интернет-магазин bрайтbилd';
 				$data['meta_keywords'] = $content->manufacturer->meta_keywords;
 				$data['meta_description'] = $content->manufacturer->meta_description;
 			}
@@ -216,6 +216,8 @@ class Catalog extends Client_Controller {
 		$data['category']->products = $products;
 		$data['total_rows'] = $total_rows;
 		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
+		
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		$this->benchmark->mark('code_end');
@@ -262,7 +264,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 		
 		$cache = $this->filters_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -304,6 +306,7 @@ class Catalog extends Client_Controller {
 				'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
 				'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
+				'parent_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'parent_checked'),
 				'categories_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'categories_checked'),
 				'manufacturer_ch' => $this->catalog->get_filters_info($this->post, 'manufacturers', 'manufacturer_checked'),
 				'collections_ch' => $this->catalog->get_filters_info($this->post, 'collections', 'collection_checked'),
@@ -329,6 +332,15 @@ class Catalog extends Client_Controller {
 			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
 			
+			if(!empty($data['parent_ch']))
+			{
+				$data['title'] = $data['parent_ch'][0].' | интернет-магазин bрайтbилd';
+			}
+			elseif(!empty($data['categories_ch'][0]))
+			{
+				$data['title'] = $data['categories_ch'][0].' | интернет-магазин bрайтbилd';
+			}
+			
 			$this->filters_cache->insert($cache_id, $data);
 	
 			$data = array_merge($this->standart_data, $data);
@@ -343,7 +355,6 @@ class Catalog extends Client_Controller {
 	{
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);	
-
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/shop/categories', $data);
 	}
@@ -364,7 +375,7 @@ class Catalog extends Client_Controller {
 
 		$this->session->unset_userdata('pre_cart');
 		$data = array(
-			'title' => $content->product->name,
+			'title' => $content->product->name.' | интернет-магазин bрайтbилd',
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
