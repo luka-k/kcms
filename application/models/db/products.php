@@ -164,28 +164,22 @@ class Products extends MY_Model
 		if(!empty($item))
 		{
 			$item->full_url = $this->get_url($item);
-
-			$item->price = floor($item->price);
+			$item->price = round($item->price, -1);
 			if(isset($item->sale_price))
-			{			
-				$item->sale_price = floor($item->sale_price);
+			{		
+				$item->sale_price = round($item->sale_price, -1);
 				if($item->price <> 0) $item->discount = round(($item->price - $item->sale_price) * 100 / $item->price);
 			}
-			$object_info = array(
-				'object_type' => 'products',
-				'object_id' => $item->id
-			);
 			
 			if($cover)
 			{
-				$item->img = $this->images->get_cover($object_info);
+				$item->img = $this->images->get_cover(array('object_type' => 'products', 'object_id' => $item->id));
 			}
 			else
 			{
-				$item->images = $this->images->prepare_list($this->images->get_list($object_info, 0, 0, 'is_cover', 'desc'));
+				$item->images = $this->images->prepare_list($this->images->get_list(array('object_type' => 'products', 'object_id' => $item->id), 0, 0, 'is_cover', 'desc'));
 			}
 			
-			//$item = $this->set_sale_price($item);
 			if(isset($item->description)) $item->description = htmlspecialchars_decode($item->description);
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
@@ -217,7 +211,7 @@ class Products extends MY_Model
 			if (isset($item->depth) && $item->depth)
 				$sizes[] = $item->depth;
 			$item->sizes_string = implode('x',$sizes);
-			//временно костылик
+	
 			$item->location = '';
 			return $item;
 		}			
