@@ -1028,6 +1028,7 @@ article h2 {
 /*******shop*******/
 .sortings {
 	position:relative;
+	float:left;
 	font-size: 12px;
 	margin: 1px 0 0 15px;
 	padding-top:3px;
@@ -1656,25 +1657,25 @@ text-align:center;
 }
 
 #width-range {
-	height: 2px;
+	height: 4px;
 	width: 196px;
 	margin-top: 2px;
 }
 
 #height-range {
-	height: 2px;
+	height: 4px;
 	width: 196px;
 	margin-top: 2px;
 }
 
 #weight-range {
-	height: 2px;
+	height: 4px;
 	width: 196px;
 	margin-top: 2px;
 }
 
 #price-range {
-	height: 2px;
+	height: 4px;
 	width: 196px;
 	margin-top: 2px;
 }
@@ -1687,14 +1688,14 @@ text-align:center;
 
 .range-input input {
 	font-size: 10px;
-	width: 50px;
+	width: 55px;
 	padding: 1px;
-	height: 12px;
+	height: 16px;
 	float: right;
 }
 		
 .range-input #price-hi, .range-input #price-low{
-	width: 50x;
+	width: 55x;
 }
 	
 .range-input .caption {
