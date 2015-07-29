@@ -1747,7 +1747,7 @@ text-align:center;
 .secondcolumn {
 	display: none;
 	position: absolute;
-	z-index: 10;
+	z-index: 100;
 	left: 270px;
 	top: 28px;
 	height: 606px;
