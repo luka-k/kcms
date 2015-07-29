@@ -14,7 +14,7 @@
 							<?require FCPATH.'application/views/client/include/breadcrumbs.php'?>
 							<div id="" class="main-content clearfix">
 		
-								<div id="scroll-content" class="catalog" style="overflow-y:scroll;">
+								<div id="scroll-content" class="catalog" style="height:600px; overflow-y:scroll;">
 									
 									<h1 class="manufacturer-title">
 										Каталог производителей - <?=$page_title?>

@@ -6,6 +6,7 @@
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
 	
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style.css?v2" >
 
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/plugins/jquery-ui/jquery-ui-custom.css">

@@ -1,5 +1,5 @@
 <h1>Новости</h1>
-<div id="scroll-right" class="rightmenu">
+<div id="scroll-right" class="rightmenu" style="height:600px;">
 	<?foreach($last_news as $item):?>
 		<div class="news_item m_news-<?= $item->manufacturer_id?>">
 			<h2><a href="<?=$item->full_url?>" style="color: #0000C8"><?=$item->name?></a></h2>

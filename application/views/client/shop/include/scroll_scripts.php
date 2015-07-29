@@ -8,7 +8,7 @@
 		$("#shadow").height($( window ).height() - 193);
 		$("#full-shadow").height($( window ).height() - 93);
 		$("#wrapper").height($( window ).height() - 65);
-		
+		$("#scroll-right").height($(window).height() - 93);
 		$("#good_page_scroll").height($( window ).height() - 80);
 	})(jQuery);
 </script>

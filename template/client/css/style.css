@@ -291,7 +291,7 @@ article h2 {
 }
 
 #main_page .catalog, #inventory .catalog, #brightbild .catalog{
-	margin-top:25px;
+	margin-top:28px;
 	padding:0;
 	width:100%;
 }
@@ -339,13 +339,18 @@ article h2 {
 	position:relative;
 	background: url(/template/client/images/house.png) 0 0 no-repeat;
 	font-size: 12px;
-	padding-top:3px;
+	padding-top:5px;
 	padding-left: 22px;
 	margin-top: 1px;
 	width: 100%;
-	height:18px;
+	height:21px;
 	font-weight: normal;
-	color: #000099;
+	color: #0099ff;
+}
+
+.breadcrumbs a{
+	text-decoration:underline;
+	color: #0099ff;
 }
 
 .p_brdcr .breadcrumbs{
@@ -1029,8 +1034,7 @@ article h2 {
 	position:relative;
 	float:left;
 	font-size: 12px;
-	margin: 1px 0 0 15px;
-	padding-top:3px;
+	padding-top:6px;
 	font-weight: normal;
 	color: #0099ff;
 }
@@ -1479,8 +1483,9 @@ text-align:center;
 
 #s_left h1{
 	overflow:hidden;
-	margin:4px 0 8px 22px;
+	margin:6px 0 8px 22px;
 	font-size: 12px;
+	height:14px;
 	font-weight:bold;
 	color: #0099ff;
 	white-space:nowrap;
@@ -1490,9 +1495,10 @@ text-align:center;
 #s_left .leftmenu {
 	overflow-y: hidden;
 	width: 271px;
-	height: 606px;
+	height: 600px;
 	margin-left: 6px;
 	padding-top: 15px;
+	padding-bottom: 15px;
 	background: #c6cee8 url(/template/client/images/leftcolumn-bg.png) repeat-x;
 	
     -webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
@@ -1501,7 +1507,7 @@ text-align:center;
 }
 
 #s_left .leftmenu.shop{
-	padding-top: 6px;
+	padding-top: 8px;
 }
 
 .leftmenu .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
@@ -1625,7 +1631,7 @@ text-align:center;
 #s_left .lm-caption{
 	margin-left: 9px;
 	margin-top: 3px;
-	margin-bottom: 3px;
+	margin-bottom: 5px;
 	font-size: 14px;
 }
 
@@ -1634,8 +1640,9 @@ text-align:center;
 	width: 258px;
 	background: #fff url(/template/client/images/icon-left.png) 245px 3px no-repeat;
 	cursor: pointer;
+	margin-bottom:7px;
 	padding-left: 9px;
-	padding-top: 2px;
+	padding-top: 4px;
 	font-size: 12px;
 	color: #ec1c24;
 	z-index:999;
@@ -1662,25 +1669,25 @@ text-align:center;
 #width-range {
 	height: 4px;
 	width: 196px;
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 #height-range {
 	height: 4px;
 	width: 196px;
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 #weight-range {
 	height: 4px;
 	width: 196px;
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 #price-range {
 	height: 4px;
 	width: 196px;
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 .range-input {
@@ -1706,7 +1713,7 @@ text-align:center;
 	width: 85px;
 	text-align: center;
 	padding-bottom: 3px;
-	padding-top: 3px;
+	padding-top: 5px;
 	float: right;
 }
 
@@ -1878,30 +1885,29 @@ text-align:center;
 	width: 295px;
 	height: 606px;
 	margin-right: 6px;
-	padding-top: 12px;
+	padding-top: 15px;
 	background: #eae8e7 url(/template/client/images/images/rightcolumn-bg.png) repeat-x;
 	overflow:hidden;
 } 
 					
 #s_right h1{
 	font-size: 12px;
-	margin:4px 0 9px 22px;
+	margin:6px 0 10px 22px;
 	color: #0099ff;
 	font-weight:bold;
 }
 
 #s_right h2{
 	font-size: 12px;
-	margin-left: 22px;
-	margin-top: 6px;
+	margin:6px 0 7px 22px;
 	color: #0000C8;
 	font-weight:bold;
+	text-decoration:underline;
 }
 
 #s_right .item_text{
 	font-size: 11px;
-	margin-left: 22px;
-	margin-top: 9px;
+	margin:11px 0 8px 22px;
 	color: #000;
 	line-height: 16px;
 }
@@ -1913,9 +1919,9 @@ text-align:center;
 #s_right .item_text .news_date{
 	display:inline-block;
 	float:left;
-	margin-right:5px;
+	margin-right:3px;
 	color: #0000C8;
-	font-size:12px;
+	font-size:11px;
 	font-weight:bold;
 }
 
