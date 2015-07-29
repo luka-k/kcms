@@ -20,6 +20,16 @@
 									<input type="hidden" id="ajax_from" name="from" value="<?=count($category->products)?>"/>
 								</div>
 								<div style="clear: both;"></div>
+								
+								<?if ($childs_categories): 
+									$childs_categories = $this->categories->prepare_list($childs_categories);
+								?>
+									<div class="category" style="margin: 5px 0;">
+									<?foreach ($childs_categories as $child): ?>
+										<div class="point" style="float: left;line-height: 14px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
+									<?endforeach?>
+									</div><div style="clear: both;"></div>
+								<?endif?>
 												
 								<?if(!empty($category->products)):?>
 									<?foreach($category->products as $item):?>
@@ -75,9 +85,20 @@
 												<?foreach($item->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
 												<?endforeach;?><br>
+												
 												<? if ($item->sale):?>
-												<strong><span style="color: red;">Распродажа!</span></strong>
+													<strong><span style="color: red;">Распродажа!</span></strong>
 												<?endif?>
+												
+												<? if ($item->description):?>
+													(<?= $item->description ?>)
+												<?endif?>
+												
+												<? if ($item->discontinued):?>
+													<? $date = explode(' ', $item->discontinued); $date = $date[0];?>
+													Снято с производства <?= $date?>
+												<?endif?>
+												
 											</div>
 										</div>
 									<?endforeach;?>

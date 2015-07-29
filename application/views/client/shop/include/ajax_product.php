@@ -51,5 +51,15 @@
 		<? if ($item->sale):?>
 			<strong><span style="color: red;">Распродажа!</span></strong>
 		<?endif?>
+		
+		<? if ($item->description):?>
+			(<?= $item->description ?>)
+		<?endif?>
+		
+		<? if ($item->discontinued):?>
+			<? $date = explode(' ', $item->discontinued); $date = $date[0];?>
+			Снято с производства <?= $date?>
+		<?endif?>
+		
 	</div>
 </div>

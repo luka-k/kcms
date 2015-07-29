@@ -52,7 +52,7 @@ class Import extends Admin_Controller
 			}
 			if ($price_eur && !$price_ru)
 			{
-				$price_ru = $price_eur * 61.9183;
+				$price_ru = $price_eur * 66.6248;
 				$price_ru = (100 + $settings->percent_euro) / 100 * $price_ru;
 			}
 			$price = $price_ru;
@@ -244,6 +244,7 @@ class Import extends Admin_Controller
 				
 	public function load1C()
 	{
+			$this->db->empty_table('filters_cache');
 		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -258,6 +259,7 @@ class Import extends Admin_Controller
 			$manufacturer = (string) $el->Изготовитель->Наименование;
 			$id = (string) $el->Ид;
 			$name = (string) $el->Наименование;
+			$description = (string) $el->Описание;
 			echo $total.': '.$name."\n";
 			$sku = (string) $el->Артикул;
 			$cat1 = array(); // Группы товаров 1
@@ -270,6 +272,7 @@ class Import extends Admin_Controller
 			$data = array(
 				'1c_id' => $id,
 				'sku' => $sku,
+				'description' => $description,
 				'sort' => $manufacturer
 			);
 			
@@ -309,6 +312,10 @@ class Import extends Admin_Controller
 					case 'Распродажа':
 						$value = (string) $param->Значение;
 						if($value == 'true') $data['sale'] = 1;
+						break;
+					case 'Снято с производства':
+						$value = (string) $param->Значение;
+						$data['discontinued'] = $value;
 						break;
 					case 'Цвет':
 					    // metadiel: пока не разделяем цвета, т.е. хром/золото - это отдельный цвет
@@ -365,6 +372,7 @@ class Import extends Admin_Controller
 			}
 			$data['sort'] .= $sku;
 			$_product = ($this->products->get_item_by(array('1c_id' => $data['1c_id']))); 
+		//	if ($_product->id != 994) continue;
 	//			continue;
 			 
 			echo "start inserting...\n";
@@ -445,18 +453,20 @@ class Import extends Admin_Controller
 					$product_id = $_product->id;
 				}
 			
+				$this->db->delete('product2collection', array('child_id' => $product_id));
 				foreach ($my_collections as $_i => $collection_id)
 				{
 					$product2collection = array(
 						'collection_parent_id' => $collection_id,
 						'child_id' => $product_id,
 						'is_main' => !$_i
-					); 
+					); 		
 					
-					if (!$this->db->get_where('product2collection', $product2collection)->result())				
+//					if (!$this->db->get_where('product2collection', $product2collection)->result())				
 						$this->db->insert('product2collection', $product2collection);
 				}
 				
+				$this->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
 				if($filters)
 				{
 					foreach($filters as $type => $filter)
@@ -471,17 +481,20 @@ class Import extends Admin_Controller
 							foreach($filter as $value)
 							{
 								$characteristics['value'] = $value;
-								if (!$this->db->get_where('characteristics', $characteristics)->result()) $this->db->insert('characteristics', $characteristics);
+								//if (!$this->db->get_where('characteristics', $characteristics)->result()) 
+									$this->db->insert('characteristics', $characteristics);
 							}
 						}
 						else
 						{
 							$characteristics['value'] = $filter;
-							if (!$this->db->get_where('characteristics', $characteristics)->result()) $this->db->insert('characteristics', $characteristics);
+							//if (!$this->db->get_where('characteristics', $characteristics)->result()) 
+								$this->db->insert('characteristics', $characteristics);
 						}
 						
 					}	
 				}
+				
 				
 				// убрать для загрузки фото
 				if (false)
@@ -605,6 +618,8 @@ class Import extends Admin_Controller
 			$product = ($this->products->get_item_by(array('1c_id' => $data['1c_id'])));
 			if (!$product)
 				continue;
+			//if ($product->id != 2294)
+				//continue;
 			$product_images = $this->images->get_list(array('object_type'=>'products', 'object_id' => $product->id)); 
 			$product_image_names = array();
 			foreach ($product_images as $im)
@@ -616,6 +631,7 @@ class Import extends Admin_Controller
 				}
 			}
 			$image_names =  array();
+			$found_names =  array();
 			foreach ($images as $im)
 			{
 				$fname = explode('.', basename($im));
@@ -626,6 +642,16 @@ class Import extends Admin_Controller
 					if (!in_array($fname[0], $product_image_names))
 						$uniq_images[] = $im;
 				}
+				$found_names[] = $fname[0];
+				$found_names[] = str_replace('_', '-', $fname[0]);
+			}
+//			print_r($found_names);
+			foreach ($product_images as $im)
+			{
+				$fname = explode('.', basename($im->url));
+				//echo $fname[0].'---';
+				if (!in_array($fname[0], $found_names))
+					$this->images->delete($im->id);
 			}
 			foreach ($uniq_images as $i => $im)
 			{
