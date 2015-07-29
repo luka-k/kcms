@@ -209,6 +209,16 @@ class Catalog extends Client_Controller {
 			
 				if(!empty($content->category))
 				{
+					$childs = array();
+					foreach($data['left_menu'] as $item_1)
+					{
+						if ($content->category->id == $item_1->id)
+						{
+							$childs = $item_1->childs;
+							break;
+						}
+					}
+					$data['childs_categories'] = $childs;
 					$data['title'] = $content->category->name.' | интернет-магазин bрайтbилd';
 					$data['meta_keywords'] = $content->category->meta_keywords;
 					$data['meta_description'] = $content->category->meta_description;
@@ -403,10 +413,13 @@ class Catalog extends Client_Controller {
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);	
 		$data = array_merge($this->standart_data, $data);
+		
 
-		if ($_SERVER['REQUEST_URI'] == '/')
+		if ($_SERVER['REQUEST_URI'] == '/' || $_SERVER['REQUEST_URI'] == '/catalog/filter/ea95de3bd4040f67d64b89bc4ae0517d/')
+		{
+			$data['no_ajax'] = 1;
 			$this->load->view("client/shop/index", $data);
-		else
+		} else
 			$this->load->view("client/shop/categories", $data);
 		/*$this->load->view('client/shop/categories', $data);*/
 	}
