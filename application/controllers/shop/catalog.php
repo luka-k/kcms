@@ -112,30 +112,50 @@ class Catalog extends Client_Controller {
 	private function category($content)
 	{	
 		//$this->session->unset_userdata('last_cache_id');
-		$cache_id = md5(serialize($content));
 		
-		$cache = $this->filters_cache->get($cache_id);
-		$cache = FALSE;
-		if($cache)
+		$filters_checked = array(
+			'filter' => TRUE, 
+			'last_type_filter' => 'categories_checked', 
+			'from' => 0,
+		);
+		
+		if($content == "root")
 		{
-			redirect(base_url().'catalog/filter/'.$cache_id);
+			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
+			$products_ids = $this->catalog->get_products_ids($products);
+		
+			$total_rows = count($this->products->get_list(FALSE));
+			
+			$data = array(
+					'filters_checked' => $filters_checked,
+					'left_menu' => $this->categories->get_tree(),
+					'collection' => $this->collections->get_tree($products_ids),
+					'sku_tree' => $this->manufacturers->get_tree($products),
+					'nok' => $this->catalog->get_nok_tree($products_ids)
+				);
+			
+			$data['category'] = new stdClass;
+			
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
+		
+			//$data['category']->products = $products;
+				$data['total_rows'] = $total_rows;
+				$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
+			
+				$data['left_menu'] = $this->categories->get_tree();
+				$data = array_merge($this->standart_data, $data);
+
+			$this->load->view("client/shop/index", $data);
 		}
 		else
 		{
-		
-			$data['category'] = new stdClass;
-			$filters_checked = array(
-				'filter' => TRUE, 
-				'last_type_filter' => 'categories_checked', 
-				'from' => 0,
-			);
-		
-			if($content == "root")
+			$cache_id = md5(serialize($content));
+	
+			$cache = $this->filters_cache->get($cache_id);
+			//$cache = FALSE;
+			if($cache)
 			{
-				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
-				$products_ids = $this->catalog->get_products_ids($products);
-			
-				$total_rows = count($this->products->get_list(FALSE));
+				redirect(base_url().'catalog/filter/'.$cache_id);
 			}
 			else
 			{
@@ -230,19 +250,19 @@ class Catalog extends Client_Controller {
 					$data['meta_keywords'] = $content->manufacturer->meta_keywords;
 					$data['meta_description'] = $content->manufacturer->meta_description;
 				}
-			}
 
-			$data['breadcrumbs'] = $this->breadcrumbs->get();
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
-			$data['category']->products = $products;
-			$data['total_rows'] = $total_rows;
-			$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
+				$data['category']->products = $products;
+				$data['total_rows'] = $total_rows;
+				$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
 			
-			$data['left_menu'] = $this->categories->get_tree();
-			$data['manufacturer'] = $this->manufacturers->get_tree(FALSE, $this->post);
+				$data['left_menu'] = $this->categories->get_tree();
+				$data['manufacturer'] = $this->manufacturers->get_tree(FALSE, $this->post);
 		
-			$this->filters_cache->insert($cache_id, $data);
-			redirect(base_url()."catalog/filter/".$cache_id);
+				$this->filters_cache->insert($cache_id, $data);
+				redirect(base_url()."catalog/filter/".$cache_id);
+			}
 		}
 	}
 	
@@ -284,7 +304,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 		
 		$cache = $this->filters_cache->get($cache_id);
-		$cache = FALSE;
+		//$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -413,13 +433,7 @@ class Catalog extends Client_Controller {
 		$data = $this->filters_cache->get($cache_id);	
 		$data = array_merge($this->standart_data, $data);
 		
-
-		if ($_SERVER['REQUEST_URI'] == '/' || $_SERVER['REQUEST_URI'] == '/catalog/filter/ea95de3bd4040f67d64b89bc4ae0517d/')
-		{
-			$data['no_ajax'] = 1;
-			$this->load->view("client/shop/index", $data);
-		} else
-			$this->load->view("client/shop/categories", $data);
+		$this->load->view("client/shop/categories", $data);
 		/*$this->load->view('client/shop/categories', $data);*/
 	}
 	
