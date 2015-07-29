@@ -33,7 +33,7 @@ class Catalog extends Client_Controller {
 		if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
 		$price_max = $price_to = $this->products->get_max('price');
 		if(!empty($this->post['price_to'])) $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
-
+		
 		$width_min = $width_from = $this->products->get_min('width');
 		if(!empty($this->post['width_from'])) $width_from = preg_replace('/[^0-9]/', '', $this->post['width_from']);
 		$width_max = $width_to = $this->products->get_max('width');
@@ -79,6 +79,7 @@ class Catalog extends Client_Controller {
 			'nok' => array(),
 			'ajax_from' => ''
 		);
+	
 
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
@@ -114,7 +115,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($content));
 		
 		$cache = $this->filters_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -233,14 +234,6 @@ class Catalog extends Client_Controller {
 			$this->filters_cache->insert($cache_id, $data);
 			redirect(base_url()."catalog/filter/".$cache_id);
 		}
-		
-		/*$this->benchmark->mark('code_end');
-		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
-		
-		if ($_SERVER['REQUEST_URI'] == '/')
-			$this->load->view("client/shop/index", $data);
-		else
-			$this->load->view("client/shop/categories", $data);*/
 	}
 	
 	public function sale()
@@ -282,7 +275,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 		
 		$cache = $this->filters_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -314,6 +307,26 @@ class Catalog extends Client_Controller {
 			$filters = $this->characteristics_type->get_filters($products, $this->post);
 			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
+			
+			$price_min = $price_from = $this->products->get_min('price');
+			if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
+			$price_max = $price_to = $this->products->get_max('price');
+			if(!empty($this->post['price_to'])) $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
+			
+			$width_min = $width_from = $this->products->get_min('width');
+			if(!empty($this->post['width_from'])) $width_from = preg_replace('/[^0-9]/', '', $this->post['width_from']);
+			$width_max = $width_to = $this->products->get_max('width');
+			if(!empty($this->post['width_to'])) $width_to = preg_replace('/[^0-9]/', '', $this->post['width_to']);
+		
+			$height_min = $height_from = $this->products->get_min('height');
+			if(!empty($this->post['height_from'])) $height_from = preg_replace('/[^0-9]/', '', $this->post['height_from']);
+			$height_max = $height_to = $this->products->get_max('height');
+			if(!empty($this->post['height_to'])) $height_to = preg_replace('/[^0-9]/', '', $this->post['height_to']);
+		
+			$depth_min = $depth_from = $this->products->get_min('depth');
+			if(!empty($this->post['depth_from'])) $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);
+			$depth_max = $depth_to = $this->products->get_max('depth');
+			if(!empty($this->post['depth_to'])) $depth_to = preg_replace('/[^0-9]/', '', $this->post['depth_to']);
 
 			$data = array(
 				'breadcrumbs' => $this->breadcrumbs->get(),
@@ -335,7 +348,23 @@ class Catalog extends Client_Controller {
 				'material_ch' => $this->catalog->get_filters_info($this->post, 'characteristics', 'material'),
 				'finishing_ch' => $this->catalog->get_filters_info($this->post, 'characteristics', 'finishing'),
 				'turn_ch' => $this->catalog->get_filters_info($this->post, 'characteristics', 'turn'),
-				'ajax_from' => ''
+				'ajax_from' => '',
+				'price_from' => $price_from,
+				'price_to' => $price_to,
+				'price_min' => $price_min,
+				'price_max' => $price_max,
+				'width_from' => $width_from,
+				'width_to' => $width_to,
+				'width_min' => $width_min,
+				'width_max' => $width_max,
+				'height_from' => $height_from,
+				'height_to' => $height_to,
+				'height_min' => $height_min,
+				'height_max' => $height_max,
+				'depth_from' => $depth_from,
+				'depth_to' => $depth_to,
+				'depth_min' => $depth_min,
+				'depth_max' => $depth_max,
 			);
 		
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
@@ -374,7 +403,7 @@ class Catalog extends Client_Controller {
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);	
 		$data = array_merge($this->standart_data, $data);
-		
+
 		if ($_SERVER['REQUEST_URI'] == '/')
 			$this->load->view("client/shop/index", $data);
 		else

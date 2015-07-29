@@ -64,6 +64,7 @@
 					element.prop("checked", true);
 				}else{
 					element.prop("checked", false);
+					
 				}
 			}else if(action == "child"){
 				counter_1++;
