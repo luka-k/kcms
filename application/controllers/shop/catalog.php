@@ -54,6 +54,7 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'title' => 'Каталог',
 			'url' => base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']),
+			'top_active' => 'shop',
 			'price_from' => $price_from,
 			'price_to' => $price_to,
 			'price_min' => $price_min,
@@ -79,7 +80,6 @@ class Catalog extends Client_Controller {
 			'nok' => array(),
 			'ajax_from' => ''
 		);
-	
 
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
@@ -246,12 +246,11 @@ class Catalog extends Client_Controller {
 			'from' => 0,
 		);
 		
-			$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'sort', 'asc'));
-			$products_ids = $this->catalog->get_products_ids($products);
-			
-			$total_rows = count($this->products->get_list(array('sale' => 1)));
+		$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'sort', 'asc'));
+		$products_ids = $this->catalog->get_products_ids($products);
 		
-
+		$total_rows = count($this->products->get_list(array('sale' => 1)));
+		
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 		$data['category']->products = $products;
@@ -261,7 +260,7 @@ class Catalog extends Client_Controller {
 		$data['no_ajax'] = true;
 		
 		$data = array_merge($this->standart_data, $data);
-		
+
 		$this->benchmark->mark('code_end');
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/shop/categories", $data);
@@ -441,13 +440,13 @@ class Catalog extends Client_Controller {
 		
 		if(!empty($cache_data))
 		{
-			$data['filters_checked'] = $cache_data['filters_checked'];
 			$data['filters'] = $cache_data['filters'];
 			$data['left_menu'] = $cache_data['left_menu'];
 			$data['manufacturer'] = $cache_data['manufacturer'];
-			$data['categories_ch'] = $cache_data['categories_ch'];
-			$data['manufacturer_ch'] = $cache_data['manufacturer_ch'];
 			
+			if(isset($cache_data['filters_checked'])) $data['filters_checked'] = $cache_data['filters_checked'];
+			if(isset($cache_data['categories_ch'])) $data['categories_ch'] = $cache_data['categories_ch'];
+			if(isset($cache_data['manufacturer_ch'])) $data['manufacturer_ch'] = $cache_data['manufacturer_ch'];
 			if(isset($cache_data['collection'])) $data['collection'] = $cache_data['collection'];
 			if(isset($cache_data['sku_tree'])) $data['sku_tree'] = $cache_data['sku_tree'];
 			if(isset($cache_data['collections_ch'])) $data['collections_ch'] = $cache_data['collections_ch'];

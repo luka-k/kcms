@@ -25,7 +25,7 @@ class Podrjadchiki extends Client_Controller {
 			'page_title' => $this->standart_data['settings']->contractor_h1,
 			'page_description' => htmlspecialchars_decode($this->standart_data['settings']->contractor_description),
 			'left_menu' => $this->services->get_tree(0, 'parent_id'),
-			'top_active' => 'contractors',
+			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'content_description' => ''
@@ -84,7 +84,7 @@ class Podrjadchiki extends Client_Controller {
 			'meta_description' => 'Компания '.$contractor->name.' в Санкт-Петербурге производит обслуживание/ремонт сантехники. По всем вопросам обращайтесь к консультантам компании',
 			'meta_keywords' => $contractor->name.' обслуживание/ремонт сантехники в Санкт-Петербурге.',
 			'above_menu_title' => $contractor->name,
-			'top_active' => 'contractors',
+			'top_active' => 'catalog',
 			'left_active_item' => isset($content->parent_service) ? $content->parent_service->url : $content->service->url,
 			'submenu_active_item' => isset($content->parent_service) ? $content->service->url : '',
 			'breadcrumbs' => $this->breadcrumbs->get(),

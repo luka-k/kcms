@@ -25,7 +25,7 @@ class Prodavcy extends Client_Controller {
 			'page_title' => $this->standart_data['settings']->vendors_h1,
 			'page_description' => htmlspecialchars_decode($this->standart_data['settings']->vendors_description),
 			'left_menu' => $this->categories->get_another_tree('vendor'),
-			'top_active' => 'vendors',
+			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'content_description' => ''
@@ -84,7 +84,7 @@ class Prodavcy extends Client_Controller {
 			'above_menu_title' => $vendor->name,
 			'left_menu' => $this->categories->get_another_tree('vendor'),
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'top_active' => 'vendors',
+			'top_active' => 'catalog',
 			'left_active_item' => '',
 			'submenu_active_item' => '',
 			'vendors' => $this->manufacturers->prepare_list($this->manufacturers->get_vendors()),

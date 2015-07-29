@@ -76,7 +76,7 @@ class Pages extends Client_Controller {
 	
 		$data = array(
 			'title' => $content->name,
-			'top_active' => 'articles',
+			'top_active' => 'news',
 			'meta_keywords' => $content->meta_keywords,
 			'meta_description' => $content->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
