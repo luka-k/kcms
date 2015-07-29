@@ -700,7 +700,14 @@ article h2 {
 	top: 0px;
 	font-size: 11px;
 	text-decoration: underline;
+	
 }
+
+.navigation-mini .main-a-2.w-i{
+	padding:0 0 0 23px;
+	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
+}
+
 
 .main-a-2 a:after {
 	content: "";

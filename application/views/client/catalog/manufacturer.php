@@ -97,7 +97,11 @@
 										<div>
 									<div class="main-a-0" style="top: 2px;">
 										<?if ($this->products->get_list(array('manufacturer_id' => $manufacturer->id))): ?>
-											<div style="height: 17px;width: 151px; margin: 4px 0px 0px 20px; padding-left: 20px; background: url(/template/client/catalog/images/icon-shop.png) 0 4px no-repeat"><a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="main-a-2  del-2 ">Интернет-магазин</a></div>
+											<div style="height: 17px;width: 151px; margin: 4px 0px 0px 20px; padding-left: 20px; background: url(/template/client/catalog/images/icon-shop.png) 0 4px no-repeat">
+												<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="main-a-2  del-2 w-i" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
+													Интернет-магазин
+												</a>
+											</div>
 										<?endif?>
 									</div>								
 									<div class="main-a width-auto">
