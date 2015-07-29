@@ -110,122 +110,137 @@ class Catalog extends Client_Controller {
 	*/
 	private function category($content)
 	{	
-		$this->session->unset_userdata('last_cache_id');
+		//$this->session->unset_userdata('last_cache_id');
+		$cache_id = md5(serialize($content));
 		
-		$data['category'] = new stdClass;
-		$filters_checked = array(
-			'filter' => TRUE, 
-			'last_type_filter' => 'categories_checked', 
-			'from' => 0,
-		);
-		
-		if($content == "root")
+		$cache = $this->filters_cache->get($cache_id);
+		//$cache = FALSE;
+		if($cache)
 		{
-			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
-			$products_ids = $this->catalog->get_products_ids($products);
-			
-			$total_rows = count($this->products->get_list(FALSE));
+			redirect(base_url().'catalog/filter/'.$cache_id);
 		}
 		else
 		{
-			$manufacturer_ch = array();
-			
-			if(isset($content->category->id))
+		
+			$data['category'] = new stdClass;
+			$filters_checked = array(
+				'filter' => TRUE, 
+				'last_type_filter' => 'categories_checked', 
+				'from' => 0,
+			);
+		
+			if($content == "root")
 			{
-				$category_anchor = $this->db->get_where('category2category', array('child_id' => $content->category->id))->result();
-
-				$products = array();
-				if(count($category_anchor) == 1 && $category_anchor[0]->category_parent_id == 0)
+				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
+				$products_ids = $this->catalog->get_products_ids($products);
+			
+				$total_rows = count($this->products->get_list(FALSE));
+			}
+			else
+			{
+				$manufacturer_ch = array();
+			
+				if(isset($content->category->id))
 				{
-					$filters_checked['parent_checked'] = array(0 => $content->category->id);
-					$sub_categories = $this->db->get_where('category2category', array('category_parent_id' => $content->category->id))->result();
-					if($sub_categories) foreach($sub_categories as $category)
+					$category_anchor = $this->db->get_where('category2category', array('child_id' => $content->category->id))->result();
+
+					$products = array();
+					if(count($category_anchor) == 1 && $category_anchor[0]->category_parent_id == 0)
 					{
-						$filters_checked['categories_checked'][] = $category->child_id;
-					}
+						$filters_checked['parent_checked'] = array(0 => $content->category->id);
+						$sub_categories = $this->db->get_where('category2category', array('category_parent_id' => $content->category->id))->result();
+						if($sub_categories) foreach($sub_categories as $category)
+						{
+							$filters_checked['categories_checked'][] = $category->child_id;
+						}
 				
+						if(isset($content->manufacturer)) 
+						{
+							$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+							$manufacturer_ch[] = $content->manufacturer->name;
+						}
+
+						$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
+						$products = $this->products->prepare_list($products);
+				
+						$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc'));
+					}
+					else
+					{
+						$param = array('parent_id' => $content->category->id);
+
+						$filters_checked['categories_checked'] = array(0 => $content->category->id);
+				
+						if(isset($content->manufacturer))
+						{
+							$param['manufacturer_id'] = $content->manufacturer->id;
+							$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
+							$manufacturer_ch[] = $content->manufacturer->name;
+						}
+						$products = $this->products->prepare_list($this->products->get_list($param, 0, 10, 'sort', 'asc'));
+				
+						$total_rows = count($this->products->get_list($param, FALSE, FALSE, 'sort', 'asc'));
+					}
+				}
+				else
+				{
 					if(isset($content->manufacturer)) 
 					{
 						$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
 						$manufacturer_ch[] = $content->manufacturer->name;
 					}
-
-					$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
-					$products = $this->products->prepare_list($products);
-				
-					$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc'));
+					$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), 0, 10, 'sort', 'asc'));
+					$total_rows = count($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), FALSE, FALSE, 'sort', 'asc'));
+				}
+			
+				$products_ids = $this->catalog->get_products_ids($products);
+			
+				$data = array(
+					'category' => $content,
+					'filters_checked' => $filters_checked,
+					'manufacturer_ch' => $manufacturer_ch,
+					'left_menu' => $this->categories->get_tree(),
+					'collection' => $this->collections->get_tree($products_ids),
+					'manufacturer' => $this->manufacturers->get_tree($products),
+					'sku_tree' => $this->manufacturers->get_tree($products),
+					'nok' => $this->catalog->get_nok_tree($products_ids)
+				);
+			
+				if(!empty($content->category))
+				{
+					$data['title'] = $content->category->name.' | интернет-магазин bрайтbилd';
+					$data['meta_keywords'] = $content->category->meta_keywords;
+					$data['meta_description'] = $content->category->meta_description;
+					$data['categories_ch'] = array(0 => $content->category->name);
 				}
 				else
 				{
-					$param = array('parent_id' => $content->category->id);
+					$data['title'] = $content->manufacturer->name.' | интернет-магазин bрайтbилd';
+					$data['meta_keywords'] = $content->manufacturer->meta_keywords;
+					$data['meta_description'] = $content->manufacturer->meta_description;
+				}
+			}
 
-					$filters_checked['categories_checked'] = array(0 => $content->category->id);
-				
-					if(isset($content->manufacturer))
-					{
-						$param['manufacturer_id'] = $content->manufacturer->id;
-						$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
-						$manufacturer_ch[] = $content->manufacturer->name;
-					}
-					$products = $this->products->prepare_list($this->products->get_list($param, 0, 10, 'sort', 'asc'));
-				
-					$total_rows = count($this->products->get_list($param, FALSE, FALSE, 'sort', 'asc'));
-				}
-			}
-			else
-			{
-				if(isset($content->manufacturer)) 
-				{
-					$filters_checked['manufacturer_checked'][] = $content->manufacturer->id;
-					$manufacturer_ch[] = $content->manufacturer->name;
-				}
-				$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), 0, 10, 'sort', 'asc'));
-				$total_rows = count($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), FALSE, FALSE, 'sort', 'asc'));
-			}
+			$data['breadcrumbs'] = $this->breadcrumbs->get();
+		
+			$data['category']->products = $products;
+			$data['total_rows'] = $total_rows;
+			$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
 			
-			$products_ids = $this->catalog->get_products_ids($products);
-			
-			$data = array(
-				'category' => $content,
-				'filters_checked' => $filters_checked,
-				'manufacturer_ch' => $manufacturer_ch,
-				'left_menu' => $this->categories->get_tree(),
-				'collection' => $this->collections->get_tree($products_ids),
-				'manufacturer' => $this->manufacturers->get_tree($products),
-				'sku_tree' => $this->manufacturers->get_tree($products),
-				'nok' => $this->catalog->get_nok_tree($products_ids)
-			);
-			
-			if(!empty($content->category))
-			{
-				$data['title'] = $content->category->name.' | интернет-магазин bрайтbилd';
-				$data['meta_keywords'] = $content->category->meta_keywords;
-				$data['meta_description'] = $content->category->meta_description;
-				$data['categories_ch'] = array(0 => $content->category->name);
-			}
-			else
-			{
-				$data['title'] = $content->manufacturer->name.' | интернет-магазин bрайтbилd';
-				$data['meta_keywords'] = $content->manufacturer->meta_keywords;
-				$data['meta_description'] = $content->manufacturer->meta_description;
-			}
+			$data['left_menu'] = $this->categories->get_tree();
+			$data['manufacturer'] = $this->manufacturers->get_tree(FALSE, $this->post);
+		
+			$this->filters_cache->insert($cache_id, $data);
+			redirect(base_url()."catalog/filter/".$cache_id);
 		}
-
-		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
-		$data['category']->products = $products;
-		$data['total_rows'] = $total_rows;
-		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
-		
-		$data = array_merge($this->standart_data, $data);
-		
-		$this->benchmark->mark('code_end');
+		/*$this->benchmark->mark('code_end');
 		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		
 		if ($_SERVER['REQUEST_URI'] == '/')
 			$this->load->view("client/shop/index", $data);
 		else
-			$this->load->view("client/shop/categories", $data);
+			$this->load->view("client/shop/categories", $data);*/
 	}
 	
 	public function sale()
@@ -359,7 +374,12 @@ class Catalog extends Client_Controller {
 		$this->filters_cache->set_last($cache_id);
 		$data = $this->filters_cache->get($cache_id);	
 		$data = array_merge($this->standart_data, $data);
-		$this->load->view('client/shop/categories', $data);
+		
+		if ($_SERVER['REQUEST_URI'] == '/')
+			$this->load->view("client/shop/index", $data);
+		else
+			$this->load->view("client/shop/categories", $data);
+		/*$this->load->view('client/shop/categories', $data);*/
 	}
 	
 	/**
@@ -395,19 +415,21 @@ class Catalog extends Client_Controller {
 			$data['filters_checked'] = $cache_data['filters_checked'];
 			$data['filters'] = $cache_data['filters'];
 			$data['left_menu'] = $cache_data['left_menu'];
-			$data['collection'] = $cache_data['collection'];
 			$data['manufacturer'] = $cache_data['manufacturer'];
-			$data['sku_tree'] = $cache_data['sku_tree'];
 			$data['categories_ch'] = $cache_data['categories_ch'];
 			$data['manufacturer_ch'] = $cache_data['manufacturer_ch'];
-			$data['collections_ch'] = $cache_data['collections_ch'];
-			$data['sku_ch'] = $cache_data['sku_ch'];
-			$data['shortname_ch'] = $cache_data['shortname_ch'];
-			$data['shortdesc_ch'] = $cache_data['shortdesc_ch'];
-			$data['color_ch'] = $cache_data['color_ch'];
-			$data['material_ch'] = $cache_data['material_ch'];
-			$data['finishing_ch'] = $cache_data['finishing_ch'];
-			$data['turn_ch'] = $cache_data['turn_ch'];
+			
+			if(isset($cache_data['collection'])) $data['collection'] = $cache_data['collection'];
+			if(isset($cache_data['sku_tree'])) $data['sku_tree'] = $cache_data['sku_tree'];
+			if(isset($cache_data['collections_ch'])) $data['collections_ch'] = $cache_data['collections_ch'];
+			if(isset($cache_data['sku_ch'])) $data['sku_ch'] = $cache_data['sku_ch'];
+			if(isset($cache_data['shortname_ch'])) $data['shortname_ch'] = $cache_data['shortname_ch'];
+			if(isset($cache_data['shortdesc_ch'])) $data['shortdesc_ch'] = $cache_data['shortdesc_ch'];
+			if(isset($cache_data['color_ch'])) $data['color_ch'] = $cache_data['color_ch'];
+			if(isset($cache_data['material_ch'])) $data['material_ch'] = $cache_data['material_ch'];
+			if(isset($cache_data['finishing_ch'])) $data['finishing_ch'] = $cache_data['finishing_ch'];
+			if(isset($cache_data['turn_ch'])) $data['turn_ch'] = $cache_data['turn_ch'];
+			
 			$data['last_cache_id'] = $this->session->userdata('last_cache_id');
 		}
 
