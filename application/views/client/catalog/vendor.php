@@ -40,7 +40,7 @@
 									<h1 class="title" style="padding-left: 10px;padding-top:2px;margin-top: 0px;"><?=$vendor->name?></h1>
 									<div class="top-gp">
 										<div class="main-logo" style="float: left;padding-right: 20px;">									
-											<a href="<?=$vendor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><img alt="<?=$vendor->name?> производитель <?=$vendor->name?>" title="<?=$vendor->name?> продажа в СПб" src="<?=$vendor->img->manufacturer_url?>" /></a>
+											<a href="http://<?=$vendor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><img alt="<?=$vendor->name?> производитель <?=$vendor->name?>" title="<?=$vendor->name?> продажа в СПб" src="<?=$vendor->img->manufacturer_url?>" /></a>
 										</div>
 										<div>
 											<p style="color:#009bdb;line-height:12px;font-size: 13px;padding-bottom: 8px;"><a href="http://<?=$vendor->link?>" rel="nofollow" target="_blank" style="color:#009bdb"><?=$vendor->link?></a></p>

@@ -51,7 +51,7 @@
 										<table>
 											<tr>
 												<td class="head-block1">
-													<a href="http://<?=$manufacturer->link?>"><img src="<?=$manufacturer->img->manufacturer_url?>" alt="<?=$manufacturer->name?>"></a>
+													<a rel="nofollow" target="_blank" href="http://<?=$manufacturer->link?>"><img src="<?=$manufacturer->img->manufacturer_url?>" alt="<?=$manufacturer->name?>"></a>
 												</td>
 												<td class="head-block2">
 												<? if ($manufacturer->distributors):?>
@@ -77,7 +77,7 @@
 									</div>
 									
 									<div class="catalog-menu clearfix">
-										<p>Фабрика <span class="bold-text"><?=$manufacturer->name?></span> ( <a href="http://<?=$manufacturer->link?>"><?=$manufacturer->link?></a>, <?=$manufacturer->country?>) производит следующие группы товаров:</p>
+										<p>Фабрика <span class="bold-text"><?=$manufacturer->name?></span> ( <a rel="nofollow" target="_blank" href="http://<?=$manufacturer->link?>"><?=$manufacturer->link?></a>, <?=$manufacturer->country?>) производит следующие группы товаров:</p>
 										
 										<div class="category">
 											<?foreach($manufacturer->subcategories as $category):?>
