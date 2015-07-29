@@ -79,7 +79,7 @@ class Catalog extends Client_Controller {
 			'nok' => array(),
 			'ajax_from' => ''
 		);
-	
+
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
 		$this->load->helper('url_helper');
@@ -216,7 +216,6 @@ class Catalog extends Client_Controller {
 		$data['category']->products = $products;
 		$data['total_rows'] = $total_rows;
 		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
-		
 		
 		$data = array_merge($this->standart_data, $data);
 		

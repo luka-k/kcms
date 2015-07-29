@@ -462,7 +462,6 @@ article h2 {
 .for-select{
 	position: absolute;
 	width: 146px;
-	background: #D1C8FF;
 	z-index: 20;
 }
 
@@ -1945,4 +1944,46 @@ text-align:center;
 #s_right .manufacturers ul img.active{
 	width:174px;
 	height:76px;
-	border:1px solid #ff0000;
+	border:1px solid #ff0000;
+}
+
+#index_categories .left_col{
+	position:relative;
+	width:230px;
+	float:left;
+	margin-right:1%;
+	
+}
+
+#index_categories .right_col{
+	position:relative;
+	width: 230px;
+	float:left;
+}
+
+#index_categories a {
+	display:inline-block;
+	width:100%;
+	margin-bottom:5px;
+	padding:0px;
+}
+
+#index_categories a:hover{
+	text-decoration:underline;
+}
+
+#index_categories a img{
+	position:relative;
+	float:left;
+	margin-right:10px;
+}
+
+#index_categories a .ttl{
+	position:relative;
+	float:left;
+	
+}
+
+#index_categories a .ttl:hover{
+	text-decoration:underline;
+}

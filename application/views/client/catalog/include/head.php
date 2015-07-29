@@ -16,7 +16,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.css?v=2.1.5"/>
 	
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown_catalog.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.css"/>
  		
 	<!---------------------------JS----------------------------->

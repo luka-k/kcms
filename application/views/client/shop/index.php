@@ -11,7 +11,7 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<div id="product-scroll" style="height: 700px; overflow-y: scroll;">
+							<div id="product-scroll" style="height: 700px; overflow-y: scroll; margin-top:28px;">
 								<div style="clear: both;"></div>
 								
 								<div class="for-select">
@@ -25,13 +25,13 @@
 									</form>
 								</div>
 								
-								<div id="slider-scroll" class="slider">
+								<div id="slider-scroll" class="slider" >
 									<div class="logo-column">
 										<div class="some10">
 											<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
 												<div class="pic-block">
 													<a href="<?=base_url()?>catalog/<?=$m->url?>">
-														<img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>" class="logotype <?if($m->url == $manufacturer->url):?>active<?endif;?>" />
+														<img src="<?/*=$m->img->manufacturer_url*/?>" height="78" width="164" alt="<?=$m->name?>" class="logotype" />
 													</a>
 												</div>
 											<?endforeach;?>
@@ -41,10 +41,18 @@
 								
 								
 								<div id="index_categories">
-								<?foreach($left_menu as $item_1):?>
-									<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link">
-									<? if ( $item_1->img): ?><img src="/download/images/<?= $item_1->img->url?>"><?endif?><?=$item_1->name?></a>
-								<?endforeach?>
+									<?$counter = 1?>
+									<?$line = ceil(count($left_menu)/2)?>
+									<div class="left_col">
+										<?foreach($left_menu as $item_1):?>
+											<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link">
+												<? if ( $item_1->img): ?><img src="/download/images/<?= $item_1->img->url?>"><?endif?>
+												<div class="ttl"><?=$item_1->name?></div>
+											</a>
+											<?if($counter == $line):?></div><div class="right_col"><?$counter = 0?><?endif;?>
+											<?$counter++?>
+										<?endforeach?>
+									</div>
 								</div>
 							</div>
 						</article>
