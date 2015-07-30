@@ -24,7 +24,6 @@
 									</select>
 									</form>
 								</div>
-								
 								<div id="slider-scroll" class="slider" >
 									<div class="logo-column">
 										<div class="some10">
@@ -38,27 +37,41 @@
 										</div>
 									</div>
 								</div>
-								
-								
+															
 								<div id="index_categories">
 									<?$counter = 1?>
 									<?$line = ceil(count($left_menu)/2)?>
-									<div class="left_col">
+									<ul class="left_col">
 										<?foreach($left_menu as $item_1):?>
-											<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link">
-												<? if ( $item_1->img): ?><img src="/download/images/<?= $item_1->img->url?>"><?endif?>
-												<div class="ttl"><?=$item_1->name?></div>
-											</a>
-											<?if($counter == $line):?></div><div class="right_col"><?$counter = 0?><?endif;?>
+											<li>
+												<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link">
+													<? if ( $item_1->img): ?>
+														<div class="item-icon"><img src="/download/images/<?= $item_1->img->url?>"></div>
+													<?endif?>
+													<div class="ttl"><?=$item_1->name?></div>
+												</a>
+												<span class="marker up">+</span>
+												<?if(!empty($item_1->childs)):?>
+													<ul class="noactive">
+														<?foreach($item_1->childs as $item_2):?>
+															<li>
+																<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?$item_2->url?>">
+																	<?=$item_2->name?>
+																</a>
+															</li>
+														<?endforeach;?>
+													</ul>
+												<?endif;?>
+											</li>
+											<?if($counter == $line):?></ul><ul class="right_col"><?$counter = 0?><?endif;?>
 											<?$counter++?>
-										<?endforeach?>
-									</div>
+										<?endforeach;?>
+									</ul>
 								</div>
 							</div>
 						</article>
 					</main>
 				</div>
-				
 				<? require 'include/left-col.php'?>
                                  
                 <aside id="s_right">
@@ -72,6 +85,16 @@
 		<? endif ?>
 		</form>
 	</body>
+	
+	<script>
+	$('.marker').click(function() {
+		$(this).next('ul').toggle('slow');
+		if ($(this).html() == '+')
+			$(this).html('-');
+		else
+			$(this).html('+');
+	});
+	</script>
 	
 	<?require_once 'include/shop_scripts.php'?>
 	<?require_once 'include/scroll_scripts.php'?>

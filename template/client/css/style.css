@@ -1962,7 +1962,7 @@ text-align:center;
 
 #index_categories .left_col{
 	position:relative;
-	width:230px;
+	width:240px;
 	float:left;
 	margin-right:1%;
 	
@@ -1970,13 +1970,22 @@ text-align:center;
 
 #index_categories .right_col{
 	position:relative;
-	width: 230px;
+	width: 240px;
 	float:left;
 }
 
+#index_categories .marker{
+	display:block;
+	float:left;
+	width:14px;
+	margin-left:5px;
+	cursor:pointer;
+	text-align:center;
+}
+
 #index_categories a {
-	display:inline-block;
-	width:100%;
+	display:block;
+	float:left;
 	margin-bottom:5px;
 	padding:0px;
 }
@@ -1989,16 +1998,38 @@ text-align:center;
 	position:relative;
 	float:left;
 	margin-right:10px;
+	
+}
+
+#index_categories a .item-icon{
+	position:relative;
+	display:inline-block;
+	float:left;
+	width:30px;
 }
 
 #index_categories a .ttl{
 	position:relative;
 	float:left;
-	
 }
 
 #index_categories a .ttl:hover{
 	text-decoration:underline;
+}
+
+#index_categories ul li{
+	width:100%;
+	clear:both;
+}
+
+#index_categories ul ul{
+	width:100%;
+	clear:both;
+	margin-left:30px;
+}
+
+#index_categories ul ul li{
+	clear:both;
 }
 
 /* This is the moving lens square underneath the mouse pointer. */
