@@ -4,6 +4,7 @@
 
 	<body>
 		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
+		<input type="hidden" id="ajax_from" name="from" value="0"/>
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 		<div id="wrapper" >

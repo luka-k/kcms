@@ -78,7 +78,8 @@ class Catalog extends Client_Controller {
 			'collection' => array(),
 			'sku' => array(),
 			'nok' => array(),
-			'ajax_from' => ''
+			'ajax_from' => '',
+			'childs_categories' => ''
 		);
 
 		$this->standart_data = array_merge($this->standart_data, $data);
@@ -395,7 +396,7 @@ class Catalog extends Client_Controller {
 				'depth_min' => $depth_min,
 				'depth_max' => $depth_max,
 			);
-		
+
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt);
@@ -407,7 +408,7 @@ class Catalog extends Client_Controller {
 			
 			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
-			
+						
 			if(!empty($data['parent_ch']))
 			{
 				$data['title'] = $data['parent_ch'][0].' | интернет-магазин bрайтbилd';
@@ -418,8 +419,6 @@ class Catalog extends Client_Controller {
 			}
 			
 			$this->filters_cache->insert($cache_id, $data);
-	
-			$data = array_merge($this->standart_data, $data);
 		
 			$this->benchmark->mark('code_end');
 			//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
