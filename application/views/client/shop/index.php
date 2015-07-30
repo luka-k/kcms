@@ -25,13 +25,13 @@
 									</select>
 									</form>
 								</div>
-								<div id="slider-scroll" class="slider" >
+								<div id="slider-scroll" class="slider index_page" >
 									<div class="logo-column">
 										<div class="some10">
 											<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
 												<div class="pic-block">
 													<a href="<?=base_url()?>catalog/<?=$m->url?>">
-														<img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>" class="logotype" />
+														<?=$m->name?>
 													</a>
 												</div>
 											<?endforeach;?>

@@ -489,6 +489,10 @@ article h2 {
 	margin-bottom: 13px;
 }
 
+.index_page .pic-block a:hover{
+	color:red;
+}
+
 .logotype {
 	width: 146px;
 }

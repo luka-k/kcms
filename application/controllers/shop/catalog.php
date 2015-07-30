@@ -128,23 +128,21 @@ class Catalog extends Client_Controller {
 			$total_rows = count($this->products->get_list(FALSE));
 			
 			$data = array(
-					'filters_checked' => $filters_checked,
-					'left_menu' => $this->categories->get_tree(),
-					'collection' => $this->collections->get_tree($products_ids),
-					'sku_tree' => $this->manufacturers->get_tree($products),
-					'nok' => $this->catalog->get_nok_tree($products_ids)
-				);
+				'filters_checked' => $filters_checked,
+				'left_menu' => $this->categories->get_tree(),
+				'collection' => $this->collections->get_tree($products_ids),
+				'sku_tree' => $this->manufacturers->get_tree($products),
+				'nok' => $this->catalog->get_nok_tree($products_ids),
+				'breadcrumbs' => $this->breadcrumbs->get(),
+				'total_rows' => $total_rows,
+				'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
+				'left_menu' => $this->categories->get_tree(),
+				'no_ajax' => TRUE
+			);
 			
 			$data['category'] = new stdClass;
-			
-			$data['breadcrumbs'] = $this->breadcrumbs->get();
-		
-			//$data['category']->products = $products;
-				$data['total_rows'] = $total_rows;
-				$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
-			
-				$data['left_menu'] = $this->categories->get_tree();
-				$data = array_merge($this->standart_data, $data);
+				
+			$data = array_merge($this->standart_data, $data);
 
 			$this->load->view("client/shop/index", $data);
 		}
