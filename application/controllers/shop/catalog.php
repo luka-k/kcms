@@ -119,7 +119,7 @@ class Catalog extends Client_Controller {
 			'last_type_filter' => 'categories_checked', 
 			'from' => 0,
 		);
-		
+
 		if($content == "root")
 		{
 			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
@@ -148,18 +148,25 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{
-			$cache_id = md5(serialize($content));
+			$semantic_url = $this->uri->uri_string();
+			
+			$cache_id = md5(serialize($semantic_url));
 	
 			$cache = $this->filters_cache->get($cache_id);
 			//$cache = FALSE;
 			if($cache)
 			{
-				redirect(base_url().'catalog/filter/'.$cache_id);
+				//redirect(base_url().'catalog/filter/'.$cache_id);
+				$this->filters_cache->set_last($cache_id);
+				$data = $this->filters_cache->get($cache_id);	
+				$data = array_merge($this->standart_data, $data);
+		
+				$this->load->view("client/shop/categories", $data);
 			}
 			else
 			{
 				$manufacturer_ch = array();
-			
+						
 				if(isset($content->category->id))
 				{
 					$category_anchor = $this->db->get_where('category2category', array('child_id' => $content->category->id))->result();
@@ -187,6 +194,8 @@ class Catalog extends Client_Controller {
 					}
 					else
 					{
+						$filters_checked['manufacturer_checked'] = array();
+						
 						$param = array('parent_id' => $content->category->id);
 
 						$filters_checked['categories_checked'] = array(0 => $content->category->id);
@@ -212,6 +221,8 @@ class Catalog extends Client_Controller {
 					$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), 0, 10, 'sort', 'asc'));
 					$total_rows = count($this->products->get_list(array('manufacturer_id' => $content->manufacturer->id), FALSE, FALSE, 'sort', 'asc'));
 				}
+				
+				if(!isset($content->manufacturer)) $filters_checked['manufacturer_checked'] = array();
 			
 				$products_ids = $this->catalog->get_products_ids($products);
 			
@@ -221,9 +232,12 @@ class Catalog extends Client_Controller {
 					'manufacturer_ch' => $manufacturer_ch,
 					'left_menu' => $this->categories->get_tree(),
 					'collection' => $this->collections->get_tree($products_ids),
-					'manufacturer' => $this->manufacturers->get_tree($products),
+					'manufacturer' => $this->manufacturers->get_tree(FALSE),
 					'sku_tree' => $this->manufacturers->get_tree($products),
-					'nok' => $this->catalog->get_nok_tree($products_ids)
+					'nok' => $this->catalog->get_nok_tree($products_ids),
+					'breadcrumbs' => $this->breadcrumbs->get(),
+					'total_rows' => $total_rows,
+					'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE))
 				);
 			
 				if(!empty($content->category))
@@ -249,17 +263,11 @@ class Catalog extends Client_Controller {
 					$data['meta_keywords'] = $content->manufacturer->meta_keywords;
 					$data['meta_description'] = $content->manufacturer->meta_description;
 				}
-
-				$data['breadcrumbs'] = $this->breadcrumbs->get();
 		
 				$data['category']->products = $products;
-				$data['total_rows'] = $total_rows;
-				$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(FALSE));
-			
-				$data['left_menu'] = $this->categories->get_tree();
-				$data['manufacturer'] = $this->manufacturers->get_tree(FALSE, $this->post);
-		
-				$this->filters_cache->insert($cache_id, $data);
+
+				$this->filters_cache->insert($cache_id, $data, $semantic_url);
+
 				redirect(base_url()."catalog/filter/".$cache_id);
 			}
 		}
