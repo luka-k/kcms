@@ -149,7 +149,7 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$semantic_url = $this->uri->uri_string();
-			
+	
 			$cache_id = md5(serialize($semantic_url));
 	
 			$cache = $this->filters_cache->get($cache_id);
@@ -160,13 +160,15 @@ class Catalog extends Client_Controller {
 				$this->filters_cache->set_last($cache_id);
 				$data = $this->filters_cache->get($cache_id);	
 				
-				$data['collection'] = $this->collections->get_tree($products_ids);
-				$data['manufacturer'] = $this->manufacturers->get_tree($products);
-				$data['sku_tree'] = $this->manufacturers->get_tree($products);
-				$data['nok'] = $this->catalog->get_nok_tree($products_ids);
+				$all_products_ids = $this->catalog->get_products_ids($data['all_products']);
+				
+				$data['collection'] = $this->collections->get_tree($all_products_ids);
+				$data['manufacturer'] = $this->manufacturers->get_tree($data['all_products']);
+				$data['sku_tree'] = $this->manufacturers->get_tree($data['all_products']);
+				$data['nok'] = $this->catalog->get_nok_tree($all_products_ids);
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				$data['total_rows'] = $total_rows;
-				$data['filters'] = $this->characteristics_type->get_filters($products);
+
+				$data['filters'] = $this->characteristics_type->get_filters($data['all_products']);
 				
 				$data = array_merge($this->standart_data, $data);
 		
@@ -277,7 +279,7 @@ class Catalog extends Client_Controller {
 
 				$this->filters_cache->insert($cache_id, $data, $semantic_url);
 
-				redirect(base_url()."catalog/filter/".$cache_id);
+				//redirect(base_url()."catalog/filter/".$cache_id);
 			}
 		}
 	}

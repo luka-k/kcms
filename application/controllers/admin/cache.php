@@ -17,7 +17,6 @@ class Cache extends Admin_Controller
 	
 	public function refresh()
 	{
-		$this->db->truncate('filters_cache');
 		$counter = 1;
 		// Добавление в кеш страниц категорий
 		echo '<h4>Категории</h4></br>';
@@ -51,9 +50,10 @@ class Cache extends Admin_Controller
 				$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
 				$products = $this->products->prepare_list($products);
 				
-				$semantic_urls[] = $category->url;		
+				$semantic_urls[] = 'catalog/'.$category->url;		
 				
-				$total_rows = count($this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc'));
+				$all_products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc');
+				$total_rows = count($all_products);
 			}
 			else
 			{
@@ -66,14 +66,13 @@ class Cache extends Admin_Controller
 				foreach($category_anchors as $c_anch)
 				{
 					$parent_category = $this->categories->get_item($c_anch->category_parent_id);
-					$semantic_urls[] = $parent_category->url.'/'.$category->url;
+					$semantic_urls[] = 'catalog/'.$parent_category->url.'/'.$category->url;
 				}
 				
-				$total_rows = count($this->products->get_list($param, FALSE, FALSE, 'sort', 'asc'));
+				$all_products = $this->products->get_list($param, FALSE, FALSE, 'sort', 'asc');
+				$total_rows = count($all_products);
 			}
-			
-			$products_ids = $this->catalog->get_products_ids($products);
-			
+					
 			$childs = array();
 			foreach($left_menu as $item_1)
 			{
@@ -85,7 +84,7 @@ class Cache extends Admin_Controller
 			}
 			
 			$filters_checked['manufacturer_checked'] = array();
-			
+
 			$data = array(
 				'category' => $category,
 				'filters_checked' => $filters_checked,
@@ -95,8 +94,10 @@ class Cache extends Admin_Controller
 				'title' => $category->name.' | интернет-магазин bрайтbилd',
 				'meta_description' => $category->meta_description,
 				'meta_keywords' => $category->meta_keywords,
+				'all_products' => $all_products,
+				'total_rows' => $total_rows
 			);
-			
+
 			$data['categories_ch'][] = $category->name;
 			$data['category']->products = $products;
 
@@ -104,6 +105,8 @@ class Cache extends Admin_Controller
 			{
 				echo $counter.' - '.$url.'</br>';
 				$cache_id = md5(serialize($url));
+				
+				$this->filters_cache->delete($cache_id);
 				$this->filters_cache->insert($cache_id, $data, $url);
 				$counter++;
 			}
