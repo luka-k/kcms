@@ -159,6 +159,15 @@ class Catalog extends Client_Controller {
 				//redirect(base_url().'catalog/filter/'.$cache_id);
 				$this->filters_cache->set_last($cache_id);
 				$data = $this->filters_cache->get($cache_id);	
+				
+				$data['collection'] = $this->collections->get_tree($products_ids);
+				$data['manufacturer'] = $this->manufacturers->get_tree($products);
+				$data['sku_tree'] = $this->manufacturers->get_tree($products);
+				$data['nok'] = $this->catalog->get_nok_tree($products_ids);
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				$data['total_rows'] = $total_rows;
+				$data['filters'] = $this->characteristics_type->get_filters($products);
+				
 				$data = array_merge($this->standart_data, $data);
 		
 				$this->load->view("client/shop/categories", $data);

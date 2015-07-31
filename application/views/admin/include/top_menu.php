@@ -16,5 +16,8 @@
 		<li class="right r-item"><a href="<?=base_url()?>" target = "_blanc"><i class="icon-signout"></i>На сайт</a></li>
 		<li class="right"><a href="<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/edit"><i class="icon-user"></i><?=$user['name']?></a></li>
 		<li class="right"><a href="<?=base_url()?>admin/registration/logout"><i class="icon-remove"></i>Выйти</a></li>
+		<?if(ENVIRONMENT == "development"):?>
+			<li class="right"><a href="<?=base_url()?>admin/cache/refresh"><i class="icon-pencil"></i>Обновить кеш</a></li>
+		<?endif;?>
 	</ul>
 </div>	
