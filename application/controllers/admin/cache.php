@@ -19,10 +19,12 @@ class Cache extends Admin_Controller
 	{
 		$counter = 1;
 		// Добавление в кеш страниц категорий
-		echo '<h4>Категории</h4></br>';
+		echo '<h3>Категории</h3></br>';
 		
 		$left_menu = $this->categories->get_tree();
+		
 		$categories = $this->categories->get_list(FALSE);
+		$manufacturers = $this->manufacturers->get_list(FALSE);
 			
 		foreach($categories as $category)
 		{
@@ -95,7 +97,8 @@ class Cache extends Admin_Controller
 				'meta_description' => $category->meta_description,
 				'meta_keywords' => $category->meta_keywords,
 				'all_products' => $all_products,
-				'total_rows' => $total_rows
+				'total_rows' => $total_rows,
+				'type' => 'category'
 			);
 
 			$data['categories_ch'][] = $category->name;
@@ -112,8 +115,47 @@ class Cache extends Admin_Controller
 			}
 		}
 		
+		echo '<h3>Производители</h3></br>';
 		
-		
+		foreach($manufacturers as $manufacturer)
+		{
+			$filters_checked = array(
+				'filter' => TRUE, 
+				'last_type_filter' => 'manufacturers_checked', 
+				'from' => 0,
+			);
+			
+			$filters_checked['manufacturer_checked'][] = $manufacturer->id;
+			$manufacturer_ch[] = $manufacturer->name;
+			
+			$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $manufacturer->id), 0, 10, 'sort', 'asc'));
+			$all_products = $this->products->get_list(array('manufacturer_id' => $manufacturer->id), FALSE, FALSE, 'sort', 'asc');
+			$total_rows = count($all_products);
+			
+			$data = array(
+				'filters_checked' => $filters_checked,
+				'childs_categories' => array(),
+				'title' => $manufacturer->name.' | интернет-магазин bрайтbилd',
+				'meta_keywords' => $manufacturer->meta_keywords,
+				'meta_description' => $manufacturer->meta_description,
+				'categories_ch' => array(),
+				'all_products' => $all_products,
+				'total_rows' => $total_rows,
+				'type' => 'manufacturer'
+			);
+			
+			$data['category'] = new stdClass();
+			$data['category']->products = $products;
+			
+			$semantic_url = 'catalog/'.$manufacturer->url;
+			
+			echo $counter.' - '.$semantic_url.'</br>';
+			$cache_id = md5(serialize($semantic_url));
+				
+			$this->filters_cache->delete($cache_id);
+			$this->filters_cache->insert($cache_id, $data, $semantic_url);
+			$counter++;
+		}
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}

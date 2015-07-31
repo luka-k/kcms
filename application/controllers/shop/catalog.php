@@ -163,10 +163,20 @@ class Catalog extends Client_Controller {
 				$all_products_ids = $this->catalog->get_products_ids($data['all_products']);
 				
 				$data['collection'] = $this->collections->get_tree($all_products_ids);
-				$data['manufacturer'] = $this->manufacturers->get_tree($data['all_products']);
+				
 				$data['sku_tree'] = $this->manufacturers->get_tree($data['all_products']);
 				$data['nok'] = $this->catalog->get_nok_tree($all_products_ids);
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				
+				if($data['type'] == 'category')
+				{
+					$data['manufacturer'] = $this->manufacturers->get_tree($data['all_products']);
+				}
+				else
+				{
+					$data['manufacturer'] = $this->manufacturers->get_tree(FALSE);
+					$data['left_menu'] = $this->categories->get_tree($data['all_products']);
+				}
 
 				$data['filters'] = $this->characteristics_type->get_filters($data['all_products']);
 				
