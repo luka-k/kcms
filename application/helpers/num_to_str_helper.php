@@ -47,6 +47,5 @@
 		$out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
 		return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 	}
-
 /* End of file num_to_str_helper.php */
 /* Location: ./application/helpers/num_to_str_helper.php */

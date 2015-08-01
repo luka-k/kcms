@@ -108,7 +108,7 @@ class Content extends Admin_Controller
 			'tree' => $this->categories->get_tree(FALSE, array(), "admin")
 		);
 			
-		$data['selects']['category2category'] =$this->categories->get_tree(FALSE, array(), "admin");
+		$data['selects']['category2category'] =$this->categories->get_admin_tree(0);
 		$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
 		$data['selects']['product2collection'] = $this->collections->get_tree(0);
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);

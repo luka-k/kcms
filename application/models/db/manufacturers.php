@@ -5,7 +5,7 @@ class Manufacturers extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', "name"),
+			'name' => array('Заголовок', 'text', "name", 'require'),
 			'is_active' => array('Активна', 'checkbox'),
 			'phone' => array('Телефон', 'text'),
 			'email' => array('email', 'text'),
@@ -372,13 +372,13 @@ class Manufacturers extends MY_Model
 			$manufacturers[$i]->categories = $this->_get_categories_tree($item->manufacturer_id, 'vendor');
 		}
 		
-		$names = array();
-		foreach ($manufacturers as $m)
+		foreach ($manufacturers as $key => $m)
 		{
 			$names[] = $m->name;
 		}
-		array_multisort($names, $manufacturers);
+		$names= array_map('strtolower', $names);
 		
+		array_multisort($names, $manufacturers);
 		return $manufacturers;
 	}
 	

@@ -102,6 +102,8 @@
 													Интернет-магазин
 												</a>
 											</div>
+										<?else:?>
+											&nbsp;
 										<?endif?>
 									</div>								
 									<div class="main-a width-auto">
@@ -136,7 +138,7 @@
 												}
 											</script>
 											<div style="height: 17px;width: auto; margin: 2px auto;">
-											<a onclick="toggleNews(); return false;" href="<?=base_url()?>articles/novosti?m_id=<?=$manufacturer->id?>" class="main-a-2 del-2 news_link">Новости <?=$manufacturer->name?></a>
+												<a onclick="toggleNews(); return false;" href="<?=base_url()?>articles/novosti?m_id=<?=$manufacturer->id?>" class="main-a-2 del-2 news_link">Новости <?=$manufacturer->name?></a>
 											</div>
 										<?else:?>
 											&nbsp;

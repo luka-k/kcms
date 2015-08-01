@@ -190,6 +190,5 @@ class String_edit {
 		$up_first_char = mb_convert_case($first_char, MB_CASE_TITLE, "UTF-8");
 
 		return $up_first_char.mb_strimwidth($str, 1, mb_strlen($str));
-	}
-	
+	}	
 }
