@@ -14,7 +14,7 @@ class Filters_cache extends MY_Model
         parent::__construct();
 	}
 	
-	public function insert($cache_id, $cache_data, $semantic_url = FALSE)
+	public function insert($cache_id, $cache_data, $type = FALSE, $semantic_url = FALSE)
 	{
 		$data = array(
 			'id' => $cache_id,
@@ -23,6 +23,7 @@ class Filters_cache extends MY_Model
 		);
 		
 		if($semantic_url) $data['semantic_url'] = $semantic_url;
+		if($type) $data['type'] = $type;
 
 		$this->db->insert($this->_table, $data);
 	}

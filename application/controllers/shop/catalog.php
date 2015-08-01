@@ -149,7 +149,7 @@ class Catalog extends Client_Controller {
 		else
 		{
 			$semantic_url = $this->uri->uri_string();
-	
+			
 			$cache_id = md5(serialize($semantic_url));
 	
 			$cache = $this->filters_cache->get($cache_id);
@@ -289,7 +289,7 @@ class Catalog extends Client_Controller {
 
 				$this->filters_cache->insert($cache_id, $data, $semantic_url);
 
-				//redirect(base_url()."catalog/filter/".$cache_id);
+				redirect(base_url()."catalog/filter/".$cache_id);
 			}
 		}
 	}
@@ -330,7 +330,7 @@ class Catalog extends Client_Controller {
 	public function get_by_filter()
 	{	
 		$cache_id = md5(serialize($this->post));
-		
+
 		$cache = $this->filters_cache->get($cache_id);
 		//$cache = FALSE;
 		if($cache)
