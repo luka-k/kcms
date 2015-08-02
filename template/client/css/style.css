@@ -361,11 +361,32 @@ article h2 {
 
 /*******manufacturer_by_category*******/
 .manufacturer-title{
+	float:left;
 	padding:0;
 	margin:0 0 0 2px;
 	font-weight:bold;
 	color: #000099;
 	font-size: 12px;
+}
+
+.shop_link{
+	
+	float:right;
+}
+
+.shop_link a{
+	display:inline-block;
+	vertical-align:top;
+	color: #3399ff;
+	border: none;
+	position: relative;
+	top: 0px;
+	height:16px;
+	font-size: 12px;
+	text-decoration: underline;	
+	padding:0 0 0 23px;
+	margin-right:10px;
+	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
 }
 
 .manufacturers{
@@ -612,6 +633,7 @@ article h2 {
 
 .navigation-mini {
 	width:100%;
+	min-width:500px;
 	background: linear-gradient(to top, #b8ada9 5%, #cfe5f1 25%, #cfe5f1 51%, #918e8f 100%);
 	text-align: center;
 	line-height: 22px;
@@ -625,39 +647,95 @@ article h2 {
  z-index: 800; /*устанавливаем блок поверх всех элементов на странице*/
 }
 
-.navigation-mini a {
-	font-size: 13px;
+.navigation-mini .catalog_types{
+	position:relative;
+	width:100%;
+	text-align:center;
+}
+
+.navigation-mini .catalog_types li{
+	margin:0;
+	padding:0;
+	display:inline-block;
+}
+
+
+.navigation-mini .catalog_types .documents_menu {
 	border-right: 2px solid black;
+	font-size: 13px;
+	margin:0;
 	padding-right: 3px;
-	padding-left: 0px;
+	/*padding-left: 3px;*/
 	white-space:nowrap;
 	font-weight: bold;
+	/*outline:1px solid red;*/
 }
 
 @media only screen and (max-width: 1400px)
 {
-	.navigation-mini a {
+	.navigation-mini .catalog_types .documents_menu {
 		border-right: 1px solid black;
 		font-size: 11px;
+		/*padding-right: 3px;
+		padding-left: 3px;*/
+		margin:0;
 	}
 }
 
 @media only screen and (max-width: 1300px)
 {
-	.navigation-mini a {
+	.navigation-mini .catalog_types .documents_menu {
 		border-right: 1px solid black;
-		padding-right: 0px;
 		font-size: 9px;
+		padding-right: 2px;
+		padding-left: 2px;
+		margin:0;
 	}
 }
 
-.navigation-mini li-:last-child {
-	padding-right: 0;
+.navigation-mini .catalog_types .documents_menu.last {
+	border:none;
 }
 
-.navigation-mini a:hover,
-.navigation-mini a.active{
+.navigation-mini .catalog_types:hover,
+.navigation-mini .catalog_types.active{
 	color: #cc0000;
+}
+
+.nav_footer-left{
+	float:left;
+	top: 2px;
+	width:35%;
+	text-align:center;
+}
+
+.nav_footer-right {
+	position: relative;
+	float: right;
+	width:35%;
+	top: 2px;
+
+}
+
+.news_link, .w-i{
+	color: #3399ff;
+	border: none;
+	position: relative;
+	padding-right: 23px;
+	top: 0px;
+	font-size: 11px;
+	text-decoration: underline;	
+}
+
+.navigation-mini .w-i{
+	margin: 4px 23px 0 0;
+	padding:0 0 0 23px;
+	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
+}
+
+.news_link{
+	margin: 4px 0 0 23px;
+	background: url(/template/client/images/mini.png) right no-repeat;
 }
 
 .navigation-mini .main-a a {
@@ -667,61 +745,15 @@ article h2 {
 	position: relative;
 }
 
-.main-a-0{
-	float:left;
-	width:35%;
-}
-
-.main-a-3{
-	width:35%;
-}
-
-.main-a {
+.nav_footer {
 	display: inline-block;
 	font-size: 14px;
 	width: 30%;
 	position: relative;
 }
 
-.main-a .metro .selected{
+.nav_footer .metro .selected{
 	font-size: 12px; !important;
-}
-
-.catalog .navigation-mini {
-	background: linear-gradient(to top, #b8ada9 16%, #cfe5f1 55%, #cfe5f1 79%, #918e8f 100%);
-}
-
-.navigation-mini .del {
-	border-right: none;
-}
-
-.navigation-mini .main-a-2 {
-	color: #3399ff;
-	float: right;
-	border: none;
-	position: relative;
-	padding-right: 23px;
-	top: 0px;
-	font-size: 11px;
-	text-decoration: underline;
-	
-}
-
-.navigation-mini .main-a-2.w-i{
-	padding:0 0 0 23px;
-	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
-}
-
-
-.main-a-2 a:after {
-	content: "";
-	position: absolute;
-	background: url(/template/client/images/mini.png);
-	width: 12px;
-	height: 12px;
-	top: 5px;
-	right: -2px;
-	background-repeat: no-repeat;
 }
 
 .point {
@@ -760,6 +792,7 @@ article h2 {
 	position:relative;
 	float: left;
 	width:170px;
+	height: 237px;
 	margin-right: 10px;
 }
 
@@ -769,6 +802,7 @@ article h2 {
 	width: -moz-calc(100% - 185px);
     width: -webkit-calc(100% - 185px);
     width: calc(100% - 185px);
+	height: 239px;
 	line-height: 18px;
 	overflow:hidden;
 }
@@ -878,10 +912,12 @@ article h2 {
 }
 
 .catalog-row {
-	position: relative;
+	position: absolute;
 	display:inline-block;
 	overflow: hidden;
 	width: 100%;
+	left:0;
+	bottom:0;
 	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 }
 

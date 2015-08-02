@@ -87,65 +87,71 @@
 									</div>
 									
 									<nav class="navigation-mini floating">
-									
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="documents_menu <?if($active_doc == 'all'):?>active<?endif;?>">Все документы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="documents_menu <?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="documents_menu <?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="documents_menu <?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
-										<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="documents_menu del <?if($active_doc == 'tech'):?>active<?endif;?>">Техническая информация</a>
-								
+										<ul class="catalog_types">
+											<li>
+												<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/all" class="documents_menu <?if($active_doc == 'all'):?>active<?endif;?>">Все документы</a>
+											</li>
+											<li>
+												<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/catalogs" class="documents_menu <?if($active_doc == 'catalogs'):?>active<?endif;?>">Каталоги</a>
+											</li>
+											<li>
+												<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/prices" class="documents_menu <?if($active_doc == 'prices'):?>active<?endif;?>">Прайсы</a>
+											</li>
+											<li>
+												<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/collections" class="documents_menu <?if($active_doc == 'collections'):?>active<?endif;?>">Брошюры по коллекциям</a>
+											</li>
+											<li>
+												<a href="<?=base_url()?><?=$menu_link?>/<?=$manufacturer->url?>/tech" class="documents_menu last del <?if($active_doc == 'tech'):?>active<?endif;?>">Техническая информация</a>
+											</li>
+										</ul>
 										<div>
-									<div class="main-a-0" style="top: 2px;">
-										<?if ($this->products->get_list(array('manufacturer_id' => $manufacturer->id))): ?>
-											<div style="height: 17px;width: 151px; margin: 4px 0px 0px 20px; padding-left: 20px; background: url(/template/client/catalog/images/icon-shop.png) 0 4px no-repeat">
-												<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="main-a-2  del-2 w-i" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
-													Интернет-магазин
-												</a>
-											</div>
-										<?else:?>
-											&nbsp;
-										<?endif?>
-									</div>								
-									<div class="main-a width-auto">
-										<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>');">
-											<option <?if($active_category_item == ''):?>selected<?endif;?> value="manufacturer/">Все группы товаров</option>
-											<?foreach($manufacturer->categories as $category):?>
-												<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="catalog/<?=$category->url?>"><?=$category->name?></option>
-												<?if(!empty($category->childs)):?>
-													<?foreach($category->childs as $ch):?>
-														<option <?if($active_category_item == $ch->url):?>selected<?endif;?> value="catalog/<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
+											<div class="nav_footer-left" style="">
+												<?if ($this->products->get_list(array('manufacturer_id' => $manufacturer->id))): ?>
+														<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="w-i" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
+															Интернет-магазин
+														</a>
+												<?else:?>
+													&nbsp;
+												<?endif?>
+											</div>								
+											<div class="nav_footer">
+												<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>');">
+													<option <?if($active_category_item == ''):?>selected<?endif;?> value="manufacturer/">Все группы товаров</option>
+													<?foreach($manufacturer->categories as $category):?>
+														<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="catalog/<?=$category->url?>"><?=$category->name?></option>
+														<?if(!empty($category->childs)):?>
+															<?foreach($category->childs as $ch):?>
+																<option <?if($active_category_item == $ch->url):?>selected<?endif;?> value="catalog/<?if(isset($ch->parent_category_url)):?><?=$ch->parent_category_url?>/<?endif;?><?=$ch->url?>">&nbsp;&bull;&nbsp;<?=$ch->name?></option>
+															<?endforeach;?>
+														<?endif;?>
 													<?endforeach;?>
-												<?endif;?>
-											<?endforeach;?>
-										</select>
-									</div>
-									<div class="main-a-2 main-a-3" style="top: 2px;">
-										<?if($is_news):?>
-											<script>
-												var display_all_news = true;
-												function toggleNews()
-												{
-													display_all_news = !display_all_news;
-													if (display_all_news)
-													{
-														$('.news_item').show();
-														$('.navigation-mini .news_link').css('color', '#39F');
-													} else {
-														$('.news_item').hide();
-														$('.m_news-<?= $manufacturer->id ?>').show();
-														$('.navigation-mini .news_link').css('color', '#f00');
-													}
-												}
-											</script>
-											<div style="height: 17px;width: auto; margin: 2px auto;">
-												<a onclick="toggleNews(); return false;" href="<?=base_url()?>articles/novosti?m_id=<?=$manufacturer->id?>" class="main-a-2 del-2 news_link">Новости <?=$manufacturer->name?></a>
+												</select>
 											</div>
-										<?else:?>
-											&nbsp;
-										<?endif;?>
-									</div> 
-								</div>
-                            </nav>
+											<div class="nav_footer-right">
+												<?if($is_news):?>
+													<script>
+														var display_all_news = true;
+														function toggleNews()
+														{
+															display_all_news = !display_all_news;
+															if (display_all_news)
+															{
+																$('.news_item').show();
+																$('.navigation-mini .news_link').css('color', '#39F');
+															} else {
+																$('.news_item').hide();
+																$('.m_news-<?= $manufacturer->id ?>').show();
+																$('.navigation-mini .news_link').css('color', '#f00');
+															}
+														}
+													</script>
+														<a onclick="toggleNews(); return false;" href="<?=base_url()?>articles/novosti?m_id=<?=$manufacturer->id?>" class="news_link">Новости <?=$manufacturer->name?></a>
+												<?else:?>
+													&nbsp;
+												<?endif;?>
+											</div> 
+										</div>
+									</nav>
                             <div class="all-items">
 								<?$cat_image_counter = 1?>
 								<?foreach($manufacturer->documents as $doc):?>

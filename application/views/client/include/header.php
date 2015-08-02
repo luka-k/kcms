@@ -2,18 +2,13 @@
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images/logo.png" /></a>
 		
-		<div class="catalog-btn">
-			<?$url = $_SERVER['HTTP_HOST'];?>
+		<?$url = $_SERVER['HTTP_HOST'];?>
 			<?$host = explode('.', $url);?>
 			<?if($host[0] == 'shop'):?>
+			<div class="catalog-btn">
 				<a href="http://brightbuild.ru/catalog">Каталог производителей</a>
-			<?else:?>
-				<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>">
-					Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>
-				</a>
-			<?endif;?>
-		</div><!--ru-->
-		
+			</div><!--ru-->
+		<?endif;?>
 		
 		<div class="top-menu">
 			<ul class="clearfix">
