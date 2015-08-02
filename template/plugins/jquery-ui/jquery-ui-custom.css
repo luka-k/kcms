@@ -117,6 +117,16 @@
 	top: 0;
 	left: 0;
 	cursor: default;
+	z-index:100000;
+	width:258px;
+	font-size:12px;
+}
+
+.ui-autocomplete .ui-menu-item{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	font-size:12px;
 }
 .ui-button {
 	display: inline-block;

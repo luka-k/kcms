@@ -1,7 +1,5 @@
-<?require_once "columns.php"?>
 <aside id="s_left">
-	<input type="hidden" name="filter" value="true"/>
-	<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
+	
 
 	<h1><?if(isset($total_rows)):?>
 			<?if(empty($categories_ch)):?>
@@ -18,11 +16,22 @@
 				<?endif;?>
 			<?endif;?>(<?=$total_rows ?>)
 		<?else:?>
-			<?=$title?>
+			<?=$title?><?if(isset($search)):?> (<?=$total_rows?>)<?endif;?>
 		<?endif;?>
 	</h1>
-	
 	<div class="leftmenu shop">
+		<div class="lm-block">
+			<form action="<?=base_url()?>shop/search" id="searchform" class="form" method="get">
+				<input type="hidden" id="ajax_from" class="ajax_from" name="from" value="<?if(isset($category->products)):?><?=count($category->products)?><?endif;?>"/>
+				<input type="text" id="search_input" class="search" name="name" placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
+			</form> <!-- /.form -->
+		</div>
+		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
+			<?require_once "columns.php"?>
+			<input type="hidden" name="filter" value="true"/>
+			<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
+			<input type="hidden" id="ajax_from" class="ajax_from" name="from" value="<?if(isset($category->products)):?><?=count($category->products)?><?endif;?>"/>
+	
 			<div class="lm-block">
 				<div class="lm-caption">
 					Группа товаров:
@@ -211,6 +220,8 @@
 				<a href="/catalog" class="submit-btn" >Сбросить</a> &nbsp;&nbsp;
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
+			</form>
 		</div>
+	
 	</aside>
 

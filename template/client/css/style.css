@@ -1544,6 +1544,14 @@ text-align:center;
 	text-overflow: ellipsis;
 }
 
+#s_left .search{
+	width:258px;
+	height:20px;
+	padding:0 10px;
+	border:none;
+	font-size:12px;
+}
+
 #s_left .leftmenu {
 	overflow-y: hidden;
 	width: 271px;
@@ -1848,7 +1856,7 @@ text-align:center;
 	position: absolute;
 	z-index: 10;
 	left: 6px;
-	top: 191px;
+	top: 216px;
 	width: 271px;
 	height: 516px;
 	z-index: 9999;

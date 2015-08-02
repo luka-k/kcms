@@ -442,6 +442,32 @@ class Catalog extends Client_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	public function search_more()
+	{
+		$name = $this->input->post('name');
+		
+		$this->db->like('name', $name);
+		$this->db->limit(10, $this->input->post('from'));
+		$query = $this->db->get('products');
+		$products = $query->result();
+		
+		$content = '';
+		if($products) foreach($products as $item)
+		{
+			$product = array('item' => $this->products->prepare($item, TRUE, FALSE));
+			$content.= $this->load->view('client/shop/include/ajax_product', $product, TRUE);
+		}
+
+		$ajax_from = $this->post['from'] + 10;
+		
+		$data = array(
+			'content' => $content,
+			'ajax_from' => $ajax_from
+		);
+		
+		echo json_encode($data);
+	}
 }
 
 /* End of file catalog.php */

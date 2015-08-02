@@ -3,7 +3,7 @@
 	<? require 'include/head.php' ?>	
 
 	<body>
-		<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
+	
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 		<div id="wrapper" >
@@ -11,13 +11,12 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<div id="product-scroll" style="height: 700px; overflow-y: scroll;">
+							<div id="product-scroll" class="<?if(isset($search)):?>search_scroll<?endif;?>" style="height: 700px; overflow-y: scroll;">
 								<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
 								<div class="sortings">
 									Сортировка: 
 									<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
 									<span onclick="$(this).toggleClass('active');">по цене</span>
-									<input type="hidden" id="ajax_from" name="from" value="<?=count($category->products)?>"/>
 								</div>
 								<div style="clear: both;"></div>
 								
@@ -119,7 +118,7 @@
 		<? if (count($filters_checked) < 4): ?>
 			<div id="shadow"></div>
 		<? endif ?>
-		</form>
+		
 	</body>
 	
 	<?require_once 'include/shop_scripts.php'?>

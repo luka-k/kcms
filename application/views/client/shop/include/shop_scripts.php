@@ -1,16 +1,22 @@
 <script>
 	$(document).ready(function(){
-		$('#ajax_from').val(10);
+		$('.ajax_from').val(10);
 		<? if (!isset($no_ajax)):?>
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
 
 				if($(this).scrollTop() >= div_sh - div_h){
-					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+					if($("#product-scroll").hasClass("search_scroll")){
+						$.post('<?=base_url()?>shop/catalog/search_more/', $('#searchform').serialize(), answer, 'json');
+					}else{
+						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+					}
 				}/*убрать shop*/
 			});
 		<?endif?>
+		
+		
 		$("#scroll-right").mCustomScrollbar({
 			axis:"y", //set both axis scrollbars
 			advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
@@ -18,8 +24,9 @@
 	});
 		
 	function answer(res){
+		console.log(res.ajax_from);
 		$("#product-scroll").append(res.content);
-		$('#ajax_from').val(res.ajax_from);
+		$('.ajax_from').val(res.ajax_from);
 	}	
 </script>
 
