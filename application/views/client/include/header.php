@@ -9,7 +9,6 @@
 				<a href="http://brightbuild.ru/catalog">Каталог производителей</a>
 			</div><!--ru-->
 		<?endif;?>
-		
 		<div class="top-menu">
 			<ul class="clearfix">
 				<li class="first <?if($top_active == 'catalog'):?>current<?endif;?>">
@@ -43,7 +42,7 @@
 			</ul>
 		</div>
 		<div class="minicart">
-			<a href="<?=base_url()?>cart"> <span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</a>
+			<a href="<?=base_url()?>cart"><span class="hidden_part"><span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</span>&nbsp;</a>
 		</div>
 	</div>
 </header>

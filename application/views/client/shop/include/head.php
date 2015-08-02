@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.js"></script>  <!--fancybox js-->
 	
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/cloud.js"></script>
+
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/easydropdown/jquery.easydropdown.js"></script><!--Крассивые select-->
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.js"></script>
 	
