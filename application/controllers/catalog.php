@@ -78,7 +78,7 @@ class Catalog extends Client_Controller {
 	{	
 		$data['category'] = $content;	
 		
-		$data['left_active'] =
+		$data['left_active'] = '';
 		$data['left_parent_active'] = '';
 		
 		if($content == "root")
@@ -144,6 +144,8 @@ class Catalog extends Client_Controller {
 		);
 		
 		
+		$data['left_active'] = '';
+		$data['left_parent_active'] = '';
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
 		
