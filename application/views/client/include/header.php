@@ -1,7 +1,7 @@
 <header class="header <?if(isset($shop)):?>shop<?endif;?> clearfix" id="header">
 	<div class="header__wrap wrap">
 		<div class="header__logo">
-			<a href="/" class="logo">&nbsp;</a>
+			<a href="<?=base_url()?><?if(isset($shop)):?>catalog<?endif;?>" class="logo">&nbsp;</a>
 		</div> <!-- /.header__logo -->
 		
 		<div class="header__phone">
