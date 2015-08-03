@@ -23,8 +23,6 @@
 					<a href="" class="shop-search__button">&nbsp;</a>
 				</div> <!-- /.main-catalog-nav__columns -->
 				
-				<? require 'include/shop_slider.php'?>
-
 				<?require_once 'include/breadcrumbs.php'?>
 				
 				<div class="catalog_books clearfix">

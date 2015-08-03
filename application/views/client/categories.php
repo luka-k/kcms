@@ -24,10 +24,10 @@
 					</form>
 					<a href="" class="shop-search__button">&nbsp;</a>
 				</div> <!-- /.main-catalog-nav__columns -->
-				
-				<? require 'include/shop_slider.php'?>
 
 				<?if($category == 'root'):?>
+					<? require 'include/shop_slider.php'?>
+					
 					<?if(!empty($new_products)):?>
 						<div class="catalog__list clearfix">
 							<h2 class="catalog__subtitle">Актуальные книги</h2>
