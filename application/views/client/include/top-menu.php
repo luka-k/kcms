@@ -5,7 +5,6 @@
 			<a href="" class="eng">&nbsp;</a>
 		</div>
 		
-		
 		<nav class="menu__nav">
 			<?if(isset($shop)):?>
 				<a href="<?=base_url()?>">

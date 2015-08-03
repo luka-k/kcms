@@ -560,7 +560,7 @@ a:hover{
 	position:relative;
 	float: left;
 	height: 42px;
-    margin:-7px 50px 0 0;
+    margin:-7px 20px 0 0;
 	padding:10px 10px 0 70px;
 	background: url(../images/main.png) no-repeat #42638C;
 	
@@ -583,7 +583,7 @@ a:hover{
 }
 
 .menu-nav.main{
-	text-align: justify;
+	text-align: left;
 }
 
 .menu-nav:after{
@@ -604,6 +604,10 @@ a:hover{
 	margin:0 15px;
 }
 
+.menu-nav.main .menu-nav__item{
+	margin:0 15px;
+}
+
 .menu-nav__item:hover {
 	color:#fff;
 }
@@ -614,16 +618,16 @@ a:hover{
     height: 29px;
     text-decoration: none;
     text-transform: uppercase;
-	color:#000;
+	color:#fff;
 }
 
 .menu-nav__href:hover{
     text-decoration: none;
-	color: #fff;
+	color: #000;
 }
 
 .menu-nav__href.active{
-    color: #fff;
+    color: #000;
 }
 
 .menu-enter{
