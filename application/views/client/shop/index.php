@@ -56,7 +56,7 @@
 													<ul class="noactive">
 														<?foreach($item_1->childs as $item_2):?>
 															<li>
-																<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?$item_2->url?>">
+																<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?=$item_2->url?>">
 																	<?=$item_2->name?>
 																</a>
 															</li>
