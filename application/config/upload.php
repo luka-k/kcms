@@ -4,19 +4,19 @@ $config['upload_path'] = FCPATH.'download/images';
 
 $config['thumb_config'] = array(
 	"catalog_big" => array(
-		'w' => 470,
-		'h' => 470,
+		'w' => 180,
+		'h' => 240,
 		'far' => 1,
 		"bg" => "ffffff"
 	),
 	"catalog_mid" => array(
-		'w' => 225,
-		'h' => 170,
+		'w' => 170,
+		'h' => 225,
 		'far' => 1,
 		"bg" => "ffffff"		
 	),
 	"catalog_small" => array(
-		'w' => 100,
+		'w' => 80,
 		'h' => 100,
 		'far' => 1,
 		"bg" => "ffffff"	

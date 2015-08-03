@@ -1583,7 +1583,6 @@ aside .title{
 
     width: 105px;
     margin: 0 0 10px 17px;
-
     text-align: left;
     vertical-align: top;
 }
@@ -1597,7 +1596,7 @@ aside .title{
 }
 
 .catalog-item__image{
-	width: 82px;
+	width: 102px;
     vertical-align:bottom;
 }
 
@@ -1685,7 +1684,7 @@ aside .title{
 }
 
 .catalog-item-top{
-	height:80px;
+	height:70px;
 }
 
 .catalog-slider .navy {
@@ -1764,6 +1763,11 @@ aside .title{
 	margin:0;
 }
 
+.books-item-top{
+	display:inline-block;
+	height:70px;
+	vertical-align:bottom;
+}
 
 .books-item__image-box{
     overflow: hidden;
@@ -1773,7 +1777,7 @@ aside .title{
 }
 
 .books-item__image{
-	width: 82px;
+	width: 102px;
     vertical-align:bottom;
 }
 
@@ -1895,6 +1899,7 @@ aside .title{
 
 .book_cover img{
 	width:180px;
+	height:240px;
 }
 
 .book_info{
@@ -2029,8 +2034,12 @@ aside .title{
 	text-align:center;
 }
 
+.anchor-item-top{
+ height:70px;
+}
+
 .anchor-item__image{
-	width: 82px;
+	width: 102px;
     vertical-align:bottom;
 }
 
