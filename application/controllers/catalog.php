@@ -120,6 +120,9 @@ class Catalog extends Client_Controller {
 			'filters' => $this->characteristics_type->get_filters()
 		);
 		
+		$data['left_active'] = '';
+		$data['left_parent_active'] = '';
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		$data['category'] = new stdClass;
