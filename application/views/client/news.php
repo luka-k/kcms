@@ -3,9 +3,6 @@
 <?require 'include/head.php'?>
 
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 	
 	<?require 'include/top-menu.php'?>
 	<? require 'include/header.php'?>

@@ -3,13 +3,8 @@
 <?require 'include/head.php'?>
 
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 	
 	<?require 'include/top-menu.php'?>
-
-	
 	<? require 'include/header.php'?>
         
 	<div class="main-catalog" id="main-catalog">
@@ -45,9 +40,11 @@
 														<a href="<?=$np->full_url?>" class="catalog-item__name"><?=$np->name?></a>
 													</div>
 													<div class="catalog-item__image-box">
-														<a href="<?=$np->full_url?>">
-															<img src="<?=$np->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$np->name?>" />
-														</a>
+														<?if(!empty($np->img)):?>
+															<a href="<?=$np->full_url?>">
+																<img src="<?=$np->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$np->name?>" />
+															</a>
+														<?endif;?>
 													</div> <!-- /.catalog-item__image-box -->
 													<div class="catalog-item__price"><?=$np->price?> р.</div>
 												</div>
@@ -77,9 +74,11 @@
 														<a href="<?=$sp->full_url?>" class="catalog-item__name"><?=$sp->name?></a>
 													</div>
 													<div class="catalog-item__image-box">
-														<a href="<?=$sp->full_url?>">
-															<img src="<?=$sp->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$sp->name?>"/>
-														</a>
+														<?if(!empty($sp->img)):?>
+															<a href="<?=$sp->full_url?>">
+																<img src="<?=$sp->img->catalog_small_url?>" class="catalog-item__image" alt="<?=$sp->name?>"/>
+															</a>
+														<?endif;?>
 													</div> <!-- /.catalog-item__image-box -->
 													<div class="catalog-item__price"><?=$sp->price?> р.</div>
 												</div>
@@ -107,7 +106,11 @@
 										<a href="<?=$p->full_url?>" class="books-item__name"><?=$p->name?></a>
 									</div>
 									<div class="books-item__image-box">
-										<a href="<?=$p->full_url?>"><img src="<?=$p->img->catalog_small_url?>" class="books-item__image" alt="<?=$p->name?>"/></a>
+										<?if(!empty($p->img)):?>
+											<a href="<?=$p->full_url?>">
+												<img src="<?=$p->img->catalog_small_url?>" class="books-item__image" alt="<?=$p->name?>"/>
+											</a>
+										<?endif;?>
 									</div> <!-- /.catalog-item__image-box -->
 									<div class="books-item__price"><?=$p->price?> р.</div>
 								</div>

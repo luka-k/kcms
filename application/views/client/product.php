@@ -27,7 +27,7 @@
 				<div class="book_title"><?=$product->name?></div>
 				<div class="book_content">
 					<div class="book_cover">
-						<img src="<?=$product->images[0]->catalog_big_url?>" alt="" />
+						<?if(!empty($product->images)):?><img src="<?=$product->images[0]->catalog_big_url?>" alt="" /><?endif;?>
 					</div>
 					<div class="book_info">
 						<div class="book_autor">Автор: <span class="autor_name"><?=$product->autor?></span></div>
@@ -75,9 +75,11 @@
 									<a href="#" class="anchor-item__name"><?=$rp->name?></a>
 								</div>
 								<div class="anchor-item__image-box">
-									<a href="<?=$rp->full_url?>">
-										<img src="<?=$rp->img->catalog_small_url?>" class="anchor-item__image" alt="<?=$rp->name?>"/>
-									</a>
+									<?if(!empty($rp->img)):?>
+										<a href="<?=$rp->full_url?>">
+											<img src="<?=$rp->img->catalog_small_url?>" class="anchor-item__image" alt="<?=$rp->name?>"/>
+										</a>
+									<?endif;?>
 								</div> <!-- /.catalog-item__image-box -->
 								<div class="anchor-item__price"><?=$rp->price?> р.</div>
 							</div>
