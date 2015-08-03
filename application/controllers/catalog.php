@@ -78,8 +78,8 @@ class Catalog extends Client_Controller {
 	{	
 		$data['category'] = $content;	
 		
-		$data['left_active'] = '';
-		$data['left_parent_active'] = '';
+		$data['active_level_1'] = '';
+		$data['active_level_2'] = '';
 		
 		if($content == "root")
 		{
@@ -92,8 +92,12 @@ class Catalog extends Client_Controller {
 			$data['keywords'] = $content->meta_keywords;
 			$data['description'] = $content->meta_description;
 			
-			$data['left_active'] = $content->url;
-			if(!empty($content->parent)) $data['left_parent_active'] = $content->parent->url;
+			$data['active_level_1'] = $content->url;
+			if(!empty($content->parent)) 
+			{
+				$data['active_level_1'] = $content->parent->url;
+				$data['active_level_2'] = $content->url;
+			}
 			
 			$data['products'] = $this->products->prepare_list($this->catalog->get_products($content->id, $this->standart_data['order'], $this->standart_data['direction']));
 			$data['filters'] = $this->characteristics_type->get_filters($data['products']);
@@ -117,11 +121,10 @@ class Catalog extends Client_Controller {
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'filters_values' => $this->input->get(),
-			'filters' => $this->characteristics_type->get_filters()
+			'filters' => $this->characteristics_type->get_filters(),
+			'active_level_1' => '',
+			'active_level_2' => ''
 		);
-		
-		$data['left_active'] = '';
-		$data['left_parent_active'] = '';
 		
 		$data = array_merge($this->standart_data, $data);
 		
@@ -146,9 +149,8 @@ class Catalog extends Client_Controller {
 			'product' => $this->products->prepare($content->product, FALSE)
 		);
 		
-		
-		$data['left_active'] = '';
-		$data['left_parent_active'] = '';
+		$data['active_level_1'] = $content->parent->url;
+		$data['active_level_2'] = $content->url;
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
 		
