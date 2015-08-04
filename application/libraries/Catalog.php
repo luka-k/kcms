@@ -101,12 +101,19 @@ class CI_Catalog {
 	
 	public function get_nok_tree($ids, $selected = array())
 	{
+		$this->CI->benchmark->mark('code_start');
 		$nok_tree = array();
 		$shortdescs = array();
 		$to_save = array();
-
-		$shortnames = $this->CI->characteristics->get_list(array('type' => 'shortname'), FALSE, FALSE, 'value', 'asc');
-
+		
+		if(empty($ids)) return $nok_tree;
+		
+		//$shortnames = $this->CI->characteristics->get_list(array('type' => 'shortname'), FALSE, FALSE, 'value', 'asc');
+		$this->CI->db->select('value, object_id');
+		$this->CI->db->where_in('object_id', $ids);
+		$this->CI->db->where('type', 'shortname');
+		$shortnames = $this->CI->db->get('characteristics')->result();;
+		//my_dump($shortnames);
 		foreach($shortnames as $sn)
 		{
 			$nok_tree[$sn->value] = array();
@@ -141,6 +148,8 @@ class CI_Catalog {
 		}
 		
 		ksort($nok_tree, SORT_STRING);
+		$this->CI->benchmark->mark('code_end');
+		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
 		return $nok_tree;
 	}
 }
