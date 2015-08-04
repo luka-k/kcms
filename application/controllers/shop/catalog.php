@@ -122,28 +122,41 @@ class Catalog extends Client_Controller {
 
 		if($content == "root")
 		{
-			$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
-			$products_ids = $this->catalog->get_products_ids($products);
-		
-			$total_rows = count($this->products->get_list(FALSE));
-			
-			$data = array(
-				'filters_checked' => $filters_checked,
-				'left_menu' => $this->categories->get_tree(),
-				'collection' => $this->collections->get_tree($products_ids),
-				'sku_tree' => $this->manufacturers->get_tree($products),
-				'nok' => $this->catalog->get_nok_tree($products_ids),
-				'breadcrumbs' => $this->breadcrumbs->get(),
-				'total_rows' => $total_rows,
-				'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
-				'left_menu' => $this->categories->get_tree(),
-				'no_ajax' => TRUE
-			);
-			
-			$data['category'] = new stdClass;
-				
-			$data = array_merge($this->standart_data, $data);
+			$cache_id = md5(serialize($content));
+			$cache = $this->filters_cache->get($cache_id);
+			//$cashe = FALSE;
+			if($cache)
+			{
+				$this->filters_cache->set_last($cache_id);
+				$data = $this->filters_cache->get($cache_id);	
 
+				$data = array_merge($this->standart_data, $data);			
+			}
+			else
+			{
+				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
+				$products_ids = $this->catalog->get_products_ids($products);
+
+				$total_rows = count($this->products->get_list(FALSE));
+			
+				$data = array(
+					'filters_checked' => $filters_checked,
+					'left_menu' => $this->categories->get_tree(),
+					'collection' => $this->collections->get_tree(),
+					'sku_tree' => $this->manufacturers->get_tree(),
+					'nok' => $this->catalog->get_nok_tree($products_ids),
+					'breadcrumbs' => $this->breadcrumbs->get(),
+					'total_rows' => $total_rows,
+					'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
+					'left_menu' => $this->categories->get_tree(),
+					'no_ajax' => TRUE
+				);
+			
+				$data['category'] = new stdClass;
+				
+				$data = array_merge($this->standart_data, $data);
+				$this->filters_cache->insert($cache_id, $data);
+			}
 			$this->load->view("client/shop/index", $data);
 		}
 		else
