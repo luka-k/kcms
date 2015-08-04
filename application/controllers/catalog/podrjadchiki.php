@@ -77,7 +77,6 @@ class Podrjadchiki extends Client_Controller {
 	public function contractor($content)
 	{
 		$contractor = $this->manufacturers->get_item_by(array("url" => $content->manufacturer->url));
-		//$this->breadcrumbs->add($contractor->url, $contractor->name);
 		
 		$data = array(
 			'title' => 'обслуживание/ремонт сантехники от компании '.$contractor->name.' в Санкт-Петербурге | bрайтbилd',

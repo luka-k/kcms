@@ -175,7 +175,7 @@
 	height: 100%;
 	width: 100%;
 	list-style: none;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .dropdown.scrollable.open ul{
