@@ -1,3 +1,4 @@
+<div id="ufe">
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
 				 
 <div id="secondcolumn9" class="secondcolumn">
@@ -244,4 +245,5 @@
 			</li>
 		<?endforeach;?>
 	</ul>
+</div>
 </div>

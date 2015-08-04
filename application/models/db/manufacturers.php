@@ -47,6 +47,7 @@ class Manufacturers extends MY_Model
 		if(!$products) $products = $this->products->get_list(FALSE);
 		
 		$manufacturer = array();
+		$manufacturer_tree = array();
 		$m_ids = array();
 		$sku = array();
 		
@@ -79,8 +80,14 @@ class Manufacturers extends MY_Model
 			{
 				$manufacturer[$i]->sku = $sku[$m->id];
 			}
+			
+			foreach($manufacturer as $m)
+			{
+				$manufacturer_tree[$m->id] = $m;
+			}
 		}
-		return $manufacturer;
+
+		return $manufacturer_tree;
 	}
 	
 	public function get_by_category($category)

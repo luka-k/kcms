@@ -158,29 +158,12 @@ class Catalog extends Client_Controller {
 			{
 				$this->filters_cache->set_last($cache_id);
 				$data = $this->filters_cache->get($cache_id);	
-				
-				$all_products_ids = $this->catalog->get_products_ids($data['all_products']);
-				
-				$data['collection'] = $this->collections->get_tree($all_products_ids);
-				
-				$data['sku_tree'] = $this->manufacturers->get_tree($data['all_products']);
-				$data['nok'] = $this->catalog->get_nok_tree($all_products_ids);
-				$data['breadcrumbs'] = $this->breadcrumbs->get();
-				
-				if($data['type'] == 'category')
-				{
-					$data['manufacturer'] = $this->manufacturers->get_tree($data['all_products']);
-				}
-				else
-				{
-					$data['manufacturer'] = $this->manufacturers->get_tree(FALSE);
-					$data['left_menu'] = $this->categories->get_tree($data['all_products']);
-				}
-
-				$data['filters'] = $this->characteristics_type->get_filters($data['all_products']);
-				
-				$data = array_merge($this->standart_data, $data);
 		
+				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				$data['category']->products = $this->products->prepare_list($data['category']->products);
+				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
+
+				$data = array_merge($this->standart_data, $data);
 				$this->load->view("client/shop/categories", $data);
 			}
 			else

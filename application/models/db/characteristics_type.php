@@ -46,8 +46,10 @@ class Characteristics_type extends MY_Model
 	*/
 	public function get_filters($products = 'all', $selected = FALSE)
 	{
+		$this->benchmark->mark('code_start');
 		$filters = array();
-		$characteristics_type = $this->get_list(FALSE);
+		$this->db->where_in('url', array('color', 'material', 'turn', 'finishing'));
+		$characteristics_type = $this->db->get('characteristics_type')->result();
 
 		if(!empty($products)) foreach($characteristics_type as $item)
 		{
@@ -83,10 +85,6 @@ class Characteristics_type extends MY_Model
 					'values' => $values
 				);
 			
-				/*if($item->view_type == "multy" || $item->view_type == "single")
-				{				
-					$filters[$item->url]->values = $values;
-				}*/
 			}
 			
 			if(isset($selected[$item->name]) && isset($filters[$item->url]))
@@ -95,7 +93,7 @@ class Characteristics_type extends MY_Model
 				$filters[$item->url]->values = array_unique($filters[$item->url]->values);
 			}
 		}
-		
+
 		return $filters;
 	}
 }
