@@ -24,7 +24,6 @@
 	});
 		
 	function answer(res){
-		console.log(res.ajax_from);
 		$("#product-scroll").append(res.content);
 		$('.ajax_from').val(res.ajax_from);
 	}	
