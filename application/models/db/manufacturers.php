@@ -123,12 +123,14 @@ class Manufacturers extends MY_Model
 			$manufacturers[$i]->categories = $this->_get_subcategories($m->id);
 		}
 		
-		$volume = array();
-		foreach ($manufacturers as $key => $row) 
+		$names = array();
+		foreach ($manufacturers as $key => $m)
 		{
-			$volume[$key]  = $row->name;
+			$names[] = $m->name;
 		}
-		array_multisort($volume, SORT_ASC, $manufacturers);
+		$names= array_map('strtolower', $names);
+		
+		array_multisort($names, $manufacturers);
 		
 		return $manufacturers;
 	}
@@ -206,12 +208,14 @@ class Manufacturers extends MY_Model
 			if($c->parent_id == 0) unset($services[$i]);
 		}
 		
-		$volume = array();
-		foreach ($services as $key => $row) 
+		$names = array();
+		foreach ($services as $key => $s)
 		{
-			$volume[$key]  = $row->name;
+			$names[] = $s->name;
 		}
-		array_multisort($volume, SORT_ASC, $services);
+		$names= array_map('strtolower', $names);
+		
+		array_multisort($names, $services);
 		
 		return $services;
 	}
@@ -308,12 +312,14 @@ class Manufacturers extends MY_Model
 		
 		$services_tree = $this->services->prepare_list($services_tree);
 		
-		$volume = array();
-		foreach ($services_tree as $key => $row) 
+		$names = array();
+		foreach ($services_tree as $key => $s_t)
 		{
-			$volume[$key]  = $row->name;
+			$names[] = $s_t->name;
 		}
-		array_multisort($volume, SORT_ASC, $services_tree);
+		$names= array_map('strtolower', $names);
+		
+		array_multisort($names, $services_tree);
 		
 		return $services_tree;
 	}
