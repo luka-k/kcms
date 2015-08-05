@@ -180,23 +180,18 @@ class Cache extends Admin_Controller
 				
 				$products = array();
 				$data = array();
-								
-				$this->db->distinct();
-				$this->db->select('manufacturer_id');
-				$m2c = $this->db->get_where('manufacturer2category', array('category_id' => $child_category->id))->result();
 				
-				if($m2c) foreach($m2c as $m)
+				foreach($manufacturers as $manufacturer)
 				{
-					if(isset($manufacturers[$m->manufacturer_id]))
-					{
-						$manufacturer = $manufacturers[$m->manufacturer_id];
-						$manufacturer_ch = array($manufacturer->name);
-						$filters_checked['manufacturer_checked'] = array($manufacturer->id);
-						//my_dump($child_category->id);
-						$param = array('parent_id' => $child_category->id, 'manufacturer_id' => $manufacturer->id);
+					$manufacturer_ch = array($manufacturer->name);
+					$filters_checked['manufacturer_checked'] = array($manufacturer->id);
+
+					$param = array('parent_id' => $child_category->id, 'manufacturer_id' => $manufacturer->id);
 				
-						$products = $this->products->get_list($param, 0, 10, 'sort', 'asc');
-								
+					$products = $this->products->get_list($param, 0, 10, 'sort', 'asc');
+						
+					if($products)
+					{
 						$all_products = $this->products->get_list($param, FALSE, FALSE, 'sort', 'asc');
 						$total_rows = count($all_products);
 								
@@ -210,7 +205,7 @@ class Cache extends Admin_Controller
 							'manufacturer' => $manufacturers,
 							'manufacturer_ch' => array($manufacturer->name),
 							'collection' => $this->collections->get_tree($all_products_ids),
-							'sku_tree' => $manufacturers,*/
+							'sku_tree' => $manufacturers,
 							/*'nok' => $this->catalog->get_nok_tree($all_products_ids),*/
 							'filters' => $this->characteristics_type->get_filters($all_products),
 							'childs_categories' => array(),
@@ -254,21 +249,16 @@ class Cache extends Admin_Controller
 			
 			$products = array();
 			$data = array();
-			
-			$this->db->distinct();
-			$this->db->select('manufacturer_id');
-			$m2c = $this->db->get_where('manufacturer2category', array('category_id' => $category->id))->result();
-			
-			if($m2c) foreach($m2c as $m)
+						
+			foreach($manufacturers as $manufacturer)
 			{	
-				if(isset($manufacturers[$m->manufacturer_id]))
-				{
-					$manufacturer = $manufacturers[$m->manufacturer_id];
-					$manufacturer_ch = array($manufacturer->name);
-					$filters_checked['manufacturer_checked'] = array($manufacturer->id);
+				$manufacturer_ch = array($manufacturer->name);
+				$filters_checked['manufacturer_checked'] = array($manufacturer->id);
 
-					$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
+				$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
 				
+				if($products)
+				{
 					$all_products =  $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc');
 					$total_rows = count($all_products);
 							
@@ -292,7 +282,7 @@ class Cache extends Admin_Controller
 						'all_products_ids' => $all_products_ids,
 						'total_rows' => $total_rows,
 					);
-				
+					
 					$data['categories_ch'][] = $category->name;
 					$data['category']->products = $products;
 
