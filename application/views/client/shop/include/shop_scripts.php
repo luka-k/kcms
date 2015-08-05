@@ -12,7 +12,7 @@
 					}else{
 						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
 					}
-				}/*убрать shop*/
+				}
 			});
 		<?endif?>
 		

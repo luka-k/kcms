@@ -387,9 +387,9 @@ article h2 {
 	height:16px;
 	font-size: 12px;
 	text-decoration: underline;	
-	padding:0 0 0 23px;
+	padding:2px 0 0 23px;
 	margin-right:10px;
-	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
+	background: url(/template/client/images/icon-shop.png) left no-repeat;
 }
 
 .manufacturers{
@@ -735,7 +735,7 @@ article h2 {
 .navigation-mini .w-i{
 	margin: 4px 23px 0 0;
 	padding:0 0 0 23px;
-	background: url(/template/client/images/icon-catalogue.png) left no-repeat;
+	background: url(/template/client/images/icon-shop.png) left no-repeat;
 }
 
 .news_link{
@@ -2013,27 +2013,46 @@ text-align:center;
 	border:1px solid #ff0000;
 }
 
-#index_categories .left_col{
-	position:relative;
-	width:240px;
-	float:left;
-	margin-right:1%;
-	
+#index_categories{
+	margin-bottom:10px;
 }
 
-#index_categories .right_col{
+.index_categories_item{
 	position:relative;
-	width: 240px;
 	float:left;
+	width:32.33333%;
+	min-height:25px;
+	margin-right:1%;
+}
+
+@media all and (max-width: 1380px) {
+	.index_categories_item{
+		width:49%;
+	}
 }
 
 #index_categories .marker{
 	display:block;
 	float:left;
-	width:14px;
 	margin-left:5px;
 	cursor:pointer;
 	text-align:center;
+}
+
+#index_categories .marker.up{
+	background: url(/template/client/images/after.png) no-repeat;
+	height: 6px;
+	width: 9px;
+	margin-top:7px;
+	margin-left:5px;
+}
+
+#index_categories .marker.down{
+	background: url(/template/client/images/triangal.png) no-repeat;
+	height: 6px;
+	width: 13px;
+	margin-top:6px;
+	margin-left:3px;
 }
 
 #index_categories a {
@@ -2051,7 +2070,6 @@ text-align:center;
 	position:relative;
 	float:left;
 	margin-right:10px;
-	
 }
 
 #index_categories a .item-icon{
@@ -2075,14 +2093,10 @@ text-align:center;
 	clear:both;
 }
 
-#index_categories ul ul{
+#index_categories ul{
 	width:100%;
 	clear:both;
 	margin-left:30px;
-}
-
-#index_categories ul ul li{
-	clear:both;
 }
 
 /* This is the moving lens square underneath the mouse pointer. */

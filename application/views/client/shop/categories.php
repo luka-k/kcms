@@ -11,15 +11,42 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<div id="product-scroll" class="<?if(isset($search)):?>search_scroll<?endif;?>" style="height: 700px; overflow-y: scroll;">
-								<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
-								<div class="sortings">
+							<div style="height:28px;">
+							<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
+							<div class="sortings">
 									Сортировка: 
 									<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
 									<span onclick="$(this).toggleClass('active');">по цене</span>
+							</div>
+							</div>
+							<div style="clear: both;"></div>
+							<?if(isset($logo_column)):?>
+								<div class="for-select">
+								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
+								<select name="" class="dropdown" onchange="document.location='/<?=$beautiful_link?>/'+this.options[this.selectedIndex].value;">
+									<option value="1" disabled="" selected="selected">выбор производителя</option>
+									<?foreach($manufacturer as $m):?>
+										<option value="<?=$m->url?>"><?=$m->name?></option>
+									<?endforeach;?>
+								</select>
+								</form>
+							</div>
+							<div id="slider-scroll" class="slider index_page">
+								<div class="logo-column">
+									<div class="some10">
+										<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
+											<div class="pic-block">
+												<a href="<?=base_url()?><?=$beautiful_link?>/<?=$m->url?>">
+													<?=$m->name?>
+												</a>
+											</div>
+										<?endforeach;?>
+									</div>
 								</div>
-								<div style="clear: both;"></div>
-								
+							</div>
+							<?endif;?>
+							<div id="product-scroll" class="<?if(isset($search)):?>search_scroll<?endif;?>" style="height: 700px; overflow-y: scroll;">
+													
 								<?if ($childs_categories): 
 									$childs_categories = $this->categories->prepare_list($childs_categories);
 								?>

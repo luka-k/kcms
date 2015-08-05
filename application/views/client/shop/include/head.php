@@ -4,7 +4,8 @@
 	<title><?=$title?></title>
 	
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="Shortcut Icon" type="image/x-icon" href="<?=base_url()?>template/client/images/favicon.ico" />
+	<meta content="<?=base_url()?>template/client/catalog/images/bb_house.jpg" property="og:image" />
 	
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style.css?v2" >
