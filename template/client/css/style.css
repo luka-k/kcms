@@ -89,6 +89,15 @@ header .right-contacts {
 	top: 10px;
 	list-style:none;
 }
+
+header .right-contacts .vk-link{
+	display:block;
+	margin-top:-1px;
+	width:16px;
+	height:16px;
+	background: url(/template/client/images/vk-icon.png) 0 0 no-repeat;
+	text-decoration:none;
+}
 		
 header .minicart {
 	position: absolute;
@@ -116,6 +125,7 @@ header .minicart  a{
 	margin-right: 12px;
 	padding-right: 12px;
 	line-height: 12px;
+	height:14px;
 	padding-bottom: 2px;
 	border-right: 2px solid #000;
 }

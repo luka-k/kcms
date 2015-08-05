@@ -38,6 +38,7 @@
 				<li class="phone">+7 (812) 633-04-20</li>
 				<li class="phone">+7 (911) 831-10-25</li>
 				<li><a href="mailto:info@brightbuild.ru" style="color: black;">info@brightbuild.ru</a></li>
+				<li><a href="http://vk.com/club60887739" class="vk-link" style="color: black;" target="_blank">&nbsp;</a></li>
 				<li class="right">&copy; Брайтбилд-2015</li>
 			</ul>
 		</div>
