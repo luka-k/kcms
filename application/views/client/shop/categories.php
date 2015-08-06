@@ -50,7 +50,7 @@
 								<?if ($childs_categories): 
 									$childs_categories = $this->categories->prepare_list($childs_categories);
 								?>
-									<div class="category" style="margin: 5px 0;">
+									<div class="category clearfix" style="margin-bottom:5px;">
 									<?foreach ($childs_categories as $child): ?>
 										<div class="point" style="float: left;line-height: 14px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
 									<?endforeach?>
