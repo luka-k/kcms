@@ -365,10 +365,15 @@ class Catalog extends Client_Controller {
 	private function product($content)
 	{
 		$last_cache_id = $this->session->userdata('last_cache_id');
-
-		$cache_data = array();
-		if($last_cache_id) $cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
-
+			
+		if($last_cache_id) 
+		{
+			$cache = $this->filters_cache->get_item_by(array('id' => $last_cache_id));
+			if($cache) $back_link = $cache->semantic_url;
+			
+			$cache_data = $this->filters_cache->get($this->session->userdata('last_cache_id'));
+		}
+		
 		$new_products = $this->products->get_list(array('is_new' => 1), FALSE, 3);
 
 		$this->session->unset_userdata('pre_cart');
@@ -378,6 +383,7 @@ class Catalog extends Client_Controller {
 			'meta_description' => $content->product->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE),
+			'back_link' => $back_link
 		);
 		$data['title'] = $data['breadcrumbs'][count($data['breadcrumbs'])-1]['name'];
 

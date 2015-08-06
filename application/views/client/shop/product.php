@@ -323,7 +323,7 @@
 		</div>
 		
 		<div id="full-shadow">
-			<a href="<?=base_url()?><?if(!empty($last_cache_id)):?>catalog/filter/<?=$last_cache_id?><?endif;?>" class="shadow-btn">Обратно к списку товаров</a>
+			<a href="<?=base_url()?><?if(!empty($back_link)):?><?=$back_link?><?elseif(!empty($last_cache_id)):?>catalog/filter/<?=$last_cache_id?><?endif;?>" class="shadow-btn">Обратно к списку товаров</a>
 		</div>
 		
 	</form>
