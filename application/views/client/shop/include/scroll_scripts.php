@@ -1,6 +1,7 @@
 <script>
 	(function($){
 		$("#product-scroll").height($( window ).height() - 78);
+		$("#map-scroll").height($( window ).height() - 94);
 		$(".menuright").height($( window ).height() - 100);
 		$(".leftmenu").height($( window ).height() - 100);
 		$(".logo-column").height($(window).height() - 100);

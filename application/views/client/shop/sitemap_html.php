@@ -14,7 +14,7 @@
 							
 							<div id="" class="main-content clearfix">
 
-								<div id="product-scroll" class="catalog" style="overflow-y:scroll;">
+								<div id="map-scroll" class="catalog" style="overflow-y:scroll;">
 									<h1 style="padding-left: 10px;padding-top:2px;margin-top: 0px;">Карта сайта</h1>
 									<div>
 										<?foreach($content as $type => $map):?>
@@ -60,6 +60,11 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
+		
+		<? if (count($filters_checked) < 4): ?>
+			<div id="shadow"></div>
+		<? endif ?>
+		
 		<?require_once 'include/shop_scripts.php'?>
 		<?require_once 'include/scroll_scripts.php'?>
 		<?require_once 'include/range_scripts.php'?>
