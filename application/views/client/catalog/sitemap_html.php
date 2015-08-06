@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-	<?require_once 'catalog/include/head.php'?>	
+	<?require_once 'include/head.php'?>	
 	<body>
 		<!-------------------header--------------------->
-		<? require 'include/header.php'?>
+		<? require FCPATH.'application/views/client/include/header.php'?>
 		<!-----------------end_header-------------------->
 		
 		<div id="wrapper clearfix">
@@ -49,7 +49,7 @@
 				<!-----leftcol------>
 				<aside id="s_left">
 					<h1>Каталог производителей</h1>
-					<?require 'catalog/include/left_menu.php'?>
+					<?require 'include/left_menu.php'?>
 				</aside><!--end_leftcol-->
                    
 				<!-----rightcol----->
@@ -58,6 +58,6 @@
 				</aside><!--end_rightcol-->
 			</div>
 		</div>
-		<?require "catalog/include/footer.php"?>
+		<?require "include/footer.php"?>
 	</body>
 </html>

@@ -21,7 +21,7 @@
 					<changefreq><?=$item->changefreq?></changefreq>
 				<?endif;?>
 				<?if(isset($item->priority) && ($item->priority)):?> 
-					<priority>0.5</priority>
+					<priority><?=$item->priority?></priority>
 				<?endif;?>
 			</url>
 			<?if(!empty($item->childs)):?>

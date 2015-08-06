@@ -1533,6 +1533,14 @@ text-align:center;
 	margin-left:25px;
 }
 
+.sitemap a{
+	color: #0000C8;
+}
+
+.sitemap li{
+	margin:3px 0;
+}
+
 /********************leftcol**********************/
 #s_left {
 	position: relative;

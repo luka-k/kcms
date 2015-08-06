@@ -369,7 +369,7 @@ $config['secret'] = 'kcms';
 $config['wishlist'] = 'kcms';
 
 /**
-* Контроллеры для добавления в sitemap
+* Найстройки sitemap
 */
 
 $config['sitemap_pages'] = array(
@@ -377,6 +377,8 @@ $config['sitemap_pages'] = array(
 	'Контакты' => 'contacts/',
 	'Складские остатки' => 'inventory/',
 );
+
+$config['shop_sitemap'] = array('categories', 'products', 'manufacturers');
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

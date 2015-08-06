@@ -63,7 +63,7 @@ class Sitemap extends Client_Controller
 		);
 		$data = array_merge($this->standart_data, $data);
 		
-		$template = "client/sitemap_".$map_type.".php";
+		$template = "client/catalog/sitemap_".$map_type.".php";
 		$this->load->view($template, $data);
 	}
 	
