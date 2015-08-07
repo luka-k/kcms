@@ -1,6 +1,7 @@
 <script>
 	$(document).ready(function(){
 		$('.ajax_from').val(10);
+		$('#sorting_order').val('name');
 		<? if (!isset($no_ajax)):?>
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
@@ -24,9 +25,21 @@
 	});
 		
 	function answer(res){
-		$("#product-scroll").append(res.content);
+		$("#products_div").append(res.content);
 		$('.ajax_from').val(res.ajax_from);
 	}	
+	
+	function sorting(param){
+		$('.ajax_from').val(0);
+		$('#sorting_order').val(param);
+		$.post('<?=base_url()?>shop/catalog/sorting/', $('#filter-form').serialize(), sort_answer, 'json');
+	}
+	
+	function sort_answer(answer){
+		$("#products_div").empty();
+		$("#products_div").append(answer.content);
+		$('.ajax_from').val(10);
+	}
 </script>
 
 <?if(isset($filters_checked["width_from"])):?>

@@ -63,6 +63,7 @@
 								</div>
 								
 								<?if(!empty($category->products)):?>
+								<div id="products_div">
 									<?foreach($category->products as $item):?>
 										<div class="product">
 											<div class="product-price">
@@ -133,6 +134,7 @@
 											</div>
 										</div>
 									<?endforeach;?>
+								</div>
 								<?endif;?>
 		
 								

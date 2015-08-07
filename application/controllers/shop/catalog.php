@@ -20,14 +20,7 @@ class Catalog extends Client_Controller {
 		
 		$this->config->load('types');
 		
-		$this->get = $this->input->get();
 		$this->post = $this->input->post();
-
-		if(!isset($this->get['order']))
-		{
-			$this->get['order'] = 'sort';
-			$this->get['direction'] = 'asc';
-		}
 
 		$price_min = $price_from = $this->products->get_min('price');
 		if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
@@ -134,7 +127,7 @@ class Catalog extends Client_Controller {
 			}
 			else
 			{
-				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'sort', 'asc'));
+				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'name', 'asc'));
 				$products_ids = $this->catalog->get_products_ids($products);
 
 				$total_rows = count($this->products->get_list(FALSE));
@@ -198,7 +191,7 @@ class Catalog extends Client_Controller {
 			'from' => 0,
 		);
 		
-		$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'sort', 'asc'));
+		$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'name', 'asc'));
 		$products_ids = $this->catalog->get_products_ids($products);
 		
 		$total_rows = count($this->products->get_list(array('sale' => 1)));
@@ -233,7 +226,7 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{	
-			$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
+			$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 			$products_ids = $this->catalog->get_products_ids($products);
 		
 			$last_type_filter = $this->post['last_type_filter'];
@@ -249,11 +242,11 @@ class Catalog extends Client_Controller {
 				unset($filters_wlt[$last_type_filter]);
 			}
 
-			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->get['order'], $this->get['direction']);
+			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->post['order'], $this->post['direction']);
 		
 			$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
-			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, 0);
+			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, 0);
 		
 			$filters = $this->characteristics_type->get_filters($products, $this->post);
 			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
@@ -421,13 +414,13 @@ class Catalog extends Client_Controller {
 	
 	public function count()
 	{
-		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction']);
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 		echo count($products);
 	}
 	
 	public function ajax_more()
 	{
-		$products = $this->characteristics->get_products_by_filter($this->post, $this->get['order'], $this->get['direction'], 10, $this->post['from']);
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, $this->post['from']);
 
 		$content = '';
 		
@@ -472,6 +465,29 @@ class Catalog extends Client_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	public function sorting()
+	{
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, $this->post['from']);
+
+		$content = '';
+		
+		if($products) foreach($products as $item)
+		{
+			$product = array('item' => $this->products->prepare($item, TRUE, FALSE));
+			$content.= $this->load->view('client/shop/include/ajax_product', $product, TRUE);
+		}
+
+		$ajax_from = $this->post['from'] + 10;
+		
+		$data = array(
+			'content' => $content,
+			'ajax_from' => $ajax_from
+		);
+		
+		echo json_encode($data);
+	}
+	
 }
 
 /* End of file catalog.php */

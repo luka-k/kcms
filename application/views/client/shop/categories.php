@@ -15,8 +15,8 @@
 							<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
 							<div class="sortings">
 									Сортировка: 
-									<span class="active" onclick="$(this).toggleClass('active');">по наименованию</span>
-									<span onclick="$(this).toggleClass('active');">по цене</span>
+									<span id='by_name' class="active" onclick="$(this).toggleClass('active'); $('#by_price').toggleClass('active'); sorting('name');">по наименованию</span>
+									<span id='by_price' onclick="$(this).toggleClass('active'); $('#by_name').toggleClass('active'); sorting('price');">по цене</span>
 							</div>
 							</div>
 							<div style="clear: both;"></div>
@@ -56,8 +56,9 @@
 									<?endforeach?>
 									</div><div style="clear: both;"></div>
 								<?endif?>
-												
+									
 								<?if(!empty($category->products)):?>
+								<div id="products_div">
 									<?foreach($category->products as $item):?>
 										<div class="product">
 											<div class="product-price">
@@ -128,6 +129,7 @@
 											</div>
 										</div>
 									<?endforeach;?>
+								</div>
 								<?endif;?>
 							</div>
 						</article>
