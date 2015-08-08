@@ -136,9 +136,7 @@
 									<?endforeach;?>
 								</div>
 								<?endif;?>
-		
-								
-								
+	
 							</div>
 						</article>
 					</main>

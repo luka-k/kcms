@@ -15,8 +15,8 @@
 							<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
 							<div class="sortings">
 									Сортировка: 
-									<span id='by_name' class="active" onclick="$(this).toggleClass('active'); $('#by_price').toggleClass('active'); sorting('name');">по наименованию</span>
-									<span id='by_price' onclick="$(this).toggleClass('active'); $('#by_name').toggleClass('active'); sorting('price');">по цене</span>
+									<span id='by_name' class="down" onclick="sorting('name');">по наименованию</span>
+									<span id='by_price' onclick="$('#by_name').toggleClass('active'); sorting('price');">по цене</span>
 							</div>
 							</div>
 							<div style="clear: both;"></div>

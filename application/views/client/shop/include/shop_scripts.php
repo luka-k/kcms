@@ -2,6 +2,7 @@
 	$(document).ready(function(){
 		$('.ajax_from').val(10);
 		$('#sorting_order').val('name');
+		$('#sorting_direction').val('asc');
 		<? if (!isset($no_ajax)):?>
 			$("#product-scroll").scroll(function() {
 				var div_sh = $(this)[0].scrollHeight;
@@ -31,8 +32,27 @@
 	
 	function sorting(param){
 		$('.ajax_from').val(0);
-		$('#sorting_order').val(param);
-		$.post('<?=base_url()?>shop/catalog/sorting/', $('#filter-form').serialize(), sort_answer, 'json');
+		var selected_order = $('#sorting_order').val();
+		$('#by_name').removeClass();
+		$('#by_price').removeClass();
+		if(param == selected_order){
+			var selected_direction = $('#sorting_direction').val();
+			if(selected_direction == 'asc'){
+				$('#sorting_direction').val('desc');
+				$('#by_'+param).toggleClass('up');
+				/*$('#by_'+param).toggleClass('down');*/
+			}else{
+				$('#sorting_direction').val('asc');
+				$('#by_'+param).toggleClass('down');
+				/*$('#by_'+param).toggleClass('down');*/
+			}
+		}else{
+			$('#sorting_order').val(param);
+			$('#sorting_direction').val('asc');
+			$('#by_'+param).toggleClass('down');
+		}
+		
+		$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), sort_answer, 'json');
 	}
 	
 	function sort_answer(answer){

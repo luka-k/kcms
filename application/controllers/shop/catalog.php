@@ -466,7 +466,7 @@ class Catalog extends Client_Controller {
 		echo json_encode($data);
 	}
 	
-	public function sorting()
+	/*public function sorting()
 	{
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, $this->post['from']);
 
@@ -486,8 +486,7 @@ class Catalog extends Client_Controller {
 		);
 		
 		echo json_encode($data);
-	}
-	
+	}*/
 }
 
 /* End of file catalog.php */

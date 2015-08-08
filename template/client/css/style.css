@@ -1102,13 +1102,19 @@ article h2 {
 }
 
 .sortings span{
+	top:2px;
 	padding-left: 20px;
 	cursor: pointer;
 }
 
-.sortings span.active{
-	background: url(/template/client/images/icon-btndown.png) 8px 4px no-repeat;
+.sortings span.down{
+	background: url(/template/client/images/icon-btndown.png) 8px 5px no-repeat;
 }
+
+.sortings span.up{
+	background: url(/template/client/images/icon-btnup.png) 8px 5px no-repeat;
+}
+
 
 .product {
 	font-size: 14px;

@@ -24,7 +24,7 @@ class Characteristics extends MY_Model
 	* @param integer $from
 	* @return array
 	*/
-	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE)
+	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE, $null_to_end = FALSE)
 	{
 		$values = array();
 		$id = array();
@@ -106,41 +106,100 @@ class Characteristics extends MY_Model
 
 		if(!empty($id) || (empty($id) && $counter == 0))
 		{
+			$query = "SELECT * FROM products ";
+			
+			if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "WHERE ";
+			
 			if(isset($filter['collection_checked']))
 			{
 				$this->db->where_in('collection_parent_id', $filter['collection_checked']);
 				$this->db->select('child_id');
 				$ids = $this->db->get('product2collection')->result();
-				$product_ids = array();
+				
+				$ids_by_collection = array();
 				foreach($ids as $item)
 				{
-					$product_ids[] = $item->child_id;
+					$ids_by_collection[] = $item->child_id;
 				}
-				$this->db->where_in('id', $product_ids);
+
+				$query .= $this->_set_where_in('id', $ids_by_collection);
+				
+				if(!empty($id) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
 			}
 			
-			//Если указан пункт в наличии 
-			if(isset($filter['is_active'])) $this->db->where('is_active', 1);
+			if(!empty($id))
+			{
+				$query .= $this->_set_where_in('id', $id);
+				
+				if(isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
 			
-			//фильтрация по категории
-			if(isset($filter['categories_checked'])) $this->db->where_in('parent_id', $filter['categories_checked']);
+			if(isset($filter['categories_checked']))
+			{
+				$query .= $this->_set_where_in('parent_id', $filter['categories_checked']);
+				
+				if(isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['manufacturer_checked']))
+			{
+				$query .= $this->_set_where_in('manufacturer_id', $filter['manufacturer_checked']);
+				
+				if(isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['sku_checked']))
+			{
+				$query .= $this->_set_where_in('sku', $filter['sku_checked']);
 
-			//фильтрация по производителю
-			if(isset($filter['manufacturer_checked'])) $this->db->where_in('manufacturer_id', $filter['manufacturer_checked']);
+				if(isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
 			
-			//фильтрация по артикулу
-			if(isset($filter['sku_checked'])) $this->db->where_in("sku", $filter['sku_checked']);
+			if(isset($filter['width_from']))
+			{
+				$query .= $this->_set_range('width', $filter['width_from'], $filter['width_to']);
+				
+				if(isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
 			
-			if(isset($filter['width_from']) && isset($filter['width_to'])) $this->set_range_param('width', $filter['width_from'], $filter['width_to']);
-			if(isset($filter['height_from']) && isset($filter['height_to']))  $this->set_range_param('height', $filter['height_from'], $filter['height_to']);
-			if(isset($filter['depth_from']) && isset($filter['depth_to']))  $this->set_range_param('depth', $filter['depth_from'], $filter['depth_to']);
-			if(isset($filter['price_from']) && isset($filter['price_to']))  $this->set_range_param('price', $filter['price_from'], $filter['price_to']);
-			
-			if(!empty($id)) $this->db->where_in('id', $id);
-			
-			$this->db->order_by($order, $direction); 
-			$result = $limit == FALSE ? $this->db->get("products")->result() : $this->db->get('products', $limit, $from)->result();
+			if(isset($filter['height_from']))
+			{
+				$query .= $this->_set_range('height', $filter['height_from'], $filter['height_to']);
 
+				if(isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['depth_from']))
+			{
+				$query .= $this->_set_range('depth', $filter['depth_from'], $filter['depth_to']);
+				if(isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['price_from']))
+				$query .= $this->_set_range('price', $filter['price_from'], $filter['price_to']);
+
+			if($order == "price")
+			{
+				$query .= "ORDER BY CASE WHEN price = '0' THEN '99999999999' END, price {$direction} ";			
+			}
+			else
+			{
+				$query .= "ORDER BY name {$direction} ";
+			}
+			
+			if($limit <> FALSE) $query .= "LIMIT {$from}, {$limit}";
+			
+			$result = $this->db->query($query)->result();
+			
 			if(!empty($result)) return $result;
 		}
 	
@@ -153,7 +212,7 @@ class Characteristics extends MY_Model
 	* @param array $values
 	* @return array
 	*/
-	private function _update_values($values)
+	protected function _update_values($values)
 	{
 		$this->db->select('object_id');
 		$results = $this->db->get('characteristics')->result();
@@ -164,16 +223,30 @@ class Characteristics extends MY_Model
 		return $values;
 	}
 	
-	private function set_range_param($type, $from, $to)
+	protected function _set_where_in($field, $values)
 	{
-		if(isset($from) && isset($to))
+		$value_string = "(";
+		$i = 1;
+		foreach($values as $v)
 		{
-			$from = preg_replace('/[^0-9]/', '', $from);
-			$to = preg_replace('/[^0-9]/', '', $to);
-
-			$where = "{$type} BETWEEN {$from} AND {$to}";
-			$this->db->where($where);
+			$value_string = $value_string."'".$v."'";
+			if($i <> count($values)) $value_string .= ", ";
+			$i++;
 		}
+		$value_string .= ")";
+
+		$query_string = "{$field} IN {$value_string} ";
+		
+		return $query_string;
+	}
+	
+	protected function _set_range($type, $from, $to)
+	{
+		$from = preg_replace('/[^0-9]/', '', $from);
+		$to = preg_replace('/[^0-9]/', '', $to);
+				
+		$querry_string = "{$type} BETWEEN {$from} AND {$to} ";
+		return $querry_string;
 	}
 	
 	public function get_product_characteristics($item)
