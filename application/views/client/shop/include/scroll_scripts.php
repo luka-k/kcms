@@ -17,10 +17,11 @@
 			
 		});
 	})(jQuery);
+	
 	$(".logo-column").mCustomScrollbar({
-				axis:"y", 
-				advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
-			});
+		axis:"y", 
+		advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
+	});
 </script>
 <?if(isset($filters_checked) && count($filters_checked) > 3):?>
 	<script>
