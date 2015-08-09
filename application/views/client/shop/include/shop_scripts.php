@@ -5,12 +5,15 @@
 		$('#sorting_direction').val('asc');
 		<? if (!isset($no_ajax)):?>
 			$("#product-scroll").scroll(function() {
+	
 				var div_sh = $(this)[0].scrollHeight;
 				var div_h = $(this).height();
 
 				if($(this).scrollTop() >= div_sh - div_h){
+					$('#search_input').blur();
+					
 					if($("#product-scroll").hasClass("search_scroll")){
-						$.post('<?=base_url()?>shop/catalog/search_more/', $('#searchform').serialize(), answer, 'json');
+						$.post('<?=base_url()?>shop/catalog/search_more/', $('#filter-form').serialize(), answer, 'json');
 					}else{
 						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
 					}

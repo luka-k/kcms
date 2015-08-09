@@ -18,15 +18,8 @@ class Search extends Client_Controller {
 	{
 		$this->breadcrumbs->add(base_url()."catalog", "Каталог");
 		$this->breadcrumbs->add("", "Поиск");
-		
-		$this->get = $this->input->get();
-		$this->post = $this->input->post();
 
-		if(!isset($this->get['order']))
-		{
-			$this->get['order'] = 'sort';
-			$this->get['direction'] = 'asc';
-		}
+		$this->post = $this->input->post();
 		
 		$search = $this->input->get();
 				
@@ -60,7 +53,7 @@ class Search extends Client_Controller {
 			'ajax_from' => '',
 			'childs_categories' => '',
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'search' => $search['name']
+			'search' => rawurldecode($search['name'])
 		);
 		
 		$data = array_merge($this->standart_data, $data);
@@ -81,11 +74,11 @@ class Search extends Client_Controller {
 			$data['category'] = new stdClass;
 			$data['category']->products = $this->products->prepare_list($products);
 			
-			$this->db->like('name', $search['name']);
+			$this->db->like('name', rawurldecode($search['name']));
 			$query = $this->db->get('products');
 			$all_products = $query->result();
 			$data['total_rows'] = count($all_products);
-			
+
 			$data = array_merge($this->standart_data, $data);
 		
 			$this->load->view("client/shop/categories", $data);

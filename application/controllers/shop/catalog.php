@@ -359,6 +359,7 @@ class Catalog extends Client_Controller {
 	{
 		$last_cache_id = $this->session->userdata('last_cache_id');
 			
+		$back_link = '';
 		if($last_cache_id) 
 		{
 			$cache = $this->filters_cache->get_item_by(array('id' => $last_cache_id));
@@ -465,28 +466,6 @@ class Catalog extends Client_Controller {
 		
 		echo json_encode($data);
 	}
-	
-	/*public function sorting()
-	{
-		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, $this->post['from']);
-
-		$content = '';
-		
-		if($products) foreach($products as $item)
-		{
-			$product = array('item' => $this->products->prepare($item, TRUE, FALSE));
-			$content.= $this->load->view('client/shop/include/ajax_product', $product, TRUE);
-		}
-
-		$ajax_from = $this->post['from'] + 10;
-		
-		$data = array(
-			'content' => $content,
-			'ajax_from' => $ajax_from
-		);
-		
-		echo json_encode($data);
-	}*/
 }
 
 /* End of file catalog.php */

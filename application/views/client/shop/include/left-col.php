@@ -27,6 +27,7 @@
 						id="search_input" 
 						class="search" 
 						name="name" 
+						autocomplete="off"
 						placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> 
 						onkeypress="autocomp()"
 						onfocus="search_focus()"
