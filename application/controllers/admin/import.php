@@ -25,6 +25,8 @@ class Import extends Admin_Controller
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		 
+		$curs=new curs('download/curs.txt');
+		
 		foreach($xml->ПакетПредложений->Предложения->Предложение as $el)
 		{
 			$id = (string) $el->Ид;
@@ -43,7 +45,7 @@ class Import extends Admin_Controller
 			{
 				if ((string) $item->ИдТипаЦены == 'd21e8793-6e5c-11e4-a943-e8de2701d5f9' && (string) $item->Валюта == 'RUB')
 				{
-					$price = (string) $item->ЦенаЗаЕдиницу;
+					$price_ru = (string) $item->ЦенаЗаЕдиницу;
 				}
 				if ((string) $item->ИдТипаЦены == 'f4aca4ac-6e24-11e4-a943-e8de2701d5f9' && (string) $item->Валюта == 'EUR')
 				{
@@ -52,13 +54,19 @@ class Import extends Admin_Controller
 			}
 			if ($price_eur && !$price_ru)
 			{
-				$price_ru = $price_eur * 66.6248;
+				$price_ru = $price_eur * $curs->cursNew["EUR"];
 				$price_ru = (100 + $settings->percent_euro) / 100 * $price_ru;
 			}
 			$price = $price_ru;
-			if (!$sale_price && $price)
+			
+			if ($product->sale)
 			{
-				$sale_price = (100 - $settings->percent_roz) / 100 * $price;
+				$sale_price = (100 - $settings->percent_discount) / 100 * $price;
+			} else {
+				if (!$sale_price && $price)
+				{
+					$sale_price = (100 - $settings->percent_roz) / 100 * $price;
+				}
 			}
 			
 			$this->products->update($product->id, array('price' => $price, 'sale_price' => $sale_price));
@@ -244,7 +252,7 @@ class Import extends Admin_Controller
 				
 	public function load1C()
 	{
-			$this->db->empty_table('filters_cache');
+		$this->db->empty_table('filters_cache');
 		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -252,6 +260,8 @@ class Import extends Admin_Controller
 		
 		$total = 0;
 
+		$this->db->update('products', array('for_delete' => 1));
+		
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
 			$total++;
@@ -272,6 +282,7 @@ class Import extends Admin_Controller
 			$data = array(
 				'1c_id' => $id,
 				'sku' => $sku,
+				'for_delete' => 0,
 				'description' => $description,
 				'sort' => $manufacturer
 			);
@@ -521,6 +532,7 @@ class Import extends Admin_Controller
 					
 			}
 		}
+		$this->db->delete('products', array('for_delete' => 1));
 	}
 	
 	public function update1CImageCovers()

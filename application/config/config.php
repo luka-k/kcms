@@ -363,6 +363,11 @@ $config['proxy_ips'] = '';
 $config['secret'] = 'kcms';
 
 /**
+* $admin_import_pass user for access to import and cache functions without admin login
+*/
+$config['admin_import_pass'] = 'dKlrMkoIf40eFo8';
+
+/**
 * $wishlist using for identification wish list in browser
 */
 
