@@ -10,14 +10,14 @@
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style.css?v2" >
 
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/plugins/jquery-ui/jquery-ui-custom.css">
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/jquery-ui/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.css"/>
 		
-	<script type="text/javascript" src="<?=base_url()?>template/plugins/jquery.min.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/plugins/jquery-ui/jquery-ui.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.js"></script>  <!--fancybox js-->
+	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.js"></script>  <!--fancybox js-->
 	
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/cloud.js"></script>
 

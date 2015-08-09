@@ -14,14 +14,14 @@
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/style.css"/>
 	
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.css?v=2.1.5"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.css?v=2.1.5"/>
 	
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.css"/>
  		
 	<!---------------------------JS----------------------------->
-	<script type="text/javascript" src="<?=base_url()?>template/plugins/jquery.min.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/plugins/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.js?v=2.1.5"></script>
 	
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/easydropdown/jquery.easydropdown.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.js"></script>
