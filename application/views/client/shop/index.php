@@ -156,10 +156,19 @@
 	
 	<script>
 		$('.marker').click(function() {
+			var $_this = $(this).parent().html();
+			$('.marker.down').each(function() {
+				if ($(this).parent().html() != $_this)
+				{
+					$(this).next('ul').hide();
+					$(this).removeClass('down');
+					$(this).addClass('up');
+				}
+			});
 			$(this).next('ul').toggle('slow');
 			if ($(this).hasClass("up")){
 				$(this).removeClass('up');
-				$(this).addClass('down')
+				$(this).addClass('down');
 			}else{
 				$(this).removeClass('down');
 				$(this).addClass('up');

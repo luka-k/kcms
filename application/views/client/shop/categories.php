@@ -52,7 +52,7 @@
 								?>
 									<div class="category clearfix" style="margin-bottom:5px;">
 									<?foreach ($childs_categories as $child): ?>
-										<div class="point" style="float: left;line-height: 14px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
+										<div class="point" style="float: left;line-height: 15px;font-size:12px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
 									<?endforeach?>
 									</div><div style="clear: both;"></div>
 								<?endif?>

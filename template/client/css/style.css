@@ -397,8 +397,9 @@ article h2 {
 	height:16px;
 	font-size: 12px;
 	text-decoration: underline;	
-	padding:2px 0 0 23px;
+	padding:2px 10px 0 23px;
 	margin-right:10px;
+	margin-top:3px;
 	background: url(/template/client/images/icon-shop.png) left no-repeat;
 }
 
@@ -712,8 +713,10 @@ article h2 {
 	border:none;
 }
 
+.navigation-mini .catalog_types .documents_menu:hover,
 .navigation-mini .catalog_types:hover,
-.navigation-mini .catalog_types.active{
+.navigation-mini .catalog_types.active,
+.navigation-mini .catalog_types .documents_menu.active{
 	color: #cc0000;
 }
 
@@ -776,6 +779,10 @@ article h2 {
 	margin-right:5px;
 	padding-left: 10px;
 	font-size: 11px;
+}
+
+.point a:hover{
+	text-decoration: underline;
 }
 
 .point:before {
@@ -1715,7 +1722,8 @@ text-align:center;
 	margin-left: 9px;
 	margin-top: 3px;
 	margin-bottom: 5px;
-	font-size: 14px;
+	font-size: 13px;
+	font-weight: bold;
 }
 
 #s_left .lm-item{

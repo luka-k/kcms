@@ -11,6 +11,11 @@
 				<div class="mainwrap">
 					<main id="by_category">
 						<article>
+							<div class="shop_link">
+								<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
+										Интернет-магазин
+								</a>
+							</div>
 							<?require FCPATH.'application/views/client/include/breadcrumbs.php'?>
 							<div id="" class="main-content clearfix">
 		
@@ -19,11 +24,6 @@
 									<h1 class="manufacturer-title">
 										Каталог производителей - <?=$page_title?>
 									</h1>
-									<div class="shop_link">
-										<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
-												Интернет-магазин
-										</a>
-									</div>
 									<div id="manufacturers" class="manufacturers">
 										<?$manufacturer_counter = 1?>
 										<?foreach($manufacturers as $m):?>

@@ -137,7 +137,7 @@ class Characteristics extends MY_Model
 					$query .= "AND ";
 			}
 			
-			if(isset($filter['categories_checked']))
+			if(isset($filter['categories_checked']) && $filter['categories_checked'])
 			{
 				$query .= $this->_set_where_in('parent_id', $filter['categories_checked']);
 				
@@ -198,7 +198,9 @@ class Characteristics extends MY_Model
 			
 			if($limit <> FALSE) $query .= "LIMIT {$from}, {$limit}";
 			
-			$result = $this->db->query($query)->result();
+			// следующая строчка фиксит баг который возникал при апдэйте кэша когда есть пустая ГТ1 
+			if (!strstr($query, 'WHERE ORDER'))
+				$result = $this->db->query($query)->result();
 			
 			if(!empty($result)) return $result;
 		}

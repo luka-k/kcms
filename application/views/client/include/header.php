@@ -23,7 +23,7 @@
 					<a href="#">Магазин</a>
 					<ul>
 						<li class=""><a href="http://shop.brightbuild.ru/catalog">Товары</a></li>
-						<li class=""><a href="http://shop.brightbuild.ru/catalog/sale/">Распродажи</a></li>
+						<li class=""><a href="http://shop.brightbuild.ru/catalog/sale/">Распродажа</a></li>
 						<li class=""><a href="<?=base_url()?>">Оплата/Доставка</a></li>
 					</ul>
 				</li>
