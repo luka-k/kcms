@@ -158,17 +158,17 @@ class Catalog extends Client_Controller {
 			
 			$cache_id = md5(serialize($semantic_url));
 	
-			$cache = $this->filters_cache->get($cache_id);
+			$data = $this->filters_cache->get($cache_id);
 			//$cache = FALSE;
-			if($cache)
+			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);
-				$data = $this->filters_cache->get($cache_id);	
-		
+				$cache = $this->filters_cache->get_item_by(array('id' => $cache_id));	
+
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
 				$data['category']->products = $this->products->prepare_list($data['category']->products);
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
-				$data['logo_column'] = TRUE;
+				if($cache->type == 'categories') $data['logo_column'] = TRUE;
 				$data['beautiful_link'] = $semantic_url;
 
 				$data = array_merge($this->standart_data, $data);
