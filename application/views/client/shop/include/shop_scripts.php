@@ -1,5 +1,8 @@
 <script>
 	$(document).ready(function(){
+		var product_width = $('#product-scroll').width();
+		$('.secondcolumn').css("max-width", (product_width - 2) + 'px');
+	
 		$('.ajax_from').val(10);
 		$('#sorting_order').val('name');
 		$('#sorting_direction').val('asc');

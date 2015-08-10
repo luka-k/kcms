@@ -31,16 +31,17 @@
 		});
 				
 		$('.secondcolumn input').click(function() {
-			show_popup();
-				
+			var width = $(this).parent().width();
+			
+			show_popup(width);;
 			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
-			$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
+			//$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 		});
 	})(jQuery);
 	
-	function show_popup(){
+	function show_popup(width){
 		$('#total_count').html('...');
-		$('#searchpopupbtn').css('left', ($(this).parent().width() + 328) + 'px');
+		$('#searchpopupbtn').css('left', (width + 320) + 'px');
 		$('#searchpopupbtn').fadeIn('slow');
 		$.post('<?=base_url()?>catalog/count/', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 	}

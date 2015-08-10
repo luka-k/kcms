@@ -1256,7 +1256,7 @@ article h2 {
 	position:relative;
 	float:left;	width: -moz-calc(100% - 230px);
 	width: -webkit-calc(100% - 230px);
-	width: calc(100% - 230px*/);
+	width: calc(100% - 230px);
 }
 
 .item-description{
@@ -1847,6 +1847,9 @@ text-align:center;
 	opacity: 0.95;
 	margin-left: 6px;
 	padding-right: 12px;
+	
+	white-space:nowrap;
+	width:auto;
 	min-width: 200px;
 	padding-top: 6px;
 		
@@ -1876,6 +1879,8 @@ text-align:center;
 	text-decoration:none;
 	color: #000;
 	font-size: 12px;
+	white-space:nowrap;
+	text-overflow: ellipsis;
 }
 
 .secondcolumn  ul li ul{
