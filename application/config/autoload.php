@@ -59,7 +59,6 @@ $autoload['libraries'] = array(
 	'pagination',
 	'email',
 	'cart',
-	'curs',
 	'catalog',
 	'wishlist',
 	'url',

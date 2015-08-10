@@ -25,6 +25,7 @@ class Import extends Admin_Controller
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		 
+		$this->load->library('curs');
 		$curs=new curs('download/curs.txt');
 		
 		foreach($xml->ПакетПредложений->Предложения->Предложение as $el)
