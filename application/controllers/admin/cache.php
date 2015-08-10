@@ -217,7 +217,6 @@ class Cache extends Admin_Controller
 							'manufacturer_ch' => array($manufacturer->name),
 							'collection' => $this->collections->get_tree($all_products_ids),
 							'sku_tree' => $manufacturers,
-							/*'nok' => $this->catalog->get_nok_tree($all_products_ids),*/
 							'filters' => $this->characteristics_type->get_filters($all_products),
 							'childs_categories' => array(),
 							'title' => $child_category->name.' | интернет-магазин bрайтbилd',
@@ -284,7 +283,6 @@ class Cache extends Admin_Controller
 						'manufacturer_ch' => array($manufacturer->name),
 						'collection' => $this->collections->get_tree($all_products_ids),
 						'sku_tree' => $manufacturers,
-						/*'nok' => $this->catalog->get_nok_tree($all_products_ids),*/
 						'filters' => $this->characteristics_type->get_filters($all_products),
 						'childs_categories' => $category->childs,
 						'title' => $category->name.' | интернет-магазин bрайтbилd',
@@ -313,129 +311,6 @@ class Cache extends Admin_Controller
 			}
 		}
 		
-		/*$left_menu = $this->categories->get_tree();
-		
-		$categories = $this->categories->get_list(FALSE);
-		
-		foreach($categories as $category)
-		{
-			$filters_checked = array(
-				'filter' => TRUE, 
-				'last_type_filter' => 'manufacturers_checked', 
-				'from' => 0,
-			);
-			
-			$products = array();
-			$semantic_urls = array();
-			$data = array();
-			$childs = array();
-			
-			$this->db->select('category_parent_id');
-			$category_anchors = $this->db->get_where('category2category', array('child_id' => $category->id))->result();
-			
-			if(count($category_anchors) == 1 && $category_anchors[0]->category_parent_id == 0)
-			{
-				$filters_checked['parent_checked'][] = $category->id;
-				$this->db->select('child_id');
-				$sub_categories = $this->db->get_where('category2category', array('category_parent_id' => $category->id))->result();
-				if($sub_categories) foreach($sub_categories as $sub_category)
-				{
-					$filters_checked['categories_checked'][] = $sub_category->child_id;
-				}
-				
-				foreach($left_menu as $item_1)
-				{
-					if ($category->id == $item_1->id)
-					{
-						$childs = $item_1->childs;
-						break;
-					}
-				}
-								
-				$semantic_urls[] = 'catalog/'.$category->url;		
-			}
-			else
-			{
-				$param = array('parent_id' => $category->id);
-
-				$filters_checked['categories_checked'][] = $category->id;
-				
-				foreach($category_anchors as $c_anch)
-				{
-					$parent_category = $this->categories->get_item($c_anch->category_parent_id);
-					$semantic_urls[] = 'catalog/'.$parent_category->url.'/'.$category->url;
-				}
-			}
-
-			$this->db->distinct();
-			$this->db->select('manufacturer_id');
-			$m2c = $this->db->get_where('manufacturer2category', array('category_id' => $category->id))->result();
-			
-			$manufacturers = $this->manufacturers->get_tree(FALSE);
-							
-			if($m2c) foreach($m2c as $m)
-			{	
-				$manufacturer_ch = array();
-				$filters_checked['manufacturer_checked'] = array();
-				
-				$manufacturer = $this->manufacturers->get_item($m->manufacturer_id);
-
-				$manufacturer_ch = $manufacturer->name;
-				$filters_checked['manufacturer_checked'][] = $manufacturer->id;
-				
-				$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
-				$products = $this->products->prepare_list($products);
-			
-				$all_products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc');
-				$total_rows = count($all_products);
-				
-				$all_products_ids = $this->catalog->get_products_ids($all_products);
-				
-				$left_menu = $this->categories->get_tree($all_products);
-				
-				$collections =	$this->collections->get_tree($all_products_ids);
-				/*$nok = $this->catalog->get_nok_tree($all_products_ids);
-				$filters = $this->characteristics_type->get_filters($all_products);
-					
-				foreach($semantic_urls as $url)
-				{
-					$semantic_url = $url.'/'.$manufacturer->url;
-					echo $counter.' - '.$semantic_url.'</br>';
-					$cache_id = md5(serialize($semantic_url));
-					
-					$data = array(
-						'category' => $category,
-						'left_menu' => $left_menu,
-						'manufacturer' => $manufacturers,
-						'collection' =>	$collections,
-						'sku_tree' => $manufacturers,
-						/*'nok' => $nok,
-						'filters' => $filters,
-						'filters_checked' => $filters_checked,
-						'manufacturer_ch' => array($manufacturer->name),
-						'childs_categories' => $childs,
-						'title' => $category->name.' | интернет-магазин bрайтbилd',
-						'meta_description' => $category->meta_description,
-						'meta_keywords' => $category->meta_keywords,
-						/*'all_products' => $all_products,
-						'total_rows' => $total_rows,
-						'type' => 'manufacturers'
-					);
-
-					$data['categories_ch'][] = $category->name;
-					$data['category']->products = $products;
-
-					$this->filters_cache->insert($cache_id, $data, 'categories/manufacturer', $semantic_url);
-					$insert_data[] = array(
-						'id' => $cache_id,
-						'cache_data' => serialize($data),
-						'semantic_url' => $semantic_url,
-						'type' => 'categories/manufacturer'
-					);
-					$counter++;
-				}
-			}	
-		}*/
 		$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
@@ -485,9 +360,8 @@ class Cache extends Admin_Controller
 				'nok' => $this->catalog->get_nok_tree($all_products_ids),
 				'filters' => $this->characteristics_type->get_filters($all_products),
 				'categories_ch' => array(),
-				'all_products' => $all_products,
-				'total_rows' => $total_rows,
-				'type' => 'manufacturer'
+				'all_products_ids' => $all_products_ids,
+				'total_rows' => $total_rows
 			);
 			
 			$data['category'] = new stdClass();
