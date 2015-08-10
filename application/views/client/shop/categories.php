@@ -145,8 +145,8 @@
 				</aside>
 			</div>
 		</div>
-		
-		<? if (count($filters_checked) < 4): ?>
+
+		<? if ((count($filters_checked) < 4) && !isset($no_shadow)): ?>
 			<div id="shadow"></div>
 		<? endif ?>
 		

@@ -108,7 +108,7 @@ class Characteristics extends MY_Model
 		{
 			$query = "SELECT * FROM products ";
 			
-			if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+			if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "WHERE ";
 			
 			if(isset($filter['collection_checked']))
@@ -125,7 +125,7 @@ class Characteristics extends MY_Model
 
 				$query .= $this->_set_where_in('id', $ids_by_collection);
 				
-				if(!empty($id) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(!empty($id) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
@@ -133,7 +133,7 @@ class Characteristics extends MY_Model
 			{
 				$query .= $this->_set_where_in('id', $id);
 				
-				if(isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
@@ -141,7 +141,7 @@ class Characteristics extends MY_Model
 			{
 				$query .= $this->_set_where_in('parent_id', $filter['categories_checked']);
 				
-				if(isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
@@ -149,7 +149,7 @@ class Characteristics extends MY_Model
 			{
 				$query .= $this->_set_where_in('manufacturer_id', $filter['manufacturer_checked']);
 				
-				if(isset($filter['sku_checked']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
@@ -157,6 +157,14 @@ class Characteristics extends MY_Model
 			{
 				$query .= $this->_set_where_in('sku', $filter['sku_checked']);
 
+				if(isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['name']))
+			{
+				$query .= "name LIKE '%{$filter['name']}%' ";
+				
 				if(isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}

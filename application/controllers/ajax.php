@@ -104,7 +104,9 @@ class Ajax extends CI_Controller {
 		
 	function autocomplete()
 	{
-		$products = $this->products->get_list(FALSE);
+		/*$products = $this->products->get_list(FALSE);*/
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
+
 		foreach($products as $p)
 		{
 			$available_tags[] = $p->name;

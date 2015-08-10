@@ -37,13 +37,21 @@
 			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
 			//$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 		});
+		
+		$('#search_input').change(function() {
+			var width = $(this).parent().width();
+			
+			show_popup(width);;
+			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
+			$('#searchpopupbtn').css('left', 280 + 'px');
+		});
 	})(jQuery);
 	
 	function show_popup(width){
 		$('#total_count').html('...');
 		$('#searchpopupbtn').css('left', (width + 320) + 'px');
 		$('#searchpopupbtn').fadeIn('slow');
-		$.post('<?=base_url()?>catalog/count/', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
+		$.post('/shop/catalog/count/', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 	}
 		
 		

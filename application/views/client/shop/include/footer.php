@@ -1,9 +1,9 @@
 <script>
 function autocomp(){
-			var data = {};
+			/*var data = {};
 			data.r = " ";
-			var json_str = JSON.stringify(data);
-			$.post("/ajax/autocomplete/", json_str, autocomp_answer, 'json');
+			var json_str = JSON.stringify(data);*/
+			$.post("/shop/catalog/autocomplete/", $('#filter-form').serialize(), autocomp_answer, 'json');
 		}
 		
 		function autocomp_answer(res){
@@ -16,11 +16,18 @@ function autocomp(){
 					$('#filter-form').submit();
 				}
 			});
+			
+			$(".ui-autocomplete").height($(window).height() - 135);
+			
+			$(".ui-autocomplete").mCustomScrollbar({
+				axis:"y", 
+				advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
+			});
 		}
 </script>
 
 <script>
-	function search_focus(){
+	/*function search_focus(){
 		document.forms['filter-form'].setAttribute('action','<?=base_url()?>shop/search');
 		document.forms['filter-form'].setAttribute('method', 'get');
 			
@@ -52,7 +59,7 @@ function autocomp(){
 				element.prop("disabled", '');
 			}
 		});
-	}
+	}*/
 
 </script>
 

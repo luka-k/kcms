@@ -185,29 +185,34 @@ class Catalog extends Client_Controller {
 	{
 		$this->session->unset_userdata('last_cache_id');
 		$data['category'] = new stdClass;
-		$filters_checked = array(
-			'filter' => TRUE, 
-			'last_type_filter' => 'categories_checked', 
-			'from' => 0,
-		);
+		
+		$this->breadcrumbs->add(base_url(), 'Главная');
+		$this->breadcrumbs->add('catalog', 'Каталог');
+		$this->breadcrumbs->add('', 'Распродажа');
 		
 		$products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), 0, 100, 'name', 'asc'));
 		$products_ids = $this->catalog->get_products_ids($products);
 		
-		$total_rows = count($this->products->get_list(array('sale' => 1)));
+		$all_products = $this->products->prepare_list($this->products->get_list(array('sale' => 1), FALSE, FALSE, 'name', 'asc'));
+		$all_products_ids = $this->catalog->get_products_ids($all_products);
 		
-		$data['breadcrumbs'] = $this->breadcrumbs->get();
+		$data = array(
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'left_menu' => $this->categories->get_tree($all_products, $this->post),
+			'manufacturer' => $this->manufacturers->get_tree($all_products, $this->post),
+			'sku_tree' => $this->manufacturers->get_tree($all_products, $this->post),
+			'collection' => $this->collections->get_tree($all_products_ids, $this->post),
+			'filters' => $this->characteristics_type->get_filters($all_products, $this->post),
+			'nok' => $this->catalog->get_nok_tree($all_products_ids, $this->post),
+			'filters' => $this->characteristics_type->get_filters($all_products),
+			'total_rows' => count($all_products),
+			'no_shadow' => TRUE
+		);
 		
 		$data['category']->products = $products;
-		$data['total_rows'] = $total_rows;
-		$data['filters'] = $this->characteristics_type->get_filters($this->products->get_list(array('sale' => 1)));
-		
-		$data['no_ajax'] = true;
 		
 		$data = array_merge($this->standart_data, $data);
 
-		$this->benchmark->mark('code_end');
-		//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
 		$this->load->view("client/shop/categories", $data);
 	}
 	
@@ -219,7 +224,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -249,6 +254,8 @@ class Catalog extends Client_Controller {
 			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, 0);
 		
 			$filters = $this->characteristics_type->get_filters($products, $this->post);
+			$filters['name'] = $this->post['name'];
+			
 			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
 			
@@ -308,7 +315,7 @@ class Catalog extends Client_Controller {
 				'depth_from' => $depth_from,
 				'depth_to' => $depth_to,
 				'depth_min' => $depth_min,
-				'depth_max' => $depth_max,
+				'depth_max' => $depth_max
 			);
 
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
@@ -465,6 +472,21 @@ class Catalog extends Client_Controller {
 		);
 		
 		echo json_encode($data);
+	}
+	
+	function autocomplete()
+	{
+		/*$products = $this->products->get_list(FALSE);*/
+		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
+
+		$available_tags = array();
+		foreach($products as $p)
+		{
+			$available_tags[] = $p->name;
+		}
+		$answer['available_tags'] = $available_tags;
+		
+		echo json_encode($answer);
 	}
 }
 

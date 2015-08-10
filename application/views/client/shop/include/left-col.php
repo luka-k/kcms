@@ -22,19 +22,20 @@
 	<?require_once "columns.php"?>
 	<div class="leftmenu shop">
 		<div class="lm-block">
-			
-				<input type="text" 
-						id="search_input" 
-						class="search" 
-						name="name" 
-						autocomplete="off"
-						placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> 
-						onkeypress="autocomp()"
-						onfocus="search_focus()"
-						onblur="search_blur()"
-						onchange="document.forms['filter-form'].submit()"/>
+
+			<input type="text" 
+				id="search_input" 
+				class="search" 
+				name="name" 
+				autocomplete="off"
+				placeholder="Поиск" 
+				value="<?if(isset($search)):?><?=$search?><?endif;?><?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>" 
+				onkeypress="autocomp()"
+				onfocus="search_focus()"
+				onblur="search_blur()"/>
+				<!--onchange="document.forms['filter-form'].submit()"/>-->
 						
-				</div>
+		</div>
 		
 			<input type="hidden" name="filter" value="true"/>
 			<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
