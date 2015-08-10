@@ -108,8 +108,15 @@ class Characteristics extends MY_Model
 		{
 			$query = "SELECT * FROM products ";
 			
-			if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+			if(!empty($id) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "WHERE ";
+					
+			if($filter['is_sale'] == '1')
+			{
+				$query .= "sale = 1 ";
+				if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
 			
 			if(isset($filter['collection_checked']))
 			{

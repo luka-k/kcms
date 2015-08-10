@@ -37,6 +37,7 @@
 		</div>
 		
 			<input type="hidden" name="filter" value="true"/>
+			<input type="hidden" name="is_sale" value="<?if(isset($filters['is_sale'])):?><?=$filters['is_sale']?><?else:?>2<?endif;?>"/>
 			<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
 			<input type="hidden" id="ajax_from" class="ajax_from" name="from" value="10"/>
 			<input type="hidden" id="sorting_order" name="order" value="name"/>

@@ -206,7 +206,8 @@ class Catalog extends Client_Controller {
 			'nok' => $this->catalog->get_nok_tree($all_products_ids, $this->post),
 			'filters' => $this->characteristics_type->get_filters($all_products),
 			'total_rows' => count($all_products),
-			'no_shadow' => TRUE
+			'no_shadow' => TRUE,
+			'is_sale' => TRUE,
 		);
 		
 		$data['category']->products = $products;
@@ -265,6 +266,7 @@ class Catalog extends Client_Controller {
 		
 			$filters = $this->characteristics_type->get_filters($products, $this->post);
 			$filters['name'] = $this->post['name'];
+			$filters['is_sale'] = $this->post['is_sale'];
 			
 			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
