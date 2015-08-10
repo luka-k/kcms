@@ -12,7 +12,7 @@
 		<div class="top-menu">
 			<ul class="clearfix">
 				<li class="first <?if($top_active == 'catalog'):?>current<?endif;?>">
-					<a href="#">Каталог</a>
+					<a href="#">Каталог</a><span class="marker up">&nbsp;</span>
 					<ul>
 						<li class=""><a href="http://brightbuild.ru/catalog">Производители</a></li>
 						<li class=""><a href="http://brightbuild.ru/vendors">Продавцы</a></li>
@@ -20,7 +20,7 @@
 					</ul>
 				</li>
 				<li class="<?if($top_active == 'shop'):?>current<?endif;?>">
-					<a href="#">Магазин</a>
+					<a href="#">Магазин</a><span class="marker">&nbsp;</span>
 					<ul>
 						<li class=""><a href="http://shop.brightbuild.ru/catalog">Товары</a></li>
 						<li class=""><a href="http://shop.brightbuild.ru/catalog/sale/">Распродажа</a></li>
