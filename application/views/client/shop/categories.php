@@ -106,8 +106,10 @@
 													<?=$turn->value?>
 												<?endforeach;?>
 												</br>
-
-												<strong><?=$item->shortname->value?> </strong>
+						
+												<?if(!empty($item->shortname)):?>
+													<strong><?=$item->shortname->value?> </strong>
+												<?endif;?>
 												
 												<?foreach($item->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
