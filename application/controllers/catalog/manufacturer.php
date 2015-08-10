@@ -52,7 +52,8 @@ class Manufacturer extends Client_Controller {
 			'active_category_item' => '',
 			'active_doc' => $doc_type,
 			'is_news' => FALSE,
-			'menu_link' => "manufacturer"
+			'menu_link' => "manufacturer",
+			'doc_link' => $doc_type
 		);
 		
 		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));

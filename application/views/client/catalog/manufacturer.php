@@ -32,7 +32,7 @@
 										<div class="some10">
 											<?foreach($manufacturers as $m):?>
 												<div class="pic-block">
-													<a href="<?=base_url()?><?=$menu_link?>/<?=$m->url?>">
+													<a href="<?=base_url()?><?=$menu_link?>/<?=$m->url?>/<?=$doc_link?>">
 														<img src="<?=$m->img->manufacturer_url?>" height="78" width="164" alt="<?=$m->name?>" class="logotype <?if($m->url == $manufacturer->url):?>active<?endif;?>" />
 													</a>
 												</div>

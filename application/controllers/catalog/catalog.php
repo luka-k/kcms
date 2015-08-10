@@ -131,7 +131,8 @@ class Catalog extends Client_Controller {
 			'doc_type' => $active_doc_type,
 			'active_doc' => $content->doc_type['value'],
 			'is_news' => FALSE,
-			'menu_link' => $menu_link
+			'menu_link' => $menu_link,
+			'doc_link' => $content->doc_type['value']
 		);
 
 		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
