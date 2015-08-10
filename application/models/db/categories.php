@@ -71,6 +71,8 @@ class Categories extends MY_Model
 			$filtred_ids[] = $p->parent_id;
 		}
 		
+		$filtred_ids = array_unique($filtred_ids);
+		
 		$tree = $this->_get_tree(0, 'category_parent_id', $filtred_ids, $selected);
 		
 		if($type == 'site')foreach($tree as $i => $t)
@@ -95,7 +97,7 @@ class Categories extends MY_Model
 				$branch = $this->get_item_by(array('id' => $item->child_id));
 				if(!empty($branch))
 				{
-					if(in_array($item->child_id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
+					if(in_array($branch->id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
 				}
 			}
 			else

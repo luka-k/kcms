@@ -24,6 +24,8 @@ class Cache extends Admin_Controller
 		echo '<h3>Категории</h3></br>';
 		
 		$categories = $this->categories->get_admin_tree(0);
+		//$categories = $this->categories->get_tree();
+		$left_menu = $this->categories->get_tree();
 
 		$insert_data = array();
 		
@@ -58,7 +60,7 @@ class Cache extends Admin_Controller
 					'category' => $category,
 					'filters_checked' => $filters_checked,
 					'manufacturer_ch' => array(),
-					'left_menu' => $categories,
+					'left_menu' => $left_menu,
 					'manufacturer' => $manufacturers,
 					'collection' => $this->collections->get_tree($all_products_ids),
 					'sku_tree' => $manufacturers,
@@ -112,17 +114,26 @@ class Cache extends Admin_Controller
 			
 			$manufacturers = $this->manufacturers->get_tree($all_products);
 			
+			foreach($left_menu as $lm)
+			{
+				if($lm->id == $category->id)
+				{
+					$childs = $lm->childs;
+					break;
+				}
+			}
+			
 			$data = array(
 				'category' => $category,
 				'filters_checked' => $filters_checked,
 				'manufacturer_ch' => array(),
-				'left_menu' => $categories,
+				'left_menu' => $left_menu,
 				'manufacturer' => $manufacturers,
 				'collection' => $this->collections->get_tree($all_products_ids),
 				'sku_tree' => $manufacturers,
 				'nok' => $this->catalog->get_nok_tree($all_products_ids),
 				'filters' => $this->characteristics_type->get_filters($all_products),
-				'childs_categories' => $category->childs,
+				'childs_categories' => $childs,
 				'title' => $category->name.' | интернет-магазин bрайтbилd',
 				'meta_description' => $category->meta_description,
 				'meta_keywords' => $category->meta_keywords,
