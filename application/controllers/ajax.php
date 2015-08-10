@@ -101,20 +101,6 @@ class Ajax extends CI_Controller {
 		$data['total_price'] = $this->cart->total_price();		
 		echo json_encode($data);
 	}
-		
-	function autocomplete()
-	{
-		/*$products = $this->products->get_list(FALSE);*/
-		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
-
-		foreach($products as $p)
-		{
-			$available_tags[] = $p->name;
-		}
-		$answer['available_tags'] = $available_tags;
-		
-		echo json_encode($answer);
-	}
 	
 	/**
 	* Добавление товара в wishlist

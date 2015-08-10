@@ -1,8 +1,5 @@
 <script>
 function autocomp(){
-			/*var data = {};
-			data.r = " ";
-			var json_str = JSON.stringify(data);*/
 			$.post("/shop/catalog/autocomplete/", $('#filter-form').serialize(), autocomp_answer, 'json');
 		}
 		
@@ -24,43 +21,6 @@ function autocomp(){
 				advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
 			});
 		}
-</script>
-
-<script>
-	/*function search_focus(){
-		document.forms['filter-form'].setAttribute('action','<?=base_url()?>shop/search');
-		document.forms['filter-form'].setAttribute('method', 'get');
-			
-		$('.secondcolumn').fadeOut('slow');
-		$('.lm-item').removeClass('active');
-		$('.lm-item').stop().animate({width:'258px'},'slow');
-		var inputs = $('#filter-form').find('input');
-					
-		inputs.each(function () {
-			var element = $(this);
-			
-			if(element.hasClass("search") == false) 
-			{
-				element.prop("disabled", 'disabled');
-			}
-		});
-	}
-				
-	function search_blur(){
-		document.forms['filter-form'].setAttribute('action','<?=base_url()?>catalog');
-		document.forms['filter-form'].setAttribute('method', 'post');
-					
-		var inputs = $('#filter-form').find('input');
-					
-		inputs.each(function () {
-			var element = $(this);
-						
-			if(element.hasClass("search") == false){
-				element.prop("disabled", '');
-			}
-		});
-	}*/
-
 </script>
 
 <!-- Yandex.Metrika counter -->

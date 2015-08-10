@@ -13,13 +13,7 @@
 				var div_h = $(this).height();
 
 				if($(this).scrollTop() >= div_sh - div_h){
-					$('#search_input').blur();
-					
-					if($("#product-scroll").hasClass("search_scroll")){
-						$.post('<?=base_url()?>shop/catalog/search_more/', $('#filter-form').serialize(), answer, 'json');
-					}else{
-						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
-					}
+					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
 				}
 			});
 		<?endif?>

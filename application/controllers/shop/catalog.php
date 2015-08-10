@@ -231,6 +231,16 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{	
+			if($this->post['name'])
+			{
+				$product = $this->products->get_item_by(array("name" => $this->post['name']));
+				if(!empty($product))
+				{
+					$product = $this->products->prepare($product, FALSE);
+					redirect($product->full_url);
+				}
+			}
+			
 			$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 			$products_ids = $this->catalog->get_products_ids($products);
 		
@@ -476,7 +486,6 @@ class Catalog extends Client_Controller {
 	
 	function autocomplete()
 	{
-		/*$products = $this->products->get_list(FALSE);*/
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 
 		$available_tags = array();

@@ -35,7 +35,6 @@
 			
 			show_popup(width);;
 			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
-			//$('#searchpopupbtn').css('left', ($(this).offset().left + 205) + 'px');
 		});
 		
 		$('#search_input').change(function() {

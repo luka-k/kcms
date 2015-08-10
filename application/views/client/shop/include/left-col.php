@@ -29,11 +29,10 @@
 				name="name" 
 				autocomplete="off"
 				placeholder="Поиск" 
-				value="<?if(isset($search)):?><?=$search?><?endif;?><?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>" 
+				value="<?if(isset($filters['name'])):?><?=$filters['name']?><?endif;?>" 
 				onkeypress="autocomp()"
 				onfocus="search_focus()"
 				onblur="search_blur()"/>
-				<!--onchange="document.forms['filter-form'].submit()"/>-->
 						
 		</div>
 		
