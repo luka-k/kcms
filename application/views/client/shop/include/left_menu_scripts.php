@@ -38,11 +38,7 @@
 		});
 		
 		$('#search_input').change(function() {
-			var width = $(this).parent().width();
-			
-			show_popup(width);;
-			$('#searchpopupbtn').css('top', ($(this).offset().top - 70) + 'px');
-			$('#searchpopupbtn').css('left', 280 + 'px');
+			$('#filter-form').submit();
 		});
 	})(jQuery);
 	

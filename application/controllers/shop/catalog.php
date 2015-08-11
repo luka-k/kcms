@@ -207,8 +207,9 @@ class Catalog extends Client_Controller {
 			'filters' => $this->characteristics_type->get_filters($all_products),
 			'total_rows' => count($all_products),
 			'no_shadow' => TRUE,
-			'is_sale' => TRUE,
 		);
+		
+		$data['filters']['is_sale'] = 1;
 		
 		$data['category']->products = $products;
 		
