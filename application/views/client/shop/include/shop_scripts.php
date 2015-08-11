@@ -39,15 +39,15 @@
 			var selected_direction = $('#sorting_direction').val();
 			if(selected_direction == 'asc'){
 				$('#sorting_direction').val('desc');
-				$('#by_'+param).toggleClass('up');
+				$('#by_'+param).toggleClass('down');
 			}else{
 				$('#sorting_direction').val('asc');
-				$('#by_'+param).toggleClass('down');
+				$('#by_'+param).toggleClass('up');
 			}
 		}else{
 			$('#sorting_order').val(param);
 			$('#sorting_direction').val('asc');
-			$('#by_'+param).toggleClass('down');
+			$('#by_'+param).toggleClass('up');
 		}
 		
 		$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), sort_answer, 'json');
