@@ -6,7 +6,7 @@
 		$(".leftmenu").height($( window ).height() - 100);
 		$(".logo-column").height($(window).height() - 100);
 		
-		$(".secondcolumn").height($( window ).height() -75);
+		$(".secondcolumn").height($( window ).height() - 100);
 		$("#shadow").height($( window ).height() - 220);
 		$("#full-shadow").height($( window ).height() - 93);
 		$("#wrapper").height($( window ).height() - 65);
