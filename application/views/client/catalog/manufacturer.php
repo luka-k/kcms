@@ -115,7 +115,7 @@
 												<?endif?>
 											</div>								
 											<div class="nav_footer">
-												<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>');">
+												<select name="" id="selectm" class="catalog_select" onchange="manufacturer_submit(this.value, '<?=$manufacturer->url?>/<?=$doc_link?>');">
 													<option <?if($active_category_item == ''):?>selected<?endif;?> value="manufacturer/">Все группы товаров</option>
 													<?foreach($manufacturer->categories as $category):?>
 														<option <?if($active_category_item == $category->url):?>selected<?endif;?> value="catalog/<?=$category->url?>"><?=$category->name?></option>
