@@ -335,7 +335,7 @@ class Manufacturers extends MY_Model
 			{
 				$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $category_id);
 
-				$this->db->where_in("goods_category_id", $child_ids);
+				if(!empty($child_ids)) $this->db->where_in("goods_category_id", $child_ids);
 			}
 			else
 			{
@@ -368,7 +368,7 @@ class Manufacturers extends MY_Model
 			{
 				$child_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", $category_id);
 
-				$this->db->where_in("category_id", $child_ids);
+				if(!empty($child_ids)) $this->db->where_in("category_id", $child_ids);
 			}
 			else
 			{
