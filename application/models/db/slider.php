@@ -6,7 +6,8 @@ class Slider extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', 'name'),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', '')
+			'description' => array('Описание', 'tiny', ''),
+			'en_description' => array('Описание (eng)', 'tiny', '')
 		),
 		'Изображение' => array(
 			'upload_image' => array('Изображение', 'image', 'img')

@@ -6,23 +6,32 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
+			'en_name' => array('Заголовок (eng)', 'text', 'trim|required|htmlspecialchars'),
 			'menu_name' => array('Заголовок в меню', 'text', 'trim|htmlspecialchars|autocomplete[name]'),
+			'en_menu_name' => array('Заголовок в меню (eng)', 'text', 'trim|htmlspecialchars|autocomplete[en_name]'),
 			'not_list' => array('Не отображать в списке', 'checkbox', ''),
 			'not_left_menu' => array('Не отображать в левом меню', 'checkbox', ''),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Текст', 'tiny', ''),
-			'full_description' => array('Полный текст', 'tiny-2', '')
+			'en_description' => array('Текст (eng)', 'tiny', ''),
+			'full_description' => array('Полный текст', 'tiny', ''),
+			'en_full_description' => array('Полный текст (eng)', 'tiny', ''),
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_title' => array('Meta title страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_keywords' => array('Ключевые слова страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_description' => array('Описание страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
 		),
 		'Руководитель раздела' => array(
 			'direction' => array('Направление', 'text', 'trim|htmlspecialchars'),
+			'en_direction' => array('Направление (eng)', 'text', 'trim|htmlspecialchars'),
 			'lead_name' => array('Имя руководителя', 'text', 'trim|htmlspecialchars'),
+			'en_lead_name' => array('Имя руководителя (eng)', 'text', 'trim|htmlspecialchars'),
 			'lead_email' => array('Почта руководителя', 'text', 'trim|htmlspecialchars'),
 			'upload_image' => array('Фотография', 'image', 'img')
 		),

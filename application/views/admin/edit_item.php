@@ -45,6 +45,7 @@
 														
 									<!--editors-->
 									<?$editors_counter = 1?>
+									<?$tiny_counter = 1?>
 									<?foreach($edits as $name => $edit):?>
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>
