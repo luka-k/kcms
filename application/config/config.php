@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://lt-pro.ru/';
-
+//$config['base_url']	= 'http://lt-pro.ru/';
+$config['base_url']	= '';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -266,7 +266,8 @@ $config['sess_time_to_update']	= $config['sess_expiration'];
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= ".lt-pro.ru";
+//$config['cookie_domain']	= ".lt-pro.ru";
+$config['cookie_domain']	= "";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 
