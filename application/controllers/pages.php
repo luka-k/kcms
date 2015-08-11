@@ -10,15 +10,12 @@ class Pages extends Client_Controller {
 	public function index()
 	{	
 		$page = $this->articles->url_parse(2);
-		
 		if($page == "404")
 		{
 			$page = $this->articles->get_item_by(array("url" => "study"));
 			
 			$page->description = "Sorry, this page is under construction.</br></br>Please, come again later"; 
 		}
-		
-		if($page == FALSE) redirect(base_url(), 301);
 
 		$page = $this->articles->prepare($page);
 		

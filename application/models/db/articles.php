@@ -77,7 +77,7 @@ class Articles extends MY_Model
 				else
 				{
 					$parent->article = $this->get_item_by(array('url' => $url));
-					$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id, "not_list" => 0));
+					$parent->accordeon = $this->get_list(array('parent_id' => $parent->article->id, "not_list" => 0), 0, 0, 'sort', 'asc');
 					$parent->accordeon = $this->get_prepared_list($parent->accordeon);
 				}
 				return $parent;

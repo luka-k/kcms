@@ -1,4 +1,4 @@
-<div class="col_12">
+﻿<div class="col_12">
 	<div class="col_12"><h6>Изменить размеры изображений на сайте</h6></div>
 		<div class="col_4 clearfix">
 			<div class="col_12">Большие Изображения</div>

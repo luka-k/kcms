@@ -150,7 +150,7 @@ switch($mode) {
 			}
 			if (false !== strpos($name, '.')) {
 				$ext = substr($name, strrpos($name, '.') + 1);
-				if (in_array($ext, $cfg['allow']['image'])) {
+				if (in_array($ext, $cfg['allow']['image']) || true) {
 					rename($cfg['root'] . $dir . $file, $cfg['root'] . $dir . $name);
 				}
 			}

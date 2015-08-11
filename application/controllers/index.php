@@ -27,6 +27,7 @@ class Index extends Client_Controller {
 		
 		$data = array(
 			'title' => $settings->site_title,
+			'meta_title' => $settings->site_title,
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			'top_menu' => $this->top_menu,

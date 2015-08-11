@@ -53,9 +53,9 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array(
-	'form_validation', 
+	'session', 
 	'database', 
-	'session',
+	'form_validation',
 	'pagination',
 	'email',
 	'mail',
@@ -123,13 +123,10 @@ $autoload['model'] = array(
 	'db/news2article',
 	'db/settings', 
 	'db/users', 
-	'db/users_groups', 
-	'db/users2users_groups', 
 	'db/orders', 
 	'db/orders_products', 
 	'db/images', 
 	'db/emails', 
-	'db/mailouts',
 	'db/dynamic_menus',
 	'db/menus_items',
 	'db/slider',

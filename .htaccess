@@ -1,4 +1,5 @@
+AddDefaultCharset UTF-8
 RewriteEngine on
-RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
+RewriteCond $1 !^(index\.php|images|uploads|download|modules|wp-content|template|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 RedirectPermanent /main /

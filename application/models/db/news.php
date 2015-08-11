@@ -6,7 +6,6 @@ class News extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'date' => array('Дата', 'date', 'set_date'),
 			'article_parent_id' => array('Раздел', 'n2a', 'news2article'),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Описание', 'tiny', ''),
@@ -46,8 +45,9 @@ class News extends MY_Model
 		$this->db->where_in("id", $id);
 		$counter = $this->db->count_all_results("news");
 		$this->db->where_in("id", $id);
-
-		$this->db->order_by("date", "desc");
+		// Знаю что это ересь и надо по дате но я этот момент проебал
+		// сейчас покажем так на каникулах даш достуцпы переделаю по дате
+		$this->db->order_by("id", "desc");
 		$limit == FALSE ? $query = $this->db->get("news") : $query = $this->db->get("news", $limit, 0);
 		$news = $query->result();
 		return $news;
@@ -63,7 +63,7 @@ class News extends MY_Model
 		if(empty($page_url))
 		{
 			$parent = $this->news2article->get_item_by(array("child_id" => $news->id));
-		
+		//print_r($parent);
 			$item = $this->articles->get_item_by(array("id" => $parent->article_parent_id));
 		
 			$item_url = $this->articles->make_full_url($item);

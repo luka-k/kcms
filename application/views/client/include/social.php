@@ -1,4 +1,4 @@
-﻿<div id="social">
+<div id="social">
 	<ul class="tabs2 tabs">
 		<li id="tab_1" class="ltpro"><a href="#tab2" class="rounded"><i class="icon-ltpro"></i></a></li>
 		<li id="tab_2" class="vk"><a href="#tab1" class="rounded"><i class="icon-vk"></i></a></li>

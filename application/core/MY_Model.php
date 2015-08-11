@@ -390,7 +390,7 @@ class MY_Model extends CI_Model
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id));
+		$branches = $this->get_list(array($parent_id_field => $parent_id), 0, 0, 'sort', 'asc');
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch);
@@ -429,10 +429,17 @@ class MY_Model extends CI_Model
 	{
 		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
-
-		$editors = $this->editors;
-
-		foreach ($editors as $type => $edit)
+		
+		if(empty($post['id'])&&(isset($this->new_editors)))
+		{
+			$editors = $this->new_editors;
+		}
+		else
+		{
+			$editors = $this->editors;
+		}
+		
+		foreach ($editors as $edit)
 		{
 			foreach ($edit as $key => $value)
 			{
@@ -444,16 +451,8 @@ class MY_Model extends CI_Model
 						'rules' => $value[2]);
 				}
 				if ($this->db->field_exists($key, $this->_table))
-				{	
-					if($key == "password" && empty($_POST[$key])) 
-					{	
-						
-						unset($editors[$type][$key]);
-					}
-					else
-					{ 
-						$return->data->$key = $_POST[$key];
-					}
+				{
+					$return->data->$key = $post[$key];
 				}
 			}
 		}
@@ -466,10 +465,11 @@ class MY_Model extends CI_Model
 			{
 				foreach ($edit as $key => $value)
 				{
+				
 					if ($this->db->field_exists($key, $this->_table))
 					{
 						$return->data->$key = htmlspecialchars_decode(set_value($key));
-					}						
+					}		
 				}
 			}
 			$return->error = FALSE;

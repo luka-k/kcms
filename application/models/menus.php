@@ -31,17 +31,10 @@ class Menus extends MY_Model
 			'news' => array('Новости', base_url()."admin/content/items/news/", 0,),
 			'slider' => array('Slider', base_url()."admin/content/items/slider/", 0,),
 			'settings' => array('Настройки', "#", 0, array(
-				0 => array('Настройки сайта', base_url()."admin/content/item/settings/1", 0)
+				0 => array('Настройки сайта', base_url()."admin/content/item/settings/1", 0),
+				1 => array('Письма', base_url()."admin/mails", 0),
 			)),
-			'mailouts' => array('Рассылки', "#", 0, array(
-				0 => array('Рассылки', base_url()."admin/mailouts_module", 0),
-				1 => array('Шаблоны писем', base_url()."admin/content/items/emails/2", 0)
-			)),
-			'menus' => array('Меню', base_url()."admin/menu_module/menus", 0),
-			'users' => array('Пользователи', base_url()."admin/content/items/users", 0, array(
-				0 => array('Группы пользователей', base_url()."admin/content/items/users_groups/", 0),
-				1 => array('Пользователи', base_url()."admin/users_module", 0),
-			))
+			'users' => array('Пользователи', base_url()."admin/content/items/users", 0)
 		);		
 	}
 	

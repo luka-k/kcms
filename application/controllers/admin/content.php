@@ -23,7 +23,8 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Страницы",
 			'error' => "",
-			'user' => $this->user,
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type,
 			'name' => $name
@@ -43,8 +44,6 @@ class Content extends Admin_Controller
 		if($this->db->field_exists('parent_id', $type)) $data['tree'] = $this->$type->get_tree(0, "parent_id");
 		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
 		
-		$data["parent_id"] = $id;
-		
 		if($id == FALSE)
 		{
 			$data['content'] = $this->$type->get_list(FALSE, $from = FALSE, $limit = FALSE, $order, $direction);
@@ -58,10 +57,7 @@ class Content extends Admin_Controller
 			}
 			else
 			{
-				$type == "emails" ? $parent = "type" : $parent = "parent_id";
-				$data["parent_id"] = $id;
-				$data['content'] = $this->$type->get_list(array($parent => $id), $from = FALSE, $limit = FALSE, $order, $direction);
-				$data['sortable'] = TRUE;
+				$data['content'] = $this->$type->get_list(array("parent_id" => $id), $from = FALSE, $limit = FALSE, $order, $direction);
 			}
 			$data['sortable'] = TRUE;
 		}
@@ -82,7 +78,8 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user' => $this->user,
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
 			'menu' => $this->menu,
 			'type' => $type,
 			'selects' => array(
@@ -97,7 +94,7 @@ class Content extends Admin_Controller
 			
 		}
 		
-		if($type == "news") $data['news_tree'] = $this->articles->get_news_tree();
+		if($type == "news") $data['news_tree'] =$this->articles->get_news_tree();
 		
 		if(($id == FALSE)&&(isset($this->$type->new_editors)))
 		{
@@ -108,17 +105,12 @@ class Content extends Admin_Controller
 			$data['editors'] = $this->$type->editors;
 		}
 		
-		if($this->db->field_exists('parent_id', $type))
-		{
-			$parent_id = $this->input->get('parent_id');
-			$content->parent_id = $parent_id;
-		}
-		
 		if($id == FALSE)
 		{	
 			$content = set_empty_fields($data['editors']);
-			if($type == "emails") $content->type = 2;
+			
 			$data['content'] = $content;
+			
 			$field_name = editors_field_exists('news2article', $data['editors']);
 			if($field_name)
 			{
@@ -130,7 +122,19 @@ class Content extends Admin_Controller
 		else
 		{			
 			$data['content'] = $this->$type->get_item_by(array('id' => $id));
-			if($type == "emails") $data['content']->type == 2;
+			
+			if($type == "settings") 
+			{
+				$key_params = unserialize(file_get_contents('/home/admin/web/register.lt-pro.ru/public_html/paytest/local/data.csv'));
+				$kiy_params = unserialize(file_get_contents('/home/admin/web/register.lt-pro.ru/public_html/paytest/local/datapt.csv'));
+				$data['content']->key_amount = $key_params['amount'];
+				$data['content']->key_topic = $key_params['topic'];
+				$data['content']->key_mail = $key_params['mail_text'];
+				$data['content']->kiy_amount = $kiy_params['amount'];
+				$data['content']->kiy_topic = $kiy_params['topic'];
+				$data['content']->kiy_mail = $kiy_params['mail_text'];
+			}
+			
 			$field_name = editors_field_exists('news2article', $data['editors']);
 			if($field_name)
 			{
@@ -153,7 +157,8 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'error' => "",
-			'user' => $this->user,
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
 			'editors' => $this->$type->editors,
 			'menu' => $this->menu,
 			'type' => $type,
@@ -163,7 +168,26 @@ class Content extends Admin_Controller
 		);
 		
 		$data['content'] = $this->$type->editors_post()->data;
-
+		if($type == "settings") 
+		{
+			file_put_contents('/home/admin/web/register.lt-pro.ru/public_html/paytest/local/data.csv', serialize(array(
+			'amount' => $_POST['key_amount'],
+			'topic' => $_POST['key_topic'],
+			'mail_text' =>$_POST['key_mail']
+			)));
+			file_put_contents('/home/admin/web/register.lt-pro.ru/public_html/paytest/local/datapt.csv', serialize(array(
+			'amount' => $_POST['kiy_amount'],
+			'topic' => $_POST['kiy_topic'],
+			'mail_text' =>$_POST['kiy_mail']
+			)));
+			unset($data['content']->key_amount);
+			unset($data['content']->key_topic);
+			unset($data['content']->key_mail);
+			unset($data['content']->kiy_amount);
+			unset($data['content']->kiy_topic);
+			unset($data['content']->kiy_mail);
+		}
+		
 		if($this->db->field_exists('parent_id', $type))
 		{
 			$data['tree'] = $this->$type->get_tree(0, "parent_id");

@@ -7,7 +7,14 @@ class Settings extends MY_Model
 			'id' => array('id', 'hidden', ''),
 			'site_title' => array('Название сайта', 'text', 'trim|htmlspecialchars'),
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
-			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars')/*,
+			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
+			'key_amount' => array('Стоимость ключа', 'text', 'trim|htmlspecialchars'),
+			'key_topic' => array('Тема письма ключа', 'text', 'trim|htmlspecialchars'),
+			'key_mail' => array('Текст письма ключа', 'tiny', ''),
+			'kiy_amount' => array('Стоимость pt ключа', 'text', 'trim|htmlspecialchars'),
+			'kiy_topic' => array('Тема письма pt ключа', 'text', 'trim|htmlspecialchars'),
+			'kiy_mail' => array('Текст письма pt ключа', 'tiny-2', '')
+			/*,
 			'site_offline' => array('Сайт выключен', 'checkbox', "null"),
 			'offline_text' => array('Оффлайн сообщение', 'text')*/
 		),

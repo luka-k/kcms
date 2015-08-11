@@ -15,7 +15,8 @@ class Menu_module extends Admin_Controller
 		$data = array(
 			'title' => "Меню",
 			'error' => "",
-			'user' => $this->user,
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
 			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'name' => editors_field_exists('name', $this->dynamic_menus->editors),
 			'content' => $this->dynamic_menus->get_list(FALSE)
@@ -63,7 +64,8 @@ class Menu_module extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать меню",
 			'error' => "",
-			'user' => $this->user,
+			'user_name' => $this->user_name,
+			'user_id' => $this->user_id,
 			'menu' => $this->menus->set_active($this->menu, "menus"),
 			'type' => "dynamic_menus",
 			'editors' => $editors,

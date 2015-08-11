@@ -91,6 +91,7 @@ public function run($group = '')
 		return FALSE;
 	}
 
+	
 	public function substituted($str, $field)
 	{
 		if(empty($str)) $str = slug($_POST[$field]);
@@ -103,13 +104,6 @@ public function run($group = '')
 	public function autocomplete($str, $field)
 	{
 		if(empty($str)) $str = $_POST[$field];
-		
-		return $str;
-	}
-	
-	public function set_date($str)
-	{
-		if(empty($str)) $str = date("Y-m-d");
 		
 		return $str;
 	}

@@ -1,12 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['config'] = array(
-	'protocol' => "mail",
-	'charset' => "utf-8",
-	'mailtype' => "html",
-	'wordwrap' => TRUE
-);
-
 $config['message_type'] = array(
 	"admin_order" => "Администратору при заказе",
 	"customer_order" => "Клиенту при заказе",
