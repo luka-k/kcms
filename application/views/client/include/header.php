@@ -2,13 +2,6 @@
 	<div class="maxw">
 		<a href="/"><img class="logo" src="/template/client/images/logo.png" /></a>
 		
-		<?$url = $_SERVER['HTTP_HOST'];?>
-			<?$host = explode('.', $url);?>
-			<?if($host[0] == 'shop'):?>
-			<div class="catalog-btn">
-				<a href="http://brightbuild.ru/catalog">Каталог производителей</a>
-			</div><!--ru-->
-		<?endif;?>
 		<div class="top-menu">
 			<ul class="clearfix">
 				<li class="first <?if($top_active == 'catalog'):?>current<?endif;?>">

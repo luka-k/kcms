@@ -25,7 +25,7 @@
 								<div class="logo-column">
 									<div class="some10">
 										<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
-											<div class="pic-block">
+											<div class="pic-block" style="margin-bottom: 8px;">
 												<a href="<?=base_url()?>catalog/<?=$m->url?>">
 													<?=$m->name?>
 												</a>

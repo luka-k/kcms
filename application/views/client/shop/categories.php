@@ -35,7 +35,7 @@
 								<div class="logo-column">
 									<div class="some10">
 										<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
-											<div class="pic-block">
+											<div class="pic-block" style="margin-bottom: 8px;">
 												<a href="<?=base_url()?><?=$beautiful_link?>/<?=$m->url?>">
 													<?=$m->name?>
 												</a>
@@ -50,9 +50,9 @@
 								<?if ($childs_categories): 
 									$childs_categories = $this->categories->prepare_list($childs_categories);
 								?>
-									<div class="category clearfix" style="margin-bottom:5px;">
+									<div class="category clearfix" style="margin-bottom:12px;">
 									<?foreach ($childs_categories as $child): ?>
-										<div class="point" style="float: left;line-height: 15px;font-size:12px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
+										<div class="point" style="float: left;line-height: 18px;font-size:12px;"><a href="<?= $child->full_url?>"><?= $child->name?></a></div>
 									<?endforeach?>
 									</div><div style="clear: both;"></div>
 								<?endif?>
