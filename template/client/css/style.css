@@ -1597,7 +1597,7 @@ text-align:center;
 }
 
 #s_left .leftmenu {
-	overflow-y: hidden;
+	overflow: hidden;
 	width: 271px;
 	height: 600px;
 	margin-left: 6px;
