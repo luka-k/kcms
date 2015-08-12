@@ -36,6 +36,17 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Language
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+define('RUS_BASE_URL', 'http://lt-pro.me');
+define('ENG_BASE_URL', 'http://en.lt-pro.me');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

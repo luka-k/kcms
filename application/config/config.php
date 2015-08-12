@@ -14,8 +14,13 @@
 | path to your installation.
 |
 */
-//$config['base_url']	= 'http://lt-pro.ru/';
+
+//$url = $_SERVER['HTTP_HOST'];
+//$host = explode('.', $url);
+//$config['base_url'] = $host[0] == 'en' ? 'http://en.lt-pro.ru/' : 'http://lt-pro.ru/';
+
 $config['base_url']	= '';
+
 /*
 |--------------------------------------------------------------------------
 | Index File

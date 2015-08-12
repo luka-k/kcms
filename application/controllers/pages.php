@@ -55,6 +55,8 @@ class Pages extends Client_Controller {
 			$data['meta_keywords'] = $page->article->meta_keywords;
 			$data['meta_description'] = $page->article->meta_description;
 		}
+		
+		$data['url'] = $this->uri->uri_string();
 
 		$data['content'] = $page;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();	

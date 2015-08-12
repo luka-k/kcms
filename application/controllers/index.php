@@ -35,7 +35,8 @@ class Index extends Client_Controller {
 			'news_camb' => $news_camb,
 			'news_ielts' => $news_ielts,
 			'news_pearson' => $news_pearson,
-			'slider' => $slider
+			'slider' => $slider,
+			'url' => ''
 		);
 		$this->load->view('client/main.php', $data);
 	}	
