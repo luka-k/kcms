@@ -52,7 +52,7 @@
 												<a href="#"><?=$bajan->name?><span class="st-arrow">&nbsp;</span></a>
 												<div class="st-content"><?=$bajan->description?>
 													<?if(!empty($bajan->full_description)):?>
-														<a href="<?=$bajan->full_url?>">далее...</a>
+														<a href="<?=$bajan->full_url?>"><?if(LANG == 'eng'):?>more...<?else:?>далее...<?endif;?></a>
 													<?endif;?>												
 												</div>  
 												<div></div>

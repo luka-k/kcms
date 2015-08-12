@@ -27,7 +27,7 @@
 						header('Location: /uspeshnaya-podpiska/');
 					}
 				?> 
-			   <h3 style="text-align: center;">Подписаться на новости</h3><br />
+			   <h3 style="text-align: center;"><?if(LANG == 'eng'):?>Subscribe<?else:?>Подписаться на новости<?endif;?></h3><br />
 			   <form id="form-wysija-2" method="post" action="#wysija" class="widget_wysija form-inline">
 					<center>
 			   <table >
@@ -41,7 +41,7 @@
 					<br />
 					<label style="width:100%"></label>
 					<input type="email" style="width:190px;" name="wysija-email" id="" placeholder="E-mail"><br /> <br />
-					<button class="send_submit" onclick="$('#form-wysija-2').submit()" >Подписаться</button>
+					<button class="send_submit" onclick="$('#form-wysija-2').submit()" ><?if(LANG == 'eng'):?>Subscribe<?else:?>Подписаться<?endif;?></button>
 					</center>
 				</form>
 				<br>

@@ -11,7 +11,9 @@
 		
 		<?if($type <> "kontakty"):?>
 			<div id="lead" class="rounded">
-				<div id="lead_title">Руководитель направления <?=$content->direction?></div>
+				<div id="lead_title">
+					<?if(LANG == 'eng'):?><?=$content->direction?> Department menager<?else:?>Руководитель направления <?=$content->direction?><?endif;?> 
+				</div>
 				<img width="70" height="83" src="<?=$content->img->url?>"/>
 				<p>
 					<?=$content->lead_name?><br/>

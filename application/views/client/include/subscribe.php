@@ -1,4 +1,4 @@
-<h3>Подписаться на новости</h3><br>
+<h3><?if(LANG == 'eng'):?>Subscribe<?else:?>Подписаться на новости<?endif;?></h3><br>
 <div class="message" style="margin:0 0 10px 0;"></div>
 <div>
 	<form id="subscribe-form" method="post" action="#" class="">
@@ -9,6 +9,6 @@
 		<label style="width:100%"></label>
 		<br><br>
 		<input type="email" name="email" id="" class="sub_input" placeholder="E-mail">
-		<button class="send_submit" onclick="subscribe(); return false" >Подписаться</button>
+		<button class="send_submit" onclick="subscribe(); return false" ><?if(LANG == 'eng'):?>Subscribe<?else:?>Подписаться<?endif;?></button>
 	</form>
 </div>

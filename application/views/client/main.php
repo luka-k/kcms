@@ -20,7 +20,7 @@
 					
 					<div class="tabcontents rounded">
 						<div id="view1" class="tabswitcher tab_content">
-							<h3 class="widget-title">Новости LT-PRO</h3>
+							<h3 class="widget-title"><?if(LANG == 'eng'):?>LT-PRO News<?else:?>Новости LT-PRO<?endif;?></h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_lt as $item_lt):?>
 									<li class="news-item">
@@ -35,7 +35,7 @@
 							</ul>
 						</div>
 						<div id="view3" class="tabswitcher tab_content">
-							<h3 class="widget-title">Новости Cambridge</h3>
+							<h3 class="widget-title"><?if(LANG == 'eng'):?>Cambridge News<?else:?>Новости Cambridge<?endif;?></h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_camb as $item_camb):?>
 									<li class="news-item">
@@ -50,7 +50,7 @@
 							</ul>
 						</div>
 						<div id="view4" class="tabswitcher tab_content">
-							<h3 class="widget-title">Новости IELTS</h3>
+							<h3 class="widget-title"><?if(LANG == 'eng'):?>IELTS News<?else:?>Новости IELTS<?endif;?></h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_ielts as $item_ielts):?>
 									<li class="news-item">
@@ -65,7 +65,7 @@
 							</ul>
 						</div>
 						<div id="view5" class="tabswitcher tab_content">
-							<h3 class="widget-title">Новости Pearson</h3>
+							<h3 class="widget-title"><?if(LANG == 'eng'):?>Pearson News<?else:?>Новости Pearson<?endif;?></h3>
 							<ul class="advanced-recent-posts">
 								<?foreach($news_pearson as $item_pearson):?>
 									<li class="news-item">
