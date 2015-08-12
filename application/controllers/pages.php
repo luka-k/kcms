@@ -18,7 +18,7 @@ class Pages extends Client_Controller {
 		}
 
 		$page = $this->articles->prepare($page);
-		
+	
 		$type = $this->uri->segment(2);
 		$sub_type = $this->uri->segment(3);
 		$parent_info = $this->articles->get_item_by(array("url" => $type));
@@ -34,6 +34,7 @@ class Pages extends Client_Controller {
 		
 		if(isset($page->news_item))
 		{
+			$page->news_item = $this->news->prepare($page->news_item);
 			$data['title'] = $page->news_item->name;
 			$data['meta_title'] = $page->news_item->meta_title;
 			$data['meta_keywords'] = $page->news_item->meta_keywords;
@@ -48,6 +49,7 @@ class Pages extends Client_Controller {
 		}
 		else
 		{
+			$page->article = $this->articles->prepare($page->article);
 			$data['title'] = $page->article->name;
 			$data['meta_title'] = $page->article->meta_title;
 			$data['meta_keywords'] = $page->article->meta_keywords;

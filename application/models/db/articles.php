@@ -16,7 +16,7 @@ class Articles extends MY_Model
 			'description' => array('Текст', 'tiny', ''),
 			'en_description' => array('Текст (eng)', 'tiny', ''),
 			'full_description' => array('Полный текст', 'tiny', ''),
-			'en_full_description' => array('Полный текст (eng)', 'tiny', ''),
+			'en_full_description' => array('Полный текст (eng)', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -131,10 +131,26 @@ class Articles extends MY_Model
 	
 	function prepare($item)
 	{
-		//var_dump($item);
-		$item->full_url = $this->get_url($item->url);
-		$item->img = $this->images->get_images(array("object_type" => "articles", "object_id" => $item->id), "lead", 1);
-		return $item;
+		if(!empty($item))
+		{
+			$item->full_url = $this->get_url($item->url);
+			$item->img = $this->images->get_images(array("object_type" => "articles", "object_id" => $item->id), "lead", 1);
+		
+			if(LANG == 'eng')
+			{
+				$item->name = $item->en_name;
+				$item->menu_name = $item->en_menu_name;
+				$item->description = $item->en_description;
+				$item->full_description = $item->en_full_description;
+				$item->meta_title = $item->en_meta_title;
+				$item->meta_keywords = $item->en_meta_keywords;
+				$item->meta_description = $item->en_meta_description;
+				$item->direction = $item->en_direction;
+				$item->lead_name = $item->en_lead_name;
+			}
+		
+			return $item;
+		}
 	}
 	
 	function get_news_tree()

@@ -6,15 +6,21 @@ class News extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
+			'en_name' => array('Заголовок (eng)', 'text', 'trim|required|htmlspecialchars'),
 			'article_parent_id' => array('Раздел', 'n2a', 'news2article'),
 			'sort' => array('Сортировка', 'text', ''),
-			'description' => array('Описание', 'tiny', ''),
-			'full_description' => array('Описание', 'tiny-2', '')
+			'description' => array('Текст', 'tiny', ''),
+			'en_description' => array('Текст (eng)', 'tiny', ''),
+			'full_description' => array('Полный текст', 'tiny', ''),
+			'en_full_description' => array('Полный текст (eng)', 'tiny', '')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_title' => array('Meta title страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_keywords' => array('Ключевые слова страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
+			'en_meta_description' => array('Описание страницы (eng)', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
 		),
 		'Изображение' => array(
@@ -81,6 +87,17 @@ class News extends MY_Model
 	{
 		$item->full_url = $this->get_url($item->url);
 		$item->img = $this->images->get_images(array("object_type" => "news", "object_id" => $item->id), "news", 1);
+		
+		if(LANG == 'eng')
+		{
+			$item->name = $item->en_name;
+			$item->description = $item->en_description;
+			$item->full_description = $item->en_full_description;
+			$item->meta_title = $item->en_meta_title;
+			$item->meta_keywords = $item->en_meta_keywords;
+			$item->meta_description = $item->en_meta_description;
+		}
+		
 		return $item;
 	}
 }

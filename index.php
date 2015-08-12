@@ -18,7 +18,7 @@ require 'redirects.php';
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'production');
+	define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -44,6 +44,27 @@ if (defined('ENVIRONMENT'))
 		default:
 			exit('The application environment is not set correctly.');
 	}
+}
+
+/*
+ * --------------------------------------------------------------------
+ * Установка константы языка
+ * --------------------------------------------------------------------
+ *
+ * 
+ *
+ */
+ 
+$url = $_SERVER['HTTP_HOST'];
+$host = explode('.', $url);
+
+if($host[0] == 'en')
+{
+	define('LANG', 'eng');
+}
+else
+{
+	define('LANG', 'rus');
 }
 
 /*
@@ -200,6 +221,7 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
 
 /* End of file index.php */
 /* Location: ./index.php */

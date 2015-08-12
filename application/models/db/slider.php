@@ -23,6 +23,9 @@ class Slider extends MY_Model
 	function prepare($item)
 	{
 		$item->img = $this->images->get_images(array("object_type" => "slider", "object_id" => $item->id), "slider", 1);
+		
+		if(LANG == 'eng') $item->description = $item->en_description;
+		
 		return $item;
 	}
 }
