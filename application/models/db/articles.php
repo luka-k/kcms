@@ -57,7 +57,8 @@ class Articles extends MY_Model
 		{
 			$this->add_active($child->id);
 			if($segment_number == 2) $url = "category/".$url; 
-			$this->breadcrumbs->add($url, $child->menu_name);
+			
+			LANG == 'eng' ? $this->breadcrumbs->add($url, $child->en_menu_name) : $this->breadcrumbs->add($url, $child->menu_name);
 			
 			if($segment_number == 3)
 			{
@@ -68,7 +69,7 @@ class Articles extends MY_Model
 					if($this->uri->segment($segment_number+1))
 					{
 						$parent->news_item = $this->news->get_item_by(array('url' => $this->uri->segment($segment_number+1)));
-						$this->breadcrumbs->add($parent->news_item->url, $parent->news_item->name);
+						LANG == 'eng' ? $this->breadcrumbs->add($parent->news_item->url, $parent->news_item->en_name) : $this->breadcrumbs->add($parent->news_item->url, $parent->news_item->name);
 						return $parent;
 					}
 					else
@@ -81,7 +82,7 @@ class Articles extends MY_Model
 				elseif($this->uri->segment($segment_number+1) <> FALSE)
 				{
 					$parent->article = $this->get_item_by(array('url' => $this->uri->segment($segment_number+1)));
-					$this->breadcrumbs->add($parent->article->url, $parent->article->name);
+					LANG == 'eng' ? $this->breadcrumbs->add($parent->article->url, $parent->article->en_name) : $this->breadcrumbs->add($parent->article->url, $parent->article->name);
 				}
 				else
 				{

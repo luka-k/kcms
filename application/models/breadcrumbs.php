@@ -8,7 +8,8 @@ class Breadcrumbs extends CI_Model
     function __construct()
 	{
         parent::__construct();
-		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
+		$name = LANG == 'eng' ? 'Main' : 'Главная';
+		$this->breadcrumbs = array(0 => array('url' => '', 'name' => $name));
 	}
 	
 	public function add($url, $name)

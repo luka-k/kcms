@@ -56,7 +56,6 @@ class Pages extends Client_Controller {
 			$data['meta_description'] = $page->article->meta_description;
 		}
 
-		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['content'] = $page;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();	
 		$this->load->view("client/article.php", $data);
