@@ -1,28 +1,6 @@
 <script>
 	$(document).ready(function(){
-		var product_width = $('#product-scroll').width();
-		$('.secondcolumn').css("max-width", (product_width - 2) + 'px');
-	
-		$('.ajax_from').val(10);
-		$('#sorting_order').val('name');
-		$('#sorting_direction').val('asc');
-		<? if (!isset($no_ajax)):?>
-			$("#product-scroll").scroll(function() {
-	
-				var div_sh = $(this)[0].scrollHeight;
-				var div_h = $(this).height();
-
-				if($(this).scrollTop() >= div_sh - div_h){
-					$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
-				}
-			});
-		<?endif?>
 		
-		
-		$("#scroll-right").mCustomScrollbar({
-			axis:"y", //set both axis scrollbars
-			advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
-		});
 	});
 		
 	function answer(res){

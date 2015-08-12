@@ -9,7 +9,7 @@
 					<div class="mainwrap">
 						<main class="cart">
 							<article>
-								<div style="height: 700px; overflow-y: scroll;">
+								<div id="product-scroll" class="cart-info" style="height: 700px; overflow-y: scroll;">
 									
 									<? require FCPATH.'application/views/client/include/breadcrumbs.php' ?>
 									<div style="clear: both;"></div>

@@ -1,10 +1,11 @@
 <script>
 	(function($){
 		$("#product-scroll").height($( window ).height() - 78);
-		$("#map-scroll").height($( window ).height() - 94);
+		$("#map-scroll").height($( window ).height() - 90);
 		$(".menuright").height($( window ).height() - 100);
 		$(".leftmenu").height($( window ).height() - 100);
 		$(".logo-column").height($(window).height() - 100);
+		$(".cart-info").height($(window).height() - 65);
 		
 		$(".secondcolumn").height($( window ).height() - 100);
 		$("#shadow").height($( window ).height() - 220);
@@ -13,14 +14,70 @@
 		$("#scroll-right").height($(window).height() - 93);
 		$("#good_page_scroll").height($( window ).height() - 80);
 		
-		$(window).load(function(){
+		$(document).ready(function(){
+			var product_width = $('#product-scroll').width();
+			$('.secondcolumn').css("max-width", (product_width - 2) + 'px');
+	
+			$('.ajax_from').val(10);
+			$('#sorting_order').val('name');
+			$('#sorting_direction').val('asc');
+			<? if (!isset($no_ajax)):?>
+				$("#product-scroll").scroll(function() {
 			
+					if ($(this).scrollTop() < 60){
+						$('header').css('margin-top', -$(this).scrollTop() + 'px');
+								
+						$("#product-scroll").height($( window ).height() - 93  + $(this).scrollTop());
+						$("#map-scroll").height($( window ).height() - 95  + $(this).scrollTop());
+						$(".menuright").height($( window ).height() - 115  + $(this).scrollTop());
+						$(".leftmenu").height($( window ).height() - 123 + $(this).scrollTop());
+						$(".logo-column").height($(window).height() - 100 + $(this).scrollTop());
+						$(".cart-info").height($(window).height() - 65 + $(this).scrollTop());
+		
+						$(".secondcolumn").height($( window ).height() - 105  + $(this).scrollTop());
+						$("#shadow").height($( window ).height() - 220  + $(this).scrollTop());
+						$("#full-shadow").height($( window ).height() - 98  + $(this).scrollTop());
+						$("#wrapper").height($( window ).height() - 65  + $(this).scrollTop());
+						$("#scroll-right").height($(window).height() - 105  + $(this).scrollTop());
+						$("#good_page_scroll").height($( window ).height() - 85  + $(this).scrollTop());
+					
+					} else {
+						$('header').css('margin-top', -60 + 'px');
+						
+						$("#product-scroll").height($( window ).height() - 93 + 60);
+						$("#map-scroll").height($( window ).height() - 95 + 60);
+						$(".menuright").height($( window ).height() - 115 + 60);
+						$(".leftmenu").height($( window ).height() - 123 + 60);
+						$(".logo-column").height($(window).height() - 100 + 60);
+						$(".cart-info").height($(window).height() - 65 + 60);
+		
+						$(".secondcolumn").height($( window ).height() - 105 + 60);
+						$("#shadow").height($( window ).height() - 220 + 60);
+						$("#full-shadow").height($( window ).height() - 98 + 60);
+						$("#wrapper").height($( window ).height() - 65 + 60);
+						$("#scroll-right").height($(window).height() - 105 + 60);
+						$("#good_page_scroll").height($( window ).height() - 85 + 60);
+					}
+
+					var div_sh = $(this)[0].scrollHeight;
+					var div_h = $(this).height();
+
+					if($(this).scrollTop() >= div_sh - div_h){
+						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+					}
+				});
+			<?endif?>
 		});
 	})(jQuery);
 	
 	$(".logo-column").mCustomScrollbar({
 		axis:"y", 
 		advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
+	});
+	
+	$("#scroll-right").mCustomScrollbar({
+		axis:"y", //set both axis scrollbars
+		advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 	});
 </script>
 <?if(isset($filters_checked) && count($filters_checked) > 3 || isset($no_shadow)):?>
