@@ -17,19 +17,6 @@ class Sitemap extends Client_Controller
 	
 	public function index($map_type = "html")
 	{
-		/*$types = $this->config->item('sitemap_types');
-		$content = array();
-		foreach($types as $type)
-		{
-			$content = array_merge($content, $this->$type->prepare_list($this->$type->get_list(FALSE)));
-		}
-		
-		foreach ($this->manufacturers->get_list(FALSE) as $manufacturer)
-		{
-			$manufacturer->full_url = 'http://brightbuild.ru/manufacturer/'.strtolower($manufacturer->url);
-			$content[] = $manufacturer;
-		}*/
-		
 		$manufacturers = $this->manufacturers->get_list(FALSE);
 		$categories = $this->categories->prepare_list($this->categories->get_admin_tree(0));
 
@@ -44,7 +31,7 @@ class Sitemap extends Client_Controller
 			$map_item->full_url = $category->full_url;
 			$map_item->lastmod = $category->lastmod;
 			$map_item->changefreq = $category->changefreq;
-			$map_item->priority = $category->priority;
+			$map_item->priority = '0.8';
 					
 			$categories_sitemap[$key] = $map_item;
 						
@@ -62,13 +49,13 @@ class Sitemap extends Client_Controller
 						$this->db->where_in('parent_id', $categories_checked);
 						$this->db->where('manufacturer_id', $manufacturer->id);
 						$counter = $this->db->count_all_results('products');
-						//$products = $this->characteristics->get_products_by_filter(array('categories_checked' => $categories_checked), 'sort', 'asc');
-				
+
 						if($counter > 0)
 						{
 							$map_item = new stdClass();
 							$map_item->name = $category->name.' - '.$manufacturer->name;
 							$map_item->full_url = $category->full_url.'/'.$manufacturer->url;
+							$map_item->priority = '0.6';
 							$categories_sitemap[$m_key] = $map_item;
 						}
 					}		
@@ -80,7 +67,7 @@ class Sitemap extends Client_Controller
 					$map_item->full_url = $category->full_url.'/'.$child->url;
 					$map_item->lastmod = $child->lastmod;
 					$map_item->changefreq = $child->changefreq;
-					$map_item->priority = $child->priority;
+					$map_item->priority = '0.6';
 					
 					$childs[$sub_key] = $map_item;
 					
@@ -93,6 +80,7 @@ class Sitemap extends Client_Controller
 							$map_item = new stdClass();
 							$map_item->name = $category->name.' - '.$child->name.' - '.$manufacturer->name;
 							$map_item->full_url = $category->full_url.'/'.$child->url.'/'.$manufacturer->url;
+							$map_item->priority = '0.4';
 							$childs[$sub_key] = $map_item;
 						}
 					}
@@ -105,11 +93,11 @@ class Sitemap extends Client_Controller
 		foreach($products as $i => $p)
 		{
 			$products[$i]->full_url = $this->products->get_url($p);
+			$products[$i]->priority = '0.2';
 		}
 
 		$content = array(
 			'Категории' => $categories_sitemap,
-			'Производители' => $this->manufacturers->prepare_list($this->manufacturers->get_list(FALSE)),
 			'Товары' => $products
 		);
 		

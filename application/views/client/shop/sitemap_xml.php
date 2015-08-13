@@ -1,15 +1,5 @@
 <?=$open_tag?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-	<url>
-		<loc>http://brightbuild.ru/</loc>
-	</url>
-	<url>
-		<loc>http://brightbuild.ru/bb/</loc>
-	</url>
-	<url>
-		<loc>http://brightbuild.ru/contacts/</loc>
-	</url>
 	<?foreach($content as $c):?>
 		<?foreach($c as $item):?>
 			<url>
