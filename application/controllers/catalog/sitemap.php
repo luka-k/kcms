@@ -23,18 +23,26 @@ class Sitemap extends Client_Controller
 		foreach($vendors as $i => $v)
 		{
 			$vendors[$i]->full_url = 'http://brightbuild.ru/vendor/'.strtolower($v->url);
+			$vendors[$i]->priority = '0.6';
 		}
 		
 		$contractors = $this->manufacturers->get_contractors();
 		foreach($contractors as $i => $c)
 		{
 			$contractors[$i]->full_url = 'http://brightbuild.ru/contractor/'.strtolower($c->url);
+			$contractors[$i]->priority = '0.6';
+		}
+		
+		$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_manufacturers());
+		foreach($manufacturers as $i => $m)
+		{
+			$manufacturers[$i]->priority = '0.6';
 		}
 				
 		$content = array(
 			'Новости' => $this->articles->get_tree($this->config->item('news_id'), 'parent_id'),
-			'Категории' => $this->categories->get_another_tree(),
-			'Производители' => $this->manufacturers->prepare_list($this->manufacturers->get_manufacturers()),
+			'Категории' => $this->categories->get_another_tree('catalog', TRUE),
+			'Производители' => $manufacturers,
 			'Продавцы' => $vendors,
 			'Подрядчики' => $contractors,
 			'Статьи' => array() //Может как подругому назвать стоит
@@ -47,6 +55,7 @@ class Sitemap extends Client_Controller
 			$item = new stdClass();
 			$item->name = $name;
 			$item->full_url = base_url().$link;
+			$item->priority = '0.8';
 			$content['Статьи'][] = $item;
 		}
 		

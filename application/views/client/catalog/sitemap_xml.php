@@ -3,12 +3,7 @@
 
 	<url>
 		<loc>http://brightbuild.ru/</loc>
-	</url>
-	<url>
-		<loc>http://brightbuild.ru/bb/</loc>
-	</url>
-	<url>
-		<loc>http://brightbuild.ru/contacts/</loc>
+		<priority>1.0</priority>
 	</url>
 	<?foreach($content as $c):?>
 		<?foreach($c as $item):?>

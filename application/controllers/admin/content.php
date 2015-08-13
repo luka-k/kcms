@@ -264,7 +264,13 @@ class Content extends Admin_Controller
 			$data['content'] = $this->$type->editors_post();
 			
 			//Документы
-			if($type == "documents" && isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
+			if($type == 'documents' && isset($data['content']->doc_type)) $data['content']->doc_type = implode(":", $data['content']->doc_type);
+			
+			if($type == 'documents')
+			{
+				$manufacturer_data['lastmod'] = date("Y-m-d");
+				$this->manufacturers->update($data['content']->manufacturer_id, $manufacturer_data);
+			}
 								
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");

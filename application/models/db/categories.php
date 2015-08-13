@@ -145,7 +145,7 @@ class Categories extends MY_Model
 		return $branches;
 	}
 	
-	public function get_another_tree($type = 'catalog')
+	public function get_another_tree($type = 'catalog', $w_priority = FALSE)
 	{
 		$categories_tree = array();
 		
@@ -176,24 +176,30 @@ class Categories extends MY_Model
 			{				
 				$categories_tree[$i] = $this->categories->get_item($r->child_id);
 				
-				if (!$categories_tree[$i]->is_active) {unset($categories_tree[$i]);continue;}
+				if (!$categories_tree[$i]->is_active) {unset($categories_tree[$i]); continue;}
+				
+				if($w_priority) $categories_tree[$i]->priority = '0.6';
 				
 				$categories_tree[$i]->childs = array();
 				
 				$this->db->where_in("child_id", $categories_ids);
 				$sub_result = $this->db->get_where("category2category", array("category_parent_id" => $r->child_id))->result();
 				
+				$volume = array();
 				if($sub_result)foreach($sub_result as $j => $s_r)
 				{
+					$volume[$j]  = $this->get_item($s_r->child_id)->name;
+					
 					$categories_tree[$i]->childs[$j] = $this->prepare($this->get_item($s_r->child_id));
 					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
+					if($w_priority) $categories_tree[$i]->childs[$j]->priority = '0.4';
 				}
 				
-				$volume = array();
-				foreach($categories_tree[$i]->childs as $j => $branch)
+				
+				/*foreach($categories_tree[$i]->childs as $j => $branch)
 				{
 					$volume[$j]  = $branch->name;
-				}
+				}*/
 
 				array_multisort($volume, SORT_ASC, $categories_tree[$i]->childs);
 			}

@@ -24,6 +24,7 @@ class Manufacturers extends MY_Model
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('Url', 'text'),
 			'seo_text' => array('seo_text', 'tiny'),
+			'lastmod' => array('lastmod', 'hidden')	
 		),		
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'image', 'img')
