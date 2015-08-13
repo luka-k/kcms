@@ -120,7 +120,7 @@ class Import extends Admin_Controller
 				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2)));
+					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
 					$category = $this->categories->get_item($this->db->insert_id());
 				}
 				
@@ -131,7 +131,7 @@ class Import extends Admin_Controller
 					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
 					if (!$parentcategory)
 					{
-						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1)));
+						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
 						$pid = $this->db->insert_id();
 						$parentcategory = $this->categories->get_item($pid);
 					
@@ -261,7 +261,7 @@ class Import extends Admin_Controller
 		
 		$total = 0;
 
-		$this->db->update('products', array('for_delete' => 1));
+		//$this->db->update('products', array('for_delete' => 1));
 		
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
@@ -283,7 +283,7 @@ class Import extends Admin_Controller
 			$data = array(
 				'1c_id' => $id,
 				'sku' => $sku,
-				'for_delete' => 0,
+				//'for_delete' => 0,
 				'description' => $description,
 				'sort' => $manufacturer
 			);
@@ -456,6 +456,7 @@ class Import extends Admin_Controller
 				$data['price'] = 0;
 				$data['manufacturer_id'] = $_manufacturer->id;
 				$data['url'] = $this->string_edit->slug($data['name']);
+				$data['lastmod'] = date("Y-m-d", filemtime('1c_exchange/import0_1.xml'));
 				if (!$_product)
 				{
 					$this->products->insert($data);
@@ -533,7 +534,7 @@ class Import extends Admin_Controller
 					
 			}
 		}
-		$this->db->delete('products', array('for_delete' => 1));
+		//$this->db->delete('products', array('for_delete' => 1));
 	}
 	
 	public function update1CImageCovers()

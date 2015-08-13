@@ -55,7 +55,7 @@ class Sitemap extends Client_Controller
 			$item = new stdClass();
 			$item->name = $name;
 			$item->full_url = base_url().$link;
-			$item->priority = '0.8';
+			$item->priority = '0.7';
 			$content['Статьи'][] = $item;
 		}
 		

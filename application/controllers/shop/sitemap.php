@@ -31,7 +31,7 @@ class Sitemap extends Client_Controller
 			$map_item->full_url = $category->full_url;
 			$map_item->lastmod = $category->lastmod;
 			$map_item->changefreq = $category->changefreq;
-			$map_item->priority = '0.8';
+			$map_item->priority = '0.6';
 					
 			$categories_sitemap[$key] = $map_item;
 						
@@ -55,7 +55,8 @@ class Sitemap extends Client_Controller
 							$map_item = new stdClass();
 							$map_item->name = $category->name.' - '.$manufacturer->name;
 							$map_item->full_url = $category->full_url.'/'.$manufacturer->url;
-							$map_item->priority = '0.6';
+							$map_item->lastmod = $category->lastmod;
+							$map_item->priority = '0.5';
 							$categories_sitemap[$m_key] = $map_item;
 						}
 					}		
@@ -67,7 +68,7 @@ class Sitemap extends Client_Controller
 					$map_item->full_url = $category->full_url.'/'.$child->url;
 					$map_item->lastmod = $child->lastmod;
 					$map_item->changefreq = $child->changefreq;
-					$map_item->priority = '0.6';
+					$map_item->priority = '0.5';
 					
 					$childs[$sub_key] = $map_item;
 					
@@ -80,7 +81,8 @@ class Sitemap extends Client_Controller
 							$map_item = new stdClass();
 							$map_item->name = $category->name.' - '.$child->name.' - '.$manufacturer->name;
 							$map_item->full_url = $category->full_url.'/'.$child->url.'/'.$manufacturer->url;
-							$map_item->priority = '0.4';
+							$map_item->lastmod = $child->lastmod;
+							$map_item->priority = '0.5';
 							$childs[$sub_key] = $map_item;
 						}
 					}
@@ -93,7 +95,7 @@ class Sitemap extends Client_Controller
 		foreach($products as $i => $p)
 		{
 			$products[$i]->full_url = $this->products->get_url($p);
-			$products[$i]->priority = '0.2';
+			$products[$i]->priority = '0.4';
 		}
 
 		$content = array(

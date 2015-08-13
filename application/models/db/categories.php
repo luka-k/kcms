@@ -192,14 +192,8 @@ class Categories extends MY_Model
 					
 					$categories_tree[$i]->childs[$j] = $this->prepare($this->get_item($s_r->child_id));
 					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
-					if($w_priority) $categories_tree[$i]->childs[$j]->priority = '0.4';
+					if($w_priority) $categories_tree[$i]->childs[$j]->priority = '0.5';
 				}
-				
-				
-				/*foreach($categories_tree[$i]->childs as $j => $branch)
-				{
-					$volume[$j]  = $branch->name;
-				}*/
 
 				array_multisort($volume, SORT_ASC, $categories_tree[$i]->childs);
 			}

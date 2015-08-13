@@ -1,9 +1,28 @@
 <?=$open_tag?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
 	<url>
 		<loc>http://brightbuild.ru/</loc>
-		<priority>1.0</priority>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>http://brightbuild.ru/catalog</loc>
+		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>http://brightbuild.ru/vendors</loc>
+		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>http://brightbuild.ru/contractors</loc>
+		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>http://brightbuild.ru/inventory</loc>
+		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>http://brightbuild.ru/articles/novosti/</loc>
+		<priority>0.7</priority>
 	</url>
 	<?foreach($content as $c):?>
 		<?foreach($c as $item):?>
