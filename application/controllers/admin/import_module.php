@@ -32,8 +32,23 @@ class Import_module extends Admin_Controller
 		$this->load->view('admin/import.php', $data);
 	}
 	
-	public function inport_hueber()
+	public function load()
 	{
-		
+		if ($_FILES['xml_file']['error'] == 0 && $_FILES['xml_file']['type'] == 'text/xml')
+		{
+			$this->config->load('upload');
+			$upload_path = $this->config->item('import_upload_path');
+			$path = $upload_path.'\\'.$_FILES['xml_file']['name'];
+			if(move_uploaded_file($_FILES['xml_file']["tmp_name"], $path))
+			{
+				$publisher = $this->input->post('publisher');
+				
+				$xmlstr = file_get_contents($path);
+
+				$this->import->$publisher($xmlstr);
+			}
+		}
+		unlink($path);
+		echo '<a href="'.base_url().'/admin">На главную</a>';
 	}
 }

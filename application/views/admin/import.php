@@ -6,7 +6,7 @@
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
 			<div class="col_12">
-				<form>
+				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="import_form" action="<?=base_url()?>admin/import_module/load/"/>
 					<div class="col_12">Издательство:</div>
 					<?$publicher_counter = 1?>
 					<?foreach($publishers as $p):?>
@@ -22,7 +22,7 @@
 						<div class="col_5"><input type="file" id="xml_file" name="xml_file" /></div>
 					</div>
 					<div class="col_12">
-						<a href="#" class="button small">Импорт</a>
+						<a href="#" class="button small" onclick="submit_form('import_form'); return false;">Импорт</a>
 					</div>
 				</form>
 			</div>

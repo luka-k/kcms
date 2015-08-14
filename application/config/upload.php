@@ -2,6 +2,8 @@
 
 $config['upload_path'] = FCPATH.'download/images';
 
+$config['import_upload_path'] = FCPATH.'download\import';
+
 $config['thumb_config'] = array(
 	"catalog_big" => array(
 		'w' => 180,
