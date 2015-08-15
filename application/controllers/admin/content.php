@@ -17,52 +17,12 @@ class Content extends Admin_Controller
 	}
 	
 	/**
-	* Импорт
-	* Может стоит вынести импорт в отдельный контроллер?
-	*/
-	function import()
-	{
-		$this->load->library('import');
-		
-		/*$categories = array(
-			0 => array("category_name" => "Импортируемая категория 1", "parent_category_name" => "Категория 1", "image" => "/b/r/bring.jpg"),
-			1 => array("category_name" => "Импортируемая категория 2", "parent_category_name" => "Импортируемая категория 1"),
-			2 => array("category_name" => "Подкатегория 2_1", "parent_category_name" => "Категория 2"),
-		);
-		
-		$this->import->import_categories($categories, true);*/
-		
-		$products = array(
-			0 => array(
-				"name" => "Товар 25", 
-				"parent_category" => "Категория 3", 
-				"price" => "1120", 
-				"description" => "Описание", 
-				"images" => array(
-					0 => "b/r/bring.jpg",
-					1 => "d/r/dring.jpg"
-				)
-			), 
-			1 => array(
-				"name" => "Товар 26", 
-				"parent_category" => "Категория 3", 
-				"price" => "520", 
-				"description" => "Описание",
-				"images" => array(
-					0 => "d/r/dring.jpg"
-				)
-			)
-		);
-		$this->import->import_products($products, FALSE, TRUE, TRUE);
-	}
-	
-	/**
 	* Вывод списка элементов
 	*
 	* @param string $type - имя базы
 	* @param integer $id - id категории
 	*/
-	public function items($type, $id = FALSE)
+	public function items($type, $id = FALSE, $from = 0)
 	{		
 		$name = editors_get_name_field('name', $this->$type->editors);
 		
@@ -79,23 +39,47 @@ class Content extends Admin_Controller
 				
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
 		$direction = "acs";
-		
+				
 		if($this->db->field_exists('parent_id', $type))
 		{
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id") : $this->$type->get_tree(0, "parent_id");
 		}
 		
+		$from = $this->input->get('from');
+		
 		if($id == "all")
 		{
-			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, $from, 15, $order, $direction);
+			$total_rows = $this->products->get_count();
 			$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 		}
 		else
 		{
 			$type == "emails" ? $parent = "type" : $parent = "parent_id";
 			$data["parent_id"] = $id;
-			$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(array($parent => $id), $from, 15, $order, $direction);
+			$total_rows = $this->products->get_count(array($parent => $id));
 			$data['sortable'] = TRUE;
+		}
+		
+		//Pagenation
+		if($type == "products")
+		{
+			$this->load->library('pagination');
+		
+			
+			$config['base_url'] = base_url().$this->uri->uri_string().'?';
+			$config['total_rows'] = $total_rows;
+			$config['query_string_segment'] = 'from';
+			$config['page_query_string'] = TRUE;
+			$config['per_page'] = 15;
+			$config['first_link'] = 'Первая';
+			$config['last_link'] = 'Последняя';
+			$config['next_link'] = FALSE;
+			$config['prev_link'] = FALSE;
+
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
 		}
 		
 		if(editors_get_name_field('img', $this->$type->editors))

@@ -37,8 +37,8 @@ class Products extends MY_Model
 			'amount' => array('Объем</br><i>количество страниц</i>', 'text', 'trim|htmlspecialchars'),
 			'is_new' => array('Новинка', 'checkbox'),
 			'is_special' => array('Специальное предложение', 'checkbox'),
-			'article' => array('Артикул', 'text', 'trim|htmlspecialchars', 'require'),
-			'price' => array('Цена', 'text', 'trim|htmlspecialchars', 'require'),
+			'article' => array('Артикул', 'text', 'trim|htmlspecialchars'),
+			'price' => array('Цена', 'text', 'trim|htmlspecialchars'),
 			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars', 'max_length[2]'),
 			'description' => array('Описание', 'tiny', 'trim')
 		),
