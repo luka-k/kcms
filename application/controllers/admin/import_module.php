@@ -49,6 +49,6 @@ class Import_module extends Admin_Controller
 			}
 		}
 		unlink($path);
-		echo '<a href="'.base_url().'/admin">На главную</a>';
+		echo '<a href="'.base_url().'/admin">На главную</a></br>';
 	}
 }

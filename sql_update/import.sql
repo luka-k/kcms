@@ -5,3 +5,4 @@ ALTER TABLE products ADD COLUMN depth INT AFTER width;
 ALTER TABLE products ADD COLUMN weight INT AFTER depth;
 
 ALTER TABLE `products` CHANGE `year` `year` DATE NOT NULL ;
+ALTER TABLE `products` CHANGE `ISBN` `ISBN` varchar(255) NOT NULL ;

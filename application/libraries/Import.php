@@ -17,7 +17,7 @@ class Import{
 	}
 	
 	/**
-	* Импортирование издательства hueber
+	* РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРёРµ РёР·РґР°С‚РµР»СЊСЃС‚РІР° hueber
 	*
 	* 
 	*/
@@ -25,7 +25,11 @@ class Import{
 	{
 		$xml = new SimpleXMLElement($xmlstr);
 
-		echo 'Start...';
+		echo '<span style="color:red">red text</span> - import failed.</br>';
+		echo '<span style="color:orange">orange text</span> - import with error.</br>';
+		echo '<span style="color:green">green text</span> - import ok.</br>';
+		echo '<span style="color:blue">blue text</span> - update ok.</br></br>';
+		echo 'Start...</br></br>';
 		foreach($xml as $item)
 		{
 			if(!empty($item->productidentifier))
@@ -45,12 +49,24 @@ class Import{
 					'lastmod' => date('Y-m-d')
 				);
 				
-				if(isset($item->productidentifier->b244)) $product['ISBN'] = (string) $item->productidentifier->b244;
+				if(isset($item->productidentifier->b244)) 
+				{
+					$product['ISBN'] = (string) $item->productidentifier->b244;
+				}
+				else
+				{
+					echo "<span style='color:red'>РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ ISBN РєРЅРёРіРё</span></br></br>";
+					continue;
+				}
 				
 				if(isset($item->title))
 				{
 					if(isset($item->title->b203)) $product['name'] = (string) $item->title->b203;
 					if(isset($item->title->b029)) $product['name'] .= ' '.(string) $item->title->b029;
+				}
+				else
+				{
+					echo "ISBN ".$product['ISBN']." - <span style='color:orange'>РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ Р·Р°РіРѕР»РѕРІРѕРє РєРЅРёРіРё.</span></br></br>";
 				}
 				
 				if(isset($item->contributor))
@@ -69,7 +85,7 @@ class Import{
 				
 				if(isset($item->othertext->d104)) $product['description'] = (string) $item->othertext->d104;
 				
-				if(isset($item->b003)) $product['year'] = date('d:m:Y', (string) $item->b003);
+				if(isset($item->b003)) $product['year'] = date('d-m-Y', (string) $item->b003);
 				
 				if(isset($item->measure))
 				{
@@ -105,7 +121,7 @@ class Import{
 				{
 					$characteristics[] = array(
 						'type' => 'language',
-						'value' => (string) $item->language->b252, //я как понимаю по какому то списку надо по коду название языка подставить
+						'value' => (string) $item->language->b252, //СЏ РєР°Рє РїРѕРЅРёРјР°СЋ РїРѕ РєР°РєРѕРјСѓ С‚Рѕ СЃРїРёСЃРєСѓ РЅР°РґРѕ РїРѕ РєРѕРґСѓ РЅР°Р·РІР°РЅРёРµ СЏР·С‹РєР° РїРѕРґСЃС‚Р°РІРёС‚СЊ
 						'object_type' => 'products'
 					);
 				}
@@ -116,23 +132,28 @@ class Import{
 				{
 					$img_path = (string) $item->mediafile->f117;
 				}
+				else
+				{	
+					echo "ISBN ".$product['ISBN']." - <span style='color:orange'>РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РѕР±Р»РѕР¶РєР°</span></br></br>";
+				}
 				
-	
 				$_product = $this->CI->products->get_item_by(array('ISBN' => $product['ISBN']));
 				
 				if (!$_product)
 				{
 					$this->CI->products->insert($product);
 					$product_id = $this->CI->db->insert_id();
+					
+					echo "{$product['ISBN']} - {$product['name']} <span style='color:green'>imported.</span></br></br>";
 				} 
 				else 
 				{
 					$this->CI->products->update($_product->id, $product);
 					$product_id = $_product->id;
+					
+					echo "{$product['ISBN']} - {$product['name']} <span style='color:blue'>update.</span></br></br>";
 				}
 				
-				echo "{$product['name']}</br>";
-
 				$this->CI->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
 				
 				if(!empty($characteristics))
@@ -144,7 +165,7 @@ class Import{
 					}
 				}
 				
-				if(!empty($img_path))
+				/*if(!empty($img_path))
 				{
 					$path = explode('/', $img_path);
 					$img_name = $path[count($path) - 1];
@@ -168,7 +189,7 @@ class Import{
 					);
 
 					$this->CI->images->insert($object_info);
-				}
+				}*/
 			}  
 		}
 	}
@@ -179,7 +200,7 @@ class Import{
 	}
 	
 	/**
-	* Импортирование категорий
+	* РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёР№
 	*
 	* @param array $categories
 	* @param bool $need_update
@@ -235,7 +256,7 @@ class Import{
 	}
 	
 	/**
-	* Импортирование продуктов
+	* РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕРґСѓРєС‚РѕРІ
 	*
 	* @param array $products
 	* @param bool $need_update
@@ -301,7 +322,7 @@ class Import{
 	}
 	
 	/**
-	* импортирование изображений
+	* РёРјРїРѕСЂС‚РёСЂРѕРІР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёР№
 	*/
 	public function import_csv($filename)
 	{
@@ -333,7 +354,7 @@ class Import{
 				}
 			}
 			
-			//Ђ тут вызов нужной функции импорта. ЌЂпример:
+			//Р‚ С‚СѓС‚ РІС‹Р·РѕРІ РЅСѓР¶РЅРѕР№ С„СѓРЅРєС†РёРё РёРјРїРѕСЂС‚Р°. РЊР‚РїСЂРёРјРµСЂ:
 			//$this->import_categories($imported, TRUE, FALSE, FALSE);
 		}
 	}
