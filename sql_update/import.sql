@@ -6,3 +6,6 @@ ALTER TABLE products ADD COLUMN weight INT AFTER depth;
 
 ALTER TABLE `products` CHANGE `year` `year` DATE NOT NULL ;
 ALTER TABLE `products` CHANGE `ISBN` `ISBN` varchar(255) NOT NULL ;
+
+INSERT INTO `characteristics_type` (`id`, `name`, `category`, `url`, `view_type`) VALUES
+(2, 'Язык', 0, 'language', 'multy');

@@ -30,7 +30,7 @@ class Characteristics_type extends MY_Model
 			'id' => array("id", "hidden"),
 			'name' => array("Название типа", "text", "trim|htmlspecialchars|name", 'require'),
 			'view_type' => array("Тип отображения", "simple_select"),
-			'url' => array("Тип фильтра", "hidden", "substituted[name]")
+			'url' => array("Тип фильтра", "text", "substituted[name]")
 		)
 	);
 	
