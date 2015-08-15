@@ -49,15 +49,8 @@ class Import{
 					'lastmod' => date('Y-m-d')
 				);
 				
-				if(isset($item->productidentifier->b244)) 
-				{
-					$product['ISBN'] = (string) $item->productidentifier->b244;
-				}
-				else
-				{
-					echo "<span style='color:red'>отсутствует ISBN книги</span></br></br>";
-					continue;
-				}
+				if(isset($item->productidentifier->b244)) $product['ISBN'] = (string) $item->productidentifier->b244;
+				
 				
 				if(isset($item->title))
 				{
@@ -80,6 +73,10 @@ class Import{
 						$i++;
 					}
 				}
+				else
+				{
+					echo "ISBN ".$product['ISBN']." - <span style='color:orange'>отсутствует автор.</span></br></br>";
+				}
 				
 				if(isset($item->b061)) $product['amount'] = (string) $item->b061;
 				
@@ -91,19 +88,19 @@ class Import{
 				{
 					foreach($item->measure as $measure)
 					{
-						$param = (string)$item->measure->c093;
+						$param = (string)$measure->c093;
 						switch ($param) {
 							case 01:
-								$product['height'] = (string) $item->measure->c094.' '.(string) $item->measure->c095;
+								$product['height'] = (string) $measure->c094.' '.(string) $measure->c095;
 								break;
 							case 02:
-								$product['width'] = (string) $item->measure->c094.' '.(string) $item->measure->c095;
+								$product['width'] = (string) $measure->c094.' '.(string) $measure->c095;
 								break;
 							case 03:
-								$product['depth'] = (string) $item->measure->c094.' '.(string) $item->measure->c095;
+								$product['depth'] = (string) $measure->c094.' '.(string) $measure->c095;
 								break;
 							case 08:
-								$product['weight'] = (string) $item->measure->c094.' '.(string) $item->measure->c095;
+								$product['weight'] = (string) $measure->c094.' '.(string) $measure->c095;
 								break;
 						}
 					}
@@ -165,7 +162,7 @@ class Import{
 					}
 				}
 				
-				/*if(!empty($img_path))
+				if(!empty($img_path))
 				{
 					$path = explode('/', $img_path);
 					$img_name = $path[count($path) - 1];
@@ -189,14 +186,195 @@ class Import{
 					);
 
 					$this->CI->images->insert($object_info);
-				}*/
+				}
 			}  
+			else
+			{
+				echo "<span style='color:red'>отсутствует ISBN книги</span></br></br>";
+				continue;
+			}
 		}
 	}
 	
-	public function macmillan()
+	public function macmillan($xmlstr)
 	{
+		$item = new SimpleXMLElement($xmlstr);
+
+		echo '<span style="color:red">red text</span> - import failed.</br>';
+		echo '<span style="color:orange">orange text</span> - import with error.</br>';
+		echo '<span style="color:green">green text</span> - import ok.</br>';
+		echo '<span style="color:blue">blue text</span> - update ok.</br></br>';
+		echo 'Start...</br></br>';
 		
+		if(!empty($item->ProductIdentifier))
+		{
+			//product
+			$product = array(
+				'ISBN' => '',
+				'name' => '',
+				'autor' => '',
+				'amount' => '',
+				'description' => '',
+				'year' => '',
+				'height' => '',
+				'width' => '',
+				'depth' => '',
+				'weight' => '',
+				'lastmod' => date('Y-m-d')
+			);
+				
+			//my_dump(count($item->ProductIdentifier));
+			foreach($item->ProductIdentifier as $p_id)
+			{
+				$param = (int) $p_id->ProductIDType;
+				if($param == 15 || $param == 03 || $param == 01)
+				{
+					$product['ISBN'] = (string) $p_id->IDValue;
+				}
+			}
+			
+			if(empty($product['ISBN'])) echo "<span style='color:red'>отсутствует ISBN книги</span></br></br>";
+			
+			if(isset($item->Title))
+			{
+				if(isset($item->Title->TitleText)) $product['name'] = (string) $item->Title->TitleText;
+			}
+			else
+			{
+				echo "ISBN ".$product['ISBN']." - <span style='color:orange'>отсутствует заголовок книги.</span></br></br>";
+			}
+			
+			if(isset($item->Contributor))
+			{
+				$i = 1;
+				foreach($item->Contributor as $autor)
+				{
+					$product['autor'] .= (string) $autor->PersonName;
+				
+					if($i < count($item->Contributor)) $product['autor'] .= ', ';
+					$i++;
+				}
+			}
+			else
+			{
+				echo "ISBN ".$product['ISBN']." - <span style='color:orange'>отсутствует автор.</span></br></br>";
+			}
+			
+			//if(isset($item->b061)) $product['amount'] = (string) $item->b061;
+			
+			if(isset($item->Measure))
+			{
+				foreach($item->Measure as $measure)
+				{
+					$param = (string)$measure->MeasureTypeCode;
+					switch ($param) {
+						case 01:
+							$product['height'] = (string) $measure->c094.' '.(string) $measure->c095;
+							break;
+						case 02:
+							$product['width'] = (string) $measure->c094.' '.(string) $measure->c095;
+							break;
+						case 03:
+							$product['depth'] = (string) $measure->c094.' '.(string) $measure->c095;
+							break;
+						case 08:
+							$product['weight'] = (string) $measure->c094.' '.(string) $measure->c095;
+							break;
+					}
+				}
+			}
+			
+			//if(isset($item->othertext->d104)) $product['description'] = (string) $item->othertext->d104;
+			//if(isset($item->b003)) $product['year'] = date('d-m-Y', (string) $item->b003);	
+				
+			
+			/*if(isset($item->publisher->b081))
+			{
+				$publicher = (string) $item->publisher->b081;
+			}*/
+				
+			//characteristics
+			/*$characteristics =array();
+				
+			if(isset($item->language->b252))
+			{
+				$characteristics[] = array(
+					'type' => 'language',
+					'value' => (string) $item->language->b252, //я как понимаю по какому то списку надо по коду название языка подставить
+					'object_type' => 'products'
+				);
+			}*/
+				
+			//cover
+			$img_path = '';
+			if(isset($item->MediaFile) && (integer)$item->MediaFile->MediaFileTypeCode < 8 && (integer)$item->MediaFile->MediaFileTypeCode > 3)
+			{
+				$img_path = (string) $item->MediaFile->MediaFileLink;
+			}
+			else
+			{	
+				echo "ISBN ".$product['ISBN']." - <span style='color:orange'>отсутствует обложка</span></br></br>";
+			}
+				
+			$_product = $this->CI->products->get_item_by(array('ISBN' => $product['ISBN']));
+				
+			if (!$_product)
+			{
+				$this->CI->products->insert($product);
+				$product_id = $this->CI->db->insert_id();
+				
+				echo "{$product['ISBN']} - {$product['name']} <span style='color:green'>imported.</span></br></br>";
+			} 
+			else 
+			{
+				$this->CI->products->update($_product->id, $product);
+				$product_id = $_product->id;
+				
+				echo "{$product['ISBN']} - {$product['name']} <span style='color:blue'>update.</span></br></br>";
+			}
+				
+			$this->CI->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
+				
+			if(!empty($characteristics))
+			{
+				foreach($characteristics as $ch)
+				{
+					$ch['object_id'] = $product_id;
+					$this->CI->characteristics->insert($ch);
+				}
+			}
+				
+			if(!empty($img_path))
+			{
+				$path = explode('/', $img_path);
+				$img_name = $path[count($path) - 1];
+				
+				$upload_path = $this->CI->config->item('upload_path');
+		
+				$img_info = $this->CI->images->get_unique_info($img_name);
+		
+				$full_upload_path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
+					
+				file_put_contents($full_upload_path, file_get_contents($img_path));
+				$this->CI->images->generate_thumbs($full_upload_path);
+					
+				$name = explode(".", $img_info->name);
+					
+				$object_info = array(
+					'url' => $img_info->url,
+					'name' => $name[0],
+					'object_type' => 'products',
+					'object_id' => $product_id
+				);
+
+				$this->CI->images->insert($object_info);
+			}
+		}
+		else
+		{
+			echo "<span style='color:red'>отсутствует ISBN книги</span></br></br>";
+			//continue;
+		}
 	}
 	
 	/**
