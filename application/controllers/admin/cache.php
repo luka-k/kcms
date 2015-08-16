@@ -284,7 +284,7 @@ class Cache extends Admin_Controller
 						'collection' => $this->collections->get_tree($all_products_ids),
 						'sku_tree' => $manufacturers,
 						'filters' => $this->characteristics_type->get_filters($all_products),
-						'childs_categories' => $category->childs,
+						'childs_categories' => array(),
 						'title' => $category->name.' | интернет-магазин bрайтbилd',
 						'meta_description' => $category->meta_description,
 						'meta_keywords' => $category->meta_keywords,
