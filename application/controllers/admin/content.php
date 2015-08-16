@@ -67,16 +67,17 @@ class Content extends Admin_Controller
 		{
 			$this->load->library('pagination');
 		
-			
-			$config['base_url'] = base_url().$this->uri->uri_string().'?';
-			$config['total_rows'] = $total_rows;
-			$config['query_string_segment'] = 'from';
-			$config['page_query_string'] = TRUE;
-			$config['per_page'] = 15;
-			$config['first_link'] = 'Первая';
-			$config['last_link'] = 'Последняя';
-			$config['next_link'] = FALSE;
-			$config['prev_link'] = FALSE;
+			$config = array(
+				'base_url' => base_url().$this->uri->uri_string().'?',
+				'total_rows' => $total_rows,
+				'query_string_segment' => 'from',
+				'page_query_string' => TRUE,
+				'per_page' => 15,
+				'first_link' => 'Первая',
+				'last_link' => 'Последняя',
+				'next_link' => FALSE,
+				'prev_link' => FALSE,
+			);
 
 			$this->pagination->initialize($config);
 			$data['pagination'] = $this->pagination->create_links();
@@ -436,6 +437,70 @@ class Content extends Admin_Controller
 		elseif($info->type == "special")
 		{
 			$this->products->update($info->id, array("is_special" => $info->value));
+		}
+	}
+	
+	public function search()
+	{
+		$param = $this->input->get('param');
+		
+		$product = $this->products->get_item_by(array("name" => $param));
+	
+		if(!empty($product)) $product = $this->products->get_item_by(array("isbn" => $param));
+		if(!empty($product))
+		{
+			redirect('/content/item/edit/products/'.$product->id);
+		}
+		else
+		{
+			$from = $this->input->get('from');
+			
+			$this->db->like('name', $param);
+			$this->db->or_like('isbn', $param);
+			$this->db->limit(15, $from);
+			$products = $this->db->get('products')->result();
+			
+			$this->db->like('name', $param);
+			$this->db->or_like('isbn', $param);
+			$total_rows = count($this->db->get('products')->result());
+					
+			$data = array(
+				'title' => "Поиске",
+				'left_column' =>  array('items_tree' => 'products_tree', 'item_tree' => 'products_tree'),
+				'tree' => $this->categories->get_tree(0, "parent_id"),
+				'type' => 'products',
+				'name' => 'name',
+				'url' => $this->uri->uri_string(),
+				'content' => $products,
+				'images' => TRUE,
+				'sortable' =>FALSE
+			);
+
+			foreach($data['content'] as $key => $item)
+			{
+				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => 'products', "object_id" => $item->id));
+			}
+			
+			$this->load->library('pagination');
+		
+			$config = array(
+				'base_url' => base_url().$this->uri->uri_string()."?param={$param}",
+				'total_rows' => $total_rows,
+				'query_string_segment' => 'from',
+				'page_query_string' => TRUE,
+				'per_page' => 15,
+				'first_link' => 'Первая',
+				'last_link' => 'Последняя',
+				'next_link' => FALSE,
+				'prev_link' => FALSE,
+			);
+
+			$this->pagination->initialize($config);
+			$data['pagination'] = $this->pagination->create_links();
+			
+			$data = array_merge($this->standart_data, $data);
+			
+			$this->load->view('admin/items.php', $data);
 		}
 	}
 }

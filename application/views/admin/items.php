@@ -13,15 +13,20 @@
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back">
+					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back clearfix">
 						<div class="col_12">						
 							<h6 class="col_8 left">Редактировать</h6> 
 							<div class="col_4 right">
 								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small">Создать</a>
 							</div>			
 						</div>
-						<div class="pagination">
+						<div class="pagination col_6" style="padding-top:10px;">
 							<?if(isset($pagination)):?><?=$pagination?><?endif;?>
+						</div>
+						<div class="search col_6">
+							<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="search_form" action="<?=base_url()?>admin/content/search"/>
+								<input type="text" id="search_input" class="search col_12" style="font-size:12px;" name="param" placeholder="Поиск по названию или ISBN" onchange="$('search_form').submit();"/>
+							</form>
 						</div>
 						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
@@ -90,7 +95,9 @@
 								<?require 'include/delete_popup.php'?>
 							</tbody>
 						</table>
-						
+						<div class="pagination">
+							<?if(isset($pagination)):?><?=$pagination?><?endif;?>
+						</div>
 					</div>
 				</div>
 			</div>
