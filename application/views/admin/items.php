@@ -25,7 +25,14 @@
 						</div>
 						<div class="search col_6">
 							<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="search_form" action="<?=base_url()?>admin/content/search"/>
-								<input type="text" id="search_input" class="search col_12" style="font-size:12px;" name="param" placeholder="Поиск по названию или ISBN" onchange="$('search_form').submit();"/>
+								<input type="text" 
+									   id="search_input" 
+									   class="search col_12" 
+									   style="font-size:12px;" 
+									   name="param" 
+									   placeholder="Поиск по названию или ISBN" 
+									   value="<?if(isset($search_param)):?><?=$search_param?><??><?endif;?>"
+									   onchange="$('search_form').submit();"/>
 							</form>
 						</div>
 						<table  id="sort" cellspacing="2" cellpadding="2" >

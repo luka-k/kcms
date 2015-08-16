@@ -473,7 +473,8 @@ class Content extends Admin_Controller
 				'url' => $this->uri->uri_string(),
 				'content' => $products,
 				'images' => TRUE,
-				'sortable' =>FALSE
+				'sortable' =>FALSE,
+				'search_param' => $param
 			);
 
 			foreach($data['content'] as $key => $item)
@@ -492,7 +493,7 @@ class Content extends Admin_Controller
 				'first_link' => 'Первая',
 				'last_link' => 'Последняя',
 				'next_link' => FALSE,
-				'prev_link' => FALSE,
+				'prev_link' => FALSE
 			);
 
 			$this->pagination->initialize($config);
