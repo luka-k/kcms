@@ -29,6 +29,7 @@ class Products extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
+			'ISBN' => array('ISBN', 'text', 'trim'),
 			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
 			'autor' => array('Автор', 'text', 'trim|htmlspecialchars', 'require'),

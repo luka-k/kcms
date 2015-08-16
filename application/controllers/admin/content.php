@@ -444,12 +444,15 @@ class Content extends Admin_Controller
 	{
 		$param = $this->input->get('param');
 		
-		$product = $this->products->get_item_by(array("name" => $param));
+		$this->db->where('name', $param);
+		$this->db->or_where('isbn', $param);
 	
-		if(!empty($product)) $product = $this->products->get_item_by(array("isbn" => $param));
+
+		$product =	$this->db->get('products')->row();
+		
 		if(!empty($product))
 		{
-			redirect('/content/item/edit/products/'.$product->id);
+			redirect(base_url().'admin/content/item/edit/products/'.$product->id);
 		}
 		else
 		{
