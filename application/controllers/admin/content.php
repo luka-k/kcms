@@ -65,9 +65,13 @@ class Content extends Admin_Controller
 			}
 			else
 			{
+				
 				$parent = $type == "emails" ? "type" : "parent_id";
 				$data["parent_id"] = $id;
-				$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+				if($parent == 'parent_id' && !$this->db->field_exists('parent_id', $type))
+					$data['content'] = $this->$type->get_list(false, FALSE, FALSE, FALSE, FALSE);
+				else
+					$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
 			}
 			$data['sortable'] = TRUE;
 		}

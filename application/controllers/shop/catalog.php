@@ -45,7 +45,7 @@ class Catalog extends Client_Controller {
 		//$this->session->sess_destroy("cart_contents");
 		
 		$data = array(
-			'title' => 'Каталог',
+			'title' => 'Интернет-магазин bрайтbилd',
 			'url' => base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']),
 			'top_active' => 'shop',
 			'price_from' => $price_from,

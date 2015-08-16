@@ -4,8 +4,8 @@
 		
 	<title><?=$seo_meta_title ? $seo_meta_title : $title?></title>
 	
-	<meta name="description" content="<?=$meta_description?>" />
-	<meta name="keywords" content="<?=$meta_keywords?>" />
+	<meta name="description" content="<?=$seo_meta_description ? $seo_meta_description : $meta_description?>" />
+	<meta name="keywords" content="<?=$seo_meta_keywords ? $seo_meta_keywords : $meta_keywords?>" />
 	
 	<link rel="Shortcut Icon" type="image/x-icon" href="<?=base_url()?>template/client/images/favicon.ico" />
 	<meta content="<?=base_url()?>template/client/catalog/images/bb_house.jpg" property="og:image" />

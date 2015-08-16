@@ -261,7 +261,7 @@ class Import extends Admin_Controller
 		
 		$total = 0;
 
-		//$this->db->update('products', array('for_delete' => 1));
+		$this->db->update('products', array('for_delete' => 1));
 		
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
@@ -283,7 +283,7 @@ class Import extends Admin_Controller
 			$data = array(
 				'1c_id' => $id,
 				'sku' => $sku,
-				//'for_delete' => 0,
+				'for_delete' => 0,
 				'description' => $description,
 				'sort' => $manufacturer
 			);
@@ -534,7 +534,7 @@ class Import extends Admin_Controller
 					
 			}
 		}
-		//$this->db->delete('products', array('for_delete' => 1));
+		$this->db->delete('products', array('for_delete' => 1));
 	}
 	
 	public function update1CImageCovers()

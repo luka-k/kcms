@@ -17,6 +17,11 @@ class Sitemap extends Client_Controller
 	
 	public function index($map_type = "html")
 	{
+		if (file_exists('download/sitemap-shop.cache') && filemtime('download/sitemap-shop.cache') > filemtime('1c_exchange/import0_1.xml'))
+		{
+			echo file_get_contents('download/sitemap-shop.cache');
+			die();
+		}
 		$manufacturers = $this->manufacturers->get_list(FALSE);
 		$categories = $this->categories->prepare_list($this->categories->get_admin_tree(0));
 
@@ -136,7 +141,9 @@ class Sitemap extends Client_Controller
 		$data = array_merge($this->standart_data, $data);
 		
 		$template = "client/shop/sitemap_".$map_type.".php";
-		$this->load->view($template, $data);
+		$sitemap_data = $this->load->view($template, $data, true);
+		file_put_contents('download/sitemap-shop.cache', $sitemap_data);
+		echo $sitemap_data;
 	}
 	
 }
