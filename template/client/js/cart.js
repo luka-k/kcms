@@ -53,6 +53,7 @@ function delete_answer(res){
 		$('.page-cart__products').text("Корзина пуста");
 	}
 	$('#total_qty').text(res['total_qty']);
+	$('.total_qty').text(res['total_qty']);
 	$('#total_price').text(res['total_price']);
 	$('.total_price').text(res['total_price']);
 	$('.product_word').text(res['product_word']);

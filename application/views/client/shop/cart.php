@@ -63,15 +63,14 @@
 													</table>
 												</div>
 												
-												<div class="page-cart__order">
-													<div class="cart-order">
+												<div class="page-cart__order clearfix">
+													<div class="cart-order clearfix">
 					
-													<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" class="order_form" action="<?=base_url()?>shop/order/edit_order">
-													
+													<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="order" class="order_form" action="<?=base_url()?>shop/order/edit_order/">
 														<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 														<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
 														
-														<div class="cart-order__form">
+														<div class="cart-order__form clearfix">
 															<h2 class="cart-order_title">Быстрый заказ</h2>
 															<div class="cart-collumn-1">
 																
@@ -92,7 +91,7 @@
 																</div>
 															</div>
 															
-															<div class="cart-collumn-1">
+															<div class="cart_dropdown cart-collumn-1">
 																<select name="payment_id" class="dropdown">
 																	<?foreach($selects['payment_id'] as $key => $select):?>
 																		<option value="<?=$key?>"><?=$select?></option>
@@ -126,9 +125,8 @@
 						</main>
 					</div>
 					
-				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 					<? require 'include/left-col.php'?>
-				</form>
+
 				</div>
 			</div>
 		

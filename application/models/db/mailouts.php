@@ -97,16 +97,16 @@ class Mailouts extends MY_Model
 				
 				$data = array(
 					"counter" => $counter,
-					"name" => $p['name'],
-					"price" => $p['price'],
-					"qty" => $p['qty'],
-					"item_total" => $p['item_total'],
+					"name" => $p->name,
+					"price" => $p->price,
+					"qty" => $p->qty,
+					"item_total" => $p->item_total,
 				);
 				
 				$table .= $this->load->view('admin/email/product_table_body.php', $data, TRUE);
 				
-				$total_qty += $p['qty'];
-				$total_price += $p['item_total'];
+				$total_qty += $p->qty;
+				$total_price += $p->item_total;
 				$counter++;
 			}
 			

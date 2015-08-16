@@ -1515,6 +1515,7 @@ text-align:center;
 }
 
 .cart-table .total{
+	padding:5px 0;
 	color:#cc0000;
 }
 
@@ -1523,7 +1524,9 @@ text-align:center;
 }
 
 .order-button{
-	padding:3px 4px 5px 4px;
+	display:inline-block;
+	margin-top:4px;
+	padding:8px 15px 10px 15px;
 	background:#cc0000;
 	border:none;
 	border-radius:3px;

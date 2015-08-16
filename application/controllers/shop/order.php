@@ -66,10 +66,10 @@ class Order extends Client_Controller
 		{
 			$orders_products = array(
 				'order_id' => $order_id,
-				'product_id' => $item["id"],
-				'product_name' => $item["name"],
-				'product_price' => $item["price"],
-				'order_qty' => $item["qty"]				
+				'product_id' => $item->id,
+				'product_name' => $item->name,
+				'product_price' => $item->price,
+				'order_qty' => $item->qty				
 			);
 			$this->orders_products->insert($orders_products);
 		}

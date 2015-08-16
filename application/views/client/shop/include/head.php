@@ -12,7 +12,7 @@
 
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/jquery-ui/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown.css"/>
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown_shop.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.css"/>
 		
 	<script type="text/javascript" src="<?=base_url()?>template/client/plugins/jquery.min.js"></script>

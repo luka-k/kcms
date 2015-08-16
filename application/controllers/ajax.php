@@ -53,7 +53,7 @@ class Ajax extends CI_Controller {
 			"parent_id" => $product->parent_id,
 			"name" => $product->name,
 			"url" => $product->url,
-			"price" => $product->price,
+			"price" => $product->sale_price,
 			"discount" => $product->discount,
 			"qty" => $info->qty
 		);
