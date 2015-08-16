@@ -15,7 +15,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
-				$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
 		});
@@ -39,7 +39,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
-				$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
 		});
@@ -62,7 +62,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
-				$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
 		});
@@ -85,7 +85,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
-				$('#searchpopupbtn').css('top', ($(this).offset().top - 6) + 'px');
+				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}			
 		});
