@@ -38,6 +38,14 @@ class Users_groups extends MY_Model
         parent::__construct();
 	}
 	
+	public function is_seo()
+	{
+		$groups = ((array)$this->session->userdata('user_groups'));
+		if (isset($groups[1]) && $groups[1] == 'seo')
+			return true;
+		return false;
+	}
+	
 	public function access_by_manufacturer($user)
 	{
 		$module_enable = array("content");

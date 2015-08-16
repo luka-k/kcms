@@ -14,16 +14,21 @@
 			<?$counter++?>
 		<?endforeach;?>
 		<li class="right r-item"><a href="<?=base_url()?>" target = "_blanc"><i class="icon-signout"></i>На сайт</a></li>
+		<? if (!$this->users_groups->is_seo()): ?>
 		<li class="right"><a href="<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/edit"><i class="icon-user"></i><?=$user['name']?></a></li>
+		<?endif?>
 		<li class="right"><a href="<?=base_url()?>admin/registration/logout"><i class="icon-remove"></i>Выйти</a></li>
-		<?if(in_array("admin", $user_groups)):?>
-			<li class="right"><a href="<?=base_url()?>admin/cache/refresh"><i class="icon-pencil"></i>Обновить кеш</a>
-				<ul>
-					<li><a href="<?=base_url()?>admin/cache/refresh_categories">Категории</a></li>
-					<li><a href="<?=base_url()?>admin/cache/refresh_manufacturer_by_categories">Категории/Производители</a></li>
-					<li><a href="<?=base_url()?>admin/cache/refresh_manufacturers">Производители</a></li>
-				</ul>
-			</li>
-		<?endif;?>
+		
+		<? if (!$this->users_groups->is_seo()): ?>
+			<?if(in_array("admin", $user_groups)):?>
+				<li class="right"><a href="<?=base_url()?>admin/cache/refresh"><i class="icon-pencil"></i>Обновить кеш</a>
+					<ul>
+						<li><a href="<?=base_url()?>admin/cache/refresh_categories">Категории</a></li>
+						<li><a href="<?=base_url()?>admin/cache/refresh_manufacturer_by_categories">Категории/Производители</a></li>
+						<li><a href="<?=base_url()?>admin/cache/refresh_manufacturers">Производители</a></li>
+					</ul>
+				</li>
+			<?endif;?>
+		<?endif?>
 	</ul>
 </div>	

@@ -51,7 +51,12 @@ class Menus_items extends MY_Model
 	*/
 	public function menu_tree($menu_id, $parent_id = 0)
 	{
-		$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
+		$groups = ((array)$this->session->userdata('user_groups'));
+		if ($menu_id == 1 && $this->users_groups->is_seo())
+			$branches = $this->get_list(array("menu_id" => $menu_id, "id" => 42, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
+		else
+			$branches = $this->get_list(array("menu_id" => $menu_id, "parent_id" => $parent_id), $from = FALSE, $limit = FALSE, $order = "sort", $direction = "asc");
+		
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			if($menu_id == 1)
