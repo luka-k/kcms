@@ -6,7 +6,7 @@ class News extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'en_name' => array('Заголовок (eng)', 'text', 'trim|required|htmlspecialchars'),
+			'en_name' => array('Заголовок (eng)', 'text', 'trim|htmlspecialchars'),
 			'article_parent_id' => array('Раздел', 'n2a', 'news2article'),
 			'sort' => array('Сортировка', 'text', ''),
 			'description' => array('Текст', 'tiny', ''),

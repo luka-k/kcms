@@ -6,7 +6,7 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'name' => array('Заголовок', 'text', 'trim|required|htmlspecialchars|name'),
-			'en_name' => array('Заголовок (eng)', 'text', 'trim|required|htmlspecialchars'),
+			'en_name' => array('Заголовок (eng)', 'text', 'trim|htmlspecialchars'),
 			'menu_name' => array('Заголовок в меню', 'text', 'trim|htmlspecialchars|autocomplete[name]'),
 			'en_menu_name' => array('Заголовок в меню (eng)', 'text', 'trim|htmlspecialchars|autocomplete[en_name]'),
 			'not_list' => array('Не отображать в списке', 'checkbox', ''),
