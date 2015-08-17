@@ -20,3 +20,5 @@ ALTER TABLE news ADD en_full_description TEXT after full_description;
 ALTER TABLE news ADD en_meta_title varchar(255) after meta_title;
 ALTER TABLE news ADD en_meta_keywords varchar(255) after meta_keywords;
 ALTER TABLE news ADD en_meta_description varchar(255) after meta_description;
+
+

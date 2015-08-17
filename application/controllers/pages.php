@@ -13,8 +13,9 @@ class Pages extends Client_Controller {
 		if($page == "404")
 		{
 			$page = $this->articles->get_item_by(array("url" => "study"));
-			
+	
 			$page->description = "Sorry, this page is under construction.</br></br>Please, come again later"; 
+			$page->en_description = "Sorry, this page is under construction.</br></br>Please, come again later"; 
 		}
 
 		$page = $this->articles->prepare($page);
@@ -35,6 +36,9 @@ class Pages extends Client_Controller {
 		if(isset($page->news_item))
 		{
 			$page->news_item = $this->news->prepare($page->news_item);
+			
+			if(empty($page->news_item->name)) redirect(base_url().'category/study/page-is-under-construction/');
+			
 			$data['title'] = $page->news_item->name;
 			$data['meta_title'] = $page->news_item->meta_title;
 			$data['meta_keywords'] = $page->news_item->meta_keywords;
@@ -42,6 +46,7 @@ class Pages extends Client_Controller {
 		}
 		elseif(empty($page->article))
 		{
+			if(empty($page->name)) redirect(base_url().'category/study/page-is-under-construction/');
 			$data['title'] = $page->name;
 			$data['meta_title'] = $page->meta_title;
 			$data['meta_keywords'] = $page->meta_keywords;
@@ -50,6 +55,9 @@ class Pages extends Client_Controller {
 		else
 		{
 			$page->article = $this->articles->prepare($page->article);
+			
+			if(empty($page->article->name)) redirect(base_url().'category/study/page-is-under-construction/');
+			
 			$data['title'] = $page->article->name;
 			$data['meta_title'] = $page->article->meta_title;
 			$data['meta_keywords'] = $page->article->meta_keywords;
@@ -73,6 +81,6 @@ class Pages extends Client_Controller {
 	
 	public function page_under_constract()
 	{
-		
+
 	}
 }

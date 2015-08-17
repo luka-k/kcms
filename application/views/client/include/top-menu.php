@@ -20,7 +20,6 @@
 	<div id="lang">
 		<a href="<?=RUS_BASE_URL?>/<?=$url?>"><img src="<?=base_url()?>template/client/img/rus.png" alt=""/></a>
 		<a href="<?=ENG_BASE_URL?>/<?=$url?>"><img src="<?=base_url()?>template/client/img/eng.png" alt=""/></a>
-		<!--Константы ENG_BASE_URL и US_BASE_URL находятся в config/constants.php-->
 	</div>
 	
 	<div id="cont">
