@@ -113,7 +113,7 @@ class Content extends Admin_Controller
 		);
 			
 		$data['selects']['category2category'] =$this->categories->get_admin_tree(0);
-		$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
+		$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
 		$data['selects']['product2collection'] = $this->collections->get_tree(0);
 		if($type == "products") $data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE);
 
@@ -180,6 +180,12 @@ class Content extends Admin_Controller
 					$data['document2category'] = $this->categories->get_tree(FALSE, array(), "admin");
 					$data['content']->doc_type = array();
 					$data['content']->document2category = array();
+					
+					$m_id = $this->input->get('m_id');
+					if($m_id)
+					{
+						$data['content']->manufacturer_id = $m_id;
+					}
 				}
 				if($type == "manufacturers")
 				{
