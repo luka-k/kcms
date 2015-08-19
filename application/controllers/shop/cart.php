@@ -89,12 +89,20 @@ class Cart extends Client_Controller
 		
 		$product = $this->products->get_item($info->id);
 		$product = $this->characteristics->get_product_characteristics($product);
+		
+		$product->price = round($product->price, -1);
+		if(isset($product->sale_price))
+		{		
+			$product->sale_price = round($product->sale_price, -1);
+			if($product->price <> 0) $product->discount = round(($product->price - $product->sale_price) * 100 / $product->price);
+		}
+		
 		$item = array(
 			"id" => $product->id,
 			"name" => $product->name,
-			"price" => $product->price,
+			"price" => $product->sale_price,
 			"qty" => 1,
-			"item_total" => $product->price
+			"item_total" => $product->sale_price
 		);
 		$item_id = md5($info->id);
 		$pre_cart['items'][$item_id] = $item;
@@ -114,8 +122,8 @@ class Cart extends Client_Controller
 		$data = array(
 			'item_id' => $item_id,
 			'item_qty' => 1,
-			'item_price' => $product->price,
-			'item_total' => $product->price,
+			'item_price' => $product->sale_price,
+			'item_total' => $product->sale_price,
 			'total_price' => $pre_cart['total_price'],
 			'id' => $info->id,
 			'type' => $info->type,
@@ -163,12 +171,17 @@ class Cart extends Client_Controller
 		$pre_cart = $this->session->userdata('pre_cart');
 		
 		$product = $this->products->get_item($pre_cart['items'][$item_id]['id']);
-		$product = $this->products->set_sale_price($product);
 		
-		$pre_cart['total_price'] = $pre_cart['total_price'] - $pre_cart['items'][$item_id]['item_total'];
+		$product->price = round($product->price, -1);
+		if(isset($product->sale_price))
+		{		
+			$product->sale_price = round($product->sale_price, -1);
+			if($product->price <> 0) $product->discount = round(($product->price - $product->sale_price) * 100 / $product->price);
+		}
+		
+		$pre_cart['total_price'] = $pre_cart['total_price'] - $product->sale_price;;
 		unset($pre_cart['items'][$item_id]);
 		$this->session->set_userdata(array('pre_cart' => $pre_cart));
-		
 		
 		$data = array(
 			'item_id' => $item_id,
@@ -179,6 +192,7 @@ class Cart extends Client_Controller
 			'discount' => $product->discount,
 			'sale_price' => $product->sale_price,
 			'location' => "",
+			'place' => $info->place,
 			'action' => "delete"
 		);
 		echo json_encode($data);
@@ -190,9 +204,11 @@ class Cart extends Client_Controller
 		
 		$main_product = $this->products->get_item($info->product_id);
 		
-		if(!empty($main_product->discount))
-		{
-			$main_product->price = $main_product->price*(100 - $product->discount)/100;
+		$main_product->price = round($main_product->price, -1);
+		if(isset($main_product->sale_price))
+		{		
+			$main_product->sale_price = round($main_product->sale_price, -1);
+			if($main_product->price <> 0) $main_product->discount = round(($main_product->price - $main_product->sale_price) * 100 / $main_product->price);
 		}
 		
 		$cart_item = array(
@@ -200,7 +216,7 @@ class Cart extends Client_Controller
 			"parent_id" => $main_product->parent_id,
 			"name" => $main_product->name,
 			"url" => $main_product->url,
-			"price" => $main_product->price,
+			"price" => $main_product->sale_price,
 			"discount" => $main_product->discount,
 			"qty" => 1
 		);
@@ -212,9 +228,11 @@ class Cart extends Client_Controller
 		{	
 			$product = $this->products->get_item($item['id']);
 		
-			if(!empty($product->discount))
-			{
-				$product->price = $product->price*(100 - $product->discount)/100;
+			$product->price = round($product->price, -1);
+			if(isset($product->sale_price))
+			{		
+				$product->sale_price = round($product->sale_price, -1);
+				if($product->price <> 0) $product->discount = round(($product->price - $product->sale_price) * 100 / $product->price);
 			}
 		
 			$cart_item = array(
@@ -222,7 +240,7 @@ class Cart extends Client_Controller
 				"parent_id" => $product->parent_id,
 				"name" => $product->name,
 				"url" => $product->url,
-				"price" => $product->price,
+				"price" => $product->sale_price,
 				"discount" => $product->discount,
 				"qty" => $item['qty']
 			);
@@ -230,9 +248,11 @@ class Cart extends Client_Controller
 			$item_id = $this->cart->insert($cart_item);
 		}
 		
-		$data['total_qty'] = $this->cart->total_qty();
-		$data['total_price'] = $this->cart->total_price();
-		$data['product_word'] = $this->string_edit->set_word_form("товар", $data['total_qty']);
+		$data = array(
+			'total_qty' => $this->cart->total_qty(),
+			'total_price' => $this->cart->total_price(),
+			'product_word' => $this->string_edit->set_word_form("товар", $data['total_qty'])
+		);
 		
 		echo json_encode($data);
 	}	

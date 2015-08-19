@@ -43,9 +43,11 @@ class Ajax extends CI_Controller {
 		$info = json_decode(file_get_contents('php://input', true));
 		$product = $this->products->get_item($info->item_id);
 		
-		if(!empty($product->discount))
-		{
-			$product->price = $product->price*(100 - $product->discount)/100;
+		$product->price = round($product->price, -1);
+		if(isset($product->sale_price))
+		{		
+			$product->sale_price = round($product->sale_price, -1);
+			if($product->price <> 0) $product->discount = round(($product->price - $product->sale_price) * 100 / $product->price);
 		}
 		
 		$cart_item = array(
@@ -76,7 +78,7 @@ class Ajax extends CI_Controller {
 	public function update_cart()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
-		
+				
 		$this->cart->update(array("item_id" => $info->item_id, "qty" => $info->qty));
 		$item = $this->cart->get($info->item_id);
 		

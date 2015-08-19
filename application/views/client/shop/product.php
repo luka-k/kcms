@@ -112,9 +112,10 @@
 									<? if ($product->components_products): ?>
 									<div class="accordeon-head"><span class="list">-</span> Комплектующие товары</div>
 									<div id="comp" class="accordeon-body">
+										<?$counter = 1?>
 										<?foreach($product->components_products as $components):?>
-											<div id="comp-<?=$components->id?>" class="accordeon-item clearfix">
-												<div class="check_col"><input type="checkbox" class="ch-comp-<?=$components->id?>" onchange="precart('<?=$components->id?>', 'comp', '<?=$product->price?>'); return false;"/></div>
+											<div id="comp-<?=$components->id?>" class="accordeon-item comp-<?=$counter?> clearfix">
+												<div class="check_col"><input type="checkbox" class="ch-comp-<?=$components->id?>" onchange="precart('<?=$components->id?>', 'comp', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($components->img)):?>
 														<a href="<?=$components->full_url?>"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
@@ -171,15 +172,17 @@
 														<div><a href="" onclick="add_to_cart('<?=$components->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></div>
 												</div>
 											</div>
+											<?$counter?>
 										<?endforeach;?>
 									</div>
 									<?endif?>
 									<?if ($product->accessories_products): ?>
 									<div class="accordeon-head"><span class="list">-</span> Запасные части</div>
 									<div id="acc" class="accordeon-body">
+										<?$counter = 1?>
 										<?foreach($product->accessories_products as $accessories):?>
-											<div id="acc-<?=$accessories->id?>" class="accordeon-item clearfix">
-												<div class="check_col"><input type="checkbox" class="ch-acc-<?=$accessories->id?>" onchange="precart('<?=$accessories->id?>', 'acc', '<?=$product->price?>'); return false;"/></div>
+											<div id="acc-<?=$accessories->id?>" class="accordeon-item acc-<?=$counter?> clearfix">
+												<div class="check_col"><input type="checkbox" class="ch-acc-<?=$accessories->id?>" onchange="precart('<?=$accessories->id?>', 'acc', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($accessories->img)):?>
 														<a href="<?=$accessories->full_url?>"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
@@ -236,6 +239,7 @@
 														<div><a href="" onclick="add_to_cart('<?=$accessories->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></div>
 												</div>
 											</div>
+											<?$counter++?>
 										<?endforeach;?>
 									</div>
 									<?endif?>

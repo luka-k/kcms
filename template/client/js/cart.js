@@ -66,11 +66,12 @@ function delete_answer(res){
 * pre-cart
 ************************************/
 
-function precart(id, type, price){
+function precart(id, type, price, place){
 	var data  = new Object();
 	data.id = id;
 	data.type = type;
 	data.price = price;
+	data.place = place;
 	var json_str = JSON.stringify(data);
 	if($(".ch-"+type+"-"+id).prop("checked") == true)
 	{
@@ -99,7 +100,14 @@ function precart_answer(res){
 	{
 		$('.price-'+res.type+'-'+res.id).html('');
 		$('.price-'+res.type+'-'+res.id).html('<div>Цена розничная: <del>'+res.price+' р.</del><span class="discount">-'+res.discount+' %</span></div><div>Цена на сайте: <span class="top-price">'+res.sale_price+'</span> р.</div><div>Наличие: <span class="blue-label">'+res.location+'</span></div>');
-		$("#"+res.type).append($('#'+res.type+'-'+res.id));
+		var place = res.place - 1;
+
+		if($("div").is("."+res.type+'-'+place)){
+			$("."+res.type+'-'+place).after($('#'+res.type+'-'+res.id));
+		}else{
+			place = place + 2;
+			$("."+res.type+'-'+place).before($('#'+res.type+'-'+res.id));
+		}
 	}
 
 	$(".pre_cart_price").text(res.total_price+" р.");
