@@ -268,6 +268,10 @@ main.news {
 main.news .breadcrumbs{
 	width: 100%;
 }
+
+#by_category .breadcrumbs{
+	width: 400px;
+}
 		
 main.contacts{
 	padding: 20px 0 0 290px;
@@ -1163,7 +1167,15 @@ article h2 {
 }
 
 .product-name {
+	position:relative;
 	font-size: 16px;
+	height:150px;
+}
+
+.product-name .sale_desc{
+	position:absolute;
+	left:160px;
+	bottom:5px;
 }
 
 .product-name a{
@@ -1274,11 +1286,18 @@ article h2 {
 }
 
 .item-description{
+	position:relative;
 	width: -moz-calc(100% - 260px);
 	width: -webkit-calc(100% - 260px);
 	width: calc(100% - 260px);
+	height:180px;
 	position:relative;
 	float:left;
+}
+
+.item-description .sale_desc{
+	position:absolute;
+	bottom:5px;
 }
 
 .item-buy-info{

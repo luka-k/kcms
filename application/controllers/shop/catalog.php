@@ -117,7 +117,7 @@ class Catalog extends Client_Controller {
 		{
 			$cache_id = md5(serialize($content));
 			$cache = $this->filters_cache->get($cache_id);
-			$cache = FALSE;
+			//$cache = FALSE;
 			if($cache)
 			{
 				$this->filters_cache->set_last($cache_id);

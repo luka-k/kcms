@@ -11,11 +11,13 @@
 				<div class="mainwrap">
 					<main id="by_category">
 						<article>
-							<div class="shop_link">
-								<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
+							<?if(isset($shop_link)):?>
+								<div class="shop_link">
+									<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
 										Интернет-магазин
-								</a>
-							</div>
+									</a>
+								</div>
+							<?endif;?>
 							<?require FCPATH.'application/views/client/include/breadcrumbs.php'?>
 							<div id="" class="main-content clearfix">
 		

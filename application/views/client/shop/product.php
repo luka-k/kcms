@@ -73,9 +73,21 @@
 												<?foreach($product->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
 												<?endforeach;?><br>
-												<? if ($product->sale):?>
-												<strong><span style="color: red;">Распродажа!</span></strong>
+											
+												<? if ($product->discontinued):?>
+													<? $date = explode(' ', $product->discontinued); $date = $date[0];?>
+													(Снято с производства <?= $date?>)<br>
 												<?endif?>
+												
+												<div class="sale_desc">
+													<? if ($product->sale):?>
+														<strong><span style="color: red;">Распродажа!</span></strong>
+													<?endif?>
+													
+													<? if ($product->description):?>
+														(<?= $product->description ?>)
+													<?endif?>	
+												</div>
 										</div>
 										<div class="item-buy-info">
 											<div class="product-price">
@@ -151,6 +163,7 @@
 												<?foreach($components->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
 												<?endforeach;?></div>
+												
 													<div class="item-shortdesc">
 														
 												<? if ($components->sale):?>

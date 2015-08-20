@@ -106,7 +106,7 @@
 										</ul>
 										<div>
 											<div class="nav_footer-left" style="">
-												<?if ($this->products->get_list(array('manufacturer_id' => $manufacturer->id))): ?>
+												<?if (isset($shop_link)): ?>
 														<a href="http://shop.brightbuild.ru/catalog/<?if(isset($shop_link)):?><?=$shop_link?><?endif;?>" class="w-i" title="Интернет магазин<?if(isset($shop_link_title)):?><?=$shop_link_title?><?endif;?>">
 															Интернет-магазин
 														</a>

@@ -118,19 +118,21 @@
 													<?=$shortdesc->value?>
 												<?endforeach;?><br>
 												
-												<? if ($item->sale):?>
-													<strong><span style="color: red;">Распродажа!</span></strong>
-												<?endif?>
-												
-												<? if ($item->description):?>
-													(<?= $item->description ?>)
-												<?endif?>
-												
 												<? if ($item->discontinued):?>
 													<? $date = explode(' ', $item->discontinued); $date = $date[0];?>
-													Снято с производства <?= $date?>
+													(Снято с производства <?= $date?>)
 												<?endif?>
 												
+												<div class="sale_desc">
+												gfggfgfg
+													<? if ($item->sale):?>
+														<strong><span style="color: red;">111Распродажа!</span></strong>
+													<?endif?>
+												
+													<? if ($item->description):?>
+														(<?= $item->description ?>)
+													<?endif?>
+												</div>
 											</div>
 										</div>
 									<?endforeach;?>

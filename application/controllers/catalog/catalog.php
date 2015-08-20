@@ -64,24 +64,28 @@ class Catalog extends Client_Controller {
 			'page_title' => $content->category->name,
 			'active_category' => $content->category->url
 		);
-		
+				
 		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 		
 		$data['a_link'] = "";
 		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
 		$data['a_link'] .= $content->category->url;
 		
-		$data['shop_link_title'] = ': ';
-		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
-		$data['shop_link_title'] .= $content->category->name;
-		
-		$data['shop_link'] = '';
-		if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
-		$data['shop_link'] .= $content->category->url.'/';
+		$semantic_url = $this->uri->uri_string();
+		$cache_id = md5(serialize($semantic_url));
+		$cache = $this->filters_cache->get($cache_id);
+
+		if(!empty($cache->category->products))
+		{
+			$data['shop_link'] = '';
+			if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
+			$data['shop_link'] .= $content->category->url.'/';
+		}
 
 		$manufacturers = $this->manufacturers->prepare_list($this->manufacturers->get_by_category($content->category));
 
 		$data['manufacturers'] = $manufacturers;
+				
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view("client/catalog/manufacturer_by_category", $data);
 	}
@@ -137,15 +141,17 @@ class Catalog extends Client_Controller {
 
 		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
 		
-		$data['shop_link_title'] = ': ';
-		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
-		$data['shop_link_title'] .= $content->category->name.' - ';
-		$data['shop_link_title'] .= $manufacturer->name;
-		
-		$data['shop_link'] = '';
-		if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
-		$data['shop_link'] .= $content->category->url.'/';
-		$data['shop_link'] .= $manufacturer->url;
+		$semantic_url = $this->uri->uri_string();
+		$cache_id = md5(serialize($semantic_url));
+		$cache = $this->filters_cache->get($cache_id);
+
+		if(!empty($cache->category->products))
+		{		
+			$data['shop_link'] = '';
+			if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
+			$data['shop_link'] .= $content->category->url.'/';
+			$data['shop_link'] .= $manufacturer->url;
+		}
 		
 		$news_count = $this->articles->get_count(array('manufacturer_id' => $manufacturer->id));
 		if($news_count > 0) $data['is_news'] = TRUE;
