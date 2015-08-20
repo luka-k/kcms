@@ -4,15 +4,7 @@
 		<div class="col_12">
 			<?foreach($document2category as $category):?>
 				<div>
-					<input type="checkbox" 
-						   id="c-fork-<?=$category->id?>"
-						   class="c-<?=$category->id?>"						   
-						   name="<?=$edit_name?>[]"
-						   value="<?=$category->id?>"`
-						   onclick="checked_tree('<?=$category->id?>', 'c', 'fork');"
-						   <?if(in_array($category->id, $content->$edit_name)):?> checked <? endif; ?>"
-					/>
-					<label for="c_<?=$category->id?>"><?=$category->name?></label>
+
 					<?if(!empty($category->childs)):?>
 						<div style="margin:5px 0; padding-left:17px;">
 							<?$ch_counter=1?>
