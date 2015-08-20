@@ -86,7 +86,7 @@ class Categories extends MY_Model
 	public function _get_tree($parent_id, $parent_id_field, $filtred_ids, $selected = array())
 	{
 		if(!isset($selected['categories_checked'])) $selected['categories_checked'] = array();//костыли костылики
-		
+
 		$items = $this->db->get_where('category2category', array($parent_id_field => $parent_id))->result(); 
 
 		$branches = array();

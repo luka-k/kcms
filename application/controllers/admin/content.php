@@ -47,7 +47,7 @@ class Content extends Admin_Controller
 			if($type <> "products") $data['tree'] = $this->$type->get_tree(0);
 		}
 		
-		if($type == "documents") $data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "name", "asc");
+		if($type == "documents") $data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, "name", "asc");
 		
 		if($id == "all")
 		{
@@ -63,13 +63,17 @@ class Content extends Admin_Controller
 				$this->db->where_in("id", $child_ids);
 				$data['content'] = $this->db->get("categories")->result();				
 			}
+			elseif($type == "documents")
+			{
+				$data['content'] = $this->documents->get_doc_by_manufacturer($id);
+			}
 			else
 			{
 				
 				$parent = $type == "emails" ? "type" : "parent_id";
 				$data["parent_id"] = $id;
 				if($parent == 'parent_id' && !$this->db->field_exists('parent_id', $type))
-					$data['content'] = $this->$type->get_list(false, FALSE, FALSE, FALSE, FALSE);
+					$data['content'] = $this->$type->get_list(false, FALSE, FALSE, $order, $direction);
 				else
 					$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
 			}
@@ -128,7 +132,7 @@ class Content extends Admin_Controller
 		
 		if($type == "documents") 
 		{
-			$data['tree'] = $this->documents->get_list(FALSE, FALSE, FALSE, "sort", "asc");
+			$data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, "name", "asc");
 			
 			$this->config->load('types');
 			$data['doc_types'] = $this->config->item('doc_type');
@@ -206,7 +210,14 @@ class Content extends Admin_Controller
 					$data['content']->doc_type = explode(":", $data['content']->doc_type);
 					
 					$products = $this->products->get_list(array("manufacturer_id" => $data['content'] -> manufacturer_id));
-					$data['document2category'] = $this->categories->get_tree($products, array());
+					
+					$data['document2category'] = array();
+					$filter['categories_checked'] = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $data['content']->manufacturer_id);
+				
+					if(!empty($filter['categories_checked']))
+					{
+						$data['document2category'] = $this->categories->get_tree($products, $filter, 'admin');
+					}
 					
 					$data['content']->document2category = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $id);
 				}
