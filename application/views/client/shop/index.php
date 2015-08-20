@@ -11,26 +11,28 @@
 				<div class="mainwrap">
 					<main>
 						<article>
-							<div class="for-select">
-								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
-								<select name="" class="dropdown" onchange="document.location='/catalog/'+this.options[this.selectedIndex].value;">
-									<option value="1" disabled="" selected="selected">выбор производителя</option>
-									<?foreach($manufacturer as $m):?>
-										<option value="<?=$m->url?>"><?=$m->name?></option>
-									<?endforeach;?>
-								</select>
-								</form>
-							</div>
-							<div id="slider-scroll" class="slider index_page" >
-								<div class="logo-column">
-									<div class="some10">
-										<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
-											<div class="pic-block" style="margin-bottom: 8px;">
-												<a href="<?=base_url()?>catalog/<?=$m->url?>">
-													<?=$m->name?>
-												</a>
-											</div>
+							<div id="manufacturers_column">
+								<div class="for-select">
+									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
+									<select name="" class="dropdown" onchange="document.location='/catalog/'+this.options[this.selectedIndex].value;">
+										<option value="1" disabled="" selected="selected">выбор производителя</option>
+										<?foreach($manufacturer as $m):?>
+											<option value="<?=$m->url?>"><?=$m->name?></option>
 										<?endforeach;?>
+									</select>
+									</form>
+								</div>
+								<div id="slider-scroll" class="slider index_page">
+									<div class="logo-column">
+										<div class="some10">
+											<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
+												<div class="pic-block" style="margin-bottom: 8px;">
+													<a href="<?=base_url()?>catalog/<?=$m->url?>">
+														<?=$m->name?>
+													</a>
+												</div>
+											<?endforeach;?>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -124,7 +126,6 @@
 												<?endif?>
 												
 												<div class="sale_desc">
-												gfggfgfg
 													<? if ($item->sale):?>
 														<strong><span style="color: red;">111Распродажа!</span></strong>
 													<?endif?>

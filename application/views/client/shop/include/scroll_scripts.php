@@ -40,6 +40,8 @@
 						$("#wrapper").height($( window ).height() - 65  + $(this).scrollTop());
 						$("#scroll-right").height($(window).height() - 105  + $(this).scrollTop());
 						$("#good_page_scroll").height($( window ).height() - 85  + $(this).scrollTop());
+						
+						$("#manufacturers_column").css("display", "block");
 					
 					} else {
 						$('header').css('margin-top', -60 + 'px');
@@ -57,6 +59,8 @@
 						$("#wrapper").height($( window ).height() - 65 + 60);
 						$("#scroll-right").height($(window).height() - 105 + 60);
 						$("#good_page_scroll").height($( window ).height() - 85 + 60);
+						
+						$("#manufacturers_column").css("display", "none");
 					}
 
 					var div_sh = $(this)[0].scrollHeight;

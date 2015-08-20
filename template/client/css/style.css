@@ -271,6 +271,7 @@ main.news .breadcrumbs{
 
 #by_category .breadcrumbs{
 	width: 400px;
+	width: 400px;
 }
 		
 main.contacts{
@@ -1156,7 +1157,6 @@ article h2 {
 .product-price {
 	width: 200px; 
 	float: right;
-	padding-right: 20px;
 }
 
 .product-price p {
@@ -1170,6 +1170,9 @@ article h2 {
 	position:relative;
 	font-size: 16px;
 	height:150px;
+	width: -moz-calc(100% - 210px);
+	width: -webkit-calc(100% - 210px);
+	width: calc(100% - 210px);
 }
 
 .product-name .sale_desc{
@@ -1280,18 +1283,17 @@ article h2 {
 
 .product_content{
 	position:relative;
-	float:left;	width: -moz-calc(100% - 230px);
-	width: -webkit-calc(100% - 230px);
-	width: calc(100% - 230px);
+	float:left;	width: -moz-calc(100% - 212px);
+	width: -webkit-calc(100% - 212px);
+	width: calc(100% - 212px);
 }
 
 .item-description{
 	position:relative;
-	width: -moz-calc(100% - 260px);
-	width: -webkit-calc(100% - 260px);
-	width: calc(100% - 260px);
+	width: -moz-calc(100% - 215px);
+	width: -webkit-calc(100% - 215px);
+	width: calc(100% - 215px);
 	height:180px;
-	position:relative;
 	float:left;
 }
 
@@ -1301,9 +1303,15 @@ article h2 {
 }
 
 .item-buy-info{
-	width:230px;
+	width:200px;
+	padding:0;
 	position:relative;
-	float:left;
+	float:right;
+}
+
+.item-buy-info .product-price {
+	width: 198px; 
+	float: right;
 }
 
 .item-shortname{
@@ -1359,16 +1367,16 @@ article h2 {
 }
 
 .accordeon-body .description_col{
-	width: -moz-calc(100% - 420px);
-	width: -webkit-calc(100% - 420px);
-	width: calc(100% - 420px);
+	width: -moz-calc(100% - 395px);
+	width: -webkit-calc(100% - 395px);
+	width: calc(100% - 395px);
 	float:left;
 	padding-left:20px;
 }
 
 .accordeon-body .price_col{
-	width:210px;
-	float:left;
+	width:200px;
+	float:right;
 }
 
 
@@ -1383,21 +1391,23 @@ article h2 {
 .precart_to_cart{
 	display:inline-block;
 	float:right;
+	width:100px;
 	background:#FF0000;
 	color:#fff;
 	font-size:12px;
 	height:24px;
-	padding:4px 20px 2px 5px;
+	padding:5px 3px 2px 5px;
 	text-decoration:none;
 }
 
 .pre_cart_price{
 	display:inline-block;
+	width:100px;
 	float:right;
 	border:1px solid #949494;
 	background:#fff;
 	height:24px;
-	padding:2px 10px 4px 10px;
+	padding:3px 3px 4px 3px;
 }
 
 .s_price{
