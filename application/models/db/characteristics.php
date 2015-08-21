@@ -40,7 +40,7 @@ class Characteristics extends MY_Model
 	 			
 				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
-				$this->db->select('object_id');
+				//$this->db->select('object_id');
 				$results = $this->db->get('characteristics')->result();
 				
 				$object_ids = array();
@@ -268,13 +268,42 @@ class Characteristics extends MY_Model
 	
 	public function get_product_characteristics($item)
 	{
-		$item->color = $this->get_list(array("type" => "color", "object_id" => $item->id));
-		$item->material = $this->get_list(array("type" => "material", "object_id" => $item->id));
-		$item->shortname = $this->get_item_by(array("type" => "shortname", "object_id" => $item->id));
-		$item->shortdesc = $this->get_list(array("type" => "shortdesc", "object_id" => $item->id));
-		$item->finishing = $this->get_list(array("type" => "finishing", "object_id" => $item->id));
-		$item->turn = $this->get_list(array("type" => "turn", "object_id" => $item->id));
+		$this->db->select('characteristic_id');
+		$this->db->where('product_id', $item->id);
+		$result = $this->db->get('characteristic2product')->result();
+		
+		$ch_ids = array();
+		if($result) foreach($result as $r)
+		{
+			$ch_ids[] = $r->characteristic_id;
+		}
+		
+		$this->_set_param($ch_ids, 'color');
+		$item->color = $this->db->get('characteristics')->result();
+	
+		
+		$this->_set_param($ch_ids, 'material');
+		$item->material = $this->db->get('characteristics')->result();
+		
+		$this->_set_param($ch_ids, 'shortname');
+		$item->shortname = $this->db->get('characteristics')->row();
+		
+		$this->_set_param($ch_ids, 'shortdesc');
+		$item->shortdesc =  $this->db->get('characteristics')->result();
+		
+		$this->_set_param($ch_ids, 'finishing');
+		$item->finishing = $this->db->get('characteristics')->result();
+		
+		$this->_set_param($ch_ids, 'turn');
+		$item->turn = $this->db->get('characteristics')->result();
 		
 		return $item;
+	}
+	
+	protected function _set_param($ch_ids, $param)
+	{
+		$this->db->select('value');
+		$this->db->where('type', $param);
+		$this->db->where_in('id', $ch_ids);
 	}
 }
