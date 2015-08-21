@@ -40,24 +40,35 @@ class Characteristics extends MY_Model
 	 			
 				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
-				//$this->db->select('object_id');
+
 				$results = $this->db->get('characteristics')->result();
-				
-				$object_ids = array();
-				if(!empty($results))foreach($results as $r)
+
+				$parent_ids = array();
+				if(!empty($results)) foreach($results as $r)
 				{
-					$object_ids[] = $r->object_id;
-				}	
+					$parent_ids[] = $r->id;
+				}
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
-				$this->db->where_in('object_id', $object_ids);
+				$this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
 
+				$ch_ids = array();
 				if(!empty($result))foreach($result as $r)
 				{
-					$values[] = $r->object_id;
-					$ff[] = $r->object_id;
+					$ch_ids[] = $r->id;
+				}
+				
+				if(!empty($ch_ids))
+				{
+					$this->db->where_in('characteristic_id', $ch_ids);
+					$result = $this->db->get('characteristic2product')->result();
+					
+					if(!empty($result))foreach($result as $r)
+					{
+						$ff[] = $values[] = $r->product_id;
+					}
 				}
 			}
 
@@ -67,11 +78,23 @@ class Characteristics extends MY_Model
 		{
 			$this->db->where('type', 'shortname');
 			$this->db->where_in('value', $filter['shortname']);
-			$this->db->select('object_id');
+
 			$result = $this->db->get('characteristics')->result();
+			
+			$ch_ids = array();
 			if($result) foreach($result as $r)
 			{
-				if(!in_array($r->object_id, $ff))$values[] = $r->object_id;
+				$ch_ids[] = $r->id;
+			}
+			
+			if(!empty($ch_ids))
+			{
+				$this->db->where_in('characteristic_id', $ch_ids);
+				$result = $this->db->get('characteristic2product')->result();
+				if($result) foreach($result as $r)
+				{
+					if(!in_array($r->product_id, $ff))$values[] = $r->product_id;
+				}
 			}
 			++$counter;
 		}
@@ -231,12 +254,24 @@ class Characteristics extends MY_Model
 	*/
 	protected function _update_values($values)
 	{
-		$this->db->select('object_id');
 		$results = $this->db->get('characteristics')->result();
-		foreach($results as $result)
+		
+		$ch_ids = array();
+		if($results) foreach($results as $r)
 		{
-			$values[] = $result->object_id;
+			$ch_ids[] = $r->id;
 		}
+			
+		if(!empty($ch_ids))
+		{
+			$this->db->where_in('characteristic_id', $ch_ids);
+			$results = $this->db->get('characteristic2product')->result();
+			if($results) foreach($results as $r)
+			{
+				$values[] = $r->product_id;
+			}
+		}
+		
 		return $values;
 	}
 	
