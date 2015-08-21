@@ -486,7 +486,7 @@ class Import extends Admin_Controller
 					$ch_id = array();
 					foreach($c2p as $item)
 					{
-						$ch_id[] = $item->characteristic__id;
+						$ch_id[] = $item->characteristic_id;
 					}
 					
 					$this->db->where_in('id', $ch_id);
@@ -500,7 +500,6 @@ class Import extends Admin_Controller
 						$characteristics = array(
 							"type" => $type,
 							'object_type' => "products"
-							//'object_id' => $product_id
 						);
 						if(is_array($filter))
 						{
@@ -510,7 +509,7 @@ class Import extends Admin_Controller
 
 								$param = $this->db->get_where('characteristics', $characteristics)->row();
 								
-								if(!$param)
+								if(empty($param))
 								{
 									$this->db->insert('characteristics', $characteristics);
 									$characteristic_id = $this->db->insert_id();
@@ -546,9 +545,13 @@ class Import extends Admin_Controller
 							}
 							elseif($type == 'shortdesc')
 							{
-								$characteristics['parent_id'] = $shortname_id;
-								$this->db->insert('characteristics', $characteristics);
-								$characteristic_id = $this->db->insert_id();
+								$shortdesc = $this->db->get_where('characteristics', $characteristics)->row();
+								if(!$shortdesc)
+								{
+									$characteristics['parent_id'] = $shortname_id;
+									$this->db->insert('characteristics', $characteristics);
+									$characteristic_id = $this->db->insert_id();
+								}
 							}
 							else
 							{
