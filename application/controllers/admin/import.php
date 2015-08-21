@@ -479,30 +479,89 @@ class Import extends Admin_Controller
 						$this->db->insert('product2collection', $product2collection);
 				}
 				
-				$this->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
+				//$this->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
+				$c2p = $this->db->get_where('characteristic2product', array('product_id' => $product_id))->result();
+				if(!empty($c2p))
+				{
+					$ch_id = array();
+					foreach($c2p as $item)
+					{
+						$ch_id[] = $item->characteristic__id;
+					}
+					
+					$this->db->where_in('id', $ch_id);
+					$this->db->delete('characteristics');
+				}
+				
 				if($filters)
 				{
 					foreach($filters as $type => $filter)
 					{
 						$characteristics = array(
 							"type" => $type,
-							'object_type' => "products",
-							'object_id' => $product_id
+							'object_type' => "products"
+							//'object_id' => $product_id
 						);
 						if(is_array($filter))
 						{
 							foreach($filter as $value)
 							{
 								$characteristics['value'] = $value;
-								//if (!$this->db->get_where('characteristics', $characteristics)->result()) 
+
+								$param = $this->db->get_where('characteristics', $characteristics)->row();
+								
+								if(!$param)
+								{
 									$this->db->insert('characteristics', $characteristics);
+									$characteristic_id = $this->db->insert_id();
+								}
+								else
+								{
+									$characteristic_id = $param->id;
+								}
+									
+								$t2t = array(
+									'product_id' => $product_id,
+									'characteristic_id' => $characteristic_id
+								);
+															
+								$this->db->insert('characteristic2product', $t2t);
 							}
 						}
 						else
 						{
 							$characteristics['value'] = $filter;
-							//if (!$this->db->get_where('characteristics', $characteristics)->result()) 
+							if($type == 'shortname')
+							{
+								$shortname = $this->db->get_where('characteristics', $characteristics)->row();
+								if(!$shortname)
+								{
+									$this->db->insert('characteristics', $characteristics);
+									$shortname_id = $characteristic_id = $this->db->insert_id();
+								}
+								else
+								{
+									$shortname_id = $characteristic_id = $shortname->id;
+								}
+							}
+							elseif($type == 'shortdesc')
+							{
+								$characteristics['parent_id'] = $shortname_id;
 								$this->db->insert('characteristics', $characteristics);
+								$characteristic_id = $this->db->insert_id();
+							}
+							else
+							{
+								$this->db->insert('characteristics', $characteristics);
+								$characteristic_id = $this->db->insert_id();
+							}
+							
+							$t2t = array(
+								'product_id' => $product_id,
+								'characteristic_id' => $characteristic_id
+							);
+															
+							$this->db->insert('characteristic2product', $t2t);
 						}
 						
 					}	
