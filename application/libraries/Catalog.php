@@ -102,54 +102,49 @@ class CI_Catalog {
 	public function get_nok_tree($ids, $selected = array())
 	{
 		$this->CI->benchmark->mark('code_start');
+		
 		$nok_tree = array();
-		$shortdescs = array();
-		$to_save = array();
 		
 		if(empty($ids)) return $nok_tree;
 		
-		//$shortnames = $this->CI->characteristics->get_list(array('type' => 'shortname'), FALSE, FALSE, 'value', 'asc');
-		$this->CI->db->select('value, object_id');
-		$this->CI->db->where_in('object_id', $ids);
-		$this->CI->db->where('type', 'shortname');
-		$shortnames = $this->CI->db->get('characteristics')->result();;
-		//my_dump($shortnames);
-		foreach($shortnames as $sn)
-		{
-			$nok_tree[$sn->value] = array();
-			if(in_array($sn->object_id, $ids)) $to_save[] = $sn->value;
-		}
-
-		foreach($shortnames as $sn)
-		{
-			$shortdesc = $this->CI->characteristics->get_list(array('type' => 'shortdesc', 'object_id' => $sn->object_id));
+		$this->CI->db->select('characteristic_id');
+		$this->CI->db->where_in('product_id', $ids);
+	
+		$result = $this->CI->db->get('characteristic2product')->result();
+		
+		if($result)
+		{	
+			foreach($result as $r)
+			{
+				$ch_ids[] = $r->characteristic_id;
+			}
 			
-			foreach($shortdesc as $sd)
+			$this->CI->db->select('type, value, id');
+			$this->CI->db->where_in('id', $ch_ids);
+			if(!empty($selected['shortname'])) $this->CI->db->where_in('id', $selected['shortname']);
+			$this->CI->db->where('type', 'shortname');
+			$this->CI->db->order_by('value', 'asc'); 
+			
+			$result = $this->CI->db->get('characteristics')->result();
+			if($result) foreach($result as $r)
 			{
-				if(isset($selected['shortdesc']))
+				$nok_branch = $this->CI->characteristics->get_list(array('parent_id' => $r->id), FALSE, FALSE, 'value', 'asc');
+
+				$nok_tree[$r->value] = array();
+				if(!empty($nok_branch)) 
 				{
-					if(in_array($sd->object_id, $ids) || array_key_exists($sd->id, $selected['shortdesc'])) $nok_tree[$sn->value][$sd->id] = $sd->value;
-				}
-				else
-				{
-					if(in_array($sd->object_id, $ids)) $nok_tree[$sn->value][$sd->id] = $sd->value;
+					foreach($nok_branch as $nb)
+					{
+						$nok_tree[$r->value][$nb->id] = $nb->value;
+					}
 				}
 			}
+
 		}
 		
-		foreach($nok_tree as $i => $branch)
-		{
-			if((isset($selected['shortname']) && !in_array($i, $selected['shortname'])) || (!in_array($i, $to_save) && empty($nok_tree[$i]))) unset($nok_tree[$i]);
-			if(isset($nok_tree[$i]))
-			{
-				$nok_tree[$i] = array_unique($branch);
-				asort($nok_tree[$i], SORT_STRING);
-			}
-		}
-		
-		ksort($nok_tree, SORT_STRING);
 		$this->CI->benchmark->mark('code_end');
 		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
+
 		return $nok_tree;
 	}
 }
