@@ -20,8 +20,8 @@
 							</div>
 							</div>
 							<div style="clear: both;"></div>
+							<?if(isset($logo_column)):?>
 							<div id="manufacturers_column">
-								<?if(isset($logo_column)):?>
 									<div class="for-select">
 									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
 									<select name="" class="dropdown" onchange="document.location='/<?=$beautiful_link?>/'+this.options[this.selectedIndex].value;">
@@ -69,7 +69,7 @@
 											
 											<?else:?>
 											<?if ($item->price):?>
-												<p>Цена розничная: <?=$item->price?> р.<!-- <span class="discount">-<?=$item->discount?>%</span>--></p>
+												<p>Цена розничная: <?=$item->price?> р. <span class="discount">-<?=$item->discount?>%</span></p>
 											<? endif?>
 												<p>Цена на сайте: <span class="top-price"><?=$item->sale_price?></span> р.</p>
 											<?endif?>

@@ -1155,7 +1155,7 @@ article h2 {
 }
 
 .product-price {
-	width: 200px; 
+	width: 215px; 
 	float: right;
 }
 
@@ -1170,9 +1170,9 @@ article h2 {
 	position:relative;
 	font-size: 16px;
 	height:150px;
-	width: -moz-calc(100% - 210px);
-	width: -webkit-calc(100% - 210px);
-	width: calc(100% - 210px);
+	width: -moz-calc(100% - 225px);
+	width: -webkit-calc(100% - 225px);
+	width: calc(100% - 225px);
 }
 
 .product-name .sale_desc{
@@ -1303,14 +1303,14 @@ article h2 {
 }
 
 .item-buy-info{
-	width:200px;
+	width:215px;
 	padding:0;
 	position:relative;
 	float:right;
 }
 
 .item-buy-info .product-price {
-	width: 198px; 
+	width: 213px; 
 	float: right;
 }
 
@@ -1375,7 +1375,7 @@ article h2 {
 }
 
 .accordeon-body .price_col{
-	width:200px;
+	width:215px;
 	float:right;
 }
 
@@ -1391,7 +1391,7 @@ article h2 {
 .precart_to_cart{
 	display:inline-block;
 	float:right;
-	width:100px;
+	width:108px;
 	background:#FF0000;
 	color:#fff;
 	font-size:12px;
@@ -1402,7 +1402,7 @@ article h2 {
 
 .pre_cart_price{
 	display:inline-block;
-	width:100px;
+	width:107px;
 	float:right;
 	border:1px solid #949494;
 	background:#fff;

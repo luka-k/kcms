@@ -96,7 +96,7 @@
 											
 											<?else:?>
 											<?if ($product->price):?>
-												<p>Цена розничная: <?=$product->price?> р.<!-- <span class="discount">-<?=$product->discount?>%</span>--></p>
+												<p>Цена розничная: <?=$product->price?> р. <span class="discount">-<?=$product->discount?>%</span></p>
 											<? endif?>
 												<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
 											<?endif?>
