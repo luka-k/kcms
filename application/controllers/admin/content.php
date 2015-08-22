@@ -416,7 +416,15 @@ class Content extends Admin_Controller
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
 				
-			$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
+			if ($exit == false)
+			{
+				redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id);
+			} else {
+				if($type == "documents")
+					redirect(base_url().'/admin/content/item/edit/manufacturers/'.$data['content']->manufacturer_id.'#tab_5');	
+				else
+					redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
+			}
 
 		}
 		if($action == "copy")

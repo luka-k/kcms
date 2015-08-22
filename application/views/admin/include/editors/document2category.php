@@ -4,8 +4,8 @@
 		<div class="col_12">
 			<?foreach($document2category as $category):?>
 				<div>
-
 					<?if(!empty($category->childs)):?>
+					<?= $category->name?>
 						<div style="margin:5px 0; padding-left:17px;">
 							<?$ch_counter=1?>
 							<?foreach($category->childs as $sub_category):?>
