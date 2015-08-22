@@ -64,7 +64,8 @@ class Orders extends MY_Model
 	*/
 	function get_order_id()
 	{
-		return uniqid();
+		$orders = $this->orders->get_list(false);
+		return count($orders)+100;
 	}
 	
 	/**

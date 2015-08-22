@@ -48,6 +48,7 @@ class Order extends Client_Controller
 			
 		$message_info = array(
 			"order_id" => $order_id,
+			"order_code" => $order_id,
 			"user_name" => $orders_info['name'],
 			"products" => $cart_items
 		);
