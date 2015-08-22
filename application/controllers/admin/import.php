@@ -546,11 +546,16 @@ class Import extends Admin_Controller
 							elseif($type == 'shortdesc')
 							{
 								$shortdesc = $this->db->get_where('characteristics', $characteristics)->row();
+								
 								if(!$shortdesc)
 								{
 									$characteristics['parent_id'] = $shortname_id;
 									$this->db->insert('characteristics', $characteristics);
 									$characteristic_id = $this->db->insert_id();
+								}
+								else
+								{
+									$characteristic_id = $shortdesc->id;
 								}
 							}
 							else
