@@ -59,7 +59,7 @@ class Emails extends MY_Model
 		
 		$info->to = $to;
 		$info->from_name = $settings->admin_name;
-		$info->from_email = $settings->admin_email;
+		$info->from_email = 'admin@brightbuild.ru';
 		
 		$template_info = $this->get_item($template_id);
 		

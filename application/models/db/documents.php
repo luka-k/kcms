@@ -109,8 +109,8 @@ class Documents extends MY_Model
 			$item->images = $this->images->prepare_list($this->images->get_list(array('object_type' => 'documents', 'object_id' => $item->id)));
 			
 			$categories_ids = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $item->id);
-			/*$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
-			$categories_ids = array_diff ($categories_ids, $parent_categories_ids);*/
+			$parent_categories_ids = $this->table2table->get_parent_ids("category2category", "child_id", "category_parent_id", 0);
+			$categories_ids = array_diff ($categories_ids, $parent_categories_ids);
 			
 			$item->categories = array();
 	

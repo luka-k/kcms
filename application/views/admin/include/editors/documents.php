@@ -1,5 +1,6 @@
 ﻿<div class="col_12">
-	<a href="<?=base_url()?>admin/content/item/edit/documents?m_id=<?=$content->id?>">Создать документ</a>
+	<a href="<?=base_url()?>admin/content/item/edit/documents?m_id=<?=$content->id?>">Создать документ</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="<?=base_url()?>admin/content/items/documents/<?=$content->id?>">Сортировка документов</a>
 </div>
 <div class="col_12">
 <table  id="sort" cellspacing="2" cellpadding="2" >
