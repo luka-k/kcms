@@ -169,7 +169,7 @@ class Cart extends Client_Controller
 		$info = json_decode(file_get_contents('php://input', true));
 		$item_id = md5($info->id);
 		$pre_cart = $this->session->userdata('pre_cart');
-		
+
 		$product = $this->products->get_item($pre_cart['items'][$item_id]['id']);
 		
 		$product->price = round($product->price, -1);

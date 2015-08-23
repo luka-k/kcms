@@ -1155,7 +1155,7 @@ article h2 {
 }
 
 .product-price {
-	width: 215px; 
+	width: 217px; 
 	float: right;
 }
 
@@ -1173,6 +1173,7 @@ article h2 {
 	width: -moz-calc(100% - 225px);
 	width: -webkit-calc(100% - 225px);
 	width: calc(100% - 225px);
+	z-index:10;
 }
 
 .product-name .sale_desc{
@@ -1199,8 +1200,17 @@ article h2 {
 	font-weight: bold;
 }
 
+.product-image{
+	position:relative;
+	z-index:12;
+}
+
 .product-image  img{
 	border: 1px solid gray;
+}
+
+.cross-price{
+	text-decoration:line-through;
 }
 
 .product .discount, .product-price .discount, .price_col .discount{

@@ -185,7 +185,6 @@ class Catalog extends Client_Controller {
 	public function sale()
 	{
 		$this->session->unset_userdata('last_cache_id');
-		$data['category'] = new stdClass;
 		
 		$this->breadcrumbs->add(base_url(), 'Главная');
 		$this->breadcrumbs->add('catalog', 'Каталог');
@@ -212,6 +211,7 @@ class Catalog extends Client_Controller {
 		
 		$data['filters']['is_sale'] = 1;
 		
+		$data['category'] = new stdClass;
 		$data['category']->products = $products;
 		
 		$data = array_merge($this->standart_data, $data);

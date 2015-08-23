@@ -71,6 +71,7 @@ function precart(id, type, price, place){
 	data.id = id;
 	data.type = type;
 	data.price = price;
+	//console.log(id);
 	data.place = place;
 	var json_str = JSON.stringify(data);
 	if($(".ch-"+type+"-"+id).prop("checked") == true)

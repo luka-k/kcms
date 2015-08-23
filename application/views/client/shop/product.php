@@ -96,7 +96,7 @@
 											
 											<?else:?>
 											<?if ($product->price):?>
-												<p>Цена розничная: <?=$product->price?> р. <span class="discount">-<?=$product->discount?>%</span></p>
+												<p>Цена розничная: <span class="cross-price"><?=$product->price?> р.</span> <span class="discount">-<?=$product->discount?>%</span></p>
 											<? endif?>
 												<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
 											<?endif?>
@@ -177,7 +177,7 @@
 													
 													<?else:?>
 													<?if ($components->price):?>
-														<div>Цена розничная: <?=$components->price?> р.<!-- <span class="discount">-<?=$components->discount?>%</span>--></div>
+														<div>Цена розничная: <span class="cross-price"><?=$components->price?> р.</span> <span class="discount">-<?=$components->discount?>%</span></div>
 													<? endif?>
 														<div>Цена на сайте: <span class="top-price"><?=$components->sale_price?></span> р.</div>
 													<?endif?>
@@ -185,7 +185,7 @@
 														<div><a href="" onclick="add_to_cart('<?=$components->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></div>
 												</div>
 											</div>
-											<?$counter?>
+											<?$counter++?>
 										<?endforeach;?>
 									</div>
 									<?endif?>
@@ -244,7 +244,7 @@
 													
 													<?else:?>
 													<?if ($accessories->price):?>
-														<div>Цена розничная: <?=$accessories->price?> р.<!-- <span class="discount">-<?=$accessories->discount?>%</span>--></div>
+														<div>Цена розничная: <span class="cross-price"><?=$accessories->price?> р.</span> <span class="discount">-<?=$accessories->discount?>%</span></div>
 													<? endif?>
 														<div>Цена на сайте: <span class="top-price"><?=$accessories->sale_price?></span> р.</div>
 													<?endif?>
@@ -310,7 +310,7 @@
 													
 													<?else:?>
 													<?if ($recommended->price):?>
-														<div>Цена розничная: <?=$recommended->price?> р.<!-- <span class="discount">-<?=$recommended->discount?>%</span>--></div>
+														<div>Цена розничная: <span class="cross-price"><?=$recommended->price?> р.</span> <span class="discount">-<?=$recommended->discount?>%</span></div>
 													<? endif?>
 														<div>Цена на сайте: <span class="top-price"><?=$recommended->sale_price?></span> р.</div>
 													<?endif?>
