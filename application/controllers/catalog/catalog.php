@@ -75,7 +75,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($semantic_url));
 		$cache = $this->filters_cache->get($cache_id);
 
-		if(!empty($cache->category->products))
+		if(!empty($cache['category']->products))
 		{
 			$data['shop_link'] = '';
 			if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
@@ -145,7 +145,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($semantic_url));
 		$cache = $this->filters_cache->get($cache_id);
 
-		if(!empty($cache->category->products))
+		if(!empty($cache['category']->products))
 		{		
 			$data['shop_link'] = '';
 			if(isset($content->parent_category)) $data['shop_link'] .= $content->parent_category->url."/";
