@@ -147,4 +147,26 @@ class CI_Catalog {
 
 		return $nok_tree;
 	}
+	
+	public function get_max($items, $field)
+	{
+		$max = 0;
+		foreach($items as $item)
+		{
+			if($item->$field > $max) $max = $item->$field;
+		}
+		
+		return $max;
+	}
+	
+	public function get_min($items, $field)
+	{
+		$min = $items[0];
+		foreach($items as $item)
+		{
+			if($item->$field < $min) $min = $item->$field;
+		}
+		
+		return $min;
+	}
 }

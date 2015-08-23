@@ -273,24 +273,28 @@ class Catalog extends Client_Controller {
 			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
 			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
 			
-			$price_min = $price_from = $this->products->get_min('price');
+			$price_min = $price_from = $this->catalog->get_min($products, 'sale_price');
+			$price_max = $price_to = $this->catalog->get_max($products, 'sale_price');
+			
 			if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
-			$price_max = $price_to = $this->products->get_max('price');
 			if(!empty($this->post['price_to'])) $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
 			
-			$width_min = $width_from = $this->products->get_min('width');
+			$width_min = $width_from = $this->catalog->get_min($products, 'width');
+			$width_max = $width_to = $this->catalog->get_max($products, 'width');
+			
 			if(!empty($this->post['width_from'])) $width_from = preg_replace('/[^0-9]/', '', $this->post['width_from']);
-			$width_max = $width_to = $this->products->get_max('width');
 			if(!empty($this->post['width_to'])) $width_to = preg_replace('/[^0-9]/', '', $this->post['width_to']);
 		
-			$height_min = $height_from = $this->products->get_min('height');
+			$height_min = $height_from = $this->catalog->get_min($products, 'height');
+			$height_max = $height_to = $this->catalog->get_max($products, 'height');
+			
 			if(!empty($this->post['height_from'])) $height_from = preg_replace('/[^0-9]/', '', $this->post['height_from']);
-			$height_max = $height_to = $this->products->get_max('height');
 			if(!empty($this->post['height_to'])) $height_to = preg_replace('/[^0-9]/', '', $this->post['height_to']);
 		
-			$depth_min = $depth_from = $this->products->get_min('depth');
-			if(!empty($this->post['depth_from'])) $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);
-			$depth_max = $depth_to = $this->products->get_max('depth');
+			$depth_min = $depth_from = $this->catalog->get_min($products, 'depth');
+			$depth_max = $depth_to = $this->catalog->get_max($products, 'depth');
+			
+			if(!empty($this->post['depth_from'])) $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);	
 			if(!empty($this->post['depth_to'])) $depth_to = preg_replace('/[^0-9]/', '', $this->post['depth_to']);
 
 			$data = array(
