@@ -160,7 +160,7 @@ class Catalog extends Client_Controller {
 			$cache_id = md5(serialize($semantic_url));
 	
 			$data = $this->filters_cache->get($cache_id);
-			//$cache = FALSE;
+			$cache = FALSE;
 			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);

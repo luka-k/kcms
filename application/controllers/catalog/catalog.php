@@ -71,6 +71,10 @@ class Catalog extends Client_Controller {
 		if(isset($content->parent_category)) $data['a_link'] .= $content->parent_category->url."/";
 		$data['a_link'] .= $content->category->url;
 		
+		$data['shop_link_title'] = ': ';
+		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
+		$data['shop_link_title'] .= $content->category->name;
+		
 		$semantic_url = $this->uri->uri_string();
 		$cache_id = md5(serialize($semantic_url));
 		$cache = $this->filters_cache->get($cache_id);
@@ -140,6 +144,11 @@ class Catalog extends Client_Controller {
 		);
 
 		if(isset($content->parent_category)) $data['submenu_active_item'] = $content->category->url;
+		
+		$data['shop_link_title'] = ': ';
+		if(isset($content->parent_category)) $data['shop_link_title'] .= $content->parent_category->name." - ";
+		$data['shop_link_title'] .= $content->category->name.' - ';
+		$data['shop_link_title'] .= $manufacturer->name;
 		
 		$semantic_url = $this->uri->uri_string();
 		$cache_id = md5(serialize($semantic_url));
