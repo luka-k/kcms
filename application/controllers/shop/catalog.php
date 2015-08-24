@@ -117,12 +117,12 @@ class Catalog extends Client_Controller {
 		{
 			$cache_id = md5(serialize($content));
 			$cache = $this->filters_cache->get($cache_id);
-			$cache = FALSE;
+			//$cache = FALSE;
 			if($cache)
 			{
 				$this->filters_cache->set_last($cache_id);
 				$data = $this->filters_cache->get($cache_id);	
-
+				
 				$data = array_merge($this->standart_data, $data);			
 			}
 			else
@@ -160,7 +160,8 @@ class Catalog extends Client_Controller {
 			$cache_id = md5(serialize($semantic_url));
 	
 			$data = $this->filters_cache->get($cache_id);
-			$cache = FALSE;
+			
+			//$cache = FALSE;
 			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);
@@ -171,6 +172,24 @@ class Catalog extends Client_Controller {
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
 				if($cache->type == 'categories') $data['logo_column'] = TRUE;
 				$data['beautiful_link'] = $semantic_url;
+				
+				if($data['all_products_ids']) 
+				{
+					$this->db->where_in('id', $data['all_products_ids']);
+					$all_products = $this->db->get('products')->result();
+					
+					$data['price_min'] = $data['price_from'] = $this->catalog->get_min($all_products, 'sale_price');
+					$data['price_max'] = $data['price_to'] = $this->catalog->get_max($all_products, 'sale_price');
+			
+					$data['width_min'] = $data['width_from'] = $this->catalog->get_min($all_products, 'width');
+					$data['width_max'] = $data['width_to'] = $this->catalog->get_max($all_products, 'width');
+			
+					$data['height_min'] = $data['height_from'] = $this->catalog->get_min($all_products, 'height');
+					$data['height_max'] = $data['height_to'] = $this->catalog->get_max($all_products, 'height');
+			
+					$data['depth_min'] = $data['depth_from'] = $this->catalog->get_min($all_products, 'depth');
+					$data['depth_max'] = $data['depth_to'] = $this->catalog->get_max($all_products, 'depth');
+				}
 
 				$data = array_merge($this->standart_data, $data);
 				$this->load->view("client/shop/categories", $data);
@@ -227,7 +246,7 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
-		$cache = FALSE;
+		//$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -243,6 +262,8 @@ class Catalog extends Client_Controller {
 					redirect($product->full_url);
 				}
 			}
+			
+			//my_dump($this->post);
 			
 			$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 			$products_ids = $this->catalog->get_products_ids($products);
@@ -276,8 +297,8 @@ class Catalog extends Client_Controller {
 			$price_min = $price_from = $this->catalog->get_min($products, 'sale_price');
 			$price_max = $price_to = $this->catalog->get_max($products, 'sale_price');
 			
-			if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
-			if(!empty($this->post['price_to'])) $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
+			if(!empty($this->post['price_from'])) $price_min = $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
+			if(!empty($this->post['price_to'])) $price_max = $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
 			
 			$width_min = $width_from = $this->catalog->get_min($products, 'width');
 			$width_max = $width_to = $this->catalog->get_max($products, 'width');
@@ -368,7 +389,8 @@ class Catalog extends Client_Controller {
 	public function filter($cache_id)
 	{
 		$this->filters_cache->set_last($cache_id);
-		$data = $this->filters_cache->get($cache_id);	
+		$data = $this->filters_cache->get($cache_id);
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		$this->load->view("client/shop/categories", $data);

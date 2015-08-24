@@ -223,11 +223,11 @@ class Characteristics extends MY_Model
 			}
 			
 			if(isset($filter['price_from']))
-				$query .= $this->_set_range('price', $filter['price_from'], $filter['price_to']);
+				$query .= $this->_set_range('sale_price', $filter['price_from'], $filter['price_to']);
 
 			if($order == "price")
 			{
-				$query .= "ORDER BY CASE WHEN price = '0' THEN '99999999999' END, price {$direction} ";			
+				$query .= "ORDER BY CASE WHEN sale_price = '0' THEN '99999999999' END, sale_price {$direction} ";			
 			}
 			else
 			{
