@@ -254,6 +254,9 @@ class Import extends Admin_Controller
 	public function load1C()
 	{
 		$this->db->empty_table('filters_cache');
+		$this->db->truncate('characteristics');
+		$this->db->truncate('characteristic2product');
+		
 		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -477,20 +480,6 @@ class Import extends Admin_Controller
 					
 //					if (!$this->db->get_where('product2collection', $product2collection)->result())				
 						$this->db->insert('product2collection', $product2collection);
-				}
-				
-				//$this->db->delete('characteristics', array('object_type' => "products", 'object_id' => $product_id));
-				$c2p = $this->db->get_where('characteristic2product', array('product_id' => $product_id))->result();
-				if(!empty($c2p))
-				{
-					$ch_id = array();
-					foreach($c2p as $item)
-					{
-						$ch_id[] = $item->characteristic_id;
-					}
-					
-					$this->db->where_in('id', $ch_id);
-					$this->db->delete('characteristics');
 				}
 				
 				if($filters)
