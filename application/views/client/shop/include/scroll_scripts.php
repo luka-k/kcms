@@ -15,8 +15,11 @@
 		$("#good_page_scroll").height($( window ).height() - 80);
 		
 		$(document).ready(function(){
-			var product_width = $('#product-scroll').width();
-			$('.secondcolumn').css("max-width", (product_width - 2) + 'px');
+			//var product_width = ;
+			//var logo_width = $('#manufacturers_column').width();
+			var max_width = $('#product-scroll').width() + $('#manufacturers_column').width() - 2;
+			
+			$('.secondcolumn').css("max-width", max_width + 'px');
 	
 			$('.ajax_from').val(10);
 			$('#sorting_order').val('name');

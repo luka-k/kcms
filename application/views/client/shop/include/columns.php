@@ -96,7 +96,7 @@
 						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link"><?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>">+</span> <?endif;?><?=$item_1?></a>
+					<a href="#" class="level1_link" ><?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>">+</span> <?endif;?><?=$item_1?></a>
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
