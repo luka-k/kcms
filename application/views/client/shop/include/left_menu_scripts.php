@@ -1,5 +1,5 @@
 <script>
-	(function($){
+	(function($){	
 		$('.lm-item').click(function() {
 			if ($(this).hasClass('active'))
 			{
@@ -17,17 +17,23 @@
 				$('#searchpopupbtn').fadeOut('slow'); 
 			}
 		});
+		
+		$(document).click(function(event) {
+			if ($(event.target).closest(".secondcolumn").length) return;
+			if ($(event.target).closest(".lm-item").length) return;
+			$('.secondcolumn').fadeOut('slow');
+			$('.lm-item').removeClass('active');
+			$('.lm-item').stop().animate({width:'258px'},'slow');
+			event.stopPropagation();
+		});
 				
-		$('.secondcolumn a.level1_link').click(function() {
+		$('.secondcolumn .level1_click').click(function() {
 			$(this).parent().find('ul').toggle('slow');
-			if ($(this).find('span'))
-			{
-				if ($(this).find('span').html() == '+')
-					$(this).find('span').html('-');
-				else
-					$(this).find('span').html('+');
-			}
-			//return false;
+
+			if ($(this).html() == '+')
+				$(this).html('-');
+			else
+				$(this).html('+');
 		});
 				
 		$('.secondcolumn input').click(function() {

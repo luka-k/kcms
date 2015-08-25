@@ -1927,6 +1927,11 @@ text-align:center;
 	padding-top: 6px;
 }
 
+.secondcolumn .level1_click{
+	font-size: 12px;
+	cursor:pointer;
+}
+
 .secondcolumn  a{
 	margin: 0;
 	padding: 0;

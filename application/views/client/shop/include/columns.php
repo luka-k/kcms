@@ -96,7 +96,7 @@
 						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link" ><?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>">+</span> <?endif;?><?=$item_1?></a>
+					<?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link" ><?=$item_1?></a>
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
@@ -130,7 +130,7 @@
 	<ul class="level1">
 		<?foreach($sku_tree as $s):?>
 			<li>
-				<a href="#" class="level1_link"><?if($s->sku):?> <span>-</span> <?endif;?><?=$s->name?></a>
+				<?if($s->sku):?> <span class="level1_click">-</span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
 				<?if($s->sku):?>
 					<ul id="sub-sku-<?=$s->id?>" style="display:block">
 						<?foreach($s->sku as $sku):?>
@@ -165,7 +165,7 @@
 					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
 					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 				/>
-				<a href="#" class="level1_link"><?if($c->childs):?><span id="cll-<?=$c->id?>">+</span><?endif;?> <?=$c->name?></a>
+				<?if($c->childs):?><span id="cll-<?=$c->id?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link"><?=$c->name?></a>
 				<?if($c->childs):?>
 					<ul id="sub-collections-<?=$c->id?>">
 						<?$show_counter = 0?>
@@ -222,7 +222,7 @@
 					   onclick="checked_tree('<?=$item_1->id?>', 'parent', 'fork'); $('#last_type_filter').val('categories_checked')"
 					   <?if(isset($filters_checked['parent_checked']) && in_array($item_1->id, $filters_checked['parent_checked'])):?>checked<?endif;?>
 				/>
-				<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link"><?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>">+</span> <?endif;?><?=$item_1->name?></a>
+				<?if(!empty($item_1->childs)):?><span id="pll-<?=$item_1->id?>" class="level1_click">+</span> <?endif;?><a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link"><?=$item_1->name?></a>
 				<?if(!empty($item_1->childs)):?>
 					<ul id="sub-parent-<?=$item_1->id?>">
 						<?$show_counter = 0?>
