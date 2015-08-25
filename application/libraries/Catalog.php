@@ -161,7 +161,8 @@ class CI_Catalog {
 	
 	public function get_min($items, $field)
 	{
-		$min = $items[0];
+		$min = $items[0]->$field;
+
 		foreach($items as $item)
 		{
 			if($item->$field < $min) $min = $item->$field;

@@ -68,10 +68,11 @@
 
 					var div_sh = $(this)[0].scrollHeight;
 					var div_h = $(this).height();
-
-					if($(this).scrollTop() >= div_sh - div_h){
-						$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
-					}
+					<?if(!$no_ajax):?>
+						if($(this).scrollTop() >= div_sh - div_h){
+							$.post('<?=base_url()?>shop/catalog/ajax_more/', $('#filter-form').serialize(), answer, 'json');
+						}
+					<?endif;?>
 				});
 			<?endif?>
 		});

@@ -226,12 +226,25 @@ class Catalog extends Client_Controller {
 			'filters' => $this->characteristics_type->get_filters($all_products),
 			'total_rows' => count($all_products),
 			'no_shadow' => TRUE,
+			'no_ajax' => TRUE
 		);
 		
 		$data['filters']['is_sale'] = 1;
 		
 		$data['category'] = new stdClass;
 		$data['category']->products = $products;
+		
+		$data['price_min'] = $data['price_from'] = $this->catalog->get_min($products, 'sale_price');
+		$data['price_max'] = $data['price_to'] = $this->catalog->get_max($products, 'sale_price');
+			
+		$data['width_min'] = $data['width_from'] = $this->catalog->get_min($products, 'width');
+		$data['width_max'] = $data['width_to'] = $this->catalog->get_max($products, 'width');
+			
+		$data['height_min'] = $data['height_from'] = $this->catalog->get_min($products, 'height');
+		$data['height_max'] = $data['height_to'] = $this->catalog->get_max($products, 'height');
+			
+		$data['depth_min'] = $data['depth_from'] = $this->catalog->get_min($products, 'depth');
+		$data['depth_max'] = $data['depth_to'] = $this->catalog->get_max($products, 'depth');
 		
 		$data = array_merge($this->standart_data, $data);
 
