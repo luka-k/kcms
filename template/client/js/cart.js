@@ -86,21 +86,29 @@ function precart(id, type, price, place){
 
 function precart_answer(res){
 	if(res.action == "add"){
-		$('.price-'+res.type+'-'+res.id).html('');
-		$('.price-'+res.type+'-'+res.id).html('<div class="s_price">'+res.item_price+' р.</div><div class="s_qty"><a href="#" class="minus_pc-'+res.item_id+'">-</a><span class="'+res.item_id+'-qty">'+res.item_qty+'</span><a href="#" class="plus_pc-'+res.item_id+'">+</a></div><dic class="'+res.item_id+'-total s_total">'+res.item_total+' р.</div>');
+		var item = $('#'+res.type+'-'+res.id).html();
+		
+		$("#pre_cart").append('<div id="pc-'+res.type+'-'+res.id+'" class="accordeon-item clearfix"></div>');
+		$('#pc-'+res.type+'-'+res.id).html(item);
+		$('#pc-'+res.type+'-'+res.id+' .price-'+res.type+'-'+res.id).html('<div class="s_price">'+res.item_price+' р.</div><div class="s_qty"><a href="#" class="minus_pc-'+res.item_id+'">-</a><span class="'+res.item_id+'-qty">'+res.item_qty+'</span><a href="#" class="plus_pc-'+res.item_id+'">+</a></div><dic class="'+res.item_id+'-total s_total">'+res.item_total+' р.</div>');
 	
 		var click_minus = "update_precart('"+res.item_id+"', 'minus'); return false;";
 		var click_plus = "update_precart('"+res.item_id+"', 'plus'); return false;";
 		$('.minus_pc-'+res.item_id).attr('onclick', click_minus);
 		$('.plus_pc-'+res.item_id).attr('onclick', click_plus);
-	
-		$("#pre_cart").append( $('#'+res.type+'-'+res.id) );
+				
+		$('#'+res.type+'-'+res.id).css('display', 'none');
+		
+		$('.ch-'+res.type+'-'+res.id).prop("checked", true);
 	}
 	
 	if(res.action == "delete")
 	{
-		$('.price-'+res.type+'-'+res.id).html('');
-		$('.price-'+res.type+'-'+res.id).html('<div>Цена розничная: <del>'+res.price+' р.</del><span class="discount">-'+res.discount+' %</span></div><div>Цена на сайте: <span class="top-price">'+res.sale_price+'</span> р.</div><div>Наличие: <span class="blue-label">'+res.location+'</span></div>');
+		$('#'+res.type+'-'+res.id).css('display', 'block');
+		$('.ch-'+res.type+'-'+res.id).prop("checked", false);
+		$('#pc-'+res.type+'-'+res.id).remove();
+		//$('.price-'+res.type+'-'+res.id).html('');
+		//$('.price-'+res.type+'-'+res.id).html('<div>Цена розничная: <del>'+res.price+' р.</del><span class="discount">-'+res.discount+' %</span></div><div>Цена на сайте: <span class="top-price">'+res.sale_price+'</span> р.</div><div>Наличие: <span class="blue-label">'+res.location+'</span></div>');
 		var place = res.place - 1;
 
 		if($("div").is("."+res.type+'-'+place)){
