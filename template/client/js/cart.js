@@ -107,16 +107,6 @@ function precart_answer(res){
 		$('#'+res.type+'-'+res.id).css('display', 'block');
 		$('.ch-'+res.type+'-'+res.id).prop("checked", false);
 		$('#pc-'+res.type+'-'+res.id).remove();
-		//$('.price-'+res.type+'-'+res.id).html('');
-		//$('.price-'+res.type+'-'+res.id).html('<div>Цена розничная: <del>'+res.price+' р.</del><span class="discount">-'+res.discount+' %</span></div><div>Цена на сайте: <span class="top-price">'+res.sale_price+'</span> р.</div><div>Наличие: <span class="blue-label">'+res.location+'</span></div>');
-		var place = res.place - 1;
-
-		if($("div").is("."+res.type+'-'+place)){
-			$("."+res.type+'-'+place).after($('#'+res.type+'-'+res.id));
-		}else{
-			place = place + 2;
-			$("."+res.type+'-'+place).before($('#'+res.type+'-'+res.id));
-		}
 	}
 
 	$(".pre_cart_price").text(res.total_price+" р.");
