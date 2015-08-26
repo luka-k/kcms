@@ -15,6 +15,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
+				$('#last_type_filter').val('width');
 				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
@@ -39,6 +40,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
+				$('#last_type_filter').val('height');
 				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
@@ -62,6 +64,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
+				$('#last_type_filter').val('weight');
 				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}
@@ -85,6 +88,7 @@
 			},
 			stop: function( event, ui ) {
 				show_popup();
+				$('#last_type_filter').val('price');
 				$('#searchpopupbtn').css('top', ($(this).offset().top - 78) + 'px');
 				$('#searchpopupbtn').css('left', ($(this).offset().left + 237) + 'px');
 			}			

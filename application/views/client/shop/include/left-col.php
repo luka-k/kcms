@@ -36,8 +36,14 @@
 						
 		</div>
 		
+		<div class="lm-block" style="margin-top:15px; padding-bottom:10px; text-align:left;">
+			<a href="#" class="submit-btn ch <?if(isset($filters['is_sale']) && $filters['is_sale'] == '1'):?>active<?endif;?>" data-type="is_sale" style="margin-right:18px;">Распродажа</a>
+			<a href="#" class="submit-btn ch <?if(isset($filters['discontinued']) && $filters['discontinued'] == '1'):?>active<?endif;?>" data-type="discontinued">Снято с производства</a>
+		</div>
+		
 			<input type="hidden" name="filter" value="true"/>
-			<input type="hidden" name="is_sale" value="<?if(isset($filters['is_sale'])):?><?=$filters['is_sale']?><?else:?>2<?endif;?>"/>
+			<input type="hidden" name="is_sale" class="input_is_sale" value="<?if(isset($filters['is_sale'])):?><?=$filters['is_sale']?><?else:?>2<?endif;?>"/>
+			<input type="hidden" name="discontinued" class="input_discontinued" value="<?if(isset($filters['discontinued'])):?><?=$filters['discontinued']?><?else:?>2<?endif;?>"/>
 			<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
 			<input type="hidden" id="ajax_from" class="ajax_from" name="from" value="10"/>
 			<input type="hidden" id="sorting_order" name="order" value="name"/>

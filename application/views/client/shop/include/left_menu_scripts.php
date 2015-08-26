@@ -35,6 +35,23 @@
 			else
 				$(this).html('+');
 		});
+		
+		$('.submit-btn.ch').click(function() {
+			var type = $(this).attr('data-type');
+			
+			if($('.input_'+type).val() == 1)
+			{
+				$('.input_'+type).val('2');
+				$(this).removeClass('active');
+			}
+			else
+			{
+				$('.input_'+type).val('1');
+				$(this).addClass('active');
+			}
+			
+			$('#filter-form').submit();
+		});
 				
 		$('.secondcolumn input').click(function() {
 			var width = $(this).parent().width();
@@ -47,6 +64,8 @@
 			$('#filter-form').submit();
 		});
 	})(jQuery);
+	
+	
 	
 	function show_popup(width){
 		$('#total_count').html('...');

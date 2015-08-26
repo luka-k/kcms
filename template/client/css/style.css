@@ -2000,6 +2000,15 @@ text-align:center;
 	text-decoration:none;
 	color:black;
 }
+
+.submit-btn.ch{
+	width:auto;
+	font-size:12px;
+}
+
+.submit-btn.ch.active{
+	background: #7f8fa8;
+}
  
 .submit-btn:hover {
 	background: #7f8fa8;

@@ -38,7 +38,7 @@ class Characteristics extends MY_Model
 			{
 				$sd = explode ('/', $shortdesc);
 	 			
-				$this->db->where('type', 'shortname');
+				/*$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
 
 				$results = $this->db->get('characteristics')->result();
@@ -47,13 +47,13 @@ class Characteristics extends MY_Model
 				if(!empty($results)) foreach($results as $r)
 				{
 					$parent_ids[] = $r->id;
-				}
+				}*/
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
-				$this->db->where_in('parent_id', $parent_ids);
+				//$this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
-
+	
 				$ch_ids = array();
 				if(!empty($result))foreach($result as $r)
 				{
@@ -71,7 +71,7 @@ class Characteristics extends MY_Model
 					}
 				}
 			}
-
+			++$counter;
 		}
 
 		if(isset($filter['shortname']))
@@ -131,12 +131,19 @@ class Characteristics extends MY_Model
 		{
 			$query = "SELECT * FROM products ";
 			
-			if(!empty($id) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+			if(!empty($id) || $filter['discontinued'] || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "WHERE ";
 					
 			if(isset($filter['is_sale']) && $filter['is_sale'] == '1')
 			{
 				$query .= "sale = 1 ";
+				if(!empty($id) || $filter['discontinued'] || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					$query .= "AND ";
+			}
+			
+			if(isset($filter['discontinued']) && $filter['discontinued'] == '1')
+			{
+				$query .= "discontinued != '' ";
 				if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
@@ -255,7 +262,7 @@ class Characteristics extends MY_Model
 	protected function _update_values($values)
 	{
 		$results = $this->db->get('characteristics')->result();
-		
+	
 		$ch_ids = array();
 		if($results) foreach($results as $r)
 		{
