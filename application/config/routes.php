@@ -54,7 +54,8 @@ if($host[0] == "shop")
 	$route['catalog/count'] = 'shop/catalog/count';
 	$route['catalog/ajax_more'] = 'shop/catalog/ajax_more';
 	$route['catalog/filter/(:any)'] = 'shop/catalog/filter/$1';
-	$route['catalog/sale'] = 'shop/catalog/sale';
+	$route['catalog/sale'] = 'shop/catalog/get_by_filter';
+	//$route['catalog/sale'] = 'shop/catalog/sale';
 	$route['catalog'] = 'shop/catalog/index';
 	$route['catalog/(:any)'] = 'shop/catalog/index/$1';
 	$route['catalog/(:any)/(:num)'] = 'shop/catalog/index/$1/$2';

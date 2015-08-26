@@ -1377,15 +1377,15 @@ article h2 {
 }
 
 .accordeon-body .description_col{
-	width: -moz-calc(100% - 395px);
-	width: -webkit-calc(100% - 395px);
-	width: calc(100% - 395px);
+	width: -moz-calc(100% - 405px);
+	width: -webkit-calc(100% - 405px);
+	width: calc(100% - 405px);
 	float:left;
 	padding-left:20px;
 }
 
 .accordeon-body .price_col{
-	width:205px;
+	width:215px;
 	float:right;
 }
 
@@ -1953,7 +1953,7 @@ text-align:center;
 	position: absolute;
 	z-index: 10;
 	left: 6px;
-	top: 216px;
+	top: 258px; /*216*/
 	width: 271px;
 	height: 516px;
 	z-index: 9999;

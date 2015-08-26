@@ -85,6 +85,8 @@ class Catalog extends Client_Controller {
 		$this->breadcrumbs->add(base_url(), 'Главная');
 		$this->breadcrumbs->add('catalog', 'Каталог');
 		
+		$this->post = $this->input->post();
+		
 		if(isset($this->post['filter']))
 		{
 			 $this->get_by_filter();
@@ -204,8 +206,9 @@ class Catalog extends Client_Controller {
 	public function sale()
 	{
 		$this->session->unset_userdata('last_cache_id');
-		
-		$this->breadcrumbs->add(base_url(), 'Главная');
+				
+		redirect(base_url().'catalog/');
+		/*$this->breadcrumbs->add(base_url(), 'Главная');
 		$this->breadcrumbs->add('catalog', 'Каталог');
 		$this->breadcrumbs->add('', 'Распродажа');
 		
@@ -248,7 +251,7 @@ class Catalog extends Client_Controller {
 		
 		$data = array_merge($this->standart_data, $data);
 
-		$this->load->view("client/shop/categories", $data);
+		$this->load->view("client/shop/categories", $data);*/
 	}
 	
 	/**
@@ -256,6 +259,20 @@ class Catalog extends Client_Controller {
 	*/
 	public function get_by_filter()
 	{	
+		if($this->uri->uri_string() == "catalog/sale")
+		{
+			$this->post = array(
+				'filter' => TRUE, 
+				'last_type_filter' => '', 
+				'is_sale' => 1,
+				'from' => 0,
+				'name' => '',
+				'order' => 'name',
+				'direction' => 'asc',
+				'discontinued' => 2
+			);
+		}
+
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
