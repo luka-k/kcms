@@ -38,7 +38,7 @@ class Characteristics extends MY_Model
 			{
 				$sd = explode ('/', $shortdesc);
 	 			
-				/*$this->db->where('type', 'shortname');
+				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
 
 				$results = $this->db->get('characteristics')->result();
@@ -47,11 +47,11 @@ class Characteristics extends MY_Model
 				if(!empty($results)) foreach($results as $r)
 				{
 					$parent_ids[] = $r->id;
-				}*/
+				}
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
-				//$this->db->where_in('parent_id', $parent_ids);
+				$this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
 	
 				$ch_ids = array();
@@ -69,9 +69,10 @@ class Characteristics extends MY_Model
 					{
 						$ff[] = $values[] = $r->product_id;
 					}
+					//my_dump($result);
 				}
 			}
-			++$counter;
+			//++$counter;
 		}
 
 		if(isset($filter['shortname']))

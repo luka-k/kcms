@@ -137,7 +137,8 @@ class CI_Catalog {
 			$this->CI->db->select('type, value, id');
 			$this->CI->db->where_in('id', $ch_ids);
 			if(!empty($sl)) $this->CI->db->where_in('id', $sl);
-			if(!empty($selected['shortname'])) $this->CI->db->where_in('value', $selected['shortname']);
+			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
+			
 			$this->CI->db->where('type', 'shortname');
 			$this->CI->db->order_by('value', 'asc');
 			$result = $this->CI->db->get('characteristics')->result();
@@ -163,7 +164,7 @@ class CI_Catalog {
 		//my_dump($nok_tree);
 		$this->CI->benchmark->mark('code_end');
 		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
-
+		
 		return $nok_tree;
 	}
 	

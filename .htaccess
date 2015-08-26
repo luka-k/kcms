@@ -13,7 +13,7 @@ RewriteCond $1 !^(admin)
 RewriteRule ^(.*[^\/])$ /$1/ [R=301,L]
 
 
-php_value display_errors off
+php_value display_errors on
 
 php_value upload_max_filesize 400M
 php_value max_execution_time 8000
