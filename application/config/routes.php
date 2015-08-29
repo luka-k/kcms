@@ -44,6 +44,8 @@ $route['admin'] = "admin";
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
+$route['ajax/(:any)'] = 'ajax/$1';
+
 $route['(:any)'] = "static_page";
 
 $route['registration/(:any)'] = 'registration/$1';

@@ -2819,8 +2819,11 @@ iframe {
 .review .sum p {
 	margin-bottom: 14px;
 }
-.review .comment p span {
+.review .comment span {
 	font-weight: bold;
+	display:inline-block;
+	float:left;
+	margin-right:5px;
 }
 
 .review .notebook {
