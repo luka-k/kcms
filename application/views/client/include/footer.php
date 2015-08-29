@@ -1,37 +1,71 @@
-<footer class="footer" id="footer">
-	<div class="footer__wrap wrap">
-		<div class="footer__subscribe">
-			<div class="subscribe">
-				<div class="subscribe__title">
-					Для наших подписчиков - скидки, новинки и полезные советы!
-				</div> <!-- /.subscribe__title -->
-				
-				<div class="subscribe__form">
-					<div class="subscribe-form">
-						<form action="#" class="form" where="validate_ajax" id="subscribe_form" method="post">
-							<div class="subscribe-form__line">
-								<input type="text" class="form__input subscribe-form__input required email" name="email" placeholder="" />
-							</div> <!-- /.subscribe__line -->
-							
-							<div class="subscribe-form__button">
-								<button class="button button--normal" onclick="">Подписаться</button>
-							</div> <!-- /.subscribe__button -->
-						</form> <!-- /.form -->
-					</div> <!-- /.subscribe-form -->
-				</div> <!-- /.subscribe__form -->
-			</div> <!-- /.subscribe -->
-		</div> <!-- /.footer__subscribe -->
-		
-		<? require 'footer-nav.php'?>
-		
-		<div class="footer__contacts">
-			<div class="contacts-info">
-				<div class="contacts-info__item">
-					<div class="contacts-info__copy">greenWEELS &copy; 2015</div> <!-- /.contacts-info__copy -->
-					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
-				</div> <!-- /.contacts-info__item -->
+<footer>
 
-			</div> <!-- /.contacts-info -->
-		</div> <!-- /.footer__contacts -->
-	</div> <!-- /.footer__wrap wrap -->
-</footer> <!-- /.header -->
+
+	<div class="wrapper">
+		<div class="contacts-block">
+			<h4>Контакты</h4>
+			<div class="contacts-box">
+				<span>+7 (812) 416-56-78</span>
+			</div>
+			<div class="contacts-box">
+				<span>5-ая Советская ул., 45</span>
+			</div>
+			<div class="contacts-box">
+				<a href="mailto:info@ribaweb.ru">info@ribaweb.ru</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="map">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d999.4859634055448!2d30.374968999999997!3d59.932607999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x469631bdd4080baf%3A0x72739f4ef9a8a762!2zNS3RjyDQodC-0LLQtdGC0YHQutCw0Y8g0YPQuy4sIDQ1LCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywgMTkxMDI0!5e0!3m2!1sru!2sru!4v1435663879800" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>
+	
+	<div class="footer-bottom">
+		<div class="wrapper">
+			<div class="row clearfix">
+				<div class="col">
+					<div class="soc">
+						<span>© ООО РИБА</span>
+						<span>ИНН 7842528027</span>
+						<span>ОГРН 1147847333116</span>
+						<a href="#win1" class="soc-call">Обратный звонок</a>
+						<a href="http://vk.com/ribaweb"><img src="<?=base_url()?>template/client/img/vk.png" height="34" width="34" alt=""></a>
+					</div>
+					<div class="table">
+						<div style="width:50%; float:left">
+							<div class="tr"><a href="services.php">Услуги</a>
+								<a href="business-for.php" class="sub-item">Бизнес под ключ</a>
+								<a href="joint-business.php" class="sub-item">Совместный бизнес</a>
+								<a href="services.php" class="sub-item">Прочие услуги</a>
+							</div>
+							<div class="tr"><a href="faq.php" style="clear:both; float:left;">FAQ</a></div>
+						</div>
+						<div style="width:50%; float:left">
+							<div class="tr"><a href="about.php">О нас</a></div>
+							<div class="tr"><a href="projects.php">Наши проекты</a></div>
+							<div class="tr"><a href="contacts.php">Контакты</a></div>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="question">
+						<form action="" method="post">
+							<h4>У вас остались вопросы?</h4>
+							<input type="text" class="required" name="name" placeholder="Ваше имя" style="margin-right: 4%;">
+							<input type="text" class="required" name="mail" placeholder="Email">
+		<input type="hidden" name="product_name" value="<?= $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?> - Задать вопрос" />
+							<textarea name="message" cols="30" class="required" rows="1" placeholder="Ваш вопрос"></textarea>
+							<button>Отправить</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</footer>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'gMdCBpQDmn';
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+<!-- {/literal} END JIVOSITE CODE -->

@@ -1,28 +1,5 @@
-<head>
-	<title><?=$title?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="keywords" content="<?=$meta_keywords?>" />
-	<meta name="description" content="<?=$meta_description?>" />
-		
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/fancybox/source/jquery.fancybox.css" media="all" /> <!--fancybox css-->
-	<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" media="all" /> <!--fancybox css-->
-	<link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/style.css" media="all" />  <!--custom css-->
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>template/client/css/grid.css" media="all" />
-		
-	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script> <!--jquery js-->
-	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>  <!--fancybox js-->
-	<script type="text/javascript" src="<?=base_url()?>template/js/jquery-ui/jquery-ui.js"></script>
-	<script type="text/javascript" src="<?php echo base_url()?>template/client/js/cart.js"></script>
-	<script type="text/javascript" src="<?php echo base_url()?>template/client/js/script.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/wishlist.js"></script>
-	<script type="text/javascript" src="<?=base_url()?>template/client/js/datepicker.js"></script>
-	<script src="<?=base_url()?>template/client/js/main.js"></script>
-	
-	<!-- Slider -->
-	<script src="<?=base_url()?>template/client/js/bxslider/jquery.bxslider.min.js"></script>
-	
-	<!-- Обработка и валидация форм -->
-	<script src="<?=base_url()?>template/client/js/vendor/jquery.form.min.js"></script>
-	<script src="<?=base_url()?>template/client/js/vendor/jquery.validate.min.js"></script>
-</head>
+<link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
+<link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Roboto:700,400,100,300|Roboto+Condensed:400,300&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+<link href="<?=base_url()?>favicon.ico" rel="shortcut icon" type="image/x-icon" />

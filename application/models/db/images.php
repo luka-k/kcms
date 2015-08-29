@@ -114,7 +114,7 @@ class Images extends MY_Model
 			}
 			
 			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
-			
+
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
 			{

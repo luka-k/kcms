@@ -61,7 +61,7 @@ class Menus_items extends MY_Model
 			else
 			{
 				$url = explode ("://", $b->url, -1);
-				empty($url) ? $branches[$i]->full_url = $this->item_prepare($b, $b->item_type) : $branches[$i]->full_url = $b->url;
+				$branches[$i]->full_url = $branches[$i]->full_url = $b->url;
 			}
 
 			$branches[$i]->childs = $this->menu_tree($menu_id, $b->id);

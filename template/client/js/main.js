@@ -1,353 +1,152 @@
-;(function(){
-	"use strict";
-	
-	var app = {};
-	
-	app.init = function(){
-		this.fancyBoxes(); // Модальные окна
-		this.validate(); // валидация форм
-		this.bxslider(); // слайдеры на главной и в товаре
-		
-		this.productImages(); // смена картинок в товаре
-		this.productExtraTabs(); // табы в описании товара
-		this.catalogRange(); // диапазон цен в каталоге
-		this.catalogLoadMore(); // загрузка дополнительных товаров в каталоге и анимашка стрелок
-		
-		this.cartOrderExtra(); // Показываем доп поля в оформлении заказа
-		
-		this.dealersMap(); // Карта РФ в дилерах
-	};
-
-
-/* ==========================================================================
- * Модальные окна
- * ========================================================================== */
+var order_id = 0;
  
-	app.fancyOptions = {
-		padding: 0,
-		scrolling: 'no',
-		autoCenter : false,
-		fitToView: false,
-		helpers: {
-			overlay: {
-				locked: false // if true (default), the content will be locked into overlay
-			}
-		}
-	};
-	
-	app.fancyBoxes = function(){
-		$('.fancybox').fancybox(this.fancyOptions);
-		$('.fancyimage').fancybox({
-			maxWidth: 900
-		});
-		
-		$('.js-close-fancybox').on('click', function(){
-			$.fancybox.close();
-			return false;
-		});
-	};
+function showResponse(responseText, statusText, xhr, $form)
+{
+	//document.location='success.php';
+	document.location= window.location.pathname.toString()+'#win3';
+}
+
+function bookLoad(responseText, statusText, xhr, $form)
+{
+	document.location='books/ribabook.pdf';
+}
   
-/* ==========================================================================
- * Слайдеры
- * ========================================================================== */
+function getPromoPixel()
+{
+	/*
+	if (document.location.href.indexOf('from=qxplus') != -1 || $.cookie('promo') == 'qxplus')
+		return '<img src="http://www.qxplus.ru/scripts/sale.php?AccountId=cc42a0f9&TotalCost=2590.00&OrderID='+order_id+'&ProductID=healthyeyes_default" width="1" height="1" >';
+	if (document.location.href.indexOf('utm_source=actionpay') != -1 || $.cookie('promo') == 'actionpay')
+	{
+		window.APRT_SEND({
+			pageType: 6,
+			purchasedProducts: [{
+			id: 1,
+			name: "HealthyEyes",
+			price: 2590,
+			quantity: 1
+			}],
+		});
+		return '<img src="//n.actionpay.ru/ok/6574.png?actionpay='+$.cookie('actionpay')+'&apid='+order_id+'&price=2590" height="1" width="1" />';
+	}*/
+	return '';
+}
 
-	app.bxslider = function(){
-	
-		$('.promo__slider').bxSlider({
-			controls: false,
-			auto: true
-		})
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
 
-		var thumbsCount = $('.product-images-thumbs__item').length;
-
-		if (thumbsCount > 4){
-			$('.product-images-thumbs').bxSlider({
-				pager: false,
-				mode: 'vertical',
-				minSlides: 4,
-				maxSlides: 4,
-				moveSlides: 1,
-				adaptiveHeight: false
-			});
-		}
-	};
-
-
-/* ==========================================================================
- * Товар
- * ========================================================================== */
-
-
-  //Смена изображений товара
-  app.productImages = function(){
-    var $images = $('.product-images'),
-        $bigImages = $images.find('.product-images__href'),
-        $thumbHrefs = $images.find('.product-images-thumbs__href');    
-
-    
-    //hide big images except first
-    $bigImages.not( $bigImages.eq(0) )
-              .addClass('hidden');
-
-    $thumbHrefs.on('click', function(){
-      var image = $(this).attr('href'),
-          fullImage = $(this).data('full-image');
-
-      $bigImages.removeClass('hidden')
-                .not( $images.find('[href="' +fullImage + '"]') )
-                .addClass('hidden');
-
-      return false;
-    });
-
-  }
-
-
-  //Переключение табов в описании товара
-  app.productExtraTabs = function(){
-    var $productExtraInfo = $('.product-extra-info'),
-        $productExtraTabs = $productExtraInfo.find('.product-extra-info__tab'),
-        $productExtraBloks = $productExtraInfo.find('.product-extra-info__block');
-
-    $productExtraBloks.not( $productExtraBloks.eq(0) ).hide();
-
-    $productExtraTabs.on('click', function(){
-      
-      var target = $(this).attr('href');
-
-      $productExtraBloks.show()
-                        .not( target )
-                        .hide();      
-
-      $productExtraTabs.removeClass('active');
-      $(this).addClass('active');
-      
-      return false;
-    });
-
-  };
-
-/* ==========================================================================
- * Каталог
- * ========================================================================== */
-
-  //Слайдер цены 
-  app.catalogRange = function(){
-
-    var $rangeSlider = $('[data-range-slider]'),
-        $rangeFrom = $('[data-range-from]'),
-        $rangeTo = $('[data-range-to]'),
-        min = $rangeSlider.data('range-min'),
-        max = $rangeSlider.data('range-max'),
-		min_value = $rangeSlider.data('min-value'),
-        max_value = $rangeSlider.data('max-value'),
-        step = parseInt( (max - min) / 10 );
-
-    $rangeSlider.slider({
-      min: min,
-      max: max,
-      step: step,
-      range: true,
-      values: [ min_value, max_value ],
-      stop: function( event, ui ) {
-		$rangeFrom.html( ui.values[ 0 ] );
-        $rangeTo.html( ui.values[ 1 ] );
-		var price_from = ui.values[ 0 ];
-		var price_to = ui.values[ 1 ];
-		$('#price_from').val(price_from);
-		$('#price_to').val(price_to);
-      }
-    });  
-
-  };
-
-  //Загрузка товуаров по клику "Еще товары"
-  app.catalogLoadMore = function(){
-    
-    $('.load-link__href').on('click', function(){
-      var _this = this;
-      $(_this).addClass('rotate');
-
-      //Тут будет отбработка загрузки новых товаров
-      //а пока просто таймаут
-      setTimeout(function(){
-        $(_this).removeClass('rotate');
-      }, 4000);
-
-      return false;
-    });
-
-  };
-
-
-	//Показываем дополнительные поля при оформлении заказа
-	app.cartOrderExtra = function(){
-		var $extra = $('.cart-order__extra');
-		$('.cart-order__extra-link').on('click', function(){
-			$extra.slideToggle();
-			return false;
-		})
+function initCookies()
+{
+	var options = { expires: 365 };
+	if (document.location.href.indexOf('from=qxplus') != -1)
+	{
+		$.cookie('promo', 'qxplus', options);
 	}
+	if (document.location.href.indexOf('utm_source=actionpay') != -1)
+	{
+		options = { expires: 30 };
+		$.cookie('promo', 'actionpay', options);
+		$.cookie('utm_source', 'actionpay', options);
+		$.cookie('utm_campaign', 'actionpay', options);
+		$.cookie('actionpay', getQueryVariable('actionpay'), options);
+	}
+}
 
-
-/* ==========================================================================
- * Карта РФ
- * ========================================================================== */
-
-  app.dealersMap = function(){
-	var data = new Object();
+function initTimer()
+{
+	var time = new Date().getTime();
+	var hour = new Date().getHours();
+	time = time + 1000 * 3600 * 24;
+	var date = new Date();
+	date.setTime(time);
+	if (hour > 22)
+	{
+		var dateString = date.getDate() + "." + (1+date.getMonth()) + "." + date.getFullYear() + ".4.0";
+	} else {
+		var dateString = date.getDate() + "." + (1+date.getMonth()) + "." + date.getFullYear() + ".0.0";
+	}
 	
-	var map = $('#map').attr('class');
-
-	data.map = map;
-	var json_str = JSON.stringify(data);
-	
-	$.post( "/ajax/map/", json_str, function(res) {
-
-		var dealers = JSON.parse(res);
-		var $dealersMap = $('.'+map);
-
-		if ($dealersMap.length == 0) return;
-
-		var data_obj = dealers;
-
-		var colorRegion = '#cccccc', // Цвет всех регионов
-			focusRegion = '#cccccc', // Цвет подсветки регионов при наведении на объекты из списка
-			selectRegion = '#535353', // Цвет изначально подсвеченных регионов
-
-			iso,
-			highlighted_states = {};
-
-		// Массив подсвечиваемых регионов, указанных в массиве data_obj
-		for(iso in data_obj){
-			highlighted_states[iso] = selectRegion;
-		}
-
-		$dealersMap.vectorMap({
-			map: 'russia',
-			backgroundColor: '#ffffff',
-			borderColor: '#ffffff',
-			borderWidth: 2,
-			color: colorRegion,
-			colors: highlighted_states,         
-			hoverOpacity: 0.7,          
-			enableZoom: true,
-			showTooltip: true,          
-        
-			// Отображаем объекты если они есть
-			onLabelShow: function(event, label, code){
-				var list_obj,
-					ob,
-					name = '<strong>'+label.text()+'</strong><br>';          
-            
-				if(data_obj[code]){
-					list_obj = '<ul>';
-					for(ob in data_obj[code]){                  
-						list_obj += '<li>'+data_obj[code][ob]+'</li>';
-					}
-					list_obj += '</ul>';
-				}else{
-					list_obj = '';
-				}               
-				label.html(name + list_obj);                
-				list_obj = '';              
-			}, 
-			onRegionClick: function(element, code, region){
-				var regions_codes = Object.keys(dealers);
-				if($.inArray(code, regions_codes) != -1){
-					if(map == "page-dealers__map"){
-						document.location.replace("/articles/gde-kupit/dealers/"+code);
-					}else if(map == "page-services__map"){
-						document.location.replace("/articles/gde-kupit/sells_services/"+code);
-					}
-				}
-			}
-		}); 
+	$(".eTimer").eTimer({
+		etType: 0, etDate: dateString, etTitleText: "До окончания акции осталось:", etTitleSize: 20, etShowSign: 1, etSep: " ", etFontFamily: "Arial", etTextColor: "#a3a3a3", etPaddingTB: 5, etPaddingLR: 15, etBackground: "#333333", etBorderSize: 0, etBorderRadius: 2, etBorderColor: "white", etShadow: " 0px 0px 10px 0px #333333", etLastUnit: 3, etNumberFontFamily: "Impact", etNumberSize: 35, etNumberColor: "white", etNumberPaddingTB: 0, etNumberPaddingLR: 8, etNumberBackground: "#11abb0", etNumberBorderSize: 0, etNumberBorderRadius: 5, etNumberBorderColor: "white", etNumberShadow: "inset 0px 0px 10px 0px rgba(0, 0, 0, 0.5)"
 	});
- 
-  };
+}
 
+function doOrder(f, form, options)
+{
 
-/* ==========================================================================
- * Валидация и отправка форм
- * ========================================================================== */
- 
-  app.alaxOptions = {
-    url: "/ajax/callback/",
-    timeout: 3000,
-    datatype: 'json',
-    success: function showResponse(responseText, statusText, xhr, $form)  { 
-      var target = $form.data('popup') || 'success';
-      $.fancybox( $('#' + target), app.fancyOptions );
-    }       
-  };
-  
-  app.alaxOptions_2 = {
-    url: "/ajax/subscribe/",
-    datatype: 'json',
-    success: function showResponse(res) { 
+	yaCounter23961652.reachGoal('order');
 	
-		var res = JSON.parse(res); 
-		$.fancybox('<div class="result" style="text-align:center; margin-top:40px;"><p>'+res.answer+'</p></div>', {
-			autoSize: false,
-			autoHeight: false,
-			autoWidth: false,
-			autoResize: false,
-			width: 400,
-			height: 100
-		});
-		
-		setTimeout(function () {
-			$.fancybox.close();
-		}, 3000);
-    }       
-  };
+	
+	var promoCode = '';
+	var promoInfo = '';
+	var _product_name = '';
+	if (f[0].currentForm[2])
+		_product_name = f[0].currentForm[2].value;
+	var _summ = '';
+	if (f[0].currentForm[3])
+		_summ = f[0].currentForm[3].value;
+	$.post( "proxy.php", { product_name: _product_name, summ: _summ, name: f[0].currentForm[0].value, phone: f[0].currentForm[1].value, promo: promoCode, promo_info: promoInfo, email: ""}, function(data) {order_id=data.id;$(form).ajaxSubmit(options);}, "json");
+
+}
+
+(function(){
+
+	$(document).ready(function() {
   
-  app.submitForm = function(form){
-	if(form.id == "callback_form"){
-		$(form).ajaxSubmit( this.alaxOptions );
-	}
-	else if(form.id == "subscribe_form"){
-		$(form).ajaxSubmit( this.alaxOptions_2 );
-	}
-  }
+		initCookies();
+		initTimer();
+		$('[name="phone"]').mask("+7 (999) 999-9999"); 
 
-  app.validateMessages = {
-    required: "Это поле обязательно для заполнения.",
-    email: "Введите корректный e-mail адрес.",
-  };
+		//Настройки для отправки форм
+		var options = {
+		  url: "ajax/contact.php",
+		  timeout: 3000,
+		  datatype: 'json',
+		  success: showResponse 
+		};
+		var optionsBook = {
+		  url: "ajax/contact.php",
+		  timeout: 3000,
+		  datatype: 'json',
+		  success: bookLoad 
+		};
 
-  app.validate = function(){
-    var _this = this;
-    $.extend($.validator.messages, _this.validateMessages );
-    $('form').each(function() {
-	if($(this).attr('where') === "validate_ajax"){
-      $(this).validate({
-			errorPlacement: function(error, element) {},
-			submitHandler: function(form) {
-				_this.submitForm(form);
+		//Сообщения об ошибках ввода в поля
+		$.extend($.validator.messages, {
+			required: "",
+			email: "",
+		});
+
+		//Валидация форм
+		$('form').each(function() {  // attach to all form elements on page
+			
+			if ($(this).attr('id') == 'loadbook')
+			{
+				$(this).validate({
+					//errorPlacement: function(error, element) {},
+					submitHandler: function(form) {
+						doOrder($(this), form, optionsBook);
+					}
+				});
+			} else {
+				$(this).validate({
+					//errorPlacement: function(error, element) {},
+					submitHandler: function(form) {
+						doOrder($(this), form, options);
+					}
+				});
 			}
-      }); 
-	  }else{
-	   $(this).validate({
-			errorPlacement: function(error, element) {}
 		});
-	  }
-	  
-    });
-  };
-  
-  
-
-
-/* ==========================================================================
- * Влючаемся при загрузке
- * ========================================================================== */
-
-  $(document).ready(function() {
-
-    app.init();
 
   });
   
+
 }());
