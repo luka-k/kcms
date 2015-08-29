@@ -1,6 +1,6 @@
 RewriteEngine on
 
-RewriteCond $1 !^(index\.php|images|uploads|download|template|doc|robots\.txt)
+RewriteCond $1 !^(index\.php|images|book|uploads|download|template|doc|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1
 
 RewriteCond %{REQUEST_URI} ^(.*)//(.*)$

@@ -20,57 +20,20 @@ class Admin_orders extends Admin_Controller
 	/**
 	* Вывод заказов в админку
 	*/
-	public function index($filter = FALSE)
-	{
-		$delivery_id = $this->config->item('method_delivery');
-		$payment_id = $this->config->item('method_pay');
-		
-		if ($filter == FALSE)
-		{
-			$orders = $this->orders->get_list(FALSE);
-		}
-		elseif($filter == "by_order_code")
-		{
-			$order_code = $this->input->post("order_code");
-			$orders = $this->orders->get_list(array("order_code" => $order_code));
-		}
-		else
-		{
-			$orders = $this->orders->get_list(array("status_id" => $filter));
-		}
-		
-		$orders_info = array();
-		foreach ($orders as $key => $order)
-		{	
-			$orders_info[$key] = new stdClass();	
-			
-			$date = new DateTime($order->date);
+	public function index()
+	{		
 
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
-			
-			$orders_info[$key] = (object)array( 
-				"id" => $order->id,
-				"order_code" => $order->order_code,
-				"status_id" => $order->status_id,
-				"order_products" => $order_items,
-				"delivery_id" => $order->delivery_id,
-				"payment_id" => $order->payment_id,
-				"order_date" => date_format($date, 'Y-m-d'),
-				"name" => $order->user_name,
-				"phone" => $order->user_phone,
-				"email" => $order->user_email,
-				"address" => $order->user_address
-			);
+		$orders = $this->orders->get_list(FALSE);
+		
+		foreach($orders as $i => $o)
+		{
+			$item_date = new DateTime($o->date);
+			$orders[$i]->date = date_format($item_date, "Y-m-d");
 		}
 		
 		$data = array(
 			'title' => "Заказы",			
-			'orders_info' => array_reverse($orders_info),
-			'selects' => array(
-				'delivery_id' => $this->config->item('method_delivery'),
-				'payment_id' => $this->config->item('method_pay'),
-				'status_id' => $this->config->item('order_status')
-			),
+			'orders' => array_reverse($orders),
 			'url' => "/".$this->uri->uri_string()
 		);	
 		$data = array_merge($this->standart_data, $data);

@@ -2,7 +2,6 @@ var order_id = 0;
  
 function showResponse(responseText, statusText, xhr, $form)
 {
-	//document.location='success.php';
 	document.location= window.location.pathname.toString()+'#win3';
 }
 
@@ -93,7 +92,8 @@ function doOrder(f, form, options)
 	var _summ = '';
 	if (f[0].currentForm[3])
 		_summ = f[0].currentForm[3].value;
-	$.post( "proxy.php", { product_name: _product_name, summ: _summ, name: f[0].currentForm[0].value, phone: f[0].currentForm[1].value, promo: promoCode, promo_info: promoInfo, email: ""}, function(data) {order_id=data.id;$(form).ajaxSubmit(options);}, "json");
+		
+	//$.post( "proxy.php", { product_name: _product_name, summ: _summ, name: f[0].currentForm[0].value, phone: f[0].currentForm[1].value, promo: promoCode, promo_info: promoInfo, email: ""}, function(data) {order_id=data.id;$(form).ajaxSubmit(options);}, "json");
 
 }
 
@@ -107,13 +107,13 @@ function doOrder(f, form, options)
 
 		//Настройки для отправки форм
 		var options = {
-		  url: "ajax/contact.php",
+		  url: "ajax/contact",
 		  timeout: 3000,
 		  datatype: 'json',
 		  success: showResponse 
 		};
 		var optionsBook = {
-		  url: "ajax/contact.php",
+		  url: "ajax/contact",
 		  timeout: 3000,
 		  datatype: 'json',
 		  success: bookLoad 
@@ -133,14 +133,16 @@ function doOrder(f, form, options)
 				$(this).validate({
 					//errorPlacement: function(error, element) {},
 					submitHandler: function(form) {
-						doOrder($(this), form, optionsBook);
+						//doOrder($(this), form, optionsBook);
+						$(form).ajaxSubmit(optionsBook);
 					}
 				});
 			} else {
 				$(this).validate({
 					//errorPlacement: function(error, element) {},
 					submitHandler: function(form) {
-						doOrder($(this), form, options);
+						//doOrder($(this), form, options);
+						$(form).ajaxSubmit(options);
 					}
 				});
 			}

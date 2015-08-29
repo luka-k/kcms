@@ -199,4 +199,26 @@ class Ajax extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+	
+	public function contact()
+	{
+		$info = $this->input->post();
+		
+		$new_order = array();
+		
+		foreach(array('name', 'product_name', 'mail', 'phone', 'message') as $type)
+		{
+			$new_order[$type] = $this->input->post($type) ? htmlspecialchars($this->input->post($type)) : '';
+		}
+
+		$new_order['date'] = date("Y-m-d");
+			
+		$this->orders->insert($new_order);
+		
+		$settings = $this->settings->get_item(1);
+				
+		$this->emails->send_system_mail($settings->admin_email, 1, $new_order, "admin_order_mail");
+		
+		echo '["Ваш запрос отправлен! Спасибо! Наши менеджеры свяжутся с вами в ближайшее время"]';
+	}
 }
