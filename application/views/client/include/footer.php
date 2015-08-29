@@ -33,17 +33,17 @@
 					</div>
 					<div class="table">
 						<div style="width:50%; float:left">
-							<div class="tr"><a href="services.php">Услуги</a>
-								<a href="business-for.php" class="sub-item">Бизнес под ключ</a>
-								<a href="joint-business.php" class="sub-item">Совместный бизнес</a>
-								<a href="services.php" class="sub-item">Прочие услуги</a>
+							<div class="tr"><a href="<?=base_url()?>prochie_uslugi">Услуги</a>
+								<a href="<?=base_url()?>biznes_po_klyuch" class="sub-item">Бизнес под ключ</a>
+								<a href="<?=base_url()?>sovmestnyj_biznes" class="sub-item">Совместный бизнес</a>
+								<a href="<?=base_url()?>prochie_uslugi" class="sub-item">Прочие услуги</a>
 							</div>
-							<div class="tr"><a href="faq.php" style="clear:both; float:left;">FAQ</a></div>
+							<div class="tr"><a href="<?=base_url()?>faq" style="clear:both; float:left;">FAQ</a></div>
 						</div>
 						<div style="width:50%; float:left">
-							<div class="tr"><a href="about.php">О нас</a></div>
-							<div class="tr"><a href="projects.php">Наши проекты</a></div>
-							<div class="tr"><a href="contacts.php">Контакты</a></div>
+							<div class="tr"><a href="<?=base_url()?>o_nas">О нас</a></div>
+							<div class="tr"><a href="<?=base_url()?>nashi_proekty">Наши проекты</a></div>
+							<div class="tr"><a href="<?=base_url()?>kontakty">Контакты</a></div>
 						</div>
 					</div>
 				</div>

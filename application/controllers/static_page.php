@@ -16,15 +16,20 @@ class Static_page extends Client_Controller {
 	
 	public function index()
 	{
-		$page = $this->uri->uri_string();
-		if($page == 'index') redirect(base_url());
+		$url = $this->uri->uri_string();
+		if($url == 'index') redirect(base_url());
+		
+		$this->config->load('static_page');
+		$urls_to_views = $this->config->item('urls_to_views');
 		
 		$data = array();
 		$data = array_merge($this->standart_data, $data);
 		
-		if($page == 'joint-business' || $page == 'projects') $data['projects'] = $this->portfolio->prepare_list($this->portfolio->get_list(FALSE, FALSE, FALSE, 'sort', 'asc'));
+		if($url == 'sovmestnyj_biznes' || $url == 'nashi_proekty') $data['projects'] = $this->portfolio->prepare_list($this->portfolio->get_list(FALSE, FALSE, FALSE, 'sort', 'asc'));
+		
+		if(!isset($urls_to_views[$url])) redirect(base_url()."pages/page_404");
+		$view = $urls_to_views[$url];
 
-		$this->load->view('client/'.$page.'.php', $data);
+		$this->load->view('client/'.$view.'.php', $data);
 	}
-	
 }
