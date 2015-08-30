@@ -30,9 +30,10 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'menu_name' => array('Заголовок для меню', 'text', 'trim|htmlspecialchars|autocomplete[name]'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),
-			'sort' => array('Сортировка', 'text'),
+			'sort' => array('Сортировка', 'hidden'),
 			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(

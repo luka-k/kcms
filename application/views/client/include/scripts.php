@@ -21,8 +21,8 @@
 <? include'book-form.php'; ?>
 
 <!-- slider -->
-<script>
-    $('.bxslider').bxSlider({
+<script type="text/javascript">
+	$('.bxslider').bxSlider({
 		adaptiveHeight: true,
         mode: 'fade',
         captions: true

@@ -46,6 +46,10 @@ $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
 $route['ajax/(:any)'] = 'ajax/$1';
 
+$route['nashi-kejsy'] = 'pages';
+$route['nashi-kejsy/(:any)'] = 'pages';
+$route['nashi-kejsy/(:any)/(:any)'] = 'pages';
+
 $route['(:any)'] = "static_page";
 
 $route['registration/(:any)'] = 'registration/$1';

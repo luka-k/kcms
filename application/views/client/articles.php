@@ -1,55 +1,71 @@
 ﻿<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
-<? require 'include/head.php' ?>
-    
-<body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
-
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
-	
-	<div class="page page-about">
-		<div class="page__wrap wrap">
-
-			<h1 class="page__title"><?=$content->name?></h1>
-			<div class="page-news__content">
-				<?foreach($content->articles as $item):?>
-					<div class="news-item">
-						<div class="news-item__date"><?=$item->date?></div> <!-- /.news-item__date -->
-
-						<h3 class="news-item__title">
-							<a href="<?=$item->full_url?>"><?=$item->name?></a>
-						</h3> <!-- /.news-item__title -->
-
-						<div class="news-item__text">
-							<?=$item->description?>
-						</div> <!-- /.news-item__text -->
-					</div> <!-- /.news-item -->
-				<?endforeach;?>
-				
-				<!--<div class="news__load load-link">
-					<a href="#load" class="load-link__href">Еще новости</a>
-				</div>--> <!-- /.news__load -->
-			</div> <!-- /.page-news__content -->
-
-		</div> <!-- /.page__wrap wrap -->
-	</div> <!-- /.page -->
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Проекты</title>
+		<?include 'include/head.php'?>
+	</head>
+	<body>
+		<!-- header -->
+		<? require 'include/header.php'; ?>
 		
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
-	
-	<?if($sub_template == "news" || $sub_template == "single-news"):?><script src="<?=base_url()?>template/client/js/datepicker.js"></script><?endif;?>
+		<main>
+			
+			<div class="top-pro">
+				<div class="wrapper">
+					<h4>Наши проекты и отзывы</h4>
+				</div>
+			</div>
+
+			<div class="blog">
+				<div class="wrapper">
+					<div class="row clearfix">
+						<div class="blog_left">
+							<div>Проекты</div>
+							<?include 'include/left_menu.php'?>
+						</div>
+						
+						<div class="blog_content">
+							<?if($sub_template == 'list'):?>
+								<ul class="article-list">
+									<?foreach($content->articles as $item):?>
+										<li><a href="<?=base_url()?><?=$tree[0]->url?>/<?=$content->url?>/<?=$item->url?>"><?=$item->name?></a></li>
+									<?endforeach;?>
+								</ul>
+								
+							<?elseif($sub_template == 'single'):?>
+								
+								<h2 class="page_title"><?=$content->name?></h2>
+								<?=$content->description?>
+								
+							<?endif;?>
+						</div>
+						
+						<div class="column">
+							<div class="proj-soc">
+								<span class="news">Хочу так же</span>
+								<form action="" method="post">
+									<input type="text" name="name" class="require" placeholder="Ваше имя">
+									<input type="text" name="phone" class="required" placeholder="Телефон" />
+									<input type="hidden" name="product_name" value="<?= $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?> - Оставить заявку" />
+									<button>Отправить</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+		
+		<!-- footer -->
+		<? require 'include/footer.php'; ?>
+
+		<!-- scripts -->
+		<? require 'include/scripts.php'; ?>
+
+		<!-- pop-up -->
+	    <? require 'include/popup.php'; ?>
+
 	</body>
 </html>
-
-        
-        

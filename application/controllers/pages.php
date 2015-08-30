@@ -16,54 +16,40 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$page = $this->url->url_parse(2);
-
-		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
+		$page = $this->url->url_parse(1);
+	
+		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(1)));
 		
-		if($page == FALSE) redirect(base_url()."pages/page_404");
+		//if($page == FALSE) redirect(base_url()."pages/page_404");
 		
 		if(isset($page->article))
 		{
-			$sub_template = "single-news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			$sub_template = "single";
 			
 			$content = $page->article;
 		}		
 		elseif(isset($page->articles))
 		{
-			$sub_template = "news";
-			$template = $root->id == 3 ? "client/news.php" : "client/articles.php";
+			$sub_template = "list";
 			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
-			
-			$select_date = $this->input->get('date');
-			if(!empty($select_date))
-			{
-				$selected_news = array();
-				foreach ($content->articles as $item)
-				{
-					$item->date = new DateTime($item->date);
-					$item->date = date_format($item->date, 'm/d/Y');
-					if($item->date == $select_date) $selected_news[] = $item;
-				}
-				$content->articles = $selected_news;
-			}
 		}
+		
+		$this->load->config('articles');
 	
 		$data = array(
 			'title' => $content->name,
 			'meta_keywords' => $content->meta_keywords,
 			'meta_description' => $content->meta_description,
-			'breadcrumbs' => $this->breadcrumbs->get(),
-			'tree' => $this->categories->get_tree(0, "parent_id"),
+			'tree' => $this->articles->get_tree($this->config->item('case_id'), "parent_id"),
 			'select_item' => "",
 			'content' => $content,
 			'sub_template' => $sub_template
 		);
-
+		//my_dump($data['tree']);
 		$data = array_merge($this->standart_data, $data);
-		$this->load->view($template, $data);
+		$this->load->view('client/articles', $data);
 	}
 	
 	/**
