@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 30 2015 г., 01:28
+-- Время создания: Авг 30 2015 г., 16:28
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
+  `menu_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `sort` int(11) NOT NULL,
@@ -43,7 +44,19 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `parent_id`, `menu_name`, `name`, `date`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`, `lastmod`, `changefreq`, `priority`) VALUES
+(1, 0, '', 'Наши кейсы', '2015-08-30', 0, '', '', '', '', 'nashi-kejsy', '2015-08-30', '', '0.1'),
+(2, 3, 'Разработка сайта', 'Как мы делаем сайты, или почему хороший сайт не может стоить 5 т.р.', '2015-08-30', 0, '<blockquote>\r\n<p style="text-align:right">Сделайте нам пожалуйста, хороший продающий сайт, только быстро и дешево!</p>\r\n\r\n<p style="text-align:right">(запрос 99% клиентов)</p>\r\n</blockquote>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h3>Что понимает под &quot;сделать сайт&quot; обычный заказчик?</h3>\r\n\r\n<ul>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n</ul>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h6>Мы делаем по другому</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<h3>Шаг 1: Анализ компании</h3>\r\n\r\n<div class="qq">\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&nbsp;</h3>\r\n</div>\r\n\r\n<h6>&nbsp;</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<p>&nbsp;</p>\r\n', '', '', '', 'kak-my-delaem-sajty-ili-pochemu-horoshij-sajt-ne-mozhet-stoit-5-t-r', '2015-08-30', '', '0.1'),
+(3, 1, 'Healthy Eyes', 'Healthy Eyes', '2015-08-30', 0, '', '', '', '', 'healthy-eyes', '2015-08-30', '', '0.1'),
+(4, 1, 'Delivery-Planet', 'Delivery-Planet', '2015-08-30', 0, '', '', '', '', 'delivery-planet', '2015-08-30', '', '0.1'),
+(5, 4, 'Разработка сайта', 'Как мы делаем сайты, или почему хороший сайт не может стоить 5 т.р.', '2015-08-30', 0, '<blockquote>\r\n<p style="text-align:right">Сделайте нам пожалуйста, хороший продающий сайт, только быстро и дешево!</p>\r\n\r\n<p style="text-align:right">(запрос 99% клиентов)</p>\r\n</blockquote>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h3>Что понимает под &quot;сделать сайт&quot; обычный заказчик?</h3>\r\n\r\n<ul>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n</ul>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h6>Мы делаем по другому</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<h3>Шаг 1: Анализ компании</h3>\r\n\r\n<div class="qq">\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&nbsp;</h3>\r\n</div>\r\n\r\n<h6>&nbsp;</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<p>&nbsp;</p>\r\n', '', '', '', 'kak-my-delaem-sajty-ili-pochemu-horoshij-sajt-ne-mozhet-stoit-5-t-r', '2015-08-30', '', '0.1'),
+(6, 3, 'Анализ конкурентов', 'Как мы делаем сайты, или почему хороший сайт не может стоить 5 т.р.', '2015-08-30', 0, '<blockquote>\r\n<p style="text-align:right">Сделайте нам пожалуйста, хороший продающий сайт, только быстро и дешево!</p>\r\n\r\n<p style="text-align:right">(запрос 99% клиентов)</p>\r\n</blockquote>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h3>Что понимает под &quot;сделать сайт&quot; обычный заказчик?</h3>\r\n\r\n<ul>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n	<li>lorem ipsum dolor</li>\r\n</ul>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<h6>Мы делаем по другому</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<h3>Шаг 1: Анализ компании</h3>\r\n\r\n<div class="qq">\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&nbsp;</h3>\r\n</div>\r\n\r\n<h6>&nbsp;</h6>\r\n\r\n<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>\r\n\r\n<p>&nbsp;</p>\r\n', '', '', '', 'kak-my-delaem-sajty-ili-pochemu-horoshij-sajt-ne-mozhet-stoit-5-t-r', '2015-08-30', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -122,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('e9bd461f27d331e99328b9f6654bdbbd', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1440887212, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('8e9f9ff2394fe34840adacd32dc69087', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1440941019, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -239,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -264,16 +277,19 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
 (34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
-(35, 2, 'Главная', 0, 19, '', 'link', 'index'),
-(36, 2, 'Услуги', 0, 20, '', 'link', '#'),
-(37, 2, 'Наши проекты', 0, 21, '', 'link', 'nashi_proekty'),
-(38, 2, 'FAQ', 0, 22, '', 'link', 'faq'),
-(39, 2, 'О нас', 0, 23, '', 'link', 'o_nas'),
-(40, 2, 'Контакты', 0, 24, '', 'link', 'kontakty'),
+(35, 2, 'Главная', 0, 0, '', 'link', 'index'),
+(36, 2, 'Услуги', 0, 1, '', 'link', '#'),
+(37, 2, 'Портфолио', 46, 3, '', 'link', 'portfolio'),
+(38, 2, 'FAQ', 0, 4, '', 'link', 'faq'),
+(39, 2, 'О нас', 0, 5, '', 'link', 'o_nas'),
+(40, 2, 'Контакты', 0, 6, '', 'link', 'kontakty'),
 (41, 2, 'Бизнес под ключ', 36, 25, '', 'link', 'biznes_po_klyuch'),
 (42, 2, 'Совместный бизнес', 36, 26, '', 'link', 'sovmestnyj_biznes'),
 (43, 2, 'Прочие услуги', 36, 27, '', 'link', 'prochie_uslugi'),
-(44, 1, 'Проекты', 0, 2, '', 'link', 'admin/content/items/portfolio/all');
+(44, 1, 'Проекты', 0, 2, '', 'link', 'admin/content/items/portfolio/all'),
+(45, 1, 'Наши кейсы', 5, 2, '', 'link', 'admin/content/items/articles/1'),
+(46, 2, 'Наши проекты', 0, 2, '', 'link', '#'),
+(47, 2, 'Наши кейсы', 46, 4, '', 'link', 'nashi-kejsy');
 
 -- --------------------------------------------------------
 
