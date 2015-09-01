@@ -1,1 +1,0 @@
-<input type="<?=$edit['1']?>" class="menu_items <?=$name?>" name="<?=$name?>" id="lbl_<?=$editors_counter?>" value="<?=$item_content->$name?>"/>
