@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2015 г., 14:44
+-- Время создания: Сен 01 2015 г., 16:47
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -27,11 +27,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `cards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `card_number` text COLLATE utf8_unicode_ci NOT NULL,
   `card_day_limit` int(11) NOT NULL DEFAULT '500',
   `card_credit_limit` int(11) NOT NULL DEFAULT '0',
-  `card_balance` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `card_balance` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -45,7 +47,17 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `sort` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `menu_id`, `sort`, `name`) VALUES
+(1, 1, 0, 'Первое'),
+(2, 2, 0, 'Второе'),
+(3, 2, 0, 'Десерт'),
+(4, 1, 0, 'Напитки');
 
 -- --------------------------------------------------------
 
@@ -62,10 +74,10 @@ CREATE TABLE IF NOT EXISTS `child2products` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `child_user`
+-- Структура таблицы `child_users`
 --
 
-CREATE TABLE IF NOT EXISTS `child_user` (
+CREATE TABLE IF NOT EXISTS `child_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
@@ -80,9 +92,17 @@ CREATE TABLE IF NOT EXISTS `child_user` (
   `dinner_sms_enabled_date` date NOT NULL,
   `visit_sms_enabled` int(11) NOT NULL,
   `visit_sms_enabled_date` date NOT NULL,
-  `image_blob` blob NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `image_blob` blob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `child_users`
+--
+
+INSERT INTO `child_users` (`id`, `parent_id`, `school_id`, `class`, `card_number`, `first_name`, `last_name`, `middle_name`, `birthday`, `phone`, `dinner_sms_enabled`, `dinner_sms_enabled_date`, `visit_sms_enabled`, `visit_sms_enabled_date`, `menu_id`, `image_blob`) VALUES
+(5, 0, 1, '', '', 'Иванов', 'Иван', 'Иванович', '2015-09-17', '', 0, '0000-00-00', 0, '0000-00-00', 1, 0x696d6167655f626c6f62);
 
 -- --------------------------------------------------------
 
@@ -105,11 +125,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('313b13decb14f18b4a5e98fdd69a9a5e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429194041, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:3:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №1";s:3:"url";s:7:"shina-1";s:5:"price";s:4:"3000";s:3:"qty";i:5;s:10:"item_total";i:15000;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:7:{s:2:"id";s:1:"3";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №3";s:3:"url";s:7:"shina-3";s:5:"price";s:4:"3400";s:3:"qty";i:9;s:10:"item_total";i:30600;}s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";i:3;s:10:"item_total";i:21120;}}s:9:"total_qty";i:17;s:10:"cart_total";i:66720;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('6013e51e114dc28d69ff9d46ee272e61', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429190188, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}'),
-('794138aa3737288ddecc610e462b5883', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429191314, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";s:1:"4";s:10:"item_total";i:28160;}s:32:"c81e728d9d4c2f636f067f89cc14862c";a:7:{s:2:"id";s:1:"2";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №2";s:3:"url";s:7:"shina-2";s:5:"price";s:4:"4000";s:3:"qty";s:1:"1";s:10:"item_total";i:4000;}}s:9:"total_qty";i:5;s:10:"cart_total";i:32160;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('b1d6da126514b01f901af7be9b46a3f3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429251237, ''),
-('c8207c3a8dca9b836a2e03323421c59b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429193827, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('5d1beb75cd137a36bce7160700fbe6af', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441115125, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -204,7 +220,15 @@ CREATE TABLE IF NOT EXISTS `manufacturers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `manufacturers`
+--
+
+INSERT INTO `manufacturers` (`id`, `name`) VALUES
+(1, 'Поставщик 1'),
+(2, 'Поставщик 2');
 
 -- --------------------------------------------------------
 
@@ -218,7 +242,16 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `manufacturer_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`, `manufacturer_id`, `school_id`) VALUES
+(1, 'Меню 1', 1, 2),
+(2, 'Меню 2', 2, 3),
+(3, 'Меню 3', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -236,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -245,28 +278,29 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
 (1, 4, 'Блог', 0, 1, '', 'articles', 'blog'),
 (2, 4, 'Новости', 0, 0, '', 'articles', 'novosti'),
-(4, 1, '<i class=icon-home></i>', 0, 2, '', 'link', 'admin/'),
-(5, 1, 'Статьи', 0, 3, '', 'link', '#'),
-(6, 1, 'Каталог', 0, 4, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 5, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 6, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 7, '', 'link', '#'),
-(10, 1, 'Меню', 0, 8, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 9, '', 'link', '#'),
-(12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
-(13, 1, 'Категории', 6, 1, '', 'link', 'admin/content/items/categories/'),
-(14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
-(15, 1, 'Товары', 6, 3, '', 'link', 'admin/content/items/products/all'),
-(16, 1, 'Создать товар', 6, 4, '', 'link', 'admin/content/item/edit/products'),
+(4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
+(6, 1, 'Меню', 0, 1, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders'),
+(8, 1, 'Настройки', 0, 8, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
+(10, 1, 'Меню сайта', 8, 6, '', 'link', 'admin/menu_module/menus'),
+(11, 1, 'Пользователи', 0, 7, '', 'link', '#'),
+(13, 1, 'Меню', 6, 1, '', 'link', 'admin/content/items/menu/'),
+(14, 1, 'Категории', 6, 2, '', 'link', 'admin/content/items/categories/'),
+(15, 1, 'Блюда', 6, 3, '', 'link', 'admin/content/items/products/'),
+(16, 1, 'Поставщики', 6, 4, '', 'link', 'admin/content/items/manufacturers'),
 (17, 1, 'Настройки сайта', 8, 10, '', 'link', 'admin/content/item/edit/settings/1'),
 (19, 1, 'Шаблоны', 9, 1, '', 'link', 'admin/content/items/emails/2'),
 (20, 1, 'Рассылки', 9, 2, '', 'link', 'admin/mailouts_module'),
 (21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
-(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
 (33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
-(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/');
+(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
+(35, 1, 'Дети', 36, 2, '', 'link', 'admin/content/items/child_users'),
+(36, 1, 'Дети', 0, 2, '', 'link', '#'),
+(37, 1, 'Карты', 36, 3, '', 'link', 'admin/content/items/cards/'),
+(38, 1, 'Школы', 0, 3, '', 'link', 'admin/content/items/schools/');
 
 -- --------------------------------------------------------
 
@@ -299,7 +333,16 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `products`
+--
+
+INSERT INTO `products` (`id`, `parent_id`, `sort`, `name`, `weight`, `price`) VALUES
+(1, 2, 0, 'Блюдо 1', '', 0),
+(2, 3, 0, 'Блюдо 2', '', 0),
+(3, 1, 0, 'Блюдо 3', '', 0);
 
 -- --------------------------------------------------------
 
@@ -315,14 +358,23 @@ CREATE TABLE IF NOT EXISTS `products2order` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `school`
+-- Структура таблицы `schools`
 --
 
-CREATE TABLE IF NOT EXISTS `school` (
+CREATE TABLE IF NOT EXISTS `schools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `schools`
+--
+
+INSERT INTO `schools` (`id`, `name`) VALUES
+(1, 'Школа №1'),
+(2, 'Школа №2'),
+(3, 'Школа №3');
 
 -- --------------------------------------------------------
 
