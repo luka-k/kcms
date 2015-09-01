@@ -1,0 +1,10 @@
+@import "compass/utilities/sprites";
+
+$i-sprite-dimensions: true;
+$i-layout: smart;
+
+@import "i/*.png";
+
+//@include all-i-sprites;
+
+//@include i-sprite(name);

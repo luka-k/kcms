@@ -1,0 +1,51 @@
+@charset "UTF-8";
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
+// Пример использования
+//@include placeholder {
+//  color: #939291;
+//}
+
+@mixin icons($name){
+  @include i-sprite($name);
+  display: inline-block;
+  content: '';
+  //vertical-align: top;
+}
+
+@mixin clearfix{
+  &:before,
+  &:after{
+    content: " "; 
+    display: table;
+  }
+  &:after{
+    clear: both;
+  }   
+  *zoom: 1;
+}
+
+@mixin list{
+  @include clearfix;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin justify{
+  text-align: justify;
+  &:after{
+    content: '';
+    width: 100%;
+    height: 0;
+    display: inline-block;     
+  }
+}
+
+@mixin skew{
+  transform: skew(-14deg);
+}
