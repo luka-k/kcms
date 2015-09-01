@@ -28,29 +28,10 @@ class Categories extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
-			'parent_id' => array('Родительская категория', 'select'),
-			'is_active' => array('Активен', 'checkbox'),
-			'sort' => array('Сортировка', 'text'),
-			'description' => array('Описание', 'tiny')
-		),
-		'SEO' => array(
-			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
-			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
-			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
-			'changefreq' => array('changefreq', 'text'),
-			'priority' => array('priority', 'priority'),
-			'lastmod' => array('lastmod', 'hidden')
-		),
-		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image', 'img')
-		)
-	);
-	
-	public $admin_left_column = array(
-		"items_tree" => "categories_tree", //дерево для списка элементов
-		"item_tree" => "categories_tree", //дерево для страницы редактирования элемента
+			'name' => array('Заголовок', 'text', 'name'),
+			'menu_id' => array('Меню', 'select'),
+			'sort' => array('sort', 'hidden')
+		)	
 	);
 	
 	function __construct()

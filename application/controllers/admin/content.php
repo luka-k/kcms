@@ -35,14 +35,15 @@ class Content extends Admin_Controller
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
-		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
+		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
+		
 		$direction = "acs";
 		
 		$id_branchy = $this->db->field_exists('parent_id', $type);
 		
 		if($id_branchy)
 		{
-			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
+			if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
 			if($id == "all")
 			{
@@ -86,6 +87,7 @@ class Content extends Admin_Controller
 	public function item($action, $type, $id = FALSE, $exit = FALSE)
 	{
 		$parent_id = $this->input->get('parent_id');
+		$name = editors_get_name_field('name', $this->$type->editors);
 		
 		$data = array(
 			'title' => "Редактировать",
@@ -93,33 +95,42 @@ class Content extends Admin_Controller
 			'editors' => $this->$type->editors,
 			'type' => $type,
 			'parent_id' => $parent_id,
-			'url' => "/".$this->uri->uri_string()
+			'url' => "/".$this->uri->uri_string(),
+			'name' => $name
 		);
 		$data = array_merge($this->standart_data, $data);
 		
 		if($this->db->field_exists('parent_id', $type))
 		{
-			$tree =  $type == "products" ? $this->categories->get_tree(0, "parent_id", "admin") : set_disabled_option($this->$type->get_tree(0, "parent_id", "admin"), $id);
-			$data['tree'] = $tree;
-			$data['selects']['parent_id'] = $tree;
-		}
-		
-		if($type == "characteristics_type") 
-		{
-			$this->config->load('characteristics');
-			$data['selects']['view_type'] = $this->config->item('view_type');
+			if($type == "products")
+			{
+				$tree =  $this->categories->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
+				$data['tree'] = $tree;
+				$data['selects']['parent_id'] = $tree;
+			}
 		}
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
+		if($type == 'menu')
+		{
+			$data['selects']['manufacturer_id'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+			$data['selects']['school_id'] = $this->schools->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+		}
+		
+		if($type == 'categories') $data['selects']['menu_id'] = $this->menu->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+		
+		if($type = 'child_users')
+		{
+			$data['selects']['school_id'] = $this->schools->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+			$data['selects']['menu_id'] = $this->menu->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+			
+			//$data['selects']['parent_id'] - выбор родителей
+		}
+		
 		$image_field = editors_get_name_field('img', $data['editors']);
 		$double_image_field = editors_get_name_field('double_img', $data['editors']);
-		
-		$characteristics_field = editors_get_name_field('ch', $data['editors']);
-		if($characteristics_field) $data['ch_select'] = $this->characteristics_type->get_list(FALSE);
-		
-		$recommend_field = editors_get_name_field('recommend', $data['editors']);
-	
+				
 		if($action == "edit")
 		{
 			if($id == FALSE)
@@ -127,8 +138,6 @@ class Content extends Admin_Controller
 				$data['content'] = set_empty_fields($data['editors']);
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
-				if($characteristics_field) $data['content']->characteristics = array();
-				if($recommend_field) $data['content']->recommended = array();
 				if($type == "emails") $data['content']->type = 2;				
 			}	
 			else
@@ -147,22 +156,6 @@ class Content extends Admin_Controller
 						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type), FALSE, FALSE, "sort", "asc"));
 					}
 				}
-				
-				// Характеристики
-				if($characteristics_field)
-				{
-					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
-					foreach($data['content']->characteristics as $characteristic)
-					{
-						foreach($data['ch_select'] as $ch)
-						{
-							if($characteristic->type == $ch->url) $characteristic->name = $ch->name;
-						}
-					}
-				}
-				
-				// Рекомендованные
-				if($recommend_field) $data['content']->recommended = $this->products->get_recommended($id);
 			}
 			$this->load->view('admin/item.php', $data);
 		}
@@ -247,22 +240,13 @@ class Content extends Admin_Controller
 		}
 		if($action == "copy")
 		{
-			$data['content'] = $this->$type->get_item($id);
-			
-			if(!empty($characteristics_field)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
-			
+			$data['content'] = $this->$type->get_item($id);			
 			$data['content']->id = NULL;
 			$data['content']->url = "";
 			
 			$this->$type->insert($data['content']);
 			$new_id = $this->db->insert_id();
-			
-			if(isset($characteristics) && is_array($characteristics)) foreach($characteristics as $ch)
-			{
-				$ch->id = NULL;
-				$ch->object_id = $new_id;
-				$this->characteristics->insert($ch);
-			}			
+		
 			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}
 	}

@@ -55,8 +55,7 @@ class Menu_module extends Admin_Controller
 			'menu_items' => $this->menus_items->menu_tree($id),
 			'items_editors' => $this->menus_items->editors,
 			'selects' => array(
-				'parent_id' =>$this->menus_items->menu_tree($id),
-				'url' => $this->articles->get_tree(0, "parent_id")
+				'parent_id' =>$this->menus_items->menu_tree($id)
 			),
 			'types' => $types,
 			'item_content' => $item_content,

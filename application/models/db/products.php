@@ -28,33 +28,11 @@ class Products extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'sort' => array('sort', 'hidden'),
+			'name' => array('Заголовок', 'text', 'name'),
 			'parent_id' => array('Категория', 'select'),
-			'is_active' => array('Активна', 'checkbox'),
-			'is_new' => array('Новинка', 'checkbox'),
-			'is_special' => array('Специальное предложение', 'checkbox'),
-			'article' => array('Артикул', 'text', 'trim|htmlspecialchars', 'require'),
-			'price' => array('Цена', 'text', 'trim|htmlspecialchars', 'require'),
-			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars', 'max_length[2]'),
-			'description' => array('Описание', 'tiny', 'trim')
-		),
-		'SEO' => array(
-			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
-			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
-			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
-			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]'),
-			'changefreq' => array('changefreq', 'text'),
-			'priority' => array('priority', 'priority'),
-			'lastmod' => array('lastmod', 'hidden')			
-		),
-		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
-		),
-		'Характеристики' => array(
-			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
-		),
-		'Рекомендованые товары' => array(
-			'recommend' => array('Редактировать рекомендованые товары', 'recommend', 'recommend')
+			'price' => array('Цена', 'text'),
+			'weight' => array('Вес', 'text'),
 		)
 	);
 	

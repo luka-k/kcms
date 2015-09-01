@@ -503,12 +503,12 @@ class MY_Model extends CI_Model
 	
 	public function get_tree($parent_id, $parent_field, $action = "site")
 	{
-		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "name", "asc");
 		if($action == "site") $branches = $this->prepare_list($branches);
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_tree($b->id, $parent_field);
-			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "sort", "asc"));
+			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "name", "asc"));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}			
 

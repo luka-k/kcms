@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2015 г., 13:19
+-- Время создания: Сен 01 2015 г., 14:44
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -17,33 +17,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `kcms`
+-- База данных: `food-lk`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `articles`
+-- Структура таблицы `cards`
 --
 
-CREATE TABLE IF NOT EXISTS `articles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL,
-  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `date` date NOT NULL,
-  `sort` int(11) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `lastmod` date NOT NULL,
-  `changefreq` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `priority` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `url` (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS `cards` (
+  `card_number` text COLLATE utf8_unicode_ci NOT NULL,
+  `card_day_limit` int(11) NOT NULL DEFAULT '500',
+  `card_credit_limit` int(11) NOT NULL DEFAULT '0',
+  `card_balance` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -53,51 +41,46 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `menu_id` int(1) NOT NULL,
   `sort` int(11) NOT NULL,
-  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` text COLLATE utf8_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `lastmod` date NOT NULL,
-  `changefreq` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `priority` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
-  `description` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `url` (`url`)
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `characteristics`
+-- Структура таблицы `child2products`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristics` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `value` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `object_type` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `object_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `type_value` (`type`,`value`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS `child2products` (
+  `child_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `disabled` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `characteristics_type`
+-- Структура таблицы `child_user`
 --
 
-CREATE TABLE IF NOT EXISTS `characteristics_type` (
+CREATE TABLE IF NOT EXISTS `child_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `category` int(11) NOT NULL DEFAULT '0',
-  `url` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `view_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `class` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `card_number` text COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `middle_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `birthday` date NOT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `dinner_sms_enabled` int(11) NOT NULL,
+  `dinner_sms_enabled_date` date NOT NULL,
+  `visit_sms_enabled` int(11) NOT NULL,
+  `visit_sms_enabled_date` date NOT NULL,
+  `image_blob` blob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -122,7 +105,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3342ad2f561db0d6872527eaa419c6b0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441102671, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('313b13decb14f18b4a5e98fdd69a9a5e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429194041, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:3:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №1";s:3:"url";s:7:"shina-1";s:5:"price";s:4:"3000";s:3:"qty";i:5;s:10:"item_total";i:15000;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:7:{s:2:"id";s:1:"3";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №3";s:3:"url";s:7:"shina-3";s:5:"price";s:4:"3400";s:3:"qty";i:9;s:10:"item_total";i:30600;}s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";i:3;s:10:"item_total";i:21120;}}s:9:"total_qty";i:17;s:10:"cart_total";i:66720;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('6013e51e114dc28d69ff9d46ee272e61', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429190188, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}'),
+('794138aa3737288ddecc610e462b5883', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429191314, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"8f14e45fceea167a5a36dedd4bea2543";a:7:{s:2:"id";s:1:"7";s:9:"parent_id";s:1:"5";s:4:"name";s:30:"Шина грузовая №1";s:3:"url";s:17:"shina-gruzovaya-1";s:5:"price";i:7040;s:3:"qty";s:1:"4";s:10:"item_total";i:28160;}s:32:"c81e728d9d4c2f636f067f89cc14862c";a:7:{s:2:"id";s:1:"2";s:9:"parent_id";s:1:"4";s:4:"name";s:13:"Шина №2";s:3:"url";s:7:"shina-2";s:5:"price";s:4:"4000";s:3:"qty";s:1:"1";s:10:"item_total";i:4000;}}s:9:"total_qty";i:5;s:10:"cart_total";i:32160;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('b1d6da126514b01f901af7be9b46a3f3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0', 1429251237, ''),
+('c8207c3a8dca9b836a2e03323421c59b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36', 1429193827, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:9:"total_qty";i:0;s:10:"cart_total";i:0;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -181,7 +168,6 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sort` int(11) NOT NULL,
   `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `is_cover` tinyint(1) NOT NULL DEFAULT '0',
   `object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -207,6 +193,32 @@ CREATE TABLE IF NOT EXISTS `mailouts` (
   `no_success` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `manufacturers`
+--
+
+CREATE TABLE IF NOT EXISTS `manufacturers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `menu`
+--
+
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `manufacturer_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -264,37 +276,12 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_name` text COLLATE utf8_unicode_ci NOT NULL,
-  `user_email` text COLLATE utf8_unicode_ci NOT NULL,
-  `user_phone` text COLLATE utf8_unicode_ci NOT NULL,
-  `user_address` text COLLATE utf8_unicode_ci NOT NULL,
-  `total` int(11) NOT NULL,
-  `delivery_id` int(11) NOT NULL,
-  `payment_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  `status_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `order_id` (`order_id`),
-  KEY `status_id` (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `orders_products`
---
-
-CREATE TABLE IF NOT EXISTS `orders_products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `product_name` text COLLATE utf8_unicode_ci NOT NULL,
-  `product_price` text COLLATE utf8_unicode_ci NOT NULL,
-  `order_qty` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `order_id` (`order_id`)
+  `card_number` text COLLATE utf8_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `summ` float NOT NULL,
+  `operation` int(11) NOT NULL,
+  `info` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -306,37 +293,36 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `sort` int(11) NOT NULL,
-  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `article` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `weight` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` float NOT NULL DEFAULT '0',
-  `discount` tinyint(3) unsigned NOT NULL,
-  `meta_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `lastmod` date NOT NULL,
-  `changefreq` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `priority` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `is_new` tinyint(1) DEFAULT NULL,
-  `is_special` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `url` (`url`)
+  KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `recommended_products`
+-- Структура таблицы `products2order`
 --
 
-CREATE TABLE IF NOT EXISTS `recommended_products` (
-  `product1_id` int(11) DEFAULT NULL,
-  `product2_id` int(11) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS `products2order` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `school`
+--
+
+CREATE TABLE IF NOT EXISTS `school` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
