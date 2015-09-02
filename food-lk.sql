@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2015 г., 16:47
+-- Время создания: Сен 02 2015 г., 16:43
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -33,7 +33,16 @@ CREATE TABLE IF NOT EXISTS `cards` (
   `card_credit_limit` int(11) NOT NULL DEFAULT '0',
   `card_balance` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `cards`
+--
+
+INSERT INTO `cards` (`id`, `card_number`, `card_day_limit`, `card_credit_limit`, `card_balance`) VALUES
+(1, '123456', 500, 0, 6000),
+(2, '34565', 200, 0, 2000),
+(3, '234444', 150, 0, 30000);
 
 -- --------------------------------------------------------
 
@@ -95,14 +104,16 @@ CREATE TABLE IF NOT EXISTS `child_users` (
   `menu_id` int(11) NOT NULL,
   `image_blob` blob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `child_users`
 --
 
 INSERT INTO `child_users` (`id`, `parent_id`, `school_id`, `class`, `card_number`, `first_name`, `last_name`, `middle_name`, `birthday`, `phone`, `dinner_sms_enabled`, `dinner_sms_enabled_date`, `visit_sms_enabled`, `visit_sms_enabled_date`, `menu_id`, `image_blob`) VALUES
-(5, 0, 1, '', '', 'Иванов', 'Иван', 'Иванович', '2015-09-17', '', 0, '0000-00-00', 0, '0000-00-00', 1, 0x696d6167655f626c6f62);
+(5, 2, 1, '', '123456', 'Иванов', 'Петр', 'Иванович', '2015-09-17', '', 0, '0000-00-00', 0, '0000-00-00', 1, 0x696d6167655f626c6f62),
+(6, 2, 2, '11а', '34565', 'Петров', 'Иван', 'Иванович', '2010-01-21', '323234235233', 0, '0000-00-00', 0, '0000-00-00', 0, 0x696d6167655f626c6f62),
+(7, 2, 2, '10 б', '234444', 'Кузнецов', 'Виктор', 'Петрович', '2000-09-03', '234234234', 0, '0000-00-00', 0, '0000-00-00', 0, 0x696d6167655f626c6f62);
 
 -- --------------------------------------------------------
 
@@ -125,7 +136,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('5d1beb75cd137a36bce7160700fbe6af', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441115125, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('a8811612b49e1973cac1d1016d8e96d3', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441201367, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('eeb3177c3407650a01ea4e42a9309bc5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441194142, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -138,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `dynamic_menus`
@@ -161,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `emails`
@@ -249,9 +261,9 @@ CREATE TABLE IF NOT EXISTS `menu` (
 --
 
 INSERT INTO `menu` (`id`, `name`, `manufacturer_id`, `school_id`) VALUES
-(1, 'Меню 1', 1, 2),
-(2, 'Меню 2', 2, 3),
-(3, 'Меню 3', 1, 2);
+(1, 'Меню 1', 1, 1),
+(2, 'Меню 2', 2, 2),
+(3, 'Меню 3', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -297,10 +309,21 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
 (34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
-(35, 1, 'Дети', 36, 2, '', 'link', 'admin/content/items/child_users'),
+(35, 1, 'Дети', 36, 2, '', 'link', 'admin/content/items/child_users/'),
 (36, 1, 'Дети', 0, 2, '', 'link', '#'),
 (37, 1, 'Карты', 36, 3, '', 'link', 'admin/content/items/cards/'),
 (38, 1, 'Школы', 0, 3, '', 'link', 'admin/content/items/schools/');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `order2products`
+--
+
+CREATE TABLE IF NOT EXISTS `order2products` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -340,20 +363,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `sort`, `name`, `weight`, `price`) VALUES
-(1, 2, 0, 'Блюдо 1', '', 0),
+(1, 1, 0, 'Блюдо 1', '', 0),
 (2, 3, 0, 'Блюдо 2', '', 0),
 (3, 1, 0, 'Блюдо 3', '', 0);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `products2order`
---
-
-CREATE TABLE IF NOT EXISTS `products2order` (
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -424,14 +436,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `valid_email`, `secret`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45', '', 0, 'f556de45badbca0264ee68f418a42265');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45', '', 0, 'f556de45badbca0264ee68f418a42265'),
+(2, 'Иванов Иван Иванович', '', 'ivanov@parent.ru', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -451,7 +464,8 @@ CREATE TABLE IF NOT EXISTS `users2users_groups` (
 --
 
 INSERT INTO `users2users_groups` (`users_group_id`, `user_id`) VALUES
-(1, 1);
+(1, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -472,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `name`, `is_edit`) VALUES
 (1, 'admin', 0),
-(2, 'customer', 0);
+(2, 'parent', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
