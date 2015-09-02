@@ -45,7 +45,7 @@ class Content extends Admin_Controller
 		{
 			if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
-			if($id == "all")
+			if($id == "all" || $id == '')
 			{
 				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
 				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
@@ -120,12 +120,22 @@ class Content extends Admin_Controller
 		
 		if($type == 'categories') $data['selects']['menu_id'] = $this->menu->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
 		
-		if($type = 'child_users')
+		if($type == 'child_users')
 		{
 			$data['selects']['school_id'] = $this->schools->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
 			$data['selects']['menu_id'] = $this->menu->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
 			
-			//$data['selects']['parent_id'] - выбор родителей
+			$parents_ids = $this->table2table->get_child_ids('users2users_groups', 'users_group_id', 'user_id', 2);
+			
+			$parents = array();
+			if($parents_ids)
+			{
+				$this->db->where_in('id', $parents_ids);
+				$parents = $this->db->get('users')->result();
+			}
+			$data['selects']['parent_id'] = $parents;
+			
+			
 		}
 		
 		$image_field = editors_get_name_field('img', $data['editors']);
@@ -141,9 +151,9 @@ class Content extends Admin_Controller
 				if($type == "emails") $data['content']->type = 2;				
 			}	
 			else
-			{			
+			{		
 				$data['content'] = $this->$type->get_item($id);
-				
+
 				// Галлерея
 				if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id), FALSE, FALSE, "sort", "asc"));
 				

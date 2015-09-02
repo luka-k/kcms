@@ -1,5 +1,6 @@
 $(window).load(function(){
 	$("#children_col").height($(window).height() - 16);
+	
 });
 
 function set_status(type){

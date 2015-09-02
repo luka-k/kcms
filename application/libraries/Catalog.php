@@ -54,4 +54,14 @@ class CI_Catalog {
 	
 		return $products;
 	}
+	
+	public function ids_in_array($items)
+	{
+		$ids = array();
+		foreach($items as $i)
+		{
+			$ids[] = $i->id;
+		}
+		return $ids;
+	}
 }

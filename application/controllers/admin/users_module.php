@@ -93,7 +93,7 @@ class Users_module extends Admin_Controller
 	* @paaram string $action
 	* @param bool $exit
 	*/
-	public function edit($id = FALSE, $action = "edit", $exit = FALSE)
+	public function edit($action = "edit", $id = FALSE, $exit = FALSE)
 	{	
 		$name = editors_get_name_field('name', $this->users->editors);
 				
@@ -110,12 +110,14 @@ class Users_module extends Admin_Controller
 		$data = array_merge($this->standart_data, $data);
 		
 		$field_name = editors_get_name_field('users2users_groups', $data['editors']);
-		
+	
 		if($action == "edit")
 		{
+
 			if($id == FALSE)
 			{
 				$data['content'] = set_empty_fields($data['editors']);
+				$data['content']->id = false;
 				if($field_name) $data['content']->parents = array();
 			}
 			else
@@ -124,7 +126,7 @@ class Users_module extends Admin_Controller
 				$data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => "users", "object_id" => $data['content']->id)));
 				if($field_name) $data['content']->parents = $this->users2users_groups->get_list(array("user_id" => $id));	
 			}
-			
+
 			$this->load->view('admin/user.php', $data);
 		}
 		elseif($action == "save")
@@ -159,7 +161,7 @@ class Users_module extends Admin_Controller
 			$field_name = editors_get_name_field('users2users_groups', $data['editors']);
 			if($field_name && is_array($this->input->post($field_name)))
 			{
-				$data["users2users_groups"]->$field_name = $this->input->post($field_name);
+				$u2g = $this->input->post($field_name);
 				$u2u_g = TRUE;
 			}
 			
@@ -167,18 +169,18 @@ class Users_module extends Admin_Controller
 			{
 				$this->db->where('user_id', $data['content']->id);
 				$this->db->delete('users2users_groups');
-				foreach($data["users2users_groups"]->$field_name  as $item)
+				foreach($u2g as $item)
 				{
 					if(!empty($item))
 					{
-						$users2users_groups->$field_name = $item;
-						$users2users_groups->user_id = $data['content']->id;
+						$users2users_groups[$field_name] = $item;
+						$users2users_groups['user_id'] = $data['content']->id;
 						$this->db->insert('users2users_groups', $users2users_groups);
 					}
 				}
 			}
 				
-			$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
+			$exit == false ? redirect(base_url().'admin/users_module/edit/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
 		}
 	}
 	

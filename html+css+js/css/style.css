@@ -175,6 +175,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e53c16', end
 	font-size:14px;
 }
 
+.tab-content{
+	opacity:0.8;
+}
+
 .tab-content th{
 	padding:10px 10px;
 }

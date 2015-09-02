@@ -16,16 +16,16 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/<?=$user['id']?>/save/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/save/<?=$content->id?>"/>
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error?>
 									<?=validation_errors()?>
-									
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
+				
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/edit/save/<?=$content->id?>/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
 									</div>
 													
@@ -39,9 +39,9 @@
 									<div  class="col_12">
 										<a href="<?=base_url()?>admin/users_module/" class="btn small">Назад</a>
 										<a href="#" class="btn small" onclick="submit_form('user_form'); return false;">Сохранить</a>
-										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/content/item/save/<?=$type?>/false/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
+										<a href="#" class="btn small" onclick="document.forms['user_form'].setAttribute('action', '<?=base_url()?>admin/users_module/<?=$content->id?>/save/exit'); submit_form('user_form'); return false;">Сохранить и выйти</a>
 										<a href="#delete" class="btn small lightbox">Удалить</a>
-									</div>	
+									</div>
 								</div>
 								
 								<!--delete popup-->

@@ -107,12 +107,12 @@
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><img src="<?=$item->img->catalog_small_url?>" /></a>
+													<a href="<?=base_url()?>admin/users_module/edit/edit/<?=$item->id?>/"><img src="<?=$item->img->catalog_small_url?>" /></a>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/edit/<?=$item->id?>/"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/edit//<?=$item->id?>"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_3">
 											<div class="col_12">

@@ -133,13 +133,14 @@ $autoload['model'] = array(
 	'db/menu',
 	'db/menus_items',
 	'db/orders', 
+	'db/order2products',
 	'db/products',
-	'db/products2order',
 	'db/schools',
 	'db/settings', 
 	'db/users', 
 	'db/users_groups',
-	'db/users2users_groups'
+	'db/users2users_groups',
+	'table2table'
 );
 
 

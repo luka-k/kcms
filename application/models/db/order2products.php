@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Products2order extends MY_Model
+class Order2products extends MY_Model
 {
 	function __construct()
 	{
