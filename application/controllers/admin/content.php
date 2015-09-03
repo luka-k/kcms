@@ -155,7 +155,7 @@ class Content extends Admin_Controller
 				$data['content'] = $this->$type->get_item($id);
 
 				// Галлерея
-				if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id), FALSE, FALSE, "sort", "asc"));
+				/*if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id), FALSE, FALSE, "sort", "asc"));
 				
 				// Двойная галлерея
 				if($double_image_field)
@@ -165,8 +165,10 @@ class Content extends Admin_Controller
 					{
 						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type), FALSE, FALSE, "sort", "asc"));
 					}
-				}
+				}*/
 			}
+
+
 			$this->load->view('admin/item.php', $data);
 		}
 		elseif($action == "save")
@@ -175,7 +177,7 @@ class Content extends Admin_Controller
 			
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
-					
+
 			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
@@ -194,7 +196,7 @@ class Content extends Admin_Controller
 				"object_id" => $data['content']->id
 			);
 			
-			if(!empty($image_field))
+			/*if(!empty($image_field))
 			{
 				if (isset($_FILES[$image_field]))
 				{
@@ -240,7 +242,7 @@ class Content extends Admin_Controller
 						}
 					}
 				}	
-			}
+			}*/
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;

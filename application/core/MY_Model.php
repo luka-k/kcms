@@ -585,6 +585,13 @@ class MY_Model extends CI_Model
 					{	
 						unset($editors[$type][$key]);
 					}
+					elseif($key == "image_blob")
+					{				
+						if(isset($_FILES['image_blob']) && $_FILES['image_blob']['error'] == UPLOAD_ERR_OK)
+						{						
+							$return->$key = file_get_contents($_FILES['image_blob']["tmp_name"]);
+						}
+					}
 					else
 					{ 
 						$return->$key = $_POST[$key];
@@ -595,13 +602,16 @@ class MY_Model extends CI_Model
 		
 		$this->form_validation->set_rules($validation_config);
 		$this->form_validation->run();
-		
+	
 		foreach($return as $key => $value)
 		{
-			$edit_value = set_value($key);
-			if(!empty($edit_value)) $return->$key = $edit_value;
+			if($key <> 'image_blob')
+			{
+				$edit_value = set_value($key);
+				if(!empty($edit_value)) $return->$key = $edit_value;
+			}
 		}
-		
+
 		return $return;
 	}	
 } 

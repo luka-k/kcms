@@ -30,7 +30,7 @@
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error;?>
 									<?=validation_errors(); ?>
-									
+
 									<? require 'include/buttons.php' ?>
 														
 									<!--editors-->

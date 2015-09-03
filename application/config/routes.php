@@ -43,6 +43,8 @@ $route['404_override'] = 'pages/page_404';
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
+$route['view_image'] = 'view_image/index';
+
 $route['registration/(:any)'] = 'registration/$1';
 
 $route['catalog'] = 'catalog/index';

@@ -42,7 +42,7 @@ class Users_module extends Admin_Controller
 				$users_id = array();
 				foreach($filters['groups'] as $group)
 				{
-					$id_by_group = $this->users2users_groups->get_list(array("users_group_id" => $group['id']));
+					$id_by_group = $this->users2users_groups->get_list(array("users_group_id" => $group));
 					foreach($id_by_group as $item)
 					{
 						$users_id[] = $item->user_id;

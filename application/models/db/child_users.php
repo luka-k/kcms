@@ -18,8 +18,7 @@ class Child_users extends MY_Model
 			'dinner_sms_enabled_date' => array('Дата включения оповещения', 'date'),
 			'visit_sms_enabled' => array('Оповещение о посещаемости', 'checkbox'),
 			'visit_sms_enabled_date' => array('Дата включения оповещения', 'date'),
-			'menu_id' => array('Меню', 'select'),
-			'image_blob' => array('Аватар', 'image'/*, 'img'*/)
+			'image_blob' => array('Аватар', 'image', 'img')
 		),
 		'Продукты' => array(
 			'child2products' => array('Разрешенные продукты', 'child2products')
