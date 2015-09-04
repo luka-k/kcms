@@ -79,13 +79,12 @@ class Works extends Client_Controller {
 					$this->db->select('child_id');
 					$img_ids = $this->images2categories->get_list(array("category_parent_id" => $category->id));
 					
-					$sub_category = $this->categories->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);
+					$sub_category = $this->categories->get_list(array("parent_id" => $category->id));
 					if($sub_category) foreach($sub_category as $s_c)
 					{
 						$this->db->select('child_id');
 						$img_ids = array_merge($img_ids, $this->images2categories->get_list(array("category_parent_id" => $s_c->id)));
 					}
-					
 					$content = array();
 					
 					foreach($img_ids as $i)
@@ -100,11 +99,12 @@ class Works extends Client_Controller {
 			}	
 			
 			$data['title'] = $category->name;
-			$data['meta_title'] = $category->meta_title;
+			$data['meta_title'] = $category->meta_title ? $category->meta_title : $category->name;
 			$data['meta_keywords'] = $category->meta_keywords;
 			$data['meta_description'] = $category->meta_description;
 			$data['category_id'] = $category->id;
 			$data['content'] = $content;
+			$data['category'] = $category;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 				
 		}

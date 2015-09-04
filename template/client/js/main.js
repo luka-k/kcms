@@ -1,22 +1,29 @@
-;(function(){
+
+  var gallerySlider = false;
+  
+  ;(function(){
 
   "use strict";
 
   var app = {};
 
+  
   app.init = function(){
 
-    //this.fancyBoxes();
+    this.fancyBoxes();
     this.validate();
     this.sliders();
     this.insideNavigationHovers();
     this.scrollContent();
+    this.scrollMenu();
 
     this.modalCallback();
     this.modalGallery();
 
     this.inputHighlight();
 
+	$('._animate').toggle('slow');
+	
   };
 
   app.fancyOptions = {
@@ -102,17 +109,17 @@
     var $projectsList = $('.projects__list');
     var $projects = $projectsList.children('li');
 
-    
-    if ($projects.length > 4){
-      
+    if ($projectsList.height() >= 560){
       var projectsSlider = $projectsList.bxSlider({
                               pager: false,
                               mode: 'vertical',
-                              minSlides: 4,
+                              minSlides: 3,
                               maxSlides: 4,
                               moveSlides: 1,
+							  infiniteLoop: false,
                               adaptiveHeight: false
                             });
+		$('.projects').css('overflow-y', 'visible');
     
     _this.sliderWheel($projectsList, projectsSlider);
     
@@ -124,10 +131,20 @@
 
     var $theBestList = $('.the-best-slider__list');
 
+	  if (document.location.href == 'http://brightberry.ru/' || document.location.href.indexOf('http://brightberry.ru/#') != -1)
+	  {
     var theBestListSlider = $theBestList.bxSlider({
                               pager: false
                             });
-
+	  } else {
+    var theBestListSlider = $theBestList.bxSlider({
+                              minSlides: 7,
+                              maxSlides: 7,
+							  infiniteLoop: false,
+                              pager: false
+                            });
+		  
+	  }
     _this.sliderWheel($theBestList, theBestListSlider);
 
     $(document).on('click', '.the-best__thumb', function(){
@@ -147,15 +164,40 @@
     var $thumbsList = $('.thumbs-slider__list');
     var $thumbs = $thumbsList.children('li');
     
-    if ($thumbs.length > 5){
+    if ($thumbs.length > 4){
 
+	  if (document.location.href == 'http://brightberry.ru/' || document.location.href.indexOf('http://brightberry.ru/#') != -1)
+	  {
       var thumbsSlider = $thumbsList.bxSlider({
                           pager: false,
-                          minSlides: 5,
-                          maxSlides: 5,
+                          minSlides: 4,
+                          maxSlides: 4,
                           moveSlides: 1,
+						  infiniteLoop: true,
+						  adaptiveHeight: false,
                           slideWidth: 130
                         });
+	} else if (document.location.href.indexOf('/catalog/') != -1) {
+      var thumbsSlider = $thumbsList.bxSlider({
+                          pager: false,
+                          minSlides: 6,
+                          maxSlides: 6,
+                          moveSlides: 1,
+						  infiniteLoop: false,
+						  adaptiveHeight: false,
+                          slideWidth: 130
+                        });
+	} else {
+      var thumbsSlider = $thumbsList.bxSlider({
+                          pager: false,
+                          minSlides: 4,
+                          maxSlides: 4,
+                          moveSlides: 1,
+						  infiniteLoop: false,
+						  adaptiveHeight: false,
+                          slideWidth: 130
+                        });
+	}
 
       _this.sliderWheel($thumbsList, thumbsSlider);
 
@@ -221,8 +263,10 @@
       var documentHeight = $(document).height();
       var documentWidth = $(document).width();
 
-      modalHight = documentHeight * .9;
-      modalWidth = documentWidth - 300;
+      modalHight = documentHeight * .97;
+      modalWidth = documentWidth - 300; 
+	  if (modalWidth > modalHight * 1.33)
+			modalWidth = modalHight * 1.33; 
       var galleryImagesHeight = modalHight - 130;
 
       $modalGallery.css('height', documentHeight );
@@ -244,11 +288,27 @@
       
       var $galleryMenu = $modalGalleryFrame.find('.gallery-menu');
       var $galleryMenuOpener = $modalGalleryFrame.find('.gallery-menu__title');
+      var $galleryMenuCloser = $('.gallery__slider');
+      var $galleryMenuCloser2 = $('.gallery__thumbs');
 
-      $galleryMenuOpener.on('click', function(){
-        $galleryMenu.toggleClass('active');
+      $galleryMenuOpener.on('mouseover', function(){
+        var $galleryMenuList = $('.gallery-menu__item');
+		if ($galleryMenuList.length <= 1) return true;
+        $galleryMenu.addClass('active');
         return false;
-      })
+      });
+      $galleryMenuCloser.on('mouseover', function(){
+        var $galleryMenuList = $('.gallery-menu__item');
+		if ($galleryMenuList.length == 1) return true;
+        $galleryMenu.removeClass('active');
+        return false;
+      });
+      $galleryMenuCloser2.on('mouseover', function(){
+        var $galleryMenuList = $('.gallery-menu__item');
+		if ($galleryMenuList.length == 1) return true;
+        $galleryMenu.removeClass('active');
+        return false;
+      });
 
     }
 
@@ -260,22 +320,59 @@
 
       var $galleryList = $modalGalleryFrame.find('.gallery-slider__list');
       var $galleryThumbsLinks = $modalGalleryFrame.find('.gallery__thumb');
-
-      var gallerySlider = $galleryList.bxSlider({
-                                pager: false
-                              });
+	 
+	  if (document.location.href == 'http://brightberry.ru/' || document.location.href.indexOf('http://brightberry.ru/#') != -1)
+	  {
+		  gallerySlider = $galleryList.bxSlider({
+									pager: false,
+									startSlide: (parseInt($('#active_id').html()) -1 ),
+									onSlideNext: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
+									onSlidePrev: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
+									onSliderLoad: function() {}
+								  });
+	  } else {
+		  gallerySlider = $galleryList.bxSlider({
+									pager: false,
+									infiniteLoop: false,
+									hideControlOnEnd: true,
+									startSlide: (parseInt($('#active_id').html()) -1 ),
+									onSlideNext: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
+									onSlidePrev: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
+									onSliderLoad: function() {}
+								  });
+	  }
 
       _this.sliderWheel($galleryList, gallerySlider);
 
-      $galleryThumbsLinks.on('click', function(){
+	  
+        var slideId = parseInt($('#active_id').html()) ;
+		var titlelinkname = $('#th_'+slideId).attr('titlelinkname');
+		$('#title_link').html(titlelinkname);
+		if (!titlelinkname)
+			$('#title_link').hide();
+		else
+			$('#title_link').show();
+		var titlelink = $('#th_'+slideId).attr('titlelink');
+		$('#title_link').attr('href', titlelink);
+		var links = $('#th_'+slideId).attr('links');
+		update_menu_list(links);
+		
+		var captionname = $('#th_'+slideId).attr('captionlink');
+		$('#img_caption').html(captionname);
+		
+		/*
+      $galleryThumbsLinks.on('mousedown', function(){
+		console.log('ok');
 		
         var slideId = parseInt( $(this).attr('href').replace('#slide', '') );
-
-        gallerySlider.goToSlide( --slideId );
-
+		console.log(slideId);
+        gallerySlider.goToSlide( slideId - 1 ); 
         return false;
-      });
-
+      });*/
+//	  alert(parseInt($('#active_id').html()) - 1);
+    
+	
+	//$('.gallery__name').html($('#th_'+parseInt($('#active_id').html()-1)).attr('alt'));
       /*
         gallery-thumbs
       */
@@ -283,9 +380,9 @@
       var $galleryThumbsList = $modalGalleryFrame.find('.gallery-thumbs-slider__list');
       var $galleryThumbs = $galleryThumbsList.children('li');
       
-      var thumbsNumber = Math.floor( ( modalWidth - 80 ) / 60 );
+      var thumbsNumber = Math.floor( ( modalWidth - 20 ) / 59 ) - 1; 
 
-      if ($galleryThumbs.length > thumbsNumber){
+      if ($galleryThumbs.length >= thumbsNumber){
 
         var galleryThumbsSlider = $galleryThumbsList.bxSlider({
                             pager: false,
@@ -321,6 +418,15 @@
         _initGallery();
 
         _initMenu();
+		
+
+		if (document.getElementById('yandexMap'))
+		{
+			$('#yandexMap').css('width' , modalWidth - 60);
+			$('#yandexMap').css('height' , (modalWidth - 60) / 1.3 - 60);
+			ymaps.ready(init);
+		}
+
 
       });
 
@@ -409,6 +515,35 @@
       return false;
     });
   };
+  app.scrollMenu = function(){
+    var $menuScroll = $('.menu__scroll');
+    var menuScrollHeight = $menuScroll.height();
+	
+    var scrollMyMenu = function( direction ){
+      var currentScrollTop = $menuScroll.scrollTop();
+      var newScrollTop = currentScrollTop + (direction == 'down' ? 120 : -120 );
+      $('.menu__scroll').stop().animate({
+          scrollTop: newScrollTop
+        }, '500' 
+      );
+
+    };
+    //if (menuScrollHeight <= 500 ) return;
+
+      $menuScroll.on('mousewheel DOMMouseScroll', function(e){
+		  var wheelDelta;
+			if (e.originalEvent.wheelDelta) {
+			  wheelDelta = e.originalEvent.wheelDelta/120;
+			} else if (e.originalEvent.detail) {       
+			  wheelDelta = -e.originalEvent.detail/3;
+			}
+			if (wheelDelta < 0) {  
+		  scrollMyMenu('down');
+			} else if (wheelDelta > 0) {
+		  scrollMyMenu('up');
+			}
+	  });
+  };
 
   app.alaxOptions = {
     url: "/ajax/callback/",
@@ -416,7 +551,9 @@
     datatype: 'json',
     success: function showResponse(responseText, statusText, xhr, $form)  { 
       var target = $form.data('popup') || 'success';
-      $.fancybox( $('#' + target), app.fancyOptions );
+     // $.fancybox( $('#' + target), app.fancyOptions );
+		$('#callback').hide();
+		$('#success').show();
     }       
   };
   

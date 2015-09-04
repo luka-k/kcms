@@ -33,6 +33,7 @@ class Mailouts extends MY_Model
 		}
 		
 		$data['message'] = $message;
+		$data['subject'] = $subject;
 		$template_message = $this->load->view('admin/email/'.$template.'.php', $data, TRUE);
 
 		$this->email->initialize($config);
@@ -53,7 +54,14 @@ class Mailouts extends MY_Model
 			$item->users_groups[] = $group->name;
 		}
 		
-		$template = $this->emails->get_item_by(array("id" => $item->template_id));
+		$template_id = $item->template_id;
+		if (strstr($template_id, 'n_'))
+		{
+			$template = $this->articles->get_item_by(array("id" => str_replace('n_', '', $template_id)));
+			$template->subject = $template->name;
+		} else
+			$template = $this->emails->get_item_by(array("id" => $template_id));
+		
 		$item->template = $template->name;
 		return $item;
 	}

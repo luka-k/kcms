@@ -9,15 +9,15 @@ class mail {
 		$this->CI->config->load('upload_config');
 	}
 
-	function send_mail($to, $subject, $message)
+	function send_mail($to, $subject, $message) 
 	{
 		$config = array(
 			'protocol' => "mail",
 			'mailtype' => "html",
 			'wordwrap' => TRUE
 		);
-		$from = 'admin@admin.com';
-		$who = 'Admin';
+		$from = 'info@brightbuild.ru';
+		$who = 'bрайтbерри';
 
 		$this->CI->email->initialize($config);
 		$this->CI->email->from($from, $who);

@@ -24,9 +24,6 @@ class Products extends MY_Model
 		),
 		'Изображения' => array(
 			'upload_image' => array('Загрузить изображение', 'product_image_gallery', 'img')
-		),
-		'Характеристики' => array(
-			'characteristics' => array('Редактировать характеристики', 'characteristics', 'ch')
 		)
 	);
 	
@@ -92,6 +89,7 @@ class Products extends MY_Model
 		{
 			$item->full_url = $this->get_url($item);
 			$item->img = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id));
+			$item->img_main = $this->images->get_images(array('object_type' => 'products', 'object_id' => $item->id), 1);
 			$item = $this->set_sale_price($item);
 			return $item;
 		}			

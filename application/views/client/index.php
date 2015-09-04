@@ -25,12 +25,12 @@
 							
 						<div class="the-best">
 							<div class="the-best__slider the-best-slider">
-							
+								
 								<ul class="the-best-slider__list">
-									<?foreach($gallery as $img):?>
+									<?foreach($gallery as $i=>$img):?>
 										<li class="the-best-slider__item">
-											<a href="<?=base_url()?>popup_gallery/view?action=main&first_img=<?=$img->id?>" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
-												<img src="<?=$img->catalog_big_url?>" alt="project" class="the-best-slider__image" />
+											<a id="im_main_<?= $img->id?>" rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=main&amp;first_img=<?=$i+1?>&amp;rand=<?= $microtime?>&amp;title=<?= urlencode('Галерея (the best)')?>" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
+												<img src="<?=$img->catalog_gallery_url?>" alt="project" class="the-best-slider__image" />
 											</a>
 										</li> <!-- /.the-best-slider__item-->
 									<?endforeach;?>									
@@ -38,11 +38,11 @@
 							</div> <!-- /.the-best__slider the-best-slider -->
 							
 							<div class="the-best__thumbs thumbs-slider">
-								<ul class="thumbs-slider__list">
+								<ul class="thumbs-slider__list" style="text-align: left;">
 									<?$counter = 1?>
 									<?foreach($gallery as $img):?>
-					        			<li class="thumbs-slider__item">
-											<a href="#slide<?=$counter?>" class="thumbs-slider__href the-best__thumb">
+					        			<li class="thumbs-slider__item" style="width: 126px;">
+											<a href="#slide<?=$counter?>" id="im_<?= $img->id?>" class="thumbs-slider__href the-best__thumb">
 												<img src="<?=$img->catalog_small_url?>" alt="thumb" class="thumbs-slider__image hover-image" />
 					        				</a>
 										</li> <!-- /.thumbs-slider__item -->
@@ -66,5 +66,6 @@
 	
 	<? require 'include/modal.php' ?>
 	<? require 'include/script.php' ?>
+	<script>$('.the-best__thumbs').css('overflow', 'visible');</script>
 </body>
 </html>

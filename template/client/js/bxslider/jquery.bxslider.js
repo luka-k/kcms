@@ -315,7 +315,7 @@
 			if (slider.settings.auto && slider.settings.autoStart && (getPagerQty() > 1 || slider.settings.autoSlideForOnePage)) initAuto();
 			// if ticker is true, start the ticker
 			if (slider.settings.ticker) initTicker();
-			// if pager is requested, make the appropriate pager link active
+			// if pager is requested, make the appropriate pager link active 
 			if (slider.settings.pager) updatePagerActive(slider.settings.startSlide);
 			// check for any updates to the controls (like hideControlOnEnd updates)
 			if (slider.settings.controls) updateDirectionControls();
@@ -392,6 +392,7 @@
 					width = slider.settings.slideWidth;
 				}
 			}
+			
 			return width;
 		}
 
@@ -844,20 +845,30 @@
 		var updateDirectionControls = function(){
 			if(getPagerQty() == 1){
 				slider.controls.prev.addClass('disabled');
+				slider.controls.prev.hide();
 				slider.controls.next.addClass('disabled');
+				slider.controls.next.hide();
 			}else if(!slider.settings.infiniteLoop && slider.settings.hideControlOnEnd){
 				// if first slide
 				if (slider.active.index == 0){
 					slider.controls.prev.addClass('disabled');
+					slider.controls.prev.hide();
 					slider.controls.next.removeClass('disabled');
+					slider.controls.next.show();
 				// if last slide
-				}else if(slider.active.index == getPagerQty() - 1){
+				}else if(slider.active.index == getPagerQty() - 1 || slider.active.index == -1){
+					if (slider.active.index == -1)
+						slider.active.index = getPagerQty() - 1;
 					slider.controls.next.addClass('disabled');
+					slider.controls.next.hide();
 					slider.controls.prev.removeClass('disabled');
+					slider.controls.prev.show();
 				// if any slide in the middle
 				}else{
 					slider.controls.prev.removeClass('disabled');
 					slider.controls.next.removeClass('disabled');
+					slider.controls.prev.show();
+					slider.controls.next.show();
 				}
 			}
 		}

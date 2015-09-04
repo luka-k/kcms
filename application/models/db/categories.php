@@ -45,7 +45,7 @@ class Categories extends MY_Model
 	public function get_sub_products($id)
 	{
 		$this->sub_products = array();
-		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1));
+		$sub_products = $this->products->get_list(array("parent_id" => $id, "is_active" => 1), 0, 0, 'name');
 		if($sub_products) foreach($sub_products as $product_item)
 		{
 			$this->sub_products[] = $product_item;
@@ -90,15 +90,18 @@ class Categories extends MY_Model
 			$this->config->item('catalog_id') => $this->config->item('catalog_url')
 		);
 
-		while(!array_key_exists($item->parent_id, $root))
+		$iterator = 0;
+		while($iterator < 15 && !array_key_exists($item->parent_id, $root))
 		{
 			$parent_id = $item->parent_id;
 			$item = $this->get_item($parent_id);
 			$item_url[] = $item->url;
+			$iterator++;
 		}
 
 		$item_url[count($item_url)] = $root[$item->parent_id];
 		if($this->uri->segment(1) == "articles") $item_url[count($item_url)-1] = "articles";
+
 		return $item_url;
 	}	
 	
@@ -106,7 +109,15 @@ class Categories extends MY_Model
 	{
 		if(!empty($item))
 		{
-			$item->img = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id));
+			$imgs = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id));
+			if ($imgs[0]->is_cover)
+			{
+				$item->img[0] = $imgs[0];
+				$item->img[1] = $imgs[1];
+			} else {
+				$item->img[1] = $imgs[0];
+				$item->img[0] = $imgs[1];
+			}
 			$item->full_url = $this->get_url($item);
 			return $item;
 		}

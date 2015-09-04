@@ -6,8 +6,9 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden', 'trim'),
-			'name' => array('Имя', 'text', 'trim|required|htmlspecialchars|name'),
-			'group_parent_id' => array('Группа', 'u2u_g', 'users2users_groups'),
+			'name' => array('Фамилия', 'text', 'trim|required|htmlspecialchars|name'),
+			'last_name' => array('ИО', 'text', 'trim|htmlspecialchars'),
+			'users_group_id' => array('Группа', 'u2u_g', 'users2users_groups'),
 			'email' => array('Почта', 'text', 'trim|required|htmlspecialchars|valid_email'),
 			'password' => array('Пароль', 'pass', 'trim|md5')
 		)
@@ -35,12 +36,12 @@ class Users extends MY_Model
 				'user' => $user,
 				'logged_in' => TRUE
 				);		
-			$u2u_g = $this->users2users_groups->get_list(array("child_id" => $user->id));
+			$u2u_g = $this->users2users_groups->get_list(array("user_id" => $user->id));
 
 			
 			foreach($u2u_g as $g)
 			{
-				$group = $this->users_groups->get_item_by(array("id" => $g->group_parent_id));
+				$group = $this->users_groups->get_item($g->users_group_id);
 				$authdata['user_groups'][] = $group->name;
 			}
 			
@@ -67,12 +68,12 @@ class Users extends MY_Model
 	//Вывод списока пользователей по id группы 
 	public function group_list($group_id)
 	{
-		$users_id = $this->users2users_groups->get_list(array("group_parent_id" => $group_id));
+		$users_id = $this->users2users_groups->get_list(array("users_group_id" => $group_id));
 		
 		$users = array();
 		foreach($users_id as $item)
 		{
-			$users[] = $this->get_item_by(array("id" => $item->child_id));
+			$users[] = $this->get_item($item->user_id);
 		}
 		
 		return $users;
@@ -81,7 +82,7 @@ class Users extends MY_Model
 	//Проверка принадлежности пользователя к группе
 	public function in_group($user_id, $group_id)
 	{
-		$user = $this->users2users_groups->get_item_by(array("group_parent_id" => $group_id, "child_id" => $user_id));
+		$user = $this->users2users_groups->get_item_by(array("users_group_id" => $group_id, "user_id" => $user_id));
 		return $user ? TRUE : FALSE;
 	}
 }

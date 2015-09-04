@@ -61,9 +61,12 @@ $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 $route['articles/kontakty'] = 'contacts/index';
 $route['articles/kontakty/(:any)'] = 'contacts/index/$1';
 
+$route['articles/o-kompanii/skachat-dokumenty/(:any)'] = 'download/doc/$1';
+
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
+
 
 $route['wishlist'] = 'pages/wishlist';
 $route['cabinet'] = 'cabinet';
@@ -76,6 +79,9 @@ $route['search'] = 'search';
 
 $route['popup_gallery'] = 'popup_gallery/index';
 $route['popup_gallery/(any:)'] = 'popup_gallery/(any:)';
+
+$route['sitemap.xml'] = 'sitemap';
+$route['sitemap.html'] = 'sitemap';
 /*
 
 

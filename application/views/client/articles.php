@@ -24,28 +24,38 @@
 					
 						<? require 'include/breadcrumbs.php'?>
 						
-						<section class="page__content">
+						<section class="page__content" style="padding-left: 50px;">
 							<header class="page__header">
 								<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
 							</header> <!-- /.page__header -->
 							
-							<div class="inside-navigation">
-								<ul class="inside-navigation__list">
-									<?foreach($content->articles as $a):?>
-										
-										<li class="inside-navigation__item">
-	 									<a href="<?=$a->full_url?>" class="inside-navigation__href">
-												<?if(isset($a->img[0]->categories_url)):?><img src="<?=$a->img[0]->categories_url?>" 
-												data-hover-image="<?if(isset($a->img[1])):?><?=$a->img[1]->categories_url?><?else:?><?=$a->img[0]->categories_url?><?endif;?>"
-												alt="img" class="inside-navigation__image"/><?endif;?>
-												<?=$a->name?>
-												
-											</a> <!-- /.inside-navigation__href -->
-										</li> <!-- /.inside-navigation__item -->
-									
-									<?endforeach;?>
-								</ul> <!-- /.our-works__list inside-navigation -->
-							</div> <!-- /.our-works -->
+							<div class="page__scroll">
+								<div class="page__scroll-in">
+									<div class="inside-navigation" style="padding-top: 0px;width: 625px;margin-left: 7px;" >
+										<ul class="inside-navigation__list">
+											<?foreach($content->articles as $a):?>
+												<? if (!$a->img[0]->url)
+												{
+													$a->img[0]->url = '/i/i/ii.png';
+													$a->img[1]->url = '/i/i/ii-hover.png';
+													
+												}
+												?>
+												<li class="inside-navigation__item" onmouseover="$('#m_objects_<?= $a->id?>').addClass('active')" onmouseout="$('#m_objects_<?= $a->id?>').removeClass('active')" style="margin-right: 50px;">
+												<a href="<?=$a->full_url?>/" target="<?= $a->parent_id == 5 ? '_blank':''?>" class="inside-navigation__href">
+														<?if(isset($a->img[0]->categories_url)):?><img src="/download/images<?=$a->img[0]->url?>" 
+														data-hover-image="/download/images<?if(isset($a->img[1])):?><?=$a->img[1]->url?><?else:?><?=$a->img[0]->categories_url?><?endif;?>" id="objects_<?= $a->id?>"
+														alt="img" class="inside-navigation__image"/><?endif;?>
+														<?=$a->name?>
+														
+													</a> <!-- /.inside-navigation__href -->
+												</li> <!-- /.inside-navigation__item -->
+											
+											<?endforeach;?>
+										</ul> <!-- /.our-works__list inside-navigation -->
+									</div> <!-- /.our-works -->
+								</div>
+							</div>
 							
 						</section> <!-- /.page__content -->
 						

@@ -13,11 +13,11 @@
 							<input type="hidden" name="template" value="<?=$template_id?>">
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">От кого</label></div>
-								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_name" value="<?=$user['name']?>"/></div>
+								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_name" value="<?=$from_name?>"/></div>
 							</div>
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">Email отправителя</label></div>
-								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_email" value="<?=$user['email']?>"/></div>
+								<div class="col_10"><input type="text" id="lbl_1" class="col_12" name="from_email" value="<?=$from_email?>"/></div>
 							</div>
 							<div  class="col_12">
 								<div class="col_2"><label for="lbl_1">Тема расссылки</label></div>
@@ -33,7 +33,7 @@
 									<?$counter = 1?>
 									<?foreach($users_groups as $group):?>
 										<div class="col_2">
-											<div class="col_1"><input type="checkbox" id="lbl_<?=$counter?>" class="subscribe_input" name="users_groups[]" onchange="all_sub('child');" value="<?=$group->id?>"/></div>
+											<div class="col_1"><input type="checkbox" id="lbl_<?=$counter?>" class="subscribe_input" name="users_groups[]" onchange="all_sub('child');" <?= $group->id == 3 ? 'checked' : '' ?> value="<?=$group->id?>"/></div>
 											<div class="col_11"><label for="lbl_<?=$counter?>">&nbsp;<?=$group->name?></label></div>
 										</div>
 										<?$counter++?>

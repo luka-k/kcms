@@ -1,13 +1,13 @@
 <div class="col_12">
 	<div class="col_3">Добавить фотографии</div>
-	<div class="col_4"><input type="file" id="<?=$edit_name?>" name="<?=$edit_name?>" /></div>
+	<div class="col_4"><input type="file" id="<?=$edit_name?>" multiple name="<?=$edit_name?>[]" /></div>
 	<input type="hidden" name="upload_image" value="upload_image"/>
 </div>
 
 <?if($content->img <> NULL):?>
 	<div class="col_12">
 		<input type="hidden" name="view_image" value="view_image"/>
-		<table  id="sort" class="sortable" cellspacing="2" cellpadding="2" >
+		<table  id="sort" cellspacing="2" cellpadding="2" >
 			<thead>
 				<tr>
 					<th class="tb_1">№</th>
@@ -16,7 +16,7 @@
 					<th class="tb_4">&nbsp;</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="sortable">
 				<?$counter = 1?>
 				<?foreach($content->img as $img_item):?>
 					<tr>

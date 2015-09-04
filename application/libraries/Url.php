@@ -133,7 +133,10 @@ class CI_Url {
 	
 	private function get_child_info($child, $url)
 	{
-		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id));
+		if($child->id == 3)
+			$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id), 0, 0, 'date', 'desc');
+		else
+			$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id), 0, 0, 'sort', 'asc');
 		
 		if (!$child->articles)
 		{

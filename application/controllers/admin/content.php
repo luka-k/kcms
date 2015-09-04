@@ -9,6 +9,28 @@ class Content extends Admin_Controller
 		parent::__construct();
 	}
 	
+	public function reThumb()
+	{
+		$images = $this->images->get_list(array('object_type' => 'products'));
+		$upload_path = $this->config->item('upload_path');
+		foreach ($images as $i => $im)
+		{
+			//if ($i <= 900 || $i > 1000) continue;
+			echo $upload_path . $im->url.'<br>';
+			$this->images->generate_thumbs($upload_path . $im->url);
+			flush();
+			/*$url = explode('/', $im->url);
+			mkdir ('/home/admin/web/riba-service.ru/public_html/sub/bb/download/images/'.$url[1]);
+			mkdir ('/home/admin/web/riba-service.ru/public_html/sub/bb/download/images/'.$url[1].'/'.$url[2]);
+			$url = $url[count($url) - 1];
+			if (file_exists('/home/admin/web/riba-service.ru/public_html/sub/bb/download/images/old/'.$url))
+			{
+				copy('/home/admin/web/riba-service.ru/public_html/sub/bb/download/images/old/'.$url, '/home/admin/web/riba-service.ru/public_html/sub/bb/download/images/'.$im->url);
+				echo $url;
+			}*/
+		}
+	}
+	
 	public function items($type, $id = FALSE)
 	{
 		$this->menu = $this->menus->set_active($this->menu, $type);
@@ -84,6 +106,7 @@ class Content extends Admin_Controller
 		{
 			$type == "products" ? $tree = $this->categories->get_tree(0, "parent_id") : $tree = $this->$type->get_tree(0, "parent_id");
 			$data['tree'] = $tree;
+			$data['producttree'] = $this->categories->get_tree(0, "parent_id");
 			$data['selects']['parent_id'] = $tree;
 		}
 		
@@ -109,6 +132,7 @@ class Content extends Admin_Controller
 				
 				if($type == "emails") $data['content']->type = 2;
 				
+				
 				$field_name = editors_field_exists('ch', $data['editors']);
 				if(!empty($field_name))
 				{
@@ -126,7 +150,7 @@ class Content extends Admin_Controller
 				);
 				$data['content']->img = $this->images->get_images($object_info);
 				
-				if($type == "products")
+				if($type == "products" || $type == "articles")
 				{
 					if($data['content']->img)
 					{
@@ -170,6 +194,10 @@ class Content extends Admin_Controller
 			else
 			{			
 				//Если валидация прошла успешно проверяем переменную id
+				if ($type == 'articles' || $type == 'categories' || $type == 'products')
+				{
+					$data['content']->lastmod = date('Y-m-d');
+				}
 				if($data['content']->id == FALSE)
 				{
 					//Если id пустая создаем новую страницу в базе
@@ -181,7 +209,19 @@ class Content extends Admin_Controller
 					//Если id не пустая вносим изменения.
 					$this->$type->update($data['content']->id, $data['content']);
 				}
-			
+				if ($type == "articles" && $_FILES['file']['tmp_name'])
+				{
+					if ($_FILES['file']['error'] == 0)
+					{
+						$ext = explode('.', $_FILES['file']['name']);
+						$ext = $ext[count($ext)-1];
+						$fname = slug(str_replace('.'.$ext, '', $_FILES['file']['name']));
+						$filename = 'download/editor/file/'.$fname.'.'.$ext;
+						move_uploaded_file($_FILES['file']['tmp_name'], $filename);
+						$this->$type->update($data['content']->id, array('description' => '/'.$filename));
+					}
+				} 
+				$im_changed = false;
 				$field_name = editors_field_exists('img', $data['editors']);
 				//Получаем id эдитора который предназначен для загрузки изображения
 				//Если например нужно две галлереи для товара то делаем в функции editors_field_exists $field_name массивом и пробегаем ниже по нему
@@ -192,15 +232,24 @@ class Content extends Admin_Controller
 						"object_id" => $data['content']->id
 					);
 					
-					if($type == "products")
+					if($type == "products" || $type == "articles")
 					{
 						$is_main = $this->input->post('is_main');
+						
+						foreach( $this->input->post('img_del') as $img_del_id => $on)
+						{
+							$this->images->delete($img_del_id);
+							$im_changed = true;
+						}
+						
+						$this->db->where($object_info)->update('images', array('is_main' => 0));
 						
 						if($is_main)
 						{
 							foreach($is_main as $key => $value)	
 							{
 								$this->images->update($key, array("is_main" => $value));
+								$im_changed = true;
 							}
 						}
 						
@@ -218,20 +267,57 @@ class Content extends Admin_Controller
 							{
 								$img_id = explode("-" , $img_id);
 								$this->images2categories->insert(array("category_parent_id" => $category_id, "child_id" => $img_id[0]));
+								$im_changed = true;
 							}
 						}
 
 					}
 		
 					$cover_id = $this->input->post("cover_id");
-					if ($cover_id <> NULL) $this->images->set_cover($object_info, $cover_id);
-					if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+					if ($cover_id <> NULL) 
+					{
+						$this->images->set_cover($object_info, $cover_id);
+						$im_changed = true;
+					}
+					if (isset($_FILES[$field_name])) {
+						foreach ($_FILES[$field_name]['error'] as $i => $error) {
+						  if ($error <> 4) {
+							$upload_array = array(
+								'name' => $_FILES[$field_name]['name'][$i],
+								'tmp_name' => $_FILES[$field_name]['tmp_name'][$i],
+								'type' => $_FILES[$field_name]['type'][$i],
+								'error' => $_FILES[$field_name]['error'][$i],
+								'size' => $_FILES[$field_name]['size'][$i]
+							);
+							$this->images->upload_image($upload_array, $object_info);
+							$im_changed = true;
+						  }
+						}
+					}
+					if ($_POST['upload_youtube'])
+					{
+						$_POST['upload_youtube'] = str_replace('https://youtu.be/', '', $_POST['upload_youtube']);
+						$_POST['upload_youtube'] = explode('?', $_POST['upload_youtube']);
+						$_POST['upload_youtube'] = $_POST['upload_youtube'][0];
+						$thumb = file_get_contents("http://i.ytimg.com/vi/".$_POST['upload_youtube']."/mqdefault.jpg");
+						$thumb_filename = "/home/admin/web/brightberry.ru/public_html/download/images/youtube/".$_POST['upload_youtube'].'.jpg';
+						file_put_contents($thumb_filename, $thumb);
+						$upload_array = array(
+							'name' => $_POST['upload_youtube'],
+							'tmp_name' => $thumb_filename,
+							'error' => 0,
+							'size' => 666
+						);
+						$object_info['caption'] = 'youtube:'.$_POST['upload_youtube'];
+						$this->images->upload_image($upload_array, $object_info);
+						$im_changed = true;
+					}
 				}
 				
 				isset($data['content']->parent_id) ? $p_id = $data['content']->parent_id : $p_id = "";
 				if($type == "emails") $p_id = $data['content']->type;
 				
-				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
+				$exit == false ? redirect(base_url().'admin/content/item/edit/'.$type."/".$data['content']->id.($im_changed ? '#tab_3' : '')) : redirect(base_url().'admin/content/items/'.$type."/".$p_id);	
 			}
 		}
 		if($action == "copy")
@@ -279,7 +365,7 @@ class Content extends Admin_Controller
 		);
 		$item_id = $this->images->delete_img($object_info);
 		$this->db->delete('images2categories', array('child_id' => $id)); 
-		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id);
+		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$item_id."#tab_3");
 	}
 	
 	public function delete_characteristic($id)
@@ -310,5 +396,19 @@ class Content extends Admin_Controller
 		
 		
 		$this->load->view('admin/gallery_sort.php', $data);
+	}
+
+	public function rename_image()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$this->images->update($info->id, array("name" => $info->name));
+	}
+
+	public function recaption_image()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$this->images->update($info->id, array("caption" => $info->caption));
 	}
 }

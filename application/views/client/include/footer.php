@@ -7,7 +7,7 @@
 				</li> <!-- /.footer-elements__item -->
 
 				<li class="footer-elements__item">
-					<a href="http://brightbuild.ru/" class="brightbuild" target="_blank">brightbuild.ru</a>
+					<a href="http://brightbuild.ru/" class="brightbuild" target="_blank" title="Партнеры">brightbuild.ru</a>
 				</li> <!-- /.footer-elements__item -->
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__left -->
@@ -19,11 +19,15 @@
 				</li> <!-- /.footer-elements__item -->
 				
 				<li class="footer-elements__item">
+					<a href="mailto:info@brightberry.ru" target="_blank">info@brightberry.ru</a>
+				</li> <!-- /.footer-elements__item -->
+				
+				<li class="footer-elements__item">
 					+7 (812) 633 04 10
 				</li> <!-- /.footer-elements__item -->
 				
 				<li class="footer-elements__item">
-					<a href="<?base_url()?>articles/kontakty" class="footer-copy__href">Контакты</a>
+					<a href="/articles/kontakty" class="footer-copy__href">Контакты</a>
 				</li> <!-- /.footer-elements__item -->
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__right -->

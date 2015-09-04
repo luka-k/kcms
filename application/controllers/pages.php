@@ -20,10 +20,20 @@ class Pages extends Client_Controller {
 		
 		$page = $this->url->url_parse(2);
 		
-		if(isset($page->article))
+		if(isset($page->article) && $page->id != 2 && $page->id != 5)
 		{
 			$content = $page;
-			
+			if ($page->id == 4)
+			{
+				$partners = $this->partners->get_prepared_list($this->partners->get_list());
+				$description = "";
+				foreach ($partners as $p)
+				{
+					$url = 'www.'.str_replace('http://', '', str_replace('www.', '', $p->url));
+					$description .= "<div style='width: 575px;'><a href='".$p->url."' target='_blank'><img style='float: left;margin-right: 20px;' src='/download/images/".$p->img->url."' /></a>".$p->description."<br><a class='acidYellow' href='".$p->url."' target='_blank'>".$url."</a></div><div style='clear: both;'></div>";
+				}
+				$content->article->description = $description;
+			}
 			$template = "client/article.php";
 
 		}		
@@ -38,7 +48,6 @@ class Pages extends Client_Controller {
 		{
 		
 		}
-		
 		$data['title'] = $content->name;
 		$data['meta_title'] = $content->meta_title;
 		$data['meta_keywords'] = $content->meta_keywords;

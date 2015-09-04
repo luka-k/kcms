@@ -12,8 +12,8 @@ class Settings extends MY_Model
 			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars')
 		),
 		'SEO' => array(
-			'site_description' => array('Описание сайта', 'text'),
-			'site_keywords' => array('Ключевые слова', 'text')
+			'site_description' => array('Описание сайта', 'text', 'trim|htmlspecialchars'),
+			'site_keywords' => array('Ключевые слова', 'text', 'trim|htmlspecialchars')
 		),
 		'Изображение' => array(
 			'upload_image' => array('Изображение по умолчанию', 'image', 'img')

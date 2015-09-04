@@ -33,7 +33,7 @@ class Contacts extends Client_Controller {
 			}
 			$template="client/contact.php";
 		}		
-		elseif(isset($page->articles))
+		if(isset($page->articles) && $page->articles)
 		{
 			$content = $page;
 			if(!$this->uri->segment(3))
@@ -42,7 +42,8 @@ class Contacts extends Client_Controller {
 				foreach($content->articles as $item)
 				{
 					$sub_articles = $this->articles->get_list(array("parent_id" => $item->id));
-					$sub_articles ? $articles = array_merge($articles, $sub_articles) :	$articles[] = $item;
+					//$sub_articles ? $articles = array_merge($articles, $sub_articles) :	
+					$articles[] = $item;
 				}
 				
 				$content->articles = $this->articles->get_prepared_list($articles);
@@ -61,7 +62,6 @@ class Contacts extends Client_Controller {
 			$content->articles = array();
 			$template="client/articles.php";
 		}
-		
 		$data['title'] = $content->name;
 		$data['meta_title'] = $content->meta_title;
 		$data['meta_keywords'] = $content->meta_keywords;

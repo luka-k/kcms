@@ -7,7 +7,7 @@
 	</div> <!-- /.modal__content -->
 </div> <!-- /.modal -->
 
-<div class="modal" id="success">
+<div class="modal" id="success" style="margin-left: 200px;margin-top: 150px;">
 	<div class="modal__content">
 		<a href="#close" class="modal__close">Закрыть</a>
 		<div class="modal__title">

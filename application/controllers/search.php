@@ -13,7 +13,7 @@ class Search extends Client_Controller {
 		$this->breadcrumbs->add($this->config->item('works_url'), "Наши работы");
 		$this->breadcrumbs->add("", "Результаты поиска");
 		
-		$search = $this->input->get('search');
+		$search = urldecode($this->input->get('search'));
 
 		$this->db->like('name', $search);
 		$this->db->or_like('description', $search);

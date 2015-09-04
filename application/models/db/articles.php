@@ -10,16 +10,23 @@ class Articles extends MY_Model
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select', ''),
 			'sort' => array('Сортировка', 'text', ''),
+			'file' => array('Файл для Скачать документы', 'file', ''),
 			'description' => array('Описание', 'tiny', '')
+		),
+		'Для контактов' => array(
+			'map' => array('Код карты', 'text', 'trim|htmlspecialchars'),
+			'map2' => array('Код статичной карты', 'text', 'trim|htmlspecialchars'),
+			'map_center' => array('Координаты на карте', 'text', ''),
+			'object_id' => array('Id объекта', 'text', '')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'product_image_gallery', 'img')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_keywords' => array('Ключевые слова страницы', 'text', 'trim|htmlspecialchars'),
 			'meta_description' => array('Описание страницы', 'text', 'trim|htmlspecialchars'),
 			'url' => array('url', 'text', 'trim|htmlspecialchars|substituted[name]')
-		),
-		'Изображения' => array(
-			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	
@@ -67,6 +74,22 @@ class Articles extends MY_Model
 			if(!is_object($item)) $item = (object)$item;
 			$item->full_url = $this->get_url($item);
 			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
+			$imgs = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
+			
+			if ($imgs)
+			{
+				if ($imgs[0]->is_cover)
+				{
+					$item->img[0] = $imgs[0];
+					$item->img[1] = $imgs[1];
+				} else {
+					$item->img[1] = $imgs[0];
+					$item->img[0] = $imgs[1];
+				}
+			} else {
+				$item->img[0]->categories_url = '/download/images/i/i/ii.png';
+				$item->img[1]->categories2_url = '/download/images/i/i/ii-hover.png';
+			}
 			if(!empty($item->date))
 			{
 				$item_date = new DateTime($item->date);

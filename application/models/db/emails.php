@@ -28,7 +28,7 @@ class Emails extends MY_Model
 		
 		$info->to = $to;
 		$info->from_name = $settings->admin_name;
-		$info->from_email = $settings->admin_email;
+		$info->from_email = 'info@brightbuild.ru';//$settings->admin_email;
 		
 		$template_info = $this->emails->get_item_by(array("id" => $template_id));
 		

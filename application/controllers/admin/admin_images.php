@@ -11,6 +11,9 @@ class Admin_images extends Admin_Controller
 	
 	public function rethumb()
 	{
+	
+		$this->images->resize_all();
+		return;
 		$images= $this->images->get_list(FALSE);
 		
 		$sizes = $this->input->post('sizes');

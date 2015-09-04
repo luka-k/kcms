@@ -19,7 +19,7 @@
 				<div class="page">
 					<? require 'include/breadcrumbs.php'?>
 					
-					<section class="page__content">
+					<section class="page__content" style="padding-left: 68px;">
 					
 						<header class="page__header">
 							<h1 class="page__title"><?=$title?></h1> <!-- /.page__title -->
@@ -29,10 +29,10 @@
 							<ul class="projects__list">
 								
 								<?foreach($content as $c):?>
-									<li class="projects__item projects-item">
+									<li class="projects__item projects-item" onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')">
 										<?if(!empty($c->img)):?>
 											<a href="<?=$c->full_url?>" class="projects-item__image-box">
-												<img src="<?=$c->img->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
+												<img src="<?=$c->img->catalog_small_url?>" id="project<?= $c->id?>" alt="project" class="projects-item__image hover-image" />
 											</a>
 										<?endif;?>
 										

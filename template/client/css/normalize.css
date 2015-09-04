@@ -37,8 +37,6 @@
  canvas,
  video {
   display: inline-block;
-  *display: inline;
-  *zoom: 1;
 }
 
 /**
@@ -215,7 +213,7 @@ blockquote {
 
  p,
  pre {
-  margin: 0 0 1em 0;
+  margin: 0 0 5px 0;
 }
 
 /**
@@ -392,7 +390,6 @@ dd {
   border: 0; /* 1 */
   padding: 0;
   white-space: normal; /* 2 */
-  *margin-left: -7px; /* 3 */
 }
 
 /**
@@ -409,7 +406,6 @@ dd {
   font-size: 100%; /* 1 */
   margin: 0; /* 2 */
   vertical-align: baseline; /* 3 */
-  *vertical-align: middle; /* 3 */
 }
 
 /**
@@ -450,7 +446,6 @@ dd {
  input[type="submit"] {
   -webkit-appearance: button; /* 2 */
   cursor: pointer; /* 3 */
-  *overflow: visible;  /* 4 */
 }
 
 /**
@@ -474,8 +469,6 @@ dd {
   -moz-box-sizing: border-box;
   box-sizing: border-box; /* 1 */
   padding: 0; /* 2 */
-  *height: 13px; /* 3 */
-  *width: 13px; /* 3 */
 }
 
 /**

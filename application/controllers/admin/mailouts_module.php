@@ -14,12 +14,20 @@ class Mailouts_module extends Admin_Controller
 		
 		$mailouts = $this->mailouts->get_prepared_list($this->mailouts->get_list(FALSE));
 
+		$templates = $this->emails->get_list(array("type" => 2));
+		$news = $this->articles->get_list(array("parent_id" => 3));
+		foreach ($news as $n)
+		{
+			$n->id = 'n_'.$n->id;
+			$templates[] = $n;
+		}
+		
 		$data = array(
 			'title' => "Рассылка",
 			'error' => "",
 			'user' => $this->user,
 			'menu' => $this->menu,
-			'templates' => $this->emails->get_list(array("type" => 2)),
+			'templates' => $templates,
 			'mailouts' => array_reverse($mailouts)
 			//'users_groups' => $this->users_groups->get_list(FALSE)
 		);
@@ -29,13 +37,22 @@ class Mailouts_module extends Admin_Controller
 	
 	public function mailout($action = "edit")
 	{
+		$settings = $this->settings->get_item_by(array('id' => 1));
 		$template_id = $this->input->post('template');
-		$template = $this->emails->get_item_by(array("id" => $template_id));
 		
+		if (strstr($template_id, 'n_'))
+		{
+			$template = $this->articles->get_item_by(array("id" => str_replace('n_', '', $template_id)));
+			$template->subject = $template->name;
+			$template->description = '<h3>%USER_LAST_NAME%, добрый день!</h3>'. $template->description;
+		} else
+			$template = $this->emails->get_item_by(array("id" => $template_id));
 		$data = array(
 			'title' => "Редактирование рассылки",
 			'error' => "",
 			'user' => $this->user,
+			'from_name' => $settings->admin_name,
+			'from_email' => $settings->admin_email,
 			'menu' => $this->menu,
 			'template_id' => $template_id,
 			'template' => $template,
@@ -69,14 +86,15 @@ class Mailouts_module extends Admin_Controller
 			{
 				$users = array_merge($users, $this->users->group_list($group->id));
 			}
-			
 			$success = 0;
 			$no_success = 0;
 			foreach($users as $user)
 			{
+				if (!$user) continue;
 				$info->to = $user->email; 
 				
 				$parse_info['USER_NAME'] = $user->name;
+				$parse_info['USER_LAST_NAME'] = $user->last_name;
 				
 				$is_send = $this->mailouts->send_mail($info, $parse_info);
 				

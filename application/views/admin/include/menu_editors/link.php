@@ -1,4 +1,4 @@
-<div class="col_12">
+﻿<div class="col_12">
 	<label class="col_3"><?=$edit[0]?></label>
 	<select id="field-articles" class="<?=$name?> select_url" name="<?=$name?>" class="col_8" <?if($item_content <> "articles"):?>disabled<?endif;?>>
 		<option label="" value="">Выберите содержимое</option>

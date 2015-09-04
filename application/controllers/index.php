@@ -13,7 +13,11 @@ class Index extends Client_Controller {
 	{		
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
-		$gallery = $this->images->get_list(array("object_type" => "products", "is_main" => 1), $from = FALSE, $limit = FALSE, "sort", "asc");
+		$gallery = $this->images->get_list(array("is_main" => 1), $from = FALSE, $limit = FALSE, "sort", "asc");
+		
+		$microtime = time();
+		srand($microtime); 
+		shuffle($gallery);
 		foreach($gallery as $key => $img)
 		{
 			$gallery[$key] = $this->images->_get_urls($img);
@@ -21,6 +25,7 @@ class Index extends Client_Controller {
 		
 		$data = array(
 			'title' => $settings->site_title,
+			'microtime' => $microtime,
 			'tree' => $this->categories->get_site_tree($this->config->item('works_id'), "parent_id"),
 			'url' => $this->uri->segment_array(),
 			'gallery' => $gallery

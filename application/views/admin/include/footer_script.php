@@ -123,6 +123,24 @@
 		});
 
 	});
+
+	function rename_image(id, name){
+		data = new Object();
+		data.id = id;
+		data.name = name;
+		
+		var json_str = JSON.stringify(data);
+		$.post ("/admin/content/rename_image/", json_str, "json");
+	}
+
+	function recaption_image(id, caption){
+		data = new Object();
+		data.id = id;
+		data.caption = caption;
+		
+		var json_str = JSON.stringify(data);
+		$.post ("/admin/content/recaption_image/", json_str, "json");
+	}
 	
 	jQuery(document).ready(function($){	
 		var ckeditor = CKEDITOR.replace('editor');

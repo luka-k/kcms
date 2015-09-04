@@ -11,7 +11,7 @@
 					<div class="search__fields">
 						<div class="search__line">
 							<div class="form__input-border">
-								<input type="text" id="search_input" class="form__input search__input search" name="search" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> autocomplete="off"/>
+								<input type="text" id="search_input" class="form__input search__input search" name="search" placeholder="Поиск по сайту" <?if(isset($search)):?>value="<?=urldecode($_GET['search'])?>"<?endif;?> autocomplete="off"/>
 							</div> <!-- /.form__input-border -->
 						</div> <!-- /.search__line -->
 						<div class="search__button">

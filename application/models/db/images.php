@@ -29,6 +29,21 @@ class Images extends MY_Model
 		if(isset($img['type']))
 		{
 			//Загружаем оригинал
+			while (file_exists($img_path))
+			{
+				$tmp = explode('.', $img_path);
+				$ext = $tmp[count($tmp)-1];
+				unset($tmp[count($tmp)-1]);
+				$tmp = implode('.', $tmp);
+				$img_path = $tmp.'_'.'.'.$ext;
+				
+				$tmp = explode('.', $img_info->url);
+				$ext = $tmp[count($tmp)-1];
+				unset($tmp[count($tmp)-1]);
+				$tmp = implode('.', $tmp);
+				$img_info->url = $tmp.'_'.'.'.$ext;
+				
+			}
 			if(!move_uploaded_file($img["tmp_name"], $img_path)) return FALSE;
 		}else
 		{
@@ -36,19 +51,67 @@ class Images extends MY_Model
 		}
 
 		//Создаем миниатюры
-		if(!$this->generate_thumbs($img_path) == FALSE) return FALSE;
+		if(!$this->generate_thumbs($img_path,$img_info->id) == FALSE) return FALSE;
+		$output_filename = $img_info->url;
+		$output_filename = str_replace('.pdf','.jpg', $output_filename);
+		$output_filename = str_replace('.tiff', '.jpg', $output_filename);
+		$output_filename = str_replace('.tif', '.jpg', $output_filename);
+		$img_info->url = $output_filename;
 		
 		$object_info['url'] = $img_info->url;
+		$name = explode('/', $img_info->url);
+		$name = $name[count($name)-1];
+		$name = explode('.', $name);
+		$name = $name[0];
+		$object_info['name'] = $name;
 
 		return $this->insert($object_info);
 	}
 	
+	/**
+	* Изменение размеров миниатюру
+	*
+	* @return bool
+	*/
+	public function resize_all()
+	{
+		$images= $this->images->get_list(FALSE);
+		foreach ($images as $i => $image)
+		{
+			//if ($i < 376) continue;
+			if ($image->is_main == 0) continue;
+			//print_r($image);
+			if (!file_exists('/home/admin/web/brightberry.ru/public_html/download/images'.$image->url))
+			{
+				$image->url = str_replace('.jpg', '.tif', $image->url);
+				echo '---';
+			}
+			echo $image->url.'<br>';
+			//continue;
+			
+			$upload_path = $this->config->item('upload_path');
+			$thumb_config = $this->config->item('thumb_config');
+			
+			foreach($thumb_config as $path => $param)
+			{
+				unlink($upload_path."/".$path.$image->url);
+			}
+			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE)
+			{
+				file_put_contents('download/log.log', file_get_contents('download/log.log')."ERROR: ".$i.':'.$image->id."\n");
+				continue;
+			}
+			file_put_contents('download/log.log', file_get_contents('download/log.log').$i.':'.$image->id."\n");
+		}
+		return TRUE;
+	}
+	
 	// function generate_thumb() - генерирует миниатюры для изображения
 	// $img_path - путь к картинке
-	public function generate_thumbs($img_path)
+	public function generate_thumbs($img_path, $id = '')
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
-		
+		 
 		$upload_path = $this->config->item('upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
@@ -58,6 +121,8 @@ class Images extends MY_Model
 		//Создаем миниатюры
 		foreach ($thumb_config as $thumb_dir_name => $configs) 
 		{
+			//if ($thumb_dir_name != 'categories2') continue;
+			//echo '+';
 			$thumb->resetObject();
 			
 			//Задаем имя файла с которого делаем миниатюру.
@@ -70,6 +135,10 @@ class Images extends MY_Model
 			}
 			
 			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
+			$output_filename = str_replace('.pdf', '.jpg', $output_filename);
+			$output_filename = str_replace('.tiff','.jpg', $output_filename);
+			$output_filename = str_replace('.tif','.jpg', $output_filename);
+			
 
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
@@ -121,7 +190,7 @@ class Images extends MY_Model
 	{
 		if ($is_cover == FALSE)
 		{
-			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "is_cover", "desc");
+			$images = $this->get_list(array('object_id' => $object_info['object_id'], 'object_type' => $object_info['object_type']), FALSE, FALSE, "name", "asc");
 			if($images)
 			{
 				foreach($images as $key => $item)

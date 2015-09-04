@@ -392,7 +392,7 @@ class MY_Model extends CI_Model
 	
 	public function get_sub_tree($parent_id, $parent_id_field, $active_branch, $type)
 	{
-		$branches = $this->get_list(array($parent_id_field => $parent_id), FALSE, FALSE, "sort", "asc");
+		$branches = $this->get_list(array($parent_id_field => $parent_id, 'is_active' => true), FALSE, FALSE, "sort", "asc");
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			if($type == "client") $branches[$i] = $this->prepare($b);
@@ -404,6 +404,19 @@ class MY_Model extends CI_Model
 			else
 			{
 				$branches[$i]->childs = $this->get_sub_tree($b->id, $parent_id_field, $active_branch, $type);
+				if($type == "client" && $this->_table == "categories" && !$branches[$i]->childs)
+				{
+					if ($branches[$i]->url == $this->uri->segments[count($this->uri->segments)])
+					{
+						$p = $this->products->get_list(array($parent_id_field => $branches[$i]->id, 'is_active' => true), FALSE, FALSE, "sort", "asc");
+						if (count($this->uri->segments) == 3)
+						{
+							$branches[$i]->full_url = $branches[$i]->full_url.'/'.$p[0]->url;
+						} else {
+							//$branches[$i]->full_url = 'catalog/'.$this->uri->segments[1].'/'.$this->uri->segments[2];
+						}
+					}
+				}
 			}
 
 			if(!($this->set_active_class($active_branch, $branches[$i]))) $branches[$i]->class = "noactive";
@@ -412,8 +425,12 @@ class MY_Model extends CI_Model
 		{
 			if($type == "client" && $this->_table == "categories")
 			{
-				$branches = $this->products->get_list(array($parent_id_field => $parent_id), FALSE, FALSE, "sort", "asc");
+				$branches = $this->products->get_list(array($parent_id_field => $parent_id, 'is_active' => true), FALSE, FALSE, "sort", "asc");
 				if($branches) $branches = $this->products->get_prepared_list($branches);
+				if (count($branches) == 1) 
+				{
+					$branches = array();
+				}
 			}
 		}
 		return $branches;

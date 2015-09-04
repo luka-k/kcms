@@ -31,12 +31,12 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 		
 		$category = $this->url->categories_url_parse(2);
-
 		if ($category == "root")
 		{
-			$content = $this->categories->get_list(array("parent_id" => $catalog_id), $from = FALSE, $limit = FALSE, $order, $direction);
-			redirect(base_url().$catalog_url.'/'.$content[0]->url);
+			$content = $this->categories->get_list(array("parent_id" => $catalog_id, 'is_active' => true), $from = FALSE, $limit = FALSE, $order, $direction);
+			//redirect(base_url().$catalog_url.'/'.$content[0]->url);
 
+			$content = $this->categories->get_prepared_list($content);
 			
 			$settings = $this->settings->get_item_by(array('id' => 1));
 
@@ -48,7 +48,7 @@ class Catalog extends Client_Controller {
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 			$data['content'] = $content;
 			
-			$template = 'client/products.php';		
+			$template = 'client/categories.php';		
 		}
 		else
 		{
@@ -56,8 +56,18 @@ class Catalog extends Client_Controller {
 			{
 				$content = $this->products->prepare_product($category->product);
 				$template = "client/product.php";
+				if ($data['url'][1] == 'catalog')
+				{
+					$data['hide_1st_image'] = true;
+					$data['is_catalog'] = true;
+					if($this->uri->segments[5] == 'preview')
+					{
+						unset($category->product);
+					}
+					//if ($this->uri->segment())
+				}
 			}
-			else
+			if(!isset($category->product))
 			{
 				if(in_array("obekty", $data['url']))
 				{
@@ -76,7 +86,51 @@ class Catalog extends Client_Controller {
 						$template = "client/products.php";
 					}
 				}
-				elseif(in_array($catalog_url, $data['url']))
+				elseif($catalog_url == 'catalog')
+				{
+					if (count( $data['url'] ) == 2)
+					{
+						
+						$parent_category = $this->categories->get_item_by(array('url' => $data['url'][2], 'parent_id' => 36));
+						$content = $this->categories->get_list(array('parent_id' => $parent_category->id), 0, 0, 'sort', 'asc');
+						$content = $this->categories->get_prepared_list($content);
+						
+						$products = array();
+						foreach ($content as $_category)
+						{
+							$category_products = $this->products->get_list(array('parent_id' => $_category->id));
+							$category_products = $this->products->get_prepared_list($category_products);
+							$products = array_merge($products, $category_products);
+						}
+						$data['products'] = $products;
+						
+					//print_r($category);
+						$template = "client/categories-catalog.php";	
+					} else {
+						$content = $this->categories->get_sub_products($category->id);
+						
+						if($this->uri->segments[5] == 'preview')
+						{
+							$content = $this->products->get_list(array('url' => $this->uri->segments[4]));
+							$category = $content[0];
+						}
+						$content = $this->products->get_prepared_list($content);
+						
+						
+						if(count($content) <= 1)
+						{
+							$template = "client/products-catalog-1.php";	
+						}
+						elseif(count($content) <= 4)
+						{
+							$template = "client/products-catalog-2.php";	
+						}
+						else
+						{
+							$template = "client/products-catalog.php";	
+						}
+					}
+				} elseif(in_array($catalog_url, $data['url']))
 				{
 					$content = $this->categories->get_sub_products($category->id);
 					$content = $this->products->get_prepared_list($content);
@@ -98,7 +152,9 @@ class Catalog extends Client_Controller {
 					
 					foreach($img_ids as $i)
 					{
-						$content[] = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+						$img = $this->images->_get_urls($this->images->get_item_by(array("id" => $i->child_id)));
+						if ($img)
+							$content[] = $img;
 					}
 					
 					$template = "client/gallery_categories.php";
