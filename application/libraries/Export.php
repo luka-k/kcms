@@ -22,7 +22,13 @@ class Export{
 		
 		$file_path = FCPATH."export/export_{$school_name}.sqlite";
 		if(is_file($file_path)) unlink($file_path);
-				
+		
+		$sql = file_get_contents(FCPATH."export/sql/export.sql");
+
+		$sqlite = new sqlite3($file_path);
+		
+		$sqlite->query($sql);	
+		
 		$insert_info = $this->get_insert_info_by_school($school);
 		
 		foreach($tables as $table)
@@ -33,13 +39,13 @@ class Export{
 
 			//Проверка
 
-			$sqlite = new sqlite3($file_path);
+			/*$sqlite = new sqlite3($file_path);
 			$result = $sqlite->query("SELECT * FROM {$table}");
 		
 			while ($row = $result->fetchArray())
 			{
 				my_dump($row);
-			}
+			}*/
 		}	
 	}
 	
@@ -49,7 +55,7 @@ class Export{
 		$menu = $this->CI->menu->get_item_by(array('school_id' => $school->id));
 		
 		$cards = array();
-		$child2products = array();
+		$child2product = array();
 		if($child_users) 
 		{
 			foreach($child_users as $ch_u)
@@ -61,7 +67,7 @@ class Export{
 		
 			$ch_ids = $this->CI->catalog->ids_in_array($child_users);
 			$this->CI->db->where_in('child_id', $ch_ids);
-			$child2products = $this->CI->db->get('child2products')->result();
+			$child2product = $this->CI->db->get('child2product')->result();
 		}
 		
 		$categories = array();
@@ -82,7 +88,7 @@ class Export{
 			'child_users' => $child_users,
 			'menu' => $menu,
 			'cards' => $cards,
-			'child2products' => $child2products,
+			'child2product' => $child2product,
 			'categories' => $categories,
 			'products' => $products
 		);
@@ -94,30 +100,13 @@ class Export{
 	{
 		$sqlite = new sqlite3($file_path);
 		
-		$fields_data = $this->CI->db->field_data($table);
-		
-		$sql = "";	
-		$fields = '';
-		$primary_key = "";
-		
-		if($fields_data) foreach($fields_data as $key => $field)
+		$result = $sqlite->query("SELECT * FROM {$table}");
+		$table_fields = array();
+		for($i = 0; $i < $result->numColumns(); $i++)
 		{
-			$fields .= "[{$field->name}] {$field->type}";
-
-			//$fields .= $field->default ? "DEFAULT {$field->default} " : "NOT NULL ";
-			if($field->default) $fields .= " DEFAULT {$field->default}";
-
-			if($field->primary_key == 1) $primary_key = $field->name;
-			if($key <> count($fields_data) - 1) $fields .= ",".PHP_EOL;
+			$table_fields[] = $result->columnName($i);
 		}
-			
-		//if(!empty($primary_key)) $fields .= "," . PHP_EOL . "CONSTRAINT [] PRIMARY KEY ([{$primary_key}])";
-		//if(!empty($primary_key)) $fields .= "," . PHP_EOL . "CREATE UNIQUE INDEX {$table}{$primary_key} ON {$table} ({$primary_key});";
-
-		$sql = "CREATE TABLE [{$table}] ({$fields});";
-
-		$sqlite->query($sql);
-		
+						
 		if(isset($insert_info[$table]) && !empty($insert_info[$table]))
 		{
 			$sql = "";
@@ -130,31 +119,33 @@ class Export{
 				$values = '';
 				$counter = 1;
 				
-				if($table == "child_users") $images[$line->id] = $line->image_blob;
+				if($table == "child_users") $images[$line->id] = $line->image;
 				
 				foreach($line as $key => $value)
 				{
-					
-					$fields .= "{$key}"; 
-					
-					if($key <> "image_blob")
+					if(in_array($key, $table_fields))
 					{
-						$values .= "'{$value}'";
-					}
-					else
-					{
-						$values .= "''";
-					}
+						$fields .= "{$key}"; 
+					
+						if($key <> "image")
+						{
+							$values .= "'{$value}'";
+						}
+						else
+						{
+							$values .= "''";
+						}
 								
-					if($counter <> count((array)$line)) 
-					{
-						$fields .= ', ';
-						$values .= ', ';
+						if($counter <> count($table_fields)) 
+						{
+							$fields .= ', ';
+							$values .= ', ';
+						}
+					
+						$counter++;
 					}
-					
-					$counter++;
 				}
-					
+
 				$sql .= "INSERT INTO {$table} ({$fields}) VALUES ({$values});";
 			}
 				
@@ -164,7 +155,7 @@ class Export{
 			{
 				foreach($images as $id => $image_blob)
 				{
-					$query = $sqlite->prepare("UPDATE '{$table}' SET image_blob=? WHERE id=?");
+					$query = $sqlite->prepare("UPDATE '{$table}' SET image=? WHERE id=?");
 
 					$query->bindValue(1, $image_blob, SQLITE3_BLOB);
 					$query->bindValue(2, $id, SQLITE3_TEXT);
