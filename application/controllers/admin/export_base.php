@@ -27,7 +27,7 @@ class Export_base extends Admin_Controller
 		
 		if($schools) foreach($schools as $sch)
 		{
-			$this->export->export_school($sch, $tables);
+			$this->export->export_school_new($sch, $tables);
 		}
 	}
 }
