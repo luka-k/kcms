@@ -588,8 +588,30 @@ class MY_Model extends CI_Model
 					elseif($key == "image_blob")
 					{				
 						if(isset($_FILES['image_blob']) && $_FILES['image_blob']['error'] == UPLOAD_ERR_OK)
-						{						
-							$return->$key = file_get_contents($_FILES['image_blob']["tmp_name"]);
+						{				
+							require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
+
+							$file_path = FCPATH.'download/temp/temp_img.jpg';
+							
+							move_uploaded_file($_FILES['image_blob']['tmp_name'], $file_path);
+							
+							$thumb = new phpThumb();
+							$thumb->resetObject();
+
+							$thumb->setSourceFilename($file_path);
+				
+							$thumb->setParameter('w', 150);
+							$thumb->setParameter('h', 200);
+							$thumb->setParameter('f', 'jpeg');
+							$thumb->setParameter('far', 1);
+							
+							$thumb->GenerateThumbnail();
+							
+							$thumb->RenderToFile($file_path);
+											
+							$return->$key =  file_get_contents($file_path);
+							
+							unlink($file_path);
 						}
 					}
 					else
