@@ -2254,6 +2254,8 @@ text-align:center;
 
 .img_col {padding-right: 30px;}
 
+.inventory_item {padding-bottom: 7px;}
+
 @media all and (max-width: 1280px) {
 
 	#s_right, .hidden_part{
