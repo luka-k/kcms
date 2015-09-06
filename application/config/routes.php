@@ -40,6 +40,8 @@
 $route['default_controller'] = "index";
 $route['404_override'] = 'pages/page_404';
 
+$route['admin/get_database/test'] = "admin/get_database/test";
+$route['admin/get_database/(:any)'] = "admin/get_database/index/$1";
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
