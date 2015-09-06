@@ -178,7 +178,7 @@
 									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
 									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter?><?endif;?>
 								/>
-								<a href="#" class="level1_link"><span>+</span> <?=$level_2->name?></a>
+								<a href="#" class="level1_link"><?=$level_2->name?></a>
 							</li>
 						<?endforeach;?>
 						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block'; $("#cll-<?=$c->id?>").html("-");</script><?endif;?>
