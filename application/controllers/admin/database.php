@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Get_database extends CI_Controller 
+class Database extends CI_Controller 
 {
 
 	public function __construct()
@@ -8,7 +8,7 @@ class Get_database extends CI_Controller
 		parent::__construct();
 	}
 	
-	public function index($school_id)
+	public function export($school_id)
 	{			
 		$file_path = FCPATH."export/export_{$school_id}.sqlite";
 
@@ -27,11 +27,11 @@ class Get_database extends CI_Controller
 		echo file_get_contents($file_path);
 	}
 	
-	public function test(){
+	public function test_export(){
 		//$header = array('If-Modified-Since: '.date('D, d M Y H:i:s').' GMT');
 		$header = array('If-Modified-Since: Mon, 26 Jul 1997 00:00:00 GMT');
 		
-		if($curl = curl_init(base_url().'admin/get_database/shkola-1')) 
+		if($curl = curl_init(base_url().'admin/database/export/shkola-1')) 
 		{
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 			$out = curl_exec($curl);
