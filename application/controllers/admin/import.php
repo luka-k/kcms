@@ -278,6 +278,7 @@ class Import extends Admin_Controller
 			$sku = (string) $el->Артикул;
 			$cat1 = array(); // Группы товаров 1
 			$collections = array(); // Коллекции
+			$series = array(); // Серии
 			
 			$filters = array(); //Характеристики
 			
@@ -304,13 +305,41 @@ class Import extends Admin_Controller
 					case 'Полное наименование':
 						$data['name'] = (string) $param->Значение;
 						break;
-					case 'Коллекция (серия) 1':
+					/*case 'Коллекция (серия) 1':
 						$collections = explode('(', (string) $param->Значение);
 						foreach ($collections as $i => $collection)
 						{
 							$collections[$i] = str_replace(')', '', $collection);
 						}
 						$data['sort'] .= $collections[0];
+						break;
+					case 'Коллекция (серия) 2':
+						$collections_2 = explode('(', (string) $param->Значение);
+						foreach ($collections_2 as $i => $collection)
+						{
+							$collections_2[$i] = str_replace(')', '', $collection);
+						}
+						$data['sort'] .= $collections_2[0];
+						break;*/
+					case 'Коллекция (серия) 1':
+						$exploded = explode('(', (string) $param->Значение);
+
+						foreach ($exploded as $i => $ex)
+						{
+							if($i == 0) $collections[0] = $ex;
+							if($i == 1) $series[0] = str_replace(')', '', $ex);
+						}
+						if(isset($collections[0])) $data['sort'] .= $collections[0];
+						break;
+					case 'Коллекция (серия) 2':
+						$exploded = explode('(', (string) $param->Значение);
+						
+						foreach ($exploded as $i => $ex)
+						{
+							if($i == 0) $collections[1] = $ex;
+							if($i == 1) $series[1] = str_replace(')', '', $ex);
+						}
+						if(isset($collections[1])) $data['sort'] .= $collections[1];
 						break;
 					case 'Ширина':
 						$value = (string) $param->Значение;
@@ -403,15 +432,54 @@ class Import extends Admin_Controller
 			$my_collections = array();
 			if ($collections)
 			{
-				foreach ($collections as $collection)
+				$colection_parent_id = '';
+				foreach ($collections as $i => $collection)
 				{
-					$_collection = $this->collections->get_item_by(array('name' => trim($collection)));
+					$_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id));
 					if (!$_collection)
 					{
-						$this->collections->insert(array('name' => trim($collection), 'url' => $this->string_edit->slug($collection)));
+						$info = array(
+							'name' => trim($collection),
+							'url' => $this->string_edit->slug($collection),
+							'is_collection' => 1,
+							'manufacturer_id' => $_manufacturer->id
+						);
+						if($i == 1) $info['parent_id'] = $colection_parent_id;
+						
+						$this->collections->insert($info);
 						$_collection = $this->collections->get_item($this->db->insert_id());
 					}
+					if($i == 0) $colection_parent_id = $_collection->id;
 					$my_collections[] = $_collection->id;
+				}
+			}
+			
+			$my_series = array();
+			if($series)
+			{
+				$serie_parent_id = array();
+				foreach ($series as $i => $serie)
+				{
+					$ss = explode(';', (string) $serie); // $ss $s тут у меня конилась фантазия)))
+					foreach($ss as $j => $s)
+					{
+						$_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id));
+						if (!$_seria)
+						{
+							$info = array(
+								'name' => trim($s),
+								'url' => $this->string_edit->slug($s),
+								'is_collection' => 0,
+								'manufacturer_id' => $_manufacturer->id
+							);
+							if($i == 1) $info['parent_id'] = $serie_parent_id[$j];
+						
+							$this->collections->insert($info);
+							$_seria = $this->collections->get_item($this->db->insert_id());
+						}
+						if($i == 0) $serie_parent_id[$j] = $_collection->id;
+						$my_series[] = $_seria->id;
+					}
 				}
 			}
 			
