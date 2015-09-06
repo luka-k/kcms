@@ -585,15 +585,15 @@ class MY_Model extends CI_Model
 					{	
 						unset($editors[$type][$key]);
 					}
-					elseif($key == "image_blob")
+					elseif($key == "image")
 					{				
-						if(isset($_FILES['image_blob']) && $_FILES['image_blob']['error'] == UPLOAD_ERR_OK)
+						if(isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK)
 						{				
 							require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 
 							$file_path = FCPATH.'download/temp/temp_img.jpg';
 							
-							move_uploaded_file($_FILES['image_blob']['tmp_name'], $file_path);
+							move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
 							
 							$thumb = new phpThumb();
 							$thumb->resetObject();
@@ -627,7 +627,7 @@ class MY_Model extends CI_Model
 	
 		foreach($return as $key => $value)
 		{
-			if($key <> 'image_blob')
+			if($key <> 'image')
 			{
 				$edit_value = set_value($key);
 				if(!empty($edit_value)) $return->$key = $edit_value;

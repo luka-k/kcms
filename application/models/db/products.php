@@ -30,7 +30,7 @@ class Products extends MY_Model
 			'id' => array('id', 'hidden'),
 			'sort' => array('sort', 'hidden'),
 			'name' => array('Заголовок', 'text', 'name'),
-			'parent_id' => array('Категория', 'select'),
+			'category_id' => array('Категория', 'select'),
 			'price' => array('Цена', 'text'),
 			'weight' => array('Вес', 'text'),
 		)

@@ -106,7 +106,7 @@ class Content extends Admin_Controller
 			{
 				$tree =  $this->categories->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
 				$data['tree'] = $tree;
-				$data['selects']['parent_id'] = $tree;
+				$data['selects']['category_id'] = $tree;
 			}
 		}
 		
