@@ -16,4 +16,3 @@ ErrorDocument 404 /pages/page_404
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_URI} !(.*)/$
 #RewriteRule ^(.*[^/])$ $1/ [L, R=301]
-
