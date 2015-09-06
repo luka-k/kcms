@@ -153,11 +153,11 @@ class Export{
 			
 			if($table == "child_users")
 			{
-				foreach($images as $id => $image_blob)
+				foreach($images as $id => $image)
 				{
 					$query = $sqlite->prepare("UPDATE '{$table}' SET image=? WHERE id=?");
 
-					$query->bindValue(1, $image_blob, SQLITE3_BLOB);
+					$query->bindValue(1, $image, SQLITE3_BLOB);
 					$query->bindValue(2, $id, SQLITE3_TEXT);
 					$run = $query->execute();
 				}
