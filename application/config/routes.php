@@ -41,6 +41,7 @@ $route['default_controller'] = "index";
 $route['404_override'] = 'pages/page_404';
 
 $route['admin/database/test_export'] = "admin/database/test_export";
+$route['admin/database/test_import'] = "admin/database/test_import";
 $route['admin/database/(:any)'] = "admin/database/$1";
 $route['admin/database/(:any)/(:any)'] = "admin/database/$1/$2";
 $route['admin/(:any)'] = "admin/$1";
