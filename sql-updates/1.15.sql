@@ -1,0 +1,1 @@
+UPDATE `brightbild`.`emails` SET `description` = '<p>Клиент %user_name% оформил заказ № %order_code%.</p><p>Контакные данные:</p><p>email: %email%</p><p>телефон: %phone%</p><p>адрес: %address%</p><p>%products%</p>' WHERE `emails`.`id` =1;

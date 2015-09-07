@@ -50,6 +50,9 @@ class Order extends Client_Controller
 			"order_id" => $order_id,
 			"order_code" => $order_id,
 			"user_name" => $orders_info['name'],
+			'phone' => $orders_info['phone'],
+			'email' => $orders_info['email'],
+			'address' => $orders_info['address'],
 			"products" => $cart_items
 		);
 			
