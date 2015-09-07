@@ -38,8 +38,8 @@ class Content extends Admin_Controller
 		);	
 		
 		$data = array_merge($this->standart_data, $data);
-				
-		$order = "name";
+		
+		$order = $this->db->field_exists('name', $type) ? "name" : "sort";
 		$direction = "acs";
 		
 		if($this->db->field_exists('parent_id', $type))
@@ -47,7 +47,7 @@ class Content extends Admin_Controller
 			if($type <> "products") $data['tree'] = $this->$type->get_tree(0);
 		}
 		
-		if($type == "documents") $data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, "name", "asc");
+		if($type == "documents") $data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
 		if($id == "all")
 		{
@@ -111,6 +111,7 @@ class Content extends Admin_Controller
 			'left_column' => $left_column,
 			'editors' => $this->$type->editors,
 			'type' => $type,
+			'name' => $name,
 			'parent_id' => $parent_id,
 			'url' => "/".$this->uri->uri_string(),
 			'tree' => $this->categories->get_tree(FALSE, array(), "admin")
