@@ -177,7 +177,11 @@ class Content extends Admin_Controller
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if(!empty($is_characteristics)) $data['content']->characteristics = array();
-				if($type == "products") $data['content']->collections_id = array();
+				if($type == "products") 
+				{
+					$data['content']->collections_id = array();
+					$data['content']->product2collection = array();
+				}
 				if($type == "emails") $data['content']->type = 2;		
 				if($type == "documents") 
 				{
@@ -255,7 +259,17 @@ class Content extends Admin_Controller
 				// Характеристики
 				if(!empty($is_characteristics))
 				{
-					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
+					$this->db->where('product_id', $id);
+					$result = $this->db->get('characteristic2product')->result();
+					$characteristics_ids = array();
+					foreach($result as $r)
+					{
+						$characteristics_ids[] = $r-> characteristic_id ;
+					}
+					
+					$this->db->where_in('id', $characteristics_ids);
+					$data['content']->characteristics = $this->db->get('characteristics')->result();
+					
 					foreach($data['content']->characteristics as $characteristic)
 					{
 						foreach($data['ch_select'] as $ch)

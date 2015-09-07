@@ -339,7 +339,6 @@ class Import extends Admin_Controller
 							if($i == 0) $collections[1] = $ex;
 							if($i == 1) $series[1] = str_replace(')', '', $ex);
 						}
-						if(isset($collections[1])) $data['sort'] .= $collections[1];
 						break;
 					case 'Ширина':
 						$value = (string) $param->Значение;
@@ -554,7 +553,7 @@ class Import extends Admin_Controller
 					); 		
 					
 //					if (!$this->db->get_where('product2collection', $product2collection)->result())				
-						$this->db->insert('product2collection', $product2collection);
+					$this->db->insert('product2collection', $product2collection);
 				}
 				
 				foreach ($my_series as $_i => $seria_id)
