@@ -435,8 +435,10 @@ class Import extends Admin_Controller
 				$colection_parent_id = '';
 				foreach ($collections as $i => $collection)
 				{
-					if($i == 0) $_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id));
-					if($i == 1)	$_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'parent_id' => $colection_parent_id));
+					if($collection == " ") continue;
+					
+					if($i == 0) $_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 1));
+					if($i == 1)	$_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 1, 'parent_id' => $colection_parent_id));
 					if (!$_collection)
 					{
 						$info = array(
@@ -464,8 +466,10 @@ class Import extends Admin_Controller
 					$ss = explode(';', (string) $serie); // $ss $s тут у меня конилась фантазия)))
 					foreach($ss as $j => $s)
 					{
-						if($i == 0) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id));
-						if($i == 1) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'parent_id' => $serie_parent_id[$j]));
+						if($s == " ") continue;
+						
+						if($i == 0) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 0));
+						if($i == 1) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 0, 'parent_id' => $serie_parent_id[$j]));
 						if (!$_seria)
 						{
 							$info = array(
@@ -479,7 +483,8 @@ class Import extends Admin_Controller
 							$this->collections->insert($info);
 							$_seria = $this->collections->get_item($this->db->insert_id());
 						}
-						if($i == 0) $serie_parent_id[$j] = $_collection->id;
+						
+						if($i == 0) $serie_parent_id[$j] = $_seria->id;
 						$my_series[] = $_seria->id;
 					}
 				}

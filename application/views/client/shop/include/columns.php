@@ -154,39 +154,49 @@
 				
 <div id="secondcolumn3" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр <span class="red">X</span></a></div>
-	<ul class="level1">
-		<?foreach($collection as $c):?>
+	
+	<ul>
+		<?foreach($collection as $col_manufacturers):?>
 			<li>
-				<input type="checkbox" 
-					   id="collection-fork-<?=$c->id?>"
-					   class="collection-filter"
-					   name="collection_checked[]" 
-					   value="<?=$c->id?>"
-					   onclick="checked_tree('<?=$c->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
-					   <?if(isset($filters_checked['collection_checked']) && in_array($c->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
-				/>
-				<?if($c->childs):?><span id="cll-<?=$c->id?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link"><?=$c->name?></a>
-				<?if($c->childs):?>
-					<ul id="sub-collections-<?=$c->id?>">
-						<?$show_counter = 0?>
-						<?foreach($c->childs as $level_2):?>
+				<span class="level1_click">-</span><a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
+				<?if($col_manufacturers->childs):?>
+					<ul style="display:block;">
+						<?foreach($col_manufacturers->childs as $level_1):?>
 							<li>
 								<input type="checkbox" 
-									   class="collection-branch-<?=$c->id?> collection-filter"
-									   name="collection_checked[]" 
-									   value="<?=$level_2->id?>"
-									   onclick="checked_tree('<?=$c->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
-									   <?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter?><?endif;?>
+									id="collection-fork-<?=$level_1->id?>"
+									class="collection-filter"
+									name="collection_checked[]" 
+									value="<?=$level_1->id?>"
+									onclick="checked_tree('<?=$level_1->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
+									<?if(isset($filters_checked['collection_checked']) && in_array($level_1->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
 								/>
-								<a href="#" class="level1_link"><?=$level_2->name?></a>
+								<?if($level_1->childs):?><span id="cll-<?=$level_1->id?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link"><?=$level_1->name?></a>
+								<?if($level_1->childs):?>
+									<ul id="sub-collections-<?=$level_1->id?>">
+										<?$show_counter = 0?>
+										<?foreach($level_1->childs as $level_2):?>
+											<li>
+												<input type="checkbox" 
+													class="collection-branch-<?=$level_1->id?> collection-filter"
+													name="collection_checked[]" 
+													value="<?=$level_2->id?>"
+													onclick="checked_tree('<?=$level_1->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
+													<?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter?><?endif;?>
+												/>
+												<a href="#" class="level1_link"><?=$level_2->name?></a>
+											</li>
+										<?endforeach;?>
+										<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$level_1->id?>').style.display='block'; $("#cll-<?=$level_1->id?>").html("-");</script><?endif;?>
+										<?if($show_counter == count($level_1->childs)):?><script>$('collection-fork-<?=$level_1->id?>').prop("checked", true)</script><?endif;?>
+									</ul>
+								<?endif;?>
 							</li>
-						<?endforeach;?>
-						<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$c->id?>').style.display='block'; $("#cll-<?=$c->id?>").html("-");</script><?endif;?>
-						<?if($show_counter == count($c->childs)):?><script>$('collection-fork-<?=$c->id?>').prop("checked", true)</script><?endif;?>
+						<? endforeach ?>
 					</ul>
 				<?endif;?>
 			</li>
-		<? endforeach ?>
+		<?endforeach;?>
 	</ul>
 </div>
 				

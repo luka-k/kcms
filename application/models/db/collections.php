@@ -57,10 +57,66 @@ class Collections extends MY_Model
         parent::__construct();
 	}
 	
+	public function get_tree($ids = FALSE, $selected = array())
+	{
+		$tree = array();
+		
+		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
+		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
+		
+		$filtred_ids = array();
+		
+		$this->db->where_in('child_id', $ids);
+		$result = $this->db->get('product2collection')->result();
+		foreach($result as $r)
+		{
+			$filtred_ids[] = $r->collection_parent_id;
+		}
+		
+		$tree = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+		
+		foreach($tree as $i => $branches)
+		{
+			$collections = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => 0), FALSE, FALSE, 'name', 'asc');
+			
+			if(empty($collections))
+			{
+				unset($tree[$i]);
+			}
+			else
+			{
+				foreach($collections as $j => $collection)
+				{
+					$sub_tree = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => $collection->id), FALSE, FALSE, 'name', 'asc');
+					
+					if(in_array($collection->id, $filtred_ids) || in_array($collection->id, $selected['collection_checked']))
+					{
+						$collections[$j]->childs = $sub_tree;
+					}
+					else
+					{
+						unset($collections[$j]);
+					}
+				}
+				
+				if(!empty($collections))
+				{
+					$tree[$i]->childs = $collections;
+				}
+				else
+				{
+					unset($tree[$i]);
+				}
+			}
+		}
+		
+		return $tree;
+	}
+	
 	/**
 	*
 	*/
-	public function get_tree($ids = FALSE, $selected = array())
+	public function get_tree_old($ids = FALSE, $selected = array())
 	{
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
 
