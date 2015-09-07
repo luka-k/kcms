@@ -28,7 +28,7 @@
 								<th width="10%">Способ оплаты</th>
 								<th width="10%">Способ доставки</th>
 								<th width="5%">Дата</th>
-								<th width="25%">Контанты</th>
+								<th width="25%">Контакты</th>
 							</thead>
 							<tbody>
 								<?$counter = 1?>
@@ -86,7 +86,7 @@
 												<div>Имя - <?=$order_item->name?></div>
 												<div>Телефон - <?=$order_item->phone?></div>
 												<div>e-mail - <?=$order_item->email?></div>
-												<div>Адресс - <?=$order_item->address?></div>
+												<div>Адрес - <?=$order_item->address?></div>
 											</div>
 										</td>
 
