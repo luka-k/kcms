@@ -89,6 +89,11 @@ class Collections extends MY_Model
 				{
 					$sub_tree = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => $collection->id), FALSE, FALSE, 'name', 'asc');
 					
+					if($sub_tree) foreach($sub_tree as $k => $b)
+					{
+						if(!in_array($b->id, $filtred_ids) && !in_array($b->id, $selected['collection_checked'])) unset($sub_tree[$k]);
+					}
+					
 					if(in_array($collection->id, $filtred_ids) || in_array($collection->id, $selected['collection_checked']))
 					{
 						$collections[$j]->childs = $sub_tree;
