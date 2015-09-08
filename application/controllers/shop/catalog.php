@@ -124,7 +124,7 @@ class Catalog extends Client_Controller {
 			{
 				$this->filters_cache->set_last($cache_id);
 				$data = $this->filters_cache->get($cache_id);	
-				
+
 				$data = array_merge($this->standart_data, $data);			
 			}
 			else
@@ -192,7 +192,7 @@ class Catalog extends Client_Controller {
 					$data['depth_min'] = $data['depth_from'] = $this->catalog->get_min($all_products, 'depth');
 					$data['depth_max'] = $data['depth_to'] = $this->catalog->get_max($all_products, 'depth');
 				}
-
+				$data['no_shadow'] = TRUE;
 				$data = array_merge($this->standart_data, $data);
 				$this->load->view("client/shop/categories", $data);
 			}
@@ -220,7 +220,6 @@ class Catalog extends Client_Controller {
 				'last_type_filter' => '', 
 				'is_sale' => 1,
 				'from' => 0,
-				'name' => '',
 				'order' => 'name',
 				'direction' => 'asc',
 				'discontinued' => 2
@@ -393,6 +392,8 @@ class Catalog extends Client_Controller {
 		$data = $this->filters_cache->get($cache_id);
 
 		$data = array_merge($this->standart_data, $data);
+		
+		if($data['total_rows'] <> count($this->products->get_list())) $data['no_shadow'] = TRUE;
 		
 		$this->load->view("client/shop/categories", $data);
 	}
