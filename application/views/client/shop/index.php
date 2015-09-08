@@ -89,16 +89,28 @@
 												<?endif;?>
 											</div>
 											<div class="product-name">
-											<!-- <small style="color: blue;">
-												<?=$item->name?></small><br> -->
-												<a href="<?=$item->full_url?>"><strong>
-												<?=$item->manufacturer_name?>
-
-												<?= $item->collection_name ?>
+												<a href="<?=$item->full_url?>">
+													<strong>
+														<?=$item->manufacturer_name?>
 												
-												<?=$item->sku?></strong>
+														<?= $item->collection_name ?>
+												
+														<?if(isset($item->sub_collections)):?>
+															<?=$item->sub_collections?>
+														<?endif;?>
+												
+														<?if(!empty($item->serie_name)):?>
+																(<?=$item->serie_name?><?if(!isset($item->sub_series)):?>)<?endif;?>
+														<?endif;?>
+														<?if(isset($item->sub_series)):?>
+																<?=$item->sub_series?>)
+														<?endif;?>
+												
+														<?=$item->sku?>
+													</strong>
 	
-												<?= $item->sizes_string?></a></br>
+													<?= $item->sizes_string?>
+												</a></br>
 												
 												
 												<?foreach($item->color as $color):?>

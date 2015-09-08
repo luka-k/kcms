@@ -192,16 +192,34 @@ class Products extends MY_Model
 			$result = $this->db->get_where("product2collection", array('child_id' => $item->id))->result();
 			$main_collection = '';
 			$sub_collections = array();
+			$main_series = '';
+			$sub_series = array();
+			
 			if($result) foreach($result as $r)
 			{
-				if ($r->is_main)
-					$main_collection = $this->collections->get_item($r->collection_parent_id)->name;
-				else 
-					$sub_collections[] = $this->collections->get_item($r->collection_parent_id)->name;
+				if($r->is_collection)
+				{
+					if ($r->is_main)
+						$main_collection = $this->collections->get_item($r->collection_parent_id)->name;
+					else 
+						$sub_collections[] = $this->collections->get_item($r->collection_parent_id)->name;
+				}
+				else
+				{
+					if ($r->is_main)
+						$main_series = $this->collections->get_item($r->collection_parent_id)->name;
+					else 
+						$sub_series[] = $this->collections->get_item($r->collection_parent_id)->name;
+				}
 			}
 			$item->collection_name = $main_collection;
+			
+			$item->serie_name = $main_series;
 			if ($sub_collections)
-				$item->collection_name .= ' ('.implode(';', $sub_collections).')';
+				$item->sub_collections = implode(' ', $sub_collections);
+
+			if ($sub_series)
+				$item->sub_series = implode(';', $sub_series);
 			
 			$sizes = array();
 			if (isset($item->width) && $item->width)

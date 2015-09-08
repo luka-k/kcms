@@ -45,14 +45,28 @@
 									
 									<div class="product_content">
 										<div class="item-description">
+		
 											<strong>
 												<?=$product->manufacturer_name?>
-
-												<?= $product->collection_name ?>
 												
-												<?=$product->sku?></strong><br />
+												<?=$product->collection_name ?>
+												
+												<?if(isset($product->sub_collections)):?>
+													<?=$product->sub_collections?>
+												<?endif;?>
+			
+												<?if(!empty($product->serie_name)):?>
+													(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?else:?>; <?endif;?>
+												<?endif;?>
+												<?if(isset($product->sub_series)):?>
+													<?=$product->sub_series?>)
+												<?endif;?>
+												
+												<?=$product->sku?>
+											</strong>
 	
-												<?= $product->sizes_string?>
+											<?= $product->sizes_string?>
+											</br>
 												
 												
 												<?foreach($product->color as $color):?>

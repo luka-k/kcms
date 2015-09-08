@@ -436,14 +436,13 @@ class Import extends Admin_Controller
 				{
 					if($collection == " ") continue;
 					
-					if($i == 0) $_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 1));
-					if($i == 1)	$_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 1, 'parent_id' => $colection_parent_id));
+					if($i == 0) $_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, ));
+					if($i == 1)	$_collection = $this->collections->get_item_by(array('name' => trim($collection), 'manufacturer_id' => $_manufacturer->id, 'parent_id' => $colection_parent_id));
 					if (!$_collection)
 					{
 						$info = array(
 							'name' => trim($collection),
 							'url' => $this->string_edit->slug($collection),
-							'is_collection' => 1,
 							'manufacturer_id' => $_manufacturer->id
 						);
 						if($i == 1) $info['parent_id'] = $colection_parent_id;
@@ -467,14 +466,13 @@ class Import extends Admin_Controller
 					{
 						if($s == " ") continue;
 						
-						if($i == 0) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 0));
-						if($i == 1) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'is_collection' => 0, 'parent_id' => $serie_parent_id[$j]));
+						if($i == 0) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, ));
+						if($i == 1) $_seria = $this->collections->get_item_by(array('name' => trim($s), 'manufacturer_id' => $_manufacturer->id, 'parent_id' => $serie_parent_id[$j]));
 						if (!$_seria)
 						{
 							$info = array(
 								'name' => trim($s),
 								'url' => $this->string_edit->slug($s),
-								'is_collection' => 0,
 								'manufacturer_id' => $_manufacturer->id
 							);
 							if($i == 1) $info['parent_id'] = $serie_parent_id[$j];
@@ -544,24 +542,26 @@ class Import extends Admin_Controller
 				}
 			
 				$this->db->delete('product2collection', array('child_id' => $product_id));
-				foreach ($my_collections as $_i => $collection_id)
+				foreach($my_collections as $_i => $collection_id)
 				{
 					$product2collection = array(
 						'collection_parent_id' => $collection_id,
 						'child_id' => $product_id,
-						'is_main' => !$_i
+						'is_main' => !$_i,
+						'is_collection' => 1,
 					); 		
 					
 //					if (!$this->db->get_where('product2collection', $product2collection)->result())				
 					$this->db->insert('product2collection', $product2collection);
 				}
 				
-				foreach ($my_series as $_i => $seria_id)
+				foreach($my_series as $_i => $seria_id)
 				{
 					$product2collection = array(
 						'collection_parent_id' => $seria_id,
 						'child_id' => $product_id,
-						'is_main' => !$_i
+						'is_main' => !$_i,
+						'is_collection' => 0,
 					); 		
 								
 					$this->db->insert('product2collection', $product2collection);
