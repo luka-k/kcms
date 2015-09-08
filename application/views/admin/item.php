@@ -7,14 +7,14 @@
 			<div id="wrap" class="clearfix">	
 				<? require 'include/top_menu.php' ?>
 				<div  class="col_12 clearfix">
-					<?if($left_column <> "off"):?>
+					<?if($left_column <> "off" && !in_array("manager", $user_groups)):?>
 						<div id="left_col" class="col_3 back">
 							<div id="left-menu">
 								<?require "include/{$left_column['item_tree']}.php"?>
 							</div>
 						</div>
 					<?endif;?>
-					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back">
+					<div id="right_col" class="<?if($left_column == "off" || in_array("manager", $user_groups)):?>col_12<?else:?>col_9<?endif;?> back">
 						<?$tab_counter = 1?>
 						<ul class="tabs left">
 							<?foreach ($editors as $key => $edit):?>

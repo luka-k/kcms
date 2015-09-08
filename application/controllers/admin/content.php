@@ -46,6 +46,44 @@ class Content extends Admin_Controller
 		{
 			if($type <> "products") $data['tree'] = $this->$type->get_tree(0);
 		}
+
+		if(in_array("manager", $data['user_groups']))
+		{
+			$access_manufacturer = array();
+			foreach($data['user_groups'] as $group)
+			{
+				if($group <> 'manager')
+				{
+					$group_info = $this->users_groups->get_item_by(array('name' => $group));
+					$this->db->where_in('user_group_id', $group_info->id);
+					$this->db->select('manufacturer_id');
+					
+					$result = $this->db->get('users_group2manufacturer')->result();
+					if($result) foreach($result as $r)
+					{
+						$access_manufacturer[] = $r->manufacturer_id;
+					}
+				}
+			}
+			
+			if($type == 'manufacturers')
+			{
+				$this->db->where_in('id', $access_manufacturer);
+				$this->db->order_by($order, $direction);
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+			}
+			elseif($type == 'documents')
+			{
+				$this->db->where_in('manufacturer_id', $access_manufacturer);
+				$this->db->order_by($order, $direction);
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+			}
+		}
+		else
+		{
+		
 		
 		if($type == "documents") $data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, $order, $direction);
 		
@@ -87,6 +125,7 @@ class Content extends Admin_Controller
 				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => $type, "object_id" => $item->id));
 			}
 			$data['images'] = TRUE;
+		}
 		}
 		
 		$this->load->view('admin/items.php', $data);
