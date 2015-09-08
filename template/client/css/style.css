@@ -2271,6 +2271,10 @@ text-align:center;
 
 .inventory_item {padding-bottom: 7px;}
 
+.news_item h2 {
+	line-height: 16px;
+}
+
 @media all and (max-width: 1280px) {
 
 	#s_right, .hidden_part{
