@@ -9,7 +9,7 @@
 	function item_info_answer(res){
 		$('#validation_error').text("");
 		$.fancybox.open("#menu_item_popup");
-
+	
 		var form = $('.edit_item');
 		if(res.item != ""){
 			for (var key in res.item) {
@@ -17,6 +17,12 @@
 				element = form.find('.'+key);
 				if(element.attr('type') != 'radio'){
 					element.val(val);
+				}
+				if(element.attr('type') == 'checkbox'){
+					if(res.item[key] == 1)
+						element.prop('checked', true);
+					else
+						element.prop('checked', false);
 				}
 				if(key == "item_type"){
 					var type = res.item[key];

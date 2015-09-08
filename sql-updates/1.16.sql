@@ -1,0 +1,20 @@
+ALTER TABLE `menus_items` ADD `is_manager` TINYINT NOT NULL AFTER `parent_id`;
+ALTER TABLE `menus_items` CHANGE `is_manager` `is_manager` TINYINT( 4 ) NOT NULL DEFAULT '0';
+
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 5; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 7; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 8; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 9; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 10; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 12; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 15; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 17; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 19; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 20; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 21; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 23; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 24; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 37;  
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 40; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 41; 
+UPDATE `menus_items` SET `is_manager` = '1' WHERE `menus_items`.`id` = 42;

@@ -31,6 +31,7 @@ class Menus_items extends MY_Model
 			'menu_id' => array('Меню', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|name|htmlspecialchars', 'require'),
 			'parent_id' => array('Родительский пункт меню', 'select'),
+			'is_manager' => array('Недоступен менеджеру', 'checkbox'),
 			'description' => array('Описание', 'text'),
 			'item_type' => array('Тип пункта', 'type'),
 			'url' => array('Ссылка', 'link')
