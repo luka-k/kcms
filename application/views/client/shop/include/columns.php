@@ -130,9 +130,9 @@
 	<ul class="level1">
 		<?foreach($sku_tree as $s):?>
 			<li>
-				<?if($s->sku):?> <span class="level1_click">-</span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
+				<?if($s->sku):?> <span class="level1_click">+</span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
 				<?if($s->sku):?>
-					<ul id="sub-sku-<?=$s->id?>" style="display:block">
+					<ul id="sub-sku-<?=$s->id?>">
 						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
@@ -155,12 +155,12 @@
 <div id="secondcolumn3" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	
-	<ul>
+	<ul class="level1">
 		<?foreach($collection as $col_manufacturers):?>
 			<li>
-				<span class="level1_click">-</span><a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
+				<span class="level1_click">+</span> <a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
 				<?if($col_manufacturers->childs):?>
-					<ul style="display:block;">
+					<ul class="level1">
 						<?foreach($col_manufacturers->childs as $level_1):?>
 							<li>
 								<input type="checkbox" 
