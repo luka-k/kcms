@@ -203,11 +203,6 @@ class Catalog extends Client_Controller {
 		}
 	}
 	
-	public function sale()
-	{	
-		redirect(base_url().'catalog/');
-	}
-	
 	/**
 	* Вывод товаров по фильтру
 	*/
@@ -219,6 +214,7 @@ class Catalog extends Client_Controller {
 				'filter' => TRUE, 
 				'last_type_filter' => '', 
 				'is_sale' => 1,
+				'name' => '',
 				'from' => 0,
 				'order' => 'name',
 				'direction' => 'asc',
