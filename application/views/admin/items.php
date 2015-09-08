@@ -34,7 +34,7 @@
 									<th class="tb_1">&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody class="<?if($sortable):?>sortable<?endif?>">
+							<tbody class="<?if($sortable && !in_array("manager", $user_groups)):?>sortable<?endif?>">
 								<?$counter = 1?>
 								<? foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">
@@ -73,7 +73,7 @@
 												<?endif?>
 													<a href="<?=base_url()?>admin/content/item/copy/<?=$type?>/<?=$item->id?>">копировать</a>
 											</div>
-											<?if($type == "products"):?>
+											<?if($type == "products" && !in_array("manager", $user_groups)):?>
 												<div class="col_2"><input type="checkbox" id="new_<?=$counter?>" onchange="advanced('new', '<?=$item->id?>', this.checked);" <?if($item->is_new == 1):?>checked<?endif;?>/></div>
 												<div class="col_10"><label for="new_<?=$counter?>">новинка</label></div>
 												<div class="col_2"><input type="checkbox" id="special_<?=$counter?>" onchange="advanced('special', '<?=$item->id?>',  this.checked);" <?if($item->is_special == 1):?>checked<?endif;?>/></div>
