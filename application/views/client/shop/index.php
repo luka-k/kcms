@@ -50,15 +50,17 @@
 											</a>
 											<span class="marker up">&nbsp;</span>
 											<?if(!empty($item_1->childs)):?>
-											<ul class="noactive">
-												<?foreach($item_1->childs as $item_2):?>
-													<li>
-														<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?=$item_2->url?>">
-															<?=$item_2->name?>
-														</a>
-													</li>
-												<?endforeach;?>
-											</ul>
+												<div class="index_categories-popup">
+													<ul class="">
+														<?foreach($item_1->childs as $item_2):?>
+															<li>
+																<a href="<?=base_url()?>catalog/<?=$item_1->url?>/<?=$item_2->url?>">
+																	<?=$item_2->name?>
+																</a>
+															</li>
+														<?endforeach;?>
+													</ul>
+												</div>
 										<?endif;?>
 										</div>
 									<?endforeach;?>
@@ -171,6 +173,7 @@
 	
 	<script>
 		$('.marker').click(function() {
+			
 			var $_this = $(this).parent().html();
 			$('.marker.down').each(function() {
 				if ($(this).parent().html() != $_this)
@@ -178,9 +181,10 @@
 					$(this).next('ul').hide();
 					$(this).removeClass('down');
 					$(this).addClass('up');
+					$('.index_categories-popup').hide('slow');
 				}
 			});
-			$(this).next('ul').toggle('slow');
+			$(this).next('.index_categories-popup').toggle('slow');
 			if ($(this).hasClass("up")){
 				$(this).removeClass('up');
 				$(this).addClass('down');

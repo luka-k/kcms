@@ -2137,6 +2137,22 @@ text-align:center;
 	}
 }
 
+.index_categories-popup{
+	display:none;
+	position:absolute;
+	min-width:200px;
+	top:20px;
+	padding: 5px 15px;
+	background: #b3b3b3;
+	opacity: 0.95;
+	
+    -webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
+       -moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
+            box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);
+	
+	z-index:100000;
+}
+
 #index_categories .marker{
 	display:block;
 	float:left;
@@ -2202,7 +2218,6 @@ text-align:center;
 #index_categories ul{
 	width:100%;
 	clear:both;
-	margin-left:30px;
 }
 
 /* This is the moving lens square underneath the mouse pointer. */
