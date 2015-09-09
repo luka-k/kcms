@@ -132,7 +132,7 @@
 			<li>
 				<?if($s->sku):?> <span class="level1_click">+</span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
 				<?if($s->sku):?>
-					<ul id="sub-sku-<?=$s->id?>" style="display:<?if($total_rows == 1):?>block<?endif;?>">
+					<ul id="sub-sku-<?=$s->id?>" style="display:<?if(count($sku_tree) == 1):?>block<?endif;?>">
 						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
@@ -160,7 +160,7 @@
 			<li>
 				<span class="level1_click">+</span> <a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
 				<?if($col_manufacturers->childs):?>
-					<ul style="display:<?if($total_rows == 1):?>block<?endif;?>">
+					<ul style="display:<?if(count($collection) == 1):?>block<?endif;?>">
 						<?foreach($col_manufacturers->childs as $level_1):?>
 							<li>
 								<input type="checkbox" 
