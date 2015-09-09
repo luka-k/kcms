@@ -132,7 +132,7 @@
 			<li>
 				<?if($s->sku):?> <span class="level1_click">+</span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
 				<?if($s->sku):?>
-					<ul id="sub-sku-<?=$s->id?>">
+					<ul id="sub-sku-<?=$s->id?>" style="display:<?if($total_rows == 1):?>block<?endif;?>">
 						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
@@ -160,7 +160,7 @@
 			<li>
 				<span class="level1_click">+</span> <a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
 				<?if($col_manufacturers->childs):?>
-					<ul class="level1">
+					<ul style="display:<?if($total_rows == 1):?>block<?endif;?>">
 						<?foreach($col_manufacturers->childs as $level_1):?>
 							<li>
 								<input type="checkbox" 
@@ -173,7 +173,7 @@
 								/>
 								<?if($level_1->childs):?><span id="cll-<?=$level_1->id?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link"><?=$level_1->name?></a>
 								<?if($level_1->childs):?>
-									<ul id="sub-collections-<?=$level_1->id?>">
+									<ul id="sub-collections-<?=$level_1->id?>" style="display:<?if($total_rows == 1):?>block<?else:?>none<?endif;?>">
 										<?$show_counter = 0?>
 										<?foreach($level_1->childs as $level_2):?>
 											<li>

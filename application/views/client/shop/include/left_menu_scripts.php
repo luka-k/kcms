@@ -28,7 +28,7 @@
 		});
 				
 		$('.secondcolumn .level1_click').click(function() {
-			$(this).parent().find('ul').toggle('slow');
+			$(this).parent().children('ul').toggle('slow');
 
 			if ($(this).html() == '+')
 				$(this).html('-');

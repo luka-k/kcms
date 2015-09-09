@@ -1947,6 +1947,10 @@ text-align:center;
 .secondcolumn  ul li ul{
 	display:none;
 }
+
+.secondcolumn  ul li ul li lu{
+	display:none;
+}
         
 #shadow {
 	display: block;
