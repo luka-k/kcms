@@ -80,6 +80,12 @@
 		$('#filter-form').submit();
 	}
 	
+	function clear_range(type){
+		$("#"+type+"-hi").prop('name', '');
+		$("#"+type+"-low").prop('name', '');
+		$('#filter-form').submit();
+	}
+	
 	function checked_tree(parent_id, type, action){
 		var form = $('.filter-form'),
 		inputs = form.find('input.'+type+'-branch-'+parent_id);
