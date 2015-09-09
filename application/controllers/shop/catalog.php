@@ -389,7 +389,14 @@ class Catalog extends Client_Controller {
 
 		$data = array_merge($this->standart_data, $data);
 		
-		if($data['total_rows'] <> count($this->products->get_list())) $data['no_shadow'] = TRUE;
+		if($data['total_rows'] <> count($this->products->get_list())) 
+		{
+			$data['no_shadow'] = TRUE;
+		}
+		else
+		{
+			redirect(base_url().'catalog');
+		}
 		
 		$this->load->view("client/shop/categories", $data);
 	}
