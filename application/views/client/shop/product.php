@@ -5,7 +5,7 @@
 	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/catalog/" >
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
-		<div id="wrapper">
+		<div id="wrapper" class="shop_wrapper">
 			<div class="section maxw">
 				<div class="mainwrap">
 					<main>

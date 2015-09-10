@@ -6,7 +6,7 @@
 	
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
-		<div id="wrapper" >
+		<div id="wrapper" class="shop_wrapper">
 			<div class="section maxw">
 				<div class="mainwrap">
 					<main>

@@ -3,7 +3,7 @@
 	<?foreach($left_menu as $item):?>
 		<div class="div">
 			<a href="<?=base_url()?>catalog/<?=$item->url?>" id="<?=$item_counter?>" class="ddlist main-item clearfix <?if($left_active_item == $item->url):?>down-item<?else:?>up-item<?endif;?>" onclick="$('#submenu<?= $item->id?>').toggle('slow');<? if ($_SERVER['REQUEST_URI'] == '/catalog/'.$item->url.'/'):?>return false;<?endif?>">
-				<span class="menu-pic"><img src="<?=$item->img->full_url?>" alt=""></span>
+				<span class="menu-pic"><img src="<?if(isset($item->img->full_url)):?><?=$item->img->full_url?><?endif;?>" alt=""></span>
 				<span class="menu-text"><?=$item->name?></span>
 			</a> 
 			

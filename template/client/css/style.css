@@ -2157,11 +2157,11 @@ text-align:center;
 	margin-right:1%;
 }
 
-@media all and (max-width: 1380px) {
+/*@media all and (max-width: 1380px) {
 	.index_categories_item{
 		width:49%;
 	}
-}
+}*/
 
 .index_categories-popup{
 	display:none;
@@ -2326,5 +2326,24 @@ text-align:center;
 	
 	.navigation-mini{
 		right:18px;
+	}
+}
+
+@media all and (max-width: 1600px) {
+	.shop_wrapper #s_right{
+		display:none;
+	}
+	
+	.shop_wrapper main {
+        padding: 0 0 0 290px;
+		
+    }
+		
+	.shop_wrapper main.cart {
+		padding: 0 0 0 290px;
+	}
+		
+	.shop_wrapper main.news {
+		padding: 0 0 0 290px;
 	}
 }
