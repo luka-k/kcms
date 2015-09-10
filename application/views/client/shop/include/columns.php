@@ -173,7 +173,7 @@
 								/>
 								<?if($level_1->childs):?><span id="cll-<?=$level_1->id?>" class="level1_click">+</span><?endif;?> <a href="#" class="level1_link"><?=$level_1->name?></a>
 								<?if($level_1->childs):?>
-									<ul id="sub-collections-<?=$level_1->id?>" style="display:<?if($total_rows == 1):?>block<?else:?>none<?endif;?>">
+									<ul id="sub-collections-<?=$level_1->id?>">
 										<?$show_counter = 0?>
 										<?foreach($level_1->childs as $level_2):?>
 											<li>
