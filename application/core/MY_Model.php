@@ -590,8 +590,19 @@ class MY_Model extends CI_Model
 						if(isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK)
 						{				
 							require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
+							
+							if(!empty($_POST['id']))
+							{
+								$child_id = $_POST['id'];
+							}
+							else
+							{
+								$this->db->select_max('id');
+								$child = $this->db->get('child_users')->row();
+								$child_id = $child->id + 1;
+							}
 
-							$file_path = FCPATH.'download/temp/temp_img.jpg';
+							$file_path = FCPATH.'download/images/children/'.$child_id.'_img.jpg';
 							
 							move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
 							
@@ -610,8 +621,6 @@ class MY_Model extends CI_Model
 							$thumb->RenderToFile($file_path);
 											
 							$return->$key =  file_get_contents($file_path);
-							
-							unlink($file_path);
 						}
 					}
 					else
