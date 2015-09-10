@@ -22,9 +22,9 @@ class Catalog extends Client_Controller {
 		
 		$this->post = $this->input->post();
 
-		$price_min = $price_from = $this->products->get_min('price');
+		$price_min = $price_from = $this->products->get_min('sale_price');
 		if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
-		$price_max = $price_to = $this->products->get_max('price');
+		$price_max = $price_to = $this->products->get_max('sale_price');
 		if(!empty($this->post['price_to'])) $price_to = preg_replace('/[^0-9]/', '', $this->post['price_to']);
 		
 		$width_min = $width_from = $this->products->get_min('width');
@@ -74,7 +74,7 @@ class Catalog extends Client_Controller {
 			'ajax_from' => '',
 			'childs_categories' => ''
 		);
-
+		
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
 		$this->load->helper('url_helper');
@@ -119,7 +119,7 @@ class Catalog extends Client_Controller {
 		{
 			$cache_id = md5(serialize($content));
 			$cache = $this->filters_cache->get($cache_id);
-			//$cache = FALSE;
+			$cache = FALSE;
 			if($cache)
 			{
 				$this->filters_cache->set_last($cache_id);
@@ -149,8 +149,9 @@ class Catalog extends Client_Controller {
 			
 				$data['category'] = new stdClass;
 				$data['category']->products = $products;
-
+				
 				$data = array_merge($this->standart_data, $data);
+				
 				$this->filters_cache->insert($cache_id, $data);
 			}
 			$this->load->view("client/shop/index", $data);
@@ -226,7 +227,7 @@ class Catalog extends Client_Controller {
 
 		$cache = $this->filters_cache->get($cache_id);
 		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
