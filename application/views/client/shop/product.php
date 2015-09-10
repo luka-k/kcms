@@ -59,7 +59,7 @@
 													(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?else:?>; <?endif;?>
 												<?endif;?>
 												<?if(isset($product->sub_series)):?>
-													<?=$product->sub_series?>)
+													; <?=$product->sub_series?>)
 												<?endif;?>
 												
 												<?=$product->sku?>
