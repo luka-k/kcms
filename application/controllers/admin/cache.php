@@ -229,7 +229,7 @@ class Cache extends Admin_Controller
 						$data['categories_ch'][] = $child_category->name;
 						$data['category']->products = $products;
 
-						$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url.'/'.mb_strtolower($manufacturer->name, 'UTF-8');
+						$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url.'/'.$manufacturer->url;
 					
 						echo $counter.' - '.$semantic_url.'</br>';
 						$cache_id = md5(serialize($semantic_url));
@@ -295,7 +295,7 @@ class Cache extends Admin_Controller
 					$data['categories_ch'][] = $category->name;
 					$data['category']->products = $products;
 
-					$semantic_url = 'catalog/'.$category->url.'/'.mb_strtolower($manufacturer->name, 'UTF-8');
+					$semantic_url = 'catalog/'.$category->url.'/'.$manufacturer->url;
 			
 					echo $counter.' - '.$semantic_url.'</br>';
 					$cache_id = md5(serialize($semantic_url));
