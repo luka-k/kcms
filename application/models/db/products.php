@@ -207,20 +207,25 @@ class Products extends MY_Model
 				else
 				{
 					if ($r->is_main)
-						$main_series = $this->collections->get_item($r->collection_parent_id)->name;
+						$main_series[] = $this->collections->get_item($r->collection_parent_id)->name;
 					else 
 						$sub_series[] = $this->collections->get_item($r->collection_parent_id)->name;
 				}
 			}
 			$item->collection_name = $main_collection;
 			
-			$item->serie_name = $main_series;
+			if($main_series) 
+				$item->serie_name = implode(' ', $main_series);
+				
 			if ($sub_collections)
 				$item->sub_collections = implode(' ', $sub_collections);
 
 			if ($sub_series)
-				$item->sub_series = implode(';', $sub_series);
-			
+				$item->sub_series = implode(' ', $sub_series);
+		/*	my_dump($item->collection_name);
+			my_dump($item->sub_collections);
+			my_dump($item->serie_name);
+			my_dump($item->sub_series);*/
 			$sizes = array();
 			if (isset($item->width) && $item->width)
 				$sizes[] = $item->width;

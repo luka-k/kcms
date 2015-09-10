@@ -458,6 +458,11 @@ class Import extends Admin_Controller
 			$my_series = array();
 			if($series)
 			{
+				/*if($_manufacturer->id = 26)
+				{
+					my_dump($series);
+				}*/
+
 				$serie_parent_id = array();
 				foreach ($series as $i => $serie)
 				{
@@ -482,7 +487,10 @@ class Import extends Admin_Controller
 						}
 						
 						if($i == 0) $serie_parent_id[$j] = $_seria->id;
-						$my_series[] = $_seria->id;
+						
+						$_seria->is_main = !$j;
+						$my_series[] = $_seria;
+
 					}
 				}
 			}
@@ -555,12 +563,12 @@ class Import extends Admin_Controller
 					$this->db->insert('product2collection', $product2collection);
 				}
 				
-				foreach($my_series as $_i => $seria_id)
+				foreach($my_series as $_i => $seria)
 				{
 					$product2collection = array(
-						'collection_parent_id' => $seria_id,
+						'collection_parent_id' => $seria->id,
 						'child_id' => $product_id,
-						'is_main' => !$_i,
+						'is_main' => $seria->is_main,
 						'is_collection' => 0,
 					); 		
 								

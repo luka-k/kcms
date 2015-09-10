@@ -99,7 +99,7 @@
 																(<?=$item->serie_name?><?if(!isset($item->sub_series)):?>)<?endif;?>
 														<?endif;?>
 														<?if(isset($item->sub_series)):?>
-																<?=$item->sub_series?>)
+																; <?=$item->sub_series?>)
 														<?endif;?>
 												
 														<?=$item->sku?>
