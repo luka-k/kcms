@@ -51,7 +51,7 @@ class Characteristics extends MY_Model
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
-				$this->db->where_in('parent_id', $parent_ids);
+				if($parent_ids) $this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
 	
 				$ch_ids = array();
@@ -347,6 +347,6 @@ class Characteristics extends MY_Model
 	{
 		$this->db->select('value');
 		$this->db->where('type', $param);
-		$this->db->where_in('id', $ch_ids);
+		if($ch_ids) $this->db->where_in('id', $ch_ids);
 	}
 }

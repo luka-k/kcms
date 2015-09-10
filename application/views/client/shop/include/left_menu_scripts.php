@@ -86,6 +86,11 @@
 		$('#filter-form').submit();
 	}
 	
+	function clear_search(){
+		$('#search_input').val('');
+		$('#filter-form').submit();
+	}
+	
 	function checked_tree(parent_id, type, action){
 		var form = $('.filter-form'),
 		inputs = form.find('input.'+type+'-branch-'+parent_id);

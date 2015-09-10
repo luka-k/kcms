@@ -111,7 +111,7 @@ class CI_Catalog {
 		if(!empty($selected['shortdesc']))
 		{
 			$this->CI->db->select('type, value, id, parent_id');
-			$this->CI->db->where_in('id', array_keys($selected['shortdesc']));
+			if($selected['shortdesc']) $this->CI->db->where_in('id', array_keys($selected['shortdesc']));
 			$this->CI->db->where('type', 'shortdesc');
 			
 			$result = $this->CI->db->get('characteristics')->result();
@@ -135,7 +135,7 @@ class CI_Catalog {
 			}
 			
 			$this->CI->db->select('type, value, id');
-			$this->CI->db->where_in('id', $ch_ids);
+			if(!empty($ch_ids)) $this->CI->db->where_in('id', $ch_ids);
 			if(!empty($sl)) $this->CI->db->where_in('id', $sl);
 			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
 			

@@ -1770,6 +1770,7 @@ text-align:center;
 }
 
 #s_left .lm-block{
+	position:relative;
 	margin-left: 6px;
 	margin-top: 5px;
 }
@@ -1780,6 +1781,17 @@ text-align:center;
 	margin-bottom: 5px;
 	font-size: 13px;
 	font-weight: bold;
+}
+
+#s_left .clear_range{
+	position:absolute;
+	right:0px;
+	font-weight: bold;
+	color: red;
+	padding: 0px 5px; 
+	margin-right: 5px;
+	cursor: pointer;  
+	font-size:12px;
 }
 
 #s_left .clear_popup{
