@@ -21,7 +21,7 @@
 	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>catalog/" >
 	<?require_once "columns.php"?>
 	<div class="leftmenu shop">
-		<div class="lm-block">
+		<div class="lm-block" style="height: 20px;">
 
 			<input type="text" 
 				id="search_input" 
@@ -34,7 +34,7 @@
 				onfocus="search_focus()"
 				onblur="search_blur()"/>
 			
-			<?if(isset($filters['name'])):?>
+			<?if(isset($filters['name']) && $filters['name']):?>
 				<div class="clear_range" style="position:relative; left:240px; top:-17px; z-index:6" >
 					<span class="red" onmouseover="$('#search_clear').show();" onmouseout="$('#search_clear').hide();" onclick="clear_search();">x</span>
 				</div>
@@ -201,12 +201,12 @@
 					Размеры:
 					<div style="float: right;font-weight: bold;color: red;padding: 0px 5px; margin-right: 7px;cursor: pointer;" onmouseover="$('#whd').show();" onmouseout="$('#whd').hide();">i</div>
 				</div> 
-				<div style="position: absolute;left: 170px;top: 305px;z-index: 10000;display: none;" id="whd" ><img src="/template/client/images/whd.png" /></div>
+				<div style="position: absolute;left: 140px;top: -40px;z-index: 10000;display: none;" id="whd" ><img src="/template/client/images/whd.png" /></div>
 					
-				<div class="clear_range" style="top:34px;" >
+				<div class="clear_range" style="top:15px;" >
 					<span class="red" onmouseover="$('#width_clear').show();" onmouseout="$('#width_clear').hide();" onclick="clear_range('width');">x</span>
 				</div>
-				<div class="clear_popup" id="width_clear" style="left: 195px; top: 5px;">сбросить</div>
+				<div class="clear_popup" id="width_clear" style="left: 195px; top: -7px;">сбросить</div>
 				<div class="range-input">
 					<input type="text" readonly name="" id="width-hi">
 					<div class="caption">Ширина:</div>
@@ -215,10 +215,10 @@
 					<div id="width-range" class="block-range"></div>
 				</div>
 				
-				<div class="clear_range" style="top:74px;" >
+				<div class="clear_range" style="top:55px;" >
 					<span class="red" onmouseover="$('#height_clear').show();" onmouseout="$('#height_clear').hide();" onclick="clear_range('height');">x</span>
 				</div>
-				<div class="clear_popup" id="height_clear" style="left: 195px; top: 45px;">сбросить</div>						
+				<div class="clear_popup" id="height_clear" style="left: 195px; top: 33px;">сбросить</div>						
 				<div class="range-input">
 					<input type="text" name="" readonly id="height-hi">
 					<div class="caption">Высота(h):</div>
@@ -227,10 +227,10 @@
 					<div id="height-range" class="block-range"></div>
 				</div>
 				
-				<div class="clear_range" style="top:115px" >
+				<div class="clear_range" style="top:95px" >
 					<span class="red" onmouseover="$('#weight_clear').show();" onmouseout="$('#weight_clear').hide();" onclick="clear_range('weight');">x</span>
 				</div>
-				<div class="clear_popup" id="weight_clear" style="left: 195px; top: 85px;">сбросить</div>					
+				<div class="clear_popup" id="weight_clear" style="left: 195px; top: 73px;">сбросить</div>					
 				<div class="range-input">
 					<input type="text" name="" readonly id="weight-hi">
 					<div class="caption">Глубина:</div>
@@ -244,10 +244,10 @@
 					Цена:
 				</div> 
 						
-				<div class="clear_range" style="top:33px;" >
+				<div class="clear_range" style="top:15px;" >
 					<span class="red" onmouseover="$('#price_clear').show();" onmouseout="$('#price_clear').hide();" onclick="clear_range('price');">x</span>
 				</div>
-				<div class="clear_popup" id="price_clear" style="left: 195px; top: 5px;">сбросить</div>	
+				<div class="clear_popup" id="price_clear" style="left: 195px; top: -7px;">сбросить</div>	
 				<div class="range-input">
 					<input type="text" name="" readonly id="price-hi">
 					<div class="caption"> </div>
