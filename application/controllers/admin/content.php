@@ -186,7 +186,7 @@ class Content extends Admin_Controller
 			{
 				$child2product = array();
 				
-				$this->db->where('child_id', $data['content']->id);
+				$this->db->where('child_user_id', $data['content']->id);
 				$this->db->delete('child2product');
 				
 				$menu = $this->menu->get_item_by(array('school_id' => $data['content']->school_id));
@@ -198,7 +198,7 @@ class Content extends Admin_Controller
 				foreach($child_products as $key => $c_p)
 				{
 					$child2product[$key] = array(
-						'child_id' => $data['content']->id,
+						'child_user_id' => $data['content']->id,
 						'product_id' => $c_p->id,
 					);
 					if($enabled_products)
@@ -244,7 +244,7 @@ class Content extends Admin_Controller
 	{
 		if($type == "child_users")
 		{
-			$this->db->where('child_id', $id);
+			$this->db->where('child_user_id', $id);
 			$this->db->delete('child2product');
 		}
 	
