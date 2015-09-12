@@ -30,11 +30,57 @@ class Database extends CI_Controller
 	public function import()
 	{
 		$post = json_decode(file_get_contents('php://input', true));
+
+		foreach($post as $order)
+		{
+			$new_order = array();
+			foreach($order as $key => $item)
+			{		
+				if($key == 'card')
+				{
+					$new_order['card_number'] = $item;
+				}
+				elseif($key == 'products')
+				{
+					$products = $item;
+				}
+				else
+				{
+					$new_order[$key] = $item;
+				}
+			}
+			
+			$new_order['date'] = date("Y-m-d H:m:s"); 
+				
+			$this->orders->insert($new_order);
+				
+			$order2products = array();
+				
+			foreach($products as $p)
+			{
+				$order2products[] = array(
+					'order_id' => $new_order['id'],
+					'product_id' => $p->id,
+					'quantity' => $p->quantity
+				);
+			}
+				
+			foreach($order2products as $o2p)
+			{
+				$this->order2products->insert($o2p);
+			}
+		}
 		
 		$file_path = FCPATH."import/import.txt";
 		
-		if(file_put_contents($file_path, serialize($post)))
+		if(file_put_contents($file_path, print_r($post, true)))
+		{
 			echo json_encode('ok');
+		}
+		else
+		{
+			header('HTTP/1.1 466 Failed'); // А какой код ошибки лучше использовать в данном случае?
+		}
 	}
 	
 	public function test_export()
@@ -55,19 +101,35 @@ class Database extends CI_Controller
 	public function test_import()
 	{
 		$info = array(
-			'orders' => array(
-				0 => array('id' => 1, 'card_number' => 22321, 'date' => date('d-M-Y H:i:s'), 'summ' => 150, 'operation' => 'text', 'info' => 'text'),
-				1 => array('id' => 2, 'card_number' => 22451, 'date' => date('d-M-Y H:i:s'), 'summ' => 180, 'operation' => 'text', 'info' => 'text'),
-				2 => array('id' => 3, 'card_number' => 32321, 'date' => date('d-M-Y H:i:s'), 'summ' => 250, 'operation' => 'text', 'info' => 'text'),
-				3 => array('id' => 4, 'card_number' => 55321, 'date' => date('d-M-Y H:i:s'), 'summ' => 350, 'operation' => 'text', 'info' => 'text')
+			0 => array(
+				"id" => 3,
+				"summ" => 170.0,
+				"card" => "34565",
+				"products" => array(
+					0 => array("id" => 2, "quantity" => 1),
+					1 => array("id" => 3, "quantity" => 1),
+				)
 			),
-			'orders2products' => array(
-				0 => array('order_id' => 1, 'product_id' => 34, 'quantity' => 1),
-				1 => array('order_id' => 2, 'product_id' => 14, 'quantity' => 1),
-				2 => array('order_id' => 2, 'product_id' => 25, 'quantity' => 2)
-			)
+			1 => array(
+				"id" => 2,
+				"summ" => 250.0,
+				"card" => "34565",
+				"products" => array(
+					0 => array("id" => 5, "quantity" => 1),
+					1 => array("id" => 1, "quantity" => 2),
+				)
+			),
+			2 => array(
+				"id" => 4,
+				"summ" => 270.0,
+				"card" => "34565",
+				"products" => array(
+					0 => array("id" => 5, "quantity" => 1),
+					1 => array("id" => 2, "quantity" => 1),
+				)
+			),
 		);
-		
+
 		$post = json_encode($info);
 		
 		if($curl = curl_init(base_url().'admin/database/import')) {
