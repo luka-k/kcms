@@ -46,20 +46,31 @@ class Admin_orders extends Admin_Controller
 			
 			$date = new DateTime($order->date);
 
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
+			$order2products = $this->order2products->get_list(array("order_id" => $order->id));
+			
+			$products_ids = array();
+			$qty = array();
+			if($order2products) foreach($order2products as $i => $o2p)
+			{
+				$products_ids[] = $o2p->product_id;	
+				$qty[$o2p->product_id] = $o2p->quantity;
+			}
+			
+			$child = $this->child_users->get_item_by(array('card_number' => $order->card_number));
+			
+			$this->db->where_in('id', $products_ids);
+			$order_items = $this->db->get('products')->result();
 			
 			$orders_info[$key] = (object)array( 
 				"id" => $order->id,
-				"order_code" => $order->order_code,
-				"status_id" => $order->status_id,
 				"order_products" => $order_items,
-				"delivery_id" => $order->delivery_id,
-				"payment_id" => $order->payment_id,
+				'qty' => $qty,
 				"order_date" => date_format($date, 'Y-m-d'),
-				"name" => $order->user_name,
-				"phone" => $order->user_phone,
+				"card_number" => $order->card_number,
+				'child' => $this->child_users->prepare($child, TRUE)
+				/*"phone" => $order->user_phone,
 				"email" => $order->user_email,
-				"address" => $order->user_address
+				"address" => $order->user_address*/
 			);
 		}
 		
