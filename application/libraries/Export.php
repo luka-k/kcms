@@ -18,7 +18,6 @@ class Export{
 	
 	public function export_school_new($school, $tables)
 	{
-    echo '<meta charset="utf-8">';
 		$school_name = $this->CI->string_edit->slug($school->name);
 		
 		$file_path = FCPATH."export/export_{$school_name}.sqlite";
@@ -125,8 +124,7 @@ class Export{
 				
 				foreach($line as $key => $value)
 				{
-					if ($key == 'child_id') $key = 'child_user_id';
-					if(in_array($key, $table_fields) )
+					if(in_array($key, $table_fields))
 					{
 						$fields .= "{$key}"; 
 					
