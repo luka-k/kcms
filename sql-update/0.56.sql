@@ -1,0 +1,1 @@
+ALTER TABLE `orders` CHANGE `operation` `operation` ENUM( 'списание за смс-оповещение по питанию', 'списание за смс-оповещение по посещению', 'заказ', 'пополнение через сбербанк', 'пополнение через яндекс-кассу' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
