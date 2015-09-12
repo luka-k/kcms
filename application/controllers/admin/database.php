@@ -103,8 +103,8 @@ class Database extends CI_Controller
 		$info = array(
 			0 => array(
 				"id" => 3,
-				"summ" => 170.0,
-				"card" => "34565",
+				"summ" => -170.0,
+				"card" => "123456",
 				"products" => array(
 					0 => array("id" => 2, "quantity" => 1),
 					1 => array("id" => 3, "quantity" => 1),
@@ -112,8 +112,8 @@ class Database extends CI_Controller
 			),
 			1 => array(
 				"id" => 2,
-				"summ" => 250.0,
-				"card" => "34565",
+				"summ" => -250.0,
+				"card" => "123456",
 				"products" => array(
 					0 => array("id" => 5, "quantity" => 1),
 					1 => array("id" => 1, "quantity" => 2),
@@ -121,13 +121,13 @@ class Database extends CI_Controller
 			),
 			2 => array(
 				"id" => 4,
-				"summ" => 270.0,
-				"card" => "34565",
+				"summ" => -270.0,
+				"card" => "123456",
 				"products" => array(
 					0 => array("id" => 5, "quantity" => 1),
 					1 => array("id" => 2, "quantity" => 1),
 				)
-			),
+			)
 		);
 
 		$post = json_encode($info);

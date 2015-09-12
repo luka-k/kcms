@@ -18,6 +18,37 @@ class Account extends Client_Controller
 	}
 	
 	/**
+	* Вывод личного кабинета
+	*/
+	public function index($child = '0')
+	{
+		if (!$this->session->userdata('logged_in')) die(redirect(base_url()));
+		
+		$children = $this->child_users->prepare_list($this->child_users->get_list(array('parent_id' => $this->standart_data['user']->id)));
+		
+		$selected_child = $this->child_users->prepare($children[$child], TRUE);
+		
+		$selected_child->orders = $this->child_users->get_orders($selected_child);
+		
+		$child_menu = $this->menu->get_menu_by_school($selected_child->school_id);
+		
+		$data = array(
+			'title' => "Личный кабинет",
+			'children' => $children,
+			'selected_child' => $children[$child],
+			'child_menu' => $child_menu
+		);
+		$data = array_merge($this->standart_data, $data);
+		
+		$data['user'] = $this->users->get_item($data['user']->id);
+		
+		$user_name = explode(" ", $data['user']->name);
+		$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.'; // Тут есть сомнение что все прям будут полное имя указывать. и надо подумать над отображением
+
+		$this->load->view('client/cabinet.php', $data);
+	}
+	
+	/**
 	* Вывод страницы входа и регстрации пользователя
 	*/
 	public function registration()
@@ -38,12 +69,12 @@ class Account extends Client_Controller
 	/**
 	* Авторизация пользователя
 	*/	
-	public function do_enter()
+	public function enter()
 	{
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));			
 		$authdata = $this->users->login($email, $password);
-		if ($authdata['logged_in']) redirect(base_url().'cabinet');
+		if ($authdata['logged_in']) redirect(base_url().'account');
 
 		$data = array(
 			'title' => "Регистрация",
@@ -55,13 +86,13 @@ class Account extends Client_Controller
 		$data = array_merge($this->standart_data, $data);
 
 		$data['error'] = "Данные не верны. Повторите ввод";		
-		$this->load->view('client/registration', $data);	
+		$this->load->view('client/index', $data);	
 	}
 	
 	/**
 	* Выход пользователя
 	*/
-	public function do_exit()
+	public function log_out()
 	{
 		$authdata = array(
 			'user' => '',
@@ -71,6 +102,29 @@ class Account extends Client_Controller
 		$this->session->unset_userdata($authdata);
 		
 		redirect(base_url());
+	}
+	
+	/**
+	* Обновление информации о пользователе
+	*
+	* @param string $type
+	*/
+	public function update_info()
+	{
+		$user = $this->input->post();
+
+		if(empty($user['password']))
+		{
+			unset($user['password']);
+		}
+		else
+		{
+			$user['password'] = md5($user['password']);
+		}
+		my_dump($user);
+		$this->users->update($user['id'], $user);
+		
+		redirect(base_url().'account');
 	}
 	
 	/**
@@ -231,5 +285,37 @@ class Account extends Client_Controller
 			
 			if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 		}			
+	}
+	
+	public function update_child_photo($id)
+	{
+		if(isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK)
+		{				
+			require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
+
+			$file_path = FCPATH.'download/images/children/'.$id.'_img.jpg';
+							
+			move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
+							
+			$thumb = new phpThumb();
+			$thumb->resetObject();
+
+			$thumb->setSourceFilename($file_path);
+				
+			$thumb->setParameter('w', 150);
+			$thumb->setParameter('h', 200);
+			$thumb->setParameter('f', 'jpeg');
+			$thumb->setParameter('far', 1);
+							
+			$thumb->GenerateThumbnail();
+							
+			$thumb->RenderToFile($file_path);
+											
+			$image =  file_get_contents($file_path);
+			
+			$this->child_users->update($id, array('image' => $image));
+		}
+		
+		redirect(base_url().'account');
 	}
 }

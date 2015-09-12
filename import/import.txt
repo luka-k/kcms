@@ -1,1 +1,72 @@
-O:8:"stdClass":2:{s:6:"orders";a:4:{i:0;O:8:"stdClass":6:{s:2:"id";i:1;s:11:"card_number";i:22321;s:4:"date";s:20:"06-Sep-2015 16:34:53";s:4:"summ";i:150;s:9:"operation";s:4:"text";s:4:"info";s:4:"text";}i:1;O:8:"stdClass":6:{s:2:"id";i:2;s:11:"card_number";i:22451;s:4:"date";s:20:"06-Sep-2015 16:34:53";s:4:"summ";i:180;s:9:"operation";s:4:"text";s:4:"info";s:4:"text";}i:2;O:8:"stdClass":6:{s:2:"id";i:3;s:11:"card_number";i:32321;s:4:"date";s:20:"06-Sep-2015 16:34:53";s:4:"summ";i:250;s:9:"operation";s:4:"text";s:4:"info";s:4:"text";}i:3;O:8:"stdClass":6:{s:2:"id";i:4;s:11:"card_number";i:55321;s:4:"date";s:20:"06-Sep-2015 16:34:53";s:4:"summ";i:350;s:9:"operation";s:4:"text";s:4:"info";s:4:"text";}}s:15:"orders2products";a:3:{i:0;O:8:"stdClass":3:{s:8:"order_id";i:1;s:10:"product_id";i:34;s:8:"quantity";i:1;}i:1;O:8:"stdClass":3:{s:8:"order_id";i:2;s:10:"product_id";i:14;s:8:"quantity";i:1;}i:2;O:8:"stdClass":3:{s:8:"order_id";i:2;s:10:"product_id";i:25;s:8:"quantity";i:2;}}}
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 3
+            [summ] => -170
+            [card] => 123456
+            [products] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [id] => 2
+                            [quantity] => 1
+                        )
+
+                    [1] => stdClass Object
+                        (
+                            [id] => 3
+                            [quantity] => 1
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 2
+            [summ] => -250
+            [card] => 123456
+            [products] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [id] => 5
+                            [quantity] => 1
+                        )
+
+                    [1] => stdClass Object
+                        (
+                            [id] => 1
+                            [quantity] => 2
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 4
+            [summ] => -270
+            [card] => 123456
+            [products] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [id] => 5
+                            [quantity] => 1
+                        )
+
+                    [1] => stdClass Object
+                        (
+                            [id] => 2
+                            [quantity] => 1
+                        )
+
+                )
+
+        )
+
+)

@@ -15,59 +15,6 @@ class Cabinet extends Client_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		if (!$this->session->userdata('logged_in')) die(redirect(base_url().'cart'));
-		$this->config->load('orders');
-		
-		$this->orders = $this->orders->get_list(array("user_id" => $this->standart_data['user']->id));
-		
-		foreach ($this->orders as $key => $order)
-		{	
-			$this->orders_info[$key] = new stdClass();	
-			
-			$date = new DateTime($order->date);
-			
-			$order_items = $this->orders_products->get_list(array("order_id" => $order->id));
-			
-			$this->orders_info[$key] = (object)array(
-				"id" => $order->id,
-				"order_code" => $order->order_code,
-				"status" => $order->status_id,
-				"order_products" => $order_items,
-				'selects' => array(
-					'delivery_id' => $this->config->item('method_delivery'),
-					'payment_id' => $this->config->item('method_pay')
-				),
-				"date" => date_format($date, 'Y-m-d'),
-				"name" => $order->user_name,
-				"phone" => $order->user_phone,
-				"email" => $order->user_email,
-				"address" => $order->user_address
-			);
-				
-			$status_id = $this->config->item('order_status');
-			foreach ($status_id as $value => $title)
-			{
-				if ($this->orders_info[$key]->status == $value) $this->orders_info[$key]->status = $title;
-			}	
-		}
-	}
-
-	/**
-	* Вывод личного кабинета
-	*/
-	public function index()
-	{
-		$data = array(
-			'title' => "Личный кабинет",
-			'select_item' => '',
-			'error' => "",
-			'user' => $this->users->get_item($this->standart_data['user']->id),
-			'orders' => $this->orders_info,
-			'status_id' => $this->config->item('order_status'),
-		);
-		$data = array_merge($this->standart_data, $data);
-			
-		$this->load->view('client/cabinet.php', $data);
 	}
 	
 	/**
