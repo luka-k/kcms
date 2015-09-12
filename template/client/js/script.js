@@ -79,8 +79,18 @@ function set_limit(limit, card_number){
 	
 	var json_str = JSON.stringify(data);
 	
-	$.post ("/ajax/set_child_limit/", json_str,  function(answer){
+	$.post ("/ajax/set_child_limit/", json_str, "json");
+}
 
-	}
-	, "json");
+function set_product_status(product_id, child_id){
+	data = new Object();
+	
+	data.product_id = product_id;
+	data.child_id = child_id;
+	
+	data.status = $('#'+product_id+'_pr').prop('checked');
+	
+	var json_str = JSON.stringify(data);
+	
+	$.post ("/ajax/set_product_status/", json_str, "json");
 }

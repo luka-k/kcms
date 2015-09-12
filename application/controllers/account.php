@@ -30,6 +30,8 @@ class Account extends Client_Controller
 		
 		$selected_child->orders = $this->child_users->get_orders($selected_child);
 		
+		$selected_child->disabled_products = $this->child_users->get_disabled_products($selected_child->id);
+		
 		$child_menu = $this->menu->get_menu_by_school($selected_child->school_id);
 		
 		$data = array(

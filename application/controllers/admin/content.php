@@ -156,15 +156,8 @@ class Content extends Admin_Controller
 				if($type == 'child_users')
 				{
 					$data['content']->menu = $this->menu->get_menu_by_school($data['content']->school_id);
-					
-					$this->db->select('product_id');
-					$result = $this->db->get_where('child2product', array('child_id' => $id, 'disabled' => 1))->result();
-					
-					$data['content']->disabled_products = array();
-					if($result) foreach($result as $r)
-					{
-						$data['content']->disabled_products[] = $r->product_id;
-					}
+										
+					$data['content']->disabled_products = $this->child_users->get_disabled_products($id);
 				}
 			}
 

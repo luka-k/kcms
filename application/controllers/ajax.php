@@ -53,6 +53,23 @@ class Ajax extends CI_Controller {
 		
 		echo json_encode('ok');
 	}
+	
+	public function set_product_status()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$data = array(
+			'child_id' => $info->child_id,
+			'product_id' => $info->product_id,
+			'disabled' => !$info->status
+		);
+		
+		$this->db->where('product_id', $info->product_id);
+		$this->db->where('child_id', $info->child_id);
+		$this->db->update('child2product', $data); 
+		
+		echo json_encode('ok');
+	}
 
 	/**
 	* Отправка формы обратной связи

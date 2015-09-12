@@ -136,7 +136,12 @@
 													<td><?=$product->name?></td>
 													<td><?=$product->weight?> г.</td>
 													<td><?=$product->price?> р</td>
-													<td><input type="checkbox" id="" value="" checked /></td>
+													<td>
+														<input type="checkbox" 
+															   id="<?=$product->id?>_pr" value="<?=$product->id?>" 
+															   <?if(!in_array($product->id, $selected_child->disabled_products)):?>checked<?endif;?> 
+															   onchange="set_product_status('<?=$product->id?>', <?=$selected_child->id?>)"/>
+													</td>
 												</tr>
 											<?endforeach;?>
 										<?endif;?>

@@ -60,6 +60,21 @@ class Child_users extends MY_Model
 		return $orders;
 	}
 	
+	public function get_disabled_products($child_id)
+	{
+		$disabled_products = array();
+		
+		$this->db->select('product_id');
+		$result = $this->db->get_where('child2product', array('child_id' => $child_id, 'disabled' => 1))->result();
+			
+		if($result) foreach($result as $r)
+		{
+			$disabled_products[] = $r->product_id;
+		}
+		
+		return $disabled_products;
+	}
+	
 	public function prepare($item, $all_info = FALSE)
 	{
 		if(!empty($item))
