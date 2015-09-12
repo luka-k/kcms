@@ -66,7 +66,7 @@ class Export{
 			$cards = $this->CI->db->get('cards')->result(); 
 		
 			$ch_ids = $this->CI->catalog->ids_in_array($child_users);
-			$this->CI->db->where_in('child_id', $ch_ids);
+			$this->CI->db->where_in('child_user_id', $ch_ids);
 			$child2product = $this->CI->db->get('child2product')->result();
 		}
 		
@@ -102,11 +102,12 @@ class Export{
 		
 		$result = $sqlite->query("SELECT * FROM {$table}");
 		$table_fields = array();
+		
 		for($i = 0; $i < $result->numColumns(); $i++)
 		{
 			$table_fields[] = $result->columnName($i);
 		}
-						
+		
 		if(isset($insert_info[$table]) && !empty($insert_info[$table]))
 		{
 			$sql = "";
