@@ -65,7 +65,7 @@ class Child_users extends MY_Model
 		$disabled_products = array();
 		
 		$this->db->select('product_id');
-		$result = $this->db->get_where('child2product', array('child_id' => $child_id, 'disabled' => 1))->result();
+		$result = $this->db->get_where('child2product', array('child_user_id' => $child_id, 'disabled' => 1))->result();
 			
 		if($result) foreach($result as $r)
 		{

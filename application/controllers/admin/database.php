@@ -50,6 +50,10 @@ class Database extends CI_Controller
 				}
 			}
 			
+			$this->db->select_max('id');
+			$row = $this->db->get('orders')->row();
+			
+			$new_order['id'] = $row->id + 1;
 			$new_order['date'] = date("Y-m-d H:m:s"); 
 				
 			$this->orders->insert($new_order);
