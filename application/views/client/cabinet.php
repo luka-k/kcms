@@ -102,9 +102,6 @@
 														<?=$product->name?><?if($key <> count($order->products)-1):?>, <?endif;?>
 													<?endforeach;?>
 												<?endif;?>
-												<?if(!empty($order->info)):?>
-													<?=$order->info?>
-												<?endif;?>
 											</td>
 										</tr>
 									<?endforeach;?>

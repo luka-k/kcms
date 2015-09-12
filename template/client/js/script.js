@@ -35,6 +35,7 @@ $(function(){
 	$(document).click(function(event) {
 		if ($(event.target).closest("#parent-info").length) return;
 		$("#parent-info").removeClass('active');
+		$(".info-link").removeClass('active');
 		event.stopPropagation();
 	});
 });

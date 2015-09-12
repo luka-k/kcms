@@ -29,4 +29,24 @@ class Menu extends MY_Model
 		
 		return $menu;
 	}
+	
+	public function get_products_by_menu($menu_id)
+	{
+		$products = array();
+		$result = $this->db->get_where('categories', array('menu_id' => $menu_id))->result();
+		
+		if(!empty($result))
+		{
+			$categories_ids = array();
+			foreach($result as $r)
+			{
+				$categories_ids[] = $r->id;
+			}
+		
+			$this->db->where_in('category_id', $categories_ids);
+			$products = $this->db->get('products')->result();
+		}
+		
+		return $products;
+	}
 }

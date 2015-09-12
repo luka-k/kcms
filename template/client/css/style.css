@@ -157,12 +157,6 @@ body{
 	border-top:none;
 }
 
-.personal-info:hover .p-btn{
-	background: rgba(224,224,224,1);
-	border:1px solid #ccc;
-	border-top:none;
-}
-
 .p-btn:hover a, .p-btn.active a{
 	color:#000;
 	text-shadow:none;

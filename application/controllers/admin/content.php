@@ -134,8 +134,6 @@ class Content extends Admin_Controller
 				$parents = $this->db->get('users')->result();
 			}
 			$data['selects']['parent_id'] = $parents;
-			
-			
 		}
 		
 		$image_field = editors_get_name_field('img', $data['editors']);
@@ -148,26 +146,27 @@ class Content extends Admin_Controller
 				$data['content'] = set_empty_fields($data['editors']);
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
-				if($type == "emails") $data['content']->type = 2;				
+				if($type == "emails") $data['content']->type = 2;	
+				if($type == 'child_users') $data['no_tabs'] = array('Продукты');
 			}	
 			else
 			{		
 				$data['content'] = $this->$type->get_item($id);
 
-				// Галлерея
-				/*if($image_field) $data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => $type,"object_id" => $data['content']->id), FALSE, FALSE, "sort", "asc"));
-				
-				// Двойная галлерея
-				if($double_image_field)
+				if($type == 'child_users')
 				{
-					$field = get_editors_field($data['editors'], $double_image_field);
-					if($field) foreach($field[4] as $image_type)
+					$data['content']->menu = $this->menu->get_menu_by_school($data['content']->school_id);
+					
+					$this->db->select('product_id');
+					$result = $this->db->get_where('child2product', array('child_id' => $id, 'disabled' => 1))->result();
+					
+					$data['content']->disabled_products = array();
+					if($result) foreach($result as $r)
 					{
-						$data['content']->images[$image_type] = $this->images->prepare_list($this->images->get_list(array("object_type" => $type, "object_id" => $data['content']->id, "image_type" => $image_type), FALSE, FALSE, "sort", "asc"));
+						$data['content']->disabled_products[] = $r->product_id;
 					}
-				}*/
+				}
 			}
-
 
 			$this->load->view('admin/item.php', $data);
 		}
@@ -189,60 +188,39 @@ class Content extends Admin_Controller
 				//Если id не пустая вносим изменения.
 				$this->$type->update($data['content']->id, $data['content']);
 			}
-
-			//Изображения
-			$object_info = array(
-				"object_type" => $type,
-				"object_id" => $data['content']->id
-			);
 			
-			/*if(!empty($image_field))
+			if($type == 'child_users')
 			{
-				if (isset($_FILES[$image_field]))
+				$child2product = array();
+				
+				$this->db->where('child_id', $data['content']->id);
+				$this->db->delete('child2product');
+				
+				$menu = $this->menu->get_item_by(array('school_id' => $data['content']->school_id));
+				
+				$child_products = $this->menu->get_products_by_menu($menu->id);
+
+				$enabled_products = $this->input->post('child2products');
+				
+				foreach($child_products as $key => $c_p)
 				{
-					if(is_array($_FILES[$image_field]['name']))
+					$child2product[$key] = array(
+						'child_id' => $data['content']->id,
+						'product_id' => $c_p->id,
+					);
+					if($enabled_products)
 					{
-						foreach($_FILES[$image_field]['error'] as $key => $error)
-						{
-							if($error == UPLOAD_ERR_OK)
-							{
-								$file = array(
-									"name" => $_FILES[$image_field]['name'][$key],
-									"type" => $_FILES[$image_field]['type'][$key],
-									"tmp_name" => $_FILES[$image_field]['tmp_name'][$key]
-								);
- 
-								$this->images->upload_image($file, $object_info);
-							}
-						}
+						$child2product[$key]['disabled'] = in_array($c_p->id, $enabled_products) ? 0 : 1;
 					}
 					else
 					{
-						if($_FILES[$image_field]['error'] == UPLOAD_ERR_OK) $this->images->upload_image($_FILES[$image_field], $object_info);
+						$child2product[$key]['disabled'] = 0;
 					}
 				}
-			}
 				
-			if(!empty($double_image_field))
-			{
-				if (isset($_FILES[$double_image_field]))
-				{
-					foreach($_FILES[$double_image_field]['error'] as $key => $error)
-					{
-						if($error == UPLOAD_ERR_OK)
-						{
-							$file = array(
-								"name" => $_FILES[$double_image_field]['name'][$key],
-								"type" => $_FILES[$double_image_field]['type'][$key],
-								"tmp_name" => $_FILES[$double_image_field]['tmp_name'][$key]
-							);
-						
-							$object_info['image_type'] = $key;
-							$this->images->upload_image($file, $object_info);
-						}
-					}
-				}	
-			}*/
+				$this->db->insert_batch('child2product', $child2product);
+			}
+			
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
@@ -271,32 +249,11 @@ class Content extends Admin_Controller
 	*/
 	public function delete_item($type, $id)
 	{
-		// Удаляем картинки связанные с элементом
-		$image_fields = editors_get_name_field('img', $this->$type->editors);
-		$is_dbl_img = editors_get_name_field('double_img', $this->$type->editors);
-		if($image_fields || $is_dbl_img)
+		if($type == "child_users")
 		{
-			$item_images = $this->images->get_list(array("object_type" => $type, "object_id" => $id));
-			if($item_images) foreach($item_images as $image)
-			{
-				$this->images->delete_img(array("object_type" => $type, "id" => $image->id));
-			}
+			$this->db->where('child_id', $id);
+			$this->db->delete('child2product');
 		}
-		
-		// Удаляем характеристики связанные с товаром.
-		$characteristics_field = editors_get_name_field('ch', $this->$type->editors);
-		if($characteristics_field)
-		{
-			$item_characteristics = $this->characteristics->get_list(array("object_type" => $type, "object_id" => $id));
-			if($item_characteristics) foreach($item_characteristics as $ch)
-			{
-				$this->characteristics->delete($ch->id);
-			}
-		}
-		
-		// Удаляем рекомендованные элементы
-		$recommend_fielded = editors_get_name_field('recommend', $this->$type->editors);
-		if($recommend_fielded)	$this->products->delete_recommended($id);
 	
 		$item = $this->$type->get_item($id);
 		$this->$type->delete($id);
