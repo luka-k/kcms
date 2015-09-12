@@ -50,12 +50,9 @@ class Database extends CI_Controller
 				}
 			}
 			
-			$this->db->select_max('id');
-			$row = $this->db->get('orders')->row();
-			
-			$new_order['id'] = $row->id + 1;
 			$new_order['date'] = date("Y-m-d H:m:s"); 
-				
+			unset($new_order['id']);
+			
 			$this->orders->insert($new_order);
 				
 			$order2products = array();
@@ -63,7 +60,7 @@ class Database extends CI_Controller
 			foreach($products as $p)
 			{
 				$order2products[] = array(
-					'order_id' => $new_order['id'],
+					'order_id' => $this->db->insert_id(),
 					'product_id' => $p->id,
 					'quantity' => $p->quantity
 				);
