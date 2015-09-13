@@ -166,9 +166,7 @@
 			</div>
 		</div>
 		
-		<? if (count($filters_checked) < 4): ?>
-			<div id="shadow"></div>
-		<? endif ?>
+		<div id="shadow"></div>
 	</body>
 	
 	<script>

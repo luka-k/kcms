@@ -44,6 +44,16 @@ class Catalog extends Client_Controller {
 		
 		//$this->session->sess_destroy("cart_contents");
 		
+		$availability = array(
+			'on_request' => 'По запросу',
+			'in_stock' => 'На складе'
+		);
+		
+		$filters_checked = array(
+			'on_request' => 1,
+			'in_stock' => 1
+		);
+		
 		$data = array(
 			'title' => 'Интернет-магазин bрайтbилd',
 			'url' => base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']),
@@ -64,11 +74,12 @@ class Catalog extends Client_Controller {
 			'depth_to' => $depth_to,
 			'depth_min' => $depth_min,
 			'depth_max' => $depth_max,
-			'filters_checked' => array(),
+			'filters_checked' => $filters_checked,
 			'left_menu' => $this->categories->get_tree(),
 			'manufacturer' => $this->manufacturers->get_tree(FALSE, $this->post),
 			'sku_tree' => array(),
 			'collection' => array(),
+			'availability' => $availability,
 			'sku' => array(),
 			//'nok' => array(),
 			'ajax_from' => '',
@@ -113,13 +124,15 @@ class Catalog extends Client_Controller {
 			'filter' => TRUE, 
 			'last_type_filter' => 'categories_checked', 
 			'from' => 0,
+			'on_request' => 1,
+			'in_stock' => 1
 		);
 
 		if($content == "root")
 		{
 			$cache_id = md5(serialize($content));
 			$cache = $this->filters_cache->get($cache_id);
-			$cache = FALSE;
+			//$cache = FALSE;
 			if($cache)
 			{
 				$this->filters_cache->set_last($cache_id);

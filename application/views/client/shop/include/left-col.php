@@ -198,6 +198,22 @@
 			
 			<div class="lm-block">
 				<div class="lm-caption">
+					Наличия товара:
+				</div>
+				<div class="lm-item" prop="secondcolumn10">
+					<?if(empty($turn_ch)):?>
+						Все варианты
+					<?else:?>
+						<span class="lm-title"><?=$turn_ch[0]?></span>
+						<?if(count($turn_ch) > 1):?>
+							[<?= count($turn_ch)?>]
+						<?endif;?>
+					<?endif;?>
+				</div>
+			</div>
+			
+			<div class="lm-block">
+				<div class="lm-caption">
 					Размеры:
 					<div style="float: right;font-weight: bold;color: red;padding: 0px 5px; margin-right: 7px;cursor: pointer;" onmouseover="$('#whd').show();" onmouseout="$('#whd').hide();">i</div>
 				</div> 

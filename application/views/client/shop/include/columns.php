@@ -1,6 +1,27 @@
 <div id="ufe">
 <div id="searchpopupbtn"><p>Количество: <span id="total_count"></span><br><a href="/" onclick="$('#filter-form').submit();return false;">Показать</a></p></div>
-				 
+	
+<div id="secondcolumn10" class="secondcolumn">
+
+	<div class="clear_filter"><a href="#" onclick="clear_filter('availability'); return false;">сбросить фильтр <span class="red">X</span></a></div>
+	<?if(isset($availability)):?>
+		<ul class="level1">
+			<?foreach($availability as $key => $value):?>
+				<li>
+					<input type="checkbox" 
+						   class="turn-filter" 
+						   name="<?=$key?>" 
+						   value="1" 
+						   onclick="$('#last_type_filter').val('turn');"
+						   <?if(isset($filters_checked[$key]) && $filters_checked[$key] == 1):?>checked<?endif;?>
+					/>
+					<a href="#" class="level1_link"> <?=$value?></a>
+				</li>
+			<? endforeach ?>
+		</ul>
+	<?endif;?>
+</div>
+	
 <div id="secondcolumn9" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('turn'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['turn']->values)):?>
