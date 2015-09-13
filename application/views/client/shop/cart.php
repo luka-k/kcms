@@ -40,7 +40,9 @@
 																		<div class="cart-table__price"><?=$item->price?> р.</div>
 																	</td>
 																	<td class="col_4">
-																		<input type="text" id="qty-<?=$item_id?>" class="" onchange="update_cart('<?=$item_id?>', this.value); return false;" value="<?=$item->qty?>" />
+																		<span class="plus-minus" onclick="change_qty('-', '<?=$item_id?>')">-</span>
+																		<input type="text" id="qty-<?=$item_id?>" class="cart_item_qty" onchange="update_cart('<?=$item_id?>', this.value); return false;" value="<?=$item->qty?>" />
+																		<span class="plus-minus" onclick="change_qty('+', '<?=$item_id?>')">+</span>
 																	</td>
 																	<td class="col_5">
 																		<div class="cart-table__price"><span id="<?=$item_id?>-qty"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->

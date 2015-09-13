@@ -1523,6 +1523,14 @@ article h2 {
 	text-align:center;
 }
 
+.cart-table .plus-minus{
+	cursor:pointer;
+}
+
+.cart-table .cart_item_qty{
+	text-align:center;
+}
+
 .cart-table .cart-delete{
 	text-decoration:none;
 	color:#cc0000;
