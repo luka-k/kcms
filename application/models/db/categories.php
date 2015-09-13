@@ -31,6 +31,7 @@ class Categories extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'category2category' => array('Родительская категория', 'category2category'),
 			'is_active' => array('Активна', 'checkbox'),
+			'in_catalog' => array('Отображать в каталоге', 'checkbox'),
 			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
@@ -170,13 +171,13 @@ class Categories extends MY_Model
 
 		if(!empty($categories_ids))
 		{
-			$result = $this->db->get_where("category2category", array("category_parent_id" => 0))->result();
+			$result = $this->db->get_where("category2category", array('category_parent_id' => 0))->result();
 			
 			if($result)foreach($result as $i => $r)
 			{				
 				$categories_tree[$i] = $this->categories->get_item($r->child_id);
 				
-				if (!$categories_tree[$i]->is_active) {unset($categories_tree[$i]); continue;}
+				if (!$categories_tree[$i]->is_active || !$categories_tree[$i]->in_catalog) {unset($categories_tree[$i]); continue;}
 				
 				if($w_priority) $categories_tree[$i]->priority = '0.6';
 				
@@ -186,13 +187,17 @@ class Categories extends MY_Model
 				$sub_result = $this->db->get_where("category2category", array("category_parent_id" => $r->child_id))->result();
 				
 				$volume = array();
-				if($sub_result)foreach($sub_result as $j => $s_r)
+				if($sub_result) foreach($sub_result as $j => $s_r)
 				{
-					$volume[$j]  = $this->get_item($s_r->child_id)->name;
+					$cat = $this->get_item_by(array('id' => $s_r->child_id, 'in_catalog' => 1));
+					if(!empty($cat))
+					{
+						$volume[$j]  = $cat->name;
 					
-					$categories_tree[$i]->childs[$j] = $this->prepare($this->get_item($s_r->child_id));
-					$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
-					if($w_priority) $categories_tree[$i]->childs[$j]->priority = '0.5';
+						$categories_tree[$i]->childs[$j] = $this->prepare($cat);
+						$categories_tree[$i]->childs[$j]->parent_category_url = $categories_tree[$i]->url;
+						if($w_priority) $categories_tree[$i]->childs[$j]->priority = '0.5';
+					}
 				}
 
 				array_multisort($volume, SORT_ASC, $categories_tree[$i]->childs);

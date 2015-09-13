@@ -500,7 +500,7 @@ class Import extends Admin_Controller
 				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2)));
+					$this->categories->insert(array('name' => $cat2, 'in_catalog' => 0, 'url' => $this->string_edit->slug($cat2)));
 					$category = $this->categories->get_item($this->db->insert_id());
 				}
 				
@@ -511,7 +511,7 @@ class Import extends Admin_Controller
 					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
 					if (!$parentcategory)
 					{
-						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1)));
+						$this->categories->insert(array('name' => $c1, 'in_catalog' => 0, 'url' => $this->string_edit->slug($c1)));
 						$pid = $this->db->insert_id();
 						$parentcategory = $this->categories->get_item($pid);
 					
