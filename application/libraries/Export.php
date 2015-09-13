@@ -16,7 +16,7 @@ class Export{
 		$this->CI =& get_instance();
 	}
 	
-	public function export_school_new($school, $tables)
+	public function export_school($school, $tables)
 	{
 		$school_name = $this->CI->string_edit->slug($school->name);
 		
@@ -35,7 +35,7 @@ class Export{
 		{
 			echo 'Экспорт базы '.$table.' для школы '.$school->name.'<br />';
 		
-			$this->export_table($file_path, $table, $insert_info);
+			$this->export_table($sqlite, $file_path, $table, $insert_info);
 
 			//Проверка
 
@@ -47,6 +47,7 @@ class Export{
 				my_dump($row);
 			}*/
 		}	
+
 	}
 	
 	protected function get_insert_info_by_school($school)
@@ -96,10 +97,8 @@ class Export{
 		return $insert_info;
 	}
 	
-	protected function export_table($file_path, $table, $insert_info)
+	protected function export_table($sqlite, $file_path, $table, $insert_info)
 	{
-		$sqlite = new sqlite3($file_path);
-		
 		$result = $sqlite->query("SELECT * FROM {$table}");
 		$table_fields = array();
 		
@@ -164,6 +163,5 @@ class Export{
 				}
 			}
 		}
-		
 	}
 }

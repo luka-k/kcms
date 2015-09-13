@@ -25,9 +25,13 @@ class Export_base extends Admin_Controller
 		
 		$schools = $this->schools->get_list(FALSE);
 		
+		$this->benchmark->mark('code_start');
+
 		if($schools) foreach($schools as $sch)
 		{
-			$this->export->export_school_new($sch, $tables);
+			$this->export->export_school($sch, $tables);
 		}
+		$this->benchmark->mark('code_end');
+		echo $this->benchmark->elapsed_time('code_start', 'code_end');
 	}
 }

@@ -30,6 +30,8 @@ class Database extends CI_Controller
 	public function import()
 	{
 		$post = json_decode(file_get_contents('php://input', true));
+		
+		$file_path = FCPATH."logs/orders/orders".date('d-m-Y').".txt";
 
 		foreach($post as $order)
 		{
@@ -87,9 +89,7 @@ class Database extends CI_Controller
 				}
 			}
 		}
-		
-		$file_path = FCPATH."logs/orders/orders".date('d-m-Y').".txt";
-		
+			
 		if(file_put_contents($file_path, print_r($post, true), FILE_APPEND))
 		{
 			echo json_encode('ok');
