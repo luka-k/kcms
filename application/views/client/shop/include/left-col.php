@@ -203,7 +203,7 @@
 				</div> 
 				<div style="position: absolute;left: 140px;top: -40px;z-index: 10000;display: none;" id="whd" ><img src="/template/client/images/whd.png" /></div>
 					
-				<div class="clear_range" style="top:15px;" >
+				<div class="clear_range" style="top:34px;" >
 					<span class="red" onmouseover="$('#width_clear').show();" onmouseout="$('#width_clear').hide();" onclick="clear_range('width');">x</span>
 				</div>
 				<div class="clear_popup" id="width_clear" style="left: 195px; top: -7px;">сбросить</div>
@@ -215,7 +215,7 @@
 					<div id="width-range" class="block-range"></div>
 				</div>
 				
-				<div class="clear_range" style="top:55px;" >
+				<div class="clear_range" style="top:74px;" >
 					<span class="red" onmouseover="$('#height_clear').show();" onmouseout="$('#height_clear').hide();" onclick="clear_range('height');">x</span>
 				</div>
 				<div class="clear_popup" id="height_clear" style="left: 195px; top: 33px;">сбросить</div>						
@@ -227,7 +227,7 @@
 					<div id="height-range" class="block-range"></div>
 				</div>
 				
-				<div class="clear_range" style="top:95px" >
+				<div class="clear_range" style="top:114px" >
 					<span class="red" onmouseover="$('#weight_clear').show();" onmouseout="$('#weight_clear').hide();" onclick="clear_range('weight');">x</span>
 				</div>
 				<div class="clear_popup" id="weight_clear" style="left: 195px; top: 73px;">сбросить</div>					
@@ -244,7 +244,7 @@
 					Цена:
 				</div> 
 						
-				<div class="clear_range" style="top:15px;" >
+				<div class="clear_range" style="top:33px;" >
 					<span class="red" onmouseover="$('#price_clear').show();" onmouseout="$('#price_clear').hide();" onclick="clear_range('price');">x</span>
 				</div>
 				<div class="clear_popup" id="price_clear" style="left: 195px; top: -7px;">сбросить</div>	
