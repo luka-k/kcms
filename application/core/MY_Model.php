@@ -202,8 +202,9 @@ class MY_Model extends CI_Model
 	{
 		if($data) $this->db->set($data);
 
-		$this->db->insert($this->_table);
-		return $this->db->insert_id();
+		/*$this->db->insert($this->_table);
+		return $this->db->insert_id();*/
+		return $this->db->insert($this->_table);	
     }
 
 	/**

@@ -53,34 +53,50 @@ class Database extends CI_Controller
 			$new_order['date'] = date("Y-m-d H:m:s"); 
 			unset($new_order['id']);
 			
-			$this->orders->insert($new_order);
-				
-			$order2products = array();
-				
+			$query = $this->orders->insert($new_order);
+			
+			if(!$query) 
+			{
+				header('HTTP/1.1 406 Not Acceptable');
+				die(); //По логике продолжать выполнение скрипта не нужно же?
+			}
+			
+			$this->db->where('card_number', $new_order['card_number']);
+			$this->db->select('card_balance');
+			$card_balance = $this->db->get('cards')->row()->card_balance;
+			
+			$card_balance = $card_balance + $new_order['summ']; //Мы же точно решиди что с минусом будут?
+			
+			$this->db->where('card_number', $new_order['card_number']);
+			$this->db->update('cards', array('card_balance' => $card_balance));
+						
 			foreach($products as $p)
 			{
-				$order2products[] = array(
+				$order2products = array(
 					'order_id' => $this->db->insert_id(),
 					'product_id' => $p->id,
 					'quantity' => $p->quantity
 				);
-			}
 				
-			foreach($order2products as $o2p)
-			{
-				$this->order2products->insert($o2p);
+				$query = $this->order2products->insert($order2products);
+				
+				if(!$query) 
+				{
+					header('HTTP/1.1 406 Not Acceptable');
+					die();
+				}
 			}
 		}
 		
-		$file_path = FCPATH."import/import.txt";
+		$file_path = FCPATH."logs/orders/orders".date('d-m-Y').".txt";
 		
-		if(file_put_contents($file_path, print_r($post, true)))
+		if(file_put_contents($file_path, print_r($post, true), FILE_APPEND))
 		{
 			echo json_encode('ok');
 		}
 		else
 		{
-			header('HTTP/1.1 466 Failed'); // А какой код ошибки лучше использовать в данном случае?
+			header('HTTP/1.1 406 Not Acceptable');
 		}
 	}
 	
