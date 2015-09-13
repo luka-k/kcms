@@ -15,14 +15,14 @@
 			for (var key in res.item) {
 				var val = res.item[key];
 				element = form.find('.'+key);
-				if(element.attr('type') != 'radio'){
-					element.val(val);
-				}
 				if(element.attr('type') == 'checkbox'){
 					if(res.item[key] == 1)
 						element.prop('checked', true);
 					else
 						element.prop('checked', false);
+				}
+				if(element.attr('type') != 'radio' && element.attr('type') != 'checkbox'){
+					element.val(val);
 				}
 				if(key == "item_type"){
 					var type = res.item[key];
