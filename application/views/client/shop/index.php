@@ -119,14 +119,14 @@
 													<?=$color->value?><?endforeach;
 													if ($item->color && $item->material) echo '/';
 													foreach($item->material as $material):?><?=$material->value?>
-												<?endforeach;?>
+												<?endforeach;?><? if (($item->color || $item->material) && !$item->finishing && $item->turn) echo ', ';?>
 												
 												<?foreach($item->finishing as $finishing):?>
-													<?=$finishing->value?><?endforeach;?><? if ($item->turn) echo ', ';?>
+													<?=$finishing->value?><?endforeach;?><? if ($item->finishing && $item->turn) echo ', ';?>
 												<?foreach($item->turn as $turn):?>
 													<?=$turn->value?>
 												<?endforeach;?>
-												</br>
+												<br />
 
 												<strong><?=$item->shortname->value?> </strong>
 												

@@ -73,10 +73,10 @@
 													<?=$color->value?><?endforeach;
 													if ($product->color && $product->material) echo '/';
 													foreach($product->material as $material):?><?=$material->value?>
-												<?endforeach;?>
+												<?endforeach;?><? if (($product->color || $product->material) && !$product->finishing && $product->turn) echo ', ';?>
 												
 												<?foreach($product->finishing as $finishing):?>
-													<?=$finishing->value?><?endforeach;?><? if ($product->turn) echo ', ';?>
+													<?=$finishing->value?><?endforeach;?><? if ($product->finishing && $product->turn) echo ', ';?>
 												<?foreach($product->turn as $turn):?>
 													<?=$turn->value?>
 												<?endforeach;?>
