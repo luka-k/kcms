@@ -132,11 +132,11 @@
 												
 												<?foreach($item->shortdesc as $shortdesc):?>
 													<?=$shortdesc->value?>
-												<?endforeach;?><br>
+												<?endforeach;?>
 												
 												<? if ($item->discontinued):?>
 													<? $date = explode(' ', $item->discontinued); $date = $date[0];?>
-													(Снято с производства <?= $date?>)
+													<span style="display:inline-block">(Снято с производства <?= $date?>)</span>
 												<?endif?>
 												
 												<div class="sale_desc">
