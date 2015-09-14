@@ -98,6 +98,8 @@ class News extends MY_Model
 			$item->meta_description = $item->en_meta_description;
 		}
 		
+		$item->short_description = $this->string_edit->short_description($item->description);
+		
 		return $item;
 	}
 }

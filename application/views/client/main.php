@@ -28,7 +28,7 @@
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_lt->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_lt->name?>
 										</a>
 										<div class="magic news-text"> 
-											<?=$item_lt->description?>
+											<?=$item_lt->short_description?>
 										</div>
 									</li>
 								<?endforeach;?>
@@ -43,7 +43,7 @@
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_camb->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_camb->name?>
 										</a>
 										<div class="magic news-text"> 
-											<?=$item_camb->description?>
+											<?=$item_camb->short_description?>
 										</div>
 									</li>
 								<?endforeach;?>
@@ -58,7 +58,7 @@
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_ielts->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_ielts->name?>
 										</a>
 										<div class="magic news-text"> 
-											<?=$item_ielts->description?>
+											<?=$item_ielts->short_description?>
 										</div>
 									</li>
 								<?endforeach;?>
@@ -73,7 +73,7 @@
 											<img width="50" height="50" class="recent-posts-thumb" src="<?=$item_pearson->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /> <?=$item_pearson->name?>
 										</a>
 										<div class="magic news-text"> 
-											<?=$item_pearson->description?>
+											<?=$item_pearson->short_description?>
 										</div>
 									</li>
 								<?endforeach;?>

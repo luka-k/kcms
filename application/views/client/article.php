@@ -38,7 +38,7 @@
 													<img width="50" height="50" class="recent-posts-thumb" src="<?=$news_item->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /><?=$news_item->name?>
 												</a>
 												<div class="magic news-text"> 
-													<?=$news_item->description?>
+													<?=$news_item->short_description?>
 												</div>
 											</li>
 										<?endforeach;?>
