@@ -206,8 +206,10 @@ class Catalog extends Client_Controller {
 					$data['depth_min'] = $data['depth_from'] = $this->catalog->get_min($all_products, 'depth');
 					$data['depth_max'] = $data['depth_to'] = $this->catalog->get_max($all_products, 'depth');
 				}
+				
 				$data['no_shadow'] = TRUE;
 				$data = array_merge($this->standart_data, $data);
+		
 				$this->load->view("client/shop/categories", $data);
 			}
 			else
@@ -388,6 +390,10 @@ class Catalog extends Client_Controller {
 				$data['title'] = $data['categories_ch'][0].' | интернет-магазин bрайтbилd';
 			}
 			
+			$data['availability_ch'] = array();
+			if($data['filters_checked']['on_request'] == 1) $data['availability_ch'][] = 'По запросу';
+			if($data['filters_checked']['in_stock'] == 1) $data['availability_ch'][] = 'На складе';
+
 			$this->filters_cache->insert($cache_id, $data);
 			
 			$this->benchmark->mark('code_end');

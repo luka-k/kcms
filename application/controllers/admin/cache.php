@@ -40,6 +40,8 @@ class Cache extends Admin_Controller
 					'categories_checked' => array($child_category->id),
 					'manufacturer_checked' => array(),
 					'from' => 0,
+					'on_request' => 1,
+					'in_stock' => 1
 				);
 				
 				$products = array();
@@ -76,6 +78,8 @@ class Cache extends Admin_Controller
 				
 				$data['categories_ch'][] = $child_category->name;
 				$data['category']->products = $products;
+				$data['availability_ch'][] = 'По запросу';
+				$data['availability_ch'][] = 'На складе';
 
 				$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url;
 				
@@ -98,6 +102,8 @@ class Cache extends Admin_Controller
 				'last_type_filter' => 'categories_checked', 
 				'parent_checked' => array($category->id),
 				'from' => 0,
+				'on_request' => 1,
+				'in_stock' => 1
 			);
 			
 			$products = array();
@@ -143,6 +149,8 @@ class Cache extends Admin_Controller
 				
 			$data['categories_ch'][] = $category->name;
 			$data['category']->products = $products;
+			$data['availability_ch'][] = 'По запросу';
+			$data['availability_ch'][] = 'На складе';
 
 			$semantic_url = 'catalog/'.$category->url;
 			
@@ -228,6 +236,8 @@ class Cache extends Admin_Controller
 				
 						$data['categories_ch'][] = $child_category->name;
 						$data['category']->products = $products;
+						$data['availability_ch'][] = 'По запросу';
+						$data['availability_ch'][] = 'На складе';
 
 						$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url.'/'.$manufacturer->url;
 					
@@ -253,6 +263,8 @@ class Cache extends Admin_Controller
 				'parent_checked' => array($category->id),
 				'manufacturer_checked' => array(),
 				'from' => 0,
+				'on_request' => 1,
+				'in_stock' => 1
 			);
 			
 			$filters_checked['categories_checked'] = $categories_checked;
@@ -294,6 +306,8 @@ class Cache extends Admin_Controller
 					
 					$data['categories_ch'][] = $category->name;
 					$data['category']->products = $products;
+					$data['availability_ch'][] = 'По запросу';
+					$data['availability_ch'][] = 'На складе';
 
 					$semantic_url = 'catalog/'.$category->url.'/'.$manufacturer->url;
 			
@@ -333,6 +347,8 @@ class Cache extends Admin_Controller
 				'filter' => TRUE, 
 				'last_type_filter' => 'manufacturers_checked', 
 				'from' => 0,
+				'on_request' => 1,
+				'in_stock' => 1
 			);
 			
 			$filters_checked['manufacturer_checked'][] = $manufacturer->id;
@@ -366,6 +382,8 @@ class Cache extends Admin_Controller
 			
 			$data['category'] = new stdClass();
 			$data['category']->products = $products;
+			$data['availability_ch'][] = 'По запросу';
+			$data['availability_ch'][] = 'На складе';
 			
 			$semantic_url = 'catalog/'.$manufacturer->url;
 			

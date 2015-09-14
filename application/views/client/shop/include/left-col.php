@@ -201,12 +201,12 @@
 					Наличия товара:
 				</div>
 				<div class="lm-item" prop="secondcolumn10">
-					<?if(empty($turn_ch)):?>
+					<?if(empty($availability_ch)):?>
 						Все варианты
 					<?else:?>
-						<span class="lm-title"><?=$turn_ch[0]?></span>
-						<?if(count($turn_ch) > 1):?>
-							[<?= count($turn_ch)?>]
+						<span class="lm-title"><?=$availability_ch[0]?></span>
+						<?if(count($availability_ch) > 1):?>
+							[<?= count($availability_ch)?>]
 						<?endif;?>
 					<?endif;?>
 				</div>
