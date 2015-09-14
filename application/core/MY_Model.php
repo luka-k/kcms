@@ -469,7 +469,7 @@ class MY_Model extends CI_Model
 				
 					if ($this->db->field_exists($key, $this->_table))
 					{
-						if($key == 'url')
+						if($key == 'url' && $_POST['id'] == FALSE)
 						{
 							$url = $_POST[$key];
 							$count = 1;
