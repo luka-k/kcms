@@ -27,7 +27,6 @@
 						<div class="cont">
 							<?if(!empty($content->news_item)):?>
 								<div class="desc">
-									ffgfdg
 									<?=$content->news_item->description?>
 									<?=$content->news_item->full_description?>
 								</div>

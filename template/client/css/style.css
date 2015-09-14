@@ -709,7 +709,7 @@ display:inline-block;
  -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.3); 
  -webkit-box-shadow: 1px 1px 2px  rgba(0,0,0,0.3); 
  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  text-align:justify;
+  text-align:left;
   float:left;
   }
 
@@ -782,6 +782,10 @@ display:inline-block;
 .cont  td p{
   font-size: 12px;
   text-align:center;
+}
+
+.cont .desc{
+	text-align:left;
 }
 
 .cont .desc img{
