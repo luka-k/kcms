@@ -783,6 +783,11 @@ display:inline-block;
   font-size: 12px;
   text-align:center;
 }
+
+.cont .desc img{
+	position:relative;
+	width:100%;
+}
   
 .cat_title
   {

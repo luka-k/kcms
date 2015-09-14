@@ -26,8 +26,11 @@
 						
 						<div class="cont">
 							<?if(!empty($content->news_item)):?>
-								<?=$content->news_item->description?>
-								<?=$content->news_item->full_description?>
+								<div class="desc">
+									ffgfdg
+									<?=$content->news_item->description?>
+									<?=$content->news_item->full_description?>
+								</div>
 							<?elseif(!empty($content->news)):?>
 								<div id="advancedrecentposts-9" class="widget_advancedrecentposts widget">
 									<h3 class="widget-title">  </h3>
@@ -65,10 +68,15 @@
 									</ul>
 								</div>
 							<?elseif(!empty($content->article)):?>
-								<?=$content->article->description?>
-								<?=$content->article->full_description?>
+								<div class="desc">
+							
+									<?=$content->article->description?>
+									<?=$content->article->full_description?>
+								</div>
 							<?else:?>
-								<?=$content->description?>
+								<div class="desc">
+									<?=$content->description?>
+								</div>
 							<?endif;?>
 						</div>
 					</div>
