@@ -45,6 +45,9 @@
 									</ul>
 								</div>	
 							<?elseif(!empty($content->accordeon)):?>
+								<div class="under_accordion">
+									<?=$content->article->description?>
+								</div>
 								<div id="st-accordion" class="st-accordion">
 									<ul>
 										<?foreach($content->accordeon as $bajan):?>

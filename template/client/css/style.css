@@ -808,6 +808,10 @@ display:inline-block;
   }
   
 /*Расписание*/
+.under_accordion{
+	padding:0 0 0 32px;
+}
+
 .st-accordion
   {
   width:100%;
