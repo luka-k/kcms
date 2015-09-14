@@ -438,7 +438,7 @@ class MY_Model extends CI_Model
 		{
 			$editors = $this->editors;
 		}
-		
+		$return->data = new stdCLass();
 		foreach ($editors as $edit)
 		{
 			foreach ($edit as $key => $value)
@@ -452,7 +452,7 @@ class MY_Model extends CI_Model
 				}
 				if ($this->db->field_exists($key, $this->_table))
 				{
-					$return->data->$key = $post[$key];
+					$return->data->$key = $_POST[$key];
 				}
 			}
 		}
@@ -461,6 +461,7 @@ class MY_Model extends CI_Model
 		if($this->form_validation->run())
 		{
 			unset($return->data);
+			$return->data = new stdCLass();
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)
@@ -468,8 +469,22 @@ class MY_Model extends CI_Model
 				
 					if ($this->db->field_exists($key, $this->_table))
 					{
+						if($key == 'url')
+						{
+							$url = $_POST[$key];
+							$count = 1;
+							while(!($this->non_requrrent(array("url" => $url))))
+							{
+								$url = $url.'-'.$count;		
+								$count++;
+							};
+							$return->data->$key = $url;
+						}
+						else
+						{
 						$return->data->$key = htmlspecialchars_decode(set_value($key));
-					}		
+						}
+					}						
 				}
 			}
 			$return->error = FALSE;

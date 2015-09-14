@@ -226,6 +226,7 @@ class Content extends Admin_Controller
 			}
 			
 			$field_name = editors_field_exists('news2article', $data['editors']);
+			$data["news2article"] = new stdClass();
 			if($field_name && is_array($this->input->post($field_name)))
 			{
 				$data["news2article"]->$field_name = $this->input->post($field_name);
@@ -236,6 +237,7 @@ class Content extends Admin_Controller
 			{
 				$this->db->where('child_id', $data['content']->id);
 				$this->db->delete('news2article');
+				$news2article = new stdClass();
 				foreach($data["news2article"]->$field_name  as $item)
 				{
 					if(!empty($item))
