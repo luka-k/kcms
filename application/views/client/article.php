@@ -68,10 +68,21 @@
 								</div>
 							<?elseif(!empty($content->article)):?>
 								<div class="desc">
-							
 									<?=$content->article->description?>
 									<?=$content->article->full_description?>
 								</div>
+								
+								<?if(isset($callback)):?>
+									<div id="cntctfrm_contact_form" class="callback">
+										<form action="#" id="mail_form" class="form" method="post">
+											Обратная связь<br /><br />
+											<input type="text" name="name" class="validate" placeholder="Имя" /><br /><br />
+											<input type="text" name="email" class="validate" placeholder="E-mail" /><br />
+											<textarea id="message" name="message" class="validate" placeholder="Сообщение"></textarea><br /><br />
+											<a href="#" class="send_submit" onclick="mail_submit(); return false;">Отправить</a>
+										</form>
+									</div>
+								<?endif;?>
 							<?else:?>
 								<div class="desc">
 									<?=$content->description?>

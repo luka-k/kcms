@@ -46,3 +46,39 @@ function subscribe(){
 		function sub_answer(res){
 			$('.message').text(res.message);
 		}
+		
+/*******************************************************************
+* Валидация формы
+*******************************************************************/
+
+function validation (element, errorClass) {
+	var input = element.find('.validate'),
+	isError = false;
+
+	input.on('focus', function () {
+		var el = $(this);
+		if (el.hasClass(errorClass)) el.removeClass(errorClass);
+	});
+		
+	input.each(function () {
+		var el = $(this);
+		if (el.val() == "") {
+            el.addClass(errorClass);
+            isError = true;
+        }
+    });
+		
+   return isError;
+}
+		
+function mail_submit(form_id){
+	if (validation($("#mail_form"), "error")) return false;
+	
+	$.post( "/ajax/mail/", $('#mail_form').serialize(), function() {
+		$.fancybox.open("#callback_answer");
+				
+		setTimeout(function(){
+			$.fancybox.close();
+		}, 3000);
+	}, 'html');	
+}

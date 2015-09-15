@@ -372,5 +372,7 @@ $config['secret'] = 'kcms';
 
 $config['wishlist'] = 'kcms';
 
+$config['callback_id'] = 13;
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -8,16 +8,21 @@ class Ajax extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->config->load('order_config');
 	}
 
-	function index()
+	function mail()
 	{
-		$post = $this->input->post();
-		$admin_email = $this->config->item('admin_email');
-		$subject = 'Запрос на обратный звонок';
-		$message = 'Клиент '.$post['name'].' заказал обратный звонок на номер - '.$post['phone'];
-		($this->mail->send_mail($admin_email, $subject, $message));
+		$info = $this->input->post();
+		
+		$settings = $this->settings->get_item(1);
+		
+		$subject = 'Письмо с сайта '.$settings->site_title;
+		
+		$message = 'Имя: '.$info['name'].'<br />';
+		$message .= 'E-mail: '.$info['email'].'<br />';
+		if(isset($info['message']))
+			$message .= 'Текст сообщения:<br />'.$info['message'];
+		$this->mail->send_mail($settings->admin_email, $subject, $message);
 	}
 	
 	public function add_to_cart()

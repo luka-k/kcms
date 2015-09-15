@@ -146,6 +146,8 @@
 	
 	
 	<script type="text/javascript" src="<?=base_url()?>template/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/fancybox/source/jquery.fancybox.js"></script>
+	<script type="text/javascript" src="<?=base_url()?>template/client/js/main.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/tabcontent.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.accordion.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.easing.1.3.js"></script>

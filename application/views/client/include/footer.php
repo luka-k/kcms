@@ -1,4 +1,6 @@
-
+<div class="modal" id="callback_answer" style="display:none;">
+	<div class="modal__title block-title" style="margin-top:40px;">Ваше письмо отправлено!</div> <!-- /.modal__title block-title -->
+</div> <!-- /.modal --> 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
 (function (d, w, c) {

@@ -22,6 +22,7 @@ class Pages extends Client_Controller {
 	
 		$type = $this->uri->segment(2);
 		$sub_type = $this->uri->segment(3);
+
 		$parent_info = $this->articles->get_item_by(array("url" => $type));
 		$left_menu = $this->articles->get_list(array("parent_id" => $parent_info->id, "not_left_menu" => 0), FALSE, FALSE, "sort", "asc");
 		$left_menu = $this->articles->get_prepared_list($left_menu);
@@ -65,7 +66,9 @@ class Pages extends Client_Controller {
 		}
 		
 		$data['url'] = $this->uri->uri_string();
-
+		
+		$sub_type_page = $this->articles->get_item_by(array('url' => $sub_type));
+		if($sub_type_page->id == $this->config->item('callback_id')) $data['callback'] = TRUE;
 		$data['content'] = $page;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();	
 		$this->load->view("client/article.php", $data);
