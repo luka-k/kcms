@@ -81,7 +81,7 @@
 						
 						<div class="product-main-info__buttons">
 							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$product->id?>', '<?=$product->name?>', 1); return false;">Купить</button>
+								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$product->id?>', '<?=$product->name?>', 1); return false;">Купить</button>
 							</div> <!-- /.product-main-info__button -->
 							
 							<div class="product-main-info__button">
@@ -185,7 +185,7 @@
 									<div class="catalog-item__price"><?=$r_p->price?>р.</div> <!-- /.catalog-item__price -->
 								
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$r_p->id?>', '<?=$r_p->name?>', 1); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$r_p->id?>', '<?=$r_p->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->
@@ -213,7 +213,7 @@
 									<div class="catalog-item__price"><?=$new_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>', 1); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$new_item->id?>', '<?=$new_item->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

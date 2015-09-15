@@ -97,7 +97,7 @@
 												<div class="catalog-item__price"><?=$item->price?> р.</div> <!-- /.catalog-item__price -->
 											
 												<div class="catalog-item__button">
-													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$item->id?>', '<?=$item->name?>', 1); return false;">Купить</button>
+													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$item->id?>', '<?=$item->name?>', 1); return false;">Купить</button>
 												</div> <!-- /.catalog-item__button -->
 											</div> <!-- /.catalog-item__bottom -->
 										</div> <!-- /.catalog-item -->

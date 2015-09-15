@@ -98,7 +98,7 @@
 									<div class="catalog-item__price"><?=$special_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="fancy_to_cart('<?=$special_item->id?>', '<?=$special_item->name?>', 1); return false;">Купить</button>
+										<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$special_item->id?>', '<?=$special_item->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->
@@ -127,7 +127,7 @@
 									<div class="catalog-item__price"><?=$new_item->price?> р.</div> <!-- /.catalog-item__price -->
 									
 									<div class="catalog-item__button">
-										<button class="button button--normal " onclick="fancy_to_cart('<?=$new_item->id?>', '<?=$new_item->name?>', 1); return false;">Купить</button>
+										<button class="button button--normal " onclick="cart_popup('<?=$new_item->id?>', '<?=$new_item->name?>', 1); return false;">Купить</button>
 									</div> <!-- /.catalog-item__button -->
 								</div> <!-- /.catalog-item__bottom -->
 							</div> <!-- /.catalog-item -->

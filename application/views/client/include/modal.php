@@ -1,6 +1,7 @@
+<!---Добавление в корзину--->
 <div class="modal modal--to-cart" id="to-cart">
 	<div class="modal__title block-title">
-		Товар "<span class="fancy_product_name"></span>"
+		Товар "<span id="popup_product_name"></span>"
 		<br /> добавлен в корзину
 	</div> <!-- /.modal__title block-title -->
 	
@@ -12,8 +13,8 @@
 
 			<div class="form__line modal-cart__line">	
 				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="input_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('input_item_id').value, this.value); return false;" placeholder="" value="" />
-				<input type="hidden" id="input_item_id" value=""/>
+				<input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('popup_item_id').value, this.value); return false;" placeholder="" value="" />
+				<input type="hidden" id="popup_item_id" value=""/>
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button modal-cart__button">

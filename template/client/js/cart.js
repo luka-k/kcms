@@ -1,28 +1,22 @@
-function fancy_to_cart(item_id, name, qty){	
-	$('.fancy_product_name').text(name);
-		
+// Вывод всплывающего окна добавления в корзину
+//
+function cart_popup(item_id, name, qty){	
+	$('#popup_product_name').text(name);
 	$.fancybox.open("#to-cart");
 	
 	add_to_cart(item_id, qty);
 }
 
 function add_to_cart(product_id, qty){
-	data = new Object();
-	
-	data.product_id = product_id;
-	data.qty = qty;
-	
+	var data = {product_id: product_id,	qty: qty};
 	var json_str = JSON.stringify(data);
 	
-	$.post ("/ajax/add_to_cart/", json_str, function(answer){
-		if(answer.total_qty = 1){
-			$('#cart-empty').css("display", "none");
-			$('#cart-full').css("display", "inline");
-		}
-
-		update_total(answer);
-		$('#input_qty').attr("value", answer.item_qty);
-		$('#input_item_id').attr("value", answer.item_id);
+	$.post ("/cart/add_to_cart/", json_str, function(data){
+		switch_minicart(data);
+		update_minicart(data);
+		
+		$('#popup_qty').attr("value", data.item_qty);
+		$('#popup_item_id').attr("value", data.item_id);
 	}, "json");
 }
 
@@ -39,54 +33,52 @@ function update_qty(item_id, qty, action){
 }
 	
 function update_cart(item_id, qty){
-	data = new Object();
-
-	data.item_id = item_id;
-	data.qty = qty;
-	
+	var data = {item_id: item_id, qty: qty};
 	var json_str = JSON.stringify(data);
 	
-	$.post ("/ajax/update_cart/", json_str, function(answer){
-		update_total(answer);
-		update_item(answer);
+	$.post ("/cart/update_cart/", json_str, function(data){
+		update_minicart(data);
+		update_item(data);
 	}, "json");
 }
 
 function delete_cart_item(item_id){
-	data = new Object();
-	
-	data.item_id = item_id;
-	
+	var data = {item_id: item_id};
 	var json_str = JSON.stringify(data);
 	
-	$.post ("/ajax/delete_item/", json_str,  function(answer){
-		update_total(answer);
-		delete_item(answer);
-		if(answer.total_qty == 0){
-			$('#cart-full').css("display", "none");
-			$('#cart-empty').css("display", "inline");
-		}
-	}
-	, "json");
+	$.post ("/cart/delete_item/", json_str,  function(data){
+		update_minicart(data);
+		delete_item(data);
+		switch_minicart(data);
+	}, "json");
 }
 
-function update_total(info){
-	$('.total_qty').text(info['total_qty']);
-	$('.total_price').text(info['total_price']);
-	$('.product_word').text(info['product_word']);
+function switch_minicart(data){
+	if(data.total_qty > 1) return false;
+	var display = {full: 'none', empty: 'inline'};
+	if(data.total_qty == 1) display = {full: 'inline', empty: 'none'};
+	
+	$('#cart-full').css("display", display.full);
+	$('#cart-empty').css("display", display.empty);
 }
 
-function update_item(info){
-	$('#item_total-'+info['item_id']).text(info['item_total']);
-	$('#qty-'+info['item_id']).val(info['item_qty']);
+function update_minicart(data){
+	$('.total_qty').text(data['total_qty']);
+	$('.total_price').text(data['total_price']);
+	$('.product_word').text(data['product_word']);
 }
 
-function delete_item(info){
-	if(info['total_qty'] == "0"){
+function update_item(data){
+	$('#item_total-'+data['item_id']).text(data['item_total']);
+	$('#qty-'+data['item_id']).val(data['item_qty']);
+}
+
+function delete_item(data){
+	if(data['total_qty'] == "0"){
 		$("table").remove('.cart-table');
 		$("div").remove('.page-cart__order');
 		$('.page-cart__products').text("Корзина пуста");
 	}else{
-		$("#cart-"+info['item_id']).detach();
+		$("#cart-"+data['item_id']).detach();
 	}
 }
