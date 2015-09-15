@@ -1,8 +1,3 @@
-$('a.lightbox').fancybox({
-	overlayOpacity: 0.2,
-	overlayColor: '#000'
-});
-
 function autocomp(){
 	var data = {};
 	data.r = " ";
