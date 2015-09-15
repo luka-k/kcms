@@ -69,6 +69,7 @@ class Catalog extends Client_Controller {
 			}
 			if(!isset($category->product))
 			{
+				
 				if(in_array("obekty", $data['url']))
 				{
 					$content = $this->products->get_list(array("parent_id" => $category->id), $from = FALSE, $limit = FALSE, $order, $direction);

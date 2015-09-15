@@ -106,6 +106,9 @@ class Works extends Client_Controller {
 			$data['content'] = $content;
 			$data['category'] = $category;
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
+			
+			$data['hide_1st_image'] = FALSE; //???????????????//
+			$data['is_catalog'] = FALSE; //????????????//
 				
 		}
 		$this->load->view($template, $data);
