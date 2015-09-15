@@ -57,8 +57,8 @@
 								
 								?>
 							<? if ($this->uri->segment(3) == 'novosti'): ?>
-						<div class="projects">
-							<ul class="projects__list-noscroll" style="margin-top: 15px;margin-left: 0;padding-left: 20px;list-style: none;width: 600px;">
+						<div class="projects" style="overflow:hidden">
+							<ul class="projects__list-noscroll" style="margin-top: 15px; margin-left: 0; padding-left: 15px; list-style: none; width: 580px;">
 								<?for($i = 0; $i < count($object_images); $i+=3): $c = $object_images[$i];?>
 									<li class="projects__item projects-item" style="margin-left: 0; padding-left: 0;">
 										<?if(!empty($c->catalog_small_url)):
