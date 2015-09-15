@@ -61,11 +61,12 @@ class Users_groups extends MY_Model
 		{
 			$manufacturer_access = array_merge($manufacturer_access, $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $group));
 		}
-		
+				
 		//if(empty($manufacturer_access)) return TRUE;
 
 		if(in_array($uri[2], $module_enable))
-		{		
+		{	
+			if($uri[4] == 'save' && in_array($uri[5], $table_enable)) return TRUE;
 			if(isset($uri[6]) && in_array($uri[5], $table_enable))
 			{
 				switch($uri[5])
