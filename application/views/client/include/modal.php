@@ -25,7 +25,7 @@
 	</div> <!-- /.modal__cart -->
 </div> <!-- /.modal -->
 
-<div class="modal" id="callback">
+<div id="callback" class="modal">
 	<div class="modal__title block-title">Оставьте ваш номер телефона</div> <!-- /.modal__title block-title -->
 	
 	<div class="modal__text">
@@ -43,16 +43,14 @@
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button">
-				<button class="button button--normal button--auto-width" onclick="callback_submit('callback_form'); return false;">Заказать звонок</button>
+				<button class="button button--normal button--auto-width" onclick="callback_submit(); return false;">Заказать звонок</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
 	</div> <!-- /.modal__form -->
 </div> <!-- /.modal -->
 
 <div class="modal" id="callback_answer" style="display:none;">
-	<div class="modal__title block-title">Спасибо за оставленную заявку!</div> <!-- /.modal__title block-title -->
+	<div id="popup_title" class="modal__title block-title"></div> <!-- /.modal__title block-title -->
 	
-	<div class="modal__text">
-		<p>Наш менеджер свяжется <br />с вами в ближайшее время.</p>
-	</div> <!-- /.modal__text -->
+	<div id="popup_message" class="modal__text"></div> <!-- /.modal__text -->
 </div> <!-- /.modal --> 

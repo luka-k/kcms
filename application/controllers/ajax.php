@@ -25,21 +25,28 @@ class Ajax extends CI_Controller{
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		
 		$message_info = array(
-			"USER_NAME" => $post->name,
-			"USER_PHONE" => $post->phone
+			"user_name" => $post->name,
+			"user_phone" => $post->phone
 		);
 		
 		if($this->emails->send_system_mail($settings->admin_email, 6, $message_info))
 		{
 			$log = "Отправлено письмо на адрес - ".$settings->admin_email." от пользователя - ".$post->name; 
 			add_log("callback", $log);
+			$data = array(
+				'title' => 'Спасибо за оставленную заявку!',
+				'message' => '<p>Наш менеджер свяжется <br />с вами в ближайшее время.</p>'
+			);
 		}
 		else
 		{
-			add_log("ajax", "Отправка не удалась");
+			add_log("callback", "Отправка не удалась");
+			$data = array(
+				'title' => 'Что то пошло не так!',
+				'message' => '<p>Повторите попытку попозже.<br />Приносим извенения за не удобства.</p>'
+			);
 		}
-		
-		$data['message'] = "ok";
+	
 		echo json_encode($data);
 	}
 	

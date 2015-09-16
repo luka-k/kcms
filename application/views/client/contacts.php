@@ -51,7 +51,7 @@
 		<h3>СВЯЖИТЕСЬ С НАМИ</h3>
 		
 		<div class="page__form">
-			<form action="#" class="form" where="validate_ajax" method="post">
+			<form action="#" id="contact_form" class="form" where="validate_ajax" method="post">
 				<input type="hidden" name="contacts" value="true"/>
 				<div class="page-form">
 					<div class="page-form__block">
@@ -75,7 +75,7 @@
 					</div> <!-- /.page-form__block -->
 					
 					<div class="form__button page-form__button">
-						<button class="button button--normal button--auto-width">Отправить</button>
+						<button class="button button--normal button--auto-width" onclick="submit_form('contact_form');">Отправить</button>
 					</div> <!-- /.form__button -->
 				</div> <!-- /.page-form -->
 			</form> <!-- /.form -->

@@ -52,7 +52,7 @@
  * ========================================================================== */
 
 	app.bxslider = function(){
-	
+
 		$('.promo__slider').bxSlider({
 			controls: false,
 			auto: true

@@ -41,7 +41,7 @@ function validation (element, errorClass) {
    return isError;
 }
 
-function validate_form(form_id){
+function submit_form(form_id){
 	var errorClass = 'error';
 
 	if (validation($("#"+form_id), errorClass)) return false;
@@ -50,15 +50,26 @@ function validate_form(form_id){
 }
 
 /************************************************************
-* 
+* Обратная связь
 ************************************************************/
 
-function callback_submit(form_id){
-	if (validation($("#"+form_id), "error")) return false;
+function callback_popup(){
+	var formInputs = $("#callback_form").find('input');
+	
+	formInputs.each(function () {
+		$(this).val('');
+		if ($(this).hasClass("error")) $(this).removeClass("error");
+	});
+	
+	$.fancybox.open("#callback");
+}
+
+function callback_submit(){
+	if (validation($("#callback_form"), "error")) return false;
 			
 	$.fancybox.close();
 			
-	var form = $('#'+form_id),
+	var form = $("#callback_form"),
 	inputs = form.find('input'),
 	data = {};
 			
@@ -68,11 +79,12 @@ function callback_submit(form_id){
 	});
 			
 	var json_str = JSON.stringify(data);
-	$.post( "/ajax/callback/", json_str, function() {
+	$.post( "/ajax/callback/", json_str, function(data) {
+	
+		$('#popup_title').html(data.title);
+		$('#popup_message').html(data.message);
 		$.fancybox.open("#callback_answer");
 				
-		setTimeout(function(){
-			$.fancybox.close();
-		}, 3000);
+		setTimeout(function(){$.fancybox.close();}, 4000);
 	}, 'json');	
 }
