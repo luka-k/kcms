@@ -79,12 +79,24 @@ function set_empty_fields($editors)
 	{
 		foreach ($tabs as $item => $value)
 		{
-			$content->$item = "";
+			switch($item)
+			{
+				case 'id':
+					$content->$item = false;
+					break;
+				case 'is_active':
+					$content->$item = 1;
+					break;
+				case 'images':
+					$content->$item = NULL;
+					break;
+				default:
+					$content->$item = '';
+			}
+			
 		}
 	}
 	
-	$content->is_active = "1";
-	$content->images = NULL;
 	return $content;
 }
 

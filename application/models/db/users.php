@@ -30,8 +30,8 @@ class Users extends MY_Model
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden'),
 			'name' => array('Имя', 'text', 'trim|htmlspecialchars|name', 'require'),
-			'users_group_id' => array('Группа', 'u2u_g', 'users2users_groups'),
-			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email'),
+			'users2users_groups' => array('Группа', 'u2u_g', 'users2users_groups'),
+			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email|unique'),
 			'password' => array('Пароль', 'pass', 'trim|md5')
 		)
 	);

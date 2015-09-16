@@ -406,4 +406,16 @@ class Content extends Admin_Controller
 		
 		$this->products->update($info->id, array("is_".$info->type => $info->value));
 	}
+	
+	public function unique()
+	{
+		$data = json_decode(file_get_contents('php://input', true));
+
+		$table = $data->table;
+		$field = $data->field;
+		
+		$data = $this->$table->is_unique(array($field => $data->value))? TRUE : FALSE;
+		
+		echo json_encode($data);
+	}
 }

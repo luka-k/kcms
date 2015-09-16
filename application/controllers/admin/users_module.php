@@ -34,20 +34,18 @@ class Users_module extends Admin_Controller
 			'content' => new stdClass(),
 		);
 		$data = array_merge($this->standart_data, $data);
-		
+
 		if($filters)
 		{
-			if($filters['groups'] <> "false")
+			if(isset($filters['groups']))
 			{
+				
 				$users_id = array();
 				foreach($filters['groups'] as $group)
 				{
-					$id_by_group = $this->users2users_groups->get_list(array("users_group_id" => $group['id']));
-					foreach($id_by_group as $item)
-					{
-						$users_id[] = $item->user_id;
-					}
+					$users_id = array_merge($users_id, $this->table2table->get_fixing('users2users_groups', 'user_id', 'users_group_id', $group));
 				}
+
 				!empty($users_id) ? $this->db->where_in('id', $users_id) : $this->load->view('admin/users.php', $data);
 			}
 			
@@ -93,20 +91,21 @@ class Users_module extends Admin_Controller
 	* @paaram string $action
 	* @param bool $exit
 	*/
-	public function edit($id = FALSE, $action = "edit", $exit = FALSE)
+	public function edit($action = 'edit', $id = FALSE, $exit = FALSE)
 	{	
 		$name = editors_get_name_field('name', $this->users->editors);
 				
 		$data = array(
-			'title' => "Пользователи",
+			'title' => 'Пользователи',
 			'name' => $name,
 			'type' => "users",
 			'editors' => $this->users->editors,
 			'selects' => array(
-				'users_group_id' => $this->users_groups->get_list(FALSE)
+				'users2users_groups' => $this->users_groups->get_list(FALSE)
 			),
-			'url' => "/".$this->uri->uri_string()
+			'url' => '/'.$this->uri->uri_string()
 		);	
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		$field_name = editors_get_name_field('users2users_groups', $data['editors']);
@@ -130,12 +129,12 @@ class Users_module extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->users->editors_post();
-
-			if($id == FALSE)
+			if($data['content']->id == FALSE)
 			{
 				//Если id пустая создаем новую страницу в базе
 				$this->users->insert($data['content']);
-				$data['content']->id = $this->db->insert_id();				
+				$data['content']->id = $this->db->insert_id();	
+								
 			}
 			else
 			{
@@ -155,30 +154,13 @@ class Users_module extends Admin_Controller
 				
 				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
-				
-			$field_name = editors_get_name_field('users2users_groups', $data['editors']);
-			if($field_name && is_array($this->input->post($field_name)))
-			{
-				$data["users2users_groups"]->$field_name = $this->input->post($field_name);
-				$u2u_g = TRUE;
-			}
+
+			$this->table2table->delete_fixing('users2users_groups', 'user_id', $data['content']->id);
+			$this->table2table->set_tables_fixing('users2users_groups', 'users_group_id', 'user_id', $data['content']->id);
 			
-			if((isset($u2u_g))&&($u2u_g == TRUE))
-			{
-				$this->db->where('user_id', $data['content']->id);
-				$this->db->delete('users2users_groups');
-				foreach($data["users2users_groups"]->$field_name  as $item)
-				{
-					if(!empty($item))
-					{
-						$users2users_groups->$field_name = $item;
-						$users2users_groups->user_id = $data['content']->id;
-						$this->db->insert('users2users_groups', $users2users_groups);
-					}
-				}
-			}
-				
-			$exit == false ? redirect(base_url().'admin/users_module/edit/'.$data['content']->id) : redirect(base_url().'admin/users_module/');
+			$redirect_path = $exit == false ? 'admin/users_module/edit/edit/'.$data['content']->id : 'admin/users_module/';
+	
+			redirect(base_url().$redirect_path);
 		}
 	}
 	

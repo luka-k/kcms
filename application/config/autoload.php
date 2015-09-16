@@ -121,23 +121,24 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array(
+	'db/articles',
+	'db/categories',
+	'db/characteristics',
+	'db/characteristics_type',
+	'db/dynamic_menus',
+	'db/emails', 
+	'db/images', 
+	'db/mailouts',
+	'db/menus_items',
+	'db/orders', 
+	'db/orders_products', 
 	'db/products', 
 	'db/recommended_products',
-	'db/categories', 
-	'db/articles',
 	'db/settings', 
 	'db/users', 
 	'db/users_groups',
 	'db/users2users_groups',
-	'db/orders', 
-	'db/orders_products', 
-	'db/images', 
-	'db/emails', 
-	'db/mailouts',
-	'db/dynamic_menus',
-	'db/menus_items',
-	'db/characteristics',
-	'db/characteristics_type'
+	'table2table'
 );
 
 

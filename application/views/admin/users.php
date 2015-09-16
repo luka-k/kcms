@@ -14,7 +14,6 @@
 								<div class="col_12 clearfix">
 									<div><b>По группе</b></div>
 									<?$counter = 1?>
-									<input type="hidden" name="groups" value="false"/>
 									<?foreach($groups as $g):?>
 										<div class="col_1"><input type="checkbox" name="groups[]" id="group_<?=$counter?>" <?foreach($filters['groups'] as $gr):?> <?if($gr == $g->id):?>checked<?endif;?> <?endforeach;?> value="<?=$g->id?>"/></div>
 										<div class="col_11"><label for="group_<?=$counter?>"><?=$g->name?></label></div>
@@ -107,12 +106,12 @@
 										<?if(isset($images)):?>
 											<td class="tb_3">
 												<?if($item->img <> NULL):?>
-													<a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><img src="<?=$item->img->catalog_small_url?>" /></a>
+													<a href="<?=base_url()?>admin/users_module/edit/edit/<?=$item->id?>/"><img src="<?=$item->img->catalog_small_url?>" /></a>
 												<?endif;?>
 											</td>
-											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/edit/<?=$item->id?>/"><?=$item->$name?></a></td>
 										<?else:?>
-											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/<?=$item->id?>/edit/"><?=$item->$name?></a></td>
+											<td class="tb_7"><a href="<?=base_url()?>admin/users_module/edit/edit/<?=$item->id?>/"><?=$item->$name?></a></td>
 										<?endif;?>	
 										<td class="tb_3">
 											<div class="col_12">
