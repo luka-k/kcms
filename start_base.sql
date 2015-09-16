@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 01 2015 г., 13:19
+-- Время создания: Сен 16 2015 г., 11:12
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3342ad2f561db0d6872527eaa419c6b0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1441102671, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('5a90eeb13655a5b4ffa09ab900b34686', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442391044, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -142,8 +142,7 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
 --
 
 INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
-(1, 'Меню админ панели', ''),
-(2, 'Верхнее меню', '');
+(1, 'Меню админ панели', '');
 
 -- --------------------------------------------------------
 
@@ -231,16 +230,14 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 --
 
 INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(1, 4, 'Блог', 0, 1, '', 'articles', 'blog'),
-(2, 4, 'Новости', 0, 0, '', 'articles', 'novosti'),
-(4, 1, '<i class=icon-home></i>', 0, 2, '', 'link', 'admin/'),
-(5, 1, 'Статьи', 0, 3, '', 'link', '#'),
-(6, 1, 'Каталог', 0, 4, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 5, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 6, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 7, '', 'link', '#'),
-(10, 1, 'Меню', 0, 8, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 9, '', 'link', '#'),
+(4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
+(5, 1, 'Статьи', 0, 1, '', 'link', '#'),
+(6, 1, 'Каталог', 0, 2, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 3, '', 'link', 'admin/admin_orders'),
+(8, 1, 'Настройки', 0, 7, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 4, '', 'link', '#'),
+(10, 1, 'Меню', 8, 5, '', 'link', 'admin/menu_module/menus'),
+(11, 1, 'Пользователи', 0, 6, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
 (13, 1, 'Категории', 6, 1, '', 'link', 'admin/content/items/categories/'),
 (14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
@@ -252,9 +249,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
-(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
-(33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
-(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/');
+(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all');
 
 -- --------------------------------------------------------
 
@@ -354,10 +349,6 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
   `site_offline` int(11) DEFAULT '0',
-  `offline_text` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `main_page_type` int(11) NOT NULL DEFAULT '1',
-  `main_page_id` int(11) NOT NULL,
-  `main_page_cat` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
@@ -365,8 +356,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`, `offline_text`, `main_page_type`, `main_page_id`, `main_page_cat`) VALUES
-(1, 'Пробный сайт', 'admin@admin.ru', 'admin', 'Ваш заказ оформлен', '', '', '2015-03-06', 0, '', 2, 6, 1);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
+(1, '', '', '', '', '', '', '2015-03-06', 0);
 
 -- --------------------------------------------------------
 
