@@ -6,10 +6,12 @@
 
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/normalize.css" media="all">
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/grid.css" media="all" />
+	
+	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui-2222.css" media="all" />
+	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.css" media="all" />
+	
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/style.css" media="all" />
 	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.css" media="all" />
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.css" media="all" />
 
 	<script type="text/javascript" src="<?= base_url()?>template/js/jquery.min.js"></script> 
 	

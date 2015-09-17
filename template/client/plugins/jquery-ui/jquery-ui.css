@@ -559,7 +559,6 @@ button.ui-button::-moz-focus-inner {
 	margin: 0;
 	display: block;
 	outline: none;
-	z-index:5000;
 }
 .ui-menu .ui-menu {
 	position: absolute;

@@ -56,8 +56,7 @@
 /* ==========================================================================
  * Кнопки
  * ========================================================================== */
-.button
-{
+.button{
     font-family: 'Myriad Pro', sans-serif;
 
     display: inline-block;
@@ -71,12 +70,12 @@
     border: 0;
     outline: none;
 }
-.button:hover
-{
+
+.button:hover{
     text-decoration: none;
 }
-.button--normal
-{
+
+.button--normal{
     font-size: 16px;
     font-weight: 600;
 
@@ -86,37 +85,37 @@
     text-transform: uppercase;
 
     color: #fff;
-    background: #cc3b26;
+    background: #007F0E;
 }
-.button--normal:hover
-{
-    background: #db4f3b;
+
+.button--normal:hover{
+    background: #135003;
 }
-.button--normal:active
-{
-    background: #bf3724;
+
+.button--normal:active{
+    background: #135003;
 }
-.button--grey
-{
+
+.button--grey{
     color: #000;
     background: #eee;
 }
-.button--grey:hover
-{
+
+.button--grey:hover{
     background: #f3f3f3;
 }
-.button--grey:active
-{
+
+.button--grey:active{
     background: #e6e6e6;
 }
-.button--s
-{
+
+.button--s{
     font-size: 12px;
 
     padding: 3px 8px 3px 8px;
 }
-.button--auto-width
-{
+
+.button--auto-width{
     width: auto;
     padding-right: 30px;
     padding-left: 30px;
@@ -306,7 +305,7 @@
 .checkbox__input:checked + .radio__text:before,
 .checkbox__input:checked + .checkbox__text:before
 {
-    background: #cc3b26;
+    background: #007F0E;
 }
 
 .checkbox__text:before
@@ -343,8 +342,7 @@
 /* ==========================================================================
  * Оформление
  * ========================================================================== */
-html
-{
+html{
     font-family: 'Myriad Pro', sans-serif;
 
     min-width: 1000px;
@@ -379,7 +377,7 @@ span
 .browsehappy
 {
     margin: 0 0;
-    padding: 1em 0;
+	padding: 1em 0;
 
     text-align: center;
 
@@ -413,16 +411,15 @@ span
 /* ==========================================================================
  * Основные стили
  * ========================================================================== */
-.logo
-{
+.logo{
     display: inline-block;
 
     width: 226px;
-    height: 160px;
+    height: 180px;
 
     content: '';
     text-indent: -9999px;
-
+	background-image: url('../images/logo.png');
     background-position: 0 -40px;
 }
 
@@ -475,7 +472,7 @@ span
     text-decoration: none;
 
     color: #fff;
-    background: #cc3b26;
+    background: #135003;
 }
 
 .gallery
@@ -555,7 +552,7 @@ span
 {
     position: absolute;
     z-index: 100;
-    top: 21px;
+    top: 0px;
     left: 0;
 }
 .header__phone
@@ -602,8 +599,8 @@ span
     height: 20px;
 
     content: '';
-
-    background-position: -26px 0;
+	background-image: url('../images/phone.png');
+    background-position: 0px 0;
 }
 .header-phone__number
 {
@@ -631,7 +628,7 @@ span
 
     text-decoration: none;
 
-    color: #cc3b26;
+    color: #007F0E;
     border-bottom: 1px dotted;
 }
 .header-phone__callback-link:hover
@@ -674,7 +671,7 @@ span
 }
 .header-login__register
 {
-    color: #cc3b26;
+    color: #007F0E;
 }
 
 .header-cart
@@ -720,7 +717,7 @@ span
 {
     font-weight: 700;
 
-    color: #cc3b26;
+    color: #135003;
 }
 
 /* ==========================================================================
@@ -731,7 +728,8 @@ span
     margin: 0 0 50px 0;
 
     color: #fff;
-    background: #cc3b26;
+    /*background: #cc3b26;*/
+	background: #135003;
 }
 .menu__wrap
 {
@@ -951,7 +949,7 @@ span
     padding: 20px 0 30px;
 
     color: #fff;
-    background: #cc3b26;
+    background: #135003;
 }
 
 .text-about__title
@@ -1143,7 +1141,7 @@ span
 
     text-transform: uppercase;
 
-    color: #cc3b26;
+    color: #135002;
 }
 
 .footer-nav-level-2
@@ -1195,7 +1193,7 @@ span
     font-size: 18px;
     line-height: 1;
 
-    color: #cc3b26;
+    color: #007F0E;
 }
 .contacts-info__email
 {
@@ -1326,10 +1324,10 @@ span
 /* ==========================================================================
  * page
  * ========================================================================== */
-.page
-{
+.page{
     padding: 0 0 50px 0;
 }
+
 .page__title
 {
     font-size: 23px;
@@ -1375,7 +1373,7 @@ span
 }
 .page-nav__href.active
 {
-    color: #cc3b26;
+    color: #007F0E;
 }
 
 .page-form
@@ -1421,7 +1419,7 @@ span
 
     padding: 2px 30px;
     color: #fff;
-    background: #cc3b26;
+    background: #007F0E;
 }
 
 /* ==========================================================================
@@ -1682,7 +1680,7 @@ span
 .promo .bx-pager-link:hover,
 .promo .bx-pager-link.active
 {
-    background: #cc3b26;
+    background: #007F0E;
 }
 
 /* ==========================================================================
@@ -1836,7 +1834,7 @@ span
 
     margin: 0 0 5px;
 
-    color: #cc3b26;
+    color: #007F0E;
 }
 .news-item__title
 {
@@ -1893,7 +1891,7 @@ span
 
     margin: 0 0 10px;
 
-    color: #cc3b26;
+    color: #007F0E;
 }
 .last-news__name
 {
@@ -2210,7 +2208,7 @@ span
 }
 .product-price__new span
 {
-    color: #cc3b26;
+    color: #007F0E;
 }
 
 /* ==========================================================================
@@ -2367,7 +2365,7 @@ span
 }
 .catalog-nav__item.active
 {
-    color: #cc3b26;
+    color: #007F0E;
 }
 .catalog-nav__item.active .catalog-nav-level-2
 {
@@ -2684,7 +2682,7 @@ cursor: pointer
 	width:200px;
     font-size: 13px;
     text-decoration: none;
-    color: #cc3b26;
+    color: #007F0E;
 }
 
 /*! jQuery UI - v1.11.2 - 2014-12-05
@@ -2793,8 +2791,7 @@ cursor: pointer
 /* Misc visuals
 ----------------------------------*/
 /* Overlays */
-.ui-widget-overlay
-{
+.ui-widget-overlay{
     position: fixed;
     top: 0;
     left: 0;
@@ -2803,8 +2800,7 @@ cursor: pointer
     height: 100%;
 }
 
-.ui-slider
-{
+.ui-slider{
     position: relative;
 
     height: 4px;
@@ -2842,11 +2838,10 @@ cursor: pointer
 
     border-width: 0 6px 8px 6px;
     border-style: solid;
-    border-color: transparent transparent #b7b7b7 transparent;
+    border-color: transparent transparent #007F0E transparent;
 }
 
-.ui-slider .ui-slider-range
-{
+.ui-slider .ui-slider-range{
     font-size: .7em;
 
     position: absolute;
