@@ -123,11 +123,17 @@ class Characteristics extends MY_Model
 	*/
 	private function _update_values($values)
 	{
-		$this->db->select('object_id');
-		$query = $this->db->get('characteristics');
-		foreach($query->result_array() as $result)
+		$value = array();
+		$ch = $this->db->get('characteristics')->result();
+		$ch_ids = $this->catalog->select_ids($ch);
+		if(!empty($ch_ids))
 		{
-			$values[] = $result['object_id'];
+			$this->db->where_in('characteristic_id', $ch_ids);
+			$result = $this->db->get('characteristic2product')->result();
+			if(!empty($result)) foreach($result as $r)
+			{
+				$values[] = $r->product_id;
+			}
 		}
 		return $values;
 	}
