@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 17 2015 г., 21:24
+-- Время создания: Сен 18 2015 г., 00:31
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -113,7 +113,17 @@ INSERT INTO `characteristic2product` (`product_id`, `characteristic_id`) VALUES
 (1, 846),
 (1, 846),
 (1, 847),
-(1, 847);
+(1, 847),
+(12, 850),
+(12, 851),
+(13, 852),
+(13, 853),
+(1, 854),
+(1, 855),
+(2, 854),
+(2, 855),
+(6, 856),
+(6, 854);
 
 -- --------------------------------------------------------
 
@@ -130,7 +140,20 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`),
   KEY `object_type` (`object_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=850 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=857 ;
+
+--
+-- Дамп данных таблицы `characteristics`
+--
+
+INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `parent_id`) VALUES
+(850, 'dlina', '50 см', 'products', 0),
+(851, 'dlina', '60 см', 'products', 0),
+(852, 'dlina', '70 см', 'products', 0),
+(853, 'dlina', '80 см', 'products', 0),
+(854, 'sostav', 'зелень', 'products', 0),
+(855, 'sostav', 'корзина', 'products', 0),
+(856, 'sostav', 'лента', 'products', 0);
 
 -- --------------------------------------------------------
 
@@ -145,14 +168,15 @@ CREATE TABLE IF NOT EXISTS `characteristics_type` (
   `url` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `view_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `characteristics_type`
 --
 
 INSERT INTO `characteristics_type` (`id`, `name`, `category`, `url`, `view_type`) VALUES
-(1, 'Длина', 0, 'dlina', 'multy');
+(1, 'Длина', 0, 'dlina', 'multy'),
+(2, 'Состав', 0, 'sostav', 'multy');
 
 -- --------------------------------------------------------
 
@@ -175,7 +199,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('d28302a368826616f2920fcc616b9f30', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442504176, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('8cecc3cec5590538598054e618626c87', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442524826, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('b1a865f6d7e4d324433049e18d0265a9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442525172, 'a:5:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:2:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"3";s:4:"name";s:35:"Композиция Даниэла";s:3:"url";s:18:"kompoziciya-lyubov";s:5:"price";s:4:"8000";s:3:"qty";i:1;s:10:"item_total";i:8000;}s:32:"eccbc87e4b5ce2fe28308fd9f2a7baf3";a:7:{s:2:"id";s:1:"3";s:9:"parent_id";s:1:"3";s:4:"name";s:39:"Композиция Викторина";s:3:"url";s:21:"kompoziciya-viktorina";s:5:"price";s:4:"6256";s:3:"qty";i:1;s:10:"item_total";i:6256;}}s:9:"total_qty";i:2;s:10:"cart_total";i:14256;}}');
 
 -- --------------------------------------------------------
 
@@ -401,16 +426,16 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `parent_id`, `is_active`, `sort`, `name`, `article`, `price`, `discount`, `meta_title`, `meta_keywords`, `meta_description`, `url`, `lastmod`, `changefreq`, `priority`, `description`, `is_new`, `is_special`) VALUES
-(1, 3, 1, 0, 'Композиция Даниэла', '132', 8000, 0, '', '', '', 'kompoziciya-lyubov', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 25шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 0),
-(2, 3, 1, 0, 'Композиция Фекла', '128', 5500, 0, '', '', '', 'kompoziciya-fekla', '2015-09-16', '', '0.1', '&lt;p&gt;Состав: роза - 13шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 0),
-(3, 3, 1, 0, 'Композиция Викторина', '294', 6256, 0, '', '', '', 'kompoziciya-viktorina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 19шт.;&lt;br /&gt;\r\nзелень;&lt;/p&gt;', 0, 0),
-(4, 3, 1, 0, 'Композиция Замфира', '145', 36256, 0, '', '', '', 'kompoziciya-zamfira', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 101шт.;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 0),
-(5, 1, 1, 0, 'Ирина', '222', 3120, 0, '', '', '', 'buket-yarina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 11шт.;&lt;/p&gt;', 0, 0),
+(1, 3, 1, 0, 'Композиция Даниэла', '132', 8000, 0, '', '', '', 'kompoziciya-lyubov', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 25шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 1),
+(2, 3, 1, 0, 'Композиция Фекла', '128', 5500, 0, '', '', '', 'kompoziciya-fekla', '2015-09-16', '', '0.1', '&lt;p&gt;Состав: роза - 13шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 1, 0),
+(3, 3, 1, 0, 'Композиция Викторина', '294', 6256, 0, '', '', '', 'kompoziciya-viktorina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 19шт.;&lt;br /&gt;\r\nзелень;&lt;/p&gt;', 0, 1),
+(4, 3, 1, 0, 'Композиция Замфира', '145', 36256, 0, '', '', '', 'kompoziciya-zamfira', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 101шт.;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 1, 0),
+(5, 1, 1, 0, 'Ирина', '222', 3120, 0, '', '', '', 'buket-yarina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 11шт.;&lt;/p&gt;', 0, 1),
 (6, 1, 1, 0, 'Лойсине', '118', 2350, 0, '', '', '', 'lojs', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 4шт.;&lt;br /&gt;\r\nлилия - 1шт.;&lt;br /&gt;\r\nлента;&lt;br /&gt;\r\nзелень;&lt;/p&gt;', 0, 0),
 (7, 1, 1, 0, 'Сочи', '1144', 3642, 0, '', '', '', 'sochi', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: альстромерия - 5шт.;&lt;br /&gt;\r\nгербера - 7шт.;&lt;br /&gt;\r\nсеточка;&lt;br /&gt;\r\nзелень;&lt;/p&gt;', 0, 0),
 (8, 1, 1, 0, 'Дарина', '345', 9652, 0, '', '', '', 'darina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 31шт.;&lt;br /&gt;\r\nлента;&lt;/p&gt;', 0, 0),
-(9, 2, 1, 0, 'Зарина', '412', 4450, 0, '', '', '', 'zarina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: альстромерия - 4шт.;&lt;br /&gt;\r\nгербера - 5шт.;&lt;br /&gt;\r\nгвоздика - 4шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 0),
-(10, 2, 1, 0, 'Элис', '784', 5634, 0, '', '', '', 'elis', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 7шт.;&lt;br /&gt;\r\nгербера - 6шт.;&lt;br /&gt;\r\nлилия - 2шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 0, 0),
+(9, 2, 1, 0, 'Зарина', '412', 4450, 0, '', '', '', 'zarina', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: альстромерия - 4шт.;&lt;br /&gt;\r\nгербера - 5шт.;&lt;br /&gt;\r\nгвоздика - 4шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 1, 0),
+(10, 2, 1, 0, 'Элис', '784', 5634, 0, '', '', '', 'elis', '2015-09-17', '', '0.1', '&lt;p&gt;Состав: роза - 7шт.;&lt;br /&gt;\r\nгербера - 6шт.;&lt;br /&gt;\r\nлилия - 2шт.;&lt;br /&gt;\r\nзелень;&lt;br /&gt;\r\nкорзина;&lt;/p&gt;', 1, 1),
 (11, 8, 1, 0, 'Герберы 1', '223', 60, 0, '', '', '', 'gerbery-1', '2015-09-17', '', '0.1', '&lt;p&gt;Герберы в асортименте&lt;/p&gt;', 0, 0),
 (12, 5, 1, 0, 'Роза №1', '23', 120, 0, '', '', '', 'roza-1', '2015-09-17', '', '0.1', '&lt;p&gt;Роза в асортименте&lt;/p&gt;', 0, 0),
 (13, 5, 1, 0, 'Роза №2', '1455', 130, 0, '', '', '', 'roza-2', '2015-09-17', '', '0.1', '&lt;p&gt;Роза в ассортименте&lt;/p&gt;', 0, 0),
@@ -436,12 +461,12 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `order_string` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `site_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_string` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `site_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `site_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
   `site_offline` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -452,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, '', '', '', '', '', '', '2015-03-06', 0);
+(1, 'Ромашка', 'romashka@gmail.com', '', '', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
 
 -- --------------------------------------------------------
 
