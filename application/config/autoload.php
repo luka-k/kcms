@@ -125,6 +125,7 @@ $autoload['model'] = array(
 	'db/categories',
 	'db/characteristics',
 	'db/characteristics_type',
+	'db/characteristic2product',
 	'db/dynamic_menus',
 	'db/emails', 
 	'db/images', 

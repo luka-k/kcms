@@ -1,27 +1,23 @@
 <script>
-	function add_ch(){
-		var form = $('#form1'),
-		inputs = form.find('.add_ch'),
-		data = {},
-		info = {};
-								
+	function add_characteristic(){
+		var data = {};
+		var inputs = $('#form1').find('.add_ch');
+		var error = 0;
+		
 		inputs.each(function () {
-			var element = $(this);
-			info[element.attr('name')] = element.val();
-		});							
-		data = info;
+			if($(this).val() == ''){
+				$(this).addClass('error');
+				error++;
+			}
+			data[$(this).attr('name')] = $(this).val();
+		});	
+		
+		if(error != 0) return false;
+
 		var json_str = JSON.stringify(data);
-		$.post("/admin/content/edit_characteristic/", json_str, add_ch_answer, "json");
-	}
-	
-	function add_ch_answer(res){
-		var item = res.info;
-		$("#ch_input").val("");
-		$(".last_ch").before("<tr id='ch-"+item.id+"' class='ch_item'><td>"+item.name+"</td><td><input type='text' class='col_12 edit val-'"+item.id+" value='"+item.value+"' onchange=''></td><td><a href='#' class='del' onclick=''>удалить</a></td></tr>");
-		var onchange_link = "update_ch('"+item.id+"'); return false;";
-		var del_link = "delete_ch('"+res.base_url+"', '"+item.id+"', '"+item.name+"', '"+4+"'); return false;"
-		$('input.edit').attr('onchange', onchange_link);
-		$('a.del').attr('onclick', del_link);
+		$.post("/admin/content/edit_characteristic/", json_str, function(data){
+			$(".last_ch").before(data);
+		}, "json");
 	}
 	
 	function update_ch(id, value){
@@ -32,12 +28,19 @@
 		$.post("/admin/content/edit_characteristic/", json_str, "json");
 	}
 	
-	function delete_ch(base_url, item_id, item_name, tab){
-		var href;
-		href = base_url+"admin/content/delete_characteristic/"+item_id+"/"+tab;
-		$('#item_name').text(item_name);
-		$('.delete_button').attr('href', href);
-		$.fancybox.open("#delete_item");
+	function delete_characteristic_popup(item_id, item_name, item_value){
+		$('#item_name').text(item_name+' - '+item_value);
+		$('#delete_ch_id').val(item_id);
+		$.fancybox.open("#delete_characteristic");
+	}
+	
+	function delete_characteristic(){
+		var data = {ch_id: $('#delete_ch_id').val()};
+		var json_str = JSON.stringify(data);
+		$.post("/admin/content/delete_characteristic/", json_str, function(data){
+			$("#ch-"+data.ch_id).remove();
+			$.fancybox.close();
+		}, "json");
 	}
 		
 	function autocomp(){

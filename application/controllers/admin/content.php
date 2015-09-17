@@ -35,7 +35,7 @@ class Content extends Admin_Controller
 		);	
 		$data = array_merge($this->standart_data, $data);
 				
-		$order = $this->db->field_exists('sort', $type) ?  "sort" : "name";
+		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
 		$direction = "acs";
 		
 		$id_branchy = $this->db->field_exists('parent_id', $type);
@@ -44,7 +44,7 @@ class Content extends Admin_Controller
 		{
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
 		
-			if($id == "all")
+			if($id == "all" || $id == '')
 			{
 				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
 				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
@@ -125,7 +125,6 @@ class Content extends Admin_Controller
 			if($id == FALSE)
 			{	
 				$data['content'] = set_empty_fields($data['editors']);
-				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if($characteristics_field) $data['content']->characteristics = array();
 				if($recommend_field) $data['content']->recommended = array();
@@ -151,12 +150,22 @@ class Content extends Admin_Controller
 				// Характеристики
 				if($characteristics_field)
 				{
-					$data['content']->characteristics = $this->characteristics->get_list(array("object_id" => $id, "object_type" => $type));
-					foreach($data['content']->characteristics as $characteristic)
+					$data['content']->characteristics = array();
+					
+					$ch_ids = $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $id);
+					if(!empty($ch_ids))
 					{
-						foreach($data['ch_select'] as $ch)
+						$this->db->where_in('id', $ch_ids);
+						$data['content']->characteristics = $this->db->get('characteristics')->result();
+
+						$ch_types = $this->characteristics_type->get_list(FALSE);
+						
+						if(!empty($data['content']->characteristics)) foreach($data['content']->characteristics as $j => $ch)
 						{
-							if($characteristic->type == $ch->url) $characteristic->name = $ch->name;
+							foreach($ch_types as $ch_t)
+							{
+								if($ch_t->url == $ch->type) $data['content']->characteristics[$j]->name = $ch_t->name;
+							}
 						}
 					}
 				}
@@ -349,28 +358,41 @@ class Content extends Admin_Controller
 	public function edit_characteristic()
 	{
 		$info = json_decode(file_get_contents('php://input', true));
+
 		if(!isset($info->id))
 		{
-			$info->id = $this->characteristics->insert($info);
+			$product_id = $info->object_id;
+			unset($info->object_id);
+			$ch = $this->characteristics->get_item_by(array('value' => $info->value));
 			
-			if(!isset($info->id)) add_log("characteristics", "Добавление характеристики не удалось");
-			
-			$ch_select = $this->characteristics_type->get_list(FALSE);
-			
-			foreach($ch_select as $item)
+			if(empty($ch))
 			{
-				if($info->type == $item->url) $info->name = $item->name;
+				$this->characteristics->insert($info);
+			
+				if(!isset($characteristic_id)) add_log("characteristics", "Добавление характеристики не удалось");
+				
+				$ch = $this->characteristics->get_item($this->db->insert_id());
 			}
 			
-			$answer = array(
-				'base_url' => base_url(),
-				'info' => $info
+			$ch_types = $this->characteristics_type->get_list(FALSE);
+			foreach($ch_types as $ch_t)
+			{
+				if($ch_t->url == $ch->type) $ch->name = $ch_t->name;
+			}
+						
+			$answer = $this->load->view('admin/include/editors/characteristic_item.php', array('characteristic' => $ch), TRUE);
+			
+			$data = array(
+				'product_id' => $product_id,
+				'characteristic_id' => $ch->id 
 			);
+			
+			$this->characteristic2product->insert($data);
 		}
 		else
 		{
 			$this->characteristics->update($info->id, $info);
-			$answer['message'] = 'ok';
+			$answer = 'ok';
 		}
 			
 		echo json_encode($answer);
@@ -379,10 +401,17 @@ class Content extends Admin_Controller
 	/**
 	* Удаление характеристики товара
 	*/
-	public function delete_characteristic($id, $tab)
+	public function delete_characteristic()
 	{
-		$ch = $this->characteristics->get_item_by(array("id" => $id));
-		if($this->characteristics->delete($id)) redirect(base_url().'admin/content/item/edit/'.$ch->object_type."/".$ch->object_id."#tab_".$tab);
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		$this->characteristics->delete($info->ch_id);
+		
+		$this->db->where_in('characteristic_id', $info->ch_id);
+		$this->db->delete('characteristic2product');
+		
+		$answer = array('ch_id' => $info->ch_id);
+		echo json_encode($answer);
 	}
 	
 	/**
