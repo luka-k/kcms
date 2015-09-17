@@ -54,4 +54,17 @@ class CI_Catalog {
 	
 		return $products;
 	}
+	
+	/**
+	* Возвращает массив id продуктов
+	*/
+	public function select_ids($items)
+	{
+		$ids = array();
+		foreach($items as $item)
+		{
+			$ids[] = $item->id;
+		}
+		return $ids;
+	}
 }

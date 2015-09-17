@@ -258,7 +258,27 @@ class Content extends Admin_Controller
 		{
 			$data['content'] = $this->$type->get_item($id);
 			
-			if(!empty($characteristics_field)) $characteristics = $this->characteristics->get_list(array("object_id" => $data['content']->id));
+			if(!empty($characteristics_field))
+			{
+				$characteristics = array();
+				
+				$ch_ids = $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $id);
+				if(!empty($ch_ids))
+				{
+					$this->db->where_in('id', $ch_ids);
+					$characteristics = $this->db->get('characteristics')->result();
+
+					$ch_types = $this->characteristics_type->get_list(FALSE);
+					
+					if(!empty($data['content']->characteristics)) foreach($characteristics as $j => $ch)
+					{
+						foreach($ch_types as $ch_t)
+						{
+							if($ch_t->url == $ch->type) $characteristics[$j]->name = $ch_t->name;
+						}
+					}
+				}
+			}
 			
 			$data['content']->id = NULL;
 			$data['content']->url = "";
@@ -268,9 +288,11 @@ class Content extends Admin_Controller
 			
 			if(isset($characteristics) && is_array($characteristics)) foreach($characteristics as $ch)
 			{
-				$ch->id = NULL;
-				$ch->object_id = $new_id;
-				$this->characteristics->insert($ch);
+				$data = array(
+					'characteristic_id' => $ch_id,
+					'product_id' => $new_id
+				);
+				$this->characteristic2product->insert($data);
 			}			
 			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}

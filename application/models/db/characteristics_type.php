@@ -51,26 +51,30 @@ class Characteristics_type extends MY_Model
 
 		if(!empty($products)) foreach($characteristics_type as $item)
 		{
+			if($products <> "all")
+			{	
+				$products_ids = $this->catalog->select_ids($products);
+				$ids = array();
+				if(!empty($products_ids))
+				{
+					foreach($products_ids as $p_id)
+					{
+						$ids = array_merge($ids, $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $p_id));
+					}
+					
+					if(!empty($ids)) $this->db->where_in("id", $ids);
+				}
+			}
 			$this->db->distinct();
 			$this->db->select("value");
 			$this->db->where("type", $item->url);
-
-			if($products <> "all")
-			{	
-				$ids = array();
-				foreach($products as $p)
-				{
-					$ids[] = $p->id;
-				}
-				$this->db->where_in("object_id", $ids);
-			}
 				
-			$query = $this->db->get("characteristics");
+			$result = $this->db->get("characteristics")->result();
 			$values = array();
 
-			foreach($query->result_array() as $result)
+			foreach($result as $r)
 			{
-				$values[] = $result['value'];
+				$values[] = $r->value;
 			}
 			
 			if(!empty($values))

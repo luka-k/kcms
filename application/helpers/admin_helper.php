@@ -87,15 +87,13 @@ function set_empty_fields($editors)
 				case 'is_active':
 					$content->$item = 1;
 					break;
-				case 'images':
-					$content->$item = NULL;
-					break;
 				default:
 					$content->$item = '';
 			}
-			
 		}
 	}
+	
+	$content->images = NULL;
 	
 	return $content;
 }
