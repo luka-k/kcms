@@ -32,6 +32,8 @@ class Order extends Client_Controller
 			'order_code' => $order_code,
 			'user_name' => $orders_info['name'],
 			'user_phone' => $orders_info['phone'],
+			'user_email' => $orders_info['email'],
+			'user_address' => $orders_info['address'],
 			'total' => $total_price,
 			'date' => date("Y-m-d"),
 			'status_id' => 1
@@ -40,10 +42,12 @@ class Order extends Client_Controller
 		$message_info = array(
 			"order_code" => $order_code,
 			"user_name" => $orders_info['name'],
+			'phone' => $orders_info['phone'],
+			'email' => $orders_info['email'],
+			'address' => $orders_info['address'],
 			"products" => $cart_items
 		);
-		my_dump($message_info);
-			
+
 		if(!empty($orders_info['id']))
 		{
 			$new_order['user_id'] = $orders_info['id'];

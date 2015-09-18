@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 18 2015 г., 10:16
+-- Время создания: Сен 19 2015 г., 00:18
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -199,8 +199,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('6a1eae63b8f6af68ddc584f8b071e5d1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442560339, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('9537b6c3b3c3e3f251699e136140c931', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442560339, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('ab2b87fa86d636ede6769397ced45f45', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442610863, 'a:4:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}s:13:"cart_contents";a:3:{s:5:"items";a:0:{}s:10:"cart_total";s:0:"";s:9:"total_qty";s:0:"";}}');
 
 -- --------------------------------------------------------
 
@@ -243,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
 --
 
 INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
-(1, 1, 'Новый заказ', 'Кллиент  %user_name% оформил заказ № %order_id%.', 'Администратору при заказе'),
+(1, 1, 'Новый заказ', '<p>Клиент %user_name% оформил заказ № %order_code%.</p><p>Контакные данные:</p><p>email: %email%</p><p>телефон: %phone%</p><p>адрес: %address%</p><p>%products%</p>', 'Администратору при заказе'),
 (2, 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
 (3, 1, 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%', 'Клиенту при изменении статуса заказа'),
 (4, 1, 'Регистрация в магазине', '%user_name%, спасибо за регистрацию в нашем магазине. \r\nВаш логин %login%\r\nВаш пароль %password%', 'При регистрации'),
@@ -363,7 +362,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_name` text COLLATE utf8_unicode_ci NOT NULL,
   `user_email` text COLLATE utf8_unicode_ci NOT NULL,
@@ -375,9 +374,20 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `order_id` (`order_id`),
+  UNIQUE KEY `order_id` (`order_code`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_code`, `user_id`, `user_name`, `user_email`, `user_phone`, `user_address`, `total`, `delivery_id`, `payment_id`, `date`, `status_id`) VALUES
+(1, '230786', '1', 'admin', '', '345', '', 8000, 0, 0, '2015-09-19 00:00:00', 1),
+(2, '230787', '1', 'admin', 'admin@admin.ru', '34444333', 'rudneva', 5634, 0, 0, '2015-09-19 00:00:00', 1),
+(3, '230788', '1', 'admin', 'admin@admin.ru', '234-56-34', 'rudneva 5-1-162', 36256, 0, 0, '2015-09-19 00:00:00', 1),
+(4, '230789', '1', 'admin', 'admin@admin.ru', '+7 (123) 456-7890', 'rudneva 5-1-162', 5500, 0, 0, '2015-09-19 00:00:00', 1),
+(5, '230790', '1', 'admin', 'admin@admin.ru', '+7 (987) 654-3210', 'rudneva 5-1-162', 4450, 0, 0, '2015-09-19 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -394,7 +404,18 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `orders_products`
+--
+
+INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `product_price`, `order_qty`) VALUES
+(1, '1', 1, 'Композиция Даниэла', '8000', 1),
+(2, '2', 10, 'Элис', '5634', 1),
+(3, '3', 4, 'Композиция Замфира', '36256', 1),
+(4, '4', 2, 'Композиция Фекла', '5500', 1),
+(5, '5', 9, 'Зарина', '4450', 1);
 
 -- --------------------------------------------------------
 
@@ -470,6 +491,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `admin_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `admin_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `order_string` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `per_page` int(11) NOT NULL,
   `site_description` text COLLATE utf8_unicode_ci NOT NULL,
   `site_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
@@ -481,8 +503,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, 'Ромашка', 'romashka@gmail.com', '', '', '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
+(1, 'Ромашка', 'romashka@gmail.com', '', '', 3, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
 
 -- --------------------------------------------------------
 
