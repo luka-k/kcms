@@ -24,7 +24,7 @@ class Characteristics extends MY_Model
 	* @param integer $from
 	* @return array
 	*/
-	function get_products_by_filter($filter, $order, $direction, $limit = FALSE, $from = FALSE)
+	function get_products_by_filter($filter, $order, $direction, $from = FALSE, $limit = FALSE)
 	{
 		$values = array();
 		$id = array();
@@ -93,7 +93,7 @@ class Characteristics extends MY_Model
 		{
 			$id = $values;
 		}
-
+		
 		if(!empty($id) || (empty($id) && $counter == 0))
 		{
 			//Если указан пункт в наличии 
@@ -106,9 +106,18 @@ class Characteristics extends MY_Model
 			}
 			if(!empty($id)) $this->db->where_in("id", $id);
 			
+			if(!$order)
+			{
+				$order = 'name';
+				$direction = 'asc';
+			}
+			
 			$this->db->order_by($order, $direction); 
-			$query = $this->db->get("products"/*, $limit, $from*/);
+			if($limit) $this->db->limit($limit, $from);
+			
+			$query = $this->db->get("products");
 			$result = $query->result();
+
 			if(!empty($result)) return $result;
 		}
 	

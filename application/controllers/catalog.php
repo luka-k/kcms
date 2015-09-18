@@ -16,20 +16,13 @@ class Catalog extends Client_Controller {
 		parent::__construct();
 		
 		$this->config->load('characteristics');
-		
-		$this->get = $this->input->get();
+		$this->load->library('pagination');
 
-		if(!isset($this->get['order']))
-		{
-			$this->get['order'] = "sort";
-			$this->get['direction'] = "asc";
-		}
-		
 		$max_value = $max_price = $this->products->get_max('price');
-		if(!empty($this->get['price_to'])) $max_value = $this->get['price_to'];
+		if($this->input->get('price_to')) $max_value = $this->input->get('price_to');
 
 		$min_value = $min_price = $this->products->get_min('price');
-		if(!empty($this->get['price_from'])) $min_value = $this->get['price_from'];		
+		if($this->input->get('price_from')) $min_value = $this->input->get('price_from');		
 	
 		$data = array(
 			'title' => "Каталог",
@@ -53,9 +46,9 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add("catalog", "Каталог");
 		
-		if(isset($this->get['filter']))
+		if($this->input->get('filter'))
 		{
-			 $this->filtred();
+			$this->by_filter();
 		}
 		else
 		{		
@@ -88,35 +81,57 @@ class Catalog extends Client_Controller {
 		}
 		
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3, $this->get['order'], $this->get['direction']);
-		
+		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3);
+		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 3);
+
 		$data['special'] = $this->products->prepare_list($special);
 		$data['new_products'] = $this->products->prepare_list($new_products);
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
-		$data['category']->products = $this->products->prepare_list($this->catalog->get_products($parent_id, $this->get['order'], $this->get['direction']));
+		$data['category']->products = $this->products->prepare_list($products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
+		$data['parent_id'] = $parent_id;
+
 		$data = array_merge($this->standart_data, $data);
-				
+		
+		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+		$config['total_rows'] = count($this->catalog->get_products($parent_id));
+		$config['per_page'] = $data['settings']->per_page;
+
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
+
 		$this->load->view("client/categories", $data);
 	}
 	
 	/**
 	* Вывод товаров по фильтру
 	*/
-	public function filtred()
+	public function by_filter()
 	{		
-		$products = $this->characteristics->get_products_by_filter($this->get, $this->get['order'], $this->get['direction']);
-			
+		$products = $this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 3);
+
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
 		$data = array(
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'filters_values' => $this->get,
-			'filters' => $this->characteristics_type->get_filters()
+			'filters_values' => $this->input->get(),
+			'filters' => $this->characteristics_type->get_filters(),
+			'ajax_by' => 'filter'
 		);
 		
 		$data = array_merge($this->standart_data, $data);
+		
+		$data = array_merge($this->standart_data, $data);
+		
+		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+		$config['total_rows'] = count($this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction')));
+		$config['per_page'] = $data['settings']->per_page;
+
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
 		
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);

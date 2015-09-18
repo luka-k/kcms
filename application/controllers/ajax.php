@@ -113,4 +113,35 @@ class Ajax extends CI_Controller{
 		
 		echo json_encode($data);
 	}
+	
+	public function more_products()
+	{
+		$info = $this->input->post();
+
+		if(!empty($info->parent_id))
+		{
+			$products = $this->products->prepare_list($this->catalog->get_products($info['parent_id'], 'name', 'asc', $info['ajax_from'], 3));
+		}
+		else
+		{
+			$products = $this->products->prepare_list($this->characteristics->get_products_by_filter($info, 'name', 'asc', $info['ajax_from'], 3));
+		}
+		
+		$content = '';
+		if($products) foreach($products as $item)
+		{
+			$product = array('item' => $item);
+			$content .= $this->load->view('client/include/product_item', $product, TRUE);
+		}
+
+		$ajax_from = $info['ajax_from'] + 3;
+		
+		$data = array(
+			'content' => $content,
+			'parent_id' => $info['parent_id'],
+			'ajax_from' => $ajax_from
+		);
+
+		echo json_encode($data);
+	}
 }

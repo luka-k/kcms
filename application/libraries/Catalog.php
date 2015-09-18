@@ -17,42 +17,38 @@ class CI_Catalog {
 	* @param string $direction
 	* @return array
 	*/
-	public function get_products($category_id, $order, $direction)
+	public function get_products($category_id, $order = 'name', $direction = 'asc', $from = FALSE, $limit = FALSE)
 	{
-		$products = $this->_get_products($category_id);
-	
-		if($products)
+		$products = array();
+		$categories_ids = $this->_get_sub_categories_ids($category_id);	
+		$categories_ids[] = $category_id;
+
+		if(!empty($categories_ids))
 		{
-			foreach ($products as $key => $row) 
-			{
-				$volume[$key]  = $row->$order;
-			}
-						
-			$sort =  $direction == "asc" ? SORT_ASC : SORT_DESC;
-			array_multisort($volume, $sort, $products);
+			$this->CI->db->where_in('parent_id', $categories_ids);
+			if($order) $this->CI->db->order_by($order, $direction); 
+			if($limit) $this->CI->db->limit($limit, $from);
+			
+			$products = $this->CI->db->get('products')->result();
 		}
 		
 		return $products;
 	}
 	
-	/**
-	* Получение продуктов из подкатегорий категории
-	*
-	* @param integer $category_id
-	* @return array
-	*/
-	public function _get_products($category_id)
+	private function _get_sub_categories_ids($category_id)
 	{
-		$products = $this->CI->products->get_list(array("parent_id" => $category_id));
-			
 		$sub_categories = $this->CI->categories->get_list(array("parent_id" => $category_id));
-		
-		if($sub_categories) foreach($sub_categories as $category)
+
+		$ids = array();
+		if(!empty($sub_categories)) 
 		{
-			$products = array_merge($products, $this->_get_products($category->id));
+			$ids = array_merge($ids, $this->select_ids($sub_categories));
+			foreach($sub_categories as $category)
+			{
+				$ids = array_merge($ids, $this->_get_sub_categories_ids($category->id));
+			}
 		}
-	
-		return $products;
+		return $ids;
 	}
 	
 	/**

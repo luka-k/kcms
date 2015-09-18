@@ -25,8 +25,9 @@
 			<div class="page-catalog__content">
 				<div class="page-catalog__filter">
 					<div class="catalog-filter">
-						<form action="<?=base_url()?>catalog" class="form" method="get">
+						<form action="<?=base_url()?>catalog" id="filter-form" class="form" method="get">
 							<input type="hidden" name="filter" value="true"/>
+							
 							<div class="catalog-filter__top">
 								<?foreach($filters as $type=> $filter):?>
 									<?require "include/filters/{$filter->editor}.php"?>
@@ -76,6 +77,11 @@
 								<a href="<?=$url?>&order=price&direction=asc" class="catalog-sort__href">по цене &#9650;</a>&nbsp;
 								<a href="<?=$url?>&order=price&direction=desc" class="catalog-sort__href">по цене &#9660;</a>&nbsp;	
 							</div> <!-- /.catalog__sort catalog-sort-->
+							
+							<input type="hidden" id="order" name="order" value="" />
+							<input type="hidden" id="direction" name="direction" value="" />
+							<input type="hidden" id="ajax_from" name="ajax_form" value="" />
+							<input type="hidden" id="parent_id" name="parent_id" value="<?if(isset($parent_id)):?><?=$parent_id?><?endif;?>" />
 						
 							<h1 class="catalog__subtitle"><?if(isset($category->name)):?><?=$category->name?><?else:?>Каталог<?endif;?></h1>
 						
@@ -105,9 +111,12 @@
 								<?endforeach;?>
 							</div> <!-- /.catalog__list -->
 						
-							<!--<div class="catalog__load load-link">
+							<!---<div class="catalog__load load-link">
 								<a href="#load" class="load-link__href">Еще товары</a>
 							</div> <!-- /.catalog__load -->
+							<div class="pagination">
+								<?=$pagination?>
+							</div>
 						</div> <!-- /.catalog -->
 
 				</div> <!-- /.page-catalog__products -->

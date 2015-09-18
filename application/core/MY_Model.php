@@ -508,7 +508,7 @@ class MY_Model extends CI_Model
 		if ($branches) foreach ($branches as $i => $b)
 		{
 			$branches[$i]->childs = $this->get_tree($b->id, $parent_field);
-			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id, "sort", "asc"));
+			$branches[$i]->count_sub_products =count($this->catalog->get_products($b->id));
 			$branches[$i]->class = $this->is_active($branches[$i]->id) ? "active" : "noactive";
 		}			
 

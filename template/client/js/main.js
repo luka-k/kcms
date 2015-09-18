@@ -161,23 +161,22 @@
 
   };
 
-  //Загрузка товуаров по клику "Еще товары"
-  app.catalogLoadMore = function(){
-    
-    $('.load-link__href').on('click', function(){
-      var _this = this;
-      $(_this).addClass('rotate');
-
-      //Тут будет отбработка загрузки новых товаров
-      //а пока просто таймаут
-      setTimeout(function(){
-        $(_this).removeClass('rotate');
-      }, 4000);
-
-      return false;
-    });
-
-  };
+	//Загрузка товуаров по клику "Еще товары"
+	app.catalogLoadMore = function(){
+	
+		$('.load-link__href').on('click', function(){
+			var _this = this;
+			$(_this).addClass('rotate');
+			
+			//Тут будет отбработка загрузки новых товаров
+			//а пока просто таймаут
+			/*setTimeout(function(){
+				$(_this).removeClass('rotate');
+			}, 4000);*/
+			
+			return false;
+		});
+	};
 
 
 	//Показываем дополнительные поля при оформлении заказа
@@ -347,7 +346,9 @@
   $(document).ready(function() {
 
     app.init();
-
+	
+	$('#ajax_from').val(3);
+	
   });
   
 }());

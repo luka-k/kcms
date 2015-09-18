@@ -3018,5 +3018,14 @@ cursor: pointer
  * Rfktylfhm
  * ========================================================================== */
 
+ 
+.pagination a{
+	color:#135003;
+	font-size:18px;
+}
 
+.pagination strong{
+	font-size:18px;
+	color:#007F0E;
+}
 
