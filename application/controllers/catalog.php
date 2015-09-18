@@ -33,7 +33,7 @@ class Catalog extends Client_Controller {
 	
 		$data = array(
 			'title' => "Каталог",
-			'select_item' => '',
+			'select_item' => 'catalog',
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'url' => base_url().uri_string()."?".get_filter_string($_SERVER['QUERY_STRING']),
 			'min_price' => $min_price,

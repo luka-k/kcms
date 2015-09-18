@@ -579,7 +579,7 @@ class MY_Model extends CI_Model
 						'rules' => $value[2]
 					);
 				}
-				if ($this->db->field_exists($key, $this->_table))
+				if ($this->db->field_exists($key, $this->_table) && isset($_POST[$key]))
 				{	
 					if($key == "password" && empty($_POST[$key])) 
 					{	
