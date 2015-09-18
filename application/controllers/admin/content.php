@@ -38,6 +38,8 @@ class Content extends Admin_Controller
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
 		$direction = "acs";
 		
+		$settings = $this->settings->get_item(1);
+		
 		$id_branchy = $this->db->field_exists('parent_id', $type);
 		
 		if($id_branchy)
@@ -46,14 +48,16 @@ class Content extends Admin_Controller
 		
 			if($id == "all" || $id == '')
 			{
-				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+				$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 			}
 			else
 			{
 				$parent = $type == "emails" ? "type" : "parent_id";
 			
-				$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+				$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->per_page, $order, $direction);
+				$total_rows = count($this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction));
 				$data["parent_id"] = $id;
 				$data['sortable'] = TRUE;
 			}
@@ -71,6 +75,14 @@ class Content extends Admin_Controller
 				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => $type, "object_id" => $item->id));
 			}
 		}
+		
+		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+		$config['total_rows'] = $total_rows;
+		$config['per_page'] = $settings->per_page;
+
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
 		
 		$this->load->view('admin/items.php', $data);
 	}

@@ -123,8 +123,6 @@ class Catalog extends Client_Controller {
 		
 		$data = array_merge($this->standart_data, $data);
 		
-		$data = array_merge($this->standart_data, $data);
-		
 		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
 		$config['total_rows'] = count($this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction')));
 		$config['per_page'] = $data['settings']->per_page;
