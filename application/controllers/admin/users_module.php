@@ -35,6 +35,8 @@ class Users_module extends Admin_Controller
 		);
 		$data = array_merge($this->standart_data, $data);
 		
+		$settings = $this->settings->get_item(1);
+		
 		if($filters)
 		{
 			if($filters['groups'] <> "false")
@@ -62,13 +64,14 @@ class Users_module extends Admin_Controller
 				$user = $this->users->get_item_by(array("email" => $filters['email']));
 				$user ? redirect(base_url()."admin/users_module/edit/".$user->id."/edit") : $this->db->like('email', $filters['email']);
 			}
-			
+						
 			$query = $this->db->get("users");
 			$data['content'] = $query->result();
 		}
 		else
 		{
-			$data['content'] = $this->users->get_list(FALSE, FALSE, FALSE, $order, $direction);
+			$data['content'] = $this->users->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+			$total_rows = count($this->users->get_list(FALSE, FALSE, FALSE, $order, $direction));
 		
 			if(editors_get_name_field('img', $this->users->editors))
 			{
@@ -77,11 +80,23 @@ class Users_module extends Admin_Controller
 					$data['content'][$key]->image = $this->images->get_cover(array("object_type" => "users", "object_id" => $item->id));
 				}
 				$data['images'] = TRUE;
-			}	
+			}
 		}
 		
 		if($filters['groups'] == "false" || !isset($filters['groups'])) $filters['groups'] = array();
 		$data['filters'] = $filters;
+		
+		if(isset($total_rows))
+		{
+			$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+			$config['total_rows'] = $total_rows;
+			$config['per_page'] = $settings->per_page;
+
+			$this->pagination->initialize($config);
+
+			$data['pagination'] = $this->pagination->create_links();
+		}
+		
 
 		$this->load->view('admin/users.php', $data);
 	}	

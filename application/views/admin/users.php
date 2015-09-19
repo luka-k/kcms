@@ -84,6 +84,9 @@
 								<a href="<?=base_url()?>admin/users_module/edit/" class="button small">Создать</a>
 							</div>			
 						</div>
+						<?if(isset($pagination)):?>
+							<div class="pagination col_12"><?=$pagination?></div>
+						<?endif;?>
 						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
@@ -126,6 +129,9 @@
 								<?require 'include/delete_popup.php'?>
 							</tbody>
 						</table>
+						<?if(isset($pagination)):?>
+							<div class="pagination col_12"><?=$pagination?></div>
+						<?endif;?>
 					</div>
 				</div>
 			</div>

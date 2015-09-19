@@ -38,8 +38,8 @@ class Content extends Admin_Controller
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
 		
 		$direction = "acs";
-		
-		$id_branchy = $this->db->field_exists('parent_id', $type);
+				
+		$settings = $this->settings->get_item(1);
 		
 		if(in_array("manager", $data['user_groups']))
 		{
@@ -56,18 +56,23 @@ class Content extends Admin_Controller
 					$access_manufacturer[] = $r->manufacturer_id;
 				}
 			}
+			
 			if($type == 'manufacturers')
 			{
 				$this->db->where_in('id', $access_manufacturer);
 				$this->db->order_by($order, $direction);
+				$this->db->limit($settings->per_page, $this->input->get('from'));
 				$data['content'] = $this->db->get($type)->result();
+				
 				$data['sortable'] = FALSE;
 			}
 			elseif($type == 'menu')
 			{
 				$this->db->where_in('manufacturer_id', $access_manufacturer);
 				$this->db->order_by($order, $direction);
+				$this->db->limit($settings->per_page, $this->input->get('from'));
 				$data['content'] = $this->db->get($type)->result();
+							
 				$data['sortable'] = FALSE;
 			}
 			elseif($type == "products") 
@@ -84,7 +89,12 @@ class Content extends Admin_Controller
 				$categories_ids = $this->catalog->select_ids($categories);
 				
 				$this->db->where_in('category_id', $categories_ids);
+				$this->db->limit($settings->per_page, $this->input->get('from'));
 				$data['content'] = $this->db->get($type)->result();
+				
+				$this->db->where_in('category_id', $categories_ids);
+				$total_rows = count($this->db->get($type)->result());
+				
 				$data['sortable'] = FALSE;
 			}
 			elseif($type == 'categories')
@@ -94,35 +104,45 @@ class Content extends Admin_Controller
 				$menus_ids = $this->catalog->select_ids($menus);
 				
 				$this->db->where_in('menu_id', $menus_ids);
-				
+				$this->db->limit($settings->per_page, $this->input->get('from'));
 				$data['content'] = $this->db->get($type)->result();
+				
+				$this->db->where_in('menu_id', $menus_ids);
+				$result = $this->db->get($type)->result(); 
+				$total_rows = count($result);
+				
 				$data['sortable'] = FALSE;
-				$data['tree'] = $data['content'];
+				$data['tree'] = $result;
 			}
 		}
 		else
 		{
-			if($id_branchy)
+			$id_branchy = $this->db->field_exists('parent_id', $type);
+			
+			if($id_branchy || $type == "products")
 			{
-				if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, FALSE, FALSE, $order, $direction);
-		
+				if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+
 				if($id == "all" || $id == '')
 				{
-					$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+					$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+					$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 					$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 				}
 				else
 				{
 					$parent = $type == "emails" ? "type" : "parent_id";
 				
-					$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+					$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->per_page, $order, $direction);
+					$total_rows = count($this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction));
 					$data["parent_id"] = $id;
 					$data['sortable'] = TRUE;
 				}
 			}
 			else
 			{
-				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+				$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 				$data['sortable'] = TRUE;
 			}
 		}
@@ -133,6 +153,17 @@ class Content extends Admin_Controller
 			{
 				$data['content'][$key]->image = $this->images->get_cover(array("object_type" => $type, "object_id" => $item->id));
 			}
+		}
+		
+		if(isset($total_rows))
+		{
+			$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+			$config['total_rows'] = $total_rows;
+			$config['per_page'] = $settings->per_page;
+
+			$this->pagination->initialize($config);
+
+			$data['pagination'] = $this->pagination->create_links();
 		}
 		
 		$this->load->view('admin/items.php', $data);
