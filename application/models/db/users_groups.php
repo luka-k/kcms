@@ -28,7 +28,8 @@ class Users_groups extends MY_Model
 	public $editors = array(
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
-			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require')
+			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'users_group2manufacturer' => array('Производители', 'u_g2m', 'users_group2manufacturer')
 		)
 	);
 	

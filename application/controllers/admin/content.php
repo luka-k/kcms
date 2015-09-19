@@ -136,6 +136,8 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $parents;
 		}
 		
+		if($type == "users_groups") $data['users_group2manufacturer'] = $this->manufacturers->get_list(FALSE);
+		
 		$image_field = editors_get_name_field('img', $data['editors']);
 		$double_image_field = editors_get_name_field('double_img', $data['editors']);
 				
@@ -148,6 +150,7 @@ class Content extends Admin_Controller
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if($type == "emails") $data['content']->type = 2;	
 				if($type == 'child_users') $data['no_tabs'] = array('Продукты');
+				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	
 			else
 			{		
@@ -159,6 +162,8 @@ class Content extends Admin_Controller
 										
 					$data['content']->disabled_products = $this->child_users->get_disabled_products($id);
 				}
+				
+				if($type == "users_groups") $data['content']->users_group2manufacturer = $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $id);
 			}
 
 			$this->load->view('admin/item.php', $data);
@@ -214,6 +219,7 @@ class Content extends Admin_Controller
 				$this->db->insert_batch('child2product', $child2product);
 			}
 			
+			if($type == "users_groups")	$this->table2table->set_tables_fixing("users_group2manufacturer", "manufacturer_id", "user_group_id", $data['content']->id);
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
