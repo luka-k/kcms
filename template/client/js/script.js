@@ -31,6 +31,17 @@ function form_submit(form_id){
 	return false;
 }
 
+function view_children(){
+
+	$('.unselected').each(function (i) {
+        if ($(this).css('display') == 'none') {
+			$(this).css({'display': 'block'});
+        } else {
+			$(this).css({'display': 'none'});
+        }
+      });
+}
+
 $(function(){
 	$(document).click(function(event) {
 		if ($(event.target).closest("#parent-info").length) return;
@@ -42,8 +53,9 @@ $(function(){
 
 
 $(window).load(function(){
-	$("#children_col").height($(window).height() - 16);
-	
+	if($(window).width() > 770){
+		$("#children_col").height($(window).height() - 16);
+	}
 });
 
 function set_status(type, child_id){

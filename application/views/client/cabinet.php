@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title><?=$user->name?>: личный кабинет</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		
-		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/client/css/kickstart.css" media="all" /> <!--kickstart css-->
-		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/client//normalize.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/client/js/jquery-ui/jquery-ui.css" media="all" /> <!--jquery-ui css-->
-		<link type="text/css" rel="stylesheet" href="<?=base_url()?>template/client/css/style.css" media="all" /> <!--custom css-->
-		
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery.min.js"></script> <!--jquery js-->
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/kickstart.js"></script>  <!--kickstart js-->
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script> <!--jquery js-->
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery-ui/jquery-ui.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>template/client/js/jquery-ui/ru.js"></script>	
-	</head>
+	<?include 'include/head.php';?>
 
 	<body>
 		<div id="content" class="grid flex">
-			<div id="children_col" class="col_3">
+			<div id="children_col" class="clearfix col_3">
 				<ul class="children_list">
 					<?foreach($children as $key => $child):?>
-						<li class="col_12">
+						<li class="col_12 clearfix <?if($child->id == $selected_child->id):?>selected<?else:?>unselected<?endif;?>">
 							<div class="avatar col_2">
 								<a href="<?=base_url()?>account/<?=$key?>">
 									<img src="<?=base_url()?>view_image?id=<?=$child->id?>" alt="<?=$child->full_name?>"/>
@@ -34,6 +20,11 @@
 					<?endforeach;?>
 				</ul>
 			</div>
+			<?if(count($children) > 1):?>
+				<div class="p-btn change-child col_3">
+					<a href="#" onclick="view_children();">Выбрать другого ребенка</a>
+				</div>
+			<?endif;?>
 			<div id="info_col" class="col_9">
 				<div id="child_info" class="clearfix">
 					<div class="avatar col_2">
@@ -67,7 +58,7 @@
 						</div>
 					</div>
 					
-					<div class="col_2">
+					<div class="refill_balance col_2">
 						<a href="" class="button orange center">Пополнить баланс</a>
 					</div>
 				</div>
@@ -185,7 +176,7 @@
 			</div>
 		</div>
 		
-		<div id="parent-info" class="clearfix">
+		<div id="parent-info" class="clearfix col_6">
 			<div class="personal-info clearfix">
 				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="parent_form" class="form" action="<?=base_url()?>account/update_info">
 					<input type="hidden" name="id" value="<?=$user->id?>"/>
