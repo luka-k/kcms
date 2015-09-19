@@ -58,8 +58,13 @@ class Admin_orders extends Admin_Controller
 			
 			$child = $this->child_users->get_item_by(array('card_number' => $order->card_number));
 			
-			$this->db->where_in('id', $products_ids);
-			$order_items = $this->db->get('products')->result();
+			$order_items = array();
+			
+			if(!empty($products_ids))
+			{
+				$this->db->where_in('id', $products_ids);
+				$order_items = $this->db->get('products')->result();
+			}
 			
 			$orders_info[$key] = (object)array( 
 				"id" => $order->id,

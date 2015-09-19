@@ -63,6 +63,8 @@ class Database extends CI_Controller
 				die(); //По логике продолжать выполнение скрипта не нужно же?
 			}
 			
+			$order_id = $this->db->insert_id();
+			
 			$this->db->where('card_number', $new_order['card_number']);
 			$this->db->select('card_balance');
 			$card_balance = $this->db->get('cards')->row()->card_balance;
@@ -75,7 +77,7 @@ class Database extends CI_Controller
 			foreach($products as $p)
 			{
 				$order2products = array(
-					'order_id' => $this->db->insert_id(),
+					'order_id' => $order_id,
 					'product_id' => $p->id,
 					'quantity' => $p->quantity
 				);
