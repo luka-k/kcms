@@ -54,7 +54,7 @@ class Users extends MY_Model
 			'user' => " ",
 			'user_groups' => "",
 			'logged_in' => 0
-			);
+		);
 
 		if($this->get_count(array('email' => $email, 'password' => $password)) == 1)
 		{
@@ -66,7 +66,6 @@ class Users extends MY_Model
 				);		
 			$u2u_g = $this->users2users_groups->get_list(array("user_id" => $user->id));
 
-			
 			foreach($u2u_g as $g)
 			{
 				$group = $this->users_groups->get_item($g->users_group_id);

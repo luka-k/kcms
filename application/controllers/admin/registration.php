@@ -49,7 +49,7 @@ class Registration extends CI_Controller
 		$user = (array)$authdata['user'];
 		$user_groups = (array)$authdata['user_groups'];
 
-		if ((!$is_logged)||(!in_array("admin", $user_groups)))
+		if ((!$is_logged)||(!in_array("admin", $user_groups) && !in_array("manager", $user_groups)))
 		{
 			$data['error'] = "Данные не верны. Повторите ввод";		
 			$this->load->view('admin/login.php', $data);	

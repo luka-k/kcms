@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 12 2015 г., 18:34
+-- Время создания: Сен 19 2015 г., 21:53
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
 --
 
 INSERT INTO `cards` (`id`, `card_number`, `card_day_limit`, `card_credit_limit`, `card_balance`) VALUES
-(1, '123456', '650.00', '0.00', '6000.00'),
+(1, '123456', '650.00', '0.00', '1860.00'),
 (2, '34565', '200.00', '0.00', '2000.00'),
 (3, '234444', '150.00', '0.00', '30000.00');
 
@@ -78,7 +78,7 @@ INSERT INTO `categories` (`id`, `menu_id`, `sort`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `child2product` (
-  `child_id` int(11) NOT NULL,
+  `child_user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `disabled` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -87,13 +87,7 @@ CREATE TABLE IF NOT EXISTS `child2product` (
 -- Дамп данных таблицы `child2product`
 --
 
-INSERT INTO `child2product` (`child_id`, `product_id`, `disabled`) VALUES
-(14, 1, 0),
-(14, 4, 0),
-(14, 11, 0),
-(14, 12, 1),
-(14, 13, 1),
-(14, 16, 0),
+INSERT INTO `child2product` (`child_user_id`, `product_id`, `disabled`) VALUES
 (7, 2, 0),
 (7, 3, 1),
 (7, 5, 0),
@@ -117,7 +111,13 @@ INSERT INTO `child2product` (`child_id`, `product_id`, `disabled`) VALUES
 (6, 14, 0),
 (6, 15, 0),
 (6, 17, 0),
-(6, 18, 0);
+(6, 18, 0),
+(14, 1, 0),
+(14, 4, 0),
+(14, 11, 0),
+(14, 12, 1),
+(14, 13, 1),
+(14, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `child_users` (
   `visit_sms_enabled_date` date NOT NULL,
   `image` blob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `child_users`
@@ -174,7 +174,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('4c5a61b9432ba19d17d56907d8f30a44', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442071498, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"2";s:4:"name";s:38:"Петров Иван Иванович";s:8:"password";s:32:"d0e45878043844ffc41aac437e86b602";s:5:"email";s:16:"ivanov@parent.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:6:"parent";}}');
+('5998d05d5e5ec780773632c3477c925e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442683777, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"3";s:4:"name";s:12:"test_manager";s:8:"password";s:32:"1d0258c2440a8d19e716292b231e3190";s:5:"email";s:15:"ivan@manager.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:7:"manager";}}'),
+('ab5c274fcecd56fa1c397505afd01db6', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442688695, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -317,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_manager` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
@@ -324,32 +326,32 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
 -- Дамп данных таблицы `menus_items`
 --
 
-INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`) VALUES
-(1, 4, 'Блог', 0, 1, '', 'articles', 'blog'),
-(2, 4, 'Новости', 0, 0, '', 'articles', 'novosti'),
-(4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
-(6, 1, 'Меню', 0, 1, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 8, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
-(10, 1, 'Меню сайта', 8, 6, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 7, '', 'link', '#'),
-(13, 1, 'Меню', 6, 1, '', 'link', 'admin/content/items/menu/'),
-(14, 1, 'Категории', 6, 2, '', 'link', 'admin/content/items/categories/'),
-(15, 1, 'Блюда', 6, 3, '', 'link', 'admin/content/items/products/'),
-(16, 1, 'Поставщики', 6, 4, '', 'link', 'admin/content/items/manufacturers'),
-(17, 1, 'Настройки сайта', 8, 10, '', 'link', 'admin/content/item/edit/settings/1'),
-(19, 1, 'Шаблоны', 9, 1, '', 'link', 'admin/content/items/emails/2'),
-(20, 1, 'Рассылки', 9, 2, '', 'link', 'admin/mailouts_module'),
-(21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
-(22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
-(23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
-(33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/'),
-(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/'),
-(35, 1, 'Дети', 36, 2, '', 'link', 'admin/content/items/child_users/'),
-(36, 1, 'Дети', 0, 2, '', 'link', '#'),
-(37, 1, 'Карты', 36, 3, '', 'link', 'admin/content/items/cards/'),
-(38, 1, 'Школы', 0, 3, '', 'link', 'admin/content/items/schools/');
+INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`, `is_manager`) VALUES
+(1, 4, 'Блог', 0, 1, '', 'articles', 'blog', 0),
+(2, 4, 'Новости', 0, 0, '', 'articles', 'novosti', 0),
+(4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/', 0),
+(6, 1, 'Меню', 0, 1, '', 'link', '#', 0),
+(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders', 1),
+(8, 1, 'Настройки', 0, 8, '', 'link', '#', 1),
+(9, 1, 'Рассылки', 0, 5, '', 'link', '#', 1),
+(10, 1, 'Меню сайта', 8, 6, '', 'link', 'admin/menu_module/menus', 0),
+(11, 1, 'Пользователи', 0, 7, '', 'link', '#', 0),
+(13, 1, 'Меню', 6, 1, '', 'link', 'admin/content/items/menu/', 0),
+(14, 1, 'Категории', 6, 2, '', 'link', 'admin/content/items/categories/', 0),
+(15, 1, 'Блюда', 6, 3, '', 'link', 'admin/content/items/products/', 0),
+(16, 1, 'Поставщики', 6, 4, '', 'link', 'admin/content/items/manufacturers', 0),
+(17, 1, 'Настройки сайта', 8, 10, '', 'link', 'admin/content/item/edit/settings/1', 0),
+(19, 1, 'Шаблоны', 9, 1, '', 'link', 'admin/content/items/emails/2', 0),
+(20, 1, 'Рассылки', 9, 2, '', 'link', 'admin/mailouts_module', 0),
+(21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1', 0),
+(22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/', 0),
+(23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all', 0),
+(33, 4, 'Контакты', 0, 17, '', 'link', 'contacts/', 0),
+(34, 4, 'Каталог', 0, 18, '', 'link', 'catalog/', 0),
+(35, 1, 'Дети', 36, 2, '', 'link', 'admin/content/items/child_users/', 0),
+(36, 1, 'Дети', 0, 2, '', 'link', '#', 1),
+(37, 1, 'Карты', 36, 3, '', 'link', 'admin/content/items/cards/', 0),
+(38, 1, 'Школы', 0, 3, '', 'link', 'admin/content/items/schools/', 1);
 
 -- --------------------------------------------------------
 
@@ -368,12 +370,78 @@ CREATE TABLE IF NOT EXISTS `order2products` (
 --
 
 INSERT INTO `order2products` (`order_id`, `product_id`, `quantity`) VALUES
-(3, 2, 1),
-(3, 3, 1),
+(1, 2, 1),
+(0, 3, 1),
 (2, 5, 1),
-(2, 1, 2),
-(4, 5, 1),
-(4, 2, 1);
+(0, 1, 2),
+(3, 5, 1),
+(0, 2, 1),
+(4, 2, 1),
+(0, 3, 1),
+(5, 5, 1),
+(0, 1, 2),
+(6, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1),
+(0, 2, 1),
+(0, 3, 1),
+(0, 5, 1),
+(0, 1, 2),
+(0, 5, 1),
+(0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -386,22 +454,52 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `card_number` text COLLATE utf8_unicode_ci NOT NULL,
   `date` datetime NOT NULL,
   `summ` decimal(10,2) NOT NULL,
-  `operation` text COLLATE utf8_unicode_ci NOT NULL,
+  `operation` enum('списание за смс-оповещение по питанию','списание за смс-оповещение по посещению','заказ','пополнение через сбербанк','пополнение через яндекс-кассу') COLLATE utf8_unicode_ci DEFAULT NULL,
   `info` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
 INSERT INTO `orders` (`id`, `card_number`, `date`, `summ`, `operation`, `info`) VALUES
-(2, '123456', '2015-09-12 15:09:25', '-250.00', '', ''),
-(3, '123456', '2015-09-12 15:09:25', '-170.00', '', ''),
-(4, '123456', '2015-09-12 15:09:25', '-270.00', '', ''),
-(5, '123456', '2015-09-03 06:25:05', '5000.00', '', ''),
-(6, '34565', '2015-09-03 06:25:05', '5000.00', '', ''),
-(7, '234444', '2015-09-03 06:25:05', '5000.00', '', '');
+(1, '123456', '2015-09-13 20:09:45', '-170.00', NULL, ''),
+(2, '123456', '2015-09-13 20:09:45', '-250.00', NULL, ''),
+(3, '123456', '2015-09-13 20:09:45', '-270.00', NULL, ''),
+(4, '123456', '2015-09-13 20:09:32', '-170.00', NULL, ''),
+(5, '123456', '2015-09-13 20:09:33', '-250.00', NULL, ''),
+(6, '123456', '2015-09-13 20:09:33', '-270.00', NULL, ''),
+(7, '123456', '2015-09-13 20:09:50', '-170.00', NULL, ''),
+(8, '123456', '2015-09-13 20:09:51', '-250.00', NULL, ''),
+(9, '123456', '2015-09-13 20:09:51', '-270.00', NULL, ''),
+(10, '123456', '2015-09-13 20:09:17', '-170.00', NULL, ''),
+(11, '123456', '2015-09-13 20:09:17', '-250.00', NULL, ''),
+(12, '123456', '2015-09-13 20:09:17', '-270.00', NULL, ''),
+(13, '123456', '2015-09-13 20:09:49', '-170.00', NULL, ''),
+(14, '123456', '2015-09-13 20:09:49', '-250.00', NULL, ''),
+(15, '123456', '2015-09-13 20:09:49', '-270.00', NULL, ''),
+(16, '123456', '2015-09-13 20:09:25', '-170.00', NULL, ''),
+(17, '123456', '2015-09-13 20:09:25', '-250.00', NULL, ''),
+(18, '123456', '2015-09-13 20:09:25', '-270.00', NULL, ''),
+(19, '123456', '2015-09-13 20:09:57', '-170.00', NULL, ''),
+(20, '123456', '2015-09-13 20:09:57', '-250.00', NULL, ''),
+(21, '123456', '2015-09-13 20:09:57', '-270.00', NULL, ''),
+(22, '123456', '2015-09-13 20:09:57', '-170.00', NULL, ''),
+(23, '123456', '2015-09-13 20:09:57', '-250.00', NULL, ''),
+(24, '123456', '2015-09-13 20:09:57', '-270.00', NULL, ''),
+(25, '123456', '2015-09-13 20:09:49', '-170.00', NULL, ''),
+(26, '123456', '2015-09-13 20:09:49', '-250.00', NULL, ''),
+(27, '123456', '2015-09-13 20:09:49', '-270.00', NULL, ''),
+(28, '123456', '2015-09-13 20:09:01', '-170.00', NULL, ''),
+(29, '123456', '2015-09-13 20:09:01', '-250.00', NULL, ''),
+(30, '123456', '2015-09-13 20:09:01', '-270.00', NULL, ''),
+(31, '123456', '2015-09-13 20:09:26', '-170.00', NULL, ''),
+(32, '123456', '2015-09-13 20:09:26', '-250.00', NULL, ''),
+(33, '123456', '2015-09-13 20:09:26', '-270.00', NULL, ''),
+(34, '123456', '2015-09-13 20:09:29', '-170.00', NULL, ''),
+(35, '123456', '2015-09-13 20:09:29', '-250.00', NULL, ''),
+(36, '123456', '2015-09-13 20:09:29', '-270.00', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -513,7 +611,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `users`
@@ -521,7 +619,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `valid_email`, `secret`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '8-950-123-45', '', 0, 'f556de45badbca0264ee68f418a42265'),
-(2, 'Петров Иван Иванович', 'd0e45878043844ffc41aac437e86b602', 'ivanov@parent.ru', '', '', 0, '');
+(2, 'Петров Иван Иванович', 'd0e45878043844ffc41aac437e86b602', 'ivanov@parent.ru', '', '', 0, ''),
+(3, 'test_manager', '21232f297a57a5a743894a0e4a801fc3', 'ivan@manager.ru', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -542,7 +641,32 @@ CREATE TABLE IF NOT EXISTS `users2users_groups` (
 
 INSERT INTO `users2users_groups` (`users_group_id`, `user_id`) VALUES
 (1, 1),
-(2, 2);
+(2, 2),
+(3, 0),
+(3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users_group2manufacturer`
+--
+
+CREATE TABLE IF NOT EXISTS `users_group2manufacturer` (
+  `manufacturer_id` int(11) DEFAULT NULL,
+  `user_group_id` int(11) DEFAULT NULL,
+  KEY `manufacturer_id` (`manufacturer_id`),
+  KEY `user_group_id` (`user_group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users_group2manufacturer`
+--
+
+INSERT INTO `users_group2manufacturer` (`manufacturer_id`, `user_group_id`) VALUES
+(0, 3),
+(1, 3),
+(0, 3),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -555,7 +679,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   `name` varchar(255) NOT NULL,
   `is_edit` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `users_groups`
@@ -563,7 +687,8 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `name`, `is_edit`) VALUES
 (1, 'admin', 0),
-(2, 'parent', 0);
+(2, 'parent', 0),
+(3, 'manager', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

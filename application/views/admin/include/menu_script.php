@@ -18,6 +18,12 @@
 				if(element.attr('type') != 'radio'){
 					element.val(val);
 				}
+				if(element.attr('type') == 'checkbox'){
+					if(res.item[key] == 1)
+						element.prop('checked', true);
+					else
+						element.prop('checked', false);
+				}
 				if(key == "item_type"){
 					var type = res.item[key];
 				}

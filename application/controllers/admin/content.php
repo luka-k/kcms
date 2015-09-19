@@ -41,28 +41,90 @@ class Content extends Admin_Controller
 		
 		$id_branchy = $this->db->field_exists('parent_id', $type);
 		
-		if($id_branchy)
+		if(in_array("manager", $data['user_groups']))
 		{
-			if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, FALSE, FALSE, $order, $direction);
-		
-			if($id == "all" || $id == '')
+			$access_manufacturer = array();
+			foreach($data['user_groups'] as $group)
 			{
-				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
-				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
+				$group_info = $this->users_groups->get_item_by(array('name' => $group));
+				$this->db->where_in('user_group_id', $group_info->id);
+				$this->db->select('manufacturer_id');
+					
+				$result = $this->db->get('users_group2manufacturer')->result();
+				if($result) foreach($result as $r)
+				{
+					$access_manufacturer[] = $r->manufacturer_id;
+				}
 			}
-			else
+			if($type == 'manufacturers')
 			{
-				$parent = $type == "emails" ? "type" : "parent_id";
-			
-				$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
-				$data["parent_id"] = $id;
-				$data['sortable'] = TRUE;
+				$this->db->where_in('id', $access_manufacturer);
+				$this->db->order_by($order, $direction);
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+			}
+			elseif($type == 'menu')
+			{
+				$this->db->where_in('manufacturer_id', $access_manufacturer);
+				$this->db->order_by($order, $direction);
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+			}
+			elseif($type == "products") 
+			{			
+				$this->db->where_in('manufacturer_id', $access_manufacturer);
+				$menus = $this->db->get('menu')->result();
+				$menus_ids = $this->catalog->select_ids($menus);
+				
+				$this->db->where_in('menu_id', $menus_ids);
+				$categories = $this->db->get('categories')->result();
+				
+				$data['tree'] = $categories;
+				
+				$categories_ids = $this->catalog->select_ids($categories);
+				
+				$this->db->where_in('category_id', $categories_ids);
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+			}
+			elseif($type == 'categories')
+			{
+				$this->db->where_in('manufacturer_id', $access_manufacturer);
+				$menus = $this->db->get('menu')->result();
+				$menus_ids = $this->catalog->select_ids($menus);
+				
+				$this->db->where_in('menu_id', $menus_ids);
+				
+				$data['content'] = $this->db->get($type)->result();
+				$data['sortable'] = FALSE;
+				$data['tree'] = $data['content'];
 			}
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
-			$data['sortable'] = TRUE;
+			if($id_branchy)
+			{
+				if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, FALSE, FALSE, $order, $direction);
+		
+				if($id == "all" || $id == '')
+				{
+					$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+					$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
+				}
+				else
+				{
+					$parent = $type == "emails" ? "type" : "parent_id";
+				
+					$data['content'] = $this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction);
+					$data["parent_id"] = $id;
+					$data['sortable'] = TRUE;
+				}
+			}
+			else
+			{
+				$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+				$data['sortable'] = TRUE;
+			}
 		}
 		
 		if(editors_get_name_field('img', $this->$type->editors))
@@ -100,15 +162,41 @@ class Content extends Admin_Controller
 		);
 		$data = array_merge($this->standart_data, $data);
 		
-		if($this->db->field_exists('parent_id', $type))
+
+		if($type == "products")
 		{
-			if($type == "products")
+			$access_manufacturer = array();
+			foreach($data['user_groups'] as $group)
 			{
-				$tree =  $this->categories->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
-				$data['tree'] = $tree;
-				$data['selects']['category_id'] = $tree;
+				$group_info = $this->users_groups->get_item_by(array('name' => $group));
+				$this->db->where_in('user_group_id', $group_info->id);
+				$this->db->select('manufacturer_id');
+					
+				$result = $this->db->get('users_group2manufacturer')->result();
+				if($result) foreach($result as $r)
+				{
+					$access_manufacturer[] = $r->manufacturer_id;
+				}
 			}
+			
+			if(in_array("manager", $data['user_groups']))
+			{
+				$this->db->where_in('manufacturer_id', $access_manufacturer);
+				$menus = $this->db->get('menu')->result();
+				$menus_ids = $this->catalog->select_ids($menus);
+				
+				$this->db->where_in('menu_id', $menus_ids);
+				$tree = $this->db->get('categories')->result();
+			}
+			else			
+			{	
+				$tree = $this->categories->get_list(FALSE, FALSE, FALSE, 'sort', 'asc');
+			}
+			$data['tree'] = $tree;
+			$data['selects']['category_id'] = $tree;
 		}
+		
+		
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
@@ -238,6 +326,18 @@ class Content extends Admin_Controller
 		
 			redirect(base_url().'admin/content/item/edit/'.$type."/".$new_id);
 		}
+	}
+	
+	public function access_disabled()
+	{
+		$data = array(
+			'title' => "Доступ закрыт",
+			'error' => "",
+			'url' => $this->uri->uri_string()
+		);
+		$data = array_merge($this->standart_data, $data);
+
+		$this->load->view('admin/access_disabled', $data);
 	}
 		
 	/**
