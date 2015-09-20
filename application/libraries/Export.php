@@ -19,24 +19,29 @@ class Export{
 	public function export_school($school, $tables)
 	{
 		$school_name = $this->CI->string_edit->slug($school->name);
-		
 		$file_path = FCPATH."export/export_{$school_name}.sqlite";
+		
 		if(is_file($file_path)) unlink($file_path);
 		
 		$sql = file_get_contents(FCPATH."export/sql/export.sql");
-
+		
 		$sqlite = new sqlite3($file_path);
 		
 		$sqlite->query($sql);	
-		
+	
 		$insert_info = $this->get_insert_info_by_school($school);
 		
 		foreach($tables as $table)
 		{
-			echo 'Экспорт базы '.$table.' для школы '.$school->name.'<br />';
-		
+			echo '<strong>Экспорт базы '.$table.' для школы '.$school->name.'</strong><br />';
+			
+			$this->CI->benchmark->mark('code_start');
+			
 			$this->export_table($sqlite, $file_path, $table, $insert_info);
-
+			
+			$this->CI->benchmark->mark('code_end');
+			echo 'Затраченое время - '$this->CI->benchmark->elapsed_time('code_start', 'code_end').'<br />';
+			
 			//Проверка
 
 			/*$sqlite = new sqlite3($file_path);
@@ -100,6 +105,7 @@ class Export{
 	protected function export_table($sqlite, $file_path, $table, $insert_info)
 	{
 		$result = $sqlite->query("SELECT * FROM {$table}");
+
 		$table_fields = array();
 		
 		for($i = 0; $i < $result->numColumns(); $i++)
@@ -114,7 +120,7 @@ class Export{
 			if($table == "child_users") $images = array();
 			
 			foreach($insert_info[$table] as $line)
-			{
+			{ 
 				$fields = '';
 				$values = '';
 				$counter = 1;
@@ -145,10 +151,10 @@ class Export{
 						$counter++;
 					}
 				}
-
+				
 				$sql .= "INSERT INTO {$table} ({$fields}) VALUES ({$values});";
 			}
-				
+
 			$sqlite->query($sql);
 			
 			if($table == "child_users")
