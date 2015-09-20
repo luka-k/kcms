@@ -133,11 +133,27 @@ class Users_module extends Admin_Controller
 			{
 				$data['content'] = set_empty_fields($data['editors']);
 				$data['content']->id = false;
+				$data['content']->user_groups = array();
 				if($field_name) $data['content']->parents = array();
 			}
 			else
 			{
 				$data['content'] = $this->users->get_item($id);
+				
+				$u2u_g = $this->users2users_groups->get_list(array("user_id" => $data['content']->id));
+
+				$data['content']->user_groups = array();
+				foreach($u2u_g as $g)
+				{
+					$group = $this->users_groups->get_item($g->users_group_id);
+					$data['content']->user_groups[] = $group->name;
+				}
+		
+				if(in_array("parent", $data['content']->user_groups))
+				{
+					$data['content']->children = $this->child_users->prepare_list($this->child_users->get_list(array('parent_id' => $data['content']->id)));
+				}
+				
 				$data['content']->images = $this->images->prepare_list($this->images->get_list(array("object_type" => "users", "object_id" => $data['content']->id)));
 				if($field_name) $data['content']->parents = $this->users2users_groups->get_list(array("user_id" => $id));	
 			}

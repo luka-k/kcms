@@ -13,6 +13,9 @@
 								<li><a href="#tab_<?=$tab_counter?>"><?=$key?></a></li>
 								<?$tab_counter++?>
 							<?endforeach?>
+							<?if(in_array("parent", $content->user_groups)):?>
+								<li><a href="#tab_<?=$tab_counter?>">Дети</a></li>
+							<?endif;?>
 						</ul>
 					
 						<?$tab_counter = 1?>
@@ -55,6 +58,26 @@
 								</div>
 								<?$tab_counter++?>
 							<?endforeach?>
+							<?if(in_array("parent", $content->user_groups)):?>
+								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
+									<ul class="clearfix" style="list-style:none;">
+									<?foreach($content->children as $child):?>
+										<li class="col_12">
+											<div class="col_1">
+												<a href="<?=base_url()?>admin/content/item/edit/child_users/<?=$child->id?>">
+													<img src="<?=base_url()?>view_image?id=<?=$child->id?>" alt="<?=$child->full_name?>" style="width:100%;"/>
+												</a>
+											</div>
+											<div class="col_11">
+												<a href="<?=base_url()?>admin/content/item/edit/child_users/<?=$child->id?>">
+													<?=$child->full_name?>
+												</a>
+											</div>
+										</li>
+									<?endforeach;?>
+									</ul>
+								</div>
+							<?endif;?>
 						</form>							
 					</div>
 				</div>
