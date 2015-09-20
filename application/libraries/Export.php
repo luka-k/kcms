@@ -28,7 +28,7 @@ class Export{
 		$sqlite = new sqlite3($file_path);
 		
 		$sqlite->query($sql);	
-	
+
 		$insert_info = $this->get_insert_info_by_school($school);
 		
 		foreach($tables as $table)
@@ -40,7 +40,7 @@ class Export{
 			$this->export_table($sqlite, $file_path, $table, $insert_info);
 			
 			$this->CI->benchmark->mark('code_end');
-			echo 'Затраченое время - '$this->CI->benchmark->elapsed_time('code_start', 'code_end').'<br />';
+			echo 'Затраченое время - '.$this->CI->benchmark->elapsed_time('code_start', 'code_end').'<br />';
 			
 			//Проверка
 
