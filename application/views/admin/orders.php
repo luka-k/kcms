@@ -5,24 +5,25 @@
 	<div id="page" class="grid flex">
 		<div id="wrap" class="clearfix">	
 			<? require 'include/top_menu.php' ?>
-				<div  class="col_12 clearfix">
+				<div id="left_col" class="col_3 back" style="padding-top:15px;">
+					<div id="datepicker"></div>
+				</div>
+				<div  class="col_9 clearfix" style="margin-top:-5px">
 					<div class="col_12">
-						<h5>Заказы</h5>
+						<h5 style="margin-top:0;">Заказы</h5>
 						<?if(isset($orders_info)):?>
 						
 						<table>
 							<thead>
-								<th width="10%">Id</th>
-
-								<th width="30%">Состав заказа</th>
 								<th width="5%">Дата</th>
-								<th width="25%">Контанты</th>
+								<th width="55%">Состав заказа</th>
+								<th width="40%">Информация</th>
 							</thead>
 							<tbody>
 								<?$counter = 1?>
 								<?foreach ($orders_info as $order_item):?>
 									<tr <?if(($counter%2) == 0):?>class = "grey"<?endif;?>>
-										<td><?=$order_item->id?></td>
+										<td><?=$order_item->order_date?></td>
 
 										<td>
 											<table>
@@ -43,7 +44,6 @@
 											</table>
 										</td>
 
-										<td><?=$order_item->order_date?></td>
 										<td>
 											<div class="contacts">
 												<div>Номер карты - <?=$order_item->card_number?></div>
@@ -61,6 +61,15 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			$(function() {
+				$("#datepicker" ).datepicker({
+					onSelect:function(dateText){
+						document.location.replace('/admin/admin_orders?date='+dateText);
+					}
+				});
+			});
+		</script>
 		<?require 'include/footer_script.php'?>
 		<?require 'include/orders_script.php'?>
 		<?require 'include/footer.php'?>

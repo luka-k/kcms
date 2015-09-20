@@ -39,6 +39,18 @@ class Admin_orders extends Admin_Controller
 			$orders = $this->orders->get_list(array("status_id" => $filter));
 		}
 		
+		$select_date = $this->input->get('date');
+		if(!empty($select_date))
+		{
+			$date = new DateTime($select_date);
+			$this->db->like('date', date_format($date, 'Y-m-d'));
+			$orders = $this->db->get('orders')->result();
+		}
+		else
+		{
+			$orders = $this->orders->get_list(FALSE);
+		}
+		
 		$orders_info = array();
 		foreach ($orders as $key => $order)
 		{	
