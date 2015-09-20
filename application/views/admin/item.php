@@ -27,7 +27,7 @@
 					
 						<?$tab_counter = 1?>
 						<?$editors_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/item/save/<?=$type?>"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="form1" action="<?=base_url()?>admin/content/item/save/<?=$type?>">
 							<?foreach ($editors as $key => $edits):?>
 								<?if(!isset($no_tabs) || !in_array($key, $no_tabs)):?>
 									<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">

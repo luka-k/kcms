@@ -11,7 +11,7 @@ class Child_users extends MY_Model
 			'parent_id' => array('Родитель', 'select'),
 			'school_id' => array('Школа', 'select'),
 			'class' => array('Класс', 'text'),
-			'card_number' => array('Номер карты', 'text'),
+			/*'card_number' => array('Номер карты', 'text'),*/
 			'birthday' => array('Дата', 'date'),
 			'phone' => array('Номер телефона', 'text'),
 			'dinner_sms_enabled' => array('Оповещения об обедах', 'checkbox'),
@@ -19,6 +19,9 @@ class Child_users extends MY_Model
 			'visit_sms_enabled' => array('Оповещение о посещаемости', 'checkbox'),
 			'visit_sms_enabled_date' => array('Дата включения оповещения', 'date'),
 			'image' => array('Аватар', 'image', 'img')
+		),
+		'Карта' => array(
+			'child_card' => array('Карта', 'child_card')
 		),
 		'Продукты' => array(
 			'child2products' => array('Разрешенные продукты', 'child2products')

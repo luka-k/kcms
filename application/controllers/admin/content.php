@@ -227,8 +227,6 @@ class Content extends Admin_Controller
 			$data['selects']['category_id'] = $tree;
 		}
 		
-		
-		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
 		if($type == 'menu')
@@ -268,7 +266,11 @@ class Content extends Admin_Controller
 				
 				if($this->db->field_exists('parent_id', $type))	$data['content']->parent_id = $parent_id;
 				if($type == "emails") $data['content']->type = 2;	
-				if($type == 'child_users') $data['no_tabs'] = array('Продукты');
+				if($type == 'child_users') 
+				{
+					$data['no_tabs'] = array('Продукты');
+					$data['content']->card = new stdclass();
+				}
 				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	
 			else
@@ -280,6 +282,8 @@ class Content extends Admin_Controller
 					$data['content']->menu = $this->menu->get_menu_by_school($data['content']->school_id);
 										
 					$data['content']->disabled_products = $this->child_users->get_disabled_products($id);
+					
+					$data['content']->card = $this->cards->get_item_by(array('card_number' => $data['content']->card_number));
 				}
 				
 				if($type == "users_groups") $data['content']->users_group2manufacturer = $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $id);
@@ -309,7 +313,6 @@ class Content extends Admin_Controller
 			if($type == 'child_users')
 			{
 				$child2product = array();
-				
 				$this->db->where('child_user_id', $data['content']->id);
 				$this->db->delete('child2product');
 				
@@ -335,7 +338,28 @@ class Content extends Admin_Controller
 					}
 				}
 				
-				$this->db->insert_batch('child2product', $child2product);
+				if(!empty($child2product)) $this->db->insert_batch('child2product', $child2product);
+				
+				$info = array(
+					'card_number' => $this->input->post('card_number'),
+					'card_day_limit' => $this->input->post('card_day_limit'),
+					'card_credit_limit' => $this->input->post('card_credit_limit'),
+					'card_balance' => $this->input->post('card_balance'),
+				);
+				
+				$card_id = $this->input->post('card_id');
+
+				if(!empty($card_id))
+				{
+					$this->cards->update($this->input->post('card_id'), $info);
+				}
+				else
+				{
+					$this->cards->insert($info);
+					$this->child_users->update($data['content']->id, array('card_number' => $info['card_number']));
+				}
+				
+				
 			}
 			
 			if($type == "users_groups")	$this->table2table->set_tables_fixing("users_group2manufacturer", "manufacturer_id", "user_group_id", $data['content']->id);
