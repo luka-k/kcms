@@ -19,7 +19,7 @@
 						</ul>
 					
 						<?$tab_counter = 1?>
-						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/save/<?=$content->id?>/"/>
+						<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="user_form" action="<?=base_url()?>admin/users_module/edit/save/<?=$content->id?>/">
 							<?foreach ($editors as $key => $edits):?>
 								<div id="tab_<?=$tab_counter?>" class="clearfix tab-content">
 									<?=$error?>

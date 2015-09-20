@@ -39,6 +39,11 @@ class Categories extends MY_Model
         parent::__construct();
 	}
 	
+	public $admin_left_column = array(
+		"items_tree" => "categories_tree", //дерево для списка элементов
+		"item_tree" => "categories_tree", // дерево для страницы редактирования элемента
+	);
+	
 	/**
 	* Удаление категории
 	* 

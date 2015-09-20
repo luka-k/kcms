@@ -20,6 +20,13 @@
 								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small">Создать</a>
 							</div>			
 						</div>
+						<?if($type == 'child_users'):?>
+							<div class="col_12">
+								<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="search_form" action="<?=base_url()?>admin/content/items/child_users/" >
+									<input type="text" name="search" placeholder="Поиск" class="col_6" value="" onchange="submit_form('search_form'); return false;"/>
+								</form>
+							</div>
+						<?endif;?>
 						<?if(isset($pagination)):?>
 							<div class="pagination col_12"><?=$pagination?></div>
 						<?endif;?>

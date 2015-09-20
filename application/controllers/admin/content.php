@@ -24,8 +24,9 @@ class Content extends Admin_Controller
 	*/
 	public function items($type, $id = FALSE)
 	{		
+		$settings = $this->settings->get_item(1);
 		$name = editors_get_name_field('name', $this->$type->editors);
-
+	
 		$data = array(
 			'title' => "Страницы",
 			'url' => $this->uri->uri_string(),
@@ -36,11 +37,27 @@ class Content extends Admin_Controller
 		$data = array_merge($this->standart_data, $data);
 				
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
-		
 		$direction = "acs";
 				
-		$settings = $this->settings->get_item(1);
-		
+		$search = $this->input->post('search');
+		if($search)
+		{
+			$search_fields = array('first_name', 'middle_name', 'last_name', 'card_number');
+			$searched = explode(' ', $search);
+			
+			foreach($search_fields as $field)
+			{
+				foreach($searched as $s_p)
+				{
+					$this->db->or_like($field, $s_p);
+				}
+			}
+			
+			$data['content'] = $this->db->get($type)->result();
+			$data['sortable'] = FALSE;
+		}
+		else
+		{
 		if(in_array("manager", $data['user_groups']))
 		{
 			$access_manufacturer = array();
@@ -117,22 +134,61 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$id_branchy = $this->db->field_exists('parent_id', $type);
+			$parent = $type == "emails" ? "type" : "parent_id";
+			switch($type)
+			{
+				case 'emails': 
+					$parent = 'type';
+					break;
+				case 'products': 
+					$parent = 'category_id';
+					break;
+				case 'categories': 
+					$parent = 'menu_id';
+					break;
+				default: 
+					$parent = 'parent_id';
+			}
+			
+			$id_branchy = $this->db->field_exists($parent, $type);
 			
 			if($id_branchy || $type == "products")
 			{
-				if($type == "products") $data['tree'] = $this->categories->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+				if($type == 'categories') $data['tree'] = $this->menu->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
+				
+				if($type == 'products') 
+				{
+					$data['menu_select'] = $this->menu->get_list(FALSE);
+										
+					$menu_id = $this->input->get('menu_id');
+					
+					$get_param = $menu_id ? array('menu_id' => $menu_id) : FALSE;
+					
+					$data['tree'] = $this->categories->get_list($get_param, FALSE, FALSE, 'name', 'asc');
+					
+					$categories_ids = $this->catalog->select_ids($data['tree']);
+					
+					$data['content'] = array();
+					
+					if(!empty($categories_ids))
+					{
+						$this->db->where_in('category_id', $categories_ids);
+						if($id) $this->db->where('category_id', $id);
+						$data['content'] = $this->db->get('products')->result();
+					}
+					$data['sortable'] = FALSE;
+					$data['menu_id'] = $menu_id;	
 
-				if($id == "all" || $id == '')
+					
+				}
+				elseif($id == "all" || $id == '')
 				{
 					$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
 					$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 					$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 				}
 				else
-				{
-					$parent = $type == "emails" ? "type" : "parent_id";
-				
+				{				
 					$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->per_page, $order, $direction);
 					$total_rows = count($this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction));
 					$data["parent_id"] = $id;
@@ -145,6 +201,13 @@ class Content extends Admin_Controller
 				$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 				$data['sortable'] = TRUE;
 			}
+		}
+		}
+		
+		if($type == 'child_users') 
+		{
+			$data['content'] = $this->child_users->prepare_list($data['content']);
+			$data['name'] = 'full_name';
 		}
 		
 		if(editors_get_name_field('img', $this->$type->editors))
