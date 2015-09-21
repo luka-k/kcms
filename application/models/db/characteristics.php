@@ -132,22 +132,22 @@ class Characteristics extends MY_Model
 		{
 			$query = "SELECT * FROM products ";
 			
-			if(!empty($id) || isset($filter['discontinued']) || isset($filter['on_request']) || isset($filter['in_stock']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+			if(!empty($id) || isset($filter['discontinued']) || isset($filter['on_request']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "WHERE ";
 			
 			//my_dump($filter);
-			if(!(isset($filter['on_request']) && isset($filter['in_stock'])))
+			if(!(isset($filter['on_request']) && isset($filter['stock_spb'])))
 			{
-				if(!isset($filter['on_request']) && !isset($filter['in_stock'])) return array();
+				if(!isset($filter['on_request']) && !isset($filter['stock_spb'])) return array();
 				
 				if(isset($filter['on_request']) && $filter['on_request'] == '1')
 				{
 					$query .= "qty = 0 ";
-					if(!empty($id) || isset($filter['discontinued']) || isset($filter['in_stock']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					if(!empty($id) || isset($filter['discontinued']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 						$query .= "AND ";
 				}
 			
-				if(isset($filter['in_stock']) && $filter['in_stock'] == '1')
+				if(isset($filter['stock_spb']) && $filter['stock_spb'] == '1')
 				{
 					$query .= "qty != 0 ";
 					if(!empty($id) || isset($filter['discontinued']) || isset($filter['collection_checked']) || isset($filter['is_sale']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))

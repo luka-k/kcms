@@ -20,6 +20,8 @@ class Cache extends Admin_Controller
 		$this->db->where('type', 'categories');
 		$this->db->delete('filters_cache');
 		$counter = 1;
+		
+		$availability = $this->config->item('availability');
 
 		echo '<h3>Категории</h3></br>';
 		
@@ -39,10 +41,13 @@ class Cache extends Admin_Controller
 					'last_type_filter' => 'categories_checked', 
 					'categories_checked' => array($child_category->id),
 					'manufacturer_checked' => array(),
-					'from' => 0,
-					'on_request' => 1,
-					'in_stock' => 1
+					'from' => 0
 				);
+				
+				foreach($availability as $key => $value)
+				{
+					$filters_checked[$key] = 1;
+				}
 				
 				$products = array();
 				$data = array();
@@ -78,8 +83,12 @@ class Cache extends Admin_Controller
 				
 				$data['categories_ch'][] = $child_category->name;
 				$data['category']->products = $products;
-				$data['availability_ch'][] = 'По запросу';
-				$data['availability_ch'][] = 'На складе';
+				
+				$data['availability_ch'] = array();
+				foreach($availability as $key => $value)
+				{
+					if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+				}
 
 				$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url;
 				
@@ -101,10 +110,13 @@ class Cache extends Admin_Controller
 				'filter' => TRUE, 
 				'last_type_filter' => 'categories_checked', 
 				'parent_checked' => array($category->id),
-				'from' => 0,
-				'on_request' => 1,
-				'in_stock' => 1
+				'from' => 0
 			);
+			
+			foreach($availability as $key => $value)
+			{
+				$filters_checked[$key] = 1;
+			}
 			
 			$products = array();
 			$data = array();
@@ -149,8 +161,12 @@ class Cache extends Admin_Controller
 				
 			$data['categories_ch'][] = $category->name;
 			$data['category']->products = $products;
-			$data['availability_ch'][] = 'По запросу';
-			$data['availability_ch'][] = 'На складе';
+			
+			$data['availability_ch'] = array();
+			foreach($availability as $key => $value)
+			{
+				if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+			}
 
 			$semantic_url = 'catalog/'.$category->url;
 			
@@ -176,6 +192,8 @@ class Cache extends Admin_Controller
 		$this->db->where('type', 'categories/manufacturer');
 		$this->db->delete('filters_cache');
 		$counter = 1;
+		
+		$availability = $this->config->item('availability');
 
 		echo '<h3>Категории</h3></br>';
 		
@@ -196,6 +214,11 @@ class Cache extends Admin_Controller
 					'manufacturer_checked' => array(),
 					'from' => 0,
 				);
+				
+				foreach($availability as $key => $value)
+				{
+					$filters_checked[$key] = 1;
+				}
 				
 				$products = array();
 				$data = array();
@@ -236,8 +259,11 @@ class Cache extends Admin_Controller
 				
 						$data['categories_ch'][] = $child_category->name;
 						$data['category']->products = $products;
-						$data['availability_ch'][] = 'По запросу';
-						$data['availability_ch'][] = 'На складе';
+							$data['availability_ch'] = array();
+						foreach($availability as $key => $value)
+						{
+							if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+						}
 
 						$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url.'/'.$manufacturer->url;
 					
@@ -262,10 +288,13 @@ class Cache extends Admin_Controller
 				'last_type_filter' => 'categories_checked', 
 				'parent_checked' => array($category->id),
 				'manufacturer_checked' => array(),
-				'from' => 0,
-				'on_request' => 1,
-				'in_stock' => 1
+				'from' => 0
 			);
+			
+			foreach($availability as $key => $value)
+			{
+				$filters_checked[$key] = 1;
+			}
 			
 			$filters_checked['categories_checked'] = $categories_checked;
 			
@@ -306,8 +335,12 @@ class Cache extends Admin_Controller
 					
 					$data['categories_ch'][] = $category->name;
 					$data['category']->products = $products;
-					$data['availability_ch'][] = 'По запросу';
-					$data['availability_ch'][] = 'На складе';
+					
+					$data['availability_ch'] = array();
+					foreach($availability as $key => $value)
+					{
+						if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+					}
 
 					$semantic_url = 'catalog/'.$category->url.'/'.$manufacturer->url;
 			
@@ -337,6 +370,8 @@ class Cache extends Admin_Controller
 		$this->db->where('type', 'manufacturers');
 		$this->db->delete('filters_cache');
 		
+		$availability = $this->config->item('availability');
+		
 		$manufacturers = $this->manufacturers->get_tree(FALSE);
 
 		$counter = 1;
@@ -346,10 +381,13 @@ class Cache extends Admin_Controller
 			$filters_checked = array(
 				'filter' => TRUE, 
 				'last_type_filter' => 'manufacturers_checked', 
-				'from' => 0,
-				'on_request' => 1,
-				'in_stock' => 1
+				'from' => 0
 			);
+			
+			foreach($availability as $key => $value)
+			{
+				$filters_checked[$key] = 1;
+			}
 			
 			$filters_checked['manufacturer_checked'][] = $manufacturer->id;
 			$manufacturer_ch = array($manufacturer->name);
@@ -382,8 +420,12 @@ class Cache extends Admin_Controller
 			
 			$data['category'] = new stdClass();
 			$data['category']->products = $products;
-			$data['availability_ch'][] = 'По запросу';
-			$data['availability_ch'][] = 'На складе';
+			
+			$data['availability_ch'] = array();
+			foreach($availability as $key => $value)
+			{
+				if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+			}
 			
 			$semantic_url = 'catalog/'.$manufacturer->url;
 			

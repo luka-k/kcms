@@ -44,15 +44,16 @@ class Catalog extends Client_Controller {
 		
 		//$this->session->sess_destroy("cart_contents");
 		
-		$availability = array(
+		/*$availability = array(
 			'on_request' => 'По запросу',
 			'in_stock' => 'На складе'
-		);
+		);*/
 		
-		$filters_checked = array(
-			'on_request' => 1,
-			'in_stock' => 1
-		);
+		$availability = $this->config->item('availability');
+		foreach($availability as $key => $value)
+		{
+			$filters_checked[$key] = 1;
+		}
 		
 		$data = array(
 			'title' => 'Интернет-магазин bрайтbилd',
@@ -124,9 +125,13 @@ class Catalog extends Client_Controller {
 			'filter' => TRUE, 
 			'last_type_filter' => 'categories_checked', 
 			'from' => 0,
-			'on_request' => 1,
-			'in_stock' => 1
 		);
+		
+		$availability = $this->config->item('availability');
+		foreach($availability as $key => $value)
+		{
+			$filters_checked[$key] = 1;
+		}
 
 		if($content == "root")
 		{
@@ -389,10 +394,14 @@ class Catalog extends Client_Controller {
 			{
 				$data['title'] = $data['categories_ch'][0].' | интернет-магазин bрайтbилd';
 			}
+
+			$availability = $this->config->item('availability');
 			
 			$data['availability_ch'] = array();
-			if($data['filters_checked']['on_request'] == 1) $data['availability_ch'][] = 'По запросу';
-			if($data['filters_checked']['in_stock'] == 1) $data['availability_ch'][] = 'На складе';
+			foreach($availability as $key => $value)
+			{
+				if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+			}
 
 			$this->filters_cache->insert($cache_id, $data);
 			
