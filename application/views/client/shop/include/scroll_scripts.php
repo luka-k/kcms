@@ -8,7 +8,7 @@
 		$(".cart-info").height($(window).height() - 65);
 		
 		$(".secondcolumn").height($( window ).height() - 100);
-		$("#shadow").height($( window ).height() - 262);
+		$("#shadow").height($( window ).height() - 304);
 		$("#full-shadow").height($( window ).height() - 93);
 		$("#wrapper").height($( window ).height() - 65);
 		$("#scroll-right").height($(window).height() - 93);
@@ -38,7 +38,7 @@
 						$(".cart-info").height($(window).height() - 65 + $(this).scrollTop());
 		
 						$(".secondcolumn").height($( window ).height() - 105  + $(this).scrollTop());
-						$("#shadow").height($( window ).height() - 262  + $(this).scrollTop());
+						$("#shadow").height($( window ).height() - 304 + $(this).scrollTop());
 						$("#full-shadow").height($( window ).height() - 98  + $(this).scrollTop());
 						$("#wrapper").height($( window ).height() - 65  + $(this).scrollTop());
 						$("#scroll-right").height($(window).height() - 105  + $(this).scrollTop());
@@ -57,7 +57,7 @@
 						$(".cart-info").height($(window).height() - 65 + 60);
 		
 						$(".secondcolumn").height($( window ).height() - 105 + 60);
-						$("#shadow").height($( window ).height() - 262 + 60);
+						$("#shadow").height($( window ).height() - 304 + 60);
 						$("#full-shadow").height($( window ).height() - 98 + 60);
 						$("#wrapper").height($( window ).height() - 65 + 60);
 						$("#scroll-right").height($(window).height() - 105 + 60);
@@ -88,7 +88,7 @@
 		advanced:{autoExpandHorizontalScroll:true}, //auto-expand content to accommodate floated elements
 	});
 </script>
-<?if(isset($filters_checked) && count($filters_checked) > 3 || isset($no_shadow)):?>
+<?if(isset($no_shadow)):?>
 	<script>
 		$(".leftmenu").mCustomScrollbar({
 			axis:"y", //set both axis scrollbars

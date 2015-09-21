@@ -72,22 +72,7 @@
 			</div>
 			<div class="lm-block">
 				<div class="lm-caption">
-					Производители:
-				</div>
-				<div class="lm-item" prop="secondcolumn2">
-					<?if(empty($manufacturer_ch)):?>
-						<span class="lm-title">Все производители</span>
-					<?else:?>
-						<?=$manufacturer_ch[0]?>
-						<?if(count($manufacturer_ch) > 1):?>
-							[<?= count($manufacturer_ch)?>]
-						<?endif;?>
-					<?endif;?>
-				</div>
-			</div>
-			<div class="lm-block">
-				<div class="lm-caption">
-					Коллекция/Серия:
+					Производитель/Коллекция/Серия:
 				</div>
 				<div class="lm-item" prop="secondcolumn3">
 					<?if(empty($collections_ch)):?>
@@ -102,7 +87,7 @@
 			</div>
 			<div class="lm-block">
 				<div class="lm-caption">
-					Артикулы:
+					Производитель/Артикул:
 				</div>
 				<div class="lm-item" prop="secondcolumn4">
 					<?if(empty($sku_ch)):?>
