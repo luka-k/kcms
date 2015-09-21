@@ -23,24 +23,26 @@ class Export{
 		
 		if(is_file($file_path)) unlink($file_path);
 		
-		$sql = file_get_contents(FCPATH."export/sql/export.sql");
-		
 		$sqlite = new sqlite3($file_path);
 		
-		$sqlite->query($sql);	
-
-		$insert_info = $this->get_insert_info_by_school($school);
+		$sql = file_get_contents(FCPATH."export/sql/export.sql");
+		$sqlite->query($sql);
+		
+		$insert_info = $this->get_school_info($school->id, $sqlite);
 		
 		foreach($tables as $table)
 		{
-			echo '<strong>Экспорт базы '.$table.' для школы '.$school->name.'</strong><br />';
+			if(isset($insert_info[$table]) && !empty($insert_info[$table]))
+			{
+				echo '<strong>Экспорт базы '.$table.' для школы '.$school->name.'</strong><br />';
 			
-			$this->CI->benchmark->mark('code_start');
+				//$this->CI->benchmark->mark('code_start');
+				
+				$this->export_table($sqlite, $file_path, $table, $insert_info[$table]);
 			
-			$this->export_table($sqlite, $file_path, $table, $insert_info);
-			
-			$this->CI->benchmark->mark('code_end');
-			echo 'Затраченое время - '.$this->CI->benchmark->elapsed_time('code_start', 'code_end').'<br />';
+				//$this->CI->benchmark->mark('code_end');
+				//echo 'Затраченое время - '.$this->CI->benchmark->elapsed_time('code_start', 'code_end').'<br />';
+			}
 			
 			//Проверка
 
@@ -51,14 +53,17 @@ class Export{
 			{
 				my_dump($row);
 			}*/
-		}	
-
+		}
 	}
 	
-	protected function get_insert_info_by_school($school)
-	{
-		$child_users = $this->CI->child_users->get_list(array('school_id' => $school->id));
-		$menu = $this->CI->menu->get_item_by(array('school_id' => $school->id));
+	private function get_school_info($school_id, $sqlite)
+	{	
+		$this->CI->db->where('school_id', $school_id);
+		$this->set_fields('child_users', $sqlite);
+		$child_users = $this->CI->db->get('child_users')->result();
+		
+		$this->CI->db->where('school_id', $school_id);
+		$menu = $this->CI->db->get('menu')->row();
 		
 		$cards = array();
 		$child2product = array();
@@ -69,10 +74,12 @@ class Export{
 				$card_numbers[] = $ch_u->card_number;
 			}			
 			$this->CI->db->where_in('card_number', $card_numbers);
+			$this->set_fields('cards', $sqlite);
 			$cards = $this->CI->db->get('cards')->result(); 
 		
 			$ch_ids = $this->CI->catalog->ids_in_array($child_users);
 			$this->CI->db->where_in('child_user_id', $ch_ids);
+			$this->set_fields('child2product', $sqlite);
 			$child2product = $this->CI->db->get('child2product')->result();
 		}
 		
@@ -80,19 +87,21 @@ class Export{
 		$products = array();
 		if($menu)
 		{
-			$categories = $this->CI->categories->get_list(array('menu_id' => $menu->id));
+			$this->CI->db->where('menu_id', $menu->id);
+			$this->set_fields('categories', $sqlite);
+			$categories = $this->CI->db->get('categories')->result(); 
 			
 			if(!empty($categories))
 			{
 				$categories_ids = $this->CI->catalog->ids_in_array($categories);
 				$this->CI->db->where_in('id', $categories_ids);
+				$this->set_fields('products', $sqlite);
 				$products = $this->CI->db->get('products')->result();
 			}
 		}
 		
 		$insert_info = array(
 			'child_users' => $child_users,
-			'menu' => $menu,
 			'cards' => $cards,
 			'child2product' => $child2product,
 			'categories' => $categories,
@@ -102,7 +111,7 @@ class Export{
 		return $insert_info;
 	}
 	
-	protected function export_table($sqlite, $file_path, $table, $insert_info)
+	private function set_fields($table, $sqlite)
 	{
 		$result = $sqlite->query("SELECT * FROM {$table}");
 
@@ -110,63 +119,64 @@ class Export{
 		
 		for($i = 0; $i < $result->numColumns(); $i++)
 		{
-			$table_fields[] = $result->columnName($i);
+			$this->CI->db->select($result->columnName($i));
+		}
+	}
+	
+	private function export_table($sqlite, $file_path, $table, $insert_info)
+	{
+		$sql = "";
+		if($table == "child_users") $images = array();
+		
+		$val = array();
+		foreach($insert_info as $line)
+		{ 
+			$fields = '';
+			$values = '';
+			$counter = 1;	
+				
+			if($table == "child_users") $images[$line->id] = $line->image;
+				
+			foreach($line as $key => $value)
+			{
+				$fields .= "{$key}"; 
+				
+				$values .= $key <> 'image' ? "'{$value}'" : "''";
+				if($counter <> count((array)$line)) 
+				{
+					$fields .= ', ';
+					$values .= ', ';
+				}
+				$counter++;
+			}				
+			
+			$val[] = $values;
+		}
+				
+		$sql .= "INSERT INTO {$table} ({$fields}) VALUES";
+		foreach($val as $key => $v)
+		{
+			$sql .= "({$v})";
+			if($key <> count($val) - 1)
+			{
+				$sql .= ', ';
+			}
 		}
 		
-		if(isset($insert_info[$table]) && !empty($insert_info[$table]))
-		{
-			$sql = "";
+		//$this->CI->benchmark->mark('start');
+		//echo $sql.'<br />';
+		$sqlite->query($sql);
 		
-			if($table == "child_users") $images = array();
-			
-			foreach($insert_info[$table] as $line)
-			{ 
-				$fields = '';
-				$values = '';
-				$counter = 1;
-				
-				if($table == "child_users") $images[$line->id] = $line->image;
-				
-				foreach($line as $key => $value)
-				{
-					if(in_array($key, $table_fields))
-					{
-						$fields .= "{$key}"; 
-					
-						if($key <> "image")
-						{
-							$values .= "'{$value}'";
-						}
-						else
-						{
-							$values .= "''";
-						}
-								
-						if($counter <> count($table_fields)) 
-						{
-							$fields .= ', ';
-							$values .= ', ';
-						}
-					
-						$counter++;
-					}
-				}
-				
-				$sql .= "INSERT INTO {$table} ({$fields}) VALUES ({$values});";
-			}
-
-			$sqlite->query($sql);
-			
-			if($table == "child_users")
+		//$this->CI->benchmark->mark('end');
+		//echo "Время на запрос - ".$this->CI->benchmark->elapsed_time('start', 'end').'<br />';
+		if($table == "child_users")
+		{
+			foreach($images as $id => $image)
 			{
-				foreach($images as $id => $image)
-				{
-					$query = $sqlite->prepare("UPDATE '{$table}' SET image=? WHERE id=?");
-
-					$query->bindValue(1, $image, SQLITE3_BLOB);
-					$query->bindValue(2, $id, SQLITE3_TEXT);
-					$run = $query->execute();
-				}
+				$query = $sqlite->prepare("UPDATE '{$table}' SET image=? WHERE id=?");
+				$query->bindValue(1, $image, SQLITE3_BLOB);
+				$query->bindValue(2, $id, SQLITE3_TEXT);
+				$run = $query->execute();
 			}
 		}
 	}
