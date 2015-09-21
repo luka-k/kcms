@@ -396,10 +396,11 @@ class Catalog extends Client_Controller {
 				$data['title'] = $data['categories_ch'][0].' | интернет-магазин bрайтbилd';
 			}
 			
+			$availability = $this->config->item('availability');
 			$data['availability_ch'] = array();
 			foreach($availability as $key => $value)
 			{
-				if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+				if(isset($data['filters_checked'][$key]) && $data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
 			}
 
 			$this->filters_cache->insert($cache_id, $data);
