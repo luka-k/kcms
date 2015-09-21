@@ -44,11 +44,6 @@ class Catalog extends Client_Controller {
 		
 		//$this->session->sess_destroy("cart_contents");
 		
-		/*$availability = array(
-			'on_request' => 'По запросу',
-			'in_stock' => 'На складе'
-		);*/
-		
 		$availability = $this->config->item('availability');
 		foreach($availability as $key => $value)
 		{
@@ -241,6 +236,12 @@ class Catalog extends Client_Controller {
 				'direction' => 'asc',
 				'discontinued' => 2
 			);
+			
+			$availability = $this->config->item('availability');
+			foreach($availability as $key => $value)
+			{
+				$this->post[$key] = 1;
+			}
 		}
 
 		$cache_id = md5(serialize($this->post));
@@ -394,8 +395,6 @@ class Catalog extends Client_Controller {
 			{
 				$data['title'] = $data['categories_ch'][0].' | интернет-магазин bрайтbилd';
 			}
-
-			$availability = $this->config->item('availability');
 			
 			$data['availability_ch'] = array();
 			foreach($availability as $key => $value)
