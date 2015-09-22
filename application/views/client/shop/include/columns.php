@@ -159,7 +159,10 @@
 					   onclick="checked_tree('<?=$s->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($s->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<?if($s->sku):?> <span class="level1_click"><?if(count($sku_tree) == 1):?>-<?else:?>+<?endif;?></span> <?endif;?> <a href="#" class="level1_link"><?=$s->name?></a>
+				<?if($s->sku):?> 
+					<span class="level1_click"><?if(count($sku_tree) == 1):?>-<?else:?>+<?endif;?></span>
+				<?endif;?> 
+				<a href="<?=base_url()?>catalog/<?=$s->url?>" class="level1_link"><?=$s->name?></a>
 				<?if($s->sku):?>
 					<ul id="sub-sku-<?=$s->id?>" style="display:<?if(count($sku_tree) == 1):?>block<?endif;?>">
 						<?foreach($s->sku as $sku):?>
@@ -167,11 +170,11 @@
 								<input type="checkbox" 
 									   class="sku-branch-<?=$s->id?> sku-filter" 
 									   name="sku_checked[]" 
-									   value="<?=$sku?>" 
+									   value="<?=$sku->sku?>" 
 									   onclick="checked_tree('<?=$s->id?>', 'sku', 'child'); $('#last_type_filter').val('sku_checked');"
 									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
 								/>
-								<a href="#"><?=$sku?></a>
+								<a href="<?=$sku->full_url?>"><?=$sku->sku?></a>
 							</li>
 						<?endforeach;?>
 					</ul>
@@ -195,7 +198,8 @@
 					   onclick="checked_tree('<?=$col_manufacturers->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($col_manufacturers->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<span class="level1_click"><?if(count($collection) == 1):?>-<?else:?>+<?endif;?></span> <a href="#" class="level1_link"><?=$col_manufacturers->name?></a>
+				<span class="level1_click"><?if(count($collection) == 1):?>-<?else:?>+<?endif;?></span> 
+				<a href="<?=base_url()?>catalog/<?=$col_manufacturers->url?>" class="level1_link"><?=$col_manufacturers->name?></a>
 				<?if($col_manufacturers->childs):?>
 					<ul style="display:<?if(count($collection) == 1):?>block<?endif;?>">
 						<?foreach($col_manufacturers->childs as $level_1):?>

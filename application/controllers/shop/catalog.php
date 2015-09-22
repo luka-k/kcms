@@ -132,7 +132,7 @@ class Catalog extends Client_Controller {
 		{
 			$cache_id = md5(serialize($content));
 			$cache = $this->filters_cache->get($cache_id);
-			$cache = FALSE;
+			//$cache = FALSE;
 			if($cache)
 			{
 				$this->filters_cache->set_last($cache_id);
@@ -248,8 +248,8 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
-		if($cache) $this->filters_cache->delete($cache_id);
-		$cache = FALSE;
+		//if($cache) $this->filters_cache->delete($cache_id);
+		//$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);

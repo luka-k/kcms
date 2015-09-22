@@ -57,12 +57,22 @@ class Manufacturers extends MY_Model
 			foreach($products as $p)
 			{
 				$m_ids[] = $p->manufacturer_id;
-				$sku[$p->manufacturer_id][] = $p->sku;
+				$sku[$p->manufacturer_id][] = $p;
 			}
 		
 			foreach($sku as $i => $articls)
 			{
-				asort($articls, SORT_STRING);
+				$volume = array();
+				foreach ($articls as $key => $row) 
+				{
+					$volume[$key]  = $row->sku;
+				}
+				array_multisort($volume, SORT_ASC, $articls);
+				/*asort($articls, SORT_STRING);*/
+				foreach($articls as $key => $a)
+				{
+					$articls[$key]->full_url = $this->products->get_url($a);
+				}
 				$sku[$i] = $articls;
 			}
 		

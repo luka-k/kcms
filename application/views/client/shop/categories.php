@@ -58,6 +58,16 @@
 									<?endforeach?>
 									</div><div style="clear: both;"></div>
 								<?endif?>
+								
+								<?if(isset($childs_collections)):?>
+									<div class="category clearfix" style="margin-bottom:12px;">
+									<?foreach ($childs_collections->childs as $c): ?>
+										<div class="point" style="float: left;line-height: 18px;font-size:12px;">
+											<a href="<?=base_url()?>catalog/<?=$childs_collections->url?>/<?=$c->url?>"><?=$c->name?></a>
+										</div>
+									<?endforeach?>
+									</div><div style="clear: both;"></div>
+								<?endif;?>
 									
 								<?if(!empty($category->products)):?>
 								<div id="products_div">

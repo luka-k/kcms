@@ -118,27 +118,6 @@ class Collections extends MY_Model
 		return $tree;
 	}
 	
-	/**
-	*
-	*/
-	public function get_tree_old($ids = FALSE, $selected = array())
-	{
-		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
-
-		$filtred_ids = array();
-		
-		$this->db->where_in('child_id', $ids);
-		$result = $this->db->get('product2collection')->result();
-		foreach($result as $r)
-		{
-			$filtred_ids[] = $r->collection_parent_id;
-		}
-		
-		$tree = $this->_get_tree(0, $filtred_ids, $selected);
-		
-		return $tree;
-	}
-	
 	private function _get_tree($parent_id, $filtred_ids, $selected)
 	{
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
@@ -165,6 +144,22 @@ class Collections extends MY_Model
 			}
 		}		
 		return $branches;
+	}
+	
+	public function get_products_by_collection($collection_id, $from, $limit, $order, $direction)
+	{
+		$products = array();
+		
+		$products_ids = $this->table2table->get_parent_ids('product2collection', 'child_id', 'collection_parent_id', $collection_id);
+		if(!empty($products_ids))
+		{
+			$this->db->where_in('id', $products_ids);
+			if($limit) $this->db->limit($limit, $from);
+			if($order) $this->db->order_by($order, $direction);
+			$products = $this->db->get('products')->result();
+		}
+		
+		return $products;
 	}
                                                                                                                                                        
 	function prepare($item)

@@ -23,7 +23,7 @@ class Cache extends Admin_Controller
 		
 		$availability = $this->config->item('availability');
 
-		echo '<h3>Категории</h3></br>';
+		echo '<h3>Категории</h3><br />';
 		
 		$categories = $this->categories->get_admin_tree(0);
 		//$categories = $this->categories->get_tree();
@@ -92,7 +92,7 @@ class Cache extends Admin_Controller
 
 				$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url;
 				
-				echo $counter.' - '.$semantic_url.'</br>';
+				echo $counter.' - '.$semantic_url.'<br />';
 				$cache_id = md5(serialize($semantic_url));
 								
 				$insert_data[] = array(
@@ -170,7 +170,7 @@ class Cache extends Admin_Controller
 
 			$semantic_url = 'catalog/'.$category->url;
 			
-			echo $counter.' - '.$semantic_url.'</br>';
+			echo $counter.' - '.$semantic_url.'<br />';
 			$cache_id = md5(serialize($semantic_url));
 
 			$insert_data[] = array(
@@ -195,7 +195,7 @@ class Cache extends Admin_Controller
 		
 		$availability = $this->config->item('availability');
 
-		echo '<h3>Категории</h3></br>';
+		echo '<h3>Категории</h3><br />';
 		
 		$categories = $this->categories->get_admin_tree(0);
 		$manufacturers = $this->manufacturers->get_tree();
@@ -259,7 +259,7 @@ class Cache extends Admin_Controller
 				
 						$data['categories_ch'][] = $child_category->name;
 						$data['category']->products = $products;
-							$data['availability_ch'] = array();
+						$data['availability_ch'] = array();
 						foreach($availability as $key => $value)
 						{
 							if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
@@ -267,7 +267,7 @@ class Cache extends Admin_Controller
 
 						$semantic_url = 'catalog/'.$category->url.'/'.$child_category->url.'/'.$manufacturer->url;
 					
-						echo $counter.' - '.$semantic_url.'</br>';
+						echo $counter.' - '.$semantic_url.'<br />';
 						$cache_id = md5(serialize($semantic_url));
 
 						$insert_data[] = array(
@@ -344,7 +344,7 @@ class Cache extends Admin_Controller
 
 					$semantic_url = 'catalog/'.$category->url.'/'.$manufacturer->url;
 			
-					echo $counter.' - '.$semantic_url.'</br>';
+					echo $counter.' - '.$semantic_url.'<br />';
 					$cache_id = md5(serialize($semantic_url));
 
 					$insert_data[] = array(
@@ -365,7 +365,7 @@ class Cache extends Admin_Controller
 	
 	public function refresh_manufacturers()
 	{
-		echo '<h3>Производители</h3></br>';
+		echo '<h3>Производители/Коллекции</h3><br />';
 		
 		$this->db->where('type', 'manufacturers');
 		$this->db->delete('filters_cache');
@@ -400,22 +400,30 @@ class Cache extends Admin_Controller
 			
 			$left_menu = $this->categories->get_tree($all_products);
 			
+			$collection_tree = $this->collections->get_tree($all_products_ids);
+			
+			foreach($collection_tree as $m)
+			{
+				if($m->url == $manufacturer->url) $child_collections = $m;
+			}
+			
 			$data = array(
 				'filters_checked' => $filters_checked,
 				'childs_categories' => array(),
+				'childs_collections' => $child_collections,
 				'title' => $manufacturer->name.' | интернет-магазин bрайтbилd',
 				'meta_keywords' => $manufacturer->meta_keywords,
 				'meta_description' => $manufacturer->meta_description,
 				'left_menu' => $left_menu,
 				'manufacturer' => $manufacturers,
 				'manufacturer_ch' => $manufacturer_ch,
-				'collection' =>	$this->collections->get_tree($all_products_ids),
+				'collection' =>	$collection_tree,
 				'sku_tree' => $this->manufacturers->get_tree($all_products),
 				'nok' => $this->catalog->get_nok_tree($all_products_ids),
 				'filters' => $this->characteristics_type->get_filters($all_products),
 				'categories_ch' => array(),
 				'all_products_ids' => $all_products_ids,
-				'total_rows' => $total_rows
+				'total_rows' => $total_rows,
 			);
 			
 			$data['category'] = new stdClass();
@@ -434,6 +442,72 @@ class Cache extends Admin_Controller
 				
 			$this->filters_cache->insert($cache_id, $data, 'manufacturers', $semantic_url);
 			$counter++;
+
+			if(!empty($child_collections->childs))
+			{
+				foreach($child_collections->childs as $collection)
+				{
+					$filters_checked = array(
+						'filter' => TRUE, 
+						'last_type_filter' => 'collection_checked', 
+						'from' => 0
+					);
+			
+					foreach($availability as $key => $value)
+					{
+						$filters_checked[$key] = 1;
+					}
+					
+					$filters_checked['collection_checked'][] = $collection->id;
+					$collection_ch = array($collection->name);
+			
+					$products = $this->collections->get_products_by_collection($collection->id, 0, 10, 'name', 'asc');
+					$all_products = $this->collections->get_products_by_collection($collection->id, FALSE, FALSE, 'name', 'asc');
+
+					$total_rows = count($all_products);
+			
+					$all_products_ids = $this->catalog->get_products_ids($all_products);
+			
+					$left_menu = $this->categories->get_tree($all_products);
+					$collection_tree = $this->collections->get_tree($all_products_ids);
+					
+					$data = array(
+						'filters_checked' => $filters_checked,
+						'childs_categories' => array(),
+						'childs_collections' => $child_collections,
+						'title' => $manufacturer->name.' - '.$collection->name.' | интернет-магазин bрайтbилd',
+						'meta_keywords' => $collection->meta_keywords,
+						'meta_description' => $collection->meta_description,
+						'left_menu' => $left_menu,
+						'manufacturer' => $manufacturers,
+						'collection_ch' => $manufacturer_ch,
+						'collection' =>	$collection_tree,
+						'sku_tree' => $this->manufacturers->get_tree($all_products),
+						'nok' => $this->catalog->get_nok_tree($all_products_ids),
+						'filters' => $this->characteristics_type->get_filters($all_products),
+						'categories_ch' => array(),
+						'all_products_ids' => $all_products_ids,
+						'total_rows' => $total_rows,
+					);
+			
+					$data['category'] = new stdClass();
+					$data['category']->products = $products;
+			
+					$data['availability_ch'] = array();
+					foreach($availability as $key => $value)
+					{
+						if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+					}
+			
+					$semantic_url = 'catalog/'.$manufacturer->url.'/'.$collection->url;
+			
+					echo $counter.' - '.$semantic_url.'<br />';
+					$cache_id = md5(serialize($semantic_url));
+				
+					$this->filters_cache->insert($cache_id, $data, 'manufacturers', $semantic_url);
+					$counter++;
+				}
+			}
 		}
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";
