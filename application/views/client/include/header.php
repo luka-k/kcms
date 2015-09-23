@@ -16,7 +16,7 @@
 					<a href="#">Магазин</a><span class="marker">&nbsp;</span>
 					<ul>
 						<li class=""><a href="http://shop.brightbuild.ru/catalog">Товары</a></li>
-						<li class=""><a href="http://shop.brightbuild.ru/catalog/sale/">Распродажа</a></li>
+						<li class=""><a href="http://shop.brightbuild.me/catalog/sale/">Распродажа</a></li>
 						<li class=""><a href="<?=base_url()?>">Оплата/Доставка</a></li>
 					</ul>
 				</li>

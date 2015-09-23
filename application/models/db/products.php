@@ -121,7 +121,7 @@ class Products extends MY_Model
 	/**
 	* Получение url продукта
 	*
-	* @param object $item
+	* @param object $item0
 	* @return string
 	*/
 	public function get_url($item)

@@ -266,7 +266,8 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= ".brightbuild.ru";
+$config['cookie_domain']	= "";
+//$config['cookie_domain']	= ".brightbuild.ru";
 //$config['cookie_domain']	= ".brightbuild.me";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
@@ -373,6 +374,15 @@ $config['admin_import_pass'] = 'dKlrMkoIf40eFo8';
 */
 
 $config['wishlist'] = 'kcms';
+
+/**
+* Фильры наличие товара
+*/
+
+$config['availability'] = array(
+	'on_request' => 'По запросу',
+	'stock_spb' => 'Склад СПб'
+);
 
 /**
 * Найстройки sitemap

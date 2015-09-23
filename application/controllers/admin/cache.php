@@ -26,7 +26,6 @@ class Cache extends Admin_Controller
 		echo '<h3>Категории</h3><br />';
 		
 		$categories = $this->categories->get_admin_tree(0);
-		//$categories = $this->categories->get_tree();
 		$left_menu = $this->categories->get_tree();
 
 		$insert_data = array();
@@ -68,7 +67,6 @@ class Cache extends Admin_Controller
 					'filters_checked' => $filters_checked,
 					'manufacturer_ch' => array(),
 					'left_menu' => $left_menu,
-					'manufacturer' => $manufacturers,
 					'collection' => $this->collections->get_tree($all_products_ids),
 					'sku_tree' => $manufacturers,
 					'nok' => $this->catalog->get_nok_tree($all_products_ids),
@@ -95,12 +93,14 @@ class Cache extends Admin_Controller
 				echo $counter.' - '.$semantic_url.'<br />';
 				$cache_id = md5(serialize($semantic_url));
 								
-				$insert_data[] = array(
+				$insert_data = array(
 					'id' => $cache_id,
 					'cache_data' => serialize($data),
 					'semantic_url' => $semantic_url,
 					'type' => 'categories'
 				);
+				$this->db->insert('filters_cache', $insert_data);
+				
 				$counter++;
 				
 				$categories_checked[] = $child_category->id;
@@ -146,7 +146,6 @@ class Cache extends Admin_Controller
 				'filters_checked' => $filters_checked,
 				'manufacturer_ch' => array(),
 				'left_menu' => $left_menu,
-				'manufacturer' => $manufacturers,
 				'collection' => $this->collections->get_tree($all_products_ids),
 				'sku_tree' => $this->manufacturers->get_tree($all_products),
 				'nok' => $this->catalog->get_nok_tree($all_products_ids),
@@ -173,16 +172,17 @@ class Cache extends Admin_Controller
 			echo $counter.' - '.$semantic_url.'<br />';
 			$cache_id = md5(serialize($semantic_url));
 
-			$insert_data[] = array(
+			$insert_data = array(
 				'id' => $cache_id,
 				'cache_data' => serialize($data),
 				'semantic_url' => $semantic_url,
 				'type' => 'categories'
 			);
+			$this->db->insert('filters_cache', $insert_data);
 			$counter++;
 		}
 		
-		$this->db->insert_batch('filters_cache', $insert_data);
+		//$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
@@ -244,7 +244,6 @@ class Cache extends Admin_Controller
 							'filters_checked' => $filters_checked,
 							'manufacturer_ch' => array(),
 							'left_menu' => $this->categories->get_tree($all_products),
-							'manufacturer' => $manufacturers,
 							'manufacturer_ch' => array($manufacturer->name),
 							'collection' => $this->collections->get_tree($all_products_ids),
 							'sku_tree' => $this->manufacturers->get_tree($all_products),
@@ -320,7 +319,6 @@ class Cache extends Admin_Controller
 						'filters_checked' => $filters_checked,
 						'manufacturer_ch' => array(),
 						'left_menu' => $this->categories->get_tree($all_products),
-						'manufacturer' => $manufacturers,
 						'manufacturer_ch' => array($manufacturer->name),
 						'collection' => $this->collections->get_tree($all_products_ids),
 						'sku_tree' => $this->manufacturers->get_tree($all_products),
@@ -358,7 +356,7 @@ class Cache extends Admin_Controller
 			}
 		}
 		
-		$this->db->insert_batch('filters_cache', $insert_data);
+		//$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
@@ -415,7 +413,6 @@ class Cache extends Admin_Controller
 				'meta_keywords' => $manufacturer->meta_keywords,
 				'meta_description' => $manufacturer->meta_description,
 				'left_menu' => $left_menu,
-				'manufacturer' => $manufacturers,
 				'manufacturer_ch' => $manufacturer_ch,
 				'collection' =>	$collection_tree,
 				'sku_tree' => $this->manufacturers->get_tree($all_products),
@@ -479,7 +476,6 @@ class Cache extends Admin_Controller
 						'meta_keywords' => $collection->meta_keywords,
 						'meta_description' => $collection->meta_description,
 						'left_menu' => $left_menu,
-						'manufacturer' => $manufacturers,
 						'collection_ch' => $manufacturer_ch,
 						'collection' =>	$collection_tree,
 						'sku_tree' => $this->manufacturers->get_tree($all_products),

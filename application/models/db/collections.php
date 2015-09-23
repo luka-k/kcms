@@ -122,11 +122,6 @@ class Collections extends MY_Model
 	{
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
 		
-		/*$this->db->where('parent_id', $parent_id);
-		$this->db->order_by('name', 'asc');
-		$this->db->order_by('manufacturer_id', 'asc');
-		$this->db->order_by('is_collection', 'asc');
-		$branches = $this->db->get()-.result();*/
 		$branches = $this->get_list(array('parent_id' => $parent_id), FALSE, FALSE, 'name', 'asc');
 		
 		$branches = $this->prepare_list($branches);

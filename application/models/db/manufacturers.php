@@ -47,55 +47,45 @@ class Manufacturers extends MY_Model
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
 		
+		if(isset($selected['sku_checked']))
+		{
+			$this->db->where_in('sku', $selected['sku_checked']);
+			$result = $this->db->get('products')->result();
+			$products = array_merge($result, $products);
+		}
+		
 		$manufacturer = array();
 		$manufacturer_tree = array();
 		$m_ids = array();
 		$sku = array();
 		
-		if($products)
+		foreach($products as $p)
 		{
-			foreach($products as $p)
+			$m_ids[] = $p->manufacturer_id;
+			$sku[$p->manufacturer_id][] = $p;
+		}
+		
+		foreach($sku as $i => $articls)
+		{
+			$volume = array();
+			foreach ($articls as $key => $row) 
 			{
-				$m_ids[] = $p->manufacturer_id;
-				$sku[$p->manufacturer_id][] = $p;
+				$volume[$key]  = $row->sku;
+				//$articls[$key]->full_url = $this->products->get_url($row);
 			}
-		
-			foreach($sku as $i => $articls)
-			{
-				$volume = array();
-				foreach ($articls as $key => $row) 
-				{
-					$volume[$key]  = $row->sku;
-				}
-				array_multisort($volume, SORT_ASC, $articls);
-				/*asort($articls, SORT_STRING);*/
-				foreach($articls as $key => $a)
-				{
-					$articls[$key]->full_url = $this->products->get_url($a);
-				}
-				$sku[$i] = $articls;
-			}
-		
-		
-			$this->db->order_by('name', 'asc'); 
-			if(!empty($m_ids)) $this->db->where_in('id', array_unique($m_ids));
-			$manufacturer = $this->db->get($this->_table)->result();
-		
-			if(isset($selected['sku_checked'])) foreach($selected['sku_checked'] as $sk)
-			{	
-				$product = $this->products->get_item_by(array('sku' => $sk));	
-				$sku[$product->manufacturer_id][] = $sk; 
-			}
-		
-			foreach($manufacturer as $i => $m)
-			{
-				$manufacturer[$i]->sku = $sku[$m->id];
-			}
+			array_multisort($volume, SORT_ASC, $articls);
 			
-			foreach($manufacturer as $m)
-			{
-				$manufacturer_tree[$m->id] = $m;
-			}
+			$sku[$i] = $articls;
+		}
+		
+		$this->db->order_by('name', 'asc'); 
+		if(!empty($m_ids)) $this->db->where_in('id', array_unique($m_ids));
+		$manufacturer = $this->db->get($this->_table)->result();
+		
+		foreach($manufacturer as $i => $m)
+		{
+			$m->sku = $sku[$m->id];
+			$manufacturer_tree[$m->id] = $m;
 		}
 
 		return $manufacturer_tree;

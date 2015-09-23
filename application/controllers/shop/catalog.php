@@ -168,6 +168,15 @@ class Catalog extends Client_Controller {
 				
 				$this->filters_cache->insert($cache_id, $data);
 			}
+			
+			if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
+			{
+				foreach($manufacturer->sku as $i => $sku)
+				{
+					$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+				}
+			}
+			
 			$this->load->view("client/shop/index", $data);
 		}
 		else
@@ -178,7 +187,7 @@ class Catalog extends Client_Controller {
 	
 			$data = $this->filters_cache->get($cache_id);
 			
-			//$cache = FALSE;
+			//$data = FALSE;
 			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);
@@ -210,6 +219,14 @@ class Catalog extends Client_Controller {
 				
 				$data['no_shadow'] = TRUE;
 				$data = array_merge($this->standart_data, $data);
+				
+				if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
+				{
+					foreach($manufacturer->sku as $i => $sku)
+					{
+						$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+					}
+				}
 		
 				$this->load->view("client/shop/categories", $data);
 			}
@@ -428,6 +445,14 @@ class Catalog extends Client_Controller {
 			redirect(base_url().'catalog');
 		}
 		
+		if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
+		{
+			foreach($manufacturer->sku as $i => $sku)
+			{
+				$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+			}
+		}
+		
 		$this->load->view("client/shop/categories", $data);
 	}
 	
@@ -470,7 +495,6 @@ class Catalog extends Client_Controller {
 		{
 			$data['filters'] = $cache_data['filters'];
 			$data['left_menu'] = $cache_data['left_menu'];
-			$data['manufacturer'] = $cache_data['manufacturer'];
 			
 			if(isset($cache_data['filters_checked'])) $data['filters_checked'] = $cache_data['filters_checked'];
 			if(isset($cache_data['categories_ch'])) $data['categories_ch'] = $cache_data['categories_ch'];
@@ -490,6 +514,14 @@ class Catalog extends Client_Controller {
 		}
 
 		$data = array_merge($this->standart_data, $data);
+		
+		if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
+		{
+			foreach($manufacturer->sku as $i => $sku)
+			{
+				$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+			}
+		}
 		
 		$this->load->view('client/shop/product', $data);
 	}
