@@ -183,7 +183,7 @@
 			
 			<div class="lm-block">
 				<div class="lm-caption">
-					Наличия товара:
+					Наличие товара:
 				</div>
 				<div class="lm-item" prop="secondcolumn10">
 					<?if(empty($availability_ch)):?>
