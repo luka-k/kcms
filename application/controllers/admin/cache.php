@@ -356,7 +356,7 @@ class Cache extends Admin_Controller
 			}
 		}
 		
-		//$this->db->insert_batch('filters_cache', $insert_data);
+		$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
