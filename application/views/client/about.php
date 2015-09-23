@@ -2,7 +2,7 @@
 <html  dir="ltr" lang="en" xml:lang="en">
 
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head>
+	<head>
 		<title>Новый Свет</title>
 		<?require 'include/head.php';?>
 	</head>
@@ -19,6 +19,7 @@ document.body.className += ' jsenabled';
 
 <div id="wrapper">
 	<?require 'include/header.php';?>
+
 <div id="page" class="container-fluid">
 
 
@@ -27,29 +28,35 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
-                                    
-                                    <p>ООО "Новый  Свет"</p>
-<address>город Петрозаводск, пр. Александра Невского, 65</address>
-<i class="fa fa-mobile fa-lg"></i> Телефон: +7 (931) 701-3501<br>
-<i class="fa fa-envelope-o"></i> E-mail: <a href="info@sup-ptz.ru">info@sup-ptz.ru</a>
-                                    </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
-<script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=i-7sXG5ojaGJH7hqVMnqHdI1VnPcrAEm&height=350"></script>
+                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">О нас</h3><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
+<i class="fa fa-info-circle fa-2x">  </i>
+<span style="font-size: large; font-weight: bold;"> ООО "Новый Свет"</span>
+<br>
+Наша компания была образована в 2013 году в Петрозаводске. На данный момент к нашей системе подключены 17 школ города. С 2016 года в планах расшириться и за пределы Петрозаводска.
+</div></div></div></div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"><div class="mdl-align title">ЧТО МЫ ПРЕДЛАГАЕМ</div></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname accesshide"><a href="">Что мы предлагаем:</a></h3><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
+<h2 style="text-align: center;"><i class="fa fa-check-square maincolor" style="color: #8EC63F"></i> <span class="maincolor">Контроль</span> посещаемости учащихся</h2>
+<h2 style="text-align: center;"><i class="fa fa-check-square maincolor" style="color: #8EC63F"></i> Безналичные расчеты за <span class="maincolor">питание</span></h2>
+<h2 style="text-align: center;"><i class="fa fa-check-square maincolor" style="color: #8EC63F"></i> Управление и <span class="maincolor">родительский контроль</span> <br>за расходованием средств на школьное питание <br>учащимися с помощью личного кабинета </h2>
 
-<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
-<h3 class="sectionname">Связь с нами</h3>
+<br>
+<br>
 
+<h3 style="text-align: left;">Всё оборудование и программное обеспечение для использования карт устанавливается в общеобразовательные учреждения совершенно бесплатно.  Отсутствует плата за обслуживание оборудования. </h3><h3>
+Карта-пропуск  бесплатно выдается всем ученикам и сотрудникам общеобразовательного учреждения. Она  является идентификатором учащегося, и служит пропуском в школу, электронным кошельком для оплаты школьного питания. Все родители и ученики без исключения могут пользоваться основными возможностями карты-пропуска  бесплатно. В течении тестового режима ученики и родители могут бесплатно пользоваться дополнительными возможностями карты-пропуска, такими как смс-уведомления о входе/выходе ученика из учреждения. По окончании теста остаются только главные функции системы, а родители сами принимают решение об  отключении/подключении дополнительных услуг. В любом случае, карта-пропуск останется у школьника, и он будет использовать ее как пропуск в школу и электронный кошелек для оплаты школьного питания. 
+</p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-6"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
+<i class="fa fa-thumbs-o-up fa-4x">  </i>
+<span style="font-size: large; font-weight: bold;"> Миссия компании «Новый Свет»:</span>
+<br>
+&bull; Охрана жизни и здоровья школьников.<br>
+&bull; Работа по государственным образовательным стандартам. <br>
+&bull; Реализация национальной образовательной инициативы «Наша новая школа».<br>
+&bull; Предоставление электронных услуг в сфере образования всем участникам образовательного процесса.<br>
+&bull; Развитие у детей культуры пользования пластиковыми картами.<br>
+&bull; Финансовая безопасность школьников.<br>
+&bull; Повышение качества образования.<br>
+&bull; Улучшение связи школа-семья-школа.<br>
 
-                                   <form><table class="table table-striped">
-                                      <tr><td><strong>Ваше имя: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Телефон для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>или E-mail для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Сообщение: </strong></td><td><textarea></textarea><br></td></tr>
-                                      <tr><td><strong></strong></td><td><input type="submit" value="Отправить" /></td></tr>
-                                    </table>
-                                    </form>
-
-</p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-6"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul></div></div></div>                </section>
+</div></div></div></div></div></div></div></li></ul></div></li></ul></div></div></div>                </section>
                 <aside id="block-region-side-pre" class="span4 desktop-first-column pull-right block-region" data-blockregion="side-pre" data-droptarget="1"></aside>            </div>
         </div>    </div>
     

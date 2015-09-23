@@ -2,7 +2,7 @@
 <html  dir="ltr" lang="en" xml:lang="en">
 
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head>
+	<head>
 		<title>Новый Свет</title>
 		<?require 'include/head.php';?>
 	</head>
@@ -18,7 +18,8 @@ document.body.className += ' jsenabled';
 
 
 <div id="wrapper">
-	<?require 'include/header.php';?>
+<?require 'include/header.php';?>
+
 <div id="page" class="container-fluid">
 
 
@@ -27,27 +28,110 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
+                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Способы оплаты</h3><div class="summary">
                                     
-                                    <p>ООО "Новый  Свет"</p>
-<address>город Петрозаводск, пр. Александра Невского, 65</address>
-<i class="fa fa-mobile fa-lg"></i> Телефон: +7 (931) 701-3501<br>
-<i class="fa fa-envelope-o"></i> E-mail: <a href="info@sup-ptz.ru">info@sup-ptz.ru</a>
-                                    </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
-<script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=i-7sXG5ojaGJH7hqVMnqHdI1VnPcrAEm&height=350"></script>
+                                   
+                                   
+                                    
+                                    
+                                    </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
+<i class="fa fa-info-circle fa-2x">  </i>
+<span style="font-size: large; font-weight: bold;"> Онлайн-оплата</span>
+<br>
+Помимо перечисленных ниже способов оплаты в ближайшем будущем будут доступны десятки новых способов онлайн-оплаты: банковские карты, яндекс-деньги, оплата через смс и другие. Следите за новостями!
+</div></div></div></div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"><div class="mdl-align title">ОПЛАТА ЧЕРЕЗ БАНКОМАТ СБЕРБАНКА</div></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
 
-<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
-<h3 class="sectionname">Связь с нами</h3>
+
+<div id="myCarousel" class="carousel slide">
+<ol class="carousel-indicators">
+  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+  <li data-target="#myCarousel" data-slide-to="1"></li>
+  <li data-target="#myCarousel" data-slide-to="2"></li>
+  <li data-target="#myCarousel" data-slide-to="3"></li>
+  <li data-target="#myCarousel" data-slide-to="4"></li>
+  <li data-target="#myCarousel" data-slide-to="5"></li>
+  <li data-target="#myCarousel" data-slide-to="6"></li>
+  <li data-target="#myCarousel" data-slide-to="7"></li>
+  <li data-target="#myCarousel" data-slide-to="8"></li>
+  <li data-target="#myCarousel" data-slide-to="9"></li>
+  <li data-target="#myCarousel" data-slide-to="10"></li>
+</ol>
+<!-- Carousel items -->
+<div class="carousel-inner" style="text-align: center;">
+  <div class="active item" style="text-align: center;">
+    <img src="/img/1.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>1. Выберите пункт "платежи наличными"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/2.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>2. Выберите пункт "поиск получателя платежей"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/3.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>3. Выберите пункт "поисе по ИНН или р/счету"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/4.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>4. Введите данные как на картинке</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/5.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>5. Нажмите "выбрать"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/6.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>6. Проверьте реквизиты и нажмите "продолжить"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/7.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>7. Введите данные как на картинке</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/8.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>8. Введите сумму к оплате</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/9.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>9. Выберите пункт "реквизиты подтверждаю"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/10.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>10. Выберите пункт "продолжить"</h3>
+    </div>
+  </div>
+  <div class="item">
+    <img src="/img/11.jpg" alt="..." style="margin: 0 auto;">
+    <div class="carousel-caption">
+      <h3>11. Вставьте купюры</h3>
+    </div>
+  </div>
+</div>
+<!-- Carousel nav -->
+<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
 
 
-                                   <form><table class="table table-striped">
-                                      <tr><td><strong>Ваше имя: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Телефон для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>или E-mail для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Сообщение: </strong></td><td><textarea></textarea><br></td></tr>
-                                      <tr><td><strong></strong></td><td><input type="submit" value="Отправить" /></td></tr>
-                                    </table>
-                                    </form>
+
 
 </p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-6"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul></div></div></div>                </section>
                 <aside id="block-region-side-pre" class="span4 desktop-first-column pull-right block-region" data-blockregion="side-pre" data-droptarget="1"></aside>            </div>

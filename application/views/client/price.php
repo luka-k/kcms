@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" xml:lang="en">
 
+<!-- Mirrored from lambda.redpithemes.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Sep 2015 20:14:33 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head>
+	<head>
 		<title>Новый Свет</title>
 		<?require 'include/head.php';?>
 	</head>
@@ -19,6 +20,8 @@ document.body.className += ' jsenabled';
 
 <div id="wrapper">
 	<?require 'include/header.php';?>
+
+
 <div id="page" class="container-fluid">
 
 
@@ -27,27 +30,21 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
+                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Наши цены</h3><div class="summary">
                                     
-                                    <p>ООО "Новый  Свет"</p>
-<address>город Петрозаводск, пр. Александра Невского, 65</address>
-<i class="fa fa-mobile fa-lg"></i> Телефон: +7 (931) 701-3501<br>
-<i class="fa fa-envelope-o"></i> E-mail: <a href="info@sup-ptz.ru">info@sup-ptz.ru</a>
+                                    <i class="fa fa-child fa-1g">  </i> 120 рублей за смс информирование о приходе и уходе<br>
+                                    <i class="fa fa-mobile fa-1g">  </i> 100 рублей в месяц абон.плата за пользованием личным кабинетом и его функциями<br>
+                                    <i class="fa fa-mail-forward fa-1g">  </i> Смс по питанию 1.5 рубля за смс<br>
+                                    <i class="fa fa-credit-card fa-1g">  </i> 30 рублей замена карты<br>
+                                    
+                                    
                                     </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
-<script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=i-7sXG5ojaGJH7hqVMnqHdI1VnPcrAEm&height=350"></script>
-
-<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
-<h3 class="sectionname">Связь с нами</h3>
 
 
-                                   <form><table class="table table-striped">
-                                      <tr><td><strong>Ваше имя: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Телефон для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>или E-mail для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Сообщение: </strong></td><td><textarea></textarea><br></td></tr>
-                                      <tr><td><strong></strong></td><td><input type="submit" value="Отправить" /></td></tr>
-                                    </table>
-                                    </form>
+
+
+
+
 
 </p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-6"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul></div></div></div>                </section>
                 <aside id="block-region-side-pre" class="span4 desktop-first-column pull-right block-region" data-blockregion="side-pre" data-droptarget="1"></aside>            </div>

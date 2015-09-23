@@ -37,6 +37,7 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+//$route['default_controller'] = "index";
 $route['default_controller'] = "index";
 $route['404_override'] = 'pages/page_404';
 
@@ -44,8 +45,11 @@ $route['admin/database/test_export'] = "admin/database/test_export";
 $route['admin/database/test_import'] = "admin/database/test_import";
 $route['admin/database/(:any)'] = "admin/database/$1";
 $route['admin/database/(:any)/(:any)'] = "admin/database/$1/$2";
+$route['admin'] = "admin";
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
+
+$route['(:any)'] = "index";
 
 $route['view_image'] = 'view_image/index';
 

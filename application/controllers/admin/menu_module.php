@@ -62,7 +62,6 @@ class Menu_module extends Admin_Controller
 			'url' => "/".$this->uri->uri_string()
 		);	
 		$data = array_merge($this->standart_data, $data);
-		
 		if($action == "edit")
 		{
 			$this->load->view("admin/menu", $data);

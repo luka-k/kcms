@@ -3,7 +3,8 @@
 	<div class="col_10">
 	<select id="field-articles" class="<?=$name?> select_url col_12" name="<?=$name?>" <?if($item_content <> "articles"):?>disabled<?endif;?>>
 		<option label="" class="option-1" value="">Выберите содержимое</option>
-		<?foreach ($selects[$name] as $select):?>
+		
+		<?foreach ($selects['parent_id'] as $select):?>
 			<option class="option-1 <?if(!empty($select->childs)):?>have_child<?endif;?>" value="<?=$select->url?>" <?php if ($item_content->$name == $select->url):?>selected<?php endif; ?><?php if ($item_content->url == $select->url):?>disabled<?php endif; ?>>
 				<?=$select->name?>
 			</option>

@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* Index class
+* Static_page class
 *
 * @package		kcms
 * @subpackage	Controllers
-* @category	    Index
+* @category	    Static_page
 */
 class Index extends Client_Controller {
 
@@ -15,15 +15,19 @@ class Index extends Client_Controller {
 	}
 	
 	public function index()
-	{				
-		$data = array(
-			'title' => $this->standart_data['settings']->site_title
-		);
-		$data = array_merge($this->standart_data, $data);
-		
-		$this->load->view('client/index.php', $data);
-	}	
-}
+	{
+		$view = $this->uri->uri_string();
 
-/* End of file Index.php */
-/* Location: ./application/controllers/Index.php */
+		if($view == '') $view = 'index';
+		
+		
+		//$this->config->load('static_page');
+		//$urls_to_views = $this->config->item('urls_to_views');
+		
+		//$data = array();
+		//$data = array_merge($this->standart_data, $data);
+		$data = $this->standart_data;
+
+		$this->load->view('client/'.$view.'.php', $data);
+	}
+}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" xml:lang="en">
 
+<!-- Mirrored from lambda.redpithemes.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Sep 2015 20:14:33 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head>
+	<head>
 		<title>Новый Свет</title>
 		<?require 'include/head.php';?>
 	</head>
-
 <body  id="page-site-index" class="format-site course path-site dir-ltr lang-en yui-skin-sam yui3-skin-sam lambda-redpithemes-com pagelayout-frontpage course-1 context-2 notloggedin two-column has-region-side-pre empty-region-side-pre has-region-side-post empty-region-side-post has-region-footer-left used-region-footer-left has-region-footer-middle used-region-footer-middle has-region-footer-right used-region-footer-right has-region-hidden-dock used-region-hidden-dock layout-option-nonavbar">
 
 <div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
@@ -19,6 +19,7 @@ document.body.className += ' jsenabled';
 
 <div id="wrapper">
 	<?require 'include/header.php';?>
+
 <div id="page" class="container-fluid">
 
 
@@ -27,27 +28,22 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
+                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Личный кабинет</h3><div class="summary">
                                     
-                                    <p>ООО "Новый  Свет"</p>
-<address>город Петрозаводск, пр. Александра Невского, 65</address>
-<i class="fa fa-mobile fa-lg"></i> Телефон: +7 (931) 701-3501<br>
-<i class="fa fa-envelope-o"></i> E-mail: <a href="info@sup-ptz.ru">info@sup-ptz.ru</a>
-                                    </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
-<script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=i-7sXG5ojaGJH7hqVMnqHdI1VnPcrAEm&height=350"></script>
+                                   
+                                   
+                                    
+                                    
+                                    </div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
+<i class="fa fa-info-circle fa-2x">  </i>
+<span style="font-size: large; font-weight: bold;"> Меню столовой, расходы на питание, статистика приходов и уходов из школы и десятки других возможностей.</span>
+<br>
+Полная инструкция пользования личным кабинетом появится в ближайшее время. Следите за новостями!
+</div></div></div></div></div></div></div></li></ul></div></li></ul><div class="single-section"><div class="section-navigation header headingblock"></div><ul class="topics"><li id="section-1" class="section main clearfix" role="region" aria-label="Fully Responsive"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-4"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow">
 
-<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
-<h3 class="sectionname">Связь с нами</h3>
 
 
-                                   <form><table class="table table-striped">
-                                      <tr><td><strong>Ваше имя: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Телефон для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>или E-mail для связи: </strong></td><td><input class="" type="text"><br></td></tr>
-                                      <tr><td><strong>Сообщение: </strong></td><td><textarea></textarea><br></td></tr>
-                                      <tr><td><strong></strong></td><td><input type="submit" value="Отправить" /></td></tr>
-                                    </table>
-                                    </form>
+
 
 </p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-6"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div></div></div></div></li></ul></div></li></ul></div></div></div>                </section>
                 <aside id="block-region-side-pre" class="span4 desktop-first-column pull-right block-region" data-blockregion="side-pre" data-droptarget="1"></aside>            </div>

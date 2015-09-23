@@ -59,11 +59,7 @@ class Client_Controller extends CI_Controller
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			"user" => $this->session->userdata('user'),
-			"cart_items" => $this->cart->get_all(),
-			"total_price" => $this->cart->total_price(),
-			"total_qty" => $this->cart->total_qty(),
-			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
-			"top_menu" => $this->dynamic_menus->get_menu(4)->items,
+			"top_menu" => $this->dynamic_menus->get_menu(2)->items,
 			'settings' => $settings
 		);
 	}

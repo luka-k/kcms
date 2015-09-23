@@ -3,6 +3,7 @@
 		var data = {};
 		data.id = id;
 		var json_str = JSON.stringify(data);
+		
 		$.post("/admin/menu_module/menu_item/", json_str, item_info_answer, "json");
 	}
 																
