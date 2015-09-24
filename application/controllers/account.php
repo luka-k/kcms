@@ -123,7 +123,7 @@ class Account extends Client_Controller
 		{
 			$user['password'] = md5($user['password']);
 		}
-		my_dump($user);
+
 		$this->users->update($user['id'], $user);
 		
 		redirect(base_url().'account');

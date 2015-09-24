@@ -49,6 +49,15 @@ $route['admin'] = "admin";
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
+
+$route['account'] = 'account/index';
+$route['account/(:num)'] = 'account/index/$1';
+$route['account/(:any)'] = 'account/$1';
+$route['cabinet'] = 'cabinet';
+
+$route['ajax'] = 'ajax';
+$route['ajax/(:any)'] = 'ajax/$1';
+
 $route['(:any)'] = "index";
 
 $route['view_image'] = 'view_image/index';
@@ -63,10 +72,6 @@ $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
 
-$route['account'] = 'account/index';
-$route['account/(:num)'] = 'account/index/$1';
-$route['account/(:any)'] = 'account/$1';
-$route['cabinet'] = 'cabinet';
 
 $route['order/(:any)/(:num)'] = 'order/$1/$2';
 

@@ -1,3 +1,17 @@
+
+$(document).ready(function() {
+	$('.fancybox').fancybox({
+		maxWidth	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: 'auto',
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+
 /*******************************************************************
 * Валидация формы
 *******************************************************************/
@@ -5,7 +19,6 @@
 function validation (element, errorClass) {
 	var input = element.find('.require'),
 	isError = false;
-
 	input.on('focus', function () {
 		var el = $(this);
 		if (el.hasClass(errorClass)) el.removeClass(errorClass);
@@ -18,7 +31,7 @@ function validation (element, errorClass) {
             isError = true;
         }
     });
-		
+	console.log(isError);
    return isError;
 }
 

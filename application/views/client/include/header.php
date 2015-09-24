@@ -10,78 +10,26 @@
 		</div>
                   	
 		<div class="login-header">
-			<div class="profileblock">
-            
-				<form class="navbar-form pull-right" method="post" action="">
-					<div id="block-login">
-						<label id="user"><i class="fa fa-user"></i></label>	
-						<input class="span2" type="text" name="username" onFocus="if(this.value =='Username' ) this.value=''" value="Логин" style="margin-bottom:10px;">
-						<label id="pass"><i class="fa fa-key"></i></label>
-						<input class="span2" type="text" name="password1" id="password1" value="Пароль">
-						<input type="submit" id="submit" name="submit" value=""/>
-					</div>
-				</form>
-        
-				<script type="text/javascript">
-					if (window.addEventListener)
-					addEvent = function(ob, type, fn ) {
-						ob.addEventListener(type, fn, false );
-					};
-					else if (document.attachEvent)
-						addEvent = function(ob, type, fn ) {
-							var eProp = type + fn;
-							ob['e'+eProp] = fn;
-							ob[eProp] = function(){ob['e'+eProp]( window.event );};
-							ob.attachEvent( 'on'+type, ob[eProp]);
-						};
- 
-						(function() {
-							var p = document.getElementById('password');
-								/*@cc_on
-								@if (@_jscript)
-								@if (@_jscript_version < 9)
-								var inp = document.createElement("<input name='password'>");
-								inp.id = 'password1';
-								inp.type = 'text';
-								inp.value = 'Password';
-								p.parentNode.replaceChild(inp,p);
-								p = document.getElementById('password1');
-								@else
-								p.type = 'text';
-								p.value = 'Password';
-								@end
-								@else */
-								p.type = 'text';
-								p.value = 'Password';
-								/* @end @*/
-								passFocus = function() {
-									if ('text' === this.type) {
-										/*@cc_on
-										@if (@_jscript)
-										@if (@_jscript_version < 9)
-										var inp = document.createElement("<input name='password'>");
-										inp.id = 'password';
-										inp.type = 'password';
-										inp.value = '';
-										this.parentNode.replaceChild(inp,this);
-										setTimeout(inp.focus,5);
-										@else
-										p.type = 'password';
-										p.value = '';
-										@end
-										@else */
-										this.value = '';
-										this.type = 'password';
-										/* @end @*/
-									}
-								}
-								addEvent(p, 'focus', passFocus);
-							}());
-						</script>
-					</div>
-				</div>
+			<div class="profileblock" style="text-align:right;">
+				<?if(!$user):?>
+					<form class="navbar-form pull-right" method="post" id="login_form" action="<?=base_url()?>account/enter">
+						<div id="block-login">
+							<label id="user"><i class="fa fa-user"></i></label>	
+							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="text" name="name" placeholder="Логин" style="margin-bottom:10px;">
+							<label id="pass"><i class="fa fa-key"></i></label>
+							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="text" name="password" id="password1" placeholder="Пароль">
+							<input type="submit" id="submit" name="submit" value="" onclick="form_submit('login_form');" />
+						</div>
+					</form>
+				<?else:?>
+					<a class="btn btn-default fancybox" href="#parent-info"><!--Здравствуйте, --><span><?=$user->short_name?></span></a>
+					<a class="btn btn-danger" href="<?=base_url()?>account/log_out">Выход</a>
+				<?endif;?>
 			</div>
+					
 		</div>
+	</div>
+	</div>
 	</header>
 
 				<header role="banner" class="navbar">
