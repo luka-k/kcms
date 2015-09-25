@@ -256,6 +256,9 @@ class Catalog extends Client_Controller {
 				'discontinued' => 2
 			);
 			
+			$this->breadcrumbs->add(base_url(), 'Главная');
+			$this->breadcrumbs->add('catalog', 'Каталог');
+			
 			$availability = $this->config->item('availability');
 			foreach($availability as $key => $value)
 			{
@@ -266,8 +269,8 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
-		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		if($cache) $this->filters_cache->delete($cache_id);
+		$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);

@@ -42,8 +42,17 @@ class CI_Url {
 			if(!$product) 
 			{
 				$content->manufacturer = $this->CI->manufacturers->get_item_by(array('url' => $url));
-				if(!$content->manufacturer) return FALSE;
-				$this->CI->breadcrumbs->add($url, $content->manufacturer->name);
+				if(!$content->manufacturer) 
+				{
+					$content->collection = $this->CI->collections->get_item_by(array('url' => $url));
+					if(!$content->collection) return FALSE;
+					$this->CI->breadcrumbs->add($url, $content->collection->name);
+				}
+				else
+				{
+					$this->CI->breadcrumbs->add($url, $content->manufacturer->name);
+					if ($this->CI->uri->segment($segment_number+1))	return $this->CI->url->shop_url_parse($segment_number + 1);
+				}
 			}
 			else
 			{
