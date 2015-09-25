@@ -60,13 +60,13 @@ class Users_groups extends MY_Model
 		foreach($user_groups as $group)
 		{
 			$manufacturer_access = array_merge($manufacturer_access, $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $group));
-		}
-				
+		}	
 		//if(empty($manufacturer_access)) return TRUE;
-
+		
 		if(in_array($uri[2], $module_enable))
 		{	
-			if($uri[4] == 'save' && in_array($uri[5], $table_enable)) return TRUE;
+			if(isset($uri[4]) && $uri[4] == 'save' && in_array($uri[5], $table_enable)) return TRUE;
+					
 			if(isset($uri[6]) && in_array($uri[5], $table_enable))
 			{
 				switch($uri[5])
@@ -78,6 +78,7 @@ class Users_groups extends MY_Model
 						$manufacturer_id = $this->products->get_item($this->uri->segment(6))->manufacturer_id;
 						break;
 					case "documents":
+						
 						$manufacturer_id = $this->documents->get_item($this->uri->segment(6))->manufacturer_id;
 						break;
 				}
@@ -85,6 +86,9 @@ class Users_groups extends MY_Model
 			}
 			else
 			{	
+				
+				if(isset($uri[5]) && $uri[5] == 'documents') return TRUE;
+			
 				if($uri[2] == "users_module")
 				{
 					if(isset($uri[4]) && $user['id'] <> $uri[4]) return FALSE; 

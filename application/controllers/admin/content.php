@@ -174,6 +174,29 @@ class Content extends Admin_Controller
 		{
 			$data['tree'] = $this->manufacturers->get_list(FALSE, FALSE, FALSE, "name", "asc");
 			
+			if(in_array("manager", $data['user_groups']))
+			{
+				$user_groups_ids = $this->table2table->get_parent_ids("users2users_groups", "users_group_id", "user_id", $data['user']['id']);
+				
+				if($user_groups_ids)
+				{
+					$this->db->where_in('user_group_id', $user_groups_ids);
+					$result = $this->db->get('users_group2manufacturer')->result();
+					
+					if($result)
+					{
+						$manufacturer_ids = array();
+						foreach($result as $r)
+						{
+							$manufacturer_ids[] = $r->manufacturer_id;
+						}
+						
+						$this->db->where_in('id', $manufacturer_ids);
+						$data['selects']['manufacturer_id'] = $this->db->get('manufacturers')->result();
+					}
+				}
+			}
+			
 			$this->config->load('types');
 			$data['doc_types'] = $this->config->item('doc_type');
 		}
