@@ -2309,6 +2309,12 @@ text-align:center;
 	line-height: 16px;
 }
 
+#on_top{
+	display:none;
+	margin:15px auto 0 auto;
+	text-align:center;
+}
+
 @media all and (max-width: 1280px) {
 
 	#s_right, .hidden_part{

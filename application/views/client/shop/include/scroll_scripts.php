@@ -46,7 +46,13 @@
 						
 						$("#manufacturers_column").css("display", "block");
 					
-					} else {
+					} 
+					else if($(this).scrollTop() > ($( window ).height() * 4) - 60){
+						$('.leftmenu').height($( window ).height() - 110);
+						$("#shadow").height($( window ).height() - 290);
+						$('#on_top').css('display', 'block');
+					}
+					else {
 						$('header').css('margin-top', -60 + 'px');
 						
 						$("#product-scroll").height($( window ).height() - 93 + 60);
@@ -77,6 +83,10 @@
 			<?endif?>
 		});
 	})(jQuery);
+	
+	function scroll_on_top(){
+		$('#product-scroll').animate({scrollTop: 0});
+	}
 	
 	$(".logo-column").mCustomScrollbar({
 		axis:"y", 
