@@ -31,6 +31,7 @@ class Users extends MY_Model
 			'secret' => array('secret', 'hidden'),
 			'name' => array('Имя', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'users_group_id' => array('Группа', 'u2u_g', 'users2users_groups'),
+			'phone' => array('Телефон', 'text', 'trim|htmlspecialchars', 'require'),
 			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email'),
 			'password' => array('Пароль', 'pass', 'trim|md5')
 		)
