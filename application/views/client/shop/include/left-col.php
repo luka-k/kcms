@@ -75,10 +75,10 @@
 					Производитель/Коллекция/Серия:
 				</div>
 				<div class="lm-item" prop="secondcolumn3">
-					<?if(empty($collections_ch)):?>
+					<?if(empty($manufacturer_ch)):?>
 						Все коллекции
 					<?else:?>
-						<span class="lm-title"><?=$collections_ch[0]?></span>
+						<span class="lm-title"><?=$manufacturer_ch[0]?></span>
 						<?if(count($collections_ch) > 1):?>
 							[<?= count($collections_ch)?>]
 						<?endif;?>
@@ -90,10 +90,10 @@
 					Производитель/Артикул:
 				</div>
 				<div class="lm-item" prop="secondcolumn4">
-					<?if(empty($sku_ch)):?>
+					<?if(empty($manufacturer_ch)):?>
 						<span class="lm-title">Все артикулы</span>
 					<?else:?>
-						<?=$sku_ch[0]?>
+						<?=$manufacturer_ch[0]?>
 						<?if(count($sku_ch) > 1):?>
 							[<?= count($sku_ch)?>]
 						<?endif;?>
