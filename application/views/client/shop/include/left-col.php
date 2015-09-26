@@ -262,6 +262,7 @@
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
 		</div>
+		<a href="#" id="on_top" class="submit-btn" onclick="scroll_on_top(); return false;">На верх</a>
 	</form>
 </aside>
 

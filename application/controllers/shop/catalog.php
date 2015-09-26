@@ -72,7 +72,6 @@ class Catalog extends Client_Controller {
 			'depth_max' => $depth_max,
 			'filters_checked' => $filters_checked,
 			'left_menu' => $this->categories->get_tree(),
-			'manufacturer' => $this->manufacturers->get_tree(FALSE, $this->post),
 			'sku_tree' => array(),
 			'collection' => array(),
 			'availability' => $availability,
@@ -131,13 +130,14 @@ class Catalog extends Client_Controller {
 		if($content == "root")
 		{
 			$cache_id = md5(serialize($content));
-			$cache = $this->filters_cache->get($cache_id);
-			//if($cache) $this->filters_cache->delete($cache_id);
-			//$cache = FALSE;
-			if($cache)
-			{
+			
+			$data = $this->filters_cache->get($cache_id);
+			
+			//if($data) $this->filters_cache->delete($cache_id);
+			//$data = FALSE;
+			if($data)
+			{	
 				$this->filters_cache->set_last($cache_id);
-				$data = $this->filters_cache->get($cache_id);	
 
 				$data = array_merge($this->standart_data, $data);			
 			}
@@ -159,7 +159,6 @@ class Catalog extends Client_Controller {
 					'total_rows' => $total_rows,
 					'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
 					'left_menu' => $this->categories->get_tree(),
-					'no_ajax' => TRUE
 				);
 			
 				$data['category'] = new stdClass;
@@ -169,7 +168,7 @@ class Catalog extends Client_Controller {
 				
 				$this->filters_cache->insert($cache_id, $data);
 			}
-			
+		
 			if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
 			{
 				foreach($manufacturer->sku as $i => $sku)
@@ -365,7 +364,6 @@ class Catalog extends Client_Controller {
 				'total_rows' => count($products),
 				'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products, $this->post),
 				'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
-				'manufacturer' => $last_type_filter == "manufacturer_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'parent_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'parent_checked'),
 				'categories_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'categories_checked'),

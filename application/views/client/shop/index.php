@@ -16,7 +16,7 @@
 									<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="manufacturer-form" class="filter-form" action="<?=base_url()?>" >
 									<select name="" class="dropdown" onchange="document.location='/catalog/'+this.options[this.selectedIndex].value;">
 										<option value="1" disabled="" selected="selected">выбор производителя</option>
-										<?foreach($manufacturer as $m):?>
+										<?foreach($sku_tree as $m):?>
 											<option value="<?=$m->url?>"><?=$m->name?></option>
 										<?endforeach;?>
 									</select>
@@ -25,7 +25,7 @@
 								<div id="slider-scroll" class="slider index_page">
 									<div class="logo-column">
 										<div class="some10">
-											<?foreach($manufacturer as $m): $m = $this->manufacturers->prepare($m);?>
+											<?foreach($sku_tree as $m): $m = $this->manufacturers->prepare($m);?>
 												<div class="pic-block" style="margin-bottom: 8px;">
 													<a href="<?=base_url()?>catalog/<?=$m->url?>">
 														<?=$m->name?>

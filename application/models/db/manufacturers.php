@@ -46,7 +46,7 @@ class Manufacturers extends MY_Model
 	public function get_tree($products = FALSE, $selected = array())
 	{
 		if(!$products) $products = $this->products->get_list(FALSE);
-		
+
 		if(isset($selected['sku_checked']))
 		{
 			$this->db->where_in('sku', $selected['sku_checked']);
@@ -61,33 +61,27 @@ class Manufacturers extends MY_Model
 		
 		foreach($products as $p)
 		{
-			$m_ids[] = $p->manufacturer_id;
-			$sku[$p->manufacturer_id][] = $p;
-		}
-		
-		foreach($sku as $i => $articls)
-		{
-			$volume = array();
-			foreach ($articls as $key => $row) 
+			if(!array_key_exists($p->manufacturer_id, $manufacturer_tree))
 			{
-				$volume[$key]  = $row->sku;
-				//$articls[$key]->full_url = $this->products->get_url($row);
+				$manufacturer_tree[$p->manufacturer_id] = $this->get_item($p->manufacturer_id);
 			}
-			array_multisort($volume, SORT_ASC, $articls);
-			
-			$sku[$i] = $articls;
+			$manufacturer_tree[$p->manufacturer_id]->sku[] = $p;
 		}
 		
-		$this->db->order_by('name', 'asc'); 
-		if(!empty($m_ids)) $this->db->where_in('id', array_unique($m_ids));
-		$manufacturer = $this->db->get($this->_table)->result();
-		
-		foreach($manufacturer as $i => $m)
+		$volume_1 = array();
+		foreach($manufacturer_tree as $i => $manufacturer)
 		{
-			$m->sku = $sku[$m->id];
-			$manufacturer_tree[$m->id] = $m;
+			$volume_1[$i] = $manufacturer->name;
+			$volume_2 = array();
+			foreach ($manufacturer->sku as $key => $p) 
+			{
+				$volume_2[$key] = $p->sku;
+			}
+			array_multisort($volume_2, SORT_ASC, $manufacturer->sku);
 		}
-
+		
+		array_multisort($volume_1, SORT_ASC, $manufacturer_tree);
+		
 		return $manufacturer_tree;
 	}
 	
