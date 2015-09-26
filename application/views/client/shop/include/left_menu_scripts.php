@@ -91,6 +91,21 @@
 		$('#filter-form').submit();
 	}
 	
+	function submit_filter(type, item_id){
+		if($('.'+type+'_chb_'+item_id).hasClass('parent_checked')){
+			inputs = $('.filter-form').find('input.parent-branch-'+item_id);
+			inputs.each(function () {
+				$(this).prop("checked", true);
+			});
+		}
+		
+		$('.'+type+'_chb_'+item_id).prop('checked', true);
+		
+		$('#last_type_filter').val(type+'_checked'); 
+
+		$('#filter-form').submit();
+	}
+	
 	function checked_tree(parent_id, type, action){
 		var form = $('.filter-form'),
 		inputs = form.find('input.'+type+'-branch-'+parent_id);
@@ -104,7 +119,6 @@
 					element.prop("checked", true);
 				}else{
 					element.prop("checked", false);
-					
 				}
 			}else if(action == "child"){
 				counter_1++;
