@@ -26,22 +26,37 @@
 										<td><?=$order_item->order_date?></td>
 
 										<td>
-											<table>
-												<thead>
-													<th width="70%">Наименование</th>
-													<th width="15%">Цена</th>
-													<th width="15%">Количество</th>
-												</thead>
-												<tbody>
-													<?foreach($order_item->order_products as $product):?>
+											<?if(empty($order_item->order_products)):?>
+												<table>
+													<thead>
+														<th width="80%">Операция</th>
+														<th width="20%">Сумма</th>
+													</thead>
+													<tbody>
 														<tr>
-															<td><?=$product->name?></td>
-															<td><?=$product->price?></td>
-															<td><?//=$product->qty?><?=$order_item->qty[$product->id]?></td>
+															<td><?=$order_item->operation?></td>
+															<td><?=$order_item->summ?></td>
 														</tr>
-													<?endforeach;?>
-												<tbody>
-											</table>
+													<tbody>
+												</table>
+											<?else:?>
+												<table>
+													<thead>
+														<th width="70%">Наименование</th>
+														<th width="15%">Цена</th>
+														<th width="15%">Количество</th>
+													</thead>
+													<tbody>
+														<?foreach($order_item->order_products as $product):?>
+															<tr>
+																<td><?=$product->name?></td>
+																<td><?=$product->price?></td>
+																<td><?//=$product->qty?><?=$order_item->qty[$product->id]?></td>
+															</tr>
+														<?endforeach;?>
+													<tbody>
+												</table>
+											<?endif;?>
 										</td>
 
 										<td>

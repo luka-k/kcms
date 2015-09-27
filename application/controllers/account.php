@@ -22,7 +22,7 @@ class Account extends Client_Controller
 	*/
 	public function index($child = '0')
 	{
-		if (!$this->session->userdata('logged_in')) die(redirect(base_url()));
+		if (!$this->session->userdata('logged_in') || !in_array("parent", $this->standart_data['user_groups'])) die(redirect(base_url()));
 		
 		$children = $this->child_users->prepare_list($this->child_users->get_list(array('parent_id' => $this->standart_data['user']->id)));
 		

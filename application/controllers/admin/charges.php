@@ -42,9 +42,12 @@ class Charges extends Admin_Controller
 
 					$child = $this->child_users->get_item_by(array('phone' => $info['0']));
 					
+					$date = new DateTime($info[9]);
+					$pay_date = date_format($date, 'Y-m-d');
+					
 					$data = array(
 						'card_number' => $child->card_number,
-						'date' => $info[9],
+						'date' => $pay_date,
 						'summ' => $info[3],
 						'operation' => 'пополнение через сбербанк'
 					);

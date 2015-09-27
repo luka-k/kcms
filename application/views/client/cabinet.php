@@ -11,12 +11,6 @@
 	<body  id="page-site-index" class="format-site course path-site dir-ltr lang-en yui-skin-sam yui3-skin-sam lambda-redpithemes-com pagelayout-frontpage course-1 context-2 notloggedin two-column has-region-side-pre empty-region-side-pre has-region-side-post empty-region-side-post has-region-footer-left used-region-footer-left has-region-footer-middle used-region-footer-middle has-region-footer-right used-region-footer-right has-region-hidden-dock used-region-hidden-dock layout-option-nonavbar">
 		
 		<div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
-			<script type="text/javascript">
-				//<![CDATA[
-				document.body.className += ' jsenabled';
-				//]]>
-			</script>
-
 
 			<div id="wrapper">
 				<?require 'include/header.php';?>
@@ -75,12 +69,12 @@
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div class="tab-pane " id="statistic">
+								<div class="tab-pane active" id="statistic">
 									<?if(!empty($selected_child->orders)):?>
 										<table class="striped">
 											<thead>
 												<tr>
-													<th>Дата, время</th>
+													<th>Дата<!--, время--></th>
 													<th>Сумма</th>
 													<th>Информация (состав заказа)</th>
 												</tr>
@@ -144,7 +138,7 @@
 										</table>
 									</div>
 								</div>
-								<div class="tab-pane active" id="settings">
+								<div class="tab-pane" id="settings">
 									<div class="tab-title col_12">Настройки</div>
 									<div class="col_12">
 										<label for="" class="">Максимальная сумма в день:</label>

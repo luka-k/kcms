@@ -55,10 +55,13 @@ class Client_Controller extends CI_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
+		$user_groups = (array)$this->session->userdata('user_groups');
+		
 		$this->standart_data = array(
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
 			"user" => $this->session->userdata('user'),
+			"user_groups" => $user_groups,
 			"top_menu" => $this->dynamic_menus->get_menu(2)->items,
 			'settings' => $settings
 		);

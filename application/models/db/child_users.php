@@ -35,12 +35,12 @@ class Child_users extends MY_Model
 	
 	public function get_orders($child)
 	{
-		$orders = $this->orders->get_list(array('card_number' => $child->card_number));
+		$orders = $this->orders->get_list(array('card_number' => $child->card_number), FALSE, FALSE, 'date', 'desc');
 		
 		if($orders) foreach($orders as $i => $order)
 		{
 			$order_date = new DateTime($order->date);
-			$order->dinner_sms_enabled_date = date_format($order_date, 'm.d.Y');
+			$order->date = date_format($order_date, 'd/m/y');
 			
 			$orders[$i]->products = array();
 			
@@ -87,9 +87,9 @@ class Child_users extends MY_Model
 			if($all_info)
 			{
 				$item_date = new DateTime($item->dinner_sms_enabled_date);
-				$item->dinner_sms_enabled_date = date_format($item_date, 'm.d.Y'); //???
+				$item->dinner_sms_enabled_date = date_format($item_date, 'Y-m-d');
 				$item_date = new DateTime($item->visit_sms_enabled_date);
-				$item->visit_sms_enabled_date = date_format($item_date, 'm.d.Y'); //???
+				$item->visit_sms_enabled_date = date_format($item_date, 'Y-m-d');
 				$item->card = $this->cards->get_item_by(array('card_number' => $item->card_number));
 				$item->school = $this->schools->get_item($item->school_id);
 				

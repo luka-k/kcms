@@ -11,13 +11,13 @@
                   	
 		<div class="login-header">
 			<div class="profileblock" style="text-align:right;">
-				<?if(!$user):?>
+				<?if(!$user || !in_array("parent", $user_groups)):?>
 					<form class="navbar-form pull-right" method="post" id="login_form" action="<?=base_url()?>account/enter">
 						<div id="block-login">
 							<label id="user"><i class="fa fa-user"></i></label>	
 							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="text" name="name" placeholder="Логин" style="margin-bottom:10px;">
 							<label id="pass"><i class="fa fa-key"></i></label>
-							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="text" name="password" id="password1" placeholder="Пароль">
+							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="password" name="password" id="password1" placeholder="Пароль">
 							<input type="submit" id="submit" name="submit" value="" onclick="form_submit('login_form');" />
 						</div>
 					</form>

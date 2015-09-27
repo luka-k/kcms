@@ -82,8 +82,10 @@ class Admin_orders extends Admin_Controller
 				"id" => $order->id,
 				"order_products" => $order_items,
 				'qty' => $qty,
-				"order_date" => date_format($date, 'Y-m-d'),
+				"order_date" => date_format($date, 'd/m/y'),
 				"card_number" => $order->card_number,
+				'operation' => $order->operation,
+				'summ' => $order->summ,
 				'child' => $this->child_users->prepare($child, TRUE)
 				/*"phone" => $order->user_phone,
 				"email" => $order->user_email,
