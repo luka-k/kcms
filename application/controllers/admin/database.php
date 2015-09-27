@@ -53,6 +53,7 @@ class Database extends CI_Controller
 			}
 			
 			$new_order['date'] = date("Y-m-d H:m:s"); 
+			$new_order['operation'] = 'заказ';
 			unset($new_order['id']);
 			
 			$query = $this->orders->insert($new_order);
