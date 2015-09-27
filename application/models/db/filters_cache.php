@@ -30,7 +30,7 @@ class Filters_cache extends MY_Model
 	
 	public function get($cache_id)
 	{
-		$cache = $this->get_item_by(array("id" => $cache_id));
+		$cache = $this->db->get_where($this->_table, array('id' => $cache_id))->row();
 		return $cache ? unserialize($cache->cache_data): FALSE;
 	}
 	

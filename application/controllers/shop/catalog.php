@@ -18,8 +18,6 @@ class Catalog extends Client_Controller {
 		
 		$this->benchmark->mark('code_start');
 		
-		$this->config->load('types');
-		
 		$this->post = $this->input->post();
 
 		$price_min = $price_from = $this->products->get_min('sale_price');
@@ -71,12 +69,11 @@ class Catalog extends Client_Controller {
 			'depth_min' => $depth_min,
 			'depth_max' => $depth_max,
 			'filters_checked' => $filters_checked,
-			'left_menu' => $this->categories->get_tree(),
 			'sku_tree' => array(),
 			'collection' => array(),
 			'availability' => $availability,
 			'sku' => array(),
-			//'nok' => array(),
+			'nok' => array(),
 			'ajax_from' => '',
 			'childs_categories' => ''
 		);
@@ -113,24 +110,10 @@ class Catalog extends Client_Controller {
 	*/
 	private function category($content)
 	{	
-		//$this->session->unset_userdata('last_cache_id');
-		
-		$filters_checked = array(
-			'filter' => TRUE, 
-			'last_type_filter' => 'categories_checked', 
-			'from' => 0,
-		);
-		
-		$availability = $this->config->item('availability');
-		foreach($availability as $key => $value)
-		{
-			$filters_checked[$key] = 1;
-		}
-
 		if($content == "root")
 		{
-			$cache_id = md5(serialize($content));
 			
+			$cache_id = md5(serialize($content));
 			$data = $this->filters_cache->get($cache_id);
 			
 			//if($data) $this->filters_cache->delete($cache_id);
@@ -143,6 +126,18 @@ class Catalog extends Client_Controller {
 			}
 			else
 			{
+				$filters_checked = array(
+					'filter' => TRUE, 
+					'last_type_filter' => 'categories_checked', 
+					'from' => 0,
+				);
+		
+				$availability = $this->config->item('availability');
+				foreach($availability as $key => $value)
+				{
+					$filters_checked[$key] = 1;
+				}
+			
 				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'name', 'asc'));
 
 				$products_ids = $this->catalog->get_products_ids($products);
@@ -158,7 +153,6 @@ class Catalog extends Client_Controller {
 					'breadcrumbs' => $this->breadcrumbs->get(),
 					'total_rows' => $total_rows,
 					'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
-					'left_menu' => $this->categories->get_tree(),
 				);
 			
 				$data['category'] = new stdClass;
@@ -177,10 +171,13 @@ class Catalog extends Client_Controller {
 				}
 			}
 			
+			$this->benchmark->mark('code_end');
+			//echo $this->benchmark->elapsed_time('code_start', 'code_end');
+			
 			$this->load->view("client/shop/index", $data);
 		}
 		else
-		{
+		{		
 			$semantic_url = $this->uri->uri_string();
 			
 			$cache_id = md5(serialize($semantic_url));
