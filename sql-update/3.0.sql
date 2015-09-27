@@ -1,0 +1,2 @@
+INSERT INTO `food-lk`.`menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `description`, `item_type`, `url`, `is_manager`) 
+VALUES (NULL, '1', 'Начисления', '0', '8', '', 'link', 'admin/charges', '1');

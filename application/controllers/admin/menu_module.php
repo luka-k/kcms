@@ -99,7 +99,7 @@ class Menu_module extends Admin_Controller
 		elseif($action == "save_item")
 		{
 			$info = $this->menus_items->editors_post();
-
+			
 			if($info->id == FALSE)
 			{
 				//Если id пустая создаем новый пункт в базе
