@@ -63,7 +63,7 @@ class Database extends CI_Controller
 				header('HTTP/1.1 406 Not Acceptable');
 				die(); //По логике продолжать выполнение скрипта не нужно же?
 			}
-			
+					
 			$order_id = $this->db->insert_id();
 			
 			$this->db->where('card_number', $new_order['card_number']);
@@ -74,14 +74,21 @@ class Database extends CI_Controller
 			
 			$this->db->where('card_number', $new_order['card_number']);
 			$this->db->update('cards', array('card_balance' => $card_balance));
-						
-			foreach($products as $p)
+			
+			$products_string = '';			
+			foreach($products as $i => $p)
 			{
 				$order2products = array(
 					'order_id' => $order_id,
 					'product_id' => $p->id,
 					'quantity' => $p->quantity
 				);
+				
+				$product = $this->products->get_item($p->id);
+				
+				$products_string .= $product->name;
+				
+				$products_string .= $i == count($products) - 1 ? '.' : ', ';
 				
 				$query = $this->order2products->insert($order2products);
 				
@@ -90,6 +97,19 @@ class Database extends CI_Controller
 					header('HTTP/1.1 406 Not Acceptable');
 					die();
 				}
+			}
+
+			$child = $this->child_users->get_item_by(array('card_number' => $new_order['card_number']));
+			if($child->dinner_sms_enabled)
+			{
+				$this->load->helper('sms');
+				
+				$parent = $this->users->get_item($child->parent_id);
+				
+				$message = 'Уважаемый(-ая) '.$parent->name.'! '.date("d/m/y H:m:s").', Ваш ребенок, соверщил заказ на сумму: '.$new_order['summ'].'.';
+				$message .= 'Состав заказа: '.$products_string;
+
+				send_sms($parent->phone, $message);
 			}
 		}
 			
