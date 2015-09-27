@@ -34,7 +34,7 @@
 									<th class="tb_1">&nbsp;</th>
 								</tr>
 							</thead>
-							<tbody class="<?if($sortable && !in_array("manager", $user_groups)):?>sortable<?endif?>">
+							<tbody class="<?if(($sortable && !in_array("manager", $user_groups) || $type == 'documents')):?>sortable<?endif?>">
 								<?$counter = 1?>
 								<? foreach ($content as $item): ?>
 									<tr id="<?=$type?>-<?=$item->id?>">

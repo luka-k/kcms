@@ -48,8 +48,8 @@ class Users_groups extends MY_Model
 	
 	public function access_by_manufacturer($user)
 	{
-		$module_enable = array("content");
-		$table_enable = array("products", "documents", "manufacturers");
+		$module_enable = array('content', 'admin_ajax');
+		$table_enable = array("products", "documents", "manufacturers", );
 		
 		$uri = $this->uri->segment_array();
 		if(count($uri) < 2) return TRUE;
@@ -65,6 +65,7 @@ class Users_groups extends MY_Model
 		
 		if(in_array($uri[2], $module_enable))
 		{	
+			if($uri[3] == 'sortable') return TRUE;
 			if(isset($uri[4]) && $uri[4] == 'save' && in_array($uri[5], $table_enable)) return TRUE;
 					
 			if(isset($uri[6]) && in_array($uri[5], $table_enable))
