@@ -170,7 +170,7 @@
 	  {
       var thumbsSlider = $thumbsList.bxSlider({
                           pager: false,
-						  speed:10000000,
+						  speed:150,
                           minSlides: 4,
                           maxSlides: 4,
                           moveSlides: 1,
@@ -181,7 +181,7 @@
 	} else if (document.location.href.indexOf('/catalog/') != -1) {
       var thumbsSlider = $thumbsList.bxSlider({
                           pager: false,
-						  speed:1000000,
+						  speed:150,
                           minSlides: 6,
                           maxSlides: 6,
                           moveSlides: 1,
