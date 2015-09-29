@@ -5,9 +5,16 @@ class View_image extends CI_Controller
 	public function index()
 	{
 		$id = $this->input->get('id');
-		$child = $this->child_users->get_item($id);
-		header('Content-Type: image/jpeg');
+		if($id <> '')
+		{
+			$child = $this->child_users->get_item($id);
+			header('Content-Type: image/jpeg');
 		
-		echo $child->image;
+			echo $child->image;
+		}
+		else
+		{
+			echo '';
+		}
 	}
 }
