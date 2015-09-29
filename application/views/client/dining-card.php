@@ -43,134 +43,81 @@
                                                 <div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" />
                                                 </div>
                                                 <div class="content">
-                                                    <h3 class="sectionname">Наши цены</h3>
+                                                    <h3 class="sectionname">Оплата питания школьника через карту</h3>
                                                     <div class="summary">
 
-													
-													
-													
-													
-	<div class="price_table_wrapper">												
- <table class="table price-table">
-    <thead>
-      <tr>
-        <th> Услуги </th>
-        <th class="orange-border">Тариф «Индивидуальный» </th>
-        <th>Тариф «Все включено»</th>
-		<th>Аналогичные поставщики услуг</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Получение карты *</td>
-        <td class="orange-border">
-		  <div class="checkbox">
-			<label class="full_width_label">
-			  <input checked="checked" disabled type="checkbox"> <div class="white_text">бесплатно</div> <span class="checkbox-icon"></span> 
-			</label>
-		  </div>		
-		</td>
-        <td>
-		  <div class="checkbox">
-				<label>
-					<input checked="checked" disabled type="checkbox"> <span class="checkbox-icon"></span> 
-				</label>
-		  </div>		
-		</td>
-		<td>от 100 руб.</td>
-      </tr>
-      <tr>
-        <td><span>Смс информирование о приходе и уходе</span></td>
-        <td class="oranged">
-		  <div class="checkbox">
-			<label class="full_width_label">
-			  <input checked="checked" type="checkbox" id="ch0" onchange="calculate_price()"> <div><span class="number">120</span> руб./мес.</div> <span class="checkbox-icon ci0"></span> 
-			</label>
-		  </div>	
-		</td>
-        <td>
-		  <div class="checkbox">
-				<label>
-					<input checked="checked" disabled type="checkbox"> <span class="checkbox-icon"></span> 
-				</label>
-		  </div>	
-		</td>
-		<td>от 150 до 300 руб.</td>
-      </tr>
-      <tr>
-        <td>Абонентская плата за пользованием личным кабинетом и его функциями</td>
-		<td class="oranged">
-		  <div class="checkbox">
-			<label class="full_width_label">
-			  <input  type="checkbox" id="ch1" onclick="calculate_price()">  <div><span class="number">100</span> руб./мес.</div> <span class="checkbox-icon ci1"></span> 
-			</label>
-		  </div>		
-		</td>
-        <td>
-		  <div class="checkbox">
-				<label>
-					<input checked="checked" disabled type="checkbox"> <span class="checkbox-icon"></span> 
-				</label>
-		  </div>			
-		</td>
-        <td>от 150 до 300 руб.</td>
-      </tr>
-	  
-      <tr>
-        <td>Смс по питанию</td>
-        <td class="oranged">
-		  <div class="checkbox" >
-			<label class="full_width_label">
-			<input type="checkbox" id="ch2" onchange="calculate_price()"> <div> <span class="number">1.5</span>  руб.за смс </div> <span class="checkbox-icon ci2"></span> 
-			</label>
-		  </div>	
-		</td>
-        <td>
-		  <div class="checkbox">
-				<label>
-					<input checked="checked" disabled type="checkbox" > <span class="checkbox-icon"></span> 
-				</label>
-		  </div>
-		</td>
-		<td>от 2 руб за смс</td>
-      </tr>	 
 
-      <tr>
-        <td>Стоимость в месяц</td>
-		<td class="oranged">
-      <script> function calculate_price()
-      {
-          var price = 0;
-          if ($('.ci0').css('background-image').indexOf('border') > 0)
-            price += 120;
-          if ($('.ci1').css('background-image').indexOf('border') > 0)
-            price += 100;
-          if ($('.ci2').css('background-image').indexOf('border') > 0)
-            price += 39;
-          $('#summ').html(price);
-      }
-      </script>
-		  <span class="red_number" id="summ">120</span> <span class="red_color">руб.</span>
-		</td>
-        <td>
-		  <span class="red_number">250</span> <span class="red_color">руб.</span>
-		</td>
-        <td><strong>Более 500 руб./мес.</strong></td>
-      </tr>	  
-	  
-      <tr>
-        <td></td>
-		<td><a href="#win3" class="table-btn btn btn-default">Подключить</a></td>
-        <td><a href="#win3" class="table-btn btn btn-default">Подключить</a></td>
-        <td><a nohref="#"><img class="cross" src="/template/client/img/cross.png"/></a></td>
-      </tr>	 	  
-    </tbody>
-  </table>	
-	</div>
-													
-	<div class="chenge_cart">* Замена карты - 30 рублей.</div>												
 													
 													
+													
+<section id="cd-timeline" class="green-color-main">
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img green-color">
+			1
+		</div> <!-- cd-timeline-img -->
+ 
+		<div class="cd-timeline-content">
+			<h2>Зарегистрируйтесь в личном кабинете родителя</h2>
+			<p>Для регистрации достаточно указать только ваш номер телефона и загрузить фотографию школьника в личном кабинете.</p>
+			
+			<span class="cd-date"><img src="/template/client/img/icon2/icon1.png"/></span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->
+ 
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img green-color">
+			2
+		</div> <!-- cd-timeline-img -->
+ 
+		<div class="cd-timeline-content">
+			<h2>Пополните баланс счета карты школьника</h2>
+			<p>Помимо оплаты через сбербанк мы подключаем десятки других методов оплаты - как через интернет, так и через терминалы, расположенные во всех районах города.</p>
+			
+			<span class="cd-date"><img src="/template/client/img/icon2/icon2.png"/></span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->
+	
+	
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img green-color">
+			3
+		</div> <!-- cd-timeline-img -->
+ 
+		<div class="cd-timeline-content">
+			<h2>Теперь школьник может оплачивать покупки в столовой своей картой</h2>
+			<p>А в личном кабинете родителю доступны все функции системы «Новый свет» - статистика и контроль по питанию школьника, отчеты по расходам и другие функции.</p>
+			
+			<span class="cd-date"><img src="/template/client/img/icon2/icon3.png"/></span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->	
+	
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img green-color">
+			4
+		</div> <!-- cd-timeline-img -->
+ 
+		<div class="cd-timeline-content">
+			<h2>СМС-оповещение о питании</h2>
+			<p>Данная функция работает так же, как и смс-оповещение о посещении школьником школы, только вы получаете отчеты о блюдах, которые школьник заказал в столовой.</p>
+			
+			<span class="cd-date"><img src="/template/client/img/icon2/icon4.png"/></span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->		
+	
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img green-color">
+			5
+		</div> <!-- cd-timeline-img -->
+ 
+		<div class="cd-timeline-content">
+			<h2>Все заказы школьника отображаются в личном кабинете</h2>
+			<p>Подробную инструкцию по личному кабинету родителя вы можете изучить на нашем сайте.</p>
+			
+			<span class="cd-date"><img src="/template/client/img/icon2/icon5.png"/></span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->		
+	<a href="#win3" class="order btn btn-default">Оформить заявку</a>
+</section>													
 													
 
 
@@ -287,6 +234,8 @@ M.util.init_block_hider(Y, {"id":"inst67","title":"Lambda School","preference":"
 });
 //]]>
 </script>
+
+
 
             <!--[if lte IE 9]>
 <script src="http://lambda.redpithemes.com/theme/lambda/javascript/ie/matchMedia.js"></script>

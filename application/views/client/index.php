@@ -22,6 +22,8 @@
 				<?require 'include/header.php';?>
 
 				<div id="page" class="container-fluid">
+        
+        
 					<div class="camera_wrap camera_emboss pattern_1" id="camera_wrap">
 						<div data-src="<?=base_url()?>template/client/img/slider/demo_slide1.jpg">
 							<div class="camera_caption moveFromRight">
@@ -65,16 +67,16 @@
 																		<div class="row-fluid frontpage-top">
 																			<div class="span8">
 																				<div class="prom-box prom-box-default">
-																					<h2>Используйте карты "Новый Свет" для контроля посещаемости и питания в школе Вашего ребенка</h2>
+																					<h2>Используйте карты «Новый Свет» для контроля посещаемости и питания в школе Вашего ребенка</h2>
 																					Универсальная карта <strong>бесплатно</strong> выдается всем ученикам и сотрудникам общеобразовательного учреждения. Она  является идентификатором учащегося, и служит пропуском в школу, электронным кошельком для оплаты школьного питания, а также может являться ученическим проездным. Информация по всем действиям по карте конкретного ученика школы, отражается в личном кабинете для родителей. 
 																				</div>
 																			</div>
 																			<div class="span4">
 																				<blockquote>
 																					<p>Раньше организация питания моего класса была головной болью. Теперь же достаточно приложить карту к терминалу, все остальное происходит автоматически</p>
-																					<footer>Илья Геньевич, классный руководитель 4б класса</footer>
+																					<footer>Илья Алексеевич, классный руководитель <br>4б класса</footer>
 																				</blockquote>
-																				<p style="text-align: right;"><a class="btn btn-default" href="">Другие отзывы</a></p>
+																			<!--	<p style="text-align: right;"><a class="btn btn-default" href="">Другие отзывы</a></p> -->
 																			</div>
 																		</div>
 																	</div>
@@ -88,18 +90,19 @@
 											<li class="activity label modtype_label " id="module-278">
 												<div>
 													<div class="mod-indent-outer">
+        <div class="course-content"><div class="single-section "><div class="section-navigation header headingblock"><div class="mdl-align title">НАШИ РЕШЕНИЯ</div></div></div></div>
 														<div class="mod-indent"></div>
 														<div>
 															<div class="contentwithoutlink ">
 																<div class="no-overflow">
 																	<div class="no-overflow">
-																		<div class="row-fluid frontpage">
-																			<div class="iconbox span3">
+																		<div class="row-fluid frontpage iconbox-wrap">
+																			<div class="iconbox span4">
 																				<div class="iconcircle"><i class="fa fa-credit-card"></i></div>
 																				<div class="iconbox-content">
 																					<h4>Карта питания в школе</h4>
 																					<p>Онлайн-меню столовой, оплата питания, контроль расходов и другие возможности</p>
-																					<a class="btn btn-primary" href="http://sup-ptz.ru/pluses-r.html" target="_blank">Подробнее</a>
+																					<a class="btn btn-primary" href="/dining-card" target="_blank">Подробнее</a>
 																				</div>
 																			</div>
 																			<div class="iconbox span3">
@@ -107,15 +110,15 @@
 																				<div class="iconbox-content">
 																					<h4>Умный пропуск в школу</h4>
 																					<p>Смс-оповещение родителя о приходе и уходе ребенка из школы</p>
-																					<a class="btn btn-primary" href="http://sup-ptz.ru/pluses-r.html">Подробнее</a>
+																					<a class="btn btn-primary" href="/sms-visit">Подробнее</a>
 																				</div>
 																			</div>
-																			<div class="iconbox span3">
+																			<div class="iconbox span4">
 																				<div class="iconcircle"><i class="fa fa-globe"></i></div>
 																				<div class="iconbox-content">
 																					<h4>Личный кабинет родителя</h4>
 																					<p>Статистика посещений, индивидуальное меню ребенка и десятки других функций </p>
-																					<a class="btn btn-primary" href="http://sup-ptz.ru/lk.html">Подробнее</a>
+																					<a class="btn btn-primary" href="/lk">Подробнее</a>
 																				</div>
 																			</div>
 																			<!--<div class="iconbox span3">
@@ -141,26 +144,26 @@
 																<div class="no-overflow">
 																	<div class="no-overflow">
 																		<div class="spotlight spotlight-v3 spotlight-full" style="min-height:190px;">
-																			<h2>Несколько основных достоинств карт "Новый Свет":</h2>
+																			<h2>Несколько основных достоинств карт «Новый Свет»:</h2>
 																			<div class="row-fluid">
 																				<div class="span4">
 																					<div class="blocknumber_box">
 																						<div class="blocknumber_icon"><i class="fa fa-tablet-">1</i></div>
-																						<div class="blocknumber_content"><h5>Безопасность</h5><p>Вы будете точно знать где находится Ваш ребенок и будете спокойны за него. <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p></div>
+																						<div class="blocknumber_content"><h5>Безопасность</h5><p>Теперь Вы точно знаете, где Ваш ребенок и можете быть спокойны за него. <a href="/sms-visit" class="readmore">Подробнее</a></p></div>
 																					</div>
 																				</div>
 																				
 																				<div class="span4">
 																					<div class="blocknumber_box">
 																						<div class="blocknumber_icon"><i class="fa fa-picture-o-">2</i></div>
-																						<div class="blocknumber_content"><h5>Успеваемость</h5><p>Вы будете иметь полную информацию о посещаемости школы Вашим ребенком. <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p></div>
+																						<div class="blocknumber_content"><h5>Успеваемость</h5><p>Полная информация о посещаемости школы Вашим ребенком. <a href="/sms-visit" class="readmore">Подробнее</a></p></div>
 																					</div>
 																				</div>
 																				
 																				<div class="span4">
 																					<div class="blocknumber_box">
 																					<div class="blocknumber_icon"><i class="fa fa-gift-">3</i></div>
-																						<div class="blocknumber_content"><h5>Контроль</h5><p>СМС-информирование родителей присходит моментально. <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p></div>
+																						<div class="blocknumber_content"><h5>Контроль</h5><p>Моментальное SMS-информирование. <a href="/sms-visit" class="readmore">Подробнее</a></p></div>
 																					</div>
 																				</div>
 																			</div>
@@ -171,7 +174,7 @@
 																			<div class="blocknumber_icon"><i class="fa fa-magic-">4</i></div>
 																				<div class="blocknumber_content">
 																					<h5>Экономность</h5>
-																					<p>Деньги идут по назначению и не могут быть потрачены на посторонние вещи. <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p>
+																					<p>Деньги расходуются по назначению, а не тратятся на посторонние вещи. <a href="/dining-card" class="readmore">Подробнее</a></p>
 																				</div>
 																			</div>
 																		</div>
@@ -179,14 +182,14 @@
 																		<div class="span4">
 																			<div class="blocknumber_box">
 																				<div class="blocknumber_icon"><i class="fa fa-pencil-">5</i></div>
-																				<div class="blocknumber_content"><h5>Отчеты</h5><p>Можно получать отчеты о рационе питания ребенка (в виде СМС или email). <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p></div>
+																				<div class="blocknumber_content"><h5>Отчеты</h5><p>Получайте отчеты о рационе питания в виде SMS и E-mail. <a href="/dining-card" class="readmore">Подробнее</a></p></div>
 																			</div>
 																		</div>
 																		
 																		<div class="span4">
 																			<div class="blocknumber_box">
 																				<div class="blocknumber_icon"><i class="fa fa-thumbs-o-up-">6</i></div>
-																					<div class="blocknumber_content"><h5>Современность</h5><p>Дети привыкают оплачивать покупки, используя платежные системы. <a href="http://sup-ptz.ru/pluses-r.html" class="readmore">Подробнее</a></p></div>
+																					<div class="blocknumber_content"><h5>Современность</h5><p>Дети оплачивают покупки используя платежные системы. <a href="/dining-card" class="readmore">Подробнее</a></p></div>
 																				</div>
 																			</div>
 																		</div>
@@ -206,13 +209,33 @@
 											</div></div></div></div></div></div></div>
 										</li>
 
-										<li class="activity label modtype_label " id="module-281"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="spotlight spotlight-v1 spotlight-full arrow-top">
+										<li class="activity label modtype_label " id="module-281"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="spotlight spotlight-v1 spotlight-full arrow-top" style="margin-top: -33px;">
 											<div class="row-fluid">
-												<div class="span8">
-													<h4>Оставьте заявку и получите карту "Новый Свет" для Вашего ребенка совершенно бесплатно</h4>
-												</div>
-												<div class="span4" style="margin-top:15px;">
-													<p style="text-align:right;"><a class="btn btn-primary" href="/order.html" style="margin-right: 20px;">Оформить заявку</a></p>
+												<div class="span12 call-to-action">
+													<h4>Оставьте заявку и получите карту «Новый Свет» для Вашего ребенка совершенно бесплатно</h4>
+												</div><!--
+												<div class="span12 call-to-action-2">
+													<p style="text-align:center;"><a class="btn btn-primary" href="/order.html">Оформить заявку</a></p>
+												</div>-->
+												<div class="span12 call-to-action-2">
+												
+<div id="block-call-to-action">
+	<form action="" method="post">
+		<div class="l_wrapper">
+		<label><i class="fa fa-envelope-o"></i></i></label>	
+		<input class="span2 required" type="text" name="name" placeholder="имя">
+		</div>
+		
+		<div class="l_wrapper">
+		<label><i class="fa fa-phone"></i></label>	
+		<input class="span2 required" type="text" name="phone" placeholder="телефон">		
+		</div>
+		<div class="l_wrapper">
+		<input type="submit" id="submit-btn" name="submit" onclick="document.location.hash='#success'" value="оформить заявку">
+		</div>
+    </form>
+		</div>												
+												
 												</div>
 											</div></div></div></div></div></div></div></div>
 										</li>
@@ -226,12 +249,12 @@
 										<div class="text-box-heading">Различные варианты исполнения</div>
 										<div class="arrow-down" style="margin-bottom:10px;"></div>
 										<p>Дополнительно по желанию, родители могут приобрести силиконовые браслеты вместо карт.</p>
-										<p style="text-align:right; margin-bottom:0;"><a class="btn btn-primary" href="/order.html" style="pull-right">Отправить заявку</a></p>
+										<p style="text-align:right; margin-bottom:0;"><a class="btn btn-primary" href="#win3" style="pull-right">Отправить заявку</a></p>
 									</div>
 								</div>
 								<div class="span8">
 									<div class="carousel">
-										<h2 class="bx-heading">Браслеты и брелки "Новый Свет"</h2>
+										<h2 class="bx-heading">Браслеты и брелки «Новый Свет»</h2>
 										<span id="slider-prev"></span><span id="slider-next"></span> 
 									</div>
 									<div class="slider1">    	
@@ -240,13 +263,13 @@
 												<img src="<?=base_url()?>template/client/img/carousel/writing_mosaic.jpg" alt="carousel_image_1"/>
 											</div>
 											
-											<div class="mask green"><h2>Брелки школьника</h2><p>Брелок имеет все возможности карты "Новый Свет"</p><a class="info" href="/order.html">Заказать брелок</a></div>
+											<div class="mask green"><h2>Брелки школьника</h2><p>Брелок имеет все возможности карты "Новый Свет"</p><a class="info" href="#win3">Заказать брелок</a></div>
 										</div>					
 										<div class="caption-hover">        		
 											<div class="slide">
 												<img src="<?=base_url()?>template/client/img/carousel/math_mosaic.jpg" alt="carousel_image_2"/>
 											</div>
-											<div class="mask orange"><h2>Браслеты разных видов</h2><p>Браслет имеет все возможности карты "Новый Свет"</p><a class="info" href="/order.html">Заказать браслет</a></div>
+											<div class="mask orange"><h2>Браслеты разных видов</h2><p>Браслет имеет все возможности карты "Новый Свет"</p><a class="info" href="#win3">Заказать браслет</a></div>
 										</div>					
     
 					        	            <!--	<div class="caption-hover">        		<div class="slide">                
@@ -288,90 +311,11 @@
 			</div>
 			<a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><p></p></a>
 		</div>
-		
-		<footer id="page-footer" class="container-fluid">
-			<div class="row-fluid">
-				<aside style="" id="block-region-footer-left" class="span4 block-region" data-blockregion="footer-left" data-droptarget="1"></aside>
-				<aside style="display: none;" id="block-region-footer-left" class="span4 block-region" data-blockregion="footer-left" data-droptarget="1">
-				<a href="#sb-1" class="skip-block">Skip Calendar</a><div id="inst3" class="block_calendar_month  block" role="complementary" data-block="calendar_month" data-instanceid="3" aria-labelledby="instance-3-header"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-3-header">Calendar</h2></div></div><div class="content"><table class="minicalendar calendartable" summary="September 2015 Calendar"><caption><div class="calendar-controls"><a class="arrow_link previous" href="indexed48.html?time=1438380000" title="Previous month"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;<span class="arrow_text">Previous month</span></span></a><span class="hide"> | </span><span class="current"><a title="This month" href="calendar/view5337.html?view=month&amp;time=1442434475&amp;course=1">September 2015</a></span><span class="hide"> | </span><a class="arrow_link next" href="index9a43.html?time=1443650400" title="Next month"><span class="accesshide " ><span class="arrow_text">Next month</span>&nbsp;</span><span class="arrow ">&#x25BA;</span></a><span class="clearer"><!-- --></span>
-</div></caption><tr class="weekdays"><th scope="col"><abbr title="Sunday">Sun</abbr></th>
-<th scope="col"><abbr title="Monday">Mon</abbr></th>
-<th scope="col"><abbr title="Tuesday">Tue</abbr></th>
-<th scope="col"><abbr title="Wednesday">Wed</abbr></th>
-<th scope="col"><abbr title="Thursday">Thu</abbr></th>
-<th scope="col"><abbr title="Friday">Fri</abbr></th>
-<th scope="col"><abbr title="Saturday">Sat</abbr></th>
-</tr><tr><td class="dayblank">&nbsp;</td>
-<td class="dayblank">&nbsp;</td>
-<td class="day">1</td>
-<td class="day">2</td>
-<td class="day">3</td>
-<td class="day">4</td>
-<td class="weekend day">5</td>
-</tr><tr><td class="weekend day">6</td>
-<td class="day">7</td>
-<td class="day">8</td>
-<td class="day">9</td>
-<td class="day">10</td>
-<td class="day">11</td>
-<td class="weekend day">12</td>
-</tr><tr><td class="weekend day">13</td>
-<td class="day">14</td>
-<td class="day">15</td>
-<td class="day today eventnone"><span class="accesshide " >Today Wednesday, 16 September </span><a id="calendar_tooltip_1" href="#">16</a></td>
-<td class="day">17</td>
-<td class="day">18</td>
-<td class="weekend day">19</td>
-</tr><tr><td class="weekend day">20</td>
-<td class="day">21</td>
-<td class="day">22</td>
-<td class="day">23</td>
-<td class="day">24</td>
-<td class="day">25</td>
-<td class="weekend day">26</td>
-</tr><tr><td class="weekend day">27</td>
-<td class="day">28</td>
-<td class="day">29</td>
-<td class="day">30</td>
-<td class="dayblank">&nbsp;</td><td class="dayblank">&nbsp;</td><td class="dayblank">&nbsp;</td></tr></table></div></div>
 
-<span id="sb-1" class="skip-block-to"></span></aside>
-
-<aside id="block-region-footer-middle" class="span4 block-region" data-blockregion="footer-middle" data-droptarget="1"></aside>
-<aside id="block-region-footer-right" class="span4 block-region" data-blockregion="footer-right" data-droptarget="1">
-	<a href="#sb-3" class="skip-block">город Петрозаводск</a>
-	<div id="inst67" class="block_html  block" role="complementary" data-block="html" data-instanceid="67" aria-labelledby="instance-67-header">
-		<div class="header">
-			<div class="title">
-				<div class="block_action"></div>
-				<h2 id="instance-67-header">ООО "Новый Свет"</h2>
-			</div>
-		</div>
-		<div class="content">
-			<div class="no-overflow"><address>город Петрозаводск, пр. Александра Невского, 65</address>
-				<i class="fa fa-mobile fa-lg"></i>&nbsp; Телефон: +7 (931) 701-3501 <br>
-				<i class="fa fa-envelope-o"></i>&nbsp; E-mail: <a href="mailto:info@sup-ptz.ru">info@sup-ptz.ru</a>
-				<h6>Мы в соцсетях:</h6>
-				<div class="social_icons pull-left">
-					<a class="social fa fa-vk" target="_blank" href="http://vk.com/novyisvet_ptz"> </a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<span id="sb-3" class="skip-block-to"></span>
-</aside> 	
-</div>
-
-<div class="footerlinks">
-   	<div class="row-fluid">
-    	<p class="helplink"></p>
-    	<div class="footnote"><p>(c) 2014-2015 | ООО "Новый Свет"</p></div>		
-	</div>
-</div>
-
-</footer>
-
-<script type="text/javascript" src="theme/javascript.php/lambda/1439469018/javascript.php"></script>
+<? require 'include/footer.php'?> 
+ 
+    
+    <script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/javascript.php/lambda/1439469018/javascript.php"></script>
 <script type="text/javascript">
 //<![CDATA[
 M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","viewallcourses":"View all courses","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","yes":"Yes","confirm":"Confirm","no":"No","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"admin":{"confirmation":"Confirmation"}};
@@ -404,8 +348,6 @@ M.util.init_block_hider(Y, {"id":"inst67","title":"Lambda School","preference":"
 });
 //]]>
 </script>
-
-
 <!--[if lte IE 9]>
 <script src="http://lambda.redpithemes.com/theme/lambda/javascript/ie/matchMedia.js"></script>
 <![endif]-->

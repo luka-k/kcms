@@ -11,20 +11,27 @@
                   	
 		<div class="login-header">
 			<div class="profileblock" style="text-align:right;">
-				<?if(!$user || !in_array("parent", $user_groups)):?>
-					<form class="navbar-form pull-right" method="post" id="login_form" action="<?=base_url()?>account/enter">
-						<div id="block-login">
-							<label id="user"><i class="fa fa-user"></i></label>	
-							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="text" name="name" placeholder="Логин" style="margin-bottom:10px;">
-							<label id="pass"><i class="fa fa-key"></i></label>
-							<input class="span2 require <?if(isset($error)):?>error<?endif;?>" type="password" name="password" id="password1" placeholder="Пароль">
-							<input type="submit" id="submit" name="submit" value="" onclick="form_submit('login_form');" />
+      
+      
+            		<form class="navbar-form pull-right parent-form" method="post" action="<?=base_url()?>account/enter/">
+		<div id="block-login" style=''>
+            <div id="phonetop" style="font-size: 14px;line-height: 15px;text-align: right;"><i class="fa fa-mobile fa-2x maincolor"></i> <span style="font-size: 22px;line-height: 15px;">+7 (931) 701-3501</span><br><a href="#win2" style="font-size: 14px;line-height: 15px;">перезвоните мне</a><br><br><a href="#win2" style="font-size: 14px;padding-top:8px;" onclick="$('#phonetop').hide(); $('#entertop').show();return false;"><i class="fa fa-hand-o-right fa-1x maincolor"></i> вход в личный кабинет</a></div>
+				<div id="entertop" style="display: none;">
+					<?if(!$user || !in_array('parent', $user_groups)):?>
+						<label id="user"><i class="fa fa-user"></i></label>	
+						<input class="span2" type="text" name="name" onFocus="if(this.value =='Username' ) this.value=''" value="Логин" style="margin-bottom:10px;">
+						<label id="pass"><i class="fa fa-key"></i></label>
+						<input class="span2" type="password" name="password" id="password1" value="Пароль">
+						<input type="submit" id="submit" name="submit" value=""/>
+					<?else:?>
+						<div style="text-align:center">
+							<a class="btn btn-default fancybox" href="#parent-info"><!--Здравствуйте, --><span><?=$user->short_name?></span></a>
+							<a class="btn btn-danger" href="<?=base_url()?>account/log_out">Выход</a>
 						</div>
-					</form>
-				<?else:?>
-					<a class="btn btn-default fancybox" href="#parent-info"><!--Здравствуйте, --><span><?=$user->short_name?></span></a>
-					<a class="btn btn-danger" href="<?=base_url()?>account/log_out">Выход</a>
-				<?endif;?>
+					<?endif;?>
+				</div>
+			</form>
+      
 			</div>
 					
 		</div>
@@ -36,11 +43,11 @@
 					<nav role="navigation" class="navbar-inner">
 						<div class="container-fluid">
 							<a class="brand" href="<?=base_url()?>index">Главная</a>
-							<!--<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+							<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
-							</a>-->
+							</a>
 							<div class="nav-collapse collapse">
 								<ul class="nav">
 									<?foreach($top_menu as $level_1):?>
