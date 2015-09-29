@@ -29,7 +29,7 @@
 				
 		$('.secondcolumn .level1_click').click(function() {
 			$(this).parent().children('ul').toggle('slow');
-
+			
 			if ($(this).html() == '+')
 				$(this).html('-');
 			else
@@ -65,8 +65,6 @@
 		});
 	})(jQuery);
 	
-	
-	
 	function show_popup(width){
 		$('#total_count').html('...');
 		$('#searchpopupbtn').css('left', (width + 320) + 'px');
@@ -74,9 +72,13 @@
 		$.post('/shop/catalog/count/', $('#filter-form').serialize(), function(data) {$('#total_count').html(data);}, 'html');
 	}
 		
-		
 	function clear_filter(type){
 		$('.'+type+'-filter').prop("checked", false);
+		
+		if(type == 'collection' || type == 'sku'){
+			$('.manufacturer-filter').prop("checked", false);
+		}
+		
 		$('#filter-form').submit();
 	}
 	
@@ -100,7 +102,7 @@
 		}
 		
 		$('.'+type+'_chb_'+item_id).prop('checked', true);
-		
+		if(type == 'manufacturer') type = 'collection';
 		$('#last_type_filter').val(type+'_checked'); 
 
 		$('#filter-form').submit();
@@ -109,7 +111,6 @@
 	function checked_tree(parent_id, type, action){
 		var form = $('.filter-form'),
 		inputs = form.find('input.'+type+'-branch-'+parent_id);
-
 		var counter_1 = 0;
 		var counter_2 = 0;
 		inputs.each(function () {
@@ -118,8 +119,8 @@
 				if($("#"+type+"-fork-"+parent_id).prop("checked")){
 					element.prop("checked", true);
 				}else{
-					element.prop("checked", false);
-				}
+					element.prop("checked", false)
+				}				
 			}else if(action == "child"){
 				counter_1++;
 				if(element.prop("checked") == false){
@@ -133,5 +134,29 @@
 				}
 			}
 		});
+		
+		if(type == 'collection' && action == 'fork')
+		{
+			var manufacturer_id = document.getElementById(type+"-fork-"+parent_id).dataset.manid;
+			inputs = $('.filter-form').find('input.manufac-branch-'+manufacturer_id);
+			
+			counter_1 = 0;
+			counter_2 = 0;
+			
+			inputs.each(function(){
+				counter_1++;
+				if($(this).prop("checked") == true){
+					counter_2++;
+				}
+			});	
+
+			if(counter_1 == counter_2){
+				$("#manufac-fork-"+manufacturer_id).prop("checked", true);
+			}
+			else
+			{
+				$("#manufac-fork-"+manufacturer_id).prop("checked", false);
+			}
+		}
 	}
 </script>

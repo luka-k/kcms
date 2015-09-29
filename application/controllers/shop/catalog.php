@@ -78,6 +78,12 @@ class Catalog extends Client_Controller {
 			'childs_categories' => ''
 		);
 		
+		$data['availability_ch'] = array();
+		foreach($availability as $key => $value)
+		{
+			if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+		}
+		
 		$this->standart_data = array_merge($this->standart_data, $data);
 		
 		$this->load->helper('url_helper');
@@ -194,6 +200,7 @@ class Catalog extends Client_Controller {
 				$data['category']->products = $this->products->prepare_list($data['category']->products);
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
 				if($cache->type == 'categories') $data['logo_column'] = TRUE;
+				$data['sku_ch'] = array();
 				$data['beautiful_link'] = $semantic_url;
 				
 				if($data['all_products_ids']) 
@@ -265,8 +272,8 @@ class Catalog extends Client_Controller {
 		$cache_id = md5(serialize($this->post));
 
 		$cache = $this->filters_cache->get($cache_id);
-		if($cache) $this->filters_cache->delete($cache_id);
-		$cache = FALSE;
+		//if($cache) $this->filters_cache->delete($cache_id);
+		//$cache = FALSE;
 		if($cache)
 		{
 			redirect(base_url().'catalog/filter/'.$cache_id);
@@ -293,6 +300,11 @@ class Catalog extends Client_Controller {
 			{
 				unset($filters_wlt['shortname']);
 				unset($filters_wlt['shortdesc']);
+			}
+			elseif($last_type_filter == 'collection_checked')
+			{
+				unset($filters_wlt['manufacturer_checked']);
+				unset($filters_wlt['collection_checked']);
 			}
 			else
 			{
@@ -353,14 +365,14 @@ class Catalog extends Client_Controller {
 				$depth_min = $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);	
 				$depth_max = $depth_to = preg_replace('/[^0-9]/', '', $this->post['depth_to']);
 			}
-
+			//my_dump(count($products_ids_wlt));
+			//my_dump(count($products_ids));
 			$data = array(
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'filters_checked' => $this->post,
 				'filters' => $filters,
 				'total_rows' => count($products),
 				'left_menu' => $last_type_filter == "categories_checked" ? $this->categories->get_tree($products_wlt) : $this->categories->get_tree($products, $this->post),
-				'collection' => $last_type_filter == "collection_checked" ? $this->collections->get_tree($products_ids_wlt) : $this->collections->get_tree($products_ids, $this->post),
 				'sku_tree' => $last_type_filter == "sku_checked" ? $this->manufacturers->get_tree($products_wlt) : $this->manufacturers->get_tree($products, $this->post),
 				'parent_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'parent_checked'),
 				'categories_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'categories_checked'),
@@ -392,6 +404,16 @@ class Catalog extends Client_Controller {
 				'depth_max' => $depth_max
 			);
 
+			if(empty($data['manufacturer_ch']) && !empty($data['collections_ch']))
+			{
+				$data['manufacturer_ch'] = array();
+				foreach($this->post['collection_checked'] as $collection_id)
+				{
+					$manufacturer_id = $this->collections->get_item($collection_id)->manufacturer_id;
+					$data['manufacturer_ch'][] = $this->manufacturers->get_item($manufacturer_id)->name;
+				}
+			}
+
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt, $this->post);
@@ -399,6 +421,15 @@ class Catalog extends Client_Controller {
 			else
 			{
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
+			}
+			
+			if($last_type_filter == "collection_checked" || $last_type_filter == "manufacturer_checked")
+			{
+				$data['collection'] = $this->collections->get_tree($products_ids_wlt);
+			}
+			else
+			{
+				$data['collection'] = $this->collections->get_tree($products_ids);
 			}
 			
 			$data['category'] = new stdClass;	
@@ -419,7 +450,7 @@ class Catalog extends Client_Controller {
 			{
 				if(isset($data['filters_checked'][$key]) && $data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
 			}
-
+			
 			$this->filters_cache->insert($cache_id, $data);
 			
 			$this->benchmark->mark('code_end');
@@ -449,6 +480,28 @@ class Catalog extends Client_Controller {
 			foreach($manufacturer->sku as $i => $sku)
 			{
 				$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+			}
+		}
+		
+		if(isset($data['filters_checked']['manufacturer_checked']) && isset($data['filters_checked']['collection_checked']) && count(array_unique($data['filters_checked']['manufacturer_checked'])))
+		{
+			foreach($data['collection'] as $man)
+			{
+				if(in_array($man->id, $data['filters_checked']['manufacturer_checked']))
+				{
+					if(count($man->childs) == count($data['filters_checked']['collection_checked'])) $data['no_col_count'] = TRUE;
+				}
+			}
+		}
+		
+		if(isset($data['filters_checked']['manufacturer_checked']) && isset($data['filters_checked']['sku_checked']) && count(array_unique($data['filters_checked']['manufacturer_checked'])))
+		{
+			foreach($data['sku_tree'] as $man)
+			{
+				if(in_array($man->id, $data['filters_checked']['manufacturer_checked']))
+				{
+					if(count($man->sku) == count($data['filters_checked']['sku_checked'])) $data['no_sku_count'] = TRUE;
+				}
 			}
 		}
 		

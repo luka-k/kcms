@@ -76,11 +76,11 @@
 				</div>
 				<div class="lm-item" prop="secondcolumn3">
 					<?if(empty($manufacturer_ch)):?>
-						Все коллекции
+						<span class="lm-title">Все коллекции</span>
 					<?else:?>
 						<span class="lm-title"><?=$manufacturer_ch[0]?></span>
-						<?if(count($collections_ch) > 1):?>
-							[<?= count($collections_ch)?>]
+						<?if(count($collections_ch) > 0 && !empty($collections_ch) && !isset($no_col_count)):?>
+							<span id="col_qty">[<?= count($collections_ch)?>]</span>
 						<?endif;?>
 					<?endif;?>
 				</div>
@@ -93,8 +93,8 @@
 					<?if(empty($manufacturer_ch)):?>
 						<span class="lm-title">Все артикулы</span>
 					<?else:?>
-						<?=$manufacturer_ch[0]?>
-						<?if(count($sku_ch) > 1):?>
+						<span class="lm-title"><?=$manufacturer_ch[0]?></span>
+						<?if(count($sku_ch) > 0 && !empty($sku_ch) && !isset($no_sku_count)):?>
 							[<?= count($sku_ch)?>]
 						<?endif;?>
 					<?endif;?>
@@ -186,7 +186,7 @@
 					Наличие товара:
 				</div>
 				<div class="lm-item" prop="secondcolumn10">
-					<?if(empty($availability_ch)):?>
+					<?if(count($availability_ch) == 2):?>
 						Все варианты
 					<?else:?>
 						<span class="lm-title"><?=$availability_ch[0]?></span>
@@ -262,7 +262,7 @@
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
 		</div>
-		<a href="#" id="on_top" class="submit-btn" onclick="scroll_on_top(); return false;">На верх</a>
+		<a href="#" id="on_top" class="submit-btn" onclick="scroll_on_top(); return false;">Наверх</a>
 	</form>
 </aside>
 

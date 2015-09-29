@@ -175,7 +175,7 @@
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($s->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
 				<?if($s->sku):?> 
-					<span class="level1_click"><?if(count($sku_tree) == 1):?>-<?else:?>+<?endif;?></span>
+					<span class="level1_click"><?if(count($sku_tree) == 1 && !empty($s->sku)):?>-<?else:?>+<?endif;?></span>
 				<?endif;?> 
 				<a href="#" class="level1_link" onclick="submit_filter('manufacturer', '<?=$s->id?>'); return false;" rel="nofollow">
 					<?=$s->name?>
@@ -185,11 +185,11 @@
 						<?foreach($s->sku as $sku):?>
 							<li>
 								<input type="checkbox" 
-									   class="sku-branch-<?=$s->id?> sku-filter sku_chb_<?=$s->id?>" 
+									   class="manufacturer-branch-<?=$s->id?> sku-filter sku_chb_<?=$s->id?>" 
 									   name="sku_checked[]" 
 									   value="<?=$sku->sku?>" 
-									   onclick="checked_tree('<?=$s->id?>', 'sku', 'child'); $('#last_type_filter').val('sku_checked');"
-									   <?if(isset($filters_checked['sku_checked']) && in_array($sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
+									   onclick="checked_tree('<?=$s->id?>', 'manufacturer', 'child'); $('#last_type_filter').val('sku_checked');"
+									   <?if(isset($filters_checked['sku_checked']) && in_array($sku->sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
 								/>
 								<a href="<?=$sku->full_url?>">
 									<?=$sku->sku?>
@@ -210,28 +210,30 @@
 		<?foreach($collection as $col_manufacturers):?>
 			<li>
 				<input type="checkbox" 
-					   id="manufacturer-fork-<?=$col_manufacturers->id?>"
+					   id="manufac-fork-<?=$col_manufacturers->id?>"
 					   class="manufacturer-filter manufacturer_chb_<?=$col_manufacturers->id?>"
 					   name="manufacturer_checked[]" 
 					   value="<?=$col_manufacturers->id?>" 
-					   onclick="checked_tree('<?=$col_manufacturers->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
+					   onclick="checked_tree('<?=$col_manufacturers->id?>', 'manufac', 'fork'); $('#last_type_filter').val('collection_checked');"
 					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($col_manufacturers->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
 				/>
-				<span class="level1_click"><?if(count($collection) == 1):?>-<?else:?>+<?endif;?></span> 
+				<span id="manu-<?=$col_manufacturers->id?>" class="level1_click"><?if(count($collection) == 1 && !empty($col_manufacturers->childs)):?>-<?else:?>+<?endif;?></span> 
 				<a href="#" class="level1_link" onclick="submit_filter('manufacturer', '<?=$col_manufacturers->id?>'); return false;" rel="nofollow">
 					<?=$col_manufacturers->name?>
 				</a>
 				<?if($col_manufacturers->childs):?>
-					<ul style="display:<?if(count($collection) == 1):?>block<?endif;?>">
+					<ul id="collec-<?=$col_manufacturers->id?>" style="display:<?if(count($collection) == 1):?>block<?endif;?>">
+						<?$show_counter_1 = 0?>
 						<?foreach($col_manufacturers->childs as $level_1):?>
 							<li>
 								<input type="checkbox" 
 									id="collection-fork-<?=$level_1->id?>"
-									class="collection-filter collection_chb_<?=$level_1->id?>"
+									class="manufac-branch-<?=$col_manufacturers->id?> collection-filter collection_chb_<?=$level_1->id?>"
 									name="collection_checked[]" 
+									data-manid = "<?=$col_manufacturers->id?>"
 									value="<?=$level_1->id?>"
-									onclick="checked_tree('<?=$level_1->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked')"
-									<?if(isset($filters_checked['collection_checked']) && in_array($level_1->id, $filters_checked['collection_checked'])):?>checked<?endif;?>
+									onclick="checked_tree('<?=$level_1->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked');"
+									<?if(isset($filters_checked['collection_checked']) && in_array($level_1->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter_1?><?endif;?>
 								/>
 								<?if($level_1->childs):?>
 									<span id="cll-<?=$level_1->id?>" class="level1_click">+</span>
@@ -262,32 +264,19 @@
 								<?endif;?>
 							</li>
 						<? endforeach ?>
+						<?if($show_counter_1 > 0):?><script>document.getElementById('collec-<?=$col_manufacturers->id?>').style.display='block'; $("#manu-<?=$col_manufacturers->id?>").html("-");</script><?endif;?>
+						<?if($show_counter_1 == count($col_manufacturers->childs)):?>
+							<script>
+								$('#manufac-fork-<?=$col_manufacturers->id?>').prop("checked", true);
+							</script>
+						<?endif;?>
 					</ul>
 				<?endif;?>
 			</li>
 		<?endforeach;?>
 	</ul>
 </div>
-				
-<div id="secondcolumn2" class="secondcolumn">
-	<div class="clear_filter"><a href="#" onclick="clear_filter('manufacturer'); return false;">сбросить фильтр <span class="red">X</span></a></div>
-	<ul class="level1">
-		<?foreach($manufacturer as $m):?>
-			<li>
-				<input type="checkbox" 
-					   id="manufacturer-fork-<?=$m->id?>"
-					   class="manufacturer-filter"
-					   name="manufacturer_checked[]" 
-					   value="<?=$m->id?>" 
-					   onclick="checked_tree('<?=$m->id?>', 'manufacturer', 'fork'); $('#last_type_filter').val('manufacturer_checked')"
-					   <?if(isset($filters_checked['manufacturer_checked']) && in_array($m->id, $filters_checked['manufacturer_checked'])):?>checked<?endif;?>
-				/>
-				<a href="<?=base_url()?>catalog/<?=$m->url?>" class="level1_link"><?if($m->sku):?><?endif;?><?=$m->name?></a>
-			</li>
-		<? endforeach ?>
-	</ul>
-</div>
-				
+							
 <div id="secondcolumn" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('categories'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
