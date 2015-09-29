@@ -45,12 +45,22 @@
 						$("#good_page_scroll").height($( window ).height() - 85  + $(this).scrollTop());
 						
 						$("#manufacturers_column").css("display", "block");
+						
+						$('#on_top').css('display', 'none');
+						$('.leftmenu').mCustomScrollbar("scrollTo", 0);
 					
 					} 
 					else if($(this).scrollTop() > ($( window ).height() * 4) - 60){
-						$('.leftmenu').height($( window ).height() - 110);
-						$("#shadow").height($( window ).height() - 290);
-						$('#on_top').css('display', 'block');
+						//$('.leftmenu').height($( window ).height() - 110);
+						
+						<?if(!isset($main_page)):?>
+							$('.on_top_1').css('display', 'block');
+							var top = $('.leftmenu').height();
+							$('.leftmenu').mCustomScrollbar("scrollTo", top);
+						<?else:?>
+							$('.on_top_2').css('display', 'block');
+							$('.on_top_2').css('top', $("#shadow").height() - 75);
+						<?endif;?>
 					}
 					else {
 						$('header').css('margin-top', -60 + 'px');
@@ -85,7 +95,9 @@
 	})(jQuery);
 	
 	function scroll_on_top(){
-		$('#product-scroll').animate({scrollTop: 0});
+		$('#on_top').css('display', 'none');
+		$('.leftmenu').mCustomScrollbar("scrollTo", 0);
+		$('#product-scroll').animate({scrollTop: "top"});
 	}
 	
 	$(".logo-column").mCustomScrollbar({

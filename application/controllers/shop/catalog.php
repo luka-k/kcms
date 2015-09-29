@@ -127,7 +127,7 @@ class Catalog extends Client_Controller {
 			if($data)
 			{	
 				$this->filters_cache->set_last($cache_id);
-
+				$data['main_page'] = TRUE;
 				$data = array_merge($this->standart_data, $data);			
 			}
 			else

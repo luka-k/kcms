@@ -261,8 +261,12 @@
 				<a href="/catalog" class="submit-btn" >Сбросить</a> &nbsp;&nbsp;
 				<a href="#" class="submit-btn" onclick="document.forms['filter-form'].submit()">Применить</a>
 			</div>
+			<?if(!isset($main_page)):?>
+				<div class="lm-block" style="margin-top:18px; padding-bottom:10px; text-align:left;">
+					<a href="#" id="on_top" class="on_top_1 submit-btn" onclick="scroll_on_top(); return false;">Наверх</a>
+				</div>
+			<?endif;?>
 		</div>
-		<a href="#" id="on_top" class="submit-btn" onclick="scroll_on_top(); return false;">Наверх</a>
 	</form>
 </aside>
 

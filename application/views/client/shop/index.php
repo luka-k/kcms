@@ -7,7 +7,7 @@
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
 		<div id="wrapper" class="shop_wrapper">
-			<div class="section maxw">
+			<div class="section maxw main_page">
 				<div class="mainwrap">
 					<main>
 						<article>
@@ -166,7 +166,9 @@
 			</div>
 		</div>
 		
-		<div id="shadow"></div>
+		<div id="shadow">
+			<a href="#" id="on_top" class="on_top_2 submit-btn" onclick="scroll_on_top(); return false;">Наверх</a>
+		</div>
 	</body>
 	
 	<script>

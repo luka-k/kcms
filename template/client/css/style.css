@@ -2310,9 +2310,19 @@ text-align:center;
 }
 
 #on_top{
+	position:relative;
 	display:none;
-	margin:15px auto 0 auto;
+	width:90px;
+	height:30px;
+	padding:5px 10px;
+	margin-left:25px;
 	text-align:center;
+}
+
+.main_page #on_top{
+	position:fixed;
+	left:0;
+	z-index:10000;
 }
 
 @media all and (max-width: 1280px) {
