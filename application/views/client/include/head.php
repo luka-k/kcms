@@ -18,6 +18,8 @@ M.yui.loader = {modules: {}};
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/css/styles.css" />
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+<script type="text/javascript" src="<?=base_url()?>template/client/js/script.js"></script>
+
 <script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/combo94e0?rollup/3.13.0/yui-moodlesimple-min.js"></script><script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/comboffd9?rollup/1437668614/mcore-min.js"></script><script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/jquery.php/core/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/jquery.php/theme_lambda/dropdown_2_3_2.js"></script>
 <script type="text/javascript" src="http://novsvet.ribaweb.ru/theme/jquery.php/theme_lambda/jquery.easing.1.3.js"></script>

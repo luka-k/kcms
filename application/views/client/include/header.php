@@ -25,7 +25,7 @@
 						<input type="submit" id="submit" name="submit" value=""/>
 					<?else:?>
 						<div style="text-align:center">
-							<a class="btn btn-default fancybox" href="#parent-info"><!--Здравствуйте, --><span><?=$user->short_name?></span></a>
+							<a class="btn btn-default fancybox" href="<?=base_url()?>account"><!--Здравствуйте, --><span><?=$user->short_name?></span></a>
 							<a class="btn btn-danger" href="<?=base_url()?>account/log_out">Выход</a>
 						</div>
 					<?endif;?>

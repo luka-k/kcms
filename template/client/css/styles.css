@@ -5161,6 +5161,9 @@ display: inline-block;
 
 @media screen and (max-width: 1170px)  {
 	.price-table {width: 100%;     box-sizing: border-box;}
-	
-	
+
+}
+
+.personal-info{
+	margin-top:15px;
 }

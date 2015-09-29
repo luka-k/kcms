@@ -107,7 +107,6 @@
 									<?endif;?>
 								</div>
 								<div class="tab-pane" id="menu">
-									<div class="tab-title col_12">Меню</div>
 									<div class="col_12">
 										<table class="tight">
 											<thead>
@@ -145,8 +144,8 @@
 									</div>
 								</div>
 								<div class="tab-pane" id="settings">
-									<div class="tab-title col_12">Настройки</div>
-									<div class="col_12">
+									<div class="tab-title span10"></div>
+									<div class="span10">
 										<label for="" class="">Лимит по питанию в день:</label>
 										<input type="text" name="" class="" value="<?=$selected_child->card->card_day_limit?> р." onchange="set_limit(this.value, '<?=$selected_child->card_number?>')" /><br /><br />
 										<label for="" class="">СМС-информирование по питанию (1.5р за смс):</label> 
@@ -169,6 +168,32 @@
 												<?=$selected_child->visit_sms_enabled_date?>
 											<?endif;?>
 										</span>
+									</div>
+									<div class="tab-title span10" style="margin-top:25px;">Персональная информация</div>
+									<div class="span10 personal-info">
+										<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="parent_form" class="form" action="<?=base_url()?>account/update_info">
+					
+										<input type="hidden" name="id" value="<?=$user->id?>"/>
+										<div class="clearfix">
+											<label for="" class="span2">Ф.И.О:</label>
+											<input type="text" name="name" class="require span9" value="<?=$user->name?>"/>
+										</div>
+										<div class="clearfix">
+											<label for="" class="span2">Email:</label>
+											<input type="text" name="email" class="require span9" value="<?=$user->email?>"/>
+										</div>
+										<div class="clearfix">
+											<label for="" class="span2">Телефон:</label>
+											<input type="text" name="phone" class="require span9" value="<?=$user->phone?>"/>
+										</div>
+										<div class="clearfix">
+											<label for="" class="span2">Пароль:</label>
+											<input type="text" name="password" class="span9" value=""/>
+										</div>
+										<div class="">
+											<a href="#" class="btn" onclick="form_submit('parent_form'); return false">Изменить</a>
+										</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -198,35 +223,6 @@
 						</div>
 						<a href="#top" class="back-to-top"><i class="fa fa-chevron-circle-up fa-3x"></i><p></p></a>
 					</div>
-					
-					<div id="parent-info" class="clearfix col_6" style="display:none;">
-			<div class="personal-info clearfix">
-				<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="parent_form" class="form" action="<?=base_url()?>account/update_info">
-					
-					<input type="hidden" name="id" value="<?=$user->id?>"/>
-					<div class="clearfix">
-						<label for="" class="span1">Ф.И.О:</label>
-						<input type="text" name="name" class="require span5" value="<?=$user->name?>"/>
-					</div>
-					<div class="clearfix">
-						<label for="" class="span1">Email:</label>
-						<input type="text" name="email" class="require span5" value="<?=$user->email?>"/>
-					</div>
-					<div class="clearfix">
-						<label for="" class="span1">Телефон:</label>
-						<input type="text" name="phone" class="require span5" value="<?=$user->phone?>"/>
-					</div>
-					<div class="clearfix">
-						<label for="" class="span1">Пароль:</label>
-						<input type="text" name="password" class="span5" value=""/>
-					</div>
-					<div style="text-align:center;">
-						<a href="#" class="btn green" onclick="form_submit('parent_form'); return false">Изменить</a>
-					</div>
-				</form>
-			</div>
-		</div>
-
 
 <? require 'include/footer.php'?> 
 
