@@ -70,7 +70,7 @@ class Database extends CI_Controller
 			$this->db->select('card_balance');
 			$card_balance = $this->db->get('cards')->row()->card_balance;
 			
-			$card_balance = $card_balance + $new_order['summ']; //Мы же точно решиди что с минусом будут?
+			$card_balance = $card_balance - $new_order['summ'];
 			
 			$this->db->where('card_number', $new_order['card_number']);
 			$this->db->update('cards', array('card_balance' => $card_balance));

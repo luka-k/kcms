@@ -89,7 +89,7 @@
 												<?foreach($selected_child->orders as $order):?>
 													<tr>
 														<td><?=$order->date?></td>
-														<td class="<?if(mb_substr($order->summ, 0, 1) == '-'):?>red<?else:?>green<?endif;?>"><?=$order->summ?> р.</td>
+														<td class="<?if($order->operation == 'заказ'):?>red<?else:?>green<?endif;?>"><?=$order->summ?> р.</td>
 														<td>
 															<?if(!empty($order->products)):?>
 																<?foreach($order->products as $key => $product):?>

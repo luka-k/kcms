@@ -334,6 +334,9 @@ class Content extends Admin_Controller
 					$data['no_tabs'] = array('Продукты');
 					$data['content']->card = new stdclass();
 				}
+				
+				if($type == 'products') $data['menu_id'] = 0;
+				
 				if($type == "users_groups") $data['content']->users_group2manufacturer = array();
 			}	
 			else
@@ -347,6 +350,12 @@ class Content extends Admin_Controller
 					$data['content']->disabled_products = $this->child_users->get_disabled_products($id);
 					
 					$data['content']->card = $this->cards->get_item_by(array('card_number' => $data['content']->card_number));
+				}
+				
+				if($type == 'products')
+				{
+					$category = $this->categories->get_item($data['content']->category_id);
+					$data['menu_id'] = $category->menu_id;
 				}
 				
 				if($type == "users_groups") $data['content']->users_group2manufacturer = $this->table2table->get_parent_ids("users_group2manufacturer", "manufacturer_id", "user_group_id", $id);

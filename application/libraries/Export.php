@@ -59,9 +59,10 @@ class Export{
 	private function get_school_info($school_id, $sqlite)
 	{	
 		$this->CI->db->where('school_id', $school_id);
+		$this->CI->db->where('has_image', 1); //Сразу отсекаем тех укого нет картинок
 		$this->set_fields('child_users', $sqlite);
 		$child_users = $this->CI->db->get('child_users')->result();
-		
+
 		$this->CI->db->where('school_id', $school_id);
 		$menu = $this->CI->db->get('menu')->row();
 		
@@ -94,9 +95,59 @@ class Export{
 			if(!empty($categories))
 			{
 				$categories_ids = $this->CI->catalog->ids_in_array($categories);
-				$this->CI->db->where_in('id', $categories_ids);
+				$this->CI->db->where_in('category_id', $categories_ids);
 				$this->set_fields('products', $sqlite);
 				$products = $this->CI->db->get('products')->result();
+			}
+		}
+		
+		//Находим тех у кого не есть не заполненые поля, удаляем и удаляем связанные записи в (картах, продукты2дети)
+		if(!empty($child_users))foreach($child_users as $key => $user)
+		{
+			foreach($user as $field)
+			{
+				if(empty($field))
+				{
+					if(!empty($user->card_number) && !empty($cards)) foreach($cards as $card_key => $card)
+					{
+						if(in_array($user->card_number, (array)$card)) unset($cards[$card_key]);
+					}
+					
+					if(!empty($user->id) && !empty($child2product)) foreach($child2product as $c2p_key => $c2p)
+					{
+						if(in_array($user->id, (array)$c2p)) unset($child2product[$c2p_key]);
+					}
+					
+					unset($child_users[$key]);
+					break;
+				}
+			}
+		}
+		
+		//Находим не заполненные карты, удаляем и удаляем связанные записи в (детях, продукты2дети)
+		if(!empty($cards))foreach($cards as $key => $card)
+		{
+			foreach($card as $field)
+			{
+				if(empty($field))
+				{
+					if(!empty($user->card_number) && !empty($child_users)) foreach($child_users as $child_key => $child)
+					{
+						if(in_array($card->card_number, (array)$child)) 
+						{
+							$child_id = $child->id;
+							if(!empty($child2product))foreach($child2product as $c2p_key => $c2p)
+							{
+								if(in_array($child->id, (array)$c2p)) unset($child2product[$c2p_key]);
+							}
+							
+							unset($child_users[$child_key]);
+						}
+					}
+					
+					unset($cards[$key]);
+					break;
+				}
 			}
 		}
 		
@@ -107,7 +158,6 @@ class Export{
 			'categories' => $categories,
 			'products' => $products
 		);
-		
 		return $insert_info;
 	}
 	
