@@ -2370,4 +2370,20 @@ text-align:center;
 	.shop_wrapper main.news {
 		padding: 0 0 0 290px;
 	}
+}
+
+@media print {
+
+	header .top-menu, .plus-minus, #s_left, .cart-delete, .cart-order__button, .dropdown{
+		display:none;
+	}
+	
+	.shop_wrapper main.cart {
+		padding: 0 0 0 0;
+	}
+	
+	.form__input, .cart-table, .cart-order_title{
+		position:relative;
+		z-index:100000000000000000000000000000000000000;
+	}
 }

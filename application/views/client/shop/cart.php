@@ -4,7 +4,7 @@
 	<body>
 		<? require FCPATH.'application/views/client/include/header.php'?>
 		
-			<div id="wrapper" class="shop_wrapper">
+			<div id="wrapper" class="shop_wrapper clearfix">
 				<div class="section maxw">
 					<div class="mainwrap">
 						<main class="cart">
@@ -110,6 +110,7 @@
 															<div class="cart-collumn-2">
 																<div class="form__button cart-order__button">
 																	<a href="#" class="order-button" onclick="submit_form('order'); return false;">Оформить заказ</a>
+																	<a href="#" class="order-button" onclick="window.print();">Печать</a>
 																</div> 
 															</div>
 														</div> <!-- /.cart-order__form -->
@@ -132,7 +133,7 @@
 				</div>
 			</div>
 		
-			<? if (empty($filters_checked)): ?><div id="shadow"></div><? endif ?>
+			<? if (!isset($no_shadow)): ?><div id="shadow"></div><? endif ?>
 		
 	</body>
 	

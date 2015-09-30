@@ -42,6 +42,12 @@ class Cart extends Client_Controller
 		$depth_max = $depth_to = $this->products->get_max('depth');
 		if(!empty($this->post['depth_to'])) $depth_to = preg_replace("/[^0-9]/", "", $this->post['depth_to']);
 		
+		$availability = $this->config->item('availability');
+		foreach($availability as $key => $value)
+		{
+			$filters_checked[$key] = 1;
+		}
+		
 		$data = array(
 			'title' => "Корзина",
 			'breadcrumbs' => $this->breadcrumbs->get(),
@@ -66,11 +72,29 @@ class Cart extends Client_Controller
 			'depth_min' => $depth_min,
 			'depth_max' => $depth_max,
 			'left_menu' => $this->categories->get_tree(),
+			'collection' => $this->collections->get_tree(),
+			'sku_tree' => $this->manufacturers->get_tree(),
 			'manufacturer' => $this->manufacturers->get_tree(FALSE),
 			'action' => $this->input->get('action'),
+			'availability' => $availability,
+			'filters_checked' => $filters_checked,
 			'select_item' => '',
 			'order_string' => $this->standart_data['settings']->order_string
 		);
+		
+		if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
+		{
+			foreach($manufacturer->sku as $i => $sku)
+			{
+				$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
+			}
+		}
+		
+		$data['availability_ch'] = array();
+		foreach($availability as $key => $value)
+		{
+			if($data['filters_checked'][$key] == 1) $data['availability_ch'][] = $value;
+		}
 
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/shop/cart.php', $data);
