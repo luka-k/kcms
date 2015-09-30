@@ -357,7 +357,7 @@ class Content extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post();
-			
+
 			//Если в базе присутствует колонка lastmod заполняем дату последней модификации
 			if($this->db->field_exists('lastmod', $type)) $data['content']->lastmod = date("Y-m-d");
 
@@ -421,8 +421,6 @@ class Content extends Admin_Controller
 					$this->cards->insert($info);
 					$this->child_users->update($data['content']->id, array('card_number' => $info['card_number']));
 				}
-				
-				
 			}
 			
 			if($type == "users_groups")	$this->table2table->set_tables_fixing("users_group2manufacturer", "manufacturer_id", "user_group_id", $data['content']->id);

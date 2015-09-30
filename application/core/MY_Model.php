@@ -622,6 +622,8 @@ class MY_Model extends CI_Model
 							$thumb->RenderToFile($file_path);
 											
 							$return->$key =  file_get_contents($file_path);
+							
+							$has_image = TRUE;
 						}
 					}
 					else
@@ -643,6 +645,8 @@ class MY_Model extends CI_Model
 				if(!empty($edit_value)) $return->$key = $edit_value;
 			}
 		}
+		
+		if(isset($has_image)) $return->has_image = 1;
 
 		return $return;
 	}	

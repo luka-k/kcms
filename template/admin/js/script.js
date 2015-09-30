@@ -64,7 +64,7 @@ function submit_form(form_id){
 
 	if (validation($("#"+form_id), errorClass)) return false;
 
-	if($('#image_blob').val() == ''){
+	if($('.image_blob').val() == '' && $('#image_blob').val() == ''){
 		$('.image_blob').addClass('error');
 		return false;
 	}
