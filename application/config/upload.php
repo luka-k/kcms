@@ -7,6 +7,7 @@ $config['thumb_config'] = array(
 	"catalog_big" => array(
 		'w' => 1100,
 		'h' => 1100,
+		'fltr' => "wmi|images/logo.png|BR|75|90|40|",
 		'far' => 1,
 		"bg" => "ffffff"
 	),

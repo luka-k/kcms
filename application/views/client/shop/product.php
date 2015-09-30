@@ -18,8 +18,8 @@
 									<div id="gallery">
 										<?if(!empty($product->images)):?>
 											<div id="box">
-												<a href='<?= $product->images[0]->full_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
-												<a href='<?= $product->images[0]->full_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+												<a href='<?= $product->images[0]->catalog_big_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
 											</div>
 									
 											<?if(count($product->images)>1):?>
