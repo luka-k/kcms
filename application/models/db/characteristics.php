@@ -38,7 +38,7 @@ class Characteristics extends MY_Model
 		{
 			foreach($filter['shortdesc'] as $shortdesc)
 			{
-				$sd = explode ('/', $shortdesc, 2);
+				$sd = explode ('//', $shortdesc, 2);
 	 			
 				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
