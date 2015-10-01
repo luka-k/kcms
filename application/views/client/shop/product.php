@@ -28,10 +28,10 @@
 														<?$counter = 1?>
 														<?foreach ($product->images as $img):?>
 															<div class="thumb <?if($counter == 3):?>left<?endif;?>">
-																<a href='<?= $img->full_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
+																<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
 																	<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
 																</a>
-																<a href='<?= $img->full_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
+																<a href='<?= $img->catalog_big_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
 																	<img  src="<?= $img->catalog_small_url?>" alt="" />
 																</a>
 															</div>
