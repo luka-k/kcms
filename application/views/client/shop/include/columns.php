@@ -133,7 +133,7 @@
 						   class="nok-filter shortname_chb_<?=$nok_counter?>"
 						   name="shortname[]"
 						   value="<?=$item_1?>"
-						   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
+						   onclick="checked_tree2('<?=$nok_counter?>', 'nok', 'fork'); $('#last_type_filter').val('shortname');"
 						   <?if(isset($filters_checked['shortname']) && in_array($item_1, $filters_checked['shortname'])):?>checked<?endif;?>
 					/>
 					<?if(!empty($ok)):?><span id="nokll-<?=$nok_counter?>" class="level1_click">+</span><?endif;?> 
@@ -150,7 +150,7 @@
 											   class="nok-branch-<?=$nok_counter?> nok-filter shortdesc_chb_<?=$nok_counter_2?>"
 										       name="shortdesc[<?=$key?>]"
 											   value="<?=$item_1?>/<?=$k?>"
-											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
+											   onclick="checked_tree2('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
 										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?++$show_counter?><?endif;?>
 									    />
 									    <a href="#" onclick="submit_filter('shortdesc', '<?=$nok_counter_2?>'); return false;" rel="nofollow">
