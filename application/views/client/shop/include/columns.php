@@ -28,19 +28,21 @@
 	<div class="clear_filter"><a href="#" onclick="clear_filter('turn'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['turn']->values)):?>
 		<ul class="level1">
+			<?$turn_counter = 0?>
 			<?foreach($filters['turn']->values as $turn):?>
 				<li>
 					<input type="checkbox" 
-						   class="turn-filter turn_chb_<?=$turn?>" 
+						   class="turn-filter turn_chb_<?=$turn_counter?>" 
 						   name="<?=$filters['turn']->name?>[]" 
 						   value="<?=$turn?>" 
 						   onclick="$('#last_type_filter').val('turn');"
 						   <?if(isset($filters_checked['turn']) && in_array($turn, $filters_checked['turn'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link" onclick="submit_filter('turn', '<?=$turn?>'); return false;" rel="nofollow"> 
+					<a href="#" class="level1_link" onclick="submit_filter('turn', '<?=$turn_counter?>'); return false;" rel="nofollow"> 
 						<?=$turn?>
 					</a>
 				</li>
+				<?$turn_counter++?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
@@ -50,19 +52,21 @@
 	<div class="clear_filter"><a href="#" onclick="clear_filter('finishing'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['finishing']->values)):?>
 		<ul class="level1">
+			<?$finishing_counter = 0?>
 			<?foreach($filters['finishing']->values as $finishing):?>
 				<li>
 					<input type="checkbox" 
-						   class="finishing-filter finishing_chb_<?=$finishing?>"
+						   class="finishing-filter finishing_chb_<?=$finishing_counter?>"
 						   name="<?=$filters['finishing']->name?>[]" 
 						   value="<?=$finishing?>"
 						   onclick="$('#last_type_filter').val('finishing');"
 						   <?if(isset($filters_checked['finishing']) && in_array($finishing, $filters_checked['finishing'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link" onclick="submit_filter('finishing', '<?=$finishing?>'); return false;" rel="nofollow"> 
+					<a href="#" class="level1_link" onclick="submit_filter('finishing', '<?=$finishing_counter?>'); return false;" rel="nofollow"> 
 						<?=$finishing?>
 					</a>
 				</li>
+				<?$finishing_counter++?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
@@ -72,19 +76,21 @@
 	<div class="clear_filter"><a href="#" onclick="clear_filter('material'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['material']->values)):?>
 		<ul class="level1">
+			<?$material_counter = 0?>
 			<?foreach($filters['material']->values as $material):?>
 				<li>
 					<input type="checkbox" 
-						   class="material-filter material_chb_<?=$material?>" 
+						   class="material-filter material_chb_<?=$material_counter?>" 
 						   name="<?=$filters['material']->name?>[]" 
 						   value="<?=$material?>"
 						   onclick="$('#last_type_filter').val('material');"
 						   <?if(isset($filters_checked['material']) && in_array($material, $filters_checked['material'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link" onclick="submit_filter('material', '<?=$material?>'); return false;" rel="nofollow">
+					<a href="#" class="level1_link" onclick="submit_filter('material', '<?=$material_counter?>'); return false;" rel="nofollow">
 						<?=$material?>
 					</a>
 				</li>
+				<?$material_counter++?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
@@ -94,19 +100,21 @@
 	<div class="clear_filter"><a href="#" onclick="clear_filter('color'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<?if(isset($filters['color']->values)):?>
 		<ul class="level1">
+			<?$color_counter = 0?>
 			<?foreach($filters['color']->values as $color):?>
 				<li>
 					<input type="checkbox" 
-						   class="color-filter color_chb_<?=$color?>" 
+						   class="color-filter color_chb_<?=$color_counter?>" 
 						   name="<?=$filters['color']->name?>[]" 
 						   value="<?=$color?>"
 						   onclick="$('#last_type_filter').val('color');"
 						   <?if(isset($filters_checked['color']) && in_array($color, $filters_checked['color'])):?>checked<?endif;?>
 					/>
-					<a href="#" class="level1_link" onclick="submit_filter('color', '<?=$color?>'); return false;" rel="nofollow"> 
+					<a href="#" class="level1_link" onclick="submit_filter('color', '<?=$color_counter?>'); return false;" rel="nofollow"> 
 						<?=$color?>
 					</a>
 				</li>
+				<?$color_counter++?>
 			<? endforeach ?>
 		</ul>
 	<?endif;?>
