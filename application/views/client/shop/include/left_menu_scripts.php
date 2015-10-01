@@ -24,6 +24,7 @@
 			$('.secondcolumn').fadeOut('slow');
 			$('.lm-item').removeClass('active');
 			$('.lm-item').stop().animate({width:'258px'},'slow');
+			$('#searchpopupbtn').fadeOut('slow');
 			event.stopPropagation();
 		});
 				
