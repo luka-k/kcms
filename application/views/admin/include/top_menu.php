@@ -23,8 +23,9 @@
 		
 		<? if (!$this->users_groups->is_seo()): ?>
 			<?if(in_array("admin", $user_groups)):?>
-				<li class="right"><a href="<?=base_url()?>admin/cache/refresh"><i class="icon-pencil"></i>Обновить кеш</a>
+				<li class="right"><a href="<?=base_url()?>admin/cache/refresh"><i class="icon-pencil"></i>Кеш</a>
 					<ul>
+						<li><a href="<?=base_url()?>admin/cache/clear">Очистить</a></li>
 						<li><a href="<?=base_url()?>admin/cache/refresh_categories">Категории</a></li>
 						<li><a href="<?=base_url()?>admin/cache/refresh_manufacturer_by_categories">Категории/Производители</a></li>
 						<li><a href="<?=base_url()?>admin/cache/refresh_manufacturers">Производители</a></li>

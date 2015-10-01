@@ -510,4 +510,11 @@ class Cache extends Admin_Controller
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
+	
+	public function clear()
+	{
+		$this->db->truncate('filters_cache');
+		
+		redirect(base_url().'admin');
+	}
 }
