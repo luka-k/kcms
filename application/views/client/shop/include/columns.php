@@ -136,6 +136,7 @@
 							<?$show_counter = 0?>
 							
 							<?foreach($ok as $key => $item_2):?>
+								<?++$nok_counter?>
 								<?if(!empty($item_2)):?>
 									<li>	
 										<input type="checkbox" 

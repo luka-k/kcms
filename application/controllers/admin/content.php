@@ -691,4 +691,9 @@ class Content extends Admin_Controller
 			$this->products->update($info->id, array("is_special" => $info->value));
 		}
 	}
+	
+	public function resize()
+	{
+		$this->images->resize_all('products', 'catalog_big');
+	}
 }

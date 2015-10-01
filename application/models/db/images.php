@@ -87,7 +87,7 @@ class Images extends MY_Model
 	public function generate_thumbs($img_path, $thumb_config_name = FALSE)
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
-		
+
 		$upload_path = $this->config->item('images_upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
@@ -112,7 +112,7 @@ class Images extends MY_Model
 			{
 				$thumb->setParameter($parameter, $value);
 			}
-			
+						
 			$output_filename = make_upload_path($image_name[0], $upload_path."/".$thumb_dir_name).$image_name[0];
 			
 			//Генерируем миниатюры

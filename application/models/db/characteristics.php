@@ -32,6 +32,8 @@ class Characteristics extends MY_Model
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
 		$ff = array();
+		$ff_1 = array();
+		$ff_2 = array();
 		if(isset($filter['shortdesc']))
 		{
 			foreach($filter['shortdesc'] as $shortdesc)
@@ -40,7 +42,6 @@ class Characteristics extends MY_Model
 	 			
 				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
-
 				$results = $this->db->get('characteristics')->result();
 
 				$parent_ids = array();
@@ -48,12 +49,13 @@ class Characteristics extends MY_Model
 				{
 					$parent_ids[] = $r->id;
 				}
+				
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
 				if($parent_ids) $this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
-	
+				
 				$ch_ids = array();
 				if(!empty($result))foreach($result as $r)
 				{
@@ -67,10 +69,24 @@ class Characteristics extends MY_Model
 					
 					if(!empty($result))foreach($result as $r)
 					{
-						$ff[] = $values[] = $r->product_id;
+						$ff_1[] = $r->product_id;
 					}
 					//my_dump($result);
 				}
+				
+				if(!empty($parent_ids))
+				{
+					$this->db->where_in('characteristic_id', $parent_ids);
+					$result = $this->db->get('characteristic2product')->result();
+					
+					if(!empty($result))foreach($result as $r)
+					{
+						$ff_2[] = $r->product_id;
+					}
+					//my_dump($result);
+				}
+				
+				if(!empty($ff_1) && !empty($ff_2)) $ff = $values = array_intersect($ff_2, $ff_1);
 			}
 			//++$counter;
 		}
