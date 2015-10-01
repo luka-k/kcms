@@ -142,23 +142,23 @@
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
-							
-							<?foreach($ok as $key => $item_2):?>
-								<?++$nok_counter?>
-								<?if(!empty($item_2)):?>
+							<?$nok_counter_2 = 0?>
+							<?foreach($ok as $key => $k):?>
+								<?if(!empty($k)):?>
 									<li>	
 										<input type="checkbox" 
-											   class="nok-branch-<?=$nok_counter?> nok-filter shortdesc_chb_<?=$nok_counter?>"
+											   class="nok-branch-<?=$nok_counter?> nok-filter shortdesc_chb_<?=$nok_counter_2?>"
 										       name="shortdesc[<?=$key?>]"
-											   value="<?=$item_1?>/<?=$item_2?>"
+											   value="<?=$item_1?>/<?=$k?>"
 											   onclick="checked_tree('<?=$nok_counter?>', 'nok', 'child'); $('#last_type_filter').val('shortdesc');"
 										       <?if(isset($filters_checked['shortdesc']) && array_key_exists($key, $filters_checked['shortdesc'])):?>checked<?++$show_counter?><?endif;?>
 									    />
-									    <a href="#" onclick="submit_filter('shortdesc', '<?=$nok_counter?>'); return false;" rel="nofollow">
-											<?=$item_2?>
+									    <a href="#" onclick="submit_filter('shortdesc', '<?=$nok_counter_2?>'); return false;" rel="nofollow">
+											<?=$k?>
 										</a>
 								    </li>
 								<?endif;?>
+								<?++$nok_counter_2?>
 							<?endforeach;?>
 							<?if($show_counter > 0):?><script>document.getElementById('sub-ok-<?=$nok_counter?>').style.display='block'; $("#nokll-<?=$nok_counter?>").html("-");</script><?endif;?>
 						</ul>
