@@ -101,7 +101,7 @@ class CI_Catalog {
 	
 	public function get_nok_tree($ids, $selected = array())
 	{
-		$this->CI->benchmark->mark('code_start');
+		//$this->CI->benchmark->mark('code_start');
 		
 		$nok_tree = array();
 		
@@ -115,7 +115,6 @@ class CI_Catalog {
 			$this->CI->db->where('type', 'shortdesc');
 			
 			$result = $this->CI->db->get('characteristics')->result();
-			
 			if($result) foreach($result as $r)
 			{
 				$sl[] = $r->parent_id;
@@ -134,21 +133,31 @@ class CI_Catalog {
 				$ch_ids[] = $r->characteristic_id;
 			}
 			
+			$ch_ids = array_unique($ch_ids);
+			/*if($ch_ids)
+			{
+				$this->CI->db->where_in('id', $ch_ids);
+				$this->CI->db->select('id');
+				$this->db->where('type', 'shortname');
+			}*/
+			
 			$this->CI->db->select('type, value, id');
+			$this->CI->db->where('type', 'shortname');
 			if(!empty($ch_ids)) $this->CI->db->where_in('id', $ch_ids);
+			
 			if(!empty($sl)) $this->CI->db->where_in('id', $sl);
 			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
-			
-			$this->CI->db->where('type', 'shortname');
+
 			$this->CI->db->order_by('value', 'asc');
 			$result = $this->CI->db->get('characteristics')->result();
-
+			//my_dump($result);
 			if($result) foreach($result as $r)
 			{
 				$this->CI->db->select('type, value, id');
 				$this->CI->db->where('parent_id', $r->id);
 				if(!empty($selected['shortdesc'])) $this->CI->db->where_in('id', array_keys($selected['shortdesc']));
 				$this->CI->db->order_by('value', 'asc');
+				$this->CI->db->where('type', 'shortdesc');
 				$nok_branch = $this->CI->db->get('characteristics')->result();
 
 				$nok_tree[$r->value] = array();
