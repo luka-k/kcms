@@ -63,7 +63,7 @@ class Collections extends MY_Model
 		
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
-		
+		//my_dump($selected['collection_checked']);
 		$filtred_ids = array();
 		
 		$this->db->where_in('child_id', $ids);

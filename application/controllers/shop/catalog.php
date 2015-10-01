@@ -427,11 +427,11 @@ class Catalog extends Client_Controller {
 			
 			if($last_type_filter == "collection_checked" || $last_type_filter == "manufacturer_checked")
 			{
-				$data['collection'] = $this->collections->get_tree($products_ids_wlt);
+				$data['collection'] = $this->collections->get_tree($products_ids_wlt, $this->post);
 			}
 			else
 			{
-				$data['collection'] = $this->collections->get_tree($products_ids);
+				$data['collection'] = $this->collections->get_tree($products_ids, $this->post);
 			}
 			
 			$data['category'] = new stdClass;	
