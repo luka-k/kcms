@@ -627,6 +627,7 @@ class Import extends Admin_Controller
 							}
 							elseif($type == 'shortdesc')
 							{
+								$characteristics['parent_id'] = $shortname_id;
 								$shortdesc = $this->db->get_where('characteristics', $characteristics)->row();
 								
 								if(!$shortdesc)
