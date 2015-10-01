@@ -125,6 +125,7 @@
 	<?if(isset($nok)):?>
 		<ul class="level1">
 			<?$nok_counter = 1?>
+			<?$nok_counter_2 = 0?>
 			<?foreach($nok as $item_1 => $ok):?>
 				<li>
 					<input type="checkbox" 
@@ -142,7 +143,6 @@
 					<?if(!empty($ok)):?>
 						<ul id="sub-ok-<?=$nok_counter?>">
 							<?$show_counter = 0?>
-							<?$nok_counter_2 = 0?>
 							<?foreach($ok as $key => $k):?>
 								<?if(!empty($k)):?>
 									<li>	
