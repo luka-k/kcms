@@ -134,12 +134,6 @@ class CI_Catalog {
 			}
 			
 			$ch_ids = array_unique($ch_ids);
-			/*if($ch_ids)
-			{
-				$this->CI->db->where_in('id', $ch_ids);
-				$this->CI->db->select('id');
-				$this->db->where('type', 'shortname');
-			}*/
 			
 			$this->CI->db->select('type, value, id');
 			$this->CI->db->where('type', 'shortname');

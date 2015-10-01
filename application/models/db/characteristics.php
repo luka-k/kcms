@@ -85,6 +85,7 @@ class Characteristics extends MY_Model
 				}
 				
 				if(!empty($pids_by_shortdesc_1) && !empty($pids_by_shortdesc_2)) $pids_by_shortdesc = $values = array_intersect($pids_by_shortdesc_2, $pids_by_shortdesc_1);
+				//my_dump($pids_by_shortdesc);
 			}
 			//++$counter;
 		}
@@ -93,7 +94,7 @@ class Characteristics extends MY_Model
 		{
 			$this->db->where('type', 'shortname');
 			$this->db->where_in('value', $filter['shortname']);
-
+			
 			$result = $this->db->get('characteristics')->result();
 			
 			$ch_ids = array();
