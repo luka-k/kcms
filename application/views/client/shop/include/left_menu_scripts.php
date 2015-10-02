@@ -95,6 +95,10 @@
 	}
 	
 	function submit_filter(type, item_id){
+		$('.'+type+'-filter').prop("checked", false);
+		if(type == 'collection') $('.manufacturer-filter').prop("checked", false);
+		if(type == 'shortname' || type == 'shortdesc') $('.nok-filter').prop("checked", false);
+		
 		if($('.'+type+'_chb_'+item_id).hasClass('parent_checked')){
 			inputs = $('.filter-form').find('input.parent-branch-'+item_id);
 			inputs.each(function () {
@@ -104,6 +108,7 @@
 		
 		$('.'+type+'_chb_'+item_id).prop('checked', true);
 		if(type == 'manufacturer') type = 'collection';
+		
 		$('#last_type_filter').val(type+'_checked'); 
 
 		$('#filter-form').submit();
