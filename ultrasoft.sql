@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 02 2015 г., 18:00
+-- Время создания: Окт 02 2015 г., 22:25
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -75,7 +75,9 @@ INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`
 (23, 6, 'Оптовая торговля и дистрибьюция', '2015-10-02', 0, '', '', '', '', 'optovaya-torgovlya-i-distribyuciya', '2015-10-02', '', '0.1'),
 (24, 6, 'Розничная торговля, ретейл', '2015-10-02', 0, '', '', '', '', 'roznichnaya-torgovlya-retejl', '2015-10-02', '', '0.1'),
 (25, 6, 'Сервисные компании', '2015-10-02', 0, '', '', '', '', 'servisnye-kompanii', '2015-10-02', '', '0.1'),
-(26, 6, 'Интеграция систем', '2015-10-02', 0, '', '', '', '', 'integraciya-sistem', '2015-10-02', '', '0.1');
+(26, 6, 'Интеграция систем', '2015-10-02', 0, '', '', '', '', 'integraciya-sistem', '2015-10-02', '', '0.1'),
+(27, 1, 'Тест-рыба', '2015-10-02', 0, '<p>Считается, что впервые тест-рыбу применили в книгопечатании еще 16 веке</p>\r\n', '', '', '', 'test-ryba', '2015-10-02', '', '0.1'),
+(28, 1, 'Lorem ipsum', '2015-10-02', 0, '<p>Самым известным &laquo;рыбным&raquo; текстом является знаменитый Lorem ipsum</p>\r\n', '', '', '', 'lorem-ipsum', '2015-10-02', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -98,34 +100,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('0185e8f77ef167a4d9901f2d4ffcbbd5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443797846, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('0c4acfe1b440697acb631196748e2ab4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794708, ''),
-('0e78a226c22cb7ebd66daeb659fbae54', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794707, ''),
-('109376329069897bede65f35598fe513', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792470, ''),
-('1304ac3dbb32a8ef995611114d3d0dc9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792473, ''),
-('1c8d2dd5e129817a826d6e5a4b06b05f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794713, ''),
-('1f7fa4aa06a881d615f8b0a6f7b05b4f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792470, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('23746055558875ad50e6381442eb2ce4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794708, ''),
-('39ad40fac895daf6abd77d902e2845d2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792473, ''),
-('3dd510509f6cf02e2ae3470de1a746c5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, ''),
-('43363f3dcf72cfd72d6b10e654f649aa', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794713, ''),
-('485ae148a152e122045256bc477051fc', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792470, ''),
-('57fe19449d8b36ed649229449105f103', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792471, ''),
-('65c8557cf5b54dd7aa546020ce57083d', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794712, ''),
-('6916a354a3a4390f3064eea0eb377028', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794709, ''),
-('6f0631a5c27bf4580329249115ef6f66', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, ''),
-('878dd2efe60b3a29ad7ea8c3aa0eaa99', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, ''),
-('8fe288c7a1d4971cb1823a4cbffe53f5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794708, ''),
-('91a8fd97671fa9d13608c229d6306fa6', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794712, ''),
-('93ff67cd17498fae19ee5a1d2d1474de', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792471, ''),
-('94a7174e6ebe149da342f9d25cf9da07', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792471, ''),
-('9576868ca0f767f32758c3a6469a6d30', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792471, ''),
-('9b65d71ed36c0c5307af61800b7de611', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, ''),
-('a0de63de2f589d5c731428ef83f5c334', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794712, ''),
-('b38732eeedd6ed78d5ada724a9c3ac35', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, ''),
-('cc4078f5950db85a45d101808d6bbf4c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794713, ''),
-('e56ea041c0a2687ddee2aa44b76974ef', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443794708, ''),
-('fa842420a5945f101aba55ef83ecbdbd', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443792472, '');
+('371629f02f4bb762f5735049db6f150e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1443813495, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -193,7 +168,15 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `images`
+--
+
+INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
+(1, 0, 'pub1', 1, 'articles', 27, '', '/p/u/pub1.jpg'),
+(2, 0, 'pub2', 1, 'articles', 28, '', '/p/u/pub2.jpg');
 
 -- --------------------------------------------------------
 
@@ -227,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -278,7 +261,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (63, 1, 'Проектный центр', 0, 3, '', 'link', 'admin/content/item/edit/articles/3'),
 (64, 1, 'Продукты', 0, 4, '', 'link', 'admin/content/item/edit/articles/4'),
 (65, 1, 'Компания', 0, 5, '', 'link', 'admin/content/item/edit/articles/5'),
-(66, 1, 'Наш опыт', 0, 6, '', 'link', 'admin/content/item/edit/articles/6');
+(66, 1, 'Наш опыт', 0, 6, '', 'link', 'admin/content/item/edit/articles/6'),
+(67, 1, 'Публикации', 5, 2, '', 'link', 'admin/content/items/articles/1');
 
 -- --------------------------------------------------------
 
