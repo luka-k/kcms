@@ -32,7 +32,6 @@ class Articles extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),
-			'sort' => array('Сортировка', 'text'),
 			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(
@@ -45,7 +44,7 @@ class Articles extends MY_Model
 			'lastmod' => array('lastmod', 'hidden')
 		),
 		'Изображение' => array(
-			'upload_double_gallery' => array('Изображение по умолчанию', 'double_images', 'double_img', '', array("Первое изображение" => "first", "Второе изображение" => "second"))
+			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	
@@ -113,8 +112,17 @@ class Articles extends MY_Model
 			{
 				$item_date = new DateTime($item->date);
 				$item_date = date_format($item_date, 'd.m.Y');
-				$item->date = $item_date;
+				
+				$item->date = $this->string_edit->format_date($item_date);
 			}
+			
+			$object_info = array(
+				"object_type" => 'articles',
+				"object_id" => $item->id
+			);
+			
+			$item->img = $this->images->get_cover($object_info);
+			
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			return $item;
 		}

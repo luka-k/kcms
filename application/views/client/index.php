@@ -132,78 +132,18 @@
                 </div>
 
                 <div class="owl-carousel">
-                    <div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub1.jpg"></div>
+					<?foreach($publication as $pub):?>
+						<div class="item">
+							<div class="publication">
+								<div class="publication_image"><img src="<?= $pub->img->publication_url?>"></div>
 
-                            <div class="publication_text">
-                                <p><a href="#">Считается, что впервые тест-рыбу
-                                применили в книгопечатании еще 16
-                                веке</a></p><span>7 июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub2.jpg"></div>
-
-                            <div class="publication_text">
-                                <p><a href="#">Самым известным «рыбным» текстом
-                                является знаменитый Lorem ipsum</a></p><span>6
-                                июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-
-                   <div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub1.jpg"></div>
-
-                            <div class="publication_text">
-                                <p><a href="#">Считается, что впервые тест-рыбу
-                                применили в книгопечатании еще 16
-                                веке</a></p><span>7 июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub2.jpg"></div>
-
-                            <div class="publication_text">
-                                <p><a href="#">Самым известным «рыбным» текстом
-                                является знаменитый Lorem ipsum</a></p><span>6
-                                июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-					
-					<div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub1.jpg"></div>
-
-                            <div class="publication_text">
-                                <p><a href="#">Считается, что впервые тест-рыбу
-                                применили в книгопечатании еще 16
-                                веке</a></p><span>7 июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="publication">
-                            <div class="publication_image"><img src="<?= base_url()?>template/client/images/pub2.jpg"></div>
-
-                            <div class="publication_text">
-                                <p><a href="#">Самым известным «рыбным» текстом
-                                является знаменитый Lorem ipsum</a></p><span>6
-                                июня, 2015</span>
-                            </div>
-                        </div>
-                    </div>
-					
+								<div class="publication_text">
+									<p><a href="#"><p><?= $pub->short_description?></a></p>
+									<span><?= $pub->date?></span>
+								</div>
+							</div>
+						</div>
+					<?endforeach;?>
                 </div>
             </div>
 
