@@ -1,48 +1,33 @@
-<header class="header" id="header">
-	<div class="header__wrap wrap">
-		<div class="header__logo">
-			<a href="/" class="logo">RedBTR</a>
-		</div> <!-- /.header__logo -->
-		
-		<div class="header__phone">
-			<div class="header-phone">
-				<div class="header-phone__number">8(123)4567-89-00</div> <!-- /.header-phone__number -->
-				<div class="header-phone__time">9:00 - 18:00</div> <!-- /.header-phone__time -->
-				
-				<div class="header-phone__callback">
-					<a href="#" class="header-phone__callback-link" onclick="callback_popup(); return false;">Обратный звонок</a>
-				</div> <!-- /.header-phone__callback -->
-			</div> <!-- /.header-phone -->
-		</div> <!-- /.header__phone -->
-		
-		<div class="header__login">
-			<div class="header-login">
-				<?if(empty($user)):?>
-					<a href="<?=base_url()?>account/registration?activity=enter" class="header-login__href header-login__enter">Вход</a>
-					<a href="<?=base_url()?>account/registration?activity=reg" class="header-login__href header-login__register">Регистрация</a>
-				<?else:?>
-					Добро пожаловать, <br/><a href="<?=base_url()?>cabinet" class="header-login__register"><?=$user->name?></a>
-					<a href="<?=base_url()?>account/do_exit" class="header-login__register" style="float:right;">выход</a>
-				<?endif;?>
-			</div> <!-- /.header-login -->
-		</div> <!-- /.header__login -->
-		
-		<div class="header__cart">
-			<a href="<?=base_url()?>cart/" class="header-cart">
-				<span class="header-cart__amount">
-					<span id="cart-empty" style="<?if(empty($cart_items)):?>display:inline;<?else:?>display:none;<?endif;?>">
-						Корзина пуста
-					</span>
-					<span  id="cart-full" style="<?if(!empty($cart_items)):?>display:inline;<?else:?>display:none;<?endif;?>">
-						<span class="red total_qty"><?=$total_qty?></span> <span class="product_word"><?=$product_word?></span> <br />
-						на сумму <span class="red"><span class="total_price"><?=$total_price?></span> р.</span>
-					</span>
-				</span> <!-- /.header-cart__cost -->
-			</a> <!-- /.header-cart -->
-		</div> <!-- /.header__cart -->
-		
-		<div class="header__callback">
-			<a href="#callback" class="button button--normal button--s skew">Обратный звонок</a>
-		</div> <!-- /.header__callback -->
-	</div> <!-- /.header__wrap wrap -->
-</header> <!-- /.header -->
+<header>
+	<div class="container">
+		<div class="row">
+			<div class="logo">
+				<a href="/"><img src="<?= base_url()?>template/client/images/logo.png"></a>
+			</div>
+			
+			<div class="slogan">
+				Программы для дела
+			</div>
+			
+			<div class="user_menu">
+				<a data-reveal-id="myModal" href="#">Мой кабинет</a>
+			</div>
+			
+			<div class="socials">
+				<a class="social vkontakte" href="#"><img src="<?= base_url()?>template/client/images/vk.png"></a>
+				<a class="social odnoklasniki" href="#"><img src="<?= base_url()?>template/client/images/od.png"></a>
+				<a class="social facebook" href="#"><img src="<?= base_url()?>template/client/images/fb.png"></a>
+				<a class="social twitter" href="#"><img src="<?= base_url()?>template/client/images/tw.png"></a>
+			</div>
+			
+			<div class="online">
+				<a href="#">Онлайн-консультация</a>
+			</div>
+			
+			<div class="right_info">
+				<a class="phone" href="tel:+8123293322">(812)329-33-22</a><br>
+				<a class="mail" href="mailto:info@ultra-soft.spb.ru">info@ultra-soft.spb.ru</a>
+			</div>
+		</div>
+	</div>
+</header>

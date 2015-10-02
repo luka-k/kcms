@@ -1,31 +1,21 @@
 <head>
-	<title><?=$title?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="keywords" content="<?=$meta_keywords?>" />
-	<meta name="description" content="<?=$meta_description?>" />
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
 
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/normalize.css" media="all">
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/grid.css" media="all" />
+    <title><?=$title?></title>
 	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui-2222.css" media="all" />
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.css" media="all" />
+    <link href="<?= base_url()?>template/client/css/style.css" rel="stylesheet">
+	<link href="<?= base_url()?>template/client/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url()?>template/client/css/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url()?>template/client/css/reveal.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic'  rel='stylesheet' type='text/css'>
 	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/style.css" media="all" />
-	
+    <script src="<?= base_url()?>template/client/js/reveal.min.js" type="text/javascript"></script>
+    <script src="<?= base_url()?>template/client/js/jquery.reveal.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="<?= base_url()?>template/client/js/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="<?= base_url()?>template/client/js/jquery.easing-1.3.js" type="text/javascript"></script>
+    <script src="<?= base_url()?>template/client/js/jquery.iosslider.min.js" type="text/javascript"></script>
+   
 
-	<script type="text/javascript" src="<?= base_url()?>template/js/jquery.min.js"></script> 
-	
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/script.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/main.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/cart.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/wishlist.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/datepicker.js"></script>
-	
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.js"></script>
-
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/bxslider/jquery.bxslider.min.js"></script>
-
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/vendor/jquery.form.min.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/vendor/jquery.validate.min.js"></script>
 </head>

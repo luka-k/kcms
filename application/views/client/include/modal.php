@@ -1,56 +1,97 @@
-<!---Добавление в корзину--->
-<div class="modal modal--to-cart" id="to-cart">
-	<div class="modal__title block-title">
-		Товар "<span id="popup_product_name"></span>"
-		<br /> добавлен в корзину
-	</div> <!-- /.modal__title block-title -->
-	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__cart modal-cart">
-
-			<div class="form__line modal-cart__line">	
-				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('popup_item_id').value, this.value); return false;" placeholder="" value="" />
-				<input type="hidden" id="popup_item_id" value=""/>
-			</div> <!-- /.form__line -->
+<div class="reveal-modal" id="myModal1">
+	<div class="login">
+		<div class="popaphead">
+			<div class="order">
+				Заказ услуг
+			</div>
 			
-			<div class="form__button modal-cart__button">
-				<button type="button" class="button button--normal button--auto-width js-close-fancybox">Вернуться к покупкам</button>
-				<button type="button" class="button button--normal button--grey button--auto-width" onclick="document.location.replace('/cart/');">В корзину &rarr;</button>
-			</div> <!-- /.form__button -->
-
-	</div> <!-- /.modal__cart -->
-</div> <!-- /.modal -->
-
-<div id="callback" class="modal">
-	<div class="modal__title block-title">Оставьте ваш номер телефона</div> <!-- /.modal__title block-title -->
-	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__form">
-		<form action="#" id="callback_form" method="post">
-			<div class="form__line">
-				<input type="text" id="callback_name" class="form__input validate" name="name" placeholder="Имя" />
-			</div> <!-- /.form__line -->
+			<p>Сразу после получения заявки нашим оператором, менеджер
+			нашей компании свяжется с вами для уточнения деталей и
+			стоимости услуг</p>
+		</div>
+		
+		<form method="post">
+			<p class="pbold">Выберите услугу</p>
 			
-			<div class="form__line">
-				<input type="tel" id="call" class="form__input validate" name="phone" placeholder="Телефон" />
-			</div> <!-- /.form__line -->
+			<p><select>
+				<option>1С: Предприятие 8, установка и обслуживание</option>
+				
+				<option>1С: Предприятие 8, установка и обслуживание</option>
+			</select></p>
 			
-			<div class="form__button">
-				<button class="button button--normal button--auto-width" onclick="callback_submit(); return false;">Заказать звонок</button>
-			</div> <!-- /.form__button -->
-		</form> <!-- /.form -->
-	</div> <!-- /.modal__form -->
-</div> <!-- /.modal -->
+			<p><input placeholder="Представьтесь, пожалуйста" type="text" value=""></p>
+			
+			<p><input  placeholder="Адрес эл. почты" type="password" value=""></p>
+			
+			<p class="pbold">Контактный телефон</p>
+			<input class="smallinput" placeholder="+7" type="text" value="">
+			<input class="biginput" type="text" value="">
+			
+			<p class="telefon">Укажите полный контактный номер, с кодом
+			оператора или города.</p>
+			
+			<p><textarea  placeholder="Примечание к заказу (не обязательно)"></textarea></p>
+			
+			<p class="submit btn"><input name="commit" type="submit" value="Отправить заказ в обработку"></p>
+		</form>
+	</div>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 
-<div class="modal" id="callback_answer" style="display:none;">
-	<div id="popup_title" class="modal__title block-title"></div> <!-- /.modal__title block-title -->
+<div class="reveal-modal" id="myModal2">
+	<div class="login">
+		<div class="order">
+			Поддержка
+		</div>
+		
+		<form method="post">
+			<p><input name="login" placeholder="Представьтесь, пожалуйста" type="text" value=""></p>
+			
+			<p><select>
+				<option>Выберите тему вопроса</option>
+				
+				<option>Пункт 1</option>
+				<option>Пункт 2</option>
+			</select></p>
+			
+			<p><input name="password" placeholder="Адрес эл. почты" type="password" value=""></p>
+			
+			<p><textarea name="password" placeholder="Сообщение"></textarea></p>
+			
+			<p class="submit btn"><input name="commit" type="submit" value="Отправить запрос службе поддержки"></p>
+		</form>
+	</div>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div class="reveal-modal" id="myModal">
+	<div class="login">
+		<div class="user_menu">
+			Мой кабинет
+		</div>
+		
+		<form method="post">
+			<p><input name="login" placeholder="Электронная почта" type="text" value=""></p>
+			
+			<p><input name="password" placeholder="Пароль" type="password" value=""></p>
+			
+			<p class="remember_me">
+				<label>
+					<input id="remember_me" name="remember_me" type="checkbox"> 
+					<span>Запомнить меня на этом компьютере</span>
+				</label>
+			</p>
+			
+			<div class="login-help">
+				<a href="#">Забыли свой пароль?</a>
+			</div>
+			
+			<p class="submit"><input name="commit" type="submit" value="Войти в кабинет"></p>
+		</form>
+	</div>
 	
-	<div id="popup_message" class="modal__text"></div> <!-- /.modal__text -->
-</div> <!-- /.modal --> 
+	<div class="login-access">
+		<a href="#">Как получить доступ к личному кабинету?</a>
+	</div>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
