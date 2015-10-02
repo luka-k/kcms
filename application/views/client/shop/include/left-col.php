@@ -111,7 +111,7 @@
 							[<?= count($shortname_ch)?>]
 						<?endif;?>
 					<?elseif(!empty($shortdesc_ch)):?>
-						<span class="lm-title"><?=$shortdesc_ch[0]?></span>
+						<span class="lm-title"><?=str_replace('//', '/', $shortdesc_ch[0])?></span>
 						<?if(count($shortdesc_ch) > 1):?>
 							[<?= count($shortdesc_ch)?>]
 						<?endif;?>	
