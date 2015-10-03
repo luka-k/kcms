@@ -16,13 +16,43 @@ class Pages extends Client_Controller {
 	
 	public function index()
 	{
-		$page = $this->url->url_parse(2);
-
-		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
+		$content = $this->url->url_parse(2);
 		
-		if($page == FALSE) redirect(base_url()."pages/page_404");
+		if($content == FALSE) redirect(base_url()."pages/page_404");
 		
-		if(isset($page->article))
+		$template = 'articles'; //не забыть убрать если в дальнейшем не понадобиться
+		
+		$under_menu = new stdClass();
+		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
+		if($root)
+		{
+			$under_menu->items = $this->menus_items->menu_tree(5, $root->id);
+			$under_menu->active = $this->uri->segment(3);
+		}
+		
+		if($content->articles) $content->articles = $this->articles->prepare_list($content->articles);
+		
+		if(!empty($content->template)) $template = $content->template; //не забыть убрать если в дальнейшем не понадобиться
+		
+		$this->config->load('articles');
+		
+		$publication = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		
+		$data = array(
+			'title' => $content->name,
+			'meta_keywords' => $content->meta_keywords,
+			'meta_description' => $content->meta_description,
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'under_menu' => $under_menu,
+			'select_item' => "",
+			'publication' => $this->articles->prepare_list($publication),
+			'content' => $content
+		);
+		
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/'.$template, $data);
+		
+		/*if(isset($page->article))
 		{
 			$sub_template = "single-news";
 			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
@@ -49,21 +79,7 @@ class Pages extends Client_Controller {
 				}
 				$content->articles = $selected_news;
 			}
-		}
-	
-		$data = array(
-			'title' => $content->name,
-			'meta_keywords' => $content->meta_keywords,
-			'meta_description' => $content->meta_description,
-			'breadcrumbs' => $this->breadcrumbs->get(),
-			'tree' => $this->categories->get_tree(0, "parent_id"),
-			'select_item' => "",
-			'content' => $content,
-			'sub_template' => $sub_template
-		);
-
-		$data = array_merge($this->standart_data, $data);
-		$this->load->view($template, $data);
+		}*/
 	}
 	
 	/**

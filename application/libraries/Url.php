@@ -94,7 +94,6 @@ class CI_Url {
 				
 				return $this->get_child_info($child, $url);
 			}
-			
 		}
 	}
 	
@@ -109,11 +108,11 @@ class CI_Url {
 	{
 		$child->articles = $this->CI->articles->get_list(array("parent_id" => $child->id), FALSE, FALSE, "date", "desc");
 		
-		if (!$child->articles)
+		/*if (!$child->articles)
 		{
 			$child->article = $this->CI->articles->get_item_by(array("url" => $url));
 			if (!$child->article) return FALSE;
-		}
+		}*/
 		return $child;
 	}
 }

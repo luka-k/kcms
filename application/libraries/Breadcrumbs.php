@@ -13,7 +13,7 @@ class Breadcrumbs
 	
     function __construct()
 	{
-		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "Главная"));
+		$this->breadcrumbs = array(0 => array('url' => '', 'name' => "УльтраСофт"));
 	}
 	
 	/**
