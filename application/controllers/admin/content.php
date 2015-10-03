@@ -116,10 +116,10 @@ class Content extends Admin_Controller
 			$data['selects']['parent_id'] = $tree;
 		}
 		
-		if($type == "characteristics_type") 
+		if($type == "articles") 
 		{
-			$this->config->load('characteristics');
-			$data['selects']['view_type'] = $this->config->item('view_type');
+			$this->config->load('templates');
+			$data['selects']['template'] = $this->config->item('templates');
 		}
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
