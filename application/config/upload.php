@@ -15,6 +15,13 @@ $config['thumb_config'] = array(
 		'zc' => 1,
 		'far' => 1,
 		"bg" => "ffffff"	
+	),
+	'products' => array(
+		'w' => 288,
+		'h' => 290,
+		'zc' => 1,
+		'far' => 1,
+		"bg" => "ffffff"
 	)
 );
 

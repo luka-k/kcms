@@ -47,7 +47,6 @@
 		</div>
 	</div>
 
-
 	<?require 'include/prefooter.php'?>
 
     <?require 'include/footer.php'?>

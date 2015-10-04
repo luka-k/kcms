@@ -76,11 +76,15 @@ class CI_Url {
 			
 			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 
+			$child->parent = $parent;
+			
 			return $this->CI->uri->segment($segment_number+1) ? $this->url_parse($segment_number + 1, $child) : $this->get_child_info($child, $url);
 		}
 		else
 		{
 			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
+			
+			$child->parent = $parent;
 			
 			if ($this->CI->uri->segment($segment_number+1))
 			{

@@ -30,6 +30,7 @@ class Articles extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'menu_name' => array('Заголовок для меню', 'text', 'trim|htmlspecialchars', 'require'),
 			'template' => array('Шаблон', 'template'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),

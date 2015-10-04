@@ -21,6 +21,8 @@ class Pages extends Client_Controller {
 		if($content == FALSE) redirect(base_url()."pages/page_404");
 		
 		$template = 'articles'; //не забыть убрать если в дальнейшем не понадобиться
+		$left_menu_select = '';
+		$this->config->load('articles');
 		
 		$under_menu = new stdClass();
 		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
@@ -30,13 +32,22 @@ class Pages extends Client_Controller {
 			$under_menu->active = $this->uri->segment(3);
 		}
 		
-		if($content->articles) $content->articles = $this->articles->prepare_list($content->articles);
+		if($content->articles) 
+		{
+			$content->articles = $this->articles->prepare_list($content->articles);
+			$left_menu_select = $content->articles[0]->url;
+		}
 		
 		if(!empty($content->template)) $template = $content->template; //не забыть убрать если в дальнейшем не понадобиться
 		
-		$this->config->load('articles');
 		
 		$publication = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		$product_categories = $this->articles->get_list(array("parent_id" => $this->config->item('assortment_id')), FALSE, FALSE, 'sort', 'asc');
+		
+		$level_3 = $this->articles->get_item_by(array('url' => $this->uri->segment(4)));
+		$left_menu = $this->articles->get_list(array("parent_id" => $level_3->id), FALSE, FALSE, 'sort', 'asc');
+		
+		if($this->uri->segment(5)) $left_menu_select = $this->uri->segment(5);
 		
 		$data = array(
 			'title' => $content->name,
@@ -44,42 +55,19 @@ class Pages extends Client_Controller {
 			'meta_description' => $content->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'under_menu' => $under_menu,
+			'left_menu' => $this->articles->prepare_list($left_menu),
 			'select_item' => "",
+			'product_select' => $this->uri->segment(4),
+			'left_menu_select' => $left_menu_select,
 			'publication' => $this->articles->prepare_list($publication),
-			'content' => $content
+			'product_categories' => $this->articles->prepare_list($product_categories),
+			'content' => $this->articles->prepare($content)
 		);
+		
+		//my_dump($content);
 		
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/'.$template, $data);
-		
-		/*if(isset($page->article))
-		{
-			$sub_template = "single-news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
-			
-			$content = $page->article;
-		}		
-		elseif(isset($page->articles))
-		{
-			$sub_template = "news";
-			$template = $root->id == 3 ? "client/news.php" : "client/articles.php";
-			
-			$content = $page;
-			$content->articles = $this->articles->prepare_list($content->articles);
-			
-			$select_date = $this->input->get('date');
-			if(!empty($select_date))
-			{
-				$selected_news = array();
-				foreach ($content->articles as $item)
-				{
-					$item->date = new DateTime($item->date);
-					$item->date = date_format($item->date, 'm/d/Y');
-					if($item->date == $select_date) $selected_news[] = $item;
-				}
-				$content->articles = $selected_news;
-			}
-		}*/
 	}
 	
 	/**
