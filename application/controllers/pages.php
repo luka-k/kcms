@@ -20,17 +20,17 @@ class Pages extends Client_Controller {
 		
 		if($content == FALSE) redirect(base_url()."pages/page_404");
 		
-		$template = 'articles'; //не забыть убрать если в дальнейшем не понадобиться
-		$left_menu_select = '';
 		$this->config->load('articles');
 		
 		$under_menu = new stdClass();
-		$root = $this->menus_items->get_item_by(array("url" => $this->uri->segment(2)));
-		if($root)
-		{
-			$under_menu->items = $this->menus_items->menu_tree(5, $root->id);
-			$under_menu->active = $this->uri->segment(3);
-		}
+		$level_2 = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
+		if($level_2)
+			$under_menu = $this->articles->get_list(array("parent_id" => $level_2->id), FALSE, FALSE, 'sort', 'asc');
+		
+		$left_menu_select = '';
+		$level_3 = $this->articles->get_item_by(array('url' => $this->uri->segment(4)));
+		$left_menu = $this->articles->get_list(array("parent_id" => $level_3->id), FALSE, FALSE, 'sort', 'asc');
+		if($this->uri->segment(5)) $left_menu_select = $this->uri->segment(5);
 		
 		if($content->articles) 
 		{
@@ -38,32 +38,31 @@ class Pages extends Client_Controller {
 			$left_menu_select = $content->articles[0]->url;
 		}
 		
+		$template = 'articles'; //не забыть убрать если в дальнейшем не понадобиться
 		if(!empty($content->template)) $template = $content->template; //не забыть убрать если в дальнейшем не понадобиться
 		
-		
-		$publication = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		$publications = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
 		$product_categories = $this->articles->get_list(array("parent_id" => $this->config->item('assortment_id')), FALSE, FALSE, 'sort', 'asc');
-		
-		$level_3 = $this->articles->get_item_by(array('url' => $this->uri->segment(4)));
-		$left_menu = $this->articles->get_list(array("parent_id" => $level_3->id), FALSE, FALSE, 'sort', 'asc');
-		
-		if($this->uri->segment(5)) $left_menu_select = $this->uri->segment(5);
 		
 		$data = array(
 			'title' => $content->name,
 			'meta_keywords' => $content->meta_keywords,
 			'meta_description' => $content->meta_description,
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'under_menu' => $under_menu,
+			'under_menu' => $this->articles->prepare_list($under_menu),
 			'left_menu' => $this->articles->prepare_list($left_menu),
 			'select_item' => "",
+			'under_menu_select' => $this->uri->segment(2),
 			'product_select' => $this->uri->segment(4),
 			'left_menu_select' => $left_menu_select,
-			'publication' => $this->articles->prepare_list($publication),
+			'publications' => $this->articles->prepare_list($publications),
 			'product_categories' => $this->articles->prepare_list($product_categories),
 			'content' => $this->articles->prepare($content)
 		);
 		
+		$company = $this->articles->get_item($this->config->item('company_id'));
+		if($company->url == $this->uri->segment(2)) $data['no_public'] = TRUE;
+
 		//my_dump($content);
 		
 		$data = array_merge($this->standart_data, $data);

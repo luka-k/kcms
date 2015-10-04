@@ -20,13 +20,12 @@ class Index extends Client_Controller {
 
 		$this->config->load('articles');
 		
-		$publication = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		$publications = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
 		
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,
 			'select_item' => '',
-			'publication' => $this->articles->prepare_list($publication)
-			//'last_news' => $this->articles->prepare_list($last_news),
+			'publications' => $this->articles->prepare_list($publications)
 		);
 		$data = array_merge($this->standart_data, $data);
 		
