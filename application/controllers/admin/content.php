@@ -48,7 +48,7 @@ class Content extends Admin_Controller
 		
 			if($id == "all" || $id == '')
 			{
-				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->admin_per_page, $order, $direction);
 				$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 			}
@@ -56,7 +56,7 @@ class Content extends Admin_Controller
 			{
 				$parent = $type == "emails" ? "type" : "parent_id";
 			
-				$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->per_page, $order, $direction);
+				$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->admin_per_page, $order, $direction);
 				$total_rows = count($this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction));
 				$data["parent_id"] = $id;
 				$data['sortable'] = TRUE;
@@ -64,7 +64,7 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->admin_per_page, $order, $direction);
 			$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 			$data['sortable'] = TRUE;
 		}
@@ -79,7 +79,7 @@ class Content extends Admin_Controller
 		
 		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
 		$config['total_rows'] = $total_rows;
-		$config['per_page'] = $settings->per_page;
+		$config['per_page'] = $settings->admin_per_page;
 
 		$this->pagination->initialize($config);
 
