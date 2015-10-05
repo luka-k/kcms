@@ -93,9 +93,7 @@ class Pages extends Client_Controller {
 		if($content->id == $this->config->item('publication_id') || (isset($content->parent) && $content->parent->id == $this->config->item('publication_id')))
 		{
 			$data['no_public'] = TRUE;
-			
-			
-			
+						
 			if($this->uri->segment($this->uri->total_segments()) == 'all' || $content->id == $this->config->item('publication_id'))
 			{
 				$content->articles = $this->articles->get_all_publication($content->id, $this->input->get('from'), $settings->per_page, 'date', 'asc');
@@ -105,11 +103,6 @@ class Pages extends Client_Controller {
 			{
 				$content->articles = $this->articles->get_list(array('parent_id' => $content->id), $this->input->get('from'), $settings->per_page, 'date', 'asc');
 				$total_rows = count($this->articles->get_list(array('parent_id' => $content->id)));
-			}
-
-			if($content->articles) foreach($content->articles as $key => $article)
-			{
-				$content->articles[$key]->parent_name = $this->articles->get_item($article->parent_id)->name;
 			}
 			
 			$data['content']->articles = $this->articles->prepare_list($content->articles);

@@ -1,116 +1,77 @@
-﻿<!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
+<!DOCTYPE html>
 
-<? require 'include/head.php' ?>
-    
+<html class="no-js">
+
+<?require 'include/head.php'?>
+
 <body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
 
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
+    <?require 'include/header.php'?>
+
+    <?require 'include/modal.php'?>
+
+    <?require 'include/top-menu.php'?>
 	
-	<div class="page page-about">
-		<div class="page__wrap wrap">
-			<?if($sub_template == "single-news"):?>
-				<h1 class="page__title">Новости</h1>
-
-				<!--<div class="page-news__categories inline-categories">
-					<ul class="inline-categories__list skew">
-
-							<li class="inline-categories__item">
-								<a href="" class="inline-categories__href active"></a>
-							</li> <!-- /.inline-categories__item -->
-
-					<!--</ul> <!-- /.inline-categories__inner -->
-				<!--</div> <!-- /.page-news__categories -->
-				
-				<div class="page__content">
-					<div class="page-news__calendar">
-						<div id="this_mounth" class="datepicker" ></div>
-					</div> <!-- /.page-news__calendar -->
-					
-					<div class="page-news__content">
-						<div class="news-item">
-							<div class="news-item__date"><?=$content->date?></div> <!-- /.news-item__date -->
-							<h1 class="news-item__title"><?=$content->name?></h1> <!-- /.news-item__title -->
-							
-							<div class="news-item__text">
-								<?=$content->description?>
-							</div> <!-- /.news-item__text -->
-						
-						</div> <!-- /.news-item -->
-					</div> <!-- /.page-news__content -->
-					
-					<div class="page-news__images gallery">
-						<?if(isset($content->img)):?>
-							<?foreach($content->img as $image):?>
-								<a href="<?=$image->full_url?>" class="gallery__href fancybox" data-fancybox-group="news">
-									<img src="<?=$image->full_url?>" width="225" height="225" alt="images" class="gallery__image" />
-								</a>
-							<?endforeach;?>
-						<?endif;?>
-					</div> <!-- /.page-news__images -->
-
-		        </div> <!-- /.page__content -->
-			<?elseif($sub_template == "news"):?>
-				<h1 class="page__title">Новости</h1>
-				
-				<!--<div class="page-news__categories inline-categories">
-					<ul class="inline-categories__list skew">
-
-							<li class="inline-categories__item">
-								<a href="" class="inline-categories__href active"></a>
-							</li> <!-- /.inline-categories__item -->
-
-					<!--</ul> <!-- /.inline-categories__inner -->
-				<!--</div> <!-- /.page-news__categories -->
-				
-				<div class="page__content">
-					<div class="page-news__calendar">
-						<div id="this_mounth" class="datepicker" category=""></div>
-					</div> <!-- /.page-news__calendar -->
-					
-					<div class="page-news__content">
-						<?foreach($content->articles as $item):?>
-							<div class="news-item">
-								<div class="news-item__date"><?=$item->date?></div> <!-- /.news-item__date -->
-
-								<h3 class="news-item__title">
-									<a href="<?=$item->full_url?>"><?=$item->name?></a>
-								</h3> <!-- /.news-item__title -->
-
-								<div class="news-item__text">
-									<?=$item->description?>
-								</div> <!-- /.news-item__text -->
-							</div> <!-- /.news-item -->
-						<?endforeach;?>
-
-                        <!--<div class="news__load load-link">
-							<a href="#load" class="load-link__href">Еще новости</a>
-						</div>--> <!-- /.news__load -->
-					</div> <!-- /.page-news__content -->
-
-
-
-		        </div> <!-- /.page__content -->
-			<?endif;?>
-		</div> <!-- /.page__wrap wrap -->
-	</div> <!-- /.page -->
-		
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
+	<?require 'include/under_menu.php'?>
 	
-	<?if($sub_template == "news" || $sub_template == "single-news"):?><script src="<?=base_url()?>template/client/js/datepicker.js"></script><?endif;?>
-	</body>
+	<?require 'include/breadcrumbs.php'?>
+	
+	<div class="container">
+		<div class="content">
+			<div class="left_block">
+				<h1><?= $content->name?></h1>
+				<img src="<?= $content->img->publication_big_url?>" width='500px'>
+				<?$content->parent = $this->articles->prepare($content->parent);?>
+				<p class="date"><?= $content->date?> <span>/</span> <a href="<?= $content->parent->full_url?>"><?= $content->parent->name?></a></p>
+				<span class="comments"></span>
+			</div>  
+			
+			<div class="right_block">
+				<pre>Тут я пока не понял что в тегах h3 как в базе хранится должно</pre>
+				<?= $content->description?>
+				<!--<h3>Рыбным текстом называется текст, служащий для временного наполнения макета в публикациях или производстве веб-сайтов, пока финальный текст еще не создан</h3>
+				<p>Рыбный текст также известен как текст-заполнитель или же текст-наполнитель. Иногда текст-«рыба» также используется композиторами при написании музыки. Они напевают его перед тем, как сочинены соответствующие слова. Уже в 16-том веке рыбные тексты имели широкое распространение у печатников.</p>
+				<p>Рыбные тексты также применяются для демонстрации различных видов шрифта и в разработке макетов. Как правило их содержание бессмысленно. По причине своей функции текста-заполнителя для макетов нечитабельность рыбных текстов имеет особое значение, так как человеческое восприятие имеет особенность, распознавать определенные образцы и повторения. </p><p>В случае произвольного набора букв и длины слов ничто не отвлекает от оценки воздействия и читаемости различных шрифтов, а также от распределения текста на странице (макет или площадь набора). Поэтому большинство рыбных текстов состоят из более или менее произвольного набора слов и слогов. </p><p>Таким образом образцы повторения не отвлекают от общей картины, а шрифты имеют лучшую базу сравнения. Преимущественно конечно, если рыбный текст кажется в некоторой степени реалистичным, не искажая тем самым воздействие.</p>-->
+				<div class="articles_socials">
+                    <a class="articles_social" href="#"><img src="<?= IMGS_PATH?>vk2.png"></a> 
+					<a class="articles_social" href="#"><img src="<?= IMGS_PATH?>od2.png"></a> 
+					<a class="articles_social" href="#"><img src="<?= IMGS_PATH?>fb2.png"></a> 
+					<a class="articles_social" href="#"><img src="<?= IMGS_PATH?>tw2.png"></a>
+                </div>
+			</div>
+		</div>
+	</div> 
+	
+	<div class="articles_more">
+		<div class="container">
+			<h1>Читайте также</h1>
+			<div class="all_articles">
+				<a href="#">Перейти ко всем публикациям</a>
+			</div>
+				
+			<div class="subscribe_articles"><a href="#">Подписаться </a></div>
+				
+			<div class="owl-carousel2">
+				<?foreach($publications as $pub):?>
+					<div class="item">
+						<div class="articles">
+							<div class="articles_image">
+								<img src="<?= $pub->img->publication_big_url?>">
+							</div>
+							<p class="info"><?= $pub->date?> <span>/</span> <?= $pub->parent_name?></p>
+							<a href="<?= $pub->full_url?>"><?= $pub->name?></a>
+							<span><?= $pub->short_description?></span>
+						</div>
+					</div>
+				<?endforeach;?>
+			</div>
+		</div>
+	</div>
+
+	<?$no_public = TRUE?>
+	<?require 'include/prefooter.php'?>
+
+    <?require 'include/footer.php'?>
+
+</body>
 </html>
-
-        
-        
