@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 05 2015 г., 23:24
+-- Время создания: Окт 06 2015 г., 00:02
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('40b661b26ee1a6bdd63c21ea96ab1d7a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444076570, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('10b8723eb71754f37dfe4a4464087291', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444078838, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -203,7 +203,13 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (12, 0, 'st3', 1, 'articles', 45, '', '/s/t/st3.jpg'),
 (13, 0, 'st4', 1, 'articles', 46, '', '/s/t/st4.jpg'),
 (14, 0, 'st5', 1, 'articles', 47, '', '/s/t/st5.jpg'),
-(15, 0, 'st6', 1, 'articles', 48, '', '/s/t/st6.jpg');
+(15, 0, 'st6', 1, 'articles', 48, '', '/s/t/st6.jpg'),
+(22, 0, 'partner', 1, 'partners', 1, '', '/p/a/partner.jpg'),
+(23, 0, 'partner[1]', 1, 'partners', 2, '', '/p/a/partner[1].jpg'),
+(24, 0, 'partner[6]', 1, 'partners', 3, '', '/p/a/partner[6].jpg'),
+(25, 0, 'partner[2]', 1, 'partners', 4, '', '/p/a/partner[2].jpg'),
+(27, 0, 'partner[3]', 1, 'partners', 5, '', '/p/a/partner[3].jpg'),
+(28, 0, 'partner[4]', 1, 'partners', 6, '', '/p/a/partner[4].jpg');
 
 -- --------------------------------------------------------
 
@@ -237,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -282,14 +288,40 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (57, 5, 'Розничная торговля, ретейл', 54, 3, '', 'link', '#'),
 (58, 5, 'Сервисные компании', 54, 4, '', 'link', '#'),
 (59, 5, 'Интеграция систем', 54, 5, '', 'link', '#'),
-(60, 5, 'Контакты', 0, 13, '', 'link', '#'),
+(60, 5, 'Контакты', 0, 13, '', 'link', 'contacts'),
 (61, 1, 'Создать', 5, 0, '', 'link', 'admin/content/item/edit/articles'),
 (62, 1, 'Услуги и сервисы', 0, 2, '', 'link', 'admin/content/items/articles/2'),
 (63, 1, 'Проектный центр', 0, 3, '', 'link', 'admin/content/items/articles/3'),
 (64, 1, 'Продукты', 0, 4, '', 'link', 'admin/content/items/articles/4'),
 (65, 1, 'Компания', 0, 5, '', 'link', 'admin/content/items/articles/5'),
 (66, 1, 'Наш опыт', 0, 6, '', 'link', 'admin/content/items/articles/6'),
-(67, 1, 'Публикации', 5, 2, '', 'link', 'admin/content/items/articles/1');
+(67, 1, 'Публикации', 5, 2, '', 'link', 'admin/content/items/articles/1'),
+(68, 1, 'Партнеры', 0, 14, '', 'link', 'admin/content/items/partners');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `partners`
+--
+
+CREATE TABLE IF NOT EXISTS `partners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `partners`
+--
+
+INSERT INTO `partners` (`id`, `name`, `sort`) VALUES
+(1, 'Пратнер №1', 0),
+(2, 'Пратнер №2', 0),
+(3, 'Пратнер №3', 0),
+(4, 'Пратнер №4', 0),
+(5, 'Пратнер №5', 0),
+(6, 'Пратнер №6', 0);
 
 -- --------------------------------------------------------
 
@@ -304,6 +336,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `order_string` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `per_page` int(11) NOT NULL,
+  `admin_per_page` int(11) NOT NULL,
   `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
@@ -315,8 +348,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, 'УльтраСофт', '', '', '', 3, '', '', '2015-10-05', 0);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `admin_per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
+(1, 'УльтраСофт', '', '', '', 3, 15, '', '', '2015-10-06', 0);
 
 -- --------------------------------------------------------
 
