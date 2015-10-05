@@ -6,6 +6,7 @@ $config['thumb_config'] = array(
 	"publication" => array(
 		'w' => 298,
 		'h' => 150,
+		'zc' => 1,
 		'far' => 1,
 		"bg" => "ffffff"
 	),

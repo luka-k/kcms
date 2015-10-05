@@ -70,7 +70,7 @@ class Pages extends Client_Controller {
 		$template = 'articles'; //не забыть убрать если в дальнейшем не понадобиться
 		if(!empty($content->template)) $template = $content->template; //не забыть убрать если в дальнейшем не понадобиться
 		
-		$publications = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		$publications = $this->articles->get_all_publication($this->config->item('publication_id'), 0, 6);
 		
 		$data = array(
 			'title' => $content->name,
@@ -90,11 +90,13 @@ class Pages extends Client_Controller {
 		
 		$company = $this->articles->get_item($this->config->item('company_id'));
 		
-		if($content->id == $this->config->item('publication_id') || $content->parent->id == $this->config->item('publication_id'))
+		if($content->id == $this->config->item('publication_id') || (isset($content->parent) && $content->parent->id == $this->config->item('publication_id')))
 		{
 			$data['no_public'] = TRUE;
 			
-			if($this->uri->segment($this->uri->total_segments()) == 'all')
+			
+			
+			if($this->uri->segment($this->uri->total_segments()) == 'all' || $content->id == $this->config->item('publication_id'))
 			{
 				$content->articles = $this->articles->get_all_publication($content->id, $this->input->get('from'), $settings->per_page, 'date', 'asc');
 				$total_rows = count($this->articles->get_all_publication($content->id));
