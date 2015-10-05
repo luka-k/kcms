@@ -20,7 +20,7 @@ class Index extends Client_Controller {
 
 		$this->config->load('articles');
 		
-		$publications = $this->articles->get_list(array("parent_id" => $this->config->item('publication_id')), 0, 6);
+		$publications = $this->articles->get_all_publication($this->config->item('publication_id'), 0, 6);
 		
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,
