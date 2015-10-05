@@ -64,7 +64,8 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+			$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 			$data['sortable'] = TRUE;
 		}
 		
@@ -293,7 +294,7 @@ class Content extends Admin_Controller
 			}
 			
 			$data['content']->id = NULL;
-			$data['content']->url = "";
+			if($this->db->field_exists('url', $type)) $data['content']->url = "";
 			
 			$this->$type->insert($data['content']);
 			$new_id = $this->db->insert_id();

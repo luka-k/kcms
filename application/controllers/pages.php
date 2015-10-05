@@ -71,6 +71,7 @@ class Pages extends Client_Controller {
 		if(!empty($content->template)) $template = $content->template; //не забыть убрать если в дальнейшем не понадобиться
 		
 		$publications = $this->articles->get_all_publication($this->config->item('publication_id'), 0, 6);
+		$partners = $this->partners->get_list(FALSE);
 		
 		$data = array(
 			'title' => $content->name,
@@ -84,6 +85,7 @@ class Pages extends Client_Controller {
 			'category_select' => $this->uri->segment(4),
 			'left_menu_select' => $left_menu_select,
 			'publications' => $this->articles->prepare_list($publications),
+			'partners' => $this->partners->prepare_list($partners),
 			'categories' => $categories,
 			'content' => $content
 		);

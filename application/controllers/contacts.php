@@ -20,12 +20,14 @@ class Contacts extends Client_Controller {
 		
 		$this->config->load('articles');
 		$publications = $this->articles->get_all_publication($this->config->item('publication_id'), 0, 6);
+		$partners = $this->partners->get_list(FALSE);
 
 		$data = array(
 			"title" => "Контакты",
 			"select_item" => "contacts",
 			'breadcrumbs' => $this->breadcrumbs->get(),
-			'publications' => $this->articles->prepare_list($publications)
+			'publications' => $this->articles->prepare_list($publications),
+			'partners' => $this->partners->prepare_list($partners),
 		);
 		
 		$data = array_merge($this->standart_data, $data);

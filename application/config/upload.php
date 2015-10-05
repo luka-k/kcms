@@ -30,6 +30,12 @@ $config['thumb_config'] = array(
 		'zc' => 1,
 		'far' => 1,
 		"bg" => "ffffff"
+	),
+	'partners' => array(
+		'w' => 236,
+		'h' => 50,
+		'far' => 1,
+		"bg" => "ffffff"
 	)
 );
 

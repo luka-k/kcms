@@ -33,17 +33,9 @@
 			<h2>С нами работают</h2>
 
                 <div class="owl-carousel1">
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
-                    <div class="item"><img src="<?= base_url()?>template/client/images/partner.jpg"></div>
+					<?foreach($partners as $p):?>
+						<div class="item"><img src="<?= $p->img->partners_url?>"></div>
+					<?endforeach;?>
                 </div>
 		</div>
 	</div>

@@ -134,6 +134,7 @@ $autoload['model'] = array(
 	'db/orders', 
 	'db/orders_products', 
 	'db/products', 
+	'db/partners',
 	'db/recommended_products',
 	'db/settings', 
 	'db/users', 
