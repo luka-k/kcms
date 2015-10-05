@@ -32,7 +32,7 @@ class CI_Url {
 		{
 			return $segment_number == 2 ? "root" : FALSE;
 		}
-		
+				
 		$child = $this->CI->categories->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
 		
 		if(empty($child))
@@ -62,8 +62,17 @@ class CI_Url {
 	*/
 	public function url_parse($segment_number, $parent = FALSE)
 	{
+		$this->CI->config->load('articles');
 		$url = $this->CI->uri->segment($segment_number);
 
+		if($url == 'all') 
+		{
+			$child = $parent;
+			$child->articles = array();
+			//$child->articles = $this->CI->articles->get_all_publication($parent->id);
+			return $child;
+		}
+		
 		if(!$url) return FALSE;
 		
 		$child = $this->CI->menus_items->get_item_by(array('url' => $url, 'parent_id' => isset($parent->id) ? $parent->id : 0));
@@ -74,9 +83,16 @@ class CI_Url {
 			
 			if(!$child) return FALSE;
 			
-			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
-
 			$child->parent = $parent;
+			
+			if($child->id == $this->CI->config->item('publication_id') && !$this->CI->uri->segment($segment_number+1))
+			{
+				$child->articles = array();
+				//$child->articles = $this->CI->articles->get_all_publication($child->id);
+				return $child;
+			}			
+			
+			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
 			
 			return $this->CI->uri->segment($segment_number+1) ? $this->url_parse($segment_number + 1, $child) : $this->get_child_info($child, $url);
 		}

@@ -99,6 +99,24 @@ class Articles extends MY_Model
 		return $item_url;
 	}	
 	
+	public function get_all_publication($id, $from = 0, $limit = FALSE, $order = FALSE, $direction = FALSE)
+	{
+		$sub_categories = $this->get_list(array("parent_id" => $id));
+		
+		$categories_ids = $this->catalog->select_ids($sub_categories);
+		
+		$publication = array();
+		if(!empty($categories_ids)) 
+		{
+			$this->db->where_in('parent_id', $categories_ids);
+			if($limit) $this->db->limit($limit, $from);
+			if($order) $this->db->order_by($order, $direction);
+			$publication = $this->db->get($this->_table)->result();
+		}
+		
+		return $publication;
+	}
+		
 	/**
 	* 
 	*

@@ -46,10 +46,8 @@
 			
 			<div class="top_content withleft">
 				<div class="category">
-					<?foreach($product_categories as $p_c):?>
-						<a href="<?= $p_c->full_url?>" class="<?if($p_c->url == $product_select):?>active<?endif;?>">
-							<?=$p_c->menu_name?>
-						</a>
+					<?foreach($categories as $p_c):?>
+						<a href="<?= $p_c->full_url?>" class="<?if($p_c->url == $category_select):?>active<?endif;?>"><?=$p_c->menu_name?></a>
 					<?endforeach;?>
 				</div>
 					

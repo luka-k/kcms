@@ -25,7 +25,7 @@
 			<div class="products">
 				<div class="product odines">
 					<div class="product_tex ">
-						<a href="<?= $product_categories[0]->full_url?>">1C продукты</a>
+						<a href="<?= $categories[0]->full_url?>">1C продукты</a>
 					</div>
 				</div>
 				<p>Все программные продукты «1С:Предприятие». Опытные специалисты помогут выбрать наиболее эффективное решение.</p>
@@ -34,7 +34,7 @@
 			<div class="products">
 				<div class="product business">
 					<div class="product_tex">
-						<a href="<?= $product_categories[1]->full_url?>">Программы для бизнеса</a>
+						<a href="<?= $categories[1]->full_url?>">Программы для бизнеса</a>
 					</div>
 				</div>
 				<p>Широкий спектр различного программного обеспечения для решения ваших бизнес-задач.</p>
@@ -43,7 +43,7 @@
 			<div class="products">
 				<div class="product save">
 					<div class="product_tex">
-						<a href="<?= $product_categories[2]->full_url?>">Защита данных</a>
+						<a href="<?= $categories[2]->full_url?>">Защита данных</a>
 					</div>
 				</div>
 				<p>Какой бы величины ни была ваша компьютерная система, ей необходима качественная защита.</p>
@@ -52,7 +52,7 @@
 			<div class="products">
 				<div class="product torg">
 					<div class="product_tex">
-						<a href="<?= $product_categories[3]->full_url?>">Торговое оборудование</a>
+						<a href="<?= $categories[3]->full_url?>">Торговое оборудование</a>
 					</div>
 				</div>
 				<p>Широкий спектр различного программного обеспечения для решения ваших бизнес-задач.</p>

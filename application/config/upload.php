@@ -9,6 +9,13 @@ $config['thumb_config'] = array(
 		'far' => 1,
 		"bg" => "ffffff"
 	),
+	'publication_big' => array(
+		'w' => 398,
+		'h' => 280,
+		'zc' => 1,
+		'far' => 1,
+		"bg" => "ffffff"
+	),
 	"slider" => array(
 		'w' => 1600,
 		'h' => 352,

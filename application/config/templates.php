@@ -4,5 +4,6 @@ $config['templates'] = array(
 	'uslugi' => 'Услуги и сервисы',
 	'products' => 'Продукты',
 	'product' => 'Продукт',
-	'info' => 'Информация'
+	'info' => 'Информация',
+	'publikacii' => 'Публикации'
 );
