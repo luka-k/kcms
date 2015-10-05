@@ -136,7 +136,8 @@ class Articles extends MY_Model
 				$item->date = $this->string_edit->format_date($item_date);
 			}
 			
-			$item->parent_name = $this->articles->get_item($item->parent_id)->name;
+			if($item->parent_id != 0)
+				$item->parent_name = $this->articles->get_item($item->parent_id)->name;
 			
 			$object_info = array(
 				"object_type" => 'articles',

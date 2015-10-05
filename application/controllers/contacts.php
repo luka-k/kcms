@@ -18,12 +18,18 @@ class Contacts extends Client_Controller {
 	{
 		$this->breadcrumbs->add("contacts", "Контакты");
 		
+		$this->config->load('articles');
+		$publications = $this->articles->get_all_publication($this->config->item('publication_id'), 0, 6);
+
 		$data = array(
 			"title" => "Контакты",
 			"select_item" => "contacts",
-			'breadcrumbs' => $this->breadcrumbs->get()
+			'breadcrumbs' => $this->breadcrumbs->get(),
+			'publications' => $this->articles->prepare_list($publications)
 		);
+		
 		$data = array_merge($this->standart_data, $data);
+		
 		$this->load->view('client/contacts.php', $data);
 	}
 }
