@@ -93,9 +93,7 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add(base_url(), 'Главная');
 		$this->breadcrumbs->add('catalog', 'Каталог');
-		
-		$this->post = $this->input->post();
-		
+			
 		if(isset($this->post['filter']))
 		{
 			 $this->get_by_filter();
@@ -167,16 +165,8 @@ class Catalog extends Client_Controller {
 				
 				$this->filters_cache->insert($cache_id, $data);
 			}
-		
-			if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
-			{
-				foreach($manufacturer->sku as $i => $sku)
-				{
-					$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
-				}
-			}
-			
-			//$this->benchmark->mark('code_end');
+				
+			$this->benchmark->mark('code_end');
 			//echo $this->benchmark->elapsed_time('code_start', 'code_end');
 			
 			$this->load->view("client/shop/index", $data);
@@ -477,14 +467,6 @@ class Catalog extends Client_Controller {
 		else
 		{
 			redirect(base_url().'catalog');
-		}
-		
-		if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
-		{
-			foreach($manufacturer->sku as $i => $sku)
-			{
-				$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
-			}
 		}
 		
 		if(isset($data['filters_checked']['manufacturer_checked']) && isset($data['filters_checked']['collection_checked']) && count(array_unique($data['filters_checked']['manufacturer_checked'])))
