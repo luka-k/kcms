@@ -85,7 +85,9 @@
 												<strong><?=$product->shortname->value?> </strong>
 												
 												<?foreach($product->shortdesc as $shortdesc):?>
-													<?=$shortdesc->value?>
+													<?if($shortdesc->value != 'не указано'):?>
+														<?=$shortdesc->value?>
+													<?endif;?>
 												<?endforeach;?>
 											
 												<? if ($product->discontinued):?>

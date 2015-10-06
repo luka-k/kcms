@@ -266,6 +266,8 @@ class Import extends Admin_Controller
 
 		$this->db->update('products', array('for_delete' => 1));
 		
+		$nok = array();
+		
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
 			$total++;
@@ -574,7 +576,7 @@ class Import extends Admin_Controller
 								
 					$this->db->insert('product2collection', $product2collection);
 				}
-				
+								
 				if($filters)
 				{
 					foreach($filters as $type => $filter)
@@ -614,6 +616,7 @@ class Import extends Admin_Controller
 							$characteristics['value'] = $filter;
 							if($type == 'shortname')
 							{
+								
 								$shortname = $this->db->get_where('characteristics', $characteristics)->row();
 								if(!$shortname)
 								{
@@ -656,6 +659,11 @@ class Import extends Admin_Controller
 						}
 						
 					}	
+					
+					if(isset($filters['shortname']) && !isset($filters['shortdesc']))
+					{
+						$nok[$shortname_id][] = $product_id;
+					}
 				}
 				
 				
@@ -681,9 +689,37 @@ class Import extends Admin_Controller
 					}
 				
 				//die('ok');
-					
+			}			
+		}
+
+		if($nok) foreach($nok as $shortname_id => $products_ids)
+		{
+			$sd = $this->characteristics->get_count(array('parent_id' => $shortname_id));
+			
+			if($sd > 0)
+			{
+				$characteristic = array(
+					"type" => 'shortdesc',
+					'object_type' => "products",
+					'parent_id' => $shortname_id,
+					'value' => 'не указано'
+				);
+				
+				$this->characteristics->insert($characteristic);
+				$characteristic_id = $this->db->insert_id();
+				
+				foreach($products_ids as $p_id)
+				{
+					$t2t = array(
+						'product_id' => $p_id,
+						'characteristic_id' => $characteristic_id
+					);
+															
+					$this->db->insert('characteristic2product', $t2t);
+				}
 			}
 		}
+		
 		$this->db->delete('products', array('for_delete' => 1));
 	}
 	

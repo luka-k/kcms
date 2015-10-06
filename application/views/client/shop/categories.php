@@ -137,7 +137,9 @@
 												<?endif;?>
 												
 												<?foreach($item->shortdesc as $shortdesc):?>
-													<?=$shortdesc->value?>
+													<?if($shortdesc->value != 'не указано'):?>
+														<?=$shortdesc->value?>
+													<?endif;?>
 												<?endforeach;?>
 												
 												<? if ($item->discontinued):?>

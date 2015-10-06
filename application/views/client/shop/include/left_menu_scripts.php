@@ -110,6 +110,7 @@
 		if(type == 'manufacturer') type = 'collection';
 		
 		$('#last_type_filter').val(type+'_checked'); 
+		if(type == 'shortname' || type == 'shortdesc') $('#last_type_filter').val(type);
 
 		$('#filter-form').submit();
 	}

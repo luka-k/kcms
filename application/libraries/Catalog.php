@@ -102,7 +102,6 @@ class CI_Catalog {
 	public function get_nok_tree($ids, $selected = array())
 	{
 		//$this->CI->benchmark->mark('code_start');
-		
 		$nok_tree = array();
 		
 		if(empty($ids)) return $nok_tree;
@@ -120,7 +119,7 @@ class CI_Catalog {
 				$sl[] = $r->parent_id;
 			}
 		}
-		//$this->CI->db->select('characteristic_id');
+
 		$this->CI->db->where_in('product_id', $ids);
 	
 		$result = $this->CI->db->get('characteristic2product')->result();
@@ -138,7 +137,7 @@ class CI_Catalog {
 			$this->CI->db->where('type', 'shortname');
 			if(!empty($ch_ids)) $this->CI->db->where_in('id', $ch_ids);
 			
-			if(!empty($sl)) $this->CI->db->where_in('id', $sl);
+			if(!empty($sl)) $this->CI->db->or_where_in('id', $sl);
 			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
 
 			$this->CI->db->order_by('value', 'asc');
@@ -166,7 +165,7 @@ class CI_Catalog {
 		}
 		//$this->CI->benchmark->mark('code_end');
 		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
-		
+
 		return $nok_tree;
 	}
 	

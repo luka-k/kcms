@@ -39,7 +39,7 @@ class Catalog extends Client_Controller {
 		if(!empty($this->post['depth_from'])) $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);
 		$depth_max = $depth_to = $this->products->get_max('depth');
 		if(!empty($this->post['depth_to'])) $depth_to = preg_replace('/[^0-9]/', '', $this->post['depth_to']);
-		
+				
 		//$this->session->sess_destroy("cart_contents");
 		
 		$availability = $this->config->item('availability');
@@ -118,10 +118,9 @@ class Catalog extends Client_Controller {
 	{	
 		if($content == "root")
 		{
-			
 			$cache_id = md5(serialize($content));
 			$data = $this->filters_cache->get($cache_id);
-			
+
 			//if($data) $this->filters_cache->delete($cache_id);
 			//$data = FALSE;
 			if($data)
@@ -177,7 +176,7 @@ class Catalog extends Client_Controller {
 				}
 			}
 			
-			$this->benchmark->mark('code_end');
+			//$this->benchmark->mark('code_end');
 			//echo $this->benchmark->elapsed_time('code_start', 'code_end');
 			
 			$this->load->view("client/shop/index", $data);
@@ -273,8 +272,8 @@ class Catalog extends Client_Controller {
 
 		$cache = $this->filters_cache->get($cache_id);
 		
-		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		if($cache) $this->filters_cache->delete($cache_id);
+		$cache = FALSE;
 		
 		if($cache)
 		{
@@ -296,6 +295,7 @@ class Catalog extends Client_Controller {
 			$products_ids = $this->catalog->get_products_ids($products);
 		
 			$last_type_filter = $this->post['last_type_filter'];
+
 			//wlt - without last type
 			$filters_wlt = $this->post;
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
@@ -312,9 +312,9 @@ class Catalog extends Client_Controller {
 			{
 				unset($filters_wlt[$last_type_filter]);
 			}
-
+			
 			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->post['order'], $this->post['direction']);
-		
+
 			$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
 		
 			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, 0);
