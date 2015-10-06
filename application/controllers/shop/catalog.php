@@ -272,8 +272,8 @@ class Catalog extends Client_Controller {
 
 		$cache = $this->filters_cache->get($cache_id);
 		
-		if($cache) $this->filters_cache->delete($cache_id);
-		$cache = FALSE;
+		//if($cache) $this->filters_cache->delete($cache_id);
+		//$cache = FALSE;
 		
 		if($cache)
 		{
