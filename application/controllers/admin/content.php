@@ -162,22 +162,19 @@ class Content extends Admin_Controller
 				// Характеристики
 				if($characteristics_field)
 				{
+					$ch_types = $this->characteristics_type->get_list(FALSE);
+					
 					$data['content']->characteristics = array();
 					
 					$ch_ids = $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $id);
-					if(!empty($ch_ids))
-					{
-						$this->db->where_in('id', $ch_ids);
-						$data['content']->characteristics = $this->db->get('characteristics')->result();
 
-						$ch_types = $this->characteristics_type->get_list(FALSE);
-						
-						if(!empty($data['content']->characteristics)) foreach($data['content']->characteristics as $j => $ch)
+					$data['content']->characteristics = $this->characteristics->get_list_in('id', $ch_ids);
+					
+					if(!empty($data['content']->characteristics)) foreach($data['content']->characteristics as $j => $ch)
+					{
+						foreach($ch_types as $ch_t)
 						{
-							foreach($ch_types as $ch_t)
-							{
-								if($ch_t->url == $ch->type) $data['content']->characteristics[$j]->name = $ch_t->name;
-							}
+							if($ch_t->url == $ch->type) $data['content']->characteristics[$j]->name = $ch_t->name;
 						}
 					}
 				}
@@ -272,22 +269,18 @@ class Content extends Admin_Controller
 			
 			if(!empty($characteristics_field))
 			{
+				$ch_types = $this->characteristics_type->get_list(FALSE);
+				
 				$characteristics = array();
 				
 				$ch_ids = $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $id);
-				if(!empty($ch_ids))
+				
+				$characteristics = $this->characteristics->get_list_in('id', $ch_ids);
+				if(!empty($data['content']->characteristics)) foreach($characteristics as $j => $ch)
 				{
-					$this->db->where_in('id', $ch_ids);
-					$characteristics = $this->db->get('characteristics')->result();
-
-					$ch_types = $this->characteristics_type->get_list(FALSE);
-					
-					if(!empty($data['content']->characteristics)) foreach($characteristics as $j => $ch)
+					foreach($ch_types as $ch_t)
 					{
-						foreach($ch_types as $ch_t)
-						{
-							if($ch_t->url == $ch->type) $characteristics[$j]->name = $ch_t->name;
-						}
+						if($ch_t->url == $ch->type) $characteristics[$j]->name = $ch_t->name;
 					}
 				}
 			}
@@ -301,7 +294,7 @@ class Content extends Admin_Controller
 			if(isset($characteristics) && is_array($characteristics)) foreach($characteristics as $ch)
 			{
 				$data = array(
-					'characteristic_id' => $ch_id,
+					'characteristic_id' => $ch->id,
 					'product_id' => $new_id
 				);
 				$this->characteristic2product->insert($data);

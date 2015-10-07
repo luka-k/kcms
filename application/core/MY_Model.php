@@ -163,6 +163,27 @@ class MY_Model extends CI_Model
 	}
 	
 	/**
+	* Возращает список страниц с выборкой where in
+	*
+	* @param string $fields
+	* @param array $data
+	* @param integer $from
+	* @param integer $limit
+	* @param string $order
+	* @param string $direction
+	* @return array
+	*/
+	public function get_list_in($field, $data, $from = FALSE, $limit = FALSE, $order = FALSE, $direction = 'asc')
+	{
+		if(empty($data)) return array();
+		
+		if($limit) $this->db->limit($limit, $from);
+		if($order) $this->db->order_by($order, $direction); 
+		$this->db->where_in($field, $data);
+		return $this->db->get($this->_table)->result();
+	}
+	
+	/**
 	* Добавляет элемент в таблицу
 	* 
 	* @param array $fields
