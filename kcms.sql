@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 07 2015 г., 12:45
+-- Время создания: Окт 07 2015 г., 15:18
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -210,7 +210,10 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('6b7cc6bc7f00b74c0351769a84948cf0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444210936, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('5dafb5a7e4cadb3941fbcb83d8c40b9e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444215629, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('d6ae19116048bf52ae6210c9cab399e5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444216174, ''),
+('e1a1ddb981849e35dee2d969c88ff41a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444220129, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('f86cd5829af43693f7922a68ec7ae78c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444217524, '');
 
 -- --------------------------------------------------------
 
@@ -278,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -299,7 +302,9 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (13, 0, 'akva', 1, 'products', 12, '', '/a/k/akva.jpg'),
 (14, 0, 'wh-roses-2', 1, 'products', 13, '', '/w/h/wh-roses-2.jpg'),
 (15, 0, 'gvozdika-1', 1, 'products', 14, '', '/g/v/gvozdika-1.jpg'),
-(16, 0, '22', 1, 'products', 15, '', '/2/2/22.jpg');
+(16, 0, '22', 1, 'products', 15, '', '/2/2/22.jpg'),
+(17, 0, '8', 1, 'slider', 1, '', '/8/j/8.jpg'),
+(19, 0, '1993240', 1, 'slider', 2, '', '/1/9/1993240.jpg');
 
 -- --------------------------------------------------------
 
@@ -333,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=41 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -345,7 +350,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (6, 1, 'Каталог', 0, 2, '', 'link', '#'),
 (7, 1, 'Заказы', 0, 3, '', 'link', 'admin/admin_orders'),
 (8, 1, 'Настройки', 0, 7, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 4, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
 (10, 1, 'Меню', 8, 5, '', 'link', 'admin/menu_module/menus'),
 (11, 1, 'Пользователи', 0, 6, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
@@ -363,7 +368,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (35, 5, 'О нас', 0, 8, '', 'link', 'about'),
 (36, 5, 'Новости', 0, 9, '', 'articles', 'novosti'),
 (37, 5, 'Каталог', 0, 10, '', 'link', 'catalog'),
-(38, 5, 'Контакты', 0, 11, '', 'link', 'contacts');
+(38, 5, 'Контакты', 0, 11, '', 'link', 'contacts'),
+(40, 1, 'Слайдер', 0, 4, '', 'link', 'admin/content/items/slider/');
 
 -- --------------------------------------------------------
 
@@ -516,6 +522,30 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
 (1, 'Ромашка', 'romashka@gmail.com', '', '', 3, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `slider`
+--
+
+CREATE TABLE IF NOT EXISTS `slider` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_active` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `slider`
+--
+
+INSERT INTO `slider` (`id`, `sort`, `name`, `link`, `description`, `is_active`) VALUES
+(1, 0, 'Новые поступления цветов', 'articles/novosti/pervaya-novost', 'В нашем магазине новые поступления', 1),
+(2, 0, 'Новые поступления цветов', 'articles/novosti/vtoraya-novost', 'В нашем магазине новые поступления', 1);
 
 -- --------------------------------------------------------
 

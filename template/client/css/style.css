@@ -1564,8 +1564,6 @@ span
     height: 40px;
 
     content: '';
-
-    background: url(../images/bg/white.png) 50% 0 no-repeat;
     background-size: cover;
 }
 .promo__slider
