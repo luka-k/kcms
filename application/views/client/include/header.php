@@ -1,7 +1,7 @@
 <header class="header" id="header">
 	<div class="header__wrap wrap">
 		<div class="header__logo">
-			<a href="/" class="logo">RedBTR</a>
+			<a href="/" class="logo"><?= $settings->site_title?></a>
 		</div> <!-- /.header__logo -->
 		
 		<div class="header__phone">
