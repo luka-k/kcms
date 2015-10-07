@@ -10,7 +10,7 @@
 				<div class="header-phone__time">9:00 - 18:00</div> <!-- /.header-phone__time -->
 				
 				<div class="header-phone__callback">
-					<a href="#" class="header-phone__callback-link" onclick="callback_popup(); return false;">Обратный звонок</a>
+					<a href="#" class="header-phone__callback-link callback_link" >Обратный звонок</a>
 				</div> <!-- /.header-phone__callback -->
 			</div> <!-- /.header-phone -->
 		</div> <!-- /.header__phone -->

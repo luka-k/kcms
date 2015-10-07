@@ -35,3 +35,5 @@
 		</div> <!-- /.footer__contacts -->
 	</div> <!-- /.footer__wrap wrap -->
 </footer> <!-- /.header -->
+
+<? require 'scripts.php' ?>

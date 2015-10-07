@@ -7,16 +7,13 @@
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/normalize.css" media="all">
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/grid.css" media="all" />
 	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui-2222.css" media="all" />
+	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.css" media="all" />
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.css" media="all" />
 	
 	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/style.css" media="all" />
 	
-
 	<script type="text/javascript" src="<?= base_url()?>template/js/jquery.min.js"></script> 
-	
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/script.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/main.js"></script>
+
 	<script type="text/javascript" src="<?= base_url()?>template/client/js/cart.js"></script>
 	<script type="text/javascript" src="<?= base_url()?>template/client/js/wishlist.js"></script>
 	<script type="text/javascript" src="<?= base_url()?>template/client/js/datepicker.js"></script>

@@ -1,5 +1,3 @@
-// Вывод всплывающего окна добавления в корзину
-//
 function cart_popup(item_id, name, qty){	
 	$('#popup_product_name').text(name);
 	$.fancybox.open("#to-cart");

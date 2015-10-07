@@ -34,7 +34,7 @@
 		<div class="menu__search">
 			<div class="menu-search">
 				<form action="<?=base_url()?>search" id="searchform" class="form" method="get">
-					<input type="text" id="search_input" class="form__input menu-search__input search" name="name" placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> onkeypress="autocomp()"/>
+					<input type="text" id="search_input" class="form__input menu-search__input search autocomplete" name="name" placeholder="Поиск" <?if(isset($search)):?>value="<?=$search?>"<?endif;?> />
 					<button class="button menu-search__button" >Поиск</button>
 				</form> <!-- /.form -->
 			</div> <!-- /.menu-search -->
