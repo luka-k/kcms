@@ -411,8 +411,11 @@ class Content extends Admin_Controller
 			{
 				if($ch_t->url == $ch->type) $ch->name = $ch_t->name;
 			}
+			
+			$content = new stdClass();
+			$content->id = $product_id;
 						
-			$answer = $this->load->view('admin/include/editors/characteristic_item.php', array('characteristic' => $ch), TRUE);
+			$answer = $this->load->view('admin/include/editors/characteristic_item.php', array('characteristic' => $ch, 'content' => $content), TRUE);
 			
 			$data = array(
 				'product_id' => $product_id,
@@ -437,10 +440,11 @@ class Content extends Admin_Controller
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 		
-		$this->characteristics->delete($info->ch_id);
-		
-		$this->db->where_in('characteristic_id', $info->ch_id);
+		$this->db->where(array('characteristic_id' => $info->ch_id, 'product_id' => $info->object_id));
 		$this->db->delete('characteristic2product');
+		
+		if($this->characteristic2product->get_count(array('characteristic_id' => $info->ch_id)) == 0)
+			$this->characteristics->delete($info->ch_id);
 		
 		$answer = array('ch_id' => $info->ch_id);
 		echo json_encode($answer);

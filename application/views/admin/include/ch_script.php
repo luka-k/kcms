@@ -28,14 +28,15 @@
 		$.post("/admin/content/edit_characteristic/", json_str, "json");
 	}
 	
-	function delete_characteristic_popup(item_id, item_name, item_value){
+	function delete_characteristic_popup(ch_id, object_id, item_name, item_value){
 		$('#item_name').text(item_name+' - '+item_value);
-		$('#delete_ch_id').val(item_id);
+		$('#delete_ch_id').val(ch_id);
+		$('#ch_object_id').val(object_id);
 		$.fancybox.open("#delete_characteristic");
 	}
 	
 	function delete_characteristic(){
-		var data = {ch_id: $('#delete_ch_id').val()};
+		var data = {ch_id: $('#delete_ch_id').val(), object_id: $('#ch_object_id').val()};
 		var json_str = JSON.stringify(data);
 		$.post("/admin/content/delete_characteristic/", json_str, function(data){
 			$("#ch-"+data.ch_id).remove();

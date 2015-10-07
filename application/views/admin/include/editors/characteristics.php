@@ -38,6 +38,7 @@
 						Вы точно уверены что хотите удалить - <strong id="item_name"></strong>?
 					</div><br/>
 					<input type="hidden" id="delete_ch_id" name="ch_id" value=""/>
+					<input type="hidden" id="ch_object_id" name="item_id" value=""/>
 					<a href="#" class="delete_button button small" onclick="delete_characteristic(); return false;">Удалить?</a>
 					<a href="#" class="button small" onclick="$.fancybox.close();">Нет</a>
 				</div>
