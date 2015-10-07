@@ -327,10 +327,15 @@ class Content extends Admin_Controller
 		$characteristics_field = editors_get_name_field('ch', $this->$type->editors);
 		if($characteristics_field)
 		{
-			$item_characteristics = $this->characteristics->get_list(array("object_type" => $type, "object_id" => $id));
-			if($item_characteristics) foreach($item_characteristics as $ch)
+			$item_ch = $this->characteristic2product->get_list(array('product_id' => $id));
+			
+			$this->db->where(array('product_id' => $id));
+			$this->db->delete('characteristic2product');
+			
+			foreach($item_ch as $ch)
 			{
-				$this->characteristics->delete($ch->id);
+				if($this->characteristic2product->get_count(array('characteristic_id' => $ch->characteristic_id)) == 0)
+					$this->characteristics->delete($ch->characteristic_id);
 			}
 		}
 		
