@@ -64,7 +64,8 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+			$total_rows = count($this->$type->get_list(FALSE));
 			$data['sortable'] = TRUE;
 		}
 		
