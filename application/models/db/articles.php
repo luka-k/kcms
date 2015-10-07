@@ -32,7 +32,7 @@ class Articles extends MY_Model
 			'name' => array('Заголовок', 'text', 'trim|htmlspecialchars|name', 'require'),
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),
-			'sort' => array('Сортировка', 'text'),
+			'sort' => array('Сортировка', 'hidden'),
 			'description' => array('Описание', 'tiny')
 		),
 		'SEO' => array(

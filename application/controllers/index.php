@@ -22,9 +22,9 @@ class Index extends Client_Controller {
 		
 		$special = $this->products->get_list(array("is_special" => 1), FALSE, 4);
 		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
-		
-		$last_news = $this->articles->get_list(array("parent_id" => 3));
-		
+			
+		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), FALSE, 4);
+
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,
 			'select_item' => '',

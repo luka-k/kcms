@@ -17,6 +17,9 @@ class Pages extends Client_Controller {
 	public function index()
 	{
 		$page = $this->url->url_parse(2);
+		
+		$this->load->config('articles');
+		$news_id = $this->config->item('news_id');
 
 		$root = $this->articles->get_item_by(array("url" => $this->uri->segment(2)));
 		
@@ -25,14 +28,14 @@ class Pages extends Client_Controller {
 		if(isset($page->article))
 		{
 			$sub_template = "single-news";
-			$template = $root->id == 3 ? "client/news.php" : "client/article.php";
+			$template = $root->id == $news_id ? "client/news.php" : "client/article.php";
 			
 			$content = $page->article;
 		}		
 		elseif(isset($page->articles))
 		{
 			$sub_template = "news";
-			$template = $root->id == 3 ? "client/news.php" : "client/articles.php";
+			$template = $root->id == $news_id ? "client/news.php" : "client/articles.php";
 			
 			$content = $page;
 			$content->articles = $this->articles->prepare_list($content->articles);
