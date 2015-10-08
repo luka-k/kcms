@@ -101,26 +101,26 @@ class Order extends Client_Controller
 		$this->orders->insert($new_order);
 		$order_id = $this->db->insert_id();
 		
-		if(isset($info->email))
-		{		
-			$message_info = array(
-				"order_code" => $order_code,
-				"user_name" => $info->name,
-				'phone' => $info->phone,
-				'email' => $info->email,
-				'address' => $info->address,
-				'products' => array(
-					0 => array(
-						'name' => $product->name,
-						'price' => $product->price,
-						'qty' => $info->qty,
-						'item_total' => $product->price *  $info->qty
-					)
+		$message_info = array(
+			"order_code" => $order_code,
+			"user_name" => $info->name,
+			'phone' => $info->phone,
+			'email' => $info->email,
+			'address' => $info->address,
+			'products' => array(
+				0 => array(
+					'name' => $product->name,
+					'price' => $product->price,
+					'qty' => $info->qty,
+					'item_total' => $product->price *  $info->qty
 				)
-			);
-			
-			$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
-		}
+			)
+		);
+		
+		$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
+		
+		if(isset($info->email))
+			$this->emails->send_system_mail($info->email, 2, $message_info);
 
 		$orders_products = array(
 			'order_id' => $order_id,
