@@ -118,12 +118,17 @@ class Images extends MY_Model
 			//Генерируем миниатюры
 			if(!$thumb->GenerateThumbnail())
 			{
+				add_log('thumbnail', 'Генерация миниатюр не удалась');
 				return FALSE;
 			}
 			else
 			{
 				//Загружаем миниатюры в соответствующую папку
-				if(!$thumb->RenderToFile($output_filename))	return FALSE;
+				if(!$thumb->RenderToFile($output_filename))	
+				{
+					add_log('thumbnail', 'Загрузка миниатюр в папку не удалась');
+					return FALSE;
+				}
 			}
 		}
 	}
@@ -164,7 +169,11 @@ class Images extends MY_Model
 			{
 				unlink($upload_path."/".$path.$image->url);
 			}
-			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) return FALSE;
+			if(!$this->generate_thumbs($upload_path . $image->url) == FALSE) 
+			{
+				add_log("resize image", "Генерация миниатюр не удалась");
+				return FALSE;
+			}
 		}
 		return TRUE;
 	}
