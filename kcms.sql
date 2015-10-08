@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 07 2015 г., 15:18
+-- Время создания: Окт 08 2015 г., 22:24
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -109,34 +109,6 @@ CREATE TABLE IF NOT EXISTS `characteristic2product` (
   KEY `characteristic_id` (`characteristic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `characteristic2product`
---
-
-INSERT INTO `characteristic2product` (`product_id`, `characteristic_id`) VALUES
-(1, 845),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 846),
-(1, 847),
-(1, 847),
-(12, 850),
-(12, 851),
-(13, 852),
-(13, 853),
-(1, 854),
-(1, 855),
-(2, 854),
-(2, 855),
-(6, 854),
-(1, 860),
-(1, 862);
-
 -- --------------------------------------------------------
 
 --
@@ -152,19 +124,7 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`),
   KEY `object_type` (`object_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=864 ;
-
---
--- Дамп данных таблицы `characteristics`
---
-
-INSERT INTO `characteristics` (`id`, `type`, `value`, `object_type`, `parent_id`) VALUES
-(850, 'dlina', '50 см', 'products', 0),
-(851, 'dlina', '60 см', 'products', 0),
-(852, 'dlina', '70 см', 'products', 0),
-(853, 'dlina', '80 см', 'products', 0),
-(860, 'sostav', 'корзина', 'products', 0),
-(862, 'sostav', 'лента', 'products', 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -210,10 +170,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('5dafb5a7e4cadb3941fbcb83d8c40b9e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444215629, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('d6ae19116048bf52ae6210c9cab399e5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444216174, ''),
-('e1a1ddb981849e35dee2d969c88ff41a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444220129, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('f86cd5829af43693f7922a68ec7ae78c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444217524, '');
+('9d5f2c441edd75070a54206a83fcf2ff', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444332075, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"3";s:4:"name";s:35:"Композиция Даниэла";s:3:"url";s:18:"kompoziciya-lyubov";s:5:"price";s:4:"8000";s:3:"qty";i:1;s:10:"item_total";i:8000;}}s:9:"total_qty";i:1;s:10:"cart_total";i:8000;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -261,7 +218,7 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
 (3, 1, 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%', 'Клиенту при изменении статуса заказа'),
 (4, 1, 'Регистрация в магазине', '<p>%user_name%, спасибо за регистрацию в нашем магазине. Ваш логин %login% Ваш пароль %password%</p>\r\n', 'При регистрации'),
 (5, 1, 'Ваш пароль изменен', '<p>%user_name%, Ваш пароль в интернет магазине изменен.</p>\r\n\r\n<p>Новые данные доступа:</p>\r\n\r\n<p>Ваш логин %login%</p>\r\n\r\n<p>Ваш пароль %password%</p>\r\n', 'При изменении пароля'),
-(6, 1, 'Заказан обратный звонок', '<p>Клиент %USER_NAME%, оставил номер телефона - %USER_PHONE%</p>\r\n', 'Обратный звонок'),
+(6, 1, 'Заказан обратный звонок', '<p>Клиент %user_name%, оставил номер телефона - %user_phone%</p>\r\n', 'Обратный звонок'),
 (7, 1, 'Востановление пароля', '<p>Для изменения пароля перейдите по <a href="%base_url%admin/registration/new_password?email=%user_email%&amp;secret=%secret%">ссылке</a></p>\r\n', 'Востановление пароля');
 
 -- --------------------------------------------------------
@@ -281,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -304,7 +261,8 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (15, 0, 'gvozdika-1', 1, 'products', 14, '', '/g/v/gvozdika-1.jpg'),
 (16, 0, '22', 1, 'products', 15, '', '/2/2/22.jpg'),
 (17, 0, '8', 1, 'slider', 1, '', '/8/j/8.jpg'),
-(19, 0, '1993240', 1, 'slider', 2, '', '/1/9/1993240.jpg');
+(19, 0, '1993240', 1, 'slider', 2, '', '/1/9/1993240.jpg'),
+(24, 0, '1294[1]', 0, 'products', 1, '', '/1/2/1294[1].jpg');
 
 -- --------------------------------------------------------
 
@@ -393,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_code`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `orders`
@@ -404,7 +362,14 @@ INSERT INTO `orders` (`id`, `order_code`, `user_id`, `user_name`, `user_email`, 
 (2, '230787', '1', 'admin', 'admin@admin.ru', '34444333', 'rudneva', 5634, 0, 0, '2015-09-19 00:00:00', 1),
 (3, '230788', '1', 'admin', 'admin@admin.ru', '234-56-34', 'rudneva 5-1-162', 36256, 0, 0, '2015-09-19 00:00:00', 1),
 (4, '230789', '1', 'admin', 'admin@admin.ru', '+7 (123) 456-7890', 'rudneva 5-1-162', 5500, 0, 0, '2015-09-19 00:00:00', 1),
-(5, '230790', '1', 'admin', 'admin@admin.ru', '+7 (987) 654-3210', 'rudneva 5-1-162', 4450, 0, 0, '2015-09-19 00:00:00', 1);
+(5, '230790', '1', 'admin', 'admin@admin.ru', '+7 (987) 654-3210', 'rudneva 5-1-162', 4450, 0, 0, '2015-09-19 00:00:00', 1),
+(6, '230791', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(7, '230792', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(8, '230793', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(9, '230794', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(10, '230795', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(11, '230796', '', 'Pavel', 'admin@admin.ru', '79500147120', '', 8000, 0, 0, '2015-10-08 00:00:00', 1),
+(12, '230797', '', 'admin', 'admin@admin.ru', '+7 (123) 456-7890', '', 5500, 0, 0, '2015-10-08 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -421,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `orders_products` (
   `order_qty` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Дамп данных таблицы `orders_products`
@@ -432,7 +397,13 @@ INSERT INTO `orders_products` (`id`, `order_id`, `product_id`, `product_name`, `
 (2, '2', 10, 'Элис', '5634', 1),
 (3, '3', 4, 'Композиция Замфира', '36256', 1),
 (4, '4', 2, 'Композиция Фекла', '5500', 1),
-(5, '5', 9, 'Зарина', '4450', 1);
+(5, '5', 9, 'Зарина', '4450', 1),
+(6, '7', 1, 'Композиция Даниэла', '8000', 1),
+(7, '8', 1, 'Композиция Даниэла', '8000', 1),
+(8, '9', 1, 'Композиция Даниэла', '8000', 1),
+(9, '10', 1, 'Композиция Даниэла', '8000', 1),
+(10, '11', 1, 'Композиция Даниэла', '8000', 1),
+(11, '12', 2, 'Композиция Фекла', '5500', 1);
 
 -- --------------------------------------------------------
 
