@@ -117,11 +117,15 @@ class Order extends Client_Controller
 			)
 		);
 		
-		$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
+		if(!$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail"))
+			add_log("order", "Отправка письма администратору не удалась");
 		
 		if(isset($info->email))
-			$this->emails->send_system_mail($info->email, 2, $message_info);
-
+		{
+			if($this->emails->send_system_mail($info->email, 2, $message_info))
+				add_log("order", "Отправка письма клиенту не удалась");
+		}
+		
 		$orders_products = array(
 			'order_id' => $order_id,
 			'product_id' => $product->id,
@@ -129,6 +133,7 @@ class Order extends Client_Controller
 			'product_price' => $product->price,
 			'order_qty' => $info->qty				
 		);
+		
 		$this->orders_products->insert($orders_products);
 
 		echo json_encode('ok');
