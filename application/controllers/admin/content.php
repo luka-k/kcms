@@ -385,6 +385,12 @@ class Content extends Admin_Controller
 		redirect(base_url().'admin/content/item/edit/'.$object_type."/".$object_id."#tab_".$tab);
 	}
 	
+	public function resize_images()
+	{
+		if($this->images->resize_all())
+			echo 'ok';
+	}
+	
 	/**
 	* Добавление характеристики товару
 	*/
@@ -483,5 +489,42 @@ class Content extends Admin_Controller
 		$data = $this->$table->is_unique(array($field => $data->value))? TRUE : FALSE;
 		
 		echo json_encode($data);
+	}
+	
+	public function search($type)
+	{
+		$settings = $this->settings->get_item(1);
+		
+		$data = array(
+			'title' => "Главная",
+			'error' => "",
+			'url' => $this->uri->uri_string(),
+			'left_column' => isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off",
+			'name' => editors_get_name_field('name', $this->$type->editors),
+			'type' => $type,
+			'sortable' => FALSE
+		);
+		$data = array_merge($this->standart_data, $data);
+		
+		$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
+
+		$search = $this->input->get('search');
+		$this->db->like('name', $search);
+		$this->db->limit($settings->per_page, $this->input->get('from'));
+		$data['content'] = $this->db->get($type)->result();
+			
+		$this->db->like('name', $search);
+		$total_rows = count($this->db->get($type)->result());
+
+		
+		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
+		$config['total_rows'] = $total_rows;
+		$config['per_page'] = $settings->per_page;
+
+		$this->pagination->initialize($config);
+
+		$data['pagination'] = $this->pagination->create_links();
+		
+		$this->load->view('admin/items.php', $data);
 	}
 }

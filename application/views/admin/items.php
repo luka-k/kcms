@@ -14,15 +14,22 @@
 						</div>
 					<?endif;?>
 					<div id="right_col" class="<?if($left_column == "off"):?>col_12<?else:?>col_9<?endif;?> back">
+						
 						<div class="col_12">						
-							<h6 class="col_8 left">Редактировать</h6> 
-							<div class="col_4 right">
-								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small">Создать</a>
-							</div>			
+							<div class="col_1 left">
+								<a href="<?=base_url()?>admin/content/item/edit/<?=$type?><?if(!empty($parent_id)):?>?parent_id=<?=$parent_id?><?endif;?>" class="button small green">Создать</a>
+							</div>	
+							<div class="col_11 right">
+								<form method="get" accept-charset="utf-8"  enctype="multipart/form-data" id="search_form" action="<?=base_url()?>admin/content/search/<?=$type?>"/>
+									<input type="text" name="search" class="search" placeholder="Поиск по разделу" value="" onchange="submit_form('search_form'); return false;"/>
+								</form>
+							</div>							
 						</div>
+						
 						<div class="pagination col_12">
 							<?=$pagination?>
 						</div>
+						
 						<table  id="sort" cellspacing="2" cellpadding="2" >
 							<thead>
 								<tr>
