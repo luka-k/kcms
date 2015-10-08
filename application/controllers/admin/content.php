@@ -507,13 +507,18 @@ class Content extends Admin_Controller
 		$data = array_merge($this->standart_data, $data);
 		
 		$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
+		
+		$is_article = $this->db->field_exists('article', $type);
 
 		$search = $this->input->get('search');
 		$this->db->like('name', $search);
+		if($is_article) $this->db->or_like('article', $search);
+		
 		$this->db->limit($settings->per_page, $this->input->get('from'));
 		$data['content'] = $this->db->get($type)->result();
 			
 		$this->db->like('name', $search);
+		if($is_article) $this->db->or_like('article', $search);
 		$total_rows = count($this->db->get($type)->result());
 
 		
