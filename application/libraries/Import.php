@@ -16,6 +16,21 @@ class Import{
 		$this->CI =& get_instance();
 	}
 	
+	public function import_from_1c($xmlstr)
+	{
+		$this->CI->db->truncate('characteristics');
+		$this->CI->db->truncate('characteristic2product');
+		
+		$xml = new SimpleXMLElement($xmlstr);
+		
+		// Тут уже наверно все строго индивидуально для каждого отедльного случая.
+		// Ну или какие то общие элементыу будут вырисовываться по мере появления проектов
+		foreach($xml->Каталог->Товары->Товар as $el)
+		{
+			
+		}
+	}
+	
 	/**
 	* Импортирование категорий
 	*
