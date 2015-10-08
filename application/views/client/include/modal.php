@@ -43,7 +43,7 @@
 			</div> <!-- /.form__line -->
 			
 			<div class="form__button">
-				<button class="button button--normal button--auto-width" onclick="callback_submit(); return false;">Заказать звонок</button>
+				<button class="button button--normal button--auto-width callback_submit" onclick="callback(); return false;">Заказать звонок</button>
 			</div> <!-- /.form__button -->
 		</form> <!-- /.form -->
 	</div> <!-- /.modal__form -->
@@ -54,3 +54,55 @@
 	
 	<div id="popup_message" class="modal__text"></div> <!-- /.modal__text -->
 </div> <!-- /.modal --> 
+
+<div class="modal" id="fast_order" style="display:none;">
+	<div class="modal__title block-title">Быстрый заказ</div> <!-- /.modal__title block-title -->
+	
+	<form action="#" class="form" id="fast_order_form" method="post">
+	<div class="fast_order_product-info">
+		<div class="fast_order_image">
+			<img id="fast_order_img" src="" alt="" />
+		</div>
+		<div class="fast_order_product_name"></div><br />
+		Количество: <input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="qty" placeholder="" value="1" />							
+	</div>
+	<div class="fast_order_form">
+	
+		<div class="cart-order__form">
+			
+			<input type="hidden" class="product_id" name="product_id" value="" />
+			
+			<div class="form__line">
+				<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
+			</div> <!-- /.form__line -->
+							
+			<div class="form__line">
+				<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
+			</div> <!-- /.form__line -->
+							
+			<a href="#extra" class="cart-order__extra-link" onclick="$('.cart-order__extra').slideToggle();">Необязательные поля</a>
+							
+			<div class="cart-order__extra hidden" id="extra">
+				<div class="form__line">
+					<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
+				</div> <!-- /.form__line -->
+				
+				<div class="form__line">
+					<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
+				</div> <!-- /.form__line -->
+			</div> <!-- /.cart-order__extra -->
+						
+			<div class="form__button cart-order__button">
+				<button type="submit" class="button button--normal button--auto-width" onclick="fastOrdersubmit(); return false;">Оформить</button>
+			</div> <!-- /.form__button -->
+		</div> <!-- /.cart-order__form -->
+	</div>
+	</form> <!-- /.form -->
+</div> <!-- /.modal --> 
+
+<div class="modal" id="fast_order_answer" style="display:none;">
+	<div id="popup_title" class="modal__title block-title">Спасибо за заказ</div> <!-- /.modal__title block-title -->
+	
+	<div id="popup_message" class="modal__text">Ваш заказ принят.<br /> Менеджер свяжется с Вами.</div> <!-- /.modal__text -->
+</div> <!-- /.modal --> 
+

@@ -79,4 +79,58 @@ class Order extends Client_Controller
 		$this->cart->clear();
 		redirect(base_url().'cart?action=order');		
 	}
+	
+	public function fast_order()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		$product = $this->products->get_item_by(array("id" => $info->product_id));
+		
+		$order_code = $this->orders->get_order_code();
+		
+		$new_order = array(
+			'order_code' => $order_code,
+			'user_name' => $info->name,
+			'user_phone' => $info->phone,
+			'user_email' => $info->email,
+			'user_address' => $info->address,
+			'total' => $product->price * $info->qty,
+			'date' => date("Y-m-d"),
+			'status_id' => 1
+		);
+		
+		$this->orders->insert($new_order);
+		$order_id = $this->db->insert_id();
+		
+		if(isset($info->email))
+		{		
+			$message_info = array(
+				"order_code" => $order_code,
+				"user_name" => $info->name,
+				'phone' => $info->phone,
+				'email' => $info->email,
+				'address' => $info->address,
+				'products' => array(
+					0 => array(
+						'name' => $product->name,
+						'price' => $product->price,
+						'qty' => $info->qty,
+						'item_total' => $product->price *  $info->qty
+					)
+				)
+			);
+			
+			$this->emails->send_system_mail($this->standart_data['settings']->admin_email, 1, $message_info, "admin_order_mail");
+		}
+
+		$orders_products = array(
+			'order_id' => $order_id,
+			'product_id' => $product->id,
+			'product_name' => $product->name,
+			'product_price' => $product->price,
+			'order_qty' => $info->qty				
+		);
+		$this->orders_products->insert($orders_products);
+
+		echo json_encode('ok');
+	}
 }

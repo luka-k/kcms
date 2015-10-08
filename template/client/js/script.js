@@ -9,7 +9,7 @@
 	
 		$.fancybox.open("#callback");
 	});
-	
+		
 	$(".autocomplete").keypress(function(){
 		$.post("/ajax/autocomplete/", function(data){
 			var availableTags = data.available_tags;
@@ -99,7 +99,9 @@
 
 
 (function($){
-	
+	$('.fancyimage').fancybox({
+		maxWidth: 900
+	});
 })(jQuery);	
 
 
@@ -112,7 +114,7 @@ function callback(){
 	data = {};
 			
 	inputs.each(function () {
-		data[$(this).attr('name')] =$(this).val();
+		data[$(this).attr('name')] = $(this).val();
 	});
 			
 	var json_str = JSON.stringify(data);
@@ -152,3 +154,26 @@ function submit_form(form_id){
 	$("#"+form_id).submit();
 }
 
+function fastOrder(id, name, img){
+	$('#fast_order_img').prop('src', img)
+	$('.fast_order_product_name').html(name);
+	$('.product_id').val(id);
+	$.fancybox.open("#fast_order");
+}
+
+function fastOrdersubmit(){
+	//var data = $('#fast_order_form').serialize();
+	var data = {};
+	var inputs = $('#fast_order_form').find('input');
+	
+	inputs.each(function () {
+		data[$(this).attr('name')] = $(this).val();
+	});
+
+	var json_str = JSON.stringify(data);
+	
+	$.post ("/order/fast_order/", json_str, function(data){
+		$.fancybox.open("#fast_order_answer");
+		setTimeout(function(){$.fancybox.close();}, 4000);
+	}, "json");
+}

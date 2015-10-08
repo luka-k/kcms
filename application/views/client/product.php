@@ -81,11 +81,11 @@
 						
 						<div class="product-main-info__buttons">
 							<div class="product-main-info__button">
-								<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$product->id?>', '<?=$product->name?>', 1); return false;">Купить</button>
+								<button class="button button--normal fancybox" onclick="cart_popup('<?=$product->id?>', '<?=$product->name?>', 1); return false;">Купить</button>
 							</div> <!-- /.product-main-info__button -->
 							
 							<div class="product-main-info__button">
-								<button class="button button--normal button--grey fancybox" data-fancybox-href="#callback">Быстрый заказ</button>
+								<button class="button button--normal button--grey fancybox" onclick="fastOrder('<?=$product->id?>', '<?=$product->name?>', '<?= $product->images[0]->catalog_mid_url?>'); return false;">Быстрый заказ</button>
 							</div> <!-- /.product-main-info__button -->
 							
 						</div> <!-- /.product-main-info__buttons -->
