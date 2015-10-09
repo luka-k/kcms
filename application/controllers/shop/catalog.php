@@ -262,8 +262,8 @@ class Catalog extends Client_Controller {
 
 		$cache = $this->filters_cache->get($cache_id);
 		
-		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		if($cache) $this->filters_cache->delete($cache_id);
+		$cache = FALSE;
 		
 		if($cache)
 		{
@@ -408,6 +408,7 @@ class Catalog extends Client_Controller {
 
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
+				//my_dump($last_type_filter);
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt, $this->post);
 			}
 			else

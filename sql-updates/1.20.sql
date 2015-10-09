@@ -1,0 +1,1 @@
+ALTER TABLE `characteristics` ADD `sort` INT NOT NULL AFTER `id`;

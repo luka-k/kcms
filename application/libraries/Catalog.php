@@ -105,7 +105,7 @@ class CI_Catalog {
 		$nok_tree = array();
 		
 		if(empty($ids)) return $nok_tree;
-		
+
 		$sl = array();
 		if(!empty($selected['shortdesc']))
 		{
@@ -146,13 +146,16 @@ class CI_Catalog {
 			if($result) foreach($result as $r)
 			{
 				$this->CI->db->select('type, value, id');
-				$this->CI->db->where('parent_id', $r->id);
+				
 				if(!empty($selected['shortdesc'])) $this->CI->db->where_in('id', array_keys($selected['shortdesc']));
-				if(!empty($ch_ids)) $this->CI->db->where_in('id', $ch_ids);
+				$this->CI->db->where('parent_id', $r->id);
+				if(!empty($ch_ids)) $this->CI->db->or_where_in('id', $ch_ids);
+				$this->CI->db->where('parent_id', $r->id);
+				$this->CI->db->order_by('sort', 'desc');
 				$this->CI->db->order_by('value', 'asc');
 				$this->CI->db->where('type', 'shortdesc');
 				$nok_branch = $this->CI->db->get('characteristics')->result();
-				
+
 				$nok_tree[$r->value] = array();
 				if(!empty($nok_branch)) 
 				{
@@ -162,10 +165,11 @@ class CI_Catalog {
 					}
 				}
 			}
+			
 		}
 		//$this->CI->benchmark->mark('code_end');
 		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
-
+		
 		return $nok_tree;
 	}
 	

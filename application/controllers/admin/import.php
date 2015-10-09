@@ -631,6 +631,7 @@ class Import extends Admin_Controller
 							elseif($type == 'shortdesc')
 							{
 								$characteristics['parent_id'] = $shortname_id;
+								$characteristics['sort'] = 0;
 								$shortdesc = $this->db->get_where('characteristics', $characteristics)->row();
 								
 								if(!$shortdesc)
@@ -702,7 +703,8 @@ class Import extends Admin_Controller
 					"type" => 'shortdesc',
 					'object_type' => "products",
 					'parent_id' => $shortname_id,
-					'value' => 'не указано'
+					'value' => 'не указано',
+					'sort' => 1
 				);
 				
 				$this->characteristics->insert($characteristic);
