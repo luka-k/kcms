@@ -28,7 +28,13 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">О нас</h3><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
+                                    <div role="main">
+									<span id="maincontent"></span>
+									<div class="course-content">
+									<ul class="topics">
+									<li id="section-0" class="section main clearfix" role="region" aria-label="Features">
+									<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
+									<div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">О нас</h3><div class="summary"></div><ul class="section img-text"><li class="activity label modtype_label " id="module-2"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><div class="alert alert-info demo">
 <i class="fa fa-info-circle fa-2x">  </i>
 <span style="font-size: large; font-weight: bold;"> ООО «Новый Свет»</span>
 <br>

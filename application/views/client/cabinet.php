@@ -58,7 +58,7 @@
 										</div>
 									</div>
 									<div class="refill_balance span3">
-										<a href="" class="btn">Пополнить баланс</a>
+										<a href="<?= base_url()?>account/payment" class="btn">Пополнить баланс</a>
 									</div>
 							</div>
 							

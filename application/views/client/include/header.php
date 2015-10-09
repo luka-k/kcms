@@ -19,9 +19,9 @@
 				<div id="entertop" style="display: none;">
 					<?if(!$user || !in_array('parent', $user_groups)):?>
 						<label id="user"><i class="fa fa-user"></i></label>	
-						<input class="span2" type="text" name="name" onFocus="if(this.value =='Username' ) this.value=''" value="Логин" style="margin-bottom:10px;">
+						<input class="span2" type="text" name="name" onFocus="if(this.value =='Username' ) this.value=''" value="" placeholder="Логин" style="margin-bottom:10px;">
 						<label id="pass"><i class="fa fa-key"></i></label>
-						<input class="span2" type="password" name="password" id="password1" value="Пароль">
+						<input class="span2" type="password" name="password" id="password1" value="" placeholder="Пароль">
 						<input type="submit" id="submit" name="submit" value=""/>
 					<?else:?>
 						<div style="text-align:center">

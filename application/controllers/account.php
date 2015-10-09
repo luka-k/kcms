@@ -45,9 +45,22 @@ class Account extends Client_Controller
 		$data['user'] = $this->users->get_item($data['user']->id);
 		
 		$user_name = explode(" ", $data['user']->name);
-		$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.'; // Тут есть сомнение что все прям будут полное имя указывать. и надо подумать над отображением
+		$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.'; 
 
 		$this->load->view('client/cabinet.php', $data);
+	}
+	
+	public function payment()
+	{
+		$data = array(
+			'title' => "Пополнение баланса",
+		);
+		$data = array_merge($this->standart_data, $data);
+		
+		$user_name = explode(" ", $data['user']->name);
+		$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.';
+
+		$this->load->view('client/payment_form.php', $data);
 	}
 	
 	/**

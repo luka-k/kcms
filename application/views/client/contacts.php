@@ -27,7 +27,14 @@ document.body.className += ' jsenabled';
         <div id="region-bs-main-and-pre" class="span9">
             <div class="row-fluid">
             	                <section id="region-main" class="span8">
-                                    <div role="main"><span id="maincontent"></span><div class="course-content"><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Features"><div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div><div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
+                                    <div role="main">
+										<span id="maincontent"></span>
+											<div class="course-content">
+												<ul class="topics">
+													<li id="section-0" class="section main clearfix" role="region" aria-label="Features">
+														<div class="left side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
+														<div class="right side"><img width="1" height="1" class="spacer" alt="" title="" src="http://lambda.redpithemes.com/theme/image.php/lambda/core/1439469018/spacer" /></div>
+														<div class="content"><h3 class="sectionname">Контакты</h3><div class="summary">
                                     
                                     <p>ООО "Новый  Свет"</p>
 <address>город Петрозаводск, пр. Александра Невского, 65</address>
