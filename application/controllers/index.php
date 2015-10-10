@@ -21,8 +21,12 @@ class Index extends Client_Controller {
 		if($view == '') $view = 'index';
 		
 		$data = $this->standart_data;
-		$user_name = explode(" ", $data['user']->name);
-		$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.'; // Тут есть сомнение что все прям будут полное имя указывать. и надо подумать над отображением
+		
+		if(isset($data['user']->name))
+		{
+			$user_name = explode(" ", $data['user']->name);
+			$data['user']->short_name = $user_name[0].' '.mb_substr($user_name[1], 0, 1).'. '.mb_substr($user_name[2], 0, 1).'.'; // Тут есть сомнение что все прям будут полное имя указывать. и надо подумать над отображением
+		}
 
 		$this->load->view('client/'.$view.'.php', $data);
 	}

@@ -52,6 +52,8 @@ class Account extends Client_Controller
 	
 	public function payment()
 	{
+		if (!$this->session->userdata('logged_in') || !in_array("parent", $this->standart_data['user_groups'])) die(redirect(base_url()));
+		
 		$data = array(
 			'title' => "Пополнение баланса",
 		);

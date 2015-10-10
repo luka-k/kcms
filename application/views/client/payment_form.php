@@ -24,11 +24,20 @@
 							<input type="hidden" name="customerNumber" value="" />
 							
 							<div class="clearfix">
-								<label for="" class="span1" >Сумма:</label>
-								<input type="text" name="sum" class="require span5" value=""/>
+								<label for="" class="span1" >Телефон<span class="red">*</span></label>
+								<input type="text" name="customerNumber" class="require span5" value=""/>
 							</div>
 							
 							<div class="clearfix">
+								<label for="" class="span1" >Сумма<span class="red">*</span></label>
+								<input type="text" name="sum" class="require span5" value=""/>
+							</div>
+							
+							<div class="clearfix red" style="text-align:center">
+								* - поля обязательные для заполнения
+							</div>
+
+							<div class="clearfix" style="text-align:center">
 								<input type="submit" value="Оплатить"/> 
 							</div>
 						</form>
