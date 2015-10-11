@@ -23,14 +23,14 @@
 							<input type="hidden" name="scid" value="" />
 							<input type="hidden" name="customerNumber" value="" />
 							
-							<div class="clearfix">
-								<label for="" class="span1" >Телефон<span class="red">*</span></label>
-								<input type="text" name="customerNumber" class="require span5" value=""/>
+							<div class="clearfix" >
+								<label for="" class="span2" style="text-align:right; margin-right:5px;">Телефон ребенка<span class="red">*</span></label>
+								<input type="text" name="customerNumber" class="require span4" disabled value="<?= $phone?>"/>
 							</div>
 							
 							<div class="clearfix">
-								<label for="" class="span1" >Сумма<span class="red">*</span></label>
-								<input type="text" name="sum" class="require span5" value=""/>
+								<label for="" class="span2" style="text-align:right; margin-right:5px;">Сумма<span class="red">*</span></label>
+								<input type="text" name="sum" class="require span4" value=""/>
 							</div>
 							
 							<div class="clearfix red" style="text-align:center">

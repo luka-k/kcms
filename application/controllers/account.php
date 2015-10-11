@@ -50,12 +50,13 @@ class Account extends Client_Controller
 		$this->load->view('client/cabinet.php', $data);
 	}
 	
-	public function payment()
+	public function payment($phone)
 	{
 		if (!$this->session->userdata('logged_in') || !in_array("parent", $this->standart_data['user_groups'])) die(redirect(base_url()));
 		
 		$data = array(
 			'title' => "Пополнение баланса",
+			'phone' => $phone
 		);
 		$data = array_merge($this->standart_data, $data);
 		
