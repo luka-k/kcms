@@ -32,16 +32,38 @@ class Ajax extends CI_Controller {
 		
 		if($info->type == 'visit' && $info->status)
 		{
-			$this->cards->debiting($child->card_number, 'visit_sms', TRUE);
-		}		
+			if($this->cards->need_debiting($child->card_number, 'visit_sms'))
+			{
+				if($this->cards->debiting($child->card_number, 'visit_sms'))
+				{
+					$this->load->config('orders');
+					$new_order = array(
+						'card_number' => $child->card_number, 
+						'date' => date("Y-m-d"), 
+						'summ' => $this->config->item('visit_sms_price'),
+						'operation' => 'списание за смс-оповещение по посещению'
+					);
+					$this->orders->insert($new_order);
+				}
+				else
+				{
+					$info->status = FALSE;
+					$message = ' (не достаточно средств)';
+				}
+			}
+		}	
+
+		$data[$info->type.'_sms_enabled'] = $info->status;
 		
 		$this->child_users->update($info->child_id, $data);
-		
+
 		$answer = array(
 			'type' => $info->type,
 			'status' => $info->status,
-			'date' => date("d.m.Y")
+			'date' => date("d.m.Y"),
 		);
+		
+		if(isset($message)) $answer['message'] = $message;
 		
 		echo json_encode($answer);
 	}

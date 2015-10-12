@@ -145,12 +145,12 @@
 								</div>
 								<div class="tab-pane" id="settings">
 									<div class="tab-title span10"></div>
-									<div class="span10">
+									<div class="span11">
 										<label for="" class="">Лимит по питанию в день:</label>
 										<input type="text" name="" class="" value="<?=$selected_child->card->card_day_limit?> р." onchange="set_limit(this.value, '<?=$selected_child->card_number?>')" /><br /><br />
 										<label for="" class="">СМС-информирование по питанию (1.5р за смс):</label> 
 										<input type="checkbox" id="dinner_ch" <?if($selected_child->dinner_sms_enabled == 1):?>checked<?endif;?> onchange="set_status('dinner', '<?=$selected_child->id?>');" /> 
-										<span class="dinner_status <?if($selected_child->dinner_sms_enabled == 1):?>green<?else:?>red<?endif;?> "><?if($selected_child->dinner_sms_enabled == 1):?>включено<?else:?>выключено<?endif;?> </span> 
+										<span class="dinner_status <?if($selected_child->dinner_sms_enabled == 1):?>green<?else:?>red<?endif;?> "><?if($selected_child->dinner_sms_enabled == 1):?>включено<?else:?>выключено<?endif;?> </span>
 						
 										<span class="dinner_date">
 											<?if($selected_child->dinner_sms_enabled == 1):?>
@@ -161,7 +161,7 @@
 						
 										<label for="" class="">СМС-информирование по посещению школы (120р в месяц):</label> 
 										<input type="checkbox" id="visit_ch" <?if($selected_child->visit_sms_enabled == 1):?>checked<?endif;?> onchange="set_status('visit', '<?=$selected_child->id?>');" /> 
-										<span class="visit_status <?if($selected_child->visit_sms_enabled == 1):?>green<?else:?>red<?endif;?>"><?if($selected_child->visit_sms_enabled == 1):?>включено<?else:?>выключено<?endif;?></span> 
+										<span class="visit_status <?if($selected_child->visit_sms_enabled == 1):?>green<?else:?>red<?endif;?>"><?if($selected_child->visit_sms_enabled == 1):?>включено<?else:?>выключено<?endif;?></span><span id="message" class="red"></span>
 						
 										<span class="visit_date">
 											<?if($selected_child->visit_sms_enabled == 1):?>

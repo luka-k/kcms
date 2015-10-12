@@ -86,11 +86,15 @@ function set_status(type, child_id){
 			$('.'+answer.type+'_status').addClass('green');
 			$('.'+answer.type+'_status').removeClass('red');
 			$('.'+answer.type+'_date').html(answer.date);
+			$('message').html('');
 		}else{
 			$('.'+answer.type+'_status').html('выключено');
 			$('.'+answer.type+'_status').addClass('red');
 			$('.'+answer.type+'_status').removeClass('green');
 			$('.'+answer.type+'_date').html('');
+			$('#'+answer.type+'_ch').prop('checked', false);
+			
+			if(answer.message) $('#message').html(answer.message);
 		}
 	}
 	, "json");	

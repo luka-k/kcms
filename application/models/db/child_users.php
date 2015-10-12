@@ -86,9 +86,9 @@ class Child_users extends MY_Model
 			if($all_info)
 			{
 				$item_date = new DateTime($item->dinner_sms_enabled_date);
-				$item->dinner_sms_enabled_date = date_format($item_date, 'Y-m-d');
+				$item->dinner_sms_enabled_date = date_format($item_date, 'd.m.Y');
 				$item_date = new DateTime($item->visit_sms_enabled_date);
-				$item->visit_sms_enabled_date = date_format($item_date, 'Y-m-d');
+				$item->visit_sms_enabled_date = date_format($item_date, 'd.m.Y');
 				$item->card = $this->cards->get_item_by(array('card_number' => $item->card_number));
 				$item->school = $this->schools->get_item($item->school_id);
 				
