@@ -109,7 +109,7 @@ class Database extends CI_Controller
 				$message = 'Уважаемый(-ая) '.$parent->name.'! '.date("d/m/y H:m:s").', Ваш ребенок, соверщил заказ на сумму: '.$new_order['summ'].'.';
 				$message .= 'Состав заказа: '.$products_string;
 
-				send_sms($parent->phone, $message);
+				$this->cards->debiting($child->card_number, 'dinner_sms') ? send_sms($parent->phone, $message) : add_log('dinner_sms', 'Не возможно списать средства. смс на номер - '.$parent->phone.' не отправлен');
 			}
 		}
 			
@@ -143,29 +143,11 @@ class Database extends CI_Controller
 		$info = array(
 			0 => array(
 				"id" => 3,
-				"summ" => -170.0,
-				"card" => "123456",
+				"summ" => 100.0,
+				"card" => "3333",
 				"products" => array(
 					0 => array("id" => 2, "quantity" => 1),
 					1 => array("id" => 3, "quantity" => 1),
-				)
-			),
-			1 => array(
-				"id" => 2,
-				"summ" => -250.0,
-				"card" => "123456",
-				"products" => array(
-					0 => array("id" => 5, "quantity" => 1),
-					1 => array("id" => 1, "quantity" => 2),
-				)
-			),
-			2 => array(
-				"id" => 4,
-				"summ" => -270.0,
-				"card" => "123456",
-				"products" => array(
-					0 => array("id" => 5, "quantity" => 1),
-					1 => array("id" => 2, "quantity" => 1),
 				)
 			)
 		);

@@ -23,10 +23,17 @@ class Ajax extends CI_Controller {
 	{
 		$info = json_decode(file_get_contents('php://input', true));
 		
-		$data = array(
-			$info->type.'_sms_enabled' => $info->status,
-			$info->type.'_sms_enabled_date' => date("Y-d-m")
-		);
+		$child = $this->child_users->get_item_by(array('id' => $info->child_id));
+		
+		$data = array();
+		$data[$info->type.'_sms_enabled'] = $info->status;
+		
+		if($info->status) $data[$info->type.'_sms_enabled_date'] = date("Y-m-d");
+		
+		if($info->type == 'visit' && $info->status)
+		{
+			$this->cards->debiting($child->card_number, 'visit_sms', TRUE);
+		}		
 		
 		$this->child_users->update($info->child_id, $data);
 		

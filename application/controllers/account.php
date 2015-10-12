@@ -25,6 +25,9 @@ class Account extends Client_Controller
 		if (!$this->session->userdata('logged_in') || !in_array("parent", $this->standart_data['user_groups'])) die(redirect(base_url()));
 		
 		$children = $this->child_users->prepare_list($this->child_users->get_list(array('parent_id' => $this->standart_data['user']->id)));
+
+		// Проверка последнего списания.
+		if(!$this->cards->debiting($children[0]->card_number, 'cabinet', TRUE)) die(redirect(base_url().'account/payment/'.$children[0]->phone));
 		
 		$selected_child = $this->child_users->prepare($children[$child], TRUE);
 		
