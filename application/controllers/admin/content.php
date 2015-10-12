@@ -38,8 +38,8 @@ class Content extends Admin_Controller
 		$order = $this->db->field_exists('sort', $type) ?  "sort" : $name;
 		$direction = "acs";
 		
-		$settings = $this->settings->get_item(1);
-		
+		$settings = $this->settings->get_settings();
+	
 		$id_branchy = $this->db->field_exists('parent_id', $type);
 		
 		if($id_branchy)
@@ -48,7 +48,7 @@ class Content extends Admin_Controller
 		
 			if($id == "all" || $id == '')
 			{
-				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings['per_page']->string_value, $order, $direction);
 				$total_rows = count($this->$type->get_list(FALSE, FALSE, FALSE, $order, $direction));
 				$data['sortable'] = !($this->db->field_exists('parent_id', $type)) ? TRUE : FALSE;
 			}
@@ -56,7 +56,7 @@ class Content extends Admin_Controller
 			{
 				$parent = $type == "emails" ? "type" : "parent_id";
 			
-				$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings->per_page, $order, $direction);
+				$data['content'] = $this->$type->get_list(array($parent => $id), $this->input->get('from'), $settings['per_page']->string_value, $order, $direction);
 				$total_rows = count($this->$type->get_list(array($parent => $id), FALSE, FALSE, $order, $direction));
 				$data["parent_id"] = $id;
 				$data['sortable'] = TRUE;
@@ -64,7 +64,7 @@ class Content extends Admin_Controller
 		}
 		else
 		{
-			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings->per_page, $order, $direction);
+			$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings['per_page']->string_value, $order, $direction);
 			$total_rows = count($this->$type->get_list(FALSE));
 			$data['sortable'] = TRUE;
 		}
@@ -79,7 +79,7 @@ class Content extends Admin_Controller
 		
 		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
 		$config['total_rows'] = $total_rows;
-		$config['per_page'] = $settings->per_page;
+		$config['per_page'] = $settings['per_page']->string_value;
 
 		$this->pagination->initialize($config);
 
@@ -103,6 +103,7 @@ class Content extends Admin_Controller
 		$data = array(
 			'title' => "Редактировать",
 			'left_column' => isset($this->$type->admin_left_column) ? $this->$type->admin_left_column : "off",
+			'name' => editors_get_name_field('name', $this->$type->editors),
 			'editors' => $this->$type->editors,
 			'type' => $type,
 			'parent_id' => $parent_id,
@@ -183,6 +184,7 @@ class Content extends Admin_Controller
 				// Рекомендованные
 				if($recommend_field) $data['content']->recommended = $this->products->get_recommended($id);
 			}
+
 			$this->load->view('admin/item.php', $data);
 		}
 		elseif($action == "save")
