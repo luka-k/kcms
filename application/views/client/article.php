@@ -63,62 +63,10 @@
 				</div>
 			</div>
 			
-			<!--<h2>Примерные цены:</h2>
+			<h2>Примерные цены:</h2>
 			<div class="table">
-				<table>
-                    <tbody>
-                        <tr>
-                            <th class="number">№ п/п&nbsp;</th>
-                            <th class="name">Наименование работ&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th class="price">Стоимость работы&nbsp;</th>
-                        </tr>
-                       
-                        <tr>
-                            <td class="silver number">&nbsp;1&nbsp;</td>
-                            <td class="silver" colspan="3">Строительная экспертиза</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="4">&nbsp;</td>
-                            <td colspan="2">&nbsp;Обследование фундамента</td>
-                            <td class="pink">&nbsp;от 45 000 руб - 10 дней</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">&nbsp;Тепловизионное обследование зданий</td>
-                            <td class="pink">&nbsp;от 45 000 руб - 10 дней</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">&nbsp;Оценка качества отделочных работ</td>
-                            <td class="pink">&nbsp;от 50 000 руб - 10 дней</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">&nbsp;Нестандартные экспертизы и исследования</td>
-                            <td class="pink">&nbsp;по договору</td>
-                        </tr>
-                     
-                       
-						 <tr>
-                            <td class="silver number">&nbsp;2&nbsp;</td>
-                            <td class="silver" colspan="3">Выезд эксперта на осмотр объекта оценки</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="3">&nbsp;</td>
-                            <td>&nbsp;В пределах МКАД</td>
-                            <td>&nbsp;</td>
-                            <td class="pink">&nbsp;500 руб.</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">&nbsp;За пределами МКАД</td>
-                            <td class="grey">до 30 км&nbsp;</td>
-                            <td class="pink">&nbsp;1 000 руб</td>
-                        </tr>
-                        <tr>
-                            <td class="grey">&nbsp;Свыше 30 км</td>
-                            <td class="pink">&nbsp;Стоимость указанная &nbsp;выше + 20 руб. за каждый &nbsp;дополнительный километр</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>-->
+				<?= $content->price?>
+            </div>
 			
 			<a href="#" data-reveal-id="myModal1" class="button_ocenka">Заказать у нас оценку</a>
 			<div style="clear:both"></div>

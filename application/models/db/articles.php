@@ -35,6 +35,7 @@ class Articles extends MY_Model
 			'sort' => array('Сортировка', 'hidden'),
 			'short_description' => array('Краткое описание', 'tiny'),
 			'description' => array('Описание', 'tiny'),
+			'price' => array('Таблица цен', 'tiny'),
 			'faq' => array('faq', 'tiny'),
 			'bottom_text' => array('Текст внизу', 'tiny')
 		),
