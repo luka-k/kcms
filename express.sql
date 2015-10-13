@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2015 г., 12:30
+-- Время создания: Окт 13 2015 г., 17:02
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('031b72731000667dd34bd9191690e7f9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444728514, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('5b9318c10baa79c3b9a4365e732e405c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444744647, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -178,6 +178,31 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `files`
+--
+
+CREATE TABLE IF NOT EXISTS `files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `object_type` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `object_id` int(11) NOT NULL,
+  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `object_type_object_id` (`object_type`,`object_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+
+--
+-- Дамп данных таблицы `files`
+--
+
+INSERT INTO `files` (`id`, `name`, `file_type`, `object_type`, `object_id`, `url`) VALUES
+(43, 'avtoexp_man_kasko.pdf', 'pdf', 'testimonials', 5, '/a/v/avtoexp-man-kasko.pdf'),
+(45, 'stroit_fundament_alekseevka.pdf', 'pdf', 'testimonials', 6, '/s/t/stroit-fundament-alekseevka.pdf');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `images`
 --
 
@@ -192,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -206,7 +231,9 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (5, 0, 'popular1', 1, 'articles', 2, '', '/p/o/popular1.png'),
 (6, 0, 'popular2', 1, 'articles', 3, '', '/p/o/popular2.png'),
 (7, 0, 'popular3', 1, 'articles', 4, '', '/p/o/popular3.png'),
-(8, 0, 'popular4', 1, 'articles', 5, '', '/p/o/popular4.png');
+(8, 0, 'popular4', 1, 'articles', 5, '', '/p/o/popular4.png'),
+(9, 0, 'ots1', 1, 'testimonials', 1, '', '/o/t/ots1.png'),
+(14, 0, 'ots2', 1, 'testimonials', 6, '', '/o/t/ots2.jpg');
 
 -- --------------------------------------------------------
 
@@ -240,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -250,11 +277,11 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
 (5, 1, 'Статьи', 0, 1, '', 'link', '#'),
 (6, 1, 'Каталог', 0, 2, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders'),
-(8, 1, 'Настройки', 0, 7, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
+(7, 1, 'Заказы', 0, 5, '', 'link', 'admin/admin_orders'),
+(8, 1, 'Настройки', 0, 8, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 6, '', 'link', '#'),
 (10, 1, 'Меню', 8, 5, '', 'link', 'admin/menu_module/menus'),
-(11, 1, 'Пользователи', 0, 6, '', 'link', '#'),
+(11, 1, 'Пользователи', 0, 7, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
 (13, 1, 'Категории', 6, 1, '', 'link', 'admin/content/items/categories/'),
 (14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
@@ -267,7 +294,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
-(36, 1, 'Документы', 0, 3, '', 'link', 'admin/content/items/documents/');
+(36, 1, 'Документы', 0, 3, '', 'link', 'admin/content/items/documents/'),
+(37, 1, 'Отзывы', 0, 4, '', '', 'admin/content/items/testimonials/');
 
 -- --------------------------------------------------------
 
@@ -307,6 +335,29 @@ INSERT INTO `settings` (`id`, `uniq_text_id`, `string_value`, `text_value`, `ima
 (16, 'facts_time', '3<span>часа</span>', 'минимальное время получения отчета с момента заявки\r\n', ''),
 (17, 'inn', '1632015444', '', ''),
 (18, 'ogrn', '1151677000155', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `testimonials`
+--
+
+CREATE TABLE IF NOT EXISTS `testimonials` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `testimonials`
+--
+
+INSERT INTO `testimonials` (`id`, `name`, `title`, `description`, `sort`) VALUES
+(1, 'Кирилл Гвоздик', 'Независимая техническая экспертиза транспортного средства МАН-БМЦ-57,6 - TGS40/400 6X4 . Решался вопрос о выплате страхового возмещения по договору КАСКО.', '<p>Кирилл провел оценку очень быстро, буквально за 1 день, как и обещал. Отчет в суде приняли, сумму выплатили полностью. Рекомендую.</p>\r\n', 0),
+(6, 'Соня Кутепова', 'Экспертиза по определению марки бетона, использованного при заливке ленточного фундамента отдельно стоящего дома, находящегося по адресу: Саратовская обл., Хвалынский р-н, п. Алексеевка.', '<p>Это были вторые оценщики, к которым я обращалась. Первые долго думали, потом отказались. &quot;Экспресс-Оценка&quot; сделали оценку без лишних вопросов и заморочек. Хорошие специалисты.</p>\r\n', 0);
 
 -- --------------------------------------------------------
 
