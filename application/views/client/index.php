@@ -134,87 +134,30 @@
 			</div>
 		</div>
 	</div>
-
-
-    <div class="documents">
-        <div class="container">
-            <h2>Разрешительные документы</h2>
-
-            <div class="owl-carousel2">
-                <div class="item">
-                    <div class="document">
-
-                        <a class="example-image-link" href="/images/doc1.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc1_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc2.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc2_tumb.jpg" alt="" /></a>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc3.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc3_tumb.jpg" alt="" /></a>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc4.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc4_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc5.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc5_tumb.jpg" alt="" /></a>
-
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc6.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc6_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc7.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc7_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc8.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc8_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="document">
-                        <a class="example-image-link" href="/images/doc9.jpg" data-lightbox="example-set"><img class="example-image" src="/images/doc9_tumb.jpg" alt="" /></a>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-
-
-
-        </div>
-    </div>
-
-
-    <div class="popular_services">
-        <div class="container">
-            <h1>Популярные услуги</h1>
-
-            <div class="popular_service">
+	
+	<div class="documents">
+		<div class="container">
+			<h2>Разрешительные документы</h2>
+			
+			<div class="owl-carousel2">
+				<?foreach($documents as $doc):?>
+					<div class="item">
+						<div class="document">
+							<a class="example-image-link" href="<?= $doc->img->full_url?>" data-lightbox="example-set">
+								<img class="example-image" src="<?= $doc->img->documents_url?>" alt="<?= $doc->name?>" />
+							</a>
+						</div>
+					</div>
+				<?endforeach;?>
+			</div>
+		</div>
+	</div>
+	
+	<div class="popular_services">
+		<div class="container">
+			<h1>Популярные услуги</h1>
+			
+			<div class="popular_service">
                 <div class="popular_service_image"><img src="/images/popular1.png"></div>
                 <div class="popular_service_text">
                     <h3>Оценка недвижимости</h3>

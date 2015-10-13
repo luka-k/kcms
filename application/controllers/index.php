@@ -17,13 +17,15 @@ class Index extends Client_Controller {
 	public function index()
 	{
 		$this->load->config('articles');
-		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), FALSE, 4);
+		
+		$documents = $this->documents->get_list(FALSE);
 
 		$data = array(
 			'title' => $this->standart_data['settings']['site_title']->string_value,
 			'select_item' => '',
-			'last_news' => $this->articles->prepare_list($last_news),
+			'documents' => $this->documents->prepare_list($documents)
 		);
+	
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/index.php', $data);
 	}	
