@@ -1,6 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['upload_path'] = FCPATH.'download/images';
+$config['files_upload_path'] = FCPATH.'download/files';
 
 $config['thumb_config'] = array(
 	"documents" => array(
@@ -12,6 +13,12 @@ $config['thumb_config'] = array(
 	"articles" => array(
 		'w' => 121,
 		'h' => 120,
+		'far' => 1,
+		"bg" => "ffffff"
+	),
+	"testimonials" => array(
+		'w' => 95,
+		'h' => 95,
 		'far' => 1,
 		"bg" => "ffffff"
 	),

@@ -21,12 +21,15 @@ class Index extends Client_Controller {
 		$documents = $this->documents->get_list(FALSE);
 		
 		$services = $this->articles->get_list(array('parent_id' => $this->config->item('services_id')));
+		
+		$testimonials = $this->testimonials->get_list(FALSE);
 
 		$data = array(
 			'title' => $this->standart_data['settings']['site_title']->string_value,
 			'select_item' => '',
 			'documents' => $this->documents->prepare_list($documents),
-			'services' => $this->articles->prepare_list($services)
+			'services' => $this->articles->prepare_list($services),
+			'testimonials' => $this->testimonials->prepare_list($testimonials)
 		);
 	
 		$data = array_merge($this->standart_data, $data);

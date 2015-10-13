@@ -161,6 +161,9 @@ class Content extends Admin_Controller
 					}
 				}
 				
+				$is_file = editors_get_name_field('upload_file', $data['editors']);
+				if($is_file) $data['content']->files = $this->files->prepare_list($this->files->get_list(array("object_type" => $type, "object_id" => $data['content']->id)));
+				
 				// Характеристики
 				if($characteristics_field)
 				{
@@ -259,6 +262,18 @@ class Content extends Admin_Controller
 					}
 				}	
 			}
+			
+			if(isset($_FILES["upload_file"]))
+			{
+				if($_FILES["upload_file"]['error'] == UPLOAD_ERR_OK)
+				{				
+					$object_info = array(
+						"object_type" => $type,
+						"object_id" => $data['content']->id
+					);
+					$file_url = $this->files->upload($_FILES["upload_file"], $object_info);
+				}
+			}
 				
 			$p_id = isset($data['content']->parent_id) ?  $data['content']->parent_id : "all";
 			if($type == "emails") $p_id = $data['content']->type;
@@ -348,7 +363,12 @@ class Content extends Admin_Controller
 	
 		$item = $this->$type->get_item($id);
 		$this->$type->delete($id);
-		redirect(base_url().'admin/content/items/'.$type."/".$item->parent_id);
+		
+		$redirect_url = base_url().'admin/content/items/'.$type."/";
+		
+		if(isset($item->parent_id)) $redirect_url .= $item->parent_id;
+		
+		redirect($redirect_url);
 	}
 	
 	/**

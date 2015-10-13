@@ -174,132 +174,29 @@
         <div class="container">
             <h1>Отзывы</h1>
             <div class="owl-carousel1">
-                <div class="item">
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                             <img src="/images/ots1.png">
-							<p>Кирилл Гвоздик</p>
-						<!--	<a href="https://vk.com/id135470543">https://vk.com/id135470543</a>-->
-						
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Независимая техническая экспертиза транспортного средства МАН-БМЦ-57,6 - TGS40/400 6X4 . Решался вопрос о выплате страхового возмещения по договору КАСКО.                             </p>
-
-                            <p class="testimonial_body">Кирилл провел оценку очень быстро, буквально за 1 день, как и обещал. Отчет в суде приняли, сумму выплатили полностью. Рекомендую.</p>
-               
-                            <a href="/media/avtoexp_man_kasko.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="item">
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                                <img src="/images/ots2.jpg">
-							<p>Соня Кутепова</p>
-						<!--	<a href="http://vk.com/id324780920">http://vk.com/id324780920</a>-->
-							
-
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Экспертиза по определению марки бетона, использованного при заливке ленточного фундамента отдельно стоящего дома, находящегося по адресу: Саратовская обл., Хвалынский р-н, п. Алексеевка.
-                            </p>
-                            <p class="testimonial_body">Это были вторые оценщики, к которым я обращалась. Первые долго думали, потом отказались. "Экспресс-Оценка" сделали оценку без лишних вопросов и заморочек. Хорошие специалисты.</p>
-                            <a href="/media/stroit_fundament_alekseevka.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="item">
-
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                                <img src="/images/ots3.jpg">
-							<p>Настя Курочкина</p>
-						<!--	<a href="http://vk.com/id324780711 ">http://vk.com/id324780711 </a>-->
-						
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Независимая техническая экспертиза транспортного средства RENAULT Laguna III 2.0 16V. Решался вопрос о выплате страхового возмещения, по договору обязательного страхования гражданской ответственности (ОСАГО).</p>
-                            <p class="testimonial_body">После аварии страховая насчитала просто смешную сумму. Обратилась к вам в компанию, посчитали почти ровно в 3 раза больше, и при этом суд я выиграла! Спасибо вам большое!</p>
-                           
-                            <a href="/media/avtoexp_laguna_osago.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
 				
-				       <div class="item">
-
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                                 <img src="/images/ots5.jpg">
-							<p>Светлана Сорокина</p>
-						<!--	<a href="http://vk.com/id324780370">http://vk.com/id324780370</a>-->
+				<? foreach($testimonials as $t): ?>
+					<div class="item">
+						<div class="testimonial_block">
+							<div class="testimonial_image">
+								<img src="<?= $t->img->testimonials_url?>">
+								<p><?= $t->name?></p>
+								<!--	<a href="https://vk.com/id135470543">https://vk.com/id135470543</a>-->
+							</div>
 							
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Экспертиза по оценке рыночной стоимости ущерба объекта, расположенного по адресу: Саратовская область, г.Саратов, ул. Благодарова 5, кв.
-                           
-                            </p>
-                                  <p class="testimonial_body">Хулиганы разбили окно. Делала оценку в этой компании для возмещения ущерба через суд. Полученных денег хватило на ремонт окна и еще микроволновку. Жду следующих хулиганов =)</p>
-                         
-                            <a href="/media/usherb_okno_saratov.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
-                            
-				     <div class="item">
-
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                            <img src="/images/ots6.jpg">
-							<p>Арина Мочалова</p>
-							<!--<a href="http://vk.com/id324780362">http://vk.com/id324780362</a>-->
-						
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Экспертиза по определению рыночной стоимости работ и материалов, необходимых для устранения ущерба, причиненного помещению и имуществу, расположенного по адресу: Саратовская обл., г. Саратов.
-                            </p>
-                                  <p class="testimonial_body">В августе мне залили меховое ателье. Думала, что конец бизнесу, ни с кого никаких денег получить не смогу, но с помощью Кирилла и его команды удалось компенсировать почти всю сумму ущерба. Конечно, поволновалась я изрядно, но результат того стоит!</p>
-                        
-                            <a href="/media/zaliv_atelye.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
-				
-					     <div class="item">
-
-                    <div class="testimonial_block">
-                        <div class="testimonial_image">
-                           <img src="/images/ots4.jpg">
-							<p>Фаина Шепел</p>
-						<!--	<a href="http://vk.com/id324780580 ">http://vk.com/id324780580 </a>-->
-							
-                        </div>
-                        <div class="testimonial_text">
-                            <p class="testimonial_name">Экспертиза по оценке рыночной стоимости жилого помещения (квартиры), расположенного по адресу: Саратовская область, Вольский район, г. Вольск.                                                       
-                            </p>
-                                  <p class="testimonial_body">Делала оценку квартиры для того, чтобы взять большой кредит на авто. Ребята посчитали все оперативно и подготовили большую пачку документов для банка. Банк их принял, кредит дали.</p>
-                   
-                            <a href="/media/ocenka_kvartira_volsk.pdf" target="_blank">Посмотреть отчет</a>
-
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div><a class="testimonial_button" href="/otsivi.html">Посмотреть все отзывы</a>
-        </div>
-    </div>
+							<div class="testimonial_text">
+								<p class="testimonial_name"><?= $t->title?></p>
+								<p class="testimonial_body"><?= $t->description?></p>
+								
+								<a href="<?= $t->file->full_url?>" target="_blank">Посмотреть отчет</a>
+							</div>
+						</div>
+					</div>
+				<? endforeach; ?>
+			</div>
+			<a class="testimonial_button" href="/otsivi.html">Посмотреть все отзывы</a>
+		</div>
+	</div>
 
 <!--
     <div class="partners">
@@ -376,12 +273,12 @@
 
 
 
-    <script src="<?= TEMP_PATH?>js/lightbox-plus-jquery.min.js" type="text/javascript"></script>
+    <script src="<?= TMP_PATH?>js/lightbox-plus-jquery.min.js" type="text/javascript"></script>
     <script>
         $.noConflict();
     </script>
 
-    <script src="/js/main.js" type="text/javascript"></script>
+    <script src="<?= TMP_PATH?>js/main.js" type="text/javascript"></script>
      <script>
             $(document).ready(function() {
      
