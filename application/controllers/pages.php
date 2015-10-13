@@ -101,6 +101,38 @@ class Pages extends Client_Controller {
 		$this->load->view('client/otsivi.php', $data);
 	}
 	
+	public function uslugi()
+	{
+		$this->load->config('articles');
+		
+		$services = $this->articles->get_list(array('parent_id' => $this->config->item('services_id')));
+		
+		$data = array(
+			'title' => $this->standart_data['settings']['site_title']->string_value,
+			'select_item' => '',
+			'services' => $this->articles->prepare_list($services)
+		);
+	
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/uslugi.php', $data);
+	}
+	
+	public function contact()
+	{
+		$this->load->config('articles');
+		
+		$users = $this->users->group_list($this->config->item('officers_group_id'));
+		
+		$data = array(
+			'title' => $this->standart_data['settings']['site_title']->string_value,
+			'select_item' => '',
+			'users' => $this->users->prepare_list($users)
+		);
+	
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/contact.php', $data);
+	}
+	
 	/**
 	* Страница 404
 	*/

@@ -57,6 +57,12 @@ class Client_Controller extends CI_Controller
 		$settings['phone']->span_value = substr($phone, 0, 2).'('.substr($phone, 2, 3).')'.'<span>'.substr($phone, 5, 3).'-'.substr($phone, 8, 2).'-'.substr($phone, 10, 2).'</span>';
 		$settings['phone']->modal_value	= substr($phone, 1, 1).'-'.substr($phone, 2, 3).'-'.substr($phone, 5, 3).'-'.substr($phone, 8, 2).'-'.substr($phone, 10, 2);
 		
+		$phone_saratov = $settings['phone_saratov']->string_value;
+		$settings['phone_saratov']->span_value = substr($phone_saratov, 0, 2).'('.substr($phone_saratov, 2, 3).')'.'<span>'.substr($phone_saratov, 5, 3).'-'.substr($phone_saratov, 8, 2).'-'.substr($phone_saratov, 10, 2).'</span>';
+		
+		$phone_volsk = $settings['phone_volsk']->string_value;
+		$settings['phone_volsk']->span_value = substr($phone_volsk, 0, 2).'('.substr($phone_volsk, 2, 3).')'.'<span>'.substr($phone_volsk, 5, 3).'-'.substr($phone_volsk, 8, 2).'-'.substr($phone_volsk, 10, 2).'</span>';
+		
 		$this->standart_data = array(
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),
