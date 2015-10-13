@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 12 2015 г., 17:36
+-- Время создания: Окт 13 2015 г., 11:20
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -91,10 +91,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('7ca17c059066ec1bb06bcf8d8eeff040', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444660573, ''),
-('ad1aa4d68ba778c2a577dff947a539ee', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444660573, ''),
-('ca54428cf54d5c92c55bcb6f0fcdae40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444660456, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
-('d60db518d1a8f0dca51c632a715a3e41', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444660574, '');
+('7641cf61b86b0e5fc2a5c810c5200b4f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444724105, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -195,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -215,7 +212,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (14, 1, 'Создать категорию', 6, 2, '', 'link', 'admin/content/item/edit/categories'),
 (15, 1, 'Товары', 6, 3, '', 'link', 'admin/content/items/products/all'),
 (16, 1, 'Создать товар', 6, 4, '', 'link', 'admin/content/item/edit/products'),
-(17, 1, 'Настройки сайта', 8, 10, '', 'link', 'admin/content/item/edit/settings/1'),
+(17, 1, 'Настройки сайта', 8, 10, '', 'link', 'admin/content/items/settings'),
 (19, 1, 'Шаблоны', 9, 1, '', 'link', 'admin/content/items/emails/2'),
 (20, 1, 'Рассылки', 9, 2, '', 'link', 'admin/mailouts_module'),
 (21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
@@ -231,23 +228,36 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `per_page` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `lastmod` date NOT NULL,
-  `site_offline` int(11) DEFAULT '0',
+  `uniq_text_id` text COLLATE utf8_unicode_ci NOT NULL,
+  `string_value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `text_value` text COLLATE utf8_unicode_ci NOT NULL,
+  `image_value` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, '', '', '', '', '', '', '2015-03-06', 0);
+INSERT INTO `settings` (`id`, `uniq_text_id`, `string_value`, `text_value`, `image_value`) VALUES
+(1, 'site_title', 'Экспресс-Оценка', '', ''),
+(2, 'per_page', '20', '', ''),
+(3, 'slogan', 'Мы даем финансовые гарантии', '', ''),
+(4, 'phone', '+74957403780', '', ''),
+(5, 'email', 'mail@ocenkaexp.ru', '', ''),
+(6, 'main_autoexpertiza', 'Автоэкспертиза', '<p>Независимая автоэкспертиза пригодится людям, оказавшимся в сложных ситуациях. Например, если вы попали в ДТП и сомневаетесь в намерении страховой компании покрыть весь ущерб. Автоэкспертиза экономит время деньги и нервы.</p>\r\n', ''),
+(7, 'main_nedvigimost', 'Оценка недвижимости', '<p>Наши специалисты быстро и качественно проведут оценку любой недвижимости. Мы проводим все типы оценки и работаем с объектами любой сложности. Процедуру оценки проводят аккредитованные специалисты.</p>\r\n', ''),
+(8, 'main_zaliv', 'Оценка ущерба от заливов', '<p>Если по вине соседей или коммунальных служб, на вас обрушилась вода, то вам пригодится данная услуга. Мы поможем урегулировать вопрос о возмещении ущерба, определив его реальную стоимость, с учетом рынка и уровня повреждений.</p>\r\n', ''),
+(9, 'main_ocenka', 'Оперативная оценка', 'Выезжаем на место сразу же после получения заявки. Вы получаете результат оценки за 2 дня\r\n', ''),
+(10, 'main_finance', 'Финансовые гарантии', 'Возвращаем деньги в тройном размере, в случае если суд не принимает наш отчет\r\n', ''),
+(11, 'main_zatrat', 'Никаких дополнительных затрат', 'Консультации и юридическое сопровождение включены в стоимость\r\n', ''),
+(12, 'main_about', 'Мандрика Кирилл', 'Дорогие друзья! Меня зовут Кирилл Мандрика и я представляю вашему вниманию мою компанию &ndash; Экспресс-Оценка. Основывая эту фирму, я ориентировался, прежде всего, на свою квалификацию и профессионализм моих коллег, поэтому в основе нашей команды прочный фундамент из профессионалов своего дела. За время работы мы заслужили большое доверие среди своих клиентов: к нам обращаются, нас рекомендуют, нам доверяют. Сегодня мы настолько уверены в своих силах, что готовы вернуть деньги в тройном размере, если суд не примет нашу оценку.\r\n', ''),
+(13, 'facts_money', '135<span>млн.</span>', 'рублей получено нашими клиентами в судах\r\n', ''),
+(14, 'facts_expertiz', '2075', 'экспертиз проведено на сегодняшний день\r\n', ''),
+(15, 'facts_procent', '97%', 'судебных решений в пользу клиентов', ''),
+(16, 'facts_time', '3<span>часа</span>', 'минимальное время получения отчета с момента заявки\r\n', ''),
+(17, 'inn', '1632015444', '', ''),
+(18, 'ogrn', '1151677000155', '', '');
 
 -- --------------------------------------------------------
 
