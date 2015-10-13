@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2015 г., 11:40
+-- Время создания: Окт 13 2015 г., 12:30
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -43,7 +43,18 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`, `lastmod`, `changefreq`, `priority`) VALUES
+(1, 0, 'Услуги', '2015-10-13', 0, '', '', '', '', 'uslugi', '2015-10-13', '', '0.1'),
+(2, 1, 'Оценка недвижимости', '2015-10-13', 0, '<p>Оценка стоимости недвижимости это ответственная и важная работа для определения рыночной стоимости любого объекта в вашей или не в вашей собственности. Мы можем определить любой тип стоимости недвижимости. Наши сотрудники отлично знают рынок и все юридические нюансы оценки недвижимого имущества.</p>\r\n', '', '', '', 'ocenka-nedvizhimosti', '2015-10-13', '', '0.1'),
+(3, 1, 'Оценка транспортных средств', '2015-10-13', 0, '<p>Оценка автомобиля после ДТП, это важная и ответственная работа, которая выполняется профессионалами и включает в себя несколько процедур. Наши специалисты определят точную стоимость ущерба на основе количества поврежденных элементов и утери товарной стоимости автомобиля. Вам будет что предъявить суду или страховой компании.</p>\r\n', '', '', '', 'ocenka-transportnyh-sredstv', '2015-10-13', '', '0.1'),
+(4, 1, 'Оценка земельных участков', '2015-10-13', 0, '<p>Мы проводим процедуру оценки земельных участков любого назначения &ndash; от земель сельскохозяйственного назначения и земель населенных пунктов до особо охраняемых территорий и объектов и земель запаса. В оценке земельного участка мы руководствуемся большим опытом и законами Российской Федерации.</p>\r\n', '', '', '', 'ocenka-zemelnyh-uchastkov', '2015-10-13', '', '0.1'),
+(5, 1, 'Оценка оборудования', '2015-10-13', 0, '<p>Оценка машин и оборудования поможет вам рассчитать и определить актуальную рыночную стоимость любого движимого имущества &ndash; приборов, автомобилей, станков, силовых агрегатов, оргтехники, бытовых предметов, мебели и других объектов. Наши специалисты-оценщики определят реальную рыночную стоимость.</p>\r\n', '', '', '', 'ocenka-oborudovaniya', '2015-10-13', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -91,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3f45250e87aca920455931f6aef6617c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444725284, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('031b72731000667dd34bd9191690e7f9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444728514, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -181,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `images`
@@ -191,7 +202,11 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (1, 0, 'doc1', 1, 'documents', 1, '', '/d/o/doc1.jpg'),
 (2, 0, 'doc2', 1, 'documents', 2, '', '/d/o/doc2.jpg'),
 (3, 0, 'doc3', 1, 'documents', 3, '', '/d/o/doc3.jpg'),
-(4, 0, 'doc4', 1, 'documents', 4, '', '/d/o/doc4.jpg');
+(4, 0, 'doc4', 1, 'documents', 4, '', '/d/o/doc4.jpg'),
+(5, 0, 'popular1', 1, 'articles', 2, '', '/p/o/popular1.png'),
+(6, 0, 'popular2', 1, 'articles', 3, '', '/p/o/popular2.png'),
+(7, 0, 'popular3', 1, 'articles', 4, '', '/p/o/popular3.png'),
+(8, 0, 'popular4', 1, 'articles', 5, '', '/p/o/popular4.png');
 
 -- --------------------------------------------------------
 
