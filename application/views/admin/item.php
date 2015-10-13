@@ -34,6 +34,7 @@
 									<? require 'include/buttons.php' ?>
 														
 									<!--editors-->
+									<?$tiny_counter = 1?>
 									<?foreach($edits as $edit_name => $edit):?>
 										<?require "include/editors/{$edit[1]}.php"?>
 										<?$editors_counter++?>

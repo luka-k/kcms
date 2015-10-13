@@ -27,8 +27,7 @@ class Pages extends Client_Controller {
 		
 		if(isset($page->article))
 		{
-			$sub_template = "single-news";
-			$template = $root->id == $news_id ? "client/news.php" : "client/article.php";
+			$template = "client/article.php";
 			
 			$content = $page->article;
 		}		
@@ -61,8 +60,7 @@ class Pages extends Client_Controller {
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'select_item' => "",
-			'content' => $content,
-			'sub_template' => $sub_template
+			'content' => $this->articles->prepare($content),
 		);
 
 		$data = array_merge($this->standart_data, $data);

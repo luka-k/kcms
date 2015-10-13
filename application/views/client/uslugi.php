@@ -18,7 +18,7 @@
 					<div class="popular_service_image"><img src="<?= $s->img->articles_url?>"> <a href="<?= $s->full_url?>" class="button_red">Подробнее</a></div>
 					<div class="popular_service_text">
 						<h3><?= $s->name?></h3>
-						<?= $s->description?>
+						<?= $s->short_description?>
 					</div>
 				</div>
 			<? endforeach;?>

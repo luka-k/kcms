@@ -136,7 +136,7 @@
 					<div class="popular_service_image"><img src="<?= $s->img->articles_url?>"></div>
 					<div class="popular_service_text">
 						<h3><?= $s->name?></h3>
-						<?= $s->description?>
+						<?= $s->short_description?>
 						<a href="<?= $s->full_url?>">Читать подробнее</a>
 					</div>
 				</div>

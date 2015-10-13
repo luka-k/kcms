@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2015 г., 22:26
+-- Время создания: Окт 13 2015 г., 23:27
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -103,7 +103,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('31144a98e7332ae81bf500755289a0ec', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444764143, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('1156a87f0101c7e7f9147eb9bc009ef0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444767784, ''),
+('57be79d988e131fb14b535f53891e735', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444767785, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":11:{s:2:"id";s:1:"1";s:4:"sort";s:1:"0";s:4:"name";s:5:"admin";s:4:"rank";s:0:"";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:7:"vk_link";s:0:"";s:5:"phone";s:0:"";s:11:"description";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('65cebc7a10c6a64514652bc35b9bc4de', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444767785, ''),
+('9f2912791832df26df3e151cc42d9815', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444767784, ''),
+('a7a1b543f32a15cd9fabee5f1f29f4e9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444767784, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -191,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=47 ;
 
 --
 -- Дамп данных таблицы `files`
@@ -199,7 +203,8 @@ CREATE TABLE IF NOT EXISTS `files` (
 
 INSERT INTO `files` (`id`, `name`, `file_type`, `object_type`, `object_id`, `url`) VALUES
 (43, 'avtoexp_man_kasko.pdf', 'pdf', 'testimonials', 5, '/a/v/avtoexp-man-kasko.pdf'),
-(45, 'stroit_fundament_alekseevka.pdf', 'pdf', 'testimonials', 6, '/s/t/stroit-fundament-alekseevka.pdf');
+(45, 'stroit_fundament_alekseevka.pdf', 'pdf', 'testimonials', 6, '/s/t/stroit-fundament-alekseevka.pdf'),
+(46, 'avtoexp_man_kasko.pdf', 'pdf', 'testimonials', 1, '/a/v/avtoexp-man-kasko[1].pdf');
 
 -- --------------------------------------------------------
 
@@ -314,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `text_value` text COLLATE utf8_unicode_ci NOT NULL,
   `image_value` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
 
 --
 -- Дамп данных таблицы `settings`
@@ -324,7 +329,7 @@ INSERT INTO `settings` (`id`, `uniq_text_id`, `string_value`, `text_value`, `ima
 (1, 'site_title', 'Экспресс-Оценка', '', ''),
 (2, 'per_page', '20', '', ''),
 (3, 'slogan', 'Мы даем финансовые гарантии', '', ''),
-(4, 'phone', '+74957403780', '', ''),
+(4, 'phone_saratov', '+79267155062', '', ''),
 (5, 'email', 'mail@ocenkaexp.ru', '', ''),
 (6, 'main_autoexpertiza', 'Автоэкспертиза', '<p>Независимая автоэкспертиза пригодится людям, оказавшимся в сложных ситуациях. Например, если вы попали в ДТП и сомневаетесь в намерении страховой компании покрыть весь ущерб. Автоэкспертиза экономит время деньги и нервы.</p>\r\n', ''),
 (7, 'main_nedvigimost', 'Оценка недвижимости', '<p>Наши специалисты быстро и качественно проведут оценку любой недвижимости. Мы проводим все типы оценки и работаем с объектами любой сложности. Процедуру оценки проводят аккредитованные специалисты.</p>\r\n', ''),
@@ -345,7 +350,13 @@ INSERT INTO `settings` (`id`, `uniq_text_id`, `string_value`, `text_value`, `ima
 (22, 'advances_sotrudniki', 'Профессиональные сотрудники', 'Профессиональный штат сотрудников с опытом более 5 лет, прошедших специальное обучение', ''),
 (23, 'advances_ocenka', 'Оперативная оценка', 'Оперативный выезд на место, оценка до 2-х дней', ''),
 (24, 'advances_opit', 'Опыт более 5 лет', 'Опыт более 5 лет, проведено более 1000 экспертиз', ''),
-(25, 'advances_expertiza', 'Индивидуальная экспертиза', 'У нас нет шаблонов - каждая экспертиза прорабатывается индивидуально', '');
+(25, 'advances_expertiza', 'Индивидуальная экспертиза', 'У нас нет шаблонов - каждая экспертиза прорабатывается индивидуально', ''),
+(26, 'phone_volsk', '+79378181900', '', ''),
+(27, 'phone', '+74957403780', '', ''),
+(28, 'phone_skype', '+7 (937) 818-19-00', '', ''),
+(29, 'address_moscow', 'г. Москва', 'Киевское шоссе, ст1 блок В<br> офис 809. БП "Румянцево"', ''),
+(30, 'address_saratov', 'г. Саратов', 'ул. Осипова 1 корп. 5, оф. 27', ''),
+(31, 'address_volsk', 'г. Вольск', 'ул. Комсомольская 241-47', '');
 
 -- --------------------------------------------------------
 

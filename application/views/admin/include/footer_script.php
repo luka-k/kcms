@@ -76,11 +76,18 @@
 
 	});
 	
-	jQuery(document).ready(function($){	
-		var ckeditor = CKEDITOR.replace('editor');
+	jQuery(document).ready(function($){
+		var ckeditor = CKEDITOR.replace('editor_1');
 		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor});
-			
-		var ckeditor_2 = CKEDITOR.replace('editor_2');			AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+		
+		var ckeditor_2 = CKEDITOR.replace('editor_2');
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_2});
+		
+		var ckeditor_3 = CKEDITOR.replace('editor_3');
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_3});
+		
+		var ckeditor_4 = CKEDITOR.replace('editor_4');
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_4});
 	});
 
 </script>

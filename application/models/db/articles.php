@@ -33,7 +33,10 @@ class Articles extends MY_Model
 			'date' => array('Дата', 'date', 'set_date'),
 			'parent_id' => array('Родительская категория', 'select'),
 			'sort' => array('Сортировка', 'hidden'),
-			'description' => array('Описание', 'tiny')
+			'short_description' => array('Краткое описание', 'tiny'),
+			'description' => array('Описание', 'tiny'),
+			'faq' => array('faq', 'tiny'),
+			'bottom_text' => array('Текст внизу', 'tiny')
 		),
 		'SEO' => array(
 			'meta_title' => array('Meta title страницы', 'text', 'trim|htmlspecialchars'),
@@ -115,7 +118,6 @@ class Articles extends MY_Model
 				$item_date = date_format($item_date, 'd.m.Y');
 				$item->date = $item_date;
 			}
-			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
 			
 			$object_info = array(
 				"object_type" => 'articles',
@@ -124,7 +126,24 @@ class Articles extends MY_Model
 			
 			$item->img = $this->images->get_cover($object_info);
 			
+			if(!empty($item->faq)) $item->faq = $this->prepare_faq($item->faq);
+			
 			return $item;
 		}
+	}
+	
+	protected function prepare_faq($faq)
+	{
+		$faq = str_replace("<p>[Q:]", "[Q:]", $faq);
+		$faq = str_replace("[/Q]</p>", "[/Q]", $faq);
+		$faq = str_replace("<p>[A:]", "[A:]", $faq);
+		$faq = str_replace("[/A]</p>", "[/A]", $faq);
+		$faq = str_replace("</div>", "</div></div>", $faq);
+		$faq = preg_replace("!\[Q:\](.*?)\[/Q\]!si", "<h2>\\1</h2>", $faq);
+		$faq = preg_replace("!\[A:\](.*?)\[/A\]!si", "<div class='block'>\\1 </div>", $faq);
+		$faq = str_replace("<h2>", "<div class='spoiler close'><h2>", $faq);
+		$faq = str_replace("</div>", "</div></div>", $faq);
+
+		return $faq;
 	}
 }
