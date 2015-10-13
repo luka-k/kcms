@@ -82,13 +82,23 @@ class Pages extends Client_Controller {
 			'select_item' => '',
 			'about' => $this->articles->prepare($about),
 			'users' => $this->users->prepare_list($users)
-			/*'documents' => $this->documents->prepare_list($documents),
-			'services' => $this->articles->prepare_list($services),
-			'testimonials' => $this->testimonials->prepare_list($testimonials)*/
 		);
 	
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/about.php', $data);
+	}
+	
+	public function otsivi()
+	{
+		$testimonials = $this->testimonials->get_list(FALSE);
+		$data = array(
+			'title' => $this->standart_data['settings']['site_title']->string_value,
+			'select_item' => '',
+			'testimonials' => $this->testimonials->prepare_list($testimonials)
+		);
+	
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/otsivi.php', $data);
 	}
 	
 	/**

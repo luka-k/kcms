@@ -162,7 +162,9 @@
 								<p class="testimonial_name"><?= $t->title?></p>
 								<p class="testimonial_body"><?= $t->description?></p>
 								
-								<a href="<?= $t->file->full_url?>" target="_blank">Посмотреть отчет</a>
+								<?if(isset($t->file)):?>
+									<a href="<?= $t->file->full_url?>" target="_blank">Посмотреть отчет</a>
+								<?endif;?>
 							</div>
 						</div>
 					</div>
