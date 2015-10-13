@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2015 г., 11:20
+-- Время создания: Окт 13 2015 г., 11:40
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -91,7 +91,30 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('7641cf61b86b0e5fc2a5c810c5200b4f', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444724105, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('3f45250e87aca920455931f6aef6617c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444725284, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `documents`
+--
+
+CREATE TABLE IF NOT EXISTS `documents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `documents`
+--
+
+INSERT INTO `documents` (`id`, `name`, `sort`) VALUES
+(1, 'Свидетельство ФНС', 0),
+(2, 'Выписка №17', 0),
+(3, 'Свидетельство СОНП', 0),
+(4, 'Сертификат соответствия судебного эксперта', 0);
 
 -- --------------------------------------------------------
 
@@ -158,7 +181,17 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `images`
+--
+
+INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
+(1, 0, 'doc1', 1, 'documents', 1, '', '/d/o/doc1.jpg'),
+(2, 0, 'doc2', 1, 'documents', 2, '', '/d/o/doc2.jpg'),
+(3, 0, 'doc3', 1, 'documents', 3, '', '/d/o/doc3.jpg'),
+(4, 0, 'doc4', 1, 'documents', 4, '', '/d/o/doc4.jpg');
 
 -- --------------------------------------------------------
 
@@ -192,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -202,9 +235,9 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (4, 1, '<i class=icon-home></i>', 0, 0, '', 'link', 'admin/'),
 (5, 1, 'Статьи', 0, 1, '', 'link', '#'),
 (6, 1, 'Каталог', 0, 2, '', 'link', '#'),
-(7, 1, 'Заказы', 0, 3, '', 'link', 'admin/admin_orders'),
+(7, 1, 'Заказы', 0, 4, '', 'link', 'admin/admin_orders'),
 (8, 1, 'Настройки', 0, 7, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 4, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
 (10, 1, 'Меню', 8, 5, '', 'link', 'admin/menu_module/menus'),
 (11, 1, 'Пользователи', 0, 6, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
@@ -218,7 +251,8 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
-(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all');
+(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
+(36, 1, 'Документы', 0, 3, '', 'link', 'admin/content/items/documents/');
 
 -- --------------------------------------------------------
 
