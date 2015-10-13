@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2015 г., 17:02
+-- Время создания: Окт 13 2015 г., 22:26
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `articles`
@@ -54,7 +54,8 @@ INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`
 (2, 1, 'Оценка недвижимости', '2015-10-13', 0, '<p>Оценка стоимости недвижимости это ответственная и важная работа для определения рыночной стоимости любого объекта в вашей или не в вашей собственности. Мы можем определить любой тип стоимости недвижимости. Наши сотрудники отлично знают рынок и все юридические нюансы оценки недвижимого имущества.</p>\r\n', '', '', '', 'ocenka-nedvizhimosti', '2015-10-13', '', '0.1'),
 (3, 1, 'Оценка транспортных средств', '2015-10-13', 0, '<p>Оценка автомобиля после ДТП, это важная и ответственная работа, которая выполняется профессионалами и включает в себя несколько процедур. Наши специалисты определят точную стоимость ущерба на основе количества поврежденных элементов и утери товарной стоимости автомобиля. Вам будет что предъявить суду или страховой компании.</p>\r\n', '', '', '', 'ocenka-transportnyh-sredstv', '2015-10-13', '', '0.1'),
 (4, 1, 'Оценка земельных участков', '2015-10-13', 0, '<p>Мы проводим процедуру оценки земельных участков любого назначения &ndash; от земель сельскохозяйственного назначения и земель населенных пунктов до особо охраняемых территорий и объектов и земель запаса. В оценке земельного участка мы руководствуемся большим опытом и законами Российской Федерации.</p>\r\n', '', '', '', 'ocenka-zemelnyh-uchastkov', '2015-10-13', '', '0.1'),
-(5, 1, 'Оценка оборудования', '2015-10-13', 0, '<p>Оценка машин и оборудования поможет вам рассчитать и определить актуальную рыночную стоимость любого движимого имущества &ndash; приборов, автомобилей, станков, силовых агрегатов, оргтехники, бытовых предметов, мебели и других объектов. Наши специалисты-оценщики определят реальную рыночную стоимость.</p>\r\n', '', '', '', 'ocenka-oborudovaniya', '2015-10-13', '', '0.1');
+(5, 1, 'Оценка оборудования', '2015-10-13', 0, '<p>Оценка машин и оборудования поможет вам рассчитать и определить актуальную рыночную стоимость любого движимого имущества &ndash; приборов, автомобилей, станков, силовых агрегатов, оргтехники, бытовых предметов, мебели и других объектов. Наши специалисты-оценщики определят реальную рыночную стоимость.</p>\r\n', '', '', '', 'ocenka-oborudovaniya', '2015-10-13', '', '0.1'),
+(6, 0, 'О компании', '2015-10-13', 0, '<p>Экспресс-Оценка &mdash; это молодая и амбициозная команда профессионалов. Не смотря на свой относительно юный возраст, мы заняли устойчивую позицию на рынке независимых оценок и экспертиз в разных отраслях. На сегодняшний день у нас работают офисы в Москве, Саратове, Вольске и Балаково. Главной ценностью нашей компании я считаю свою команду &ndash; каждый наш эксперт это высококвалифицированный специалист в отдельно взятой отрасли. Мы не делаем шаблонных универсальных оценок и не обещаем золотых гор. Мы умеем искать выход из любой нестандартной ситуации и отлично совмещаем высокую скорость работы с невысокими ценами на услуги. Обращайтесь к нам, если вы не удовлетворены качеством работы вашей страховой компании, покупаете или продаете недвижимость, стали жертвой пожара или затопления и в любых других случаях, в которых может понадобиться профессиональная независимая оценка.</p>\r\n\r\n<p><b>Кирилл Мандрика </b></p>\r\n', '', '', '', 'o-kompanii', '2015-10-13', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('5b9318c10baa79c3b9a4365e732e405c', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444744647, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('31144a98e7332ae81bf500755289a0ec', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444764143, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -217,14 +218,13 @@ CREATE TABLE IF NOT EXISTS `images` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Дамп данных таблицы `images`
 --
 
 INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_id`, `image_type`, `url`) VALUES
-(1, 0, 'doc1', 1, 'documents', 1, '', '/d/o/doc1.jpg'),
 (2, 0, 'doc2', 1, 'documents', 2, '', '/d/o/doc2.jpg'),
 (3, 0, 'doc3', 1, 'documents', 3, '', '/d/o/doc3.jpg'),
 (4, 0, 'doc4', 1, 'documents', 4, '', '/d/o/doc4.jpg'),
@@ -233,7 +233,11 @@ INSERT INTO `images` (`id`, `sort`, `name`, `is_cover`, `object_type`, `object_i
 (7, 0, 'popular3', 1, 'articles', 4, '', '/p/o/popular3.png'),
 (8, 0, 'popular4', 1, 'articles', 5, '', '/p/o/popular4.png'),
 (9, 0, 'ots1', 1, 'testimonials', 1, '', '/o/t/ots1.png'),
-(14, 0, 'ots2', 1, 'testimonials', 6, '', '/o/t/ots2.jpg');
+(14, 0, 'ots2', 1, 'testimonials', 6, '', '/o/t/ots2.jpg'),
+(15, 0, 'company', 1, 'articles', 6, '', '/c/o/company.jpg'),
+(16, 0, 'mandrika', 1, 'users', 2, '', '/m/a/mandrika.png'),
+(18, 0, 'doc1', 1, 'documents', 1, '', '/d/o/doc1.jpg'),
+(19, 0, 'ivanov', 1, 'users', 3, '', '/i/v/ivanov.png');
 
 -- --------------------------------------------------------
 
@@ -306,11 +310,11 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uniq_text_id` text COLLATE utf8_unicode_ci NOT NULL,
-  `string_value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `string_value` text COLLATE utf8_unicode_ci NOT NULL,
   `text_value` text COLLATE utf8_unicode_ci NOT NULL,
   `image_value` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
 
 --
 -- Дамп данных таблицы `settings`
@@ -334,7 +338,14 @@ INSERT INTO `settings` (`id`, `uniq_text_id`, `string_value`, `text_value`, `ima
 (15, 'facts_procent', '97%', 'судебных решений в пользу клиентов', ''),
 (16, 'facts_time', '3<span>часа</span>', 'минимальное время получения отчета с момента заявки\r\n', ''),
 (17, 'inn', '1632015444', '', ''),
-(18, 'ogrn', '1151677000155', '', '');
+(18, 'ogrn', '1151677000155', '', ''),
+(19, 'ya_map', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=-sWnEnK6EaMhNKFFguXnrM9YGxmB6bb3&width=100%&height=400&lang=ru_UA&sourceType=constructor', '', ''),
+(20, 'advances_finance', 'Фининсовые гарантии', 'Если документы не примет суд – возвращаем деньги в тройном размере', ''),
+(21, 'advances_zatrat', 'Никаких дополнительных затрат', 'Наличие собственного подразделения юристов, консультация которых входит в стоимость услуги', ''),
+(22, 'advances_sotrudniki', 'Профессиональные сотрудники', 'Профессиональный штат сотрудников с опытом более 5 лет, прошедших специальное обучение', ''),
+(23, 'advances_ocenka', 'Оперативная оценка', 'Оперативный выезд на место, оценка до 2-х дней', ''),
+(24, 'advances_opit', 'Опыт более 5 лет', 'Опыт более 5 лет, проведено более 1000 экспертиз', ''),
+(25, 'advances_expertiza', 'Индивидуальная экспертиза', 'У нас нет шаблонов - каждая экспертиза прорабатывается индивидуально', '');
 
 -- --------------------------------------------------------
 
@@ -367,24 +378,29 @@ INSERT INTO `testimonials` (`id`, `name`, `title`, `description`, `sort`) VALUES
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `rank` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `vk_link` text COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
   `valid_email` tinyint(1) NOT NULL DEFAULT '0',
   `secret` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone`, `address`, `valid_email`, `secret`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', 0, '');
+INSERT INTO `users` (`id`, `sort`, `name`, `rank`, `password`, `email`, `vk_link`, `phone`, `description`, `valid_email`, `secret`) VALUES
+(1, 0, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.ru', '', '', '', 0, ''),
+(2, 0, 'Мандрика Кирилл', 'Руководитель, эксперт-оценщик', '698d51a19d8a121ce581499d7b701668', 'k.mandrika@ocenkaexp.ru', 'http://vk.com/id18295847', '+7 (925) 281-94-95', '', 0, ''),
+(3, 0, 'Иванов Александр', 'Ведущий специалист', 'bcbe3365e6ac95ea2c0343a2395834dd', 'a.ivanov@ocenkaexp.ru', '', '+7 (495) 740-37-80', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -404,7 +420,9 @@ CREATE TABLE IF NOT EXISTS `users2users_groups` (
 --
 
 INSERT INTO `users2users_groups` (`users_group_id`, `user_id`) VALUES
-(1, 1);
+(1, 1),
+(3, 3),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -417,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   `name` varchar(255) NOT NULL,
   `is_edit` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `users_groups`
@@ -425,7 +443,8 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `name`, `is_edit`) VALUES
 (1, 'admin', 0),
-(2, 'customer', 0);
+(2, 'customer', 0),
+(3, 'сотрудники', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
