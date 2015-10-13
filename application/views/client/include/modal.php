@@ -1,108 +1,78 @@
-<!---Добавление в корзину--->
-<div class="modal modal--to-cart" id="to-cart">
-	<div class="modal__title block-title">
-		Товар "<span id="popup_product_name"></span>"
-		<br /> добавлен в корзину
-	</div> <!-- /.modal__title block-title -->
+<div class="reveal-modal" id="myModal">
+	<div class="modal_left">
+		<img src="<?= IMGS_PATH?>phone_modal.png">
+	</div>
 	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__cart modal-cart">
-
-			<div class="form__line modal-cart__line">	
-				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('popup_item_id').value, this.value); return false;" placeholder="" value="" />
-				<input type="hidden" id="popup_item_id" value=""/>
-			</div> <!-- /.form__line -->
-			
-			<div class="form__button modal-cart__button">
-				<button type="button" class="button button--normal button--auto-width js-close-fancybox">Вернуться к покупкам</button>
-				<button type="button" class="button button--normal button--grey button--auto-width" onclick="document.location.replace('/cart/');">В корзину &rarr;</button>
-			</div> <!-- /.form__button -->
-
-	</div> <!-- /.modal__cart -->
-</div> <!-- /.modal -->
-
-<div id="callback" class="modal">
-	<div class="modal__title block-title">Оставьте ваш номер телефона</div> <!-- /.modal__title block-title -->
-	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__form">
-		<form action="#" id="callback_form" method="post">
-			<div class="form__line">
-				<input type="text" id="callback_name" class="form__input validate" name="name" placeholder="Имя" />
-			</div> <!-- /.form__line -->
-			
-			<div class="form__line">
-				<input type="tel" id="call" class="form__input validate" name="phone" placeholder="Телефон" />
-			</div> <!-- /.form__line -->
-			
-			<div class="form__button">
-				<button class="button button--normal button--auto-width callback_submit" onclick="callback(); return false;">Заказать звонок</button>
-			</div> <!-- /.form__button -->
-		</form> <!-- /.form -->
-	</div> <!-- /.modal__form -->
-</div> <!-- /.modal -->
-
-<div class="modal" id="callback_answer" style="display:none;">
-	<div id="popup_title" class="modal__title block-title"></div> <!-- /.modal__title block-title -->
-	
-	<div id="popup_message" class="modal__text"></div> <!-- /.modal__text -->
-</div> <!-- /.modal --> 
-
-<div class="modal" id="fast_order" style="display:none;">
-	<div class="modal__title block-title">Быстрый заказ</div> <!-- /.modal__title block-title -->
-	
-	<form action="#" class="form" id="fast_order_form" method="post">
-	<div class="fast_order_product-info">
-		<div class="fast_order_image">
-			<img id="fast_order_img" src="" alt="" />
+	<div class="modal_right">
+		<div class="title">
+			Заказать звонок
 		</div>
-		<div class="fast_order_product_name"></div><br />
-		Количество: <input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="qty" placeholder="" value="1" />							
+		
+		<p>Заполните форму и мы обязательно перезвоним</p>
+		
+		<form action="" method="post" >
+			<input type="text" placeholder="Ваше имя" class="form-input" name="name">
+			<input type="text" class="mask" placeholder="+7(___) ____-__-__" name="phone">
+			<a href="#" class="service_button" onclick="$(this).parent().submit(); return false;">
+				<img src="<?= IMGS_PATH?>visov.png"><span>Заказать звонок</span>
+			</a>
+		</form>
+		
+		<span class="modal_mail"> <a href="mailto:<?= $settings['email']->string_value?>"><?= $settings['email']->string_value?></a></span>
+		<span class="modal_phone"><a href="tel:<?= $settings['phone']->string_value?>"><?= $settings['phone']->modal_value?></a></span>
 	</div>
-	<div class="fast_order_form">
-	
-		<div class="cart-order__form">
-			
-			<input type="hidden" class="product_id" name="product_id" value="" />
-			
-			<div class="form__line">
-				<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
-			</div> <!-- /.form__line -->
-							
-			<div class="form__line">
-				<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
-			</div> <!-- /.form__line -->
-							
-			<a href="#extra" class="cart-order__extra-link" onclick="$('.cart-order__extra').slideToggle();">Необязательные поля</a>
-							
-			<div class="cart-order__extra hidden" id="extra">
-				<div class="form__line">
-					<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
-				</div> <!-- /.form__line -->
-				
-				<div class="form__line">
-					<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
-				</div> <!-- /.form__line -->
-			</div> <!-- /.cart-order__extra -->
-						
-			<div class="form__button cart-order__button">
-				<button type="submit" class="button button--normal button--auto-width" onclick="fastOrdersubmit(); return false;">Оформить</button>
-			</div> <!-- /.form__button -->
-		</div> <!-- /.cart-order__form -->
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div class="reveal-modal " id="myModal1">
+	<div class="modal_left">
+		<img src="<?= IMGS_PATH?>phone_modal.png">
 	</div>
-	</form> <!-- /.form -->
-</div> <!-- /.modal --> 
-
-<div class="modal" id="fast_order_answer" style="display:none;">
-	<div id="popup_title" class="modal__title block-title">Спасибо за заказ</div> <!-- /.modal__title block-title -->
 	
-	<div id="popup_message" class="modal__text">Ваш заказ принят.<br /> Менеджер свяжется с Вами.</div> <!-- /.modal__text -->
-</div> <!-- /.modal --> 
+	<div class="modal_right">
+		<div class="title">
+			Вызов оценщика
+		</div>
+		
+		<p>Заполните форму и мы обязательно перезвоним</p>
+		<form action="" method="post">
+			<input type="text" placeholder="Ваше имя" class="form-input" name="name">
+			<input type="text" class="mask" placeholder="+7(___) ____-__-__" name="phone">
+			<a href="#" class="service_button" onclick="$(this).parent().submit(); return false;">
+				<img src="<?= IMGS_PATH?>visov.png"><span>Вызвать оценщика</span>
+			</a>
+		</form>
+		
+		<span class="modal_mail"> <a href="mailto:<?= $settings['email']->string_value?>"><?= $settings['email']->string_value?></a></span>
+		<span class="modal_phone"><a href="tel:<?= $settings['phone']->string_value?>"><?= $settings['phone']->modal_value?></a></span>
+	</div>
+	
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 
+<div class="reveal-modal " id="myModal2">
+	<div class="modal_left">
+		<img src="<?= IMGS_PATH?>phone_modal.png">
+	</div>
+	
+	<div class="modal_right">
+		<div class="title">
+			Заказать оценку
+		</div>
+		
+		<p>Заполните форму и мы обязательно перезвоним</p>
+		
+		<form action="" method="post">
+			<input type="text" placeholder="Ваше имя" class="form-input" name="name">
+			<input type="text" class="mask" placeholder="+7(___) ____-__-__" name="phone">
+			<a href="#" class="service_button" onclick="$(this).parent().submit(); return false;">
+				<img src="<?= IMGS_PATH?>visov.png"><span> Заказать оценку</span>
+			</a>
+		</form>
+		
+		<span class="modal_mail"> <a href="mailto:<?= $settings['email']->string_value?>"><?= $settings['email']->string_value?></a></span>
+		<span class="modal_phone"><a href="tel:<?= $settings['phone']->string_value?>"><?= $settings['phone']->modal_value?></a></span>
+	</div>
+	
+	<a class="close-reveal-modal">&#215;</a>
+</div>

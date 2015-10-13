@@ -51,7 +51,12 @@ class Client_Controller extends CI_Controller
 		define('IMGS_PATH', base_url().'template/client/images/');
 		
 		$settings = $this->settings->get_settings();
-					
+		
+		$phone = $settings['phone']->string_value;
+		
+		$settings['phone']->span_value = substr($phone, 0, 2).'('.substr($phone, 2, 3).')'.'<span>'.substr($phone, 5, 3).'-'.substr($phone, 8, 2).'-'.substr($phone, 10, 2).'</span>';
+		$settings['phone']->modal_value	= substr($phone, 1, 1).'-'.substr($phone, 2, 3).'-'.substr($phone, 5, 3).'-'.substr($phone, 8, 2).'-'.substr($phone, 10, 2);
+		
 		$this->standart_data = array(
 			"user" => $this->session->userdata('user'),
 			"cart_items" => $this->cart->get_all(),

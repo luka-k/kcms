@@ -14,7 +14,7 @@ class Settings extends MY_Model
 			'id' => array('id', 'hidden'),
 			'uniq_text_id' => array('Текстовый индетификатор', 'text', 'trim|name', 'require'),
 			'string_value' => array('Строка', 'text'),
-			'text_value' => array('Текст', 'tiny'),
+			'text_value' => array('Текст', 'textarea'),
 			//'image' => array('Иконка', 'image', 'img')
 		)
 	);
