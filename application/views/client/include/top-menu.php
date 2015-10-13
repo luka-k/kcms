@@ -1,6 +1,6 @@
 <ul class="nav clearfix animated">
 	<li><a href="/">Главная</a></li>
-	<li><a href="/about.html">О компании</a></li>
+	<li><a href="<?= base_url()?>about">О компании</a></li>
 	<li><a href="/otsivi.html">Портфолио и отзывы</a></li>
 	<li><a href="/uslugi.html">Услуги и цены</a></li>
 	<!-- <li><a href="/faq.html">FAQ</a></li>-->

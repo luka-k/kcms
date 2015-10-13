@@ -1,6 +1,6 @@
 <div class="col_12">
 	<div class="col_2">Добавить фотографии</div>
-	<div class="col_4"><input type="file" multiple="multiple" id="<?=$edit_name?>" name="<?=$edit_name?>[]" accept="image"/></div>
+	<div class="col_4"><input type="file" multiple="multiple" id="<?=$edit_name?>" name="<?=$edit_name?>" accept="image"/></div>
 	<input type="hidden" name="upload_image" value="upload_image"/>
 </div>
 
@@ -11,7 +11,7 @@
 		<?$counter = 1?>
 		<div class="col_12 sortable-images">
 			<?foreach($content->images as $image):?>
-				<div id="images-<?=$image->id?>" class="col_3">
+				<div id="images-<?=$image->id?>" class="col_2">
 					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->catalog_small_url?>" width="100%"/></a>
 					<div class="col_6">
 						<?if($image->is_cover == 0):?>

@@ -72,7 +72,7 @@ class Users_module extends Admin_Controller
 			{
 				foreach($data['content'] as $key => $item)
 				{
-					$data['content'][$key]->image = $this->images->get_cover(array("object_type" => "users", "object_id" => $item->id));
+					$data['content'][$key]->img = $this->images->get_cover(array("object_type" => "users", "object_id" => $item->id));
 				}
 				$data['images'] = TRUE;
 			}	
@@ -151,8 +151,8 @@ class Users_module extends Admin_Controller
 					"object_type" => "users",
 					"object_id" => $data['content']->id
 				);
-				
-				if (isset($_FILES[$field_name])&&($_FILES[$field_name]['error'] <> 4)) $this->images->upload_image($_FILES[$field_name], $object_info);
+
+				if (isset($_FILES[$field_name]) && ($_FILES[$field_name]['error'] == UPLOAD_ERR_OK)) $this->images->upload_image($_FILES[$field_name], $object_info);
 			}
 
 			$this->table2table->delete_fixing('users2users_groups', 'user_id', $data['content']->id);

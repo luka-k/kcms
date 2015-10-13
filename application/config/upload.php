@@ -16,6 +16,12 @@ $config['thumb_config'] = array(
 		'far' => 1,
 		"bg" => "ffffff"
 	),
+	"about" => array(
+		'w' => 120,
+		'h' => 160,
+		'far' => 1,
+		"bg" => "ffffff"
+	),
 	"testimonials" => array(
 		'w' => 95,
 		'h' => 95,

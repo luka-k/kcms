@@ -2,37 +2,11 @@
 
 <html class="no-js">
 
-<head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-
-    <title>Экспресс-Оценка</title>
-    <link href="<?= TMP_PATH?>css/style.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <script src="http://code.jquery.com/jquery-1.6.min.js" type="text/javascript"></script>
-    <script src="http://ribaweb.ru/template/client/js/jquery/jquery-ui.min.js"></script>
-    <script src="http://ribaweb.ru/template/client/js/jquery/jquery.maskedinput.min.js"></script>
-    <script src="http://ribaweb.ru/template/client/js/jquery/jquery.form.min.js"></script>
-    <script src="http://ribaweb.ru/template/client/js/jquery/jquery.validate.min.js"></script>
-
-    <script src="<?= TMP_PATH?>js/jquery.reveal.js" type="text/javascript"></script>
-    <script src="<?= TMP_PATH?>js/owl.jquery.min.js" type="text/javascript"></script>
-    <script src="<?= TMP_PATH?>js/owl.carousel.min.js" type="text/javascript"></script>
-
-    <link href="<?= TMP_PATH?>css/reveal.css" rel="stylesheet">
-    <link href="<?= TMP_PATH?>css/owl.carousel.css" rel="stylesheet" type="text/css">
-    <link href="<?= TMP_PATH?>css/responsive.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="<?= TMP_PATH?>css/lightbox.css">
-    <script src="<?= TMP_PATH?>js/jquery.inputmask.js" type="text/javascript"></script>
-
-</head>
+<? require 'include/head.php'; ?>
 
 <body>
 	<? require 'include/header.php'; ?>
-	
 	<? require 'include/modal.php'; ?>
-	
 	<? require 'include/slider.php'; ?>
 	
 	<div class="services">
@@ -232,62 +206,7 @@
 
 -->
 
-	<footer>
-		<div class="container">
-			<div class="banking">
-				<span>ИНН <?= $settings['inn']->string_value?> </span> <span> ОГРН <?= $settings['ogrn']->string_value?></span>
-			</div>
-            <div class="social">
-                <a href="https://instagram.com/expressocenka/" target="_blank"><img src="<?= IMGS_PATH?>soc1.png"></a>
-                <a href="https://vk.com/express_ocenka" target="_blank"><img src="<?= IMGS_PATH?>soc4.png"></a>
-            </div>
-            <div class="email">
-                <a href="mailto:mail@ocenkaexp.ru"><?= $settings['email']->string_value?></a>
-            </div>
-
-            <div class="logo">
-                <a href="/"><img src="<?= IMGS_PATH?>logo_footer.png"><br>Экспресс-Оценка</a>
-            </div>
-            <div class="logo_responsive">
-                <a href="/"><img src="<?= IMGS_PATH?>logo2.png"></a>
-            </div>
-
-            <div class="menu footer">
-                <ul class="nav clearfix animated">
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="/about.html">О компании</a></li>
-                    <li><a href="/otsivi.html">Портфолио и отзывы</a></li>
-                    <li><a href="/uslugi.html">Услуги и цены</a></li>
-                       <!-- <li><a href="/faq.html">FAQ</a></li>-->
-                    <li><a href="/contact.html">Контакты</a></li>
-                </ul>
-            </div>
-            <div class="callme">
-                <div class="phone"><a href="tel:<?= $settings['phone']->string_value?>"><?= $settings['phone']->span_value?></a></div>
-                <div class="recall"><a data-reveal-id="myModal" href="#" class="button">Заказать звонок</a></div>
-            </div>
-
-        </div>
-    </footer>
-
-
-
-
-    <script src="<?= TMP_PATH?>js/lightbox-plus-jquery.min.js" type="text/javascript"></script>
-    <script>
-        $.noConflict();
-    </script>
-
-    <script src="<?= TMP_PATH?>js/main.js" type="text/javascript"></script>
-     <script>
-            $(document).ready(function() {
-     
-				$(".mask").inputmask("+7(999)999-99-99");
-		
-
-            });
-        </script>
-
+	<? require 'include/footer.php'; ?>
 </body>
 
 </html>

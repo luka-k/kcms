@@ -58,6 +58,7 @@
 							<?endforeach?>
 						</form>							
 					</div>
+					<?require 'include/delete_popup.php'?>
 				</div>
 			</div>
 		</div>

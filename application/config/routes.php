@@ -40,6 +40,7 @@
 $route['default_controller'] = "index";
 $route['404_override'] = 'pages/page_404';
 
+$route['admin'] = "admin/index";
 $route['admin/(:any)'] = "admin/$1";
 $route['admin/(:any)/(:any)'] = "admin/$1/$2";
 
@@ -52,6 +53,8 @@ $route['catalog/(:any)/(:num)'] = 'catalog/index/$1/$2';
 $route['articles'] = 'pages/index';
 $route['articles/(:any)'] = 'pages/index/$1';
 $route['articles/(:any)/(:num)'] = 'pages/index/$1/$2';
+
+$route['(:any)'] = 'pages/$1';
 
 $route['cabinet'] = 'cabinet';
 

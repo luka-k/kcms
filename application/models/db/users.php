@@ -29,10 +29,17 @@ class Users extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden', ''),
 			'secret' => array('secret', 'hidden'),
-			'name' => array('Имя', 'text', 'trim|htmlspecialchars|name', 'require'),
+			'name' => array('Имя', 'text', 'trim|name', 'require'),
+			'rank' => array('Должность', 'text', 'trim'),
 			'users2users_groups' => array('Группа', 'u2u_g', 'users2users_groups'),
-			'email' => array('Почта', 'text', 'trim|htmlspecialchars', 'require|email|unique'),
+			'email' => array('Почта', 'text', 'trim', 'require|email|unique'),
+			'vk_link' => array('Cсылка vk', 'text', 'trim'),
+			'phone' => array('Телефон', 'text', 'trim'),
+			'description' => array('Описание', 'tiny', 'trim'),
 			'password' => array('Пароль', 'pass', 'trim|md5')
+		),
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	
@@ -111,15 +118,16 @@ class Users extends MY_Model
 	* @return array
 	*/
 	public function group_list($group_id)
-	{
-		$users_id = $this->users2users_groups->get_list(array("users_group_id" => $group_id));
+	{	
+		$users_id = $this->table2table->get_fixing('users2users_groups', 'user_id', 'users_group_id', $group_id);
 		
 		$users = array();
-		foreach($users_id as $item)
+		if(!empty($users_id))
 		{
-			$users[] = $this->get_item($item->user_id);
+			$this->db->where_in('id', $users_id);
+			$this->db->order_by('sort');
+			$users = $this->db->get($this->_table)->result();
 		}
-		
 		return $users;
 	}
 	
@@ -134,5 +142,20 @@ class Users extends MY_Model
 	{
 		$user = $this->users2users_groups->get_item_by(array("users_group_id" => $group_id, "user_id" => $user_id));
 		return $user ? TRUE : FALSE;
+	}
+	
+	function prepare($item, $cover = TRUE)
+	{
+		if(!empty($item))
+		{
+			$object_info = array(
+				"object_type" => 'users',
+				"object_id" => $item->id
+			);
+			
+			$item->img = $this->images->get_cover($object_info);
+			
+			return $item;
+		}
 	}
 }

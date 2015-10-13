@@ -69,6 +69,28 @@ class Pages extends Client_Controller {
 		$this->load->view($template, $data);
 	}
 	
+	public function about()
+	{
+		$this->load->config('articles');
+		
+		$about = $this->articles->get_item($this->config->item('about_id'));
+		
+		$users = $this->users->group_list($this->config->item('officers_group_id'));
+		
+		$data = array(
+			'title' => $this->standart_data['settings']['site_title']->string_value,
+			'select_item' => '',
+			'about' => $this->articles->prepare($about),
+			'users' => $this->users->prepare_list($users)
+			/*'documents' => $this->documents->prepare_list($documents),
+			'services' => $this->articles->prepare_list($services),
+			'testimonials' => $this->testimonials->prepare_list($testimonials)*/
+		);
+	
+		$data = array_merge($this->standart_data, $data);
+		$this->load->view('client/about.php', $data);
+	}
+	
 	/**
 	* Страница 404
 	*/

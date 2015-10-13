@@ -1,39 +1,42 @@
-<footer class="footer" id="footer">
-	<div class="footer__wrap wrap">
-		<div class="footer__subscribe">
-			<div class="subscribe">
-				<div class="subscribe__title">
-					Для наших подписчиков - скидки, новинки и полезные советы!
-				</div> <!-- /.subscribe__title -->
-				
-				<div class="subscribe__form">
-					<div class="subscribe-form">
-						<form action="#" class="form" where="validate_ajax" id="subscribe_form" method="post">
-							<div class="subscribe-form__line">
-								<input type="text" class="form__input subscribe-form__input required email" name="email" placeholder="" />
-							</div> <!-- /.subscribe__line -->
-							
-							<div class="subscribe-form__button">
-								<button class="button button--normal" onclick="">Подписаться</button>
-							</div> <!-- /.subscribe__button -->
-						</form> <!-- /.form -->
-					</div> <!-- /.subscribe-form -->
-				</div> <!-- /.subscribe__form -->
-			</div> <!-- /.subscribe -->
-		</div> <!-- /.footer__subscribe -->
+<footer>
+	<div class="container">
+		<div class="banking">
+			<span>ИНН <?= $settings['inn']->string_value?> </span> <span> ОГРН <?= $settings['ogrn']->string_value?></span>
+		</div>
 		
-		<? require 'footer-nav.php'?>
+		<div class="social">
+			<a href="https://instagram.com/expressocenka/" target="_blank"><img src="<?= IMGS_PATH?>soc1.png"></a>
+			<a href="https://vk.com/express_ocenka" target="_blank"><img src="<?= IMGS_PATH?>soc4.png"></a>
+		</div>
 		
-		<div class="footer__contacts">
-			<div class="contacts-info">
-				<div class="contacts-info__item">
-					<div class="contacts-info__copy"><?=$settings->site_title?> &copy; 2015</div> <!-- /.contacts-info__copy -->
-					<a href="mailto:<?=$settings->admin_email?>" class="contacts-info__email"><?=$settings->admin_email?></a>
-				</div> <!-- /.contacts-info__item -->
-
-			</div> <!-- /.contacts-info -->
-		</div> <!-- /.footer__contacts -->
-	</div> <!-- /.footer__wrap wrap -->
-</footer> <!-- /.header -->
+		<div class="email">
+			<a href="mailto:mail@ocenkaexp.ru"><?= $settings['email']->string_value?></a>
+		</div>
+		
+		<div class="logo">
+			<a href="/"><img src="<?= IMGS_PATH?>logo_footer.png"><br>Экспресс-Оценка</a>
+		</div>
+		
+		<div class="logo_responsive">
+			<a href="/"><img src="<?= IMGS_PATH?>logo2.png"></a>
+		</div>
+		
+		<div class="menu footer">
+			<ul class="nav clearfix animated">
+				<li><a href="/">Главная</a></li>
+				<li><a href="<?= base_url()?>about">О компании</a></li>
+				<li><a href="/otsivi.html">Портфолио и отзывы</a></li>
+				<li><a href="/uslugi.html">Услуги и цены</a></li>
+				<!-- <li><a href="/faq.html">FAQ</a></li>-->
+				<li><a href="/contact.html">Контакты</a></li>
+			</ul>
+		</div>
+		
+		<div class="callme">
+			<div class="phone"><a href="tel:<?= $settings['phone']->string_value?>"><?= $settings['phone']->span_value?></a></div>
+			<div class="recall"><a data-reveal-id="myModal" href="#" class="button">Заказать звонок</a></div>
+		</div>
+	</div>
+</footer>
 
 <? require 'scripts.php' ?>

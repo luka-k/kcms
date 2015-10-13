@@ -304,7 +304,9 @@ class Content extends Admin_Controller
 			}
 			
 			$data['content']->id = NULL;
-			$data['content']->url = "";
+			
+			
+			if($this->db->field_exists('url', $type)) $data['content']->url = "";
 			
 			$this->$type->insert($data['content']);
 			$new_id = $this->db->insert_id();
