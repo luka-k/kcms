@@ -45,7 +45,7 @@ class Content extends Admin_Controller
 		if($id_branchy)
 		{
 			$data['tree'] = $type == "products" ?  $this->categories->get_tree(0, "parent_id", "admin") : $this->$type->get_tree(0, "parent_id", "admin");
-		
+
 			if($id == "all" || $id == '')
 			{
 				$data['content'] = $this->$type->get_list(FALSE, $this->input->get('from'), $settings['per_page']->string_value, $order, $direction);

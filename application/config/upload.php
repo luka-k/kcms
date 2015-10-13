@@ -9,6 +9,12 @@ $config['thumb_config'] = array(
 		'far' => 1,
 		"bg" => "ffffff"
 	),
+	"articles" => array(
+		'w' => 121,
+		'h' => 120,
+		'far' => 1,
+		"bg" => "ffffff"
+	),
 	"catalog_small" => array(
 		'w' => 100,
 		'h' => 100,

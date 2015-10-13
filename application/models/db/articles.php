@@ -44,8 +44,8 @@ class Articles extends MY_Model
 			'priority' => array('priority', 'priority'),
 			'lastmod' => array('lastmod', 'hidden')
 		),
-		'Изображение' => array(
-			'upload_double_gallery' => array('Изображение по умолчанию', 'double_images', 'double_img', '', array("Первое изображение" => "first", "Второе изображение" => "second"))
+		'Изображения' => array(
+			'upload_image' => array('Загрузить изображение', 'image_gallery', 'img')
 		)
 	);
 	
@@ -116,6 +116,14 @@ class Articles extends MY_Model
 				$item->date = $item_date;
 			}
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);
+			
+			$object_info = array(
+				"object_type" => 'articles',
+				"object_id" => $item->id
+			);
+			
+			$item->img = $this->images->get_cover($object_info);
+			
 			return $item;
 		}
 	}
