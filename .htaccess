@@ -1,4 +1,31 @@
+
+php_value upload_max_filesize 150M
+php_value max_execution_time 800
+php_value post_max_size 150M
+php_value max_input_time 800
+php_value memory_limit 500M
+
+Options +FollowSymlinks
 RewriteEngine on
+
+
+
+RewriteCond %{HTTP_HOST} ^www\.brightberry\.ru$ [NC]
+RewriteRule ^(.*)$ http://brightberry.ru/$1 [R=301,L]
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !.html$
+RewriteCond %{REQUEST_URI} !.xml$
+RewriteCond %{REQUEST_URI} !/admin/*
+RewriteRule (.+) $1/ [R=301,L]
+
 RewriteCond $1 !^(index\.php|images|uploads|download|template|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 RedirectPermanent /main /
+RedirectPermanent /contacts /articles/kontakty
+RedirectPermanent /our-objects/our-apartments /works/obekty/kvartiry
+RedirectPermanent /our-objects /works

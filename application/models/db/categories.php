@@ -110,14 +110,14 @@ class Categories extends MY_Model
 		if(!empty($item))
 		{
 			$imgs = $this->images->get_images(array('object_type' => 'categories', 'object_id' => $item->id));
-			/*if ($imgs[0]->is_cover)
+			if ($imgs[0]->is_cover)
 			{
 				$item->img[0] = $imgs[0];
 				$item->img[1] = $imgs[1];
 			} else {
 				$item->img[1] = $imgs[0];
 				$item->img[0] = $imgs[1];
-			}*/
+			}
 			$item->full_url = $this->get_url($item);
 			return $item;
 		}

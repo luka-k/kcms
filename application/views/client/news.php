@@ -21,6 +21,7 @@
 				<? require 'include/header.php'?>
 					
 					<div class="page">
+					
 						<? require 'include/breadcrumbs.php'?>
 						
 						<section class="page__content" style="padding-left: 73px;">
@@ -51,7 +52,6 @@
 						</section> <!-- /.page__content -->
 						
 						<aside class="page__sidebar">
-						
 							<? require 'include/left-menu.php' ?>
 			        	</aside> <!-- /.page__sidebar -->
 					</div> <!-- /.page -->

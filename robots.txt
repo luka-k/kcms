@@ -1,0 +1,6 @@
+User-agent: *
+Disallow:/admin
+
+
+Host: brightberry.ru
+Sitemap: http://brightberry.ru/sitemap.xml
