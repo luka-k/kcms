@@ -88,6 +88,9 @@
 		
 		var ckeditor_4 = CKEDITOR.replace('editor_4');
 		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_4});
+		
+		var ckeditor_5 = CKEDITOR.replace('editor_5');
+		AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditor_5});
 	});
 
 </script>
