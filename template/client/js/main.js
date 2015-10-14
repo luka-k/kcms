@@ -131,17 +131,19 @@
 
     var $theBestList = $('.the-best-slider__list');
 
-	  if (document.location.href == 'http://brightberry.ru/' || document.location.href.indexOf('http://brightberry.ru/#') != -1)
+	 if (document.location.href == 'http://brightberry.ru/' || document.location.href.indexOf('http://brightberry.ru/#') != -1)
 	  {
     var theBestListSlider = $theBestList.bxSlider({
-                              pager: false
+                              pager: false,
+							  speed: 150
                             });
 	  } else {
     var theBestListSlider = $theBestList.bxSlider({
                               minSlides: 7,
                               maxSlides: 7,
 							  infiniteLoop: false,
-                              pager: false
+                              pager: false,
+							  speed: 150
                             });
 		  
 	  }
@@ -175,7 +177,8 @@
                           moveSlides: 1,
 						  infiniteLoop: true,
 						  adaptiveHeight: false,
-                          slideWidth: 130
+                          slideWidth: 130,
+						  speed: 150
                         });
 	} else if (document.location.href.indexOf('/catalog/') != -1) {
       var thumbsSlider = $thumbsList.bxSlider({
@@ -185,7 +188,8 @@
                           moveSlides: 1,
 						  infiniteLoop: false,
 						  adaptiveHeight: false,
-                          slideWidth: 130
+                          slideWidth: 130,
+						  speed: 150
                         });
 	} else {
       var thumbsSlider = $thumbsList.bxSlider({
@@ -195,7 +199,8 @@
                           moveSlides: 1,
 						  infiniteLoop: false,
 						  adaptiveHeight: false,
-                          slideWidth: 130
+                          slideWidth: 130,
+						  speed: 150
                         });
 	}
 
@@ -325,6 +330,7 @@
 	  {
 		  gallerySlider = $galleryList.bxSlider({
 									pager: false,
+									speed: 150,
 									startSlide: (parseInt($('#active_id').html()) -1 ),
 									onSlideNext: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
 									onSlidePrev: function() {$('#th_'+(gallerySlider.getCurrentSlide()+1)).mousedown();},
@@ -333,6 +339,7 @@
 	  } else {
 		  gallerySlider = $galleryList.bxSlider({
 									pager: false,
+									speed: 150,
 									infiniteLoop: false,
 									hideControlOnEnd: true,
 									startSlide: (parseInt($('#active_id').html()) -1 ),
