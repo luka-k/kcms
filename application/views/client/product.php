@@ -22,7 +22,7 @@
 					<section class="page__content " style="padding-left: 68px;">
 					
 						<header class="page__header">
-							<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
+							<h1 class="page__title"><?=$content->name?>5</h1> <!-- /.page__title -->
 						</header> <!-- /.page__header -->
 						<div class="projects">
 							<ul class="projects__list" style="margin-top: 0px;">

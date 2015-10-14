@@ -113,7 +113,7 @@
       var projectsSlider = $projectsList.bxSlider({
                               pager: false,
                               mode: 'vertical',
-                              minSlides: 3,
+                              minSlides: 4,
                               maxSlides: 4,
                               moveSlides: 1,
 							  infiniteLoop: false,
