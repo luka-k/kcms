@@ -39,6 +39,7 @@
 							<div class="page__scroll-in" style="width: 615px;">
 								<?=$content->article->description?> 
 								
+								<?$object_images = array();?>
 								<?if(isset($content->has_img)):?>
 									<?$object_images = $content->img?>
 								<?endif;?>

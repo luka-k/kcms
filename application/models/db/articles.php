@@ -109,9 +109,20 @@ class Articles extends MY_Model
 				$imgs = $this->parse_description($item->description);
 				if($imgs)
 				{
-
 					$item->img = array_merge($imgs, $item->img);
 					$item->has_img = TRUE;
+				}
+			}
+			
+			if(!empty($item->img))
+			{
+				foreach($item->img as $img)
+				{
+					if(isset($img->caption) && (string) strpos($img->caption, 'youtube:') == '0')
+					{
+						$item->has_video = TRUE;
+						break;
+					}
 				}
 			}
 			

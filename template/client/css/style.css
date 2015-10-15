@@ -2165,19 +2165,26 @@ input.formButton:hover {color:#c6da2d !important;}
 	position:relative;
 }
 
-.photo_icon{
+.icons{
 	position:absolute;
 	display:inline-block;
-	width:20px;
+	width:50px;
 	height:15px;
 	right:0;
 	top:0;
+	text-align:right;
+}
+
+.photo_icon{
+	display:inline-block;
+	width:20px;
+	height:15px;
 	background: url('../images/photo.png') no-repeat;
 }
 
 .video_icon{
-	position:absolute;
+	display:inline-block;
 	width:20px;
 	height:15px;
-	
+	background: url('../images/video.png') no-repeat;
 }

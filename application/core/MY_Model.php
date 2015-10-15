@@ -466,7 +466,7 @@ class MY_Model extends CI_Model
 	{
 		if($_POST == FALSE) $_POST = $post;
 		$return = new stdCLass();
-
+		$return->data = new stdClass();
 		$editors = $this->editors;
 
 		foreach ($editors as $type => $edit)
@@ -499,6 +499,7 @@ class MY_Model extends CI_Model
 		if($this->form_validation->run())
 		{
 			unset($return->data);
+			$return->data = new stdClass();
 			foreach ($editors as $edit)
 			{
 				foreach ($edit as $key => $value)

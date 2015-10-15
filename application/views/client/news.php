@@ -37,9 +37,14 @@
 										<li>
 											<?// var_dump($a);?>
 											<p><a style="font-size: 14px;padding-bottom: 5px;" href="<?=$a->full_url?>"><?=$a->name?></a></p>
-											<?if(isset($a->has_img)):?>
-												<span class="photo_icon">&nbsp;</span>
-											<?endif;?>
+											<div class="icons">
+												<?if(isset($a->has_video)):?>
+													<span class="video_icon">&nbsp;</span>
+												<?endif;?>
+												<?if(isset($a->has_img)):?>
+													<span class="photo_icon">&nbsp;</span>
+												<?endif;?>
+											</div>
 											<!---<span class="video_icon">&nbsp;</span>-->
 											
 											<p class="acidYellow" style="margin-top: 5px;line-height: 5px;"><?=$a->date?><br>
