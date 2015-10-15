@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
-//$config['base_url']	= 'http://brightberry.ru';
+//$config['base_url']	= '';
+$config['base_url']	= 'http://brightberry.ru';
 
 /*
 |--------------------------------------------------------------------------
