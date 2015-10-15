@@ -141,7 +141,7 @@ class Catalog extends Client_Controller {
 					$filters_checked[$key] = 1;
 				}
 			
-				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'name', 'asc'));
+				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'ranging', 'desc'));
 
 				$products_ids = $this->catalog->get_products_ids($products);
 
@@ -243,8 +243,8 @@ class Catalog extends Client_Controller {
 				'is_sale' => 1,
 				'name' => '',
 				'from' => 0,
-				'order' => 'name',
-				'direction' => 'asc',
+				'order' => 'ranging',
+				'direction' => 'desc',
 				'discontinued' => 2
 			);
 			
@@ -280,7 +280,7 @@ class Catalog extends Client_Controller {
 					redirect($product->full_url);
 				}
 			}
-			
+					
 			$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 			$products_ids = $this->catalog->get_products_ids($products);
 		

@@ -274,7 +274,7 @@ class Characteristics extends MY_Model
 			}
 			else
 			{
-				$query .= "ORDER BY name {$direction} ";
+				$query .= "ORDER BY {$order} {$direction} ";
 			}
 			
 			if($limit <> FALSE) $query .= "LIMIT {$from}, {$limit}";

@@ -547,7 +547,7 @@ class Import extends Admin_Controller
 					$this->products->insert($data);
 					$product_id = $this->db->insert_id();
 				} else {
-					$this->products->update($_product->id,$data);
+					$this->products->update($_product->id, $data);
 					$product_id = $_product->id;
 				}
 			
@@ -930,5 +930,25 @@ class Import extends Admin_Controller
 				
 		}
 		die('ok');
+	}
+	
+	public function update_ranging()
+	{
+		$products = $this->products->get_list(FALSE);
+		
+		$last_top_20 = $this->catalog->get_products_ids($this->products->get_list(FALSE, 0, 20, 'ranging', 'asc'));
+		
+		foreach($products as $product)
+		{
+			$rang = $this->products->set_ranging($product);
+			
+			if(in_array($product->id, $last_top_20)) $rang = $rang - 5000;
+			
+			echo $product->name.' - '.$rang.'<br />';
+			
+			$this->products->update($product->id, array('ranging' => $rang));
+		}
+		
+		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
 }
