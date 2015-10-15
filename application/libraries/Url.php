@@ -94,6 +94,80 @@ class CI_Url {
 		return $child;
 	}
 	
+	public function get_imgs_by_href($href)
+	{
+		$ex_href = explode('/', $href);
+		//var_dump($ex_href);
+		if(empty($ex_href[0])) return FALSE;
+		
+		$this->CI->load->helper('url_helper');
+		
+		$works_id = $this->CI->config->item('works_id');
+		$catalog_id = $this->CI->config->item('catalog_id');
+		$works_url = $this->CI->config->item('works_url');
+		$catalog_url = $this->CI->config->item('catalog_url');
+		
+		$imgs = array();
+		if($ex_href[0] == 'articles')
+		{
+			$content = $this->_parse_articles_href($ex_href);
+			if($content) $imgs = $this->CI->images->get_images(array('object_type' => 'articles', 'object_id' => $content->id));
+		}
+		elseif($ex_href[0] == $works_url)
+		{
+			$content = $this->_parse_categories_href($ex_href, $works_id);
+			if($content) $imgs = $this->CI->images->get_images(array('object_type' => 'products', 'object_id' => $content->id));
+		}
+		elseif($ex_href[0] == $catalog_url)
+		{
+			$content = $this->_parse_categories_href($ex_href, $catalog_id);
+			if($content) $imgs = $this->CI->images->get_images(array('object_type' => 'products', 'object_id' => $content->id));
+		}
+
+		return $imgs;
+	}
+	
+	protected function _parse_articles_href($href, $parent_id = 0, $segment = 1)
+	{
+		$content = $this->CI->articles->get_item_by(array('url' => $href[$segment], 'parent_id' => $parent_id));
+		
+		if(!$content) return FALSE;
+		
+		if(isset($href[$segment + 1]) && !empty($href[$segment + 1]))
+		{
+			return $this->_parse_articles_href($href, $content->id, $segment + 1);
+		}
+		else
+		{
+			return $content;
+		}
+		
+	}
+	
+	protected function _parse_categories_href($href, $parent_id = 1, $segment = 1)
+	{
+		$content = $this->CI->categories->get_item_by(array('url' => $href[$segment], 'parent_id' => $parent_id));
+
+		if(!$content)
+		{
+			$content = $this->CI->products->get_item_by(array('url' => $href[$segment], 'parent_id' => $parent_id));
+				
+			if(!$content) return FALSE;
+				
+			return $content;	
+		}
+		
+		if(isset($href[$segment + 1]) && !empty($href[$segment + 1]))
+		{
+			return $this->_parse_categories_href($href, $content->id, $segment + 1);
+		}
+		else
+		{
+			return $content;
+		}
+	}
+	
+	
 	public function url_parse($segment_number, $parent = FALSE)
 	{
 		$url = $this->CI->uri->segment($segment_number);

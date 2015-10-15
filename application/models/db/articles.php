@@ -86,17 +86,61 @@ class Articles extends MY_Model
 					$item->img[1] = $imgs[0];
 					$item->img[0] = $imgs[1];
 				}
+				$item->has_img = TRUE;
 			} else {
+				$item->img[0] = new stdClass();
+				$item->img[1] = new stdClass();
+				
 				$item->img[0]->categories_url = '/download/images/i/i/ii.png';
 				$item->img[1]->categories2_url = '/download/images/i/i/ii-hover.png';
 			}
+			
+			
 			if(!empty($item->date))
 			{
 				$item_date = new DateTime($item->date);
 				$item_date = date_format($item_date, 'd.m.Y');
 				$item->date = $item_date;
 			}
+			
+			$this->load->config('articles');
+			if($item->parent_id = $this->config->item('news_id'))
+			{
+				$imgs = $this->parse_description($item->description);
+				if($imgs)
+				{
+
+					$item->img = array_merge($imgs, $item->img);
+					$item->has_img = TRUE;
+				}
+			}
+			
 			return $item;
+		}
+	}
+	
+	protected function parse_description($description)
+	{
+		if(!empty($description))
+		{
+
+			$dom = new DOMDocument;
+			$dom->loadHTML($description);
+		
+			$imgs = array();
+			foreach ($dom->getElementsByTagName('a') as $node) 
+			{
+				$href = $node->getAttribute('href');
+				
+				$href = str_replace('http://brightberry.ru/', '', $href);
+						
+				$element_images = $this->url->get_imgs_by_href($href);
+				
+				if(!empty($element_images)) $imgs = array_merge($imgs, $element_images);
+			}
+			
+			//var_dump($imgs);
+			return $imgs;
 		}
 	}
 }

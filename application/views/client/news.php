@@ -26,7 +26,7 @@
 						
 						<section class="page__content" style="padding-left: 73px;">
 							<header class="page__header">
-								<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
+								<h1 class="page__title"><?=$content->name?></h1><!-- /.page__title -->
 							</header> <!-- /.page__header -->
 							
 							<div class="page__scroll">
@@ -35,7 +35,12 @@
 								<ul id="newscarousel" class="jcarousel-skin-tango" style="margin-top: 0px;margin-left: 0;padding-left: 0px;list-style: none;width: 580px;">
 									<?foreach($content->articles as $i => $a):?>
 										<li>
+											<?// var_dump($a);?>
 											<p><a style="font-size: 14px;padding-bottom: 5px;" href="<?=$a->full_url?>"><?=$a->name?></a></p>
+											<?if(isset($a->has_img)):?>
+												<span class="photo_icon">&nbsp;</span>
+											<?endif;?>
+											<!---<span class="video_icon">&nbsp;</span>-->
 											
 											<p class="acidYellow" style="margin-top: 5px;line-height: 5px;"><?=$a->date?><br>
 											<?=$a->description?></p>

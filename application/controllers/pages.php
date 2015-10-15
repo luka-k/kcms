@@ -22,7 +22,8 @@ class Pages extends Client_Controller {
 		
 		if(isset($page->article) && $page->id != 2 && $page->id != 5)
 		{
-			$content = $page;
+			$content = $this->articles->prepare($page);
+
 			if ($page->id == 4)
 			{
 				$partners = $this->partners->get_prepared_list($this->partners->get_list());
@@ -54,7 +55,7 @@ class Pages extends Client_Controller {
 		$data['meta_description'] = $content->meta_description;
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['content'] = $content;
-		
+
 		$this->load->view($template, $data);
 	}
 	

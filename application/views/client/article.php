@@ -32,31 +32,19 @@
 								<?else:?>
 									<?=$content->article->name?>
 								<?endif;?>
-							</h1> <!-- /.page__title -->
+							</h1><!-- /.page__title -->
 						</header> <!-- /.page__header -->
 						
 						<div class="page__text-nobulls page__scroll" style="width: 590px;">
 							<div class="page__scroll-in" style="width: 615px;">
 								<?=$content->article->description?> 
-								<? $object_images = $this->images->get_list(array("object_type" => "articles", "object_id" => $content->article->id), FALSE, FALSE, "url", "asc");
-		foreach($object_images as $key => $img)
-		{
-			if(!empty($img))
-			{
-				$object_images[$key] = $this->images->_get_urls($img);
-			
-				$type = $img->object_type;
-				$id = $img->object_id;
-			
-			}
-			else
-			{
-				unset($object_images[$key]);
-			}
-		}
 								
-								?>
+								<?if(isset($content->has_img)):?>
+									<?$object_images = $content->img?>
+								<?endif;?>
+
 							<? if ($this->uri->segment(3) == 'novosti'): ?>
+
 						<div class="projects" style="width:600px;">
 							<ul class="projects__list-noscroll clearfix" style="margin-top: 15px; margin-left: 20px; padding-left: 0px;list-style: none;width: 580px;">
 								<?for($i = 0; $i < count($object_images); $i+=3): $c = $object_images[$i];?>

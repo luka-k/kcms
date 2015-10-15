@@ -2156,3 +2156,28 @@ input.formButton:hover {color:#c6da2d !important;}
 	font-weight: bold;
 	margin-bottom: 18px;
 }
+
+/*********
+*
+*********/
+
+#newscarousel li{
+	position:relative;
+}
+
+.photo_icon{
+	position:absolute;
+	display:inline-block;
+	width:20px;
+	height:15px;
+	right:0;
+	top:0;
+	background: url('../images/photo.png') no-repeat;
+}
+
+.video_icon{
+	position:absolute;
+	width:20px;
+	height:15px;
+	
+}
