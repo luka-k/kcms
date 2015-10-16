@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>/template/client/css/style.css?v2" >
 
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/jquery-ui/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/fancybox/jquery.fancybox_shop.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/easydropdown/easydropdown_shop.css"/>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>template/client/plugins/customscrollbar/jquery.mCustomScrollbar.css"/>
 		

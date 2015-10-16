@@ -1,131 +1,118 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
-	<? $no_ajax = true; require 'include/head.php' ?>	
-	<body>
-	<form method="post" accept-charset="utf-8"  enctype="multipart/form-data" id="filter-form" class="filter-form" action="<?=base_url()?>shop/catalog/" >
-		<? require FCPATH.'application/views/client/include/header.php'?>
-		
-		<div id="wrapper" class="shop_wrapper">
-			<div class="section maxw">
-				<div class="mainwrap">
-					<main>
-						<article>
-							<div id="product-scroll" style="height: 700px; overflow-y: auto;">
-								<div class="p_brdcr"><? require FCPATH.'application/views/client/include/breadcrumbs.php' ?></div>
-								<div style="clear: both;"></div>
+	<? require 'include/head.php' ?>	
 
-								<div class="product-info">
-									<div id="gallery">
-										<?if(!empty($product->images)):?>
-											<div id="box">
-												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
-												<a href='<?= $product->images[0]->catalog_big_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
-											</div>
-									
-											<?if(count($product->images)>1):?>
-												<div class="thumbs">
-													<div class="thumbs-list">
-														<?$counter = 1?>
-														<?foreach ($product->images as $img):?>
-															<div class="thumb <?if($counter == 3):?>left<?endif;?>">
-																<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
-																	<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
-																</a>
-																<a href='<?= $img->catalog_big_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
-																	<img  src="<?= $img->catalog_small_url?>" alt="" />
-																</a>
-															</div>
-														<?$counter++?>
-														<?endforeach;?>
-													</div>
-												</div>
-											<?endif;?>
-										<?endif;?>
+	<body style="overflow:hidden; min-width:400px;">
+		<div id="product_content">
+			<div class="product-info" style="position:relative; display:block; ">
+				<div id="gallery">
+					<?if(!empty($product->images)):?>
+						<div id="box">
+							<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+							<a href='<?= $product->images[0]->catalog_big_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+						</div>
+					
+					<?if(count($product->images)>1):?>
+						<div class="thumbs">
+							<div class="thumbs-list">
+								<?$counter = 1?>
+								<?foreach ($product->images as $img):?>
+									<div class="thumb <?if($counter == 3):?>left<?endif;?>">
+										<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
+											<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
+										</a>
+										
+										<a href='<?= $img->catalog_big_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
+											<img  src="<?= $img->catalog_small_url?>" alt="" />
+										</a>
 									</div>
-									
-									<div class="product_content">
-										<div class="item-description">
-		
-											<strong>
-												<?=$product->manufacturer_name?>
-												
-												<?=$product->collection_name ?>
-												
-												<?if(isset($product->sub_collections)):?>
-													<?=$product->sub_collections?>
-												<?endif;?>
+									<?$counter++?>
+								<?endforeach;?>
+							</div>
+						</div>
+					<?endif;?>
+				<?endif;?>
+			</div>
 			
-												<?if(!empty($product->serie_name)):?>
-													(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?else:?>; <?endif;?>
-												<?endif;?>
-												<?if(isset($product->sub_series)):?>
-													; <?=$product->sub_series?>)
-												<?endif;?>
-												
-												<?=$product->sku?>
-											</strong>
-	
-											<?= $product->sizes_string?>
-											</br>
-												
-												
-												<?foreach($product->color as $color):?>
-													<?=$color->value?><?endforeach;
-													if ($product->color && $product->material) echo '/';
-													foreach($product->material as $material):?><?=$material->value?>
-												<?endforeach;?><? if (($product->color || $product->material) && !$product->finishing && $product->turn) echo ', ';?>
-												
-												<?foreach($product->finishing as $finishing):?>
-													<?=$finishing->value?><?endforeach;?><? if ($product->finishing && $product->turn) echo ', ';?>
-												<?foreach($product->turn as $turn):?>
-													<?=$turn->value?>
-												<?endforeach;?>
-												<br />
+			<div class="product_content">
+				<div class="item-description">
+					<strong>
+						<?=$product->manufacturer_name?>
+						<?=$product->collection_name ?>
+						
+						<?if(isset($product->sub_collections)):?>
+							<?=$product->sub_collections?>
+						<?endif;?>
+						
+						<?if(!empty($product->serie_name)):?>
+							(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?else:?>; <?endif;?>
+						<?endif;?>
+						<?if(isset($product->sub_series)):?>
+							; <?=$product->sub_series?>)
+						<?endif;?>
+						<?=$product->sku?>
+					</strong>
+					
+					<?= $product->sizes_string?></br>
+					
+					<?foreach($product->color as $color):?>
+						<?=$color->value?>
+					<?endforeach;
+					if ($product->color && $product->material) echo '/';
+					foreach($product->material as $material):?>
+						<?=$material->value?>
+					<?endforeach;?>
+					<? if (($product->color || $product->material) && !$product->finishing && $product->turn) echo ', ';?>
+					<?foreach($product->finishing as $finishing):?>
+						<?=$finishing->value?>
+					<?endforeach;?>
+					<? if ($product->finishing && $product->turn) echo ', ';?>
+					<?foreach($product->turn as $turn):?>
+						<?=$turn->value?>
+					<?endforeach;?><br />
 
-												<strong><?=$product->shortname->value?> </strong>
-												
-												<?foreach($product->shortdesc as $shortdesc):?>
-													<?if($shortdesc->value != 'не указано'):?>
-														<?=$shortdesc->value?>
-													<?endif;?>
-												<?endforeach;?>
-											
-												<? if ($product->discontinued):?>
-													<? $date = explode(' ', $product->discontinued); $date = $date[0];?>
-													<span style="display:inline-block">(Снято с производства <?= $date?>)</span>
-												<?endif?>
-												
-												<div class="sale_desc">
-													<? if ($product->sale):?>
-														<strong><span style="color: red;">Распродажа!</span></strong>
-													<?endif?>
-													
-													<? if ($product->description):?>
-														(<?= $product->description ?>)
-													<?endif?>	
-												</div>
-										</div>
-										<div class="item-buy-info">
-											<div class="product-price">
-											<?if (!$product->price && !$product->sale_price):?>
-												<p>Цена: <span class="no-price">по запросу</span></p>
-											
-											<?else:?>
-											<?if ($product->price):?>
-												<p>Цена розничная: <span class="cross-price"><?=$product->price?> р.</span> <span class="discount">-<?=$product->discount?>%</span></p>
-											<? endif?>
-												<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
-											<?endif?>
-												<p>Наличие: <span class="blue-label"><?=$product->qty ? 'на складе СПб' : 'по запросу'?></span></p>
-												<p><a href="" onclick="add_to_cart('<?=$product->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></p>
-											</div>
-										</div>
-										
-										
-									</div>
-									
-								</div>
-								<div style="clear: both;"></div>
+					<strong><?=$product->shortname->value?> </strong>
+					
+					<?foreach($product->shortdesc as $shortdesc):?>
+						<?if($shortdesc->value != 'не указано'):?>
+							<?=$shortdesc->value?>
+						<?endif;?>
+					<?endforeach;?>
+					
+					<? if ($product->discontinued):?>
+						<? $date = explode(' ', $product->discontinued); $date = $date[0];?>
+						<span style="display:inline-block">(Снято с производства <?= $date?>)</span>
+					<?endif?>
+					
+					<div class="sale_desc">
+						<? if ($product->sale):?>
+							<strong><span style="color: red;">Распродажа!</span></strong>
+						<?endif?>
+					
+						<? if ($product->description):?>
+							(<?= $product->description ?>)
+						<?endif?>	
+					</div>
+				</div>
+				
+				<div class="item-buy-info">
+					<div class="product-price">
+						<?if (!$product->price && !$product->sale_price):?>
+							<p>Цена: <span class="no-price">по запросу</span></p>
+							
+						<?else:?>
+							<?if ($product->price):?>
+								<p>Цена розничная: <span class="cross-price"><?=$product->price?> р.</span> <span class="discount">-<?=$product->discount?>%</span></p>
+							<? endif?>
+							<p>Цена на сайте: <span class="top-price"><?=$product->sale_price?></span> р.</p>
+						<?endif?>
+						<p>Наличие: <span class="blue-label"><?=$product->qty ? 'на складе СПб' : 'по запросу'?></span></p>
+						<p><a href="" onclick="add_to_cart('<?=$product->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
 								
 								<div class="accordeon">
 									<div class="accordeon-head-1">
@@ -146,7 +133,7 @@
 												<div class="check_col"><input type="checkbox" class="ch-comp-<?=$components->id?>" onchange="precart('<?=$components->id?>', 'comp', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($components->img)):?>
-														<a href="<?=$components->full_url?>"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$components->full_url?>" class="modal_product" data-product-id="<?= $components->id?>" data-fancybox-type="iframe"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -214,7 +201,7 @@
 												<div class="check_col"><input type="checkbox" class="ch-acc-<?=$accessories->id?>" onchange="precart('<?=$accessories->id?>', 'acc', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($accessories->img)):?>
-														<a href="<?=$accessories->full_url?>"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$accessories->full_url?>" class="modal_product" data-product-id="<?= $accessories->id?>" data-fancybox-type="iframe"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -280,7 +267,7 @@
 												<div class="check_col">&nbsp;</div>
 												<div class="img_col">
 													<?if(isset($recommended->img)):?>
-														<a href="<?=$recommended->full_url?>"><img src="<?=$recommended->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$recommended->full_url?>" class="modal_product" data-product-id="<?= $recommended->id?>" data-fancybox-type="iframe"><img src="<?=$recommended->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -340,31 +327,17 @@
 									</div>
 									<?endif?>
 								</div>
-								
-
-							</div>
-						</article>
-					</main>
-				</div>
-				
-				<? require 'include/left-col.php'?>
-				
-				<aside id="s_right">
-					<?require FCPATH.'application/views/client/include/news_collumn.php'?>
-				</aside>
-			</div>
-		</div>
-		
-		
-		
-	</form>
-	</body>
-
+	</div>
+	
+	<script>
+		$('.modal_product').on('click', function(){
+		var productId = $(this).attr('data-product-id');
+		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
+		$('#shadow').css('display', 'none');
+		$('#full-shadow').css('display', 'block');
+	});
+	</script>
 	<?require_once 'include/product_scripts.php'?>
 	<?require_once 'include/shop_scripts.php'?>
-	<?require_once 'include/scroll_scripts.php'?>
-	<?require_once 'include/range_scripts.php'?>
-	<?require_once 'include/left_menu_scripts.php'?>
-		<?require "include/footer.php"?>
-		<script>$('.fancybox').fancybox();</script>
+</body>
 </html>

@@ -565,6 +565,22 @@ class Catalog extends Client_Controller {
 		$this->load->view('client/shop/product', $data);
 	}
 	
+	public function flypage($id)
+	{
+		$this->session->unset_userdata('pre_cart');
+		
+		$product = $this->products->get_item($id);
+		$product->recommended_products = $this->products->prepare_list($this->products->get_anchor($product->id, 'recommended'), TRUE);
+		$product->components_products = $this->products->prepare_list($this->products->get_anchor($product->id, 'components'), TRUE);
+		$product->accessories_products = $this->products->prepare_list($this->products->get_anchor($product->id, 'accessories'), TRUE);
+		
+		$data = array(
+			'product' => $this->products->prepare($product, FALSE)
+		);
+		
+		$this->load->view('client/shop/flypage', $data);
+	}
+	
 	public function count()
 	{
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);

@@ -179,6 +179,7 @@ class Products extends MY_Model
 		if(!empty($item))
 		{
 			$item->full_url = $this->get_url($item);
+			
 			$item->price = round($item->price, -1);
 			if(isset($item->sale_price))
 			{		

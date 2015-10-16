@@ -55,6 +55,7 @@ if($host[0] == "shop")
 	$route['catalog/ajax_more'] = 'shop/catalog/ajax_more';
 	$route['catalog/filter/(:any)'] = 'shop/catalog/filter/$1';
 	$route['catalog/sale'] = 'shop/catalog/get_by_filter';
+	$route['catalog/flypage/(:any)'] = 'shop/catalog/flypage/$1';
 
 	$route['catalog'] = 'shop/catalog/index';
 	$route['catalog/(:any)'] = 'shop/catalog/index/$1';
