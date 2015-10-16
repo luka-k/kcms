@@ -45,7 +45,13 @@
 																		<span class="plus-minus" onclick="change_qty('+', '<?=$item_id?>')">+</span>
 																	</td>
 																	<td class="col_5">
-																		<div class="cart-table__price"><span id="<?=$item_id?>-qty"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
+																		<div class="cart-table__price">
+																			<?if (!$item->item_total):?>
+																				<span class="no-price">по запросу</span>
+																			<?else:?>
+																				<span id="<?=$item_id?>-qty"><?=$item->item_total?></span> р.
+																			<?endif;?>
+																		</div> <!-- /.cart-table__price -->
 																	</td>
 																	<td class="col_6">
 																		<a href="#" class="cart-delete" onclick="delete_item('<?=$item_id?>')">x</a>
