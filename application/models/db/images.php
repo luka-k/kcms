@@ -174,18 +174,41 @@ class Images extends MY_Model
 			$check_array['object_type'] = $object_type;
 		if ($only_covers)
 			$check_array['is_cover'] = 1;
+			
 		$images= $this->images->get_list($check_array);
+		
 		foreach ($images as $image)
 		{
 			$upload_path = $this->config->item('images_upload_path');
 			$thumb_config = $this->config->item('thumb_config');
 			
+			$thumbs = array();
+			if(!$thumb_type)
+			{
+				$object_type = $image->object_type;
+			
+				if(isset($this->$object_type->thumbs))
+				{
+					$thumbs = $this->$object_type->thumbs;
+					$thumbs[] = 'admin';
+				}
+			
+				if(!empty($thumbs)) foreach ($thumb_config as $thumb_dir_name => $configs) 
+				{
+					if(!in_array($thumb_dir_name, $thumbs)) unset($thumb_config[$thumb_dir_name]);
+				}
+			}
+			
 			foreach($thumb_config as $path => $param)
 			{
 				if (!$thumb_type || $path == $thumb_type)
-					unlink($upload_path."/".$path.$image->url);
+				{
+					$file_path = $upload_path."/".$path.$image->url;
+					if(is_file($file_path)) unlink($file_path);
+				}
 			}
-			$this->generate_thumbs($upload_path . $image->url, $thumb_type);
+			
+			$thumb_type ? $this->generate_thumbs($upload_path . $image->url, array($thumb_type)) : $this->generate_thumbs($upload_path . $image->url, $thumbs);
 		}
 		return TRUE;
 	}
