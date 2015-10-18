@@ -5,52 +5,55 @@ $config['files_upload_path'] = FCPATH.'download/files';
 
 $config['thumb_config'] = array(
 	'admin' => array(
+		'q' => 95,
 		'w' => 150,
 		'h' => 150,
 		'far' => 1,
 		"bg" => "ffffff"
 	),
 	"catalog_big" => array(
+		'q' => 95,
 		'w' => 1100,
 		'h' => 1100,
 		'fltr' => "wmi|images/logo.png|BR|75|90|40|",
-		'far' => 1,
 		"bg" => "ffffff"
 	),
 	"catalog_mid" => array(
+		'q' => 95,
 		'w' => 225,
 		'h' => 170,
-		'far' => 1,
 		"bg" => "ffffff"		
 	),
 	"catalog_small" => array(
+		'q' => 95,
 		'w' => 150,
 		'h' => 150,
-		'far' => 1,
 		"bg" => "ffffff"	
 	),
 	"document_main" => array(
+		'q' => 95,
 		'w' => 168,
 		'h' => 235,
-		'far' => 1,
 		"bg" => "ffffff"	
 	),
 	"product_small" => array(
+		'q' => 95,
 		'w' => 222,
 		'h' => 222,
-		'far' => 1,
 		"bg" => "ffffff"	
 	),
 	"manufacturer" => array(
+		'q' => 95,
 		'w' => 162,
 		'h' => 72,
-		'far' => 1,
+		'zc' => '1',
+		//'far' => 'C',
 		"bg" => "ffffff"	
 	),
 	"small_map" => array(
+		'q' => 95,
 		'w' => 300,
 		'h' => 150,
-		'far' => 1,
 		'zc' => 1,
 		"bg" => "ffffff"	
 	)
