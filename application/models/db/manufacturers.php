@@ -38,6 +38,8 @@ class Manufacturers extends MY_Model
 		),
 	);
 	
+	public $thumbs = array('manufacturer');
+	
 	function __construct()
 	{
         parent::__construct();

@@ -66,15 +66,29 @@ class Images extends MY_Model
 		{
 			if(!copy(trim($img["tmp_name"]), $img_path)) return FALSE;
 		}
-
-		//Создаем миниатюры
-		if($this->generate_thumbs($img_path)) return FALSE;
 		
-		$object_info['url'] = $img_info->url;
-		$name = explode(".", $img_info->name);
-		$object_info['name'] = $name[0];
-
-		return $this->insert($object_info);
+		$table = $object_info['object_type'];
+		
+		$thumbs = array();
+		if(isset($this->$table->thumbs))
+		{
+			$thumbs = $this->$table->thumbs;
+			$thumbs[] = 'admin';
+		}
+		
+		//Создаем миниатюры
+		if($this->generate_thumbs($img_path, $thumbs))
+		{
+			// запись в логи
+		}		
+		else
+		{
+			$object_info['url'] = $img_info->url;
+			$name = explode(".", $img_info->name);
+			$object_info['name'] = $name[0];
+			$this->insert($object_info);
+		}
+		return TRUE;
 	}
 
 	/**
@@ -84,16 +98,16 @@ class Images extends MY_Model
 	* @param string $thumb_config_name
 	* @return bool
 	*/
-	public function generate_thumbs($img_path, $thumb_config_name = FALSE)
+	public function generate_thumbs($img_path, $thumbs = array())
 	{
 		require_once FCPATH.'application/third_party/phpThumb/phpthumb.class.php';
 
 		$upload_path = $this->config->item('images_upload_path');
 		$thumb_config = $this->config->item('thumb_config');
 		
-		if($thumb_config_name) foreach ($thumb_config as $thumb_dir_name => $configs) 
+		if(!empty($thumbs)) foreach ($thumb_config as $thumb_dir_name => $configs) 
 		{
-			if($thumb_dir_name <> $thumb_config_name) unset($thumb_config[$thumb_dir_name]);
+			if(!in_array($thumb_dir_name, $thumbs)) unset($thumb_config[$thumb_dir_name]);
 		}
 		
 		$image_name = array_reverse(explode("/", $img_path));
@@ -191,9 +205,8 @@ class Images extends MY_Model
 		}
 		
 		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));
-//		$image = $this->get_item_by(array("object_type" => "settings"));
-		
-		return $this->get_urls($image);
+
+		return $this->get_urls($image, $image->object_type);
 	}
 	
 	/**
@@ -202,13 +215,27 @@ class Images extends MY_Model
 	* @param object $image
 	* @return object
 	*/
-	private function get_urls($image)
+	private function get_urls($image, $object_type)
 	{
 		if($image)
 		{
 			$thumb_config = $this->config->item('thumb_config');
+			
+			$thumbs = array();
+			if(isset($this->$object_type->thumbs))
+			{
+				$thumbs = $this->$object_type->thumbs;
+				$thumbs[] = 'admin';
+			}
+			
+			if(!empty($thumbs)) foreach ($thumb_config as $thumb_dir_name => $configs) 
+			{
+				if(!in_array($thumb_dir_name, $thumbs)) unset($thumb_config[$thumb_dir_name]);
+			}
+			
 			foreach($thumb_config as $path => $config)
 			{
+				
 				$url_name = $path."_url";
 				$image->$url_name = $this->make_full_url($image->url, $path);
 			}
@@ -269,9 +296,11 @@ class Images extends MY_Model
 		$thumb_info = $this->config->item('thumb_config');
 		foreach ($thumb_info as $path => $item)
 		{
-			unlink($upload_path."/".$path.$img->url);
+			$file_path = $upload_path."/".$path.$img->url;
+			if(is_file($file_path)) unlink($file_path);
 		}
-		unlink($upload_path.$img->url);
+		
+		if(is_file($file_path)) unlink($upload_path.$img->url);
 		
 		if(($this->get_count(array("object_id" => $img->object_id)) > 0) && ($img->is_cover == 1))
 		{
@@ -297,7 +326,7 @@ class Images extends MY_Model
 		if(!empty($item))
 		{
 			if(!is_object($item)) $item = (object)$item;
-			$item = $this->get_urls($item);
+			$item = $this->get_urls($item, $item->object_type);
 			return $item;
 		}			
 	}

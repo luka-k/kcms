@@ -11,8 +11,8 @@
 		<?$counter = 1?>
 		<div class="col_12">
 			<?foreach($content->images as $image):?>
-				<div class="col_3">
-					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->catalog_small_url?>" width="100%"/></a>
+				<div class="col_2">
+					<a href="<?=$image->full_url?>" class="lightbox"><img src="<?=$image->admin_url?>" width="100%"/></a>
 					<div class="col_6">
 						<?if($image->is_cover == 0):?>
 							<a href="<?=base_url()?>admin/content/set_cover/<?=$image->object_type?>/<?=$image->object_id?>/<?=$image->id?>/<?=$tab_counter?>">Обложка</button></a>

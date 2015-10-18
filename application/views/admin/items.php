@@ -44,9 +44,9 @@
 											<td class="tb_3">
 												<?if($item->image <> NULL):?>
 													<?if(!isset($item->is_edit)||($item->is_edit == 1)):?>
-														<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->image->catalog_small_url?>" /></a>
+														<a href="<?=base_url()?>admin/content/item/edit/<?=$type?>/<?=$item->id?>"><img src="<?=$item->image->admin_url?>" /></a>
 													<?else:?>
-														<img src="<?=$item->image->catalog_small_url?>" />
+														<img src="<?=$item->image->admin_url?>" />
 													<?endif;?>
 												<?endif;?>
 											</td>

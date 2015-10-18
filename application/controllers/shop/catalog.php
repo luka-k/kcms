@@ -127,6 +127,7 @@ class Catalog extends Client_Controller {
 				$data['total_price'] = $this->cart->total_price();
 				$data['total_qty'] = $this->cart->total_qty();
 				$data['main_page'] = TRUE;
+				
 				$data = array_merge($this->standart_data, $data);			
 			}
 			else
@@ -167,7 +168,7 @@ class Catalog extends Client_Controller {
 				
 				$this->filters_cache->insert($cache_id, $data);
 			}
-				
+
 			$this->benchmark->mark('code_end');
 			//echo $this->benchmark->elapsed_time('code_start', 'code_end');
 			

@@ -67,6 +67,8 @@ class Products extends MY_Model
 		)
 	);
 	
+	public $thumbs = array('catalog_big', 'catalog_mid', 'catalog_small', 'product_small');
+	
 	function __construct()
 	{
         parent::__construct();
