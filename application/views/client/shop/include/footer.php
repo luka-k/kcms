@@ -35,7 +35,11 @@ function autocomp(){
 		overlayOpacity: 0.8,
 		width: flypage_width,
 		overlayColor: '#000',
-		margin: [70, 25, 15, 290]
+		margin: [70, 25, 15, 290],
+		beforeClose: function() {
+			$('#shadow').css('display', 'block');
+			$('#full-shadow').css('display', 'none');
+		}
 	});
 	
 	$('.shadow-btn').on('click', function(){

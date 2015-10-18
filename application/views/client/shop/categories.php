@@ -178,6 +178,10 @@
 			<div id="shadow"></div>
 		<? endif ?>
 		
+		<div id="full-shadow" style="display:none;">
+			<a href="#" class="shadow-btn">Обратно к списку товаров</a>
+		</div>
+		
 	</body>
 	
 	<?require_once 'include/shop_scripts.php'?>
