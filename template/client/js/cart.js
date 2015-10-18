@@ -3,8 +3,16 @@ function add_to_cart(item_id, qty){
 	data.item_id = item_id;
 	data.qty = qty;
 	var json_str = JSON.stringify(data);
-	$.post ("/ajax/add_to_cart/", json_str, update_items, "json");
+	$.post ("/ajax/add_to_cart/", json_str, function(res){
+		if (window == top) {
+			update_items(res);
+		} else {
+			window.top.update_items(res);
+		}
+	}, "json");
 }
+
+
 	
 function update_cart(item_id, qty){
 	data = new Object();
@@ -131,5 +139,12 @@ function precart_to_cart(product_id){
 	var data  = new Object();
 	data.product_id = product_id;
 	var json_str = JSON.stringify(data);
-	$.post("/cart/precart_to_cart/", json_str, update_items, "json");
+
+	$.post("/cart/precart_to_cart/", json_str, function(res){
+		if (window == top) {
+			update_items(res);
+		} else {
+			window.top.update_items(res);
+		}
+	}, "json");
 }

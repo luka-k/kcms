@@ -275,7 +275,7 @@ class Cart extends Client_Controller
 		$data = array(
 			'total_qty' => $this->cart->total_qty(),
 			'total_price' => $this->cart->total_price(),
-			'product_word' => $this->string_edit->set_word_form("товар", $data['total_qty'])
+			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty())
 		);
 		
 		echo json_encode($data);

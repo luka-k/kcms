@@ -36,7 +36,11 @@
 			</ul>
 		</div>
 		<div class="minicart">
-			<a href="<?=base_url()?>cart"><span class="hidden_part"><span class="total_qty"><?=$total_qty?></span> товаров на сумму: <span class="total_price"><?=$total_price?></span> руб.</span>&nbsp;</a>
+			<a href="<?=base_url()?>cart">
+				<span class="hidden_part">
+					<span id="header_total_qty" class="total_qty"><?=$total_qty?></span> товаров на сумму: <span id="header_total_price" class="total_price"><?=$total_price?></span> руб.
+				</span>&nbsp;
+			</a>
 		</div>
 	</div>
 </header>
