@@ -13,13 +13,13 @@
 	</div>
 	<div class="product-image">
 		<?if(isset($item->img)):?>
-			<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
+			<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
 		<?else:?>
-			<a href="<?=$item->full_url?>"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
+			<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
 		<?endif;?>
 	</div>
 	<div class="product-name">
-		<a href="<?=$item->full_url?>">
+		<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe">
 			<strong>
 				<?=$item->manufacturer_name?>
 												
@@ -78,3 +78,22 @@
 		</div>			
 	</div>
 </div>
+<script>
+	$('.modal_product').on('click', function(){
+		console.log('ok');
+		var productId = $(this).attr('data-product-id');
+		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
+		$('#shadow').css('display', 'none');
+		$('#full-shadow').css('display', 'block');
+	});
+	
+	var flypage_width = $(window).width();
+
+	$('.modal_product').fancybox({
+		overlayOpacity: 0.8,
+		width: flypage_width,
+		height: 200,
+		overlayColor: '#000',
+		margin: [70, 25, 15, 290]
+	});
+</script>

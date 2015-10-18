@@ -52,8 +52,8 @@
 			<input type="hidden" name="discontinued" class="input_discontinued" value="<?if(isset($filters['discontinued'])):?><?=$filters['discontinued']?><?else:?>2<?endif;?>"/>
 			<input type="hidden" id="last_type_filter" name="last_type_filter" value=""/>
 			<input type="hidden" id="ajax_from" class="ajax_from" name="from" value="10"/>
-			<input type="hidden" id="sorting_order" name="order" value="name"/>
-			<input type="hidden" id="sorting_direction" name="direction" value="asc"/>
+			<input type="hidden" id="sorting_order" name="order" value="ranging"/>
+			<input type="hidden" id="sorting_direction" name="direction" value="desc"/>
 
 			<div class="lm-block">
 				<div class="lm-caption">

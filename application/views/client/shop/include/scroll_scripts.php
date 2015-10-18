@@ -22,8 +22,8 @@
 			$('.secondcolumn').css("max-width", max_width + 'px');
 	
 			$('.ajax_from').val(10);
-			$('#sorting_order').val('name');
-			$('#sorting_direction').val('asc');
+			$('#sorting_order').val('ranging');
+			$('#sorting_direction').val('desc');
 			<? if (!isset($no_ajax)):?>
 				$("#product-scroll").scroll(function() {
 			

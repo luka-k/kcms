@@ -7,6 +7,7 @@ class Manufacturers extends MY_Model
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', "name", 'require'),
 			'is_active' => array('Активна', 'checkbox'),
+			'is_ranging' => array('Товары из топ', 'checkbox'),
 			'phone' => array('Телефон', 'text'),
 			'email' => array('email', 'text'),
 			'country' => array('Страна', 'text'),

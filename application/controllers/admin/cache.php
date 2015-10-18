@@ -53,9 +53,9 @@ class Cache extends Admin_Controller
 				
 				$param = array('parent_id' => $child_category->id);
 				
-				$products = $this->products->get_list($param, 0, 10, 'sort', 'asc');
+				$products = $this->products->get_list($param, 0, 10, 'ranging', 'desc');
 								
-				$all_products = $this->products->get_list($param, FALSE, FALSE, 'sort', 'asc');
+				$all_products = $this->products->get_list($param, FALSE, FALSE, 'ranging', 'desc');
 				$total_rows = count($all_products);
 								
 				$all_products_ids = $this->catalog->get_products_ids($all_products);
@@ -123,9 +123,9 @@ class Cache extends Admin_Controller
 			
 			$filters_checked['categories_checked'] = $categories_checked;
 
-			$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
+			$products = $this->characteristics->get_products_by_filter($filters_checked, 'ranging', 'desc', 10, 0);
 				
-			$all_products =  $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc');
+			$all_products =  $this->characteristics->get_products_by_filter($filters_checked, 'ranging', 'desc');
 			$total_rows = count($all_products);
 							
 			$all_products_ids = $this->catalog->get_products_ids($all_products);
@@ -234,7 +234,7 @@ class Cache extends Admin_Controller
 						
 					if($products)
 					{
-						$all_products = $this->products->get_list($param, FALSE, FALSE, 'sort', 'asc');
+						$all_products = $this->products->get_list($param, FALSE, FALSE, 'ranging', 'desc');
 						$total_rows = count($all_products);
 								
 						$all_products_ids = $this->catalog->get_products_ids($all_products);
@@ -305,11 +305,11 @@ class Cache extends Admin_Controller
 				$manufacturer_ch = array($manufacturer->name);
 				$filters_checked['manufacturer_checked'] = array($manufacturer->id);
 
-				$products = $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc', 10, 0);
+				$products = $this->characteristics->get_products_by_filter($filters_checked, 'ranging', 'desc', 10, 0);
 				
 				if($products)
 				{
-					$all_products =  $this->characteristics->get_products_by_filter($filters_checked, 'sort', 'asc');
+					$all_products =  $this->characteristics->get_products_by_filter($filters_checked, 'ranging', 'desc');
 					$total_rows = count($all_products);
 							
 					$all_products_ids = $this->catalog->get_products_ids($all_products);
@@ -390,8 +390,8 @@ class Cache extends Admin_Controller
 			$filters_checked['manufacturer_checked'][] = $manufacturer->id;
 			$manufacturer_ch = array($manufacturer->name);
 			
-			$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $manufacturer->id), 0, 10, 'sort', 'asc'));
-			$all_products = $this->products->get_list(array('manufacturer_id' => $manufacturer->id), FALSE, FALSE, 'sort', 'asc');
+			$products = $this->products->prepare_list($this->products->get_list(array('manufacturer_id' => $manufacturer->id), 0, 10, 'ranging', 'desc'));
+			$all_products = $this->products->get_list(array('manufacturer_id' => $manufacturer->id), FALSE, FALSE, 'ranging', 'desc');
 			$total_rows = count($all_products);
 			
 			$all_products_ids = $this->catalog->get_products_ids($all_products);
@@ -459,8 +459,8 @@ class Cache extends Admin_Controller
 					$filters_checked['collection_checked'][] = $collection->id;
 					$collection_ch = array($collection->name);
 			
-					$products = $this->collections->get_products_by_collection($collection->id, 0, 10, 'name', 'asc');
-					$all_products = $this->collections->get_products_by_collection($collection->id, FALSE, FALSE, 'name', 'asc');
+					$products = $this->collections->get_products_by_collection($collection->id, 0, 10, 'ranging', 'desc');
+					$all_products = $this->collections->get_products_by_collection($collection->id, FALSE, FALSE, 'ranging', 'desc');
 
 					$total_rows = count($all_products);
 			

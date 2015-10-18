@@ -137,6 +137,21 @@ class Products extends MY_Model
 		return $full_url;		
 	}
 	
+	public function set_ranging($product)
+	{
+		$rang = 0;
+		
+		$img_count = $this->images->get_count(array('object_type' => 'products', 'object_id' => $product->id));
+		if($img_count > 0) $rang = $rang + 10000;
+
+		$manufacturer = $this->manufacturers->get_item($product->manufacturer_id);
+		if($manufacturer->is_ranging) $rang = $rang + 10000;
+		
+		$rang = $rang + rand(0, 1000);
+		
+		return $rang;
+	}
+	
 	/**
 	* Получение цены со скидкой
 	*
@@ -164,6 +179,7 @@ class Products extends MY_Model
 		if(!empty($item))
 		{
 			$item->full_url = $this->get_url($item);
+			
 			$item->price = round($item->price, -1);
 			if(isset($item->sale_price))
 			{		
