@@ -21,6 +21,29 @@ function autocomp(){
 				advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
 			});
 		}
+		
+	$('.modal_product').on('click', function(){
+		var productId = $(this).attr('data-product-id');
+		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
+		$('#shadow').css('display', 'none');
+		$('#full-shadow').css('display', 'block');
+	});
+	
+	var flypage_width = $(window).width();
+
+	$('.modal_product').fancybox({
+		overlayOpacity: 0.8,
+		width: flypage_width,
+		overlayColor: '#000',
+		margin: [70, 25, 15, 290]
+	});
+	
+	$('.shadow-btn').on('click', function(){
+		$.fancybox.close();
+		$('#shadow').css('display', 'block');
+		$('#full-shadow').css('display', 'none');
+	});
+
 </script>
 
 <!-- Yandex.Metrika counter -->
