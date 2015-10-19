@@ -35,14 +35,16 @@
 									<h3 class="widget-title">  </h3>
 									<ul class="advanced-recent-posts">
 										<?foreach($content->news as $news_item):?>
-											<li class="news-item">
-												<a href="<?=$news_item->full_url?>" title="<?=$news_item->name?>" >
-													<img width="50" height="50" class="recent-posts-thumb" src="<?=$news_item->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /><?=$news_item->name?>
-												</a>
-												<div class="magic news-text"> 
-													<?=$news_item->short_description?>
-												</div>
-											</li>
+											<?if(!empty($news_item->short_description)):?>
+												<li class="news-item">
+													<a href="<?=$news_item->full_url?>" title="<?=$news_item->name?>" >
+														<img width="50" height="50" class="recent-posts-thumb" src="<?=$news_item->img->url?>" class="attachment-50x50 wp-post-image" alt="fff" /><?=$news_item->name?>
+													</a>
+													<div class="magic news-text"> 
+														<?=$news_item->short_description?>
+													</div>
+												</li>
+											<?endif;?>
 										<?endforeach;?>
 									</ul>
 								</div>	
