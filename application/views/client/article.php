@@ -96,6 +96,6 @@
 			</div>
 			
 		</div>	
-			
+		
 		
 <? require 'include/footer.php' ?>

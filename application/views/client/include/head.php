@@ -172,6 +172,18 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#st-accordion').accordion();
+			
+			$('a.lightbox').fancybox({
+				overlayOpacity: 0.2,
+				overlayColor: '#000'
+			});
+			
+			var imgs = $('.cont img');
+				
+			imgs.each(function() { 
+				var link = $(this).attr('src');
+				$(this).wrap("<a href="+link+" class='lightbox'>");
+			});
 		});
 
 		function cssmenuhover()
