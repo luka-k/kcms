@@ -51,20 +51,27 @@ margin:0;
 }
 
 .tmpSlideCopy{
-font:13px "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-line-height:18px;
-position:absolute;
-left:640px;
-width:328px;
-color:#fff;
-padding:15px;
-text-align:justify;
+	line-height:18px;
+	position:absolute;
+	left:640px;
+	width:328px;
+	color:#fff;
+	padding:15px;
+	text-align:justify;
 }
   
 #barintro{margin-bottom:20px;background:url(../image/backgrounds/greyback.jpg) #fafafa;}
 
 .tmpSlideCopy p{
-line-height: 18px;
+	font-size:13px;
+	font-family:verdana, geneva, sans-serif;
+	line-height: 16px;
+	color:#fff;
+	text-align:justify;
+}
+
+.tmpSlideCopy a{
+	color:#fd7535;
 }
 
 .bx-wrapper .bx-pager,
