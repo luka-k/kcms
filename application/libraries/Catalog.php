@@ -132,7 +132,7 @@ class CI_Catalog {
 			}
 			
 			$ch_ids = array_unique($ch_ids);
-			
+			//my_dump($ch_ids);
 			$this->CI->db->select('type, value, id');
 			$this->CI->db->where('type', 'shortname');
 			if(!empty($ch_ids)) $this->CI->db->where_in('id', $ch_ids);
@@ -147,9 +147,9 @@ class CI_Catalog {
 			{
 				$this->CI->db->select('type, value, id');
 				
-				if(!empty($selected['shortdesc'])) $this->CI->db->where_in('id', array_keys($selected['shortdesc']));
-				$this->CI->db->where('parent_id', $r->id);
 				if(!empty($ch_ids)) $this->CI->db->or_where_in('id', $ch_ids);
+				$this->CI->db->where('parent_id', $r->id);
+				if(!empty($selected['shortdesc'])) $this->CI->db->or_where_in('id', array_keys($selected['shortdesc']));
 				$this->CI->db->where('parent_id', $r->id);
 				$this->CI->db->order_by('sort', 'desc');
 				$this->CI->db->order_by('value', 'asc');
@@ -169,7 +169,7 @@ class CI_Catalog {
 		}
 		//$this->CI->benchmark->mark('code_end');
 		//my_dump($this->CI->benchmark->elapsed_time('code_start', 'code_end'));
-		
+		//my_dump($nok_tree);
 		return $nok_tree;
 	}
 	
