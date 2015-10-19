@@ -224,9 +224,10 @@ class CI_Url {
 			{
 				$f = array_merge($f, $this->CI->articles->get_list(array("parent_id" => $item->id)));
 			}
-			
+
 			if(empty($f) && $child->id <> 3) $child->article = $child->articles[0];
 		}
+		
 		return $child;
 	}
 }
