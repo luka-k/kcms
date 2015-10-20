@@ -579,6 +579,8 @@ class Catalog extends Client_Controller {
 			}
 		}
 		
+		$data['no_shadow'] = TRUE;
+		
 		$this->load->view('client/shop/product', $data);
 	}
 	
