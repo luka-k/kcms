@@ -45,7 +45,7 @@
 						<?endif;?>
 						
 						<?if(!empty($product->serie_name)):?>
-							(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?else:?>; <?endif;?>
+							(<?=$product->serie_name?><?if(!isset($product->sub_series)):?>)<?endif;?>
 						<?endif;?>
 						<?if(isset($product->sub_series)):?>
 							; <?=$product->sub_series?>)
