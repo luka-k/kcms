@@ -1,0 +1,1 @@
+ALTER TABLE `product2collection` ADD `sub_empty` INT NOT NULL AFTER `is_collection` ;

@@ -267,6 +267,8 @@ class Import extends Admin_Controller
 		$this->db->update('products', array('for_delete' => 1));
 		
 		$nok = array();
+		$alone_collections = array();
+		$alone_series = array();
 		
 		foreach($xml->Каталог->Товары->Товар as $el)
 		{
@@ -431,7 +433,7 @@ class Import extends Admin_Controller
 			echo "manufacturer_id=".$_manufacturer->id."\n";
 				
 			$my_collections = array();
-			if ($collections)
+			if($collections)
 			{
 				$colection_parent_id = '';
 				foreach ($collections as $i => $collection)
@@ -460,11 +462,6 @@ class Import extends Admin_Controller
 			$my_series = array();
 			if($series)
 			{
-				/*if($_manufacturer->id = 26)
-				{
-					my_dump($series);
-				}*/
-
 				$serie_parent_id = array();
 				foreach ($series as $i => $serie)
 				{
@@ -495,6 +492,9 @@ class Import extends Admin_Controller
 
 					}
 				}
+				
+				/*if(isset($series[0]) && !isset($series[1])) 
+					$alone_series[$product_id] = $_seria->id;*/
 			}
 			
 			if ($cat2)
@@ -559,7 +559,10 @@ class Import extends Admin_Controller
 						'child_id' => $product_id,
 						'is_main' => !$_i,
 						'is_collection' => 1,
-					); 		
+					); 	
+
+					if($_i == 0 && !isset($my_collections[1]))
+						$alone_collections[$_collection->id][] = $product_id;
 					
 //					if (!$this->db->get_where('product2collection', $product2collection)->result())				
 					$this->db->insert('product2collection', $product2collection);
@@ -572,10 +575,14 @@ class Import extends Admin_Controller
 						'child_id' => $product_id,
 						'is_main' => $seria->is_main,
 						'is_collection' => 0,
-					); 		
+					); 	
+
+					if($_i == 0 && !isset($my_series[1]))
+						$alone_collections[$seria->id][] = $product_id;
 								
 					$this->db->insert('product2collection', $product2collection);
 				}
+	
 								
 				if($filters)
 				{
@@ -690,7 +697,8 @@ class Import extends Admin_Controller
 					}
 				
 				//die('ok');
-			}			
+			}
+			
 		}
 
 		if($nok) foreach($nok as $shortname_id => $products_ids)
@@ -719,6 +727,20 @@ class Import extends Admin_Controller
 															
 					$this->db->insert('characteristic2product', $t2t);
 				}
+			}
+		}
+		
+		$this->db->update('product2collection', array('sub_empty' => 0));
+		//my_dump($alone_collections);
+		if($alone_collections) foreach($alone_collections as $c_id => $p_ids)
+		{
+			$sub_collections_count = $this->collections->get_count(array('parent_id' => $c_id));
+			
+			if($sub_collections_count > 0)
+			{
+				$this->db->where_in('collection_parent_id', $c_id);
+				$this->db->where_in('child_id', $p_ids);
+				$this->db->update('product2collection', array('sub_empty' => 1));
 			}
 		}
 		

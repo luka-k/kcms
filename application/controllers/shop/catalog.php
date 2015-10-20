@@ -296,10 +296,11 @@ class Catalog extends Client_Controller {
 				unset($filters_wlt['shortname']);
 				unset($filters_wlt['shortdesc']);
 			}
-			elseif($last_type_filter == 'collection_checked')
+			elseif($last_type_filter == 'collection_checked' || $last_type_filter == "subcollection_checked")
 			{
 				unset($filters_wlt['manufacturer_checked']);
 				unset($filters_wlt['collection_checked']);
+				unset($filters_wlt['subcollection_checked']);
 			}
 			else
 			{
@@ -408,6 +409,16 @@ class Catalog extends Client_Controller {
 					$data['manufacturer_ch'][] = $this->manufacturers->get_item($manufacturer_id)->name;
 				}
 			}
+			
+			if(empty($data['manufacturer_ch']) && !empty($data['subcollections_ch']))
+			{
+				$data['manufacturer_ch'] = array();
+				foreach($this->post['subcollection_checked'] as $collection_id)
+				{
+					$manufacturer_id = $this->collections->get_item($collection_id)->manufacturer_id;
+					$data['manufacturer_ch'][] = $this->manufacturers->get_item($manufacturer_id)->name;
+				}
+			}
 
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
@@ -421,7 +432,7 @@ class Catalog extends Client_Controller {
 			
 			//my_dump($data['nok']);
 			
-			if($last_type_filter == "collection_checked" || $last_type_filter == "manufacturer_checked")
+			if($last_type_filter == "collection_checked" || $last_type_filter == "manufacturer_checked" || $last_type_filter == "subcollection_checked")
 			{
 				$data['collection'] = $this->collections->get_tree($products_ids_wlt, $this->post);
 			}

@@ -258,10 +258,10 @@
 											<li>
 												<input type="checkbox" 
 													class="collection-branch-<?=$level_1->id?> collection-filter collection_chb_<?=$level_2->id?>"
-													name="collection_checked[]" 
+													name="subcollection_checked[]" 
 													value="<?=$level_2->id?>"
-													onclick="checked_tree('<?=$level_1->id?>', 'collection', 'child'); $('#last_type_filter').val('collection_checked')"
-													<?if(isset($filters_checked['collection_checked']) && in_array($level_2->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter?><?endif;?>
+													onclick="checked_tree('<?=$level_1->id?>', 'collection', 'child'); $('#last_type_filter').val('subcollection_checked')"
+													<?if(isset($filters_checked['subcollection_checked']) && in_array($level_2->id, $filters_checked['subcollection_checked'])):?>checked<?++$show_counter?><?endif;?>
 												/>
 												<a href="#" class="level1_link" onclick="submit_filter('collection', '<?=$level_2->id?>'); return false;" rel="nofollow">
 													<?=$level_2->name?>

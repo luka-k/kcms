@@ -147,7 +147,7 @@ class Characteristics extends MY_Model
 		{
 			$query = "SELECT * FROM products ";
 			
-			if(!empty($id) || isset($filter['discontinued']) || isset($filter['on_request']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+			if(!empty($id) || isset($filter['discontinued']) || isset($filter['on_request']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['subcollection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "WHERE ";
 			
 			//my_dump($filter);
@@ -158,14 +158,14 @@ class Characteristics extends MY_Model
 				if(isset($filter['on_request']) && $filter['on_request'] == '1')
 				{
 					$query .= "qty = 0 ";
-					if(!empty($id) || isset($filter['discontinued']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					if(!empty($id) || isset($filter['discontinued']) || isset($filter['stock_spb']) || isset($filter['is_sale']) || isset($filter['collection_checked']) || isset($filter['subcollection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 						$query .= "AND ";
 				}
 			
 				if(isset($filter['stock_spb']) && $filter['stock_spb'] == '1')
 				{
 					$query .= "qty != 0 ";
-					if(!empty($id) || isset($filter['discontinued']) || isset($filter['collection_checked']) || isset($filter['is_sale']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+					if(!empty($id) || isset($filter['discontinued']) || isset($filter['collection_checked']) || isset($filter['subcollection_checked']) ||  isset($filter['is_sale']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 						$query .= "AND ";
 				}
 			}
@@ -173,20 +173,21 @@ class Characteristics extends MY_Model
 			if(isset($filter['is_sale']) && $filter['is_sale'] == '1')
 			{
 				$query .= "sale = 1 ";
-				if(!empty($id) || isset($filter['discontinued']) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(!empty($id) || isset($filter['discontinued']) || isset($filter['collection_checked']) || isset($filter['subcollection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
 			if(isset($filter['discontinued']) && $filter['discontinued'] == '1')
 			{
 				$query .= "discontinued != '' ";
-				if(!empty($id) || isset($filter['collection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+				if(!empty($id) || isset($filter['collection_checked']) || isset($filter['subcollection_checked']) ||  isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
 			}
 			
-			if(isset($filter['collection_checked']))
+			if(isset($filter['collection_checked']) && isset($filter['subcollection_checked']))
 			{
 				$this->db->where_in('collection_parent_id', $filter['collection_checked']);
+				$this->db->or_where_in('collection_parent_id', $filter['subcollection_checked']);
 				$this->db->select('child_id');
 				$ids = $this->db->get('product2collection')->result();
 				
@@ -200,6 +201,61 @@ class Characteristics extends MY_Model
 				
 				if(!empty($id) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
 					$query .= "AND ";
+			}
+			else
+			{
+				if(isset($filter['collection_checked']))
+				{
+					$this->db->where_in('collection_parent_id', $filter['collection_checked']);
+					$this->db->where('is_main', 1);
+					$this->db->select('child_id');
+					$ids = $this->db->get('product2collection')->result();
+				
+					$ids_by_collection = array();
+					foreach($ids as $item)
+					{
+						$ids_by_collection[] = $item->child_id;
+					}
+
+					$query .= $this->_set_where_in('id', $ids_by_collection);
+				
+					if(!empty($id) || isset($filter['subcollection_checked']) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+						$query .= "AND ";
+				}
+			
+				if(isset($filter['subcollection_checked']))
+				{
+					$this->db->where_in('collection_parent_id', $filter['subcollection_checked']);
+					$this->db->where('sub_empty', 1);
+					$has_empty = $this->db->get('product2collection')->result();
+					$has_empty_ids = array();
+					if(!empty($has_empty)) foreach($has_empty as $h_e)
+					{
+						$has_empty_ids = $h_e->collection_parent_id;
+					}
+					
+					$this->db->where_in('collection_parent_id', $filter['subcollection_checked']);
+					$this->db->where('is_main', 0);
+					if(!empty($has_empty_ids))
+					{					
+						$this->db->or_where_in('collection_parent_id', $has_empty_ids);
+						$this->db->where('sub_empty', 1);
+					}
+					$this->db->select('child_id');
+					$ids = $this->db->get('product2collection')->result();
+				
+					$ids_by_collection = array();
+					foreach($ids as $item)
+					{
+						$ids_by_collection[] = $item->child_id;
+					}
+
+					$query .= $this->_set_where_in('id', $ids_by_collection);
+				
+					if(!empty($id) || isset($filter['categories_checked']) || isset($filter['manufacturer_checked']) || isset($filter['sku_checked']) || isset($filter['name']) || isset($filter['width_from']) || isset($filter['height_from']) || isset($filter['depth_from']) || isset($filter['price_from']))
+						$query .= "AND ";
+				}
+			
 			}
 			
 			if(!empty($id))

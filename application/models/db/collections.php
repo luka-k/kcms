@@ -88,11 +88,22 @@ class Collections extends MY_Model
 				foreach($collections as $j => $collection)
 				{
 					$sub_tree = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => $collection->id), FALSE, FALSE, 'name', 'asc');
-					
+										
 					if($sub_tree) foreach($sub_tree as $k => $b)
 					{
 						if(!in_array($b->id, $filtred_ids) && !in_array($b->id, $selected['collection_checked'])) unset($sub_tree[$k]);
 					}
+					
+					if(!empty($sub_tree))
+					{
+						$has_empty = $this->product2collection->get_count(array('collection_parent_id' => $collection->id, 'sub_empty' => 1));
+						if($has_empty > 0) 
+						{
+							$col = clone $collection;
+							$col->name = 'не указано';
+							array_unshift($sub_tree, $col);
+						}
+ 					}
 					
 					if(in_array($collection->id, $filtred_ids) || in_array($collection->id, $selected['collection_checked']))
 					{
@@ -114,7 +125,7 @@ class Collections extends MY_Model
 				}
 			}
 		}
-		
+		//my_dump($tree);
 		return $tree;
 	}
 	
