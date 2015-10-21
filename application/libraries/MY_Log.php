@@ -27,7 +27,7 @@ class MY_Log extends CI_Log {
 	
 	public function put_elapsed_time($message, $time)
 	{
-		$file_path = FCPATH."logs/sql_logs-".date("dmYH").".log";
+		$file_path = FCPATH."logs/log-".date("dmYH").".log";
 
 		$string = $time." - ".$message."\r\n\r\n";
 		

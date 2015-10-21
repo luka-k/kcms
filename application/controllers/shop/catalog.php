@@ -200,7 +200,6 @@ class Catalog extends Client_Controller {
 			
 			$data = unserialize($cache->cache_data);
 			
-			//$data = FALSE;
 			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);

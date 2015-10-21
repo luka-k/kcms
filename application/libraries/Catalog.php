@@ -101,7 +101,6 @@ class CI_Catalog {
 	
 	public function get_nok_tree($ids, $selected = array())
 	{
-		//$this->CI->benchmark->mark('nok_start');
 		$nok_tree = array();
 		
 		if(empty($ids)) return $nok_tree;
@@ -156,41 +155,46 @@ class CI_Catalog {
 			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
 
 			$this->CI->db->order_by('value', 'asc');
-			$result = $this->CI->db->get('characteristics')->result();
+			//$result = $this->CI->db->get('characteristics')->result();
+			$shortname = $this->CI->db->get('characteristics')->result();
 			
 			$this->CI->benchmark->mark('code_end');
 			$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
 			$this->CI->log->sql_log('получение shortname', $code_time); //логирование sql
 			
-			// Вот этот кусок до хрена времени занимает.
-			// Около 300 shortname для каждого shortdesc в среднем по 0,035 с, приблизительно 10 с
-			// И я убрал логирование каждого отдельного запроса по 0,03 с оставив общее время.
-			// Думаю это место можно и нуужно переписать
+			if(empty($shortname)) return $nok_tree;
 			
+			foreach($shortname as $sn)
+			{
+				$nok_tree[$sn->value] = array();
+			}
+						
 			$this->CI->benchmark->mark('time_start'); // code start
 			
-			if($result) foreach($result as $r)
-			{
-				$this->CI->db->select('type, value, id');
-				
-				if(!empty($ch_ids)) $this->CI->db->or_where_in('id', $ch_ids);
-				$this->CI->db->where('parent_id', $r->id);
-				if(!empty($selected['shortdesc']))
-					$this->CI->db->or_where_in('id', array_keys($selected['shortdesc']));
-				$this->CI->db->where('parent_id', $r->id);
-				$this->CI->db->order_by('sort', 'desc');
-				$this->CI->db->order_by('value', 'asc');
-				$this->CI->db->where('type', 'shortdesc');
-				$nok_branch = $this->CI->db->get('characteristics')->result();
+			$this->CI->db->select('type, value, id, parent_id');
+			
+			if(!empty($ch_ids)) 
+				$this->CI->db->or_where_in('id', $ch_ids);
 
-				$nok_tree[$r->value] = array();
-				if(!empty($nok_branch)) 
-				{
-					foreach($nok_branch as $nb)
-					{
-						$nok_tree[$r->value][$nb->id] = $nb->value;
-					}
-				}
+			if(!empty($selected['shortdesc']))
+				$this->CI->db->or_where_in('id', array_keys($selected['shortdesc']));
+			
+			$this->CI->db->order_by('sort', 'desc');
+			$this->CI->db->order_by('value', 'asc');
+			$this->CI->db->where('type', 'shortdesc');
+			$shortdesc = $this->CI->db->get('characteristics')->result();
+			
+			if(empty($shortdesc)) return $nok_tree;
+			
+			$sh_by_sn = array();
+			foreach($shortdesc as $sd)
+			{
+				$sh_by_sn[$sd->parent_id][$sd->id] = $sd->value;
+			}
+
+			foreach($shortname as $sn)
+			{
+				if(isset($sh_by_sn[$sn->id])) $nok_tree[$sn->value] = $sh_by_sn[$sn->id];
 			}
 			
 			$this->CI->benchmark->mark('time_end');
@@ -198,8 +202,7 @@ class CI_Catalog {
 			$this->CI->log->put_elapsed_time('общее время построения веток nok', $code_time); //логирование sql
 			
 		}
-		//$this->CI->benchmark->mark('nok_end');
-		echo $this->CI->benchmark->elapsed_time('nok_start', 'nok_end');
+
 		//my_dump($nok_tree);
 		return $nok_tree;
 	}
