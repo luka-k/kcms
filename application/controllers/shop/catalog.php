@@ -16,10 +16,9 @@ class Catalog extends Client_Controller {
 	{
 		parent::__construct();
 		
-		$this->benchmark->mark('code_start');
-		
 		$this->post = $this->input->post();
 
+		
 		$price_min = $price_from = $this->products->get_min('sale_price');
 		if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
 		$price_max = $price_to = $this->products->get_max('sale_price');
@@ -117,13 +116,21 @@ class Catalog extends Client_Controller {
 		if($content == "root")
 		{
 			$cache_id = md5(serialize($content));
+			
+			$this->benchmark->mark('code_start'); //code_start
+			
 			$data = $this->filters_cache->get($cache_id);
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('Получение кеща для главной', $code_time); //логирование sql
 
 			//if($data) $this->filters_cache->delete($cache_id);
 			//$data = FALSE;
 			if($data)
 			{	
 				$this->filters_cache->set_last($cache_id);
+
 				$data['total_price'] = $this->cart->total_price();
 				$data['total_qty'] = $this->cart->total_qty();
 				$data['main_page'] = TRUE;
@@ -144,8 +151,14 @@ class Catalog extends Client_Controller {
 					$filters_checked[$key] = 1;
 				}
 			
+				$this->benchmark->mark('code_start'); //code_start
+				
 				$products = $this->products->prepare_list($this->products->get_list(FALSE, 0, 10, 'ranging', 'desc'));
-
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('Продукты', $code_time); //логирование sql
+				
 				$products_ids = $this->catalog->get_products_ids($products);
 
 				$total_rows = count($this->products->get_list(FALSE));
@@ -168,9 +181,6 @@ class Catalog extends Client_Controller {
 				
 				$this->filters_cache->insert($cache_id, $data);
 			}
-
-			$this->benchmark->mark('code_end');
-			//echo $this->benchmark->elapsed_time('code_start', 'code_end');
 			
 			$this->load->view("client/shop/index", $data);
 		}
@@ -180,17 +190,36 @@ class Catalog extends Client_Controller {
 			
 			$cache_id = md5(serialize($semantic_url));
 	
-			$data = $this->filters_cache->get($cache_id);
+			$this->benchmark->mark('code_start'); //code_start
+			
+			$cache =  $this->filters_cache->get_item_by(array('id' => $cache_id));	
+	
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('Получение кеща', $code_time); //логирование sql
+			
+			$data = unserialize($cache->cache_data);
 			
 			//$data = FALSE;
 			if($data)
 			{
 				$this->filters_cache->set_last($cache_id);
-				$cache = $this->filters_cache->get_item_by(array('id' => $cache_id));	
+				
+				$data = $this->filters_cache->get($cache_id);
 
 				$data['breadcrumbs'] = $this->breadcrumbs->get();
+				
+				$this->benchmark->mark('code_start'); // code start
+				
 				$data['category']->products = $this->products->prepare_list($data['category']->products);
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('prepare товаров', $code_time); //логирование sql
+								
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
+				
+				
 				if($cache->type == 'categories') $data['logo_column'] = TRUE;
 				$data['sku_ch'] = array();
 				$data['beautiful_link'] = $semantic_url;
@@ -265,8 +294,8 @@ class Catalog extends Client_Controller {
 
 		$cache = $this->filters_cache->get($cache_id);
 		
-		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		if($cache) $this->filters_cache->delete($cache_id);
+		$cache = FALSE;
 		
 		if($cache)
 		{
@@ -461,9 +490,7 @@ class Catalog extends Client_Controller {
 			}
 			
 			$this->filters_cache->insert($cache_id, $data);
-			
-			$this->benchmark->mark('code_end');
-			//my_dump($this->benchmark->elapsed_time('code_start', 'code_end'));
+		
 			redirect(base_url()."catalog/filter/".$cache_id);
 		}	
 	}
