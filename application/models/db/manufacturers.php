@@ -52,15 +52,23 @@ class Manufacturers extends MY_Model
 
 		if(isset($selected['sku_checked']))
 		{
+			$this->benchmark->mark('code_start'); // code start
+			
 			$this->db->where_in('sku', $selected['sku_checked']);
 			$result = $this->db->get('products')->result();
 			$products = array_merge($result, $products);
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('получение продуктов по выделенным sku', $code_time); //логирование sql
 		}
 		
 		$manufacturer = array();
 		$manufacturer_tree = array();
 		$m_ids = array();
 		$sku = array();
+		
+		$this->benchmark->mark('time_start'); // code start
 		
 		foreach($products as $p)
 		{
@@ -70,6 +78,10 @@ class Manufacturers extends MY_Model
 			}
 			$manufacturer_tree[$p->manufacturer_id]->sku[] = $p;
 		}
+		
+		$this->benchmark->mark('time_end');
+		$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+		$this->log->put_elapsed_time('общее время веток дерева производителей', $code_time); //логирование sql
 		
 		$volume_1 = array();
 		foreach($manufacturer_tree as $i => $manufacturer)

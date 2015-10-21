@@ -164,24 +164,24 @@ class CI_Catalog {
 			
 			// Вот этот кусок до хрена времени занимает.
 			// Около 300 shortname для каждого shortdesc в среднем по 0,035 с, приблизительно 10 с
+			// И я убрал логирование каждого отдельного запроса по 0,03 с оставив общее время.
+			// Думаю это место можно и нуужно переписать
+			
+			$this->CI->benchmark->mark('time_start'); // code start
+			
 			if($result) foreach($result as $r)
 			{
-				$this->CI->benchmark->mark('code_start'); //code_start
-				
 				$this->CI->db->select('type, value, id');
 				
 				if(!empty($ch_ids)) $this->CI->db->or_where_in('id', $ch_ids);
 				$this->CI->db->where('parent_id', $r->id);
-				if(!empty($selected['shortdesc'])) $this->CI->db->or_where_in('id', array_keys($selected['shortdesc']));
+				if(!empty($selected['shortdesc']))
+					$this->CI->db->or_where_in('id', array_keys($selected['shortdesc']));
 				$this->CI->db->where('parent_id', $r->id);
 				$this->CI->db->order_by('sort', 'desc');
 				$this->CI->db->order_by('value', 'asc');
 				$this->CI->db->where('type', 'shortdesc');
 				$nok_branch = $this->CI->db->get('characteristics')->result();
-				
-				$this->CI->benchmark->mark('code_end');
-				$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
-				$this->CI->log->sql_log('получение shortdesc', $code_time); //логирование sql
 
 				$nok_tree[$r->value] = array();
 				if(!empty($nok_branch)) 
@@ -192,6 +192,10 @@ class CI_Catalog {
 					}
 				}
 			}
+			
+			$this->CI->benchmark->mark('time_end');
+			$code_time = $this->CI->benchmark->elapsed_time('time_start', 'time_end');
+			$this->CI->log->put_elapsed_time('общее время построения веток nok', $code_time); //логирование sql
 			
 		}
 		//$this->CI->benchmark->mark('nok_end');

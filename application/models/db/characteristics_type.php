@@ -46,7 +46,6 @@ class Characteristics_type extends MY_Model
 	*/
 	public function get_filters($products = 'all', $selected = FALSE)
 	{
-		$this->benchmark->mark('code_start');
 		$filters = array();
 		$this->db->where_in('url', array('color', 'material', 'turn', 'finishing'));
 		$characteristics_type = $this->db->get('characteristics_type')->result();

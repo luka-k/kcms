@@ -216,9 +216,14 @@ class Catalog extends Client_Controller {
 				$this->benchmark->mark('code_end');
 				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 				$this->log->sql_log('prepare товаров', $code_time); //логирование sql
-								
+				
+				$this->benchmark->mark('time_start'); // code start	
+				
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
 				
+				$this->benchmark->mark('time_end');
+				$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+				$this->log->put_elapsed_time('общее время постройки nok', $code_time); //логирование sql
 				
 				if($cache->type == 'categories') $data['logo_column'] = TRUE;
 				$data['sku_ch'] = array();
@@ -292,10 +297,16 @@ class Catalog extends Client_Controller {
 
 		$cache_id = md5(serialize($this->post));
 
+		$this->benchmark->mark('code_start'); // code start
+		
 		$cache = $this->filters_cache->get($cache_id);
 		
-		if($cache) $this->filters_cache->delete($cache_id);
-		$cache = FALSE;
+		$this->benchmark->mark('code_end');
+		$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+		$this->log->sql_log('получение кеша фильтров', $code_time); //логирование sql
+		
+		//if($cache) $this->filters_cache->delete($cache_id);
+		//$cache = FALSE;
 		
 		if($cache)
 		{
@@ -312,8 +323,15 @@ class Catalog extends Client_Controller {
 					redirect($product->full_url);
 				}
 			}
-					
+			
+			$this->benchmark->mark('time_start'); // code start
+			
 			$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
+			
+			$this->benchmark->mark('time_end');
+			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+			$this->log->put_elapsed_time('получение всех продуктов по фильтру', $code_time); //логирование sql
+			
 			$products_ids = $this->catalog->get_products_ids($products);
 		
 			$last_type_filter = $this->post['last_type_filter'];
@@ -336,19 +354,48 @@ class Catalog extends Client_Controller {
 				unset($filters_wlt[$last_type_filter]);
 			}
 			
+			$this->benchmark->mark('time_start'); // code start
+			
 			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->post['order'], $this->post['direction']);
+			
+			$this->benchmark->mark('time_end');
+			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+			$this->log->put_elapsed_time('получение всех продуктов без последнего фильтра', $code_time); //логирование sql
 
 			$products_ids_wlt = $this->catalog->get_products_ids($products_wlt);
-		
+			
+			$this->benchmark->mark('time_start'); // code start
+			
 			$products_for_content = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction'], 10, 0);
+			
+			$this->benchmark->mark('time_end');
+			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+			$this->log->put_elapsed_time('получение 10-ти продуктов для вывода', $code_time); //логирование sql
 		
+			$this->benchmark->mark('code_start'); // code start
+			
 			$filters = $this->characteristics_type->get_filters($products, $this->post);
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('фильры', $code_time); //логирование sql
+			
 			$filters['name'] = $this->post['name'];
 			$filters['is_sale'] = $this->post['is_sale'];
 			$filters['discontinued'] = $this->post['discontinued'];
 			
-			$filters_2 = $this->characteristics_type->get_filters($products_wlt);
-			if(isset($filters[$last_type_filter])) $filters[$last_type_filter] = $filters_2[$last_type_filter];
+			if(isset($filters[$last_type_filter]))
+			{
+				$this->benchmark->mark('code_start'); // code start
+				
+				$filters_2 = $this->characteristics_type->get_filters($products_wlt);
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('фильры без последнего фильтра', $code_time); //логирование sql
+				
+				$filters[$last_type_filter] = $filters_2[$last_type_filter];
+			}
 			
 			if($products) foreach($products as $i => $p)
 			{
@@ -449,6 +496,8 @@ class Catalog extends Client_Controller {
 				}
 			}
 
+			$this->benchmark->mark('time_start'); // code start
+			
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
 				//my_dump($last_type_filter);
@@ -459,7 +508,11 @@ class Catalog extends Client_Controller {
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
 			}
 			
-			//my_dump($data['nok']);
+			$this->benchmark->mark('time_end');
+			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+			$this->log->put_elapsed_time('общее время nok', $code_time); //логирование sql
+			
+			$this->benchmark->mark('time_start'); // code start
 			
 			if($last_type_filter == "collection_checked" || $last_type_filter == "manufacturer_checked" || $last_type_filter == "subcollection_checked")
 			{
@@ -469,6 +522,10 @@ class Catalog extends Client_Controller {
 			{
 				$data['collection'] = $this->collections->get_tree($products_ids, $this->post);
 			}
+			
+			$this->benchmark->mark('time_end');
+			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+			$this->log->put_elapsed_time('общее время collection tree', $code_time); //логирование sql
 			
 			$data['category'] = new stdClass;	
 			$data['category']->products = $this->products->prepare_list($products_for_content);
@@ -521,6 +578,8 @@ class Catalog extends Client_Controller {
 				}
 			}
 		}
+		
+		
 		
 		if(isset($data['filters_checked']['manufacturer_checked']) && isset($data['filters_checked']['sku_checked']) && count(array_unique($data['filters_checked']['manufacturer_checked'])))
 		{

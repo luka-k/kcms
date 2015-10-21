@@ -31,6 +31,13 @@ class Characteristics extends MY_Model
 		$counter = 0;
 		$filters_type = $this->characteristics_type->get_list(FALSE);
 		
+		// Вот тут появилась мысль что весь этот кусок полная херня
+		// и можно все решить в 10 раз меньшим количеством строк
+		// если в shortdesc и shortname брать не value, а id фильтра.
+		// value наверно было разумным вариантом если бы у нас был get запрос
+		
+		// а анализ логов показал что тут вообщем вообще лажа творится
+		
 		$pids_by_shortdesc = array();
 		$pids_by_shortdesc_1 = array();
 		$pids_by_shortdesc_2 = array();
@@ -40,20 +47,32 @@ class Characteristics extends MY_Model
 			{
 				$sd = explode ('//', $shortdesc, 2);
 	 			
+				$this->benchmark->mark('code_start'); // code start
+				
 				$this->db->where('type', 'shortname');
 				$this->db->where('value', $sd[0]);
 				$results = $this->db->get('characteristics')->result();
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('получение id shortname', $code_time); //логирование sql
 
 				$parent_ids = array();
 				if(!empty($results)) foreach($results as $r)
 				{
 					$parent_ids[] = $r->id;
 				}
+				
+				$this->benchmark->mark('code_start'); // code start
 
 				$this->db->where('type', 'shortdesc');
 				$this->db->where('value', $sd[1]);
 				if($parent_ids) $this->db->where_in('parent_id', $parent_ids);
 				$result = $this->db->get('characteristics')->result();
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('получение id shortdesc', $code_time); //логирование sql
 				
 				$ch_ids = array();
 				if(!empty($result))foreach($result as $r)
@@ -63,8 +82,14 @@ class Characteristics extends MY_Model
 				
 				if(!empty($ch_ids))
 				{
+					$this->benchmark->mark('code_start'); // code start
+					
 					$this->db->where_in('characteristic_id', $ch_ids);
 					$result = $this->db->get('characteristic2product')->result();
+					
+					$this->benchmark->mark('code_end');
+					$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+					$this->log->sql_log('получение id НП по shortname', $code_time); //логирование sql
 					
 					if(!empty($result))foreach($result as $r)
 					{
@@ -75,8 +100,14 @@ class Characteristics extends MY_Model
 				
 				if(!empty($parent_ids))
 				{
+					$this->benchmark->mark('code_start'); // code start
+					
 					$this->db->where_in('characteristic_id', $parent_ids);
 					$result = $this->db->get('characteristic2product')->result();
+					
+					$this->benchmark->mark('code_end');
+					$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+					$this->log->sql_log('получение id НП по shortdesc', $code_time); //логирование sql
 					
 					if(!empty($result))foreach($result as $r)
 					{
@@ -85,17 +116,22 @@ class Characteristics extends MY_Model
 				}
 				
 				if(!empty($pids_by_shortdesc_1) && !empty($pids_by_shortdesc_2)) $pids_by_shortdesc = $values = array_intersect($pids_by_shortdesc_2, $pids_by_shortdesc_1);
-				//my_dump($pids_by_shortdesc);
 			}
 			++$counter;
 		}
 
 		if(isset($filter['shortname']))
 		{
+			$this->benchmark->mark('code_start'); // code start
+			
 			$this->db->where('type', 'shortname');
 			$this->db->where_in('value', $filter['shortname']);
 			
 			$result = $this->db->get('characteristics')->result();
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('получение id shortname', $code_time); //логирование sql
 			
 			$ch_ids = array();
 			if($result) foreach($result as $r)
@@ -105,8 +141,15 @@ class Characteristics extends MY_Model
 			
 			if(!empty($ch_ids))
 			{
+				$this->benchmark->mark('code_start'); // code start
+				
 				$this->db->where_in('characteristic_id', $ch_ids);
 				$result = $this->db->get('characteristic2product')->result();
+				
+				$this->benchmark->mark('code_end');
+				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+				$this->log->sql_log('получение id НП по shortname', $code_time); //логирование sql	
+				
 				if($result) foreach($result as $r)
 				{
 					if(!in_array($r->product_id, $pids_by_shortdesc))$values[] = $r->product_id;
@@ -115,20 +158,32 @@ class Characteristics extends MY_Model
 			++$counter;
 		}
 		
+		// Конец куска который полная херня!!!!---------------->
+		
+		// Может и здесь стоит на id фильтра перейти
 		foreach($filters_type as $f)
 		{
 			if($f->url <> 'shortname' && $f->url <> 'shortdesc')
 			{
 				if(isset($filter[$f->url]))
 				{
+					$this->benchmark->mark('code_start'); // code start
+					
 					$this->db->distinct();
 					$this->db->where('type', $f->url);
 					$this->db->where_in('value', $filter[$f->url]);
 					$values = $this->_update_values($values);
+					
+					$this->benchmark->mark('code_end');
+					$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+					$this->log->sql_log('получение id НП по filters', $code_time); //логирование sql	
+				
 					++$counter;
 				}
 			}
 		}
+		
+		// --------------------------->
 
 		if($counter > 1)
 		{
@@ -142,6 +197,8 @@ class Characteristics extends MY_Model
 		{
 			$id = $values;
 		}
+		
+		$this->benchmark->mark('code_start'); // code start
 
 		if(!empty($id) || (empty($id) && $counter == 0))
 		{
@@ -338,6 +395,10 @@ class Characteristics extends MY_Model
 			// следующая строчка фиксит баг который возникал при апдэйте кэша когда есть пустая ГТ1 
 			if (!strstr($query, 'WHERE ORDER'))
 				$result = $this->db->query($query)->result();
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('получение НП по фильтрам', $code_time); //логирование sql	
 			
 			if(!empty($result)) return $result;
 		}
