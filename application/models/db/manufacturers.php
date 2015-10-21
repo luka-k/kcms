@@ -72,21 +72,26 @@ class Manufacturers extends MY_Model
 		
 		foreach($products as $p)
 		{
-			if(!array_key_exists($p->manufacturer_id, $manufacturer_tree))
-			{
-				$manufacturer_tree[$p->manufacturer_id] = $this->get_item($p->manufacturer_id);
-			}
-			$manufacturer_tree[$p->manufacturer_id]->sku[] = $p;
+			$sku[$p->manufacturer_id][] = $p;
+			if(!in_array($p->manufacturer_id, $m_ids)) $m_ids[] = $p->manufacturer_id;
+		}
+		
+		$this->db->where_in('id', $m_ids);
+		$this->db->order_by('name', 'asc');
+		$manufacturers = $this->db->get('manufacturers')->result();
+		
+		if(!empty($manufacturers)) foreach($manufacturers as $m)
+		{
+			$manufacturer_tree[$m->id] = $m;
+			$manufacturer_tree[$m->id]->sku = $sku[$m->id];
 		}
 		
 		$this->benchmark->mark('time_end');
 		$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
 		$this->log->put_elapsed_time('общее время веток дерева производителей', $code_time); //логирование sql
 		
-		$volume_1 = array();
 		foreach($manufacturer_tree as $i => $manufacturer)
 		{
-			$volume_1[$i] = $manufacturer->name;
 			$volume_2 = array();
 			foreach ($manufacturer->sku as $key => $p) 
 			{
@@ -94,8 +99,6 @@ class Manufacturers extends MY_Model
 			}
 			array_multisort($volume_2, SORT_ASC, $manufacturer->sku);
 		}
-		
-		array_multisort($volume_1, SORT_ASC, $manufacturer_tree);
 		
 		return $manufacturer_tree;
 	}
