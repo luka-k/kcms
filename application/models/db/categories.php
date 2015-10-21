@@ -74,6 +74,8 @@ class Categories extends MY_Model
 		
 		$filtred_ids = array_unique($filtred_ids);
 		
+		$this->benchmark->mark('time_start'); // code start
+		
 		$tree = $this->_get_tree(0, 'category_parent_id', $filtred_ids, $selected);
 		
 		if($type == 'site')foreach($tree as $i => $t)
@@ -81,6 +83,10 @@ class Categories extends MY_Model
 			if(empty($t->childs)) unset($tree[$i]);
 		}
 		
+		$this->benchmark->mark('time_end');
+		$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+		$this->log->put_elapsed_time('общее время работы _get_tree', $code_time); //логирование sql
+
 		return $tree;
 	}
 	
@@ -88,22 +94,28 @@ class Categories extends MY_Model
 	{
 		if(!isset($selected['categories_checked'])) $selected['categories_checked'] = array();//костыли костылики
 
-		$items = $this->db->get_where('category2category', array($parent_id_field => $parent_id))->result(); 
-
+		$c2c = $this->db->get_where('category2category', array($parent_id_field => $parent_id))->result(); 
+		
 		$branches = array();
+		if (empty($c2c)) return $branches;
+
+		foreach($c2c as $c)
+		{
+			$ids[] = $c->child_id;
+		}
+		
+		$this->db->where_in('id', $ids);
+		$items = $this->db->get($this->_table)->result();
+
 		if (!empty($items)) foreach($items as $item)
 		{
 			if($parent_id <> 0)
 			{
-				$branch = $this->get_item_by(array('id' => $item->child_id));
-				if(!empty($branch))
-				{
-					if(in_array($branch->id, $filtred_ids) || in_array($branch->id, $selected['categories_checked'])) $branches[] = $branch;
-				}
+				if(in_array($item->id, $filtred_ids) || in_array($item->id, $selected['categories_checked'])) $branches[] = $item;
 			}
 			else
 			{
-				$branches[] = $this->get_item_by(array('id' => $item->child_id));
+				$branches[] = $item;
 			}
 		}
 		
