@@ -105,9 +105,12 @@ class Categories extends MY_Model
 		}
 		
 		$this->db->where_in('id', $ids);
+		$this->db->order_by('name', 'asc');
 		$items = $this->db->get($this->_table)->result();
-
-		if (!empty($items)) foreach($items as $item)
+		
+		if(empty($items)) return $branches;
+ 
+		foreach($items as $item)
 		{
 			if($parent_id <> 0)
 			{
@@ -119,17 +122,14 @@ class Categories extends MY_Model
 			}
 		}
 		
-		$name = array();
-		if (!empty($branches)) 
+		if(empty($branches)) return $branches;
+
+		foreach($branches as $i => $b)
 		{
-			foreach($branches as $i => $b)
-			{
-				$names[$i] = $b->name;
-				$branches[$i]->img = $this->images->get_cover(array('object_type' => 'categories', 'object_id' => $b->id));
-				$branches[$i]->childs = $this->_get_tree($b->id, $parent_id_field, $filtred_ids, $selected);
-			}
-			array_multisort($names, SORT_ASC, $branches);
+			//$branches[$i]->img = $this->images->get_cover(array('object_type' => 'categories', 'object_id' => $b->id));
+			if($parent_id == 0) $branches[$i]->childs = $this->_get_tree($b->id, $parent_id_field, $filtred_ids, $selected);
 		}
+		
 		return $branches;	
 	}
 	
