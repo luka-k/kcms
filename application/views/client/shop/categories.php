@@ -88,14 +88,14 @@
 											</div>
 											<div class="product-image">
 												<?if(isset($item->img)):?>
-													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
+													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
 												<?else:?>
-													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
+													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
 												<?endif;?>
 											</div>
 											<div class="product-name">
 
-												<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-fancybox-type="iframe">
+												<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe">
 													<strong>
 														<?=$item->manufacturer_name?>
 												

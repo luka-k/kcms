@@ -1,6 +1,12 @@
 <script>
 	$(document).ready(function(){
-		
+		var hash = window.location.hash;
+		console.log(hash);
+		if(hash != '')
+		{
+			var path = window.location.pathname;
+			window.location = path + hash.substring(1);
+		}
 	});
 		
 	function answer(res){

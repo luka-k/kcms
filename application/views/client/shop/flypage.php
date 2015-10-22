@@ -133,7 +133,7 @@
 												<div class="check_col"><input type="checkbox" class="ch-comp-<?=$components->id?>" onchange="precart('<?=$components->id?>', 'comp', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($components->img)):?>
-														<a href="<?=$components->full_url?>" class="modal_product" data-product-id="<?= $components->id?>" data-fancybox-type="iframe"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$components->full_url?>" class="modal_product" data-product-id="<?= $components->id?>" data-product-url="<?= $components->url?>" data-fancybox-type="iframe"><img src="<?=$components->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -201,7 +201,7 @@
 												<div class="check_col"><input type="checkbox" class="ch-acc-<?=$accessories->id?>" onchange="precart('<?=$accessories->id?>', 'acc', '<?=$product->sale_price?>', '<?=$counter?>'); return false;"/></div>
 												<div class="img_col">
 													<?if(isset($accessories->img)):?>
-														<a href="<?=$accessories->full_url?>" class="modal_product" data-product-id="<?= $accessories->id?>" data-fancybox-type="iframe"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$accessories->full_url?>" class="modal_product" data-product-id="<?= $accessories->id?>" data-product-url="<?= $accessories->url?>" data-fancybox-type="iframe"><img src="<?=$accessories->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -267,7 +267,7 @@
 												<div class="check_col">&nbsp;</div>
 												<div class="img_col">
 													<?if(isset($recommended->img)):?>
-														<a href="<?=$recommended->full_url?>" class="modal_product" data-product-id="<?= $recommended->id?>" data-fancybox-type="iframe"><img src="<?=$recommended->img->catalog_small_url?>" width="138" /></a>
+														<a href="<?=$recommended->full_url?>" class="modal_product" data-product-id="<?= $recommended->id?>" data-product-url="<?= $recommended->url?>" data-fancybox-type="iframe"><img src="<?=$recommended->img->catalog_small_url?>" width="138" /></a>
 													<?endif;?>
 												</div>
 												<div class="description_col">
@@ -331,11 +331,13 @@
 	
 	<script>
 		$('.modal_product').on('click', function(){
-		var productId = $(this).attr('data-product-id');
-		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
-		$('#shadow').css('display', 'none');
-		$('#full-shadow').css('display', 'block');
-	});
+			var productId = $(this).attr('data-product-id');
+			var productUrl = $(this).attr('data-product-url');
+			window.top.location.hash = productUrl;
+			$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
+			$('#shadow').css('display', 'none');
+			$('#full-shadow').css('display', 'block');
+		});
 	</script>
 	<?require_once 'include/product_scripts.php'?>
 	<?require_once 'include/shop_scripts.php'?>
