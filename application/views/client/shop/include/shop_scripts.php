@@ -1,7 +1,6 @@
 <script>
 	$(document).ready(function(){
 		var hash = window.location.hash;
-		console.log(hash);
 		if(hash != '')
 		{
 			var path = window.location.pathname;

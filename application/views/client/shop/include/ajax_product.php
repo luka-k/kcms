@@ -82,6 +82,8 @@
 	$('.modal_product').on('click', function(){
 		console.log('ok');
 		var productId = $(this).attr('data-product-id');
+		var productUrl = $(this).attr('data-product-url');
+		window.location.hash = productUrl;
 		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
 		$('#shadow').css('display', 'none');
 		$('#full-shadow').css('display', 'block');
@@ -94,6 +96,11 @@
 		width: flypage_width,
 		height: 200,
 		overlayColor: '#000',
-		margin: [70, 25, 15, 290]
+		margin: [70, 25, 15, 290],
+		beforeClose: function() {
+			$('#shadow').css('display', 'block');
+			$('#full-shadow').css('display', 'none');
+			window.location.hash = "";
+		}
 	});
 </script>
