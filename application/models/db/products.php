@@ -149,7 +149,7 @@ class Products extends MY_Model
 		if($img_count > 0) $rang = $rang + 10000;
 
 		$manufacturer = $this->manufacturers->get_item($product->manufacturer_id);
-		if($manufacturer->is_ranging) $rang = $rang + 10000;
+		if($manufacturer->is_ranging) $rang = $rang + 15000;
 				
 		$rang = $rang + rand(0, 1000);
 		
