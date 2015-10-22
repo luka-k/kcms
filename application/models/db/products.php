@@ -143,12 +143,14 @@ class Products extends MY_Model
 	{
 		$rang = 0;
 		
+		if($product->sale) $rang = $rang + 10000;
+		
 		$img_count = $this->images->get_count(array('object_type' => 'products', 'object_id' => $product->id));
 		if($img_count > 0) $rang = $rang + 10000;
 
 		$manufacturer = $this->manufacturers->get_item($product->manufacturer_id);
 		if($manufacturer->is_ranging) $rang = $rang + 10000;
-		
+				
 		$rang = $rang + rand(0, 1000);
 		
 		return $rang;
