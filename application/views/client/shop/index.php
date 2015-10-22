@@ -41,6 +41,7 @@
 								
 								<div id="index_categories" class="clearfix">
 									<?foreach($left_menu as $item_1):?>	
+										<?$item_1->img = $this->images->get_cover(array('object_type' => 'categories', 'object_id' => $item_1->id));?>
 										<div class="index_categories_item">
 											<a href="<?=base_url()?>catalog/<?=$item_1->url?>" class="level1_link">
 												<? if ( $item_1->img): ?>

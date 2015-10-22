@@ -16,8 +16,9 @@ class Catalog extends Client_Controller {
 	{
 		parent::__construct();
 		
+		$this->benchmark->mark('main_start'); // code start
+		
 		$this->post = $this->input->post();
-
 		
 		$price_min = $price_from = $this->products->get_min('sale_price');
 		if(!empty($this->post['price_from'])) $price_from = preg_replace('/[^0-9]/', '', $this->post['price_from']);
@@ -98,8 +99,7 @@ class Catalog extends Client_Controller {
 			 $this->get_by_filter();
 		}
 		else
-		{		
-			
+		{					
 			$content = $this->url->shop_url_parse(2);
 
 			isset($content->product) ? $this->product($content) : $this->category($content);
@@ -125,7 +125,7 @@ class Catalog extends Client_Controller {
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 			$this->log->sql_log('Получение кеща для главной', $code_time); //логирование sql
 
-			//if($data) $this->filters_cache->delete($cache_id);
+			if($data) $this->filters_cache->delete($cache_id);
 			//$data = FALSE;
 			if($data)
 			{	
@@ -182,6 +182,10 @@ class Catalog extends Client_Controller {
 				$this->filters_cache->insert($cache_id, $data);
 			}
 			
+			$this->benchmark->mark('main_end');
+			$code_time = $this->benchmark->elapsed_time('main_start', 'main_end');
+			$this->log->put_elapsed_time('общее время загрузки главной', $code_time); //логирование sql
+			
 			$this->load->view("client/shop/index", $data);
 		}
 		else
@@ -228,6 +232,8 @@ class Catalog extends Client_Controller {
 				$data['sku_ch'] = array();
 				$data['beautiful_link'] = $semantic_url;
 				
+				$this->benchmark->mark('time_start'); // code start	
+				
 				if($data['all_products_ids']) 
 				{
 					$this->db->where_in('id', $data['all_products_ids']);
@@ -246,16 +252,16 @@ class Catalog extends Client_Controller {
 					$data['depth_max'] = $data['depth_to'] = $this->catalog->get_max($all_products, 'depth');
 				}
 				
+				$this->benchmark->mark('time_end');
+				$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+				$this->log->put_elapsed_time('все продукты', $code_time); //логирование sql
+				
 				$data['no_shadow'] = TRUE;
 				$data = array_merge($this->standart_data, $data);
-				
-				if(!empty($data['sku_tree']))foreach($data['sku_tree'] as $manufacturer)
-				{
-					foreach($manufacturer->sku as $i => $sku)
-					{
-						$manufacturer->sku[$i]->full_url = $this->products->get_url($sku);
-					}
-				}
+								
+				$this->benchmark->mark('main_end');
+				$code_time = $this->benchmark->elapsed_time('main_start', 'main_end');
+				$this->log->put_elapsed_time('общее время загрузки страницы каталога', $code_time); //логирование sql
 		
 				$this->load->view("client/shop/categories", $data);
 			}
