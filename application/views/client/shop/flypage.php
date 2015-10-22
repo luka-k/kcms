@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
-
-	<body style="overflow:hidden; min-width:400px;">
-		<div id="product_content">
+	<body style="overflow-x:hidden; min-width:400px;">
+		<div id="product_content" class="clearfix">
 			<div class="product-info" style="position:relative; display:block; ">
 				<div id="gallery">
 					<?if(!empty($product->images)):?>
@@ -337,6 +336,15 @@
 			$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
 			$('#shadow').css('display', 'none');
 			$('#full-shadow').css('display', 'block');
+		});
+		
+		$(document).ready(function(){
+			$("#product_content").height($(window.top).height() - 115);
+		});
+		
+		$("#product_content").mCustomScrollbar({
+			axis:"y", 
+			advanced:{ autoExpandHorizontalScroll:true } //auto-expand content to accommodate floated elements
 		});
 	</script>
 	<?require_once 'include/product_scripts.php'?>
