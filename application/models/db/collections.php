@@ -63,6 +63,7 @@ class Collections extends MY_Model
 		
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
+		if(!isset($selected['subcollection_checked'])) $selected['subcollection_checked'] = array();//костыли костылики
 		//my_dump($selected['collection_checked']);
 		$filtred_ids = array();
 		
@@ -73,8 +74,10 @@ class Collections extends MY_Model
 			$filtred_ids[] = $r->collection_parent_id;
 		}
 		
+		$this->benchmark->mark('time_start'); // code start
+
 		$tree = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
-		
+
 		foreach($tree as $i => $branches)
 		{
 			$collections = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => 0), FALSE, FALSE, 'name', 'asc');
@@ -125,6 +128,11 @@ class Collections extends MY_Model
 				}
 			}
 		}
+		
+		$this->benchmark->mark('time_end');
+		$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
+		$this->log->put_elapsed_time('общее время веток коллекций', $code_time); //логирование sql
+		
 		//my_dump($tree);
 		return $tree;
 	}
