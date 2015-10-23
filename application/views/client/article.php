@@ -45,8 +45,8 @@
 								<?endif;?>
 
 							<? if ($this->uri->segment(3) == 'novosti'): ?>
-
-						<div class="projects" style="width:600px;">
+							
+							<div class="projects" style="width:600px;">
 							<ul class="projects__list-noscroll clearfix" style="margin-top: 15px; margin-left: 20px; padding-left: 0px;list-style: none;width: 580px;">
 								<?for($i = 0; $i < count($object_images); $i+=3): $c = $object_images[$i];?>
 									<li class="projects__item projects-item" style="margin-left: 0; padding-left: 0;">
@@ -54,17 +54,17 @@
 										if ($c->caption)
 											$c->catalog_small_url=$c->video_url;
 										?>
-											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$content->article->id?>&amp;first_img=<?=$i?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open">
+											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$c->object_id?>&amp;object_type=<?=$c->object_type?>&amp;first_img=<?=$i?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open">
 												<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
 											</a>
 											<? if ($i+1 < count($object_images)): $c = $object_images[$i+1];if ($c->caption)
 											$c->catalog_small_url=$c->video_url;?>
-											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$content->article->id?>&amp;first_img=<?=$i+1?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open" style="margin-left: 60px;">
+											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$c->object_id?>&amp;object_type=<?=$c->object_type?>&amp;first_img=<?=$i+1?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open" style="margin-left: 60px;">
 													<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
 												</a>
 												<? if ($i+2 < count($object_images)): $c = $object_images[$i+2];if ($c->caption)
 											$c->catalog_small_url=$c->video_url;?>
-											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$content->article->id?>&amp;first_img=<?=$i+2?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box last modal-gallery-open" style="margin-left: 60px;">
+											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=news&amp;nolinks=1&amp;product_id=<?=$c->object_id?>&amp;object_type=<?=$c->object_type?>&amp;first_img=<?=$i+2?>&amp;title=<?=$content->article->name?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box last modal-gallery-open" style="margin-left: 60px;">
 														<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" />
 													</a>
 												<? endif?>

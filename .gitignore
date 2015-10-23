@@ -7,3 +7,6 @@
 !application/logs/.htaccess
 
 /download/*
+/download_bb/*
+
+/logs/*

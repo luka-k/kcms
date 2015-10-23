@@ -188,13 +188,20 @@ class Popup_gallery extends Client_Controller {
 				$gallery[] = $im;
 			}
 			$gallery_title = $product->name;
-		}elseif($action == "news")
+		}
+		elseif($action == "news")
 		{
 			$product_id = $this->input->get("product_id");
-			$product = $this->articles->get_item_by(array("id" => $product_id));
+			if(!$product_id) return FALSE; //Это костыль. Я пока та к и не понял почему на каких то страницах новостей вызывается автоматом галлереяя а на каких то нет(((
+			
+			$object_type = 'articles';
+			if($this->input->get("object_type"))
+				$object_type = $this->input->get("object_type");
+				
+			$product = $this->$object_type->get_item_by(array("id" => $product_id));
 			
 			$gallery = array();
-			$images = $this->images->get_list(array("object_type" => "articles", "object_id" => $product_id), FALSE, FALSE, "name", "asc");
+			$images = $this->images->get_list(array("object_type" => $object_type, "object_id" => $product_id), FALSE, FALSE, "name", "asc");
 			$_GET['first_img']++;
 			if ($_GET['first_img'] == count($images))
 				$_GET['first_img'] = 0;

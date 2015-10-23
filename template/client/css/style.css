@@ -2139,7 +2139,23 @@ input.formButton:hover {color:#c6da2d !important;}
 Новости - временные стили
 *************************************************/
 
-.acidYellow {color:#e9f442;}
+.acidYellow {
+	color:#e9f442;
+	margin-top:5px;
+}
+
+.news_description{
+	margin-top:5px;
+}
+
+.news_description p{
+	margin:0;
+	line-height:16px !important;
+}
+
+.news_description li{
+	line-height:16px !important;
+}
 
 /* @media only screen and (min-width: 740px){
   @import "_tablet" ;

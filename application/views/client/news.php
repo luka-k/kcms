@@ -47,8 +47,8 @@
 											</div>
 											<!---<span class="video_icon">&nbsp;</span>-->
 											
-											<p class="acidYellow" style="margin-top: 5px;line-height: 5px;"><?=$a->date?><br>
-											<?=$a->description?></p>
+											<p class="acidYellow"><?=$a->date?></p>
+											<div class="news_description"><?=$a->description?></div>
 											<? if ( $i < count ($content->articles) - 1) : ?>
 											<div style="width: 579px; height: 1px; margin-top: 15px; margin-bottom: 15px; background: url(/template/client/images/i/news-line.png)"></div>
 											<? endif ?>
