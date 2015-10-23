@@ -24,6 +24,8 @@ function autocomp(){
 		
 	$('.modal_product').on('click', function(){
 		var productId = $(this).attr('data-product-id');
+		var productUrl = $(this).attr('data-product-url');
+		window.location.hash = productUrl;
 		$(this).attr('href', '<?= base_url()?>catalog/flypage/'+productId);
 		$('#shadow').css('display', 'none');
 		$('#full-shadow').css('display', 'block');
@@ -39,6 +41,7 @@ function autocomp(){
 		beforeClose: function() {
 			$('#shadow').css('display', 'block');
 			$('#full-shadow').css('display', 'none');
+			window.location.hash = "";
 		}
 	});
 	
