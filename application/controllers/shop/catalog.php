@@ -125,7 +125,7 @@ class Catalog extends Client_Controller {
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 			$this->log->sql_log('Получение кеща для главной', $code_time); //логирование sql
 
-			if($data) $this->filters_cache->delete($cache_id);
+			//if($data) $this->filters_cache->delete($cache_id);
 			//$data = FALSE;
 			if($data)
 			{	
@@ -160,8 +160,8 @@ class Catalog extends Client_Controller {
 				$this->log->sql_log('Продукты', $code_time); //логирование sql
 				
 				$products_ids = $this->catalog->get_products_ids($products);
-
-				$total_rows = count($this->products->get_list(FALSE));
+				
+				$total_rows = $this->products->get_count(FALSE);
 			
 				$data = array(
 					'filters_checked' => $filters_checked,
@@ -319,6 +319,8 @@ class Catalog extends Client_Controller {
 		}
 		else
 		{	
+			$this->benchmark->mark('filter_start'); // code start
+			
 			if($this->post['name'])
 			{
 				$product = $this->products->get_item_by(array("name" => $this->post['name']));
@@ -442,8 +444,7 @@ class Catalog extends Client_Controller {
 				$depth_min = $depth_from = preg_replace('/[^0-9]/', '', $this->post['depth_from']);	
 				$depth_max = $depth_to = preg_replace('/[^0-9]/', '', $this->post['depth_to']);
 			}
-			//my_dump(count($products_ids_wlt));
-			//my_dump(count($products_ids));
+
 			$data = array(
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'filters_checked' => $this->post,
@@ -505,7 +506,6 @@ class Catalog extends Client_Controller {
 			
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
-				//my_dump($last_type_filter);
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids_wlt, $this->post);
 			}
 			else
@@ -553,6 +553,10 @@ class Catalog extends Client_Controller {
 			
 			$this->filters_cache->insert($cache_id, $data);
 		
+			$this->benchmark->mark('filter_end');
+			$code_time = $this->benchmark->elapsed_time('filter_start', 'filter_end');
+			$this->log->put_elapsed_time('Фильтр', $code_time); //логирование sql
+		
 			redirect(base_url()."catalog/filter/".$cache_id);
 		}	
 	}
@@ -583,8 +587,6 @@ class Catalog extends Client_Controller {
 				}
 			}
 		}
-		
-		
 		
 		if(isset($data['filters_checked']['manufacturer_checked']) && isset($data['filters_checked']['sku_checked']) && count(array_unique($data['filters_checked']['manufacturer_checked'])))
 		{

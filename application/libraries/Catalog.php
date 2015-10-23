@@ -70,6 +70,8 @@ class CI_Catalog {
 		
 	public function get_filters_info($filters, $type, $ch)
 	{
+		$this->CI->benchmark->mark('code_start'); // code start
+	
 		$filters_info = '';
 		if(!empty($filters[$ch]))
 		{
@@ -87,15 +89,22 @@ class CI_Catalog {
 					}
 					break;
 				default:
-					foreach($filters[$ch] as $key => $item)
+					$this->CI->db->select('name');
+					$this->CI->db->where_in('id', $filters[$ch]);
+					$info = $this->CI->db->get($type)->result();
+					if($info) foreach($info as $i)
 					{
-						$filters_info[] = $this->CI->$type->get_item($item)->name;
+						$filters_info[] = $i->name;
 					}
-					
+				
 					break;
 			}
 		}
 
+		$this->CI->benchmark->mark('code_end');
+		$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
+		$this->CI->log->sql_log('получение получение информации о фильтре '.$ch, $code_time); //логирование sql
+		
 		return $filters_info;
 	}
 	
