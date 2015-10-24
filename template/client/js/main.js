@@ -108,22 +108,23 @@
     var _this = this;
     var $projectsList = $('.projects__list');
     var $projects = $projectsList.children('li');
-
+	var $pp = $('.projects');
+	
     if ($projectsList.height() >= 560){
       var projectsSlider = $projectsList.bxSlider({
                               pager: false,
                               mode: 'vertical',
-                              minSlides: 4,
+							  minSlides: 3,
                               maxSlides: 4,
-                              moveSlides: 1,
+                              moveSlides: 0,
 							  infiniteLoop: false,
-                              adaptiveHeight: false
+                              adaptiveHeight: true
                             });
 		$('.projects').css('overflow-y', 'visible');
     
     _this.sliderWheel($projectsList, projectsSlider);
     
-    }
+  }
 
     /*
       the-best

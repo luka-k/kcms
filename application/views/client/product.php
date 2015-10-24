@@ -22,15 +22,15 @@
 					<section class="page__content " style="padding-left: 68px;">
 					
 						<header class="page__header">
-							<h1 class="page__title"><?=$content->name?>5</h1> <!-- /.page__title -->
+							<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
 						</header> <!-- /.page__header -->
 						<div class="projects">
-							<ul class="projects__list" style="margin-top: 0px;">
-							<? if (trim($content->description)): ?>
-								<li style="padding-left: 21px;">
-							<div  style="width: 585px;margin-bottom: 30px;"><?=$content->description?></div>
-							</li>
-							<? endif?>
+							<ul class="projects__list">
+								<? if (trim($content->description)): ?>
+									<li style="padding-left: 21px;">
+										<div  style="width: 585px; margin-bottom: 35px;"><?=$content->description?></div>
+									</li>
+								<? endif?>
 								<?
 								$delta = 0;
 								$firstimg_delta = $is_catalog ? 0 : 1;
@@ -87,6 +87,7 @@
 									</li> <!-- /.projects__item projects-item -->
 								<?endfor;?>
 							</ul> <!-- /.projects__list -->
+
 						</div> <!-- /.projects -->
 					</section> <!-- /.page__content -->
 					

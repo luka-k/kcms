@@ -1294,23 +1294,24 @@ span
 /* ==========================================================================
  * projects
  * ========================================================================== */
-.projects
-{
+.projects{
+	position:relative;
 	height: 580px;
 	overflow-y: hidden;
 }
-.projects__list
-{
-    margin: 0;
+
+.projects__list{
+	margin: 22px 0 0 0;
     padding: 0;
     list-style: none;
-
 }
+
 .projects__list li p, .page__scroll-in p
 {
 	margin-bottom: 3px;
 	text-indent: 15px;
 }
+
 .projects__list:before,
 .projects__list:after
 {
@@ -1328,10 +1329,11 @@ span
 {
     height: 140px;
     padding: 7px 0 20px 20px;
+	margin:5px 0;
 }
 .projects .bx-viewport
 {
-    height: 580px !important;
+    height: 560px !important;
 }
 .projects .bx-prev,
 .projects .bx-next
