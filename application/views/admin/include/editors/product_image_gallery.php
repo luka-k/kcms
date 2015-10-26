@@ -7,27 +7,34 @@
 	<div class="col_12">
 		<input type="hidden" name="view_image" value="view_image"/>
 		<table  id="sort" class="nosortable" cellspacing="2" cellpadding="2" >
+		
 			<thead>
 				<tr>
-					<th class="tb_1">№</th>
-					<th class="tb_3">Изображение</th>
-					<th class="tb_4">Привязка к категории</th>
-					<th class="tb_2">Обложка</th>
-					<th class="tb_2">&nbsp;</th>
+					<th>№</th>
+					<th>Изображение</th>
+					<th>Информация</th>
+					<th>Привязка к категории</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
+			
 			<tbody>
 				<?$counter = 1?>
 				<?foreach($content->img as $img_item):?>
 					<tr>
-						<td class="tb_1"><?=$counter?></td>
-						<td class="tb_3">
-							<img src="<?=$img_item->catalog_small_url?>"/><br><? $_url = explode('/', $img_item->catalog_small_url); echo $_url[count($_url)-1];?><br><?= floor(filesize('download/images'.$img_item->url) / 1000); ?> Кб<br>
-					название: <input type="text" class="col_12" name="" value="<?=$img_item->name?>" onchange="rename_image('<?=$img_item->id?>', this.value)"/><br>
-					подпись: <input type="text" class="col_12" name="" value="<?=$img_item->caption?>" onchange="recaption_image('<?=$img_item->id?>', this.value)"/>
+						<td><?=$counter?></td>
+						<td>
+							<img src="<?=$img_item->catalog_small_url?>"/><br>
+						</td>
+						<td>
+							файл: <? $_url = explode('/', $img_item->catalog_small_url); echo $_url[count($_url)-1];?>; размер:<?= floor(filesize('download_bb/images'.$img_item->url) / 1000); ?> Кб<br /><br />
+							<span class="col_3">название: </span><input type="text" class="col_9" name="" value="<?=$img_item->name?>" onchange="updateImageInfo('<?=$img_item->id?>', 'name', this.value)"/><br>
+							<span class="col_3">подпись: </span><input type="text" class="col_9" name="" value="<?=$img_item->caption?>" onchange="updateImageInfo('<?=$img_item->id?>', 'caption', this.value)"/></br>
+							<span class="col_3">title: </span><input type="text" class="col_9" name="" value="<?=$img_item->title?>" onchange="updateImageInfo('<?=$img_item->id?>', 'title', this.value)"/><br>
+							<span class="col_3">alt: </span><input type="text" class="col_9" name="" value="<?=$img_item->alt?>" onchange="updateImageInfo('<?=$img_item->id?>', 'alt', this.value)"/>
 							<input type="hidden" name="img_ids[]" value="<?=$img_item->id?>"/>
 						</td>
-						<td class="tb_4">
+						<td>
 							 <a href="" onclick="$('.showHideCategories<?=$counter?>').toggle(); return false;">вкл/выкл</a><br><br>
 							<div class="showHideCategories<?=$counter?>" style="display: none;">
 							<?$counter_category = 1?>
@@ -47,8 +54,9 @@
 							<?endforeach;?>
 							</div>
 						</td>
-						<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
-						<td class="tb_2">
+						<td>
+							<input type="radio" id="covlbl-<?= $counter?>" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/>
+							<label for="covlbl-<?=$counter?>">Обложка</label><br /><br />
 							<input type="checkbox" name="img_del[<?=$img_item->id?>]" /> <a href="#delete-<?=$img_item->id?>" class="lightbox">Удалить</a><br/><br/>
 							<input type="checkbox" id="lbl-<?=$counter?>" name="is_main[<?=$img_item->id?>]" <?if($img_item->is_main == 1):?>checked<?endif;?> value = "1"/> 
 							<label for="lbl-<?=$counter?>">В галерее</label>
