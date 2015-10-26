@@ -27,7 +27,7 @@
 							<img src="<?=$img_item->catalog_small_url?>"/><br>
 						</td>
 						<td>
-							файл: <? $_url = explode('/', $img_item->catalog_small_url); echo $_url[count($_url)-1];?>; размер:<?= floor(filesize('download_bb/images'.$img_item->url) / 1000); ?> Кб<br /><br />
+							файл: <? $_url = explode('/', $img_item->catalog_small_url); echo $_url[count($_url)-1];?>; размер:<?= floor(filesize('download/images'.$img_item->url) / 1000); ?> Кб<br /><br />
 							<span class="col_3">название: </span><input type="text" class="col_9" name="" value="<?=$img_item->name?>" onchange="updateImageInfo('<?=$img_item->id?>', 'name', this.value)"/><br>
 							<span class="col_3">подпись: </span><input type="text" class="col_9" name="" value="<?=$img_item->caption?>" onchange="updateImageInfo('<?=$img_item->id?>', 'caption', this.value)"/></br>
 							<span class="col_3">title: </span><input type="text" class="col_9" name="" value="<?=$img_item->title?>" onchange="updateImageInfo('<?=$img_item->id?>', 'title', this.value)"/><br>

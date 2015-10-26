@@ -24,6 +24,8 @@
 						<td class="tb_5"><img src="<?=$img_item->catalog_small_url?>"/></td>
 						<td class="tb_2"><input type="radio" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/></td>
 						<td class="tb_4">
+							<input type="radio" id="covlbl-<?= $counter?>" name="cover_id" <?if($img_item->is_cover == 1):?>checked<?endif;?> value = "<?=$img_item->id?>"/>
+							<label for="covlbl-<?=$counter?>">Обложка</label><br /><br />
 							<a href="#delete-<?=$img_item->id?>" class="lightbox">Удалить</a>
 						</td>
 						<!--popup on delete-->

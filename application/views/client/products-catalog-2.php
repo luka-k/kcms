@@ -32,23 +32,35 @@
 									<li class="projects__item projects-item" style="clear: both;">
 										<?if(!empty($c->img->catalog_small_url)):?>
 											<div style='text-align: center;float: left;height: 200px;width: 267px;margin-bottom: 25px'>
-											<a onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')" href="<?=$c->full_url?>/preview" class="projects-item__image-box" style="width: 270px;">
-												<img src="<?=$c->img->catalog_gallery_url?>" id="project<?= $c->id?>" alt="project" class="projects-item__image hover-image2" style='margin-bottom: 10px;width: 260px;' />
-														<?= $c->name?>
-											</a>
-											</div>
-											<? if ($i+1 < count($content)): $c = $content[$i+1];?>
-											<div style='text-align: center;float: left;height: 200px;width: 267px;'>
-												<a onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')"  href="<?=$c->full_url?>/preview" class="projects-item__image-box" style="margin-left: 50px;width: 270px;">
-													<img src="<?=$c->img->catalog_gallery_url?>" id="project<?= $c->id?>" alt="project" class="projects-item__image hover-image2" style='margin-bottom: 10px;width: 260px;' />
+												<a onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" 
+													onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')" 
+													href="<?=$c->full_url?>/preview" 
+													class="projects-item__image-box" 
+													title="<?if(!empty($c->img->title)):?><?= $c->img->title?><?else:?><?= $c->name?><?endif;?>"
+													style="width: 270px;">
+												
+													<img src="<?=$c->img->catalog_gallery_url?>" id="project<?= $c->id?>" alt="<?if(!empty($c->img->alt)):?><?= $c->img->alt?><?else:?><?= $c->name?><?endif;?>" class="projects-item__image hover-image2" style='margin-bottom: 10px;width: 260px;' />
 													<?= $c->name?>
 												</a>
 											</div>
+											
+											<? if ($i+1 < count($content)): $c = $content[$i+1];?>
+												<div style='text-align: center;float: left;height: 200px;width: 267px;'>
+													<a onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" 
+														onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')"  
+														href="<?=$c->full_url?>/preview" 
+														class="projects-item__image-box" 
+														title="<?if(!empty($c->img->title)):?><?= $c->img->title?><?else:?><?= $c->name?><?endif;?>"
+														style="margin-left: 50px;width: 270px;">
+														
+														<img src="<?=$c->img->catalog_gallery_url?>" id="project<?= $c->id?>" alt="<?if(!empty($c->img->alt)):?><?= $c->img->alt?><?else:?><?= $c->name?><?endif;?>" class="projects-item__image hover-image2" style='margin-bottom: 10px;width: 260px;' />
+														<?= $c->name?>
+													</a>
+												</div>
 											<? endif?>
 										<?endif;?>
 									</li> <!-- /.projects__item projects-item -->
 								<?endfor;?>
-								
 							</ul> <!-- /.projects__list -->
 						</div> <!-- /.projects -->
 						
@@ -57,8 +69,15 @@
 								<?$counter = 1?>
 								<?foreach($content as $product): $product = $this->products->prepare_product($product); foreach ($product->img as $i => $p): if ($i == 0) continue;?>
 									<li class="thumbs-slider__item" style="width: 126px;height: 130px;margin-right: 15px;">
-										<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=product&amp;type=catalog&amp;product_id=<?=$product->id?>&amp;first_img=<?=$counter-1?>&amp;title=<?=urlencode($title)?>&amp;my_parent=<?=$product->parent_id?>"  id="im_<?= $p->id?>" data-fancybox-type="iframe" class="thumbs-slider__href the-best__thumb modal-gallery-open" style="width:62px;margin-left: 22px;margin-right: 110px;">
-											<img src="<?=$p->catalog_small_v_url?>" alt="thumb" class="thumbs-slider__image hover-image-v" />
+										<a rel="nofollow" 
+											href="<?=base_url()?>popup_gallery/view?action=product&amp;type=catalog&amp;product_id=<?=$product->id?>&amp;first_img=<?=$counter-1?>&amp;title=<?=urlencode($title)?>&amp;my_parent=<?=$product->parent_id?>"  
+											id="im_<?= $p->id?>" 
+											data-fancybox-type="iframe" 
+											class="thumbs-slider__href the-best__thumb modal-gallery-open" 
+											title="<?if(!empty($p->title)):?><?= $p->title?><?else:?><?= $product->name?><?endif;?>"
+											style="width:62px;margin-left: 22px;margin-right: 110px;">
+											
+											<img src="<?=$p->catalog_small_v_url?>" alt="<?if(!empty($p->alt)):?><?= $p->alt?><?else:?><?= $product->name?><?endif;?>" class="thumbs-slider__image hover-image-v" />
 										</a>
 									</li> <!-- /.thumbs-slider__item -->
 									<?$counter++?>

@@ -27,10 +27,14 @@
 							<div class="the-best__slider the-best-slider">
 								
 								<ul class="the-best-slider__list">
-									<?foreach($gallery as $i=>$img):?>
+									<?foreach($gallery as $i => $img):?>
+										<?
+											$object_type = $img->object_type;
+											$object_name = $this->$object_type->get_item($img->object_id)->name;
+										?>
 										<li class="the-best-slider__item">
-											<a id="im_main_<?= $img->id?>" rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=main&amp;first_img=<?=$i+1?>&amp;rand=<?= $microtime?>&amp;title=<?= urlencode('Галерея (the best)')?>" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
-												<img src="<?=$img->catalog_gallery_url?>" alt="project" class="the-best-slider__image" />
+											<a id="im_main_<?= $img->id?>" rel="nofollow" title="<?if(!empty($img->title)):?><?= $img->title?><?else:?><?= $object_name?><?endif;?>" href="<?=base_url()?>popup_gallery/view?action=main&amp;first_img=<?=$i+1?>&amp;rand=<?= $microtime?>&amp;title=<?= urlencode('Галерея (the best)')?>" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
+												<img src="<?=$img->catalog_gallery_url?>" class="the-best-slider__image" alt="<?if(!empty($img->alt)):?><?= $img->alt?><?else:?><?= $object_name?><?endif;?>"/>
 											</a>
 										</li> <!-- /.the-best-slider__item-->
 									<?endforeach;?>									
@@ -41,9 +45,13 @@
 								<ul class="thumbs-slider__list" style="text-align: left;">
 									<?$counter = 1?>
 									<?foreach($gallery as $img):?>
+										<?
+											$object_type = $img->object_type;
+											$object_name = $this->$object_type->get_item($img->object_id)->name;
+										?>
 					        			<li class="thumbs-slider__item" style="width: 126px;">
-											<a href="#slide<?=$counter?>" id="im_<?= $img->id?>" class="thumbs-slider__href the-best__thumb">
-												<img src="<?=$img->catalog_small_url?>" alt="thumb" class="thumbs-slider__image hover-image" />
+											<a href="#slide<?=$counter?>" id="im_<?= $img->id?>" class="thumbs-slider__href the-best__thumb" title="<?if(!empty($img->title)):?><?= $img->title?><?else:?><?= $object_name?><?endif;?>">
+												<img src="<?=$img->catalog_small_url?>" class="thumbs-slider__image hover-image" alt="<?if(!empty($img->alt)):?><?= $img->alt?><?else:?><?= $object_name?><?endif;?>"/>
 					        				</a>
 										</li> <!-- /.thumbs-slider__item -->
 										<?$counter++?>

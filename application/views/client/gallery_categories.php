@@ -36,16 +36,38 @@
 								<?for($i = 0; $i < count($content); $i+=3): $c = $content[$i];?>
 									<li class="projects__item projects-item" style="height: 148px;">
 										<?if(!empty($c->catalog_small_url)):?>
-											<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+1?>&amp;title=<?=$title?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open">
-												<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image"  style="width: 161px;"/>
+											<a rel="nofollow" 
+												href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+1?>&amp;title=<?=$title?>"  
+												id="im_<?= $c->id?>" 
+												data-fancybox-type="iframe" 
+												title="<?if(!empty($c->title)):?><?= $c->title?><?else:?><?= $content[$i]->name?><?endif;?>"
+												class="projects-item__image-box modal-gallery-open">
+												
+												<img src="<?=$c->catalog_small_url?>" id="project1" alt="<?if(!empty($c->alt)):?><?= $c->alt?><?else:?><?= $content[$i]->name?><?endif;?>" class="projects-item__image hover-image"  style="width: 161px;"/>
 											</a>
+											
 											<? if ($i+1 < count($content)): $c = $content[$i+1];?>
-												<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+2?>&amp;title=<?=$title?>" id="im_<?= $c->id?>"  data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open" style="margin-left: 68px;">
-													<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" style="width: 161px;" />
+												<a rel="nofollow" 
+													href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+2?>&amp;title=<?=$title?>" 
+													id="im_<?= $c->id?>"  
+													data-fancybox-type="iframe" 
+													class="projects-item__image-box modal-gallery-open" 
+													title="<?if(!empty($c->title)):?><?= $c->title?><?else:?><?= $content[$i+1]->name?><?endif;?>"
+													style="margin-left: 68px;">
+													
+													<img src="<?=$c->catalog_small_url?>" id="project1" alt="<?if(!empty($c->alt)):?><?= $c->alt?><?else:?><?= $content[$i+1]->name?><?endif;?>" class="projects-item__image hover-image" style="width: 161px;" />
 												</a>
+												
 												<? if ($i+2 < count($content)): $c = $content[$i+2];?>
-													<a rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+3?>&amp;title=<?=$title?>"  id="im_<?= $c->id?>" data-fancybox-type="iframe" class="projects-item__image-box modal-gallery-open" style="margin-left: 68px;">
-														<img src="<?=$c->catalog_small_url?>" id="project1" alt="project" class="projects-item__image hover-image" style="width: 161px;"/>
+													<a rel="nofollow" 
+														href="<?=base_url()?>popup_gallery/view?action=category&amp;category_id=<?=$category_id?>&amp;first_img=<?=$i+3?>&amp;title=<?=$title?>"  
+														id="im_<?= $c->id?>" 
+														data-fancybox-type="iframe" 
+														class="projects-item__image-box modal-gallery-open" 
+														title="<?if(!empty($c->title)):?><?= $c->title?><?else:?><?= $content[$i+2]->name?><?endif;?>"
+														style="margin-left: 68px;">
+														
+														<img src="<?=$c->catalog_small_url?>" id="project1" alt="<?if(!empty($c->alt)):?><?= $c->alt?><?else:?><?= $content[$i+2]->name?><?endif;?>" class="projects-item__image hover-image" style="width: 161px;"/>
 													</a>
 												<? endif?>
 											<? endif?>

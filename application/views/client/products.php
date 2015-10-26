@@ -32,7 +32,7 @@
 									<li class="projects__item projects-item" onmouseover="$('#mp_objects_<?= $c->id?>').addClass('active')" onmouseout="$('#mp_objects_<?= $c->id?>').removeClass('active')">
 										<?if(!empty($c->img)):?>
 											<a href="<?=$c->full_url?>" class="projects-item__image-box">
-												<img src="<?=$c->img->catalog_small_url?>" id="project<?= $c->id?>" alt="project" class="projects-item__image hover-image" />
+												<img src="<?=$c->img->catalog_small_url?>" id="project<?= $c->id?>" alt="<?if(!empty($c->img->alt)):?><?= $c->img->alt?><?else:?><?= $c->name?><?endif;?>" class="projects-item__image hover-image" />
 											</a>
 										<?endif;?>
 										
