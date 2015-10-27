@@ -125,8 +125,8 @@ class Catalog extends Client_Controller {
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 			$this->log->sql_log('Получение кеща для главной', $code_time); //логирование sql
 
-			//if($data) $this->filters_cache->delete($cache_id);
-			//$data = FALSE;
+			if($data) $this->filters_cache->delete($cache_id);
+			$data = FALSE;
 			if($data)
 			{	
 				$this->filters_cache->set_last($cache_id);
@@ -134,7 +134,7 @@ class Catalog extends Client_Controller {
 				$data['total_price'] = $this->cart->total_price();
 				$data['total_qty'] = $this->cart->total_qty();
 				$data['main_page'] = TRUE;
-				
+
 				$data = array_merge($this->standart_data, $data);			
 			}
 			else
@@ -173,10 +173,10 @@ class Catalog extends Client_Controller {
 					'total_rows' => $total_rows,
 					'filters' => $this->characteristics_type->get_filters($this->products->get_list(FALSE)),
 				);
-			
+				
 				$data['category'] = new stdClass;
 				$data['category']->products = $products;
-				
+
 				$data = array_merge($this->standart_data, $data);
 				
 				$this->filters_cache->insert($cache_id, $data);
