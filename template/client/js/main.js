@@ -273,7 +273,7 @@
       modalWidth = documentWidth - 300; 
 	  if (modalWidth > modalHight * 1.33)
 			modalWidth = modalHight * 1.33; 
-      var galleryImagesHeight = modalHight - 130;
+      var galleryImagesHeight = modalHight - 160;
 
       $modalGallery.css('height', documentHeight );
 
@@ -388,9 +388,20 @@
       var $galleryThumbsList = $modalGalleryFrame.find('.gallery-thumbs-slider__list');
       var $galleryThumbs = $galleryThumbsList.children('li');
       
-      var thumbsNumber = Math.floor( ( modalWidth - 20 ) / 59 ) - 1; 
-
+	  var slideWidth = 59;
+	  var slideMargin = 0;
+	  
+	  var isCatalog = $('.is_catalog').val();
+	  if(isCatalog == '0') 
+	  {
+		slideWidth = 59;
+		slideMargin = 66;
+	  }
+	  
+      var thumbsNumber = Math.floor( ( modalWidth - 20 ) / slideWidth ) - 1; 
+	  
       if ($galleryThumbs.length >= thumbsNumber){
+		
 
         var galleryThumbsSlider = $galleryThumbsList.bxSlider({
                             pager: false,
@@ -398,7 +409,8 @@
                             minSlides: thumbsNumber,
                             maxSlides: thumbsNumber,
                             moveSlides: 1,
-                            slideWidth: 59
+                            slideWidth: slideWidth,
+							slideMargin: slideMargin
                           });
 
         _this.sliderWheel($galleryThumbsList, galleryThumbsSlider);

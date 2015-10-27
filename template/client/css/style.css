@@ -461,7 +461,7 @@ span
     margin: -1% 0 0 0px;
 
     border-color: #fff;
-    box-shadow: 0 0 15px #c6da2d;
+    box-shadow: 0 0 10px #c6da2d;
 }
 .hover-image3:hover, .hover-image3.hover-image-hover
 {
@@ -470,7 +470,7 @@ span
     margin: -1% 0 0 0px;
 
     border-color: #fff;
-    box-shadow: 0 0 15px #c6da2d;
+    box-shadow: 0 0 10px #c6da2d;
 }
 
 /* ==========================================================================
@@ -478,7 +478,21 @@ span
  * ========================================================================== */
 .bx-wrapper
 {
+	overflow:visible;
     position: relative;
+}
+
+.gallery-thumbs-slider.catalog_slider .bx-viewport{
+	height:150px;
+	padding:30px 10px 0 9px;
+	top:-20px;
+}
+
+.gallery-thumbs-slider .bx-viewport{
+	height:150px;
+	padding:30px 10px 0 10px;
+	left:20px;
+	top:-20px;
 }
 
 .bx-prev,
@@ -1680,16 +1694,16 @@ background: #000;
     position: relative;
 
     margin: 0 auto;
-    padding: 0 0 70px;
+    padding: 0 0 60px;
 }
 .gallery__slider
 {
-    margin: 0 0 10px;
+    margin: 0 0 20px;
 }
 .gallery__text
 {
+	position: relative;
     font-size: 12px;
-
     position: relative;
     z-index: 10;
 
@@ -1701,19 +1715,24 @@ background: #000;
 
     float: right;
 }
+
 .gallery__thumbs
 {
-    position: absolute;
-    right: 20px;
+    position: relative;
+	width: 100%;
+	bottom:0;
+	margin-top:-50px;
+	padding:30px 20px 0 20px;
+    /*right: 20px;
     bottom: 0;
-    left: 20px;
+    left: 20px;*/
 }
 
 .gallery-slider__list
 {
-    overflow: hidden;
+    /*overflow: hidden;*/
 
-    margin: 0;
+    margin: 0px 20px 0 20px;
     padding: 0;
 
     list-style: none;
@@ -1920,14 +1939,20 @@ background: #000;
  * ========================================================================== */
 .gallery-thumbs-slider__list
 {
+	position:relative;
     margin: 0;
     padding: 0;
 
     list-style: none;
-
+	padding-top:30px;
     text-align: center;
-
+	z-index:100;
 }
+
+.bx-viewport .gallery-thumbs-slider__list{
+	padding-top:0;
+}
+
 .gallery-thumbs-slider__list:before,
 .gallery-thumbs-slider__list:after
 {
@@ -1960,20 +1985,20 @@ background: #000;
     width: 46px;
     height: 34px;
 
-    vertical-align: top;
+    vertical-align: bottom;
 }
 .gallery-thumbs-slider__image:hover
 {
     z-index: 50;
 
-    width: 92px;
-    height: 68px;
-    margin: -30px 0 0 -24px;
+    width: 64px;
+    height: 47px;
+    margin: -15px 0 0 -9px;
 }
 .gallery-thumbs-slider__image2
 {
     position: relative;
-
+	z-index: 50;
     width: 40px;
     height: 55px;
 
@@ -1982,7 +2007,7 @@ background: #000;
 .gallery-thumbs-slider__image3
 {
     position: relative;
-
+	z-index: 50;
     width: 36px;
     height: 55px;
 
@@ -1992,17 +2017,17 @@ background: #000;
 {
     z-index: 50;
 
-    width: 80px;
-    height: 110px;
-    margin: -30px 0 0 -24px;
+    width: 70px;
+    height: 96px;
+    margin: -30px 0 0 -12px;
 }
 .gallery-thumbs-slider__image3:hover
 {
     z-index: 50;
 
-    width: 45px;
-    height: 65px;
-    margin: -5px 0 0 -5px;
+    width: 60px;
+    height: 92px;
+    margin: -30px 0 0 -7px;
 }
 .gallery-thumbs-slider .bx-prev,
 .gallery-thumbs-slider .bx-next
@@ -2165,9 +2190,12 @@ input.formButton:hover {color:#c6da2d !important;}
 */
 
 #img_caption {
+	position:relative;
 	width: 100%;
 	text-align: center;
 	margin: 0 auto;
+	margin-top:-10px;
+	z-index:0;
 }
 
 .vcard .category, .vcard .org {

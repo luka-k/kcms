@@ -57,15 +57,15 @@
 				<a href="" id="title_link" class="gallery-menu__title"><?=$gallery_title?></a> <!-- /.gallery__category -->
 			</div> <!-- /.gallery__menu -->
 			
-			<div id="img_caption" style="display: <?= $display_caption?>"></div>
+			<div id="img_caption" style="display: <?= $display_caption?>;"></div>
 		<? endif ?>
 		
 		<div class="gallery__name gallery-menu__title2" style="color: white;<? if ($_GET['action'] == 'map'): ?>padding-top: 30px;<?endif?>"><?= urldecode ($_GET['title'])?></div> <!-- /.gallery__name -->
 	</div> <!-- /.gallery__text -->
 	
 	<? if ($_GET['action'] != 'map'):?>
-		<div class="gallery__thumbs gallery-thumbs-slider" style="height:94px;">
-			<ul class="gallery-thumbs-slider__list" >
+		<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
+			<ul class="gallery-thumbs-slider__list" style="height:150px;">
 				<?$counter=1?>
 				<?foreach($gallery as $g):?>
 					<?
@@ -80,7 +80,7 @@
 							links="<?= $g->links ?>" 
 							id="th_<?= $counter?>" 
 							title="<?if(!empty($g->title)):?><?= $g->title?><?else:?><?= $object_name?><?endif;?>"
-							<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb" 
+							<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb popup_href" 
 							onmousedown="update_menu_list('<?= $g->links ?>');$('#title_link').attr('href', '<?= $g->titlelink ?>');$('#title_link').html('<?= $g->titlelinkname ?>');" >
 							
 							<img src="<?= $_GET['type'] == 'catalog' ? $g->catalog_small_v_url : $g->catalog_small_url?>" alt="<?if(!empty($g->alt)):?><?= $g->alt?><?else:?><?= $object_name?><?endif;?>" class="gallery-thumbs-slider__image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?> hover-image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?>" />
@@ -112,5 +112,5 @@
 		$('#img_caption').html($(this).attr('captionlink'));
 	});
 </script>
-
+<input type="hidden" name="is_catalog" class="is_catalog" value="<?if($_GET['type'] == 'catalog'):?>1<?else:?>0<?endif;?>">
 <div id="active_id" style="display: none;"><?= $_GET['first_img']?></div>
