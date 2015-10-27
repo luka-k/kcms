@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 	<? require 'include/head.php' ?>	
-	<body style="overflow-x:hidden; min-width:400px;">
-		<div id="product_content" class="clearfix">
+	<body class="flypage" style="overflow-x:hidden; min-width:400px;">
+		<div class="clearfix">
 			<div class="product-info" style="position:relative; display:block; ">
 				<div id="gallery">
 					<?if(!empty($product->images)):?>

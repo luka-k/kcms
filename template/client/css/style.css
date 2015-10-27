@@ -13,6 +13,10 @@ body {
 	margin:0;
 }
 
+body.flypage{
+	height:95% !important;
+}
+
 .clearfix{
 	margin:0;
 	padding:0;
