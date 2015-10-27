@@ -17,7 +17,7 @@ class Manufacturer extends Client_Controller {
 		if($this->uri->segment(3) == 'catalogs') redirect(base_url().'manufacturer/'.$url);
 		$this->breadcrumbs->add(base_url(), "Производители");
 		$manufacturer = $this->manufacturers->get_item_by(array("url" => $url));
-		
+
 		$this->breadcrumbs->add("manufacturer/".$manufacturer->url, $manufacturer->name);
 		
 		$documents = $this->documents->get_by_filter($manufacturer->id, FALSE, $doc_type);

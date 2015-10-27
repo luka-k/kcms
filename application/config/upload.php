@@ -32,8 +32,9 @@ $config['thumb_config'] = array(
 	),
 	"document_main" => array(
 		'q' => 95,
-		'w' => 168,
-		'h' => 235,
+		'w' => 170,
+		'h' => 237,
+		'far' => 'C',
 		"bg" => "ffffff"	
 	),
 	"product_small" => array(
@@ -46,8 +47,8 @@ $config['thumb_config'] = array(
 		'q' => 95,
 		'w' => 162,
 		'h' => 72,
-		'zc' => '1',
-		//'far' => 'C',
+		/*'zc' => '1',*/
+		'far' => 'C',
 		"bg" => "ffffff"	
 	),
 	"small_map" => array(
