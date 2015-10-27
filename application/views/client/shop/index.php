@@ -144,7 +144,7 @@
 												
 												<div class="sale_desc">
 													<? if ($item->sale):?>
-														<strong><span style="color: red;">111Распродажа!</span></strong>
+														<strong><span style="color: red;">Распродажа!</span></strong>
 													<?endif?>
 												
 													<? if ($item->description):?>
