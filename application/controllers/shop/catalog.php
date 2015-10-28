@@ -125,8 +125,8 @@ class Catalog extends Client_Controller {
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 			$this->log->sql_log('Получение кеща для главной', $code_time); //логирование sql
 
-			if($data) $this->filters_cache->delete($cache_id);
-			$data = FALSE;
+			//if($data) $this->filters_cache->delete($cache_id);
+			//$data = FALSE;
 			if($data)
 			{	
 				$this->filters_cache->set_last($cache_id);

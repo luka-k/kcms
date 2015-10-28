@@ -741,6 +741,17 @@ class Import extends Admin_Controller
 				$this->db->where_in('collection_parent_id', $c_id);
 				$this->db->where_in('child_id', $p_ids);
 				$this->db->update('product2collection', array('sub_empty' => 1));
+			
+				$info = array();
+				foreach($p_ids as $p_id)
+				{
+					$info[] = array(
+						'parent_collection_id' => $c_id,
+						'product_id' => $p_id
+					);
+				}
+				
+				$this->db->insert_batch('empty_subcollections', $info);
 			}
 		}
 		
