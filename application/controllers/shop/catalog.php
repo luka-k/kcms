@@ -561,11 +561,22 @@ class Catalog extends Client_Controller {
 		}	
 	}
 	
-	public function filter($cache_id)
+	public function filter($cache_id, $url = FALSE)
 	{
 		$this->filters_cache->set_last($cache_id);
+		
+		if($url)
+		{
+			$product = $this->products->get_item_by(array('url' => $url));
+			if($product)
+			{
+				$full_url = $this->products->get_url($product);
+				redirect($full_url);
+			}
+		}
+		
 		$data = $this->filters_cache->get($cache_id);
-
+		
 		$data = array_merge($this->standart_data, $data);
 		
 		if($data['total_rows'] <> count($this->products->get_list())) 
