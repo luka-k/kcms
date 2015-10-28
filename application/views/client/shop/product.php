@@ -18,7 +18,7 @@
 									<div id="gallery">
 										<?if(!empty($product->images)):?>
 											<div id="box">
-												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' data-imgkey="0" class = 'cloud-zoom' title="" rel="" data-img-key="0">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
 												<a href='<?= $product->images[0]->catalog_big_url ?>' id="fancy_opener" style="display: none;" class = 'fancybox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
 											</div>
 									
@@ -26,16 +26,16 @@
 												<div class="thumbs">
 													<div class="thumbs-list">
 														<?$counter = 1?>
-														<?foreach ($product->images as $img):?>
-															<div class="thumb <?if($counter == 3):?>left<?endif;?>">
-																<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
+														<?foreach ($product->images as $key => $img):?>
+															<div class="thumb <?if($counter == 3):?>left<?endif;?> thumbimg_<?= $key?>" style="<?if($key == 0):?>display:none;<?endif;?>">
+																<a href='<?= $img->catalog_big_url?>' class='cloud-zoom-gallery' data-imgkey="<?= $key?>"  rel="useZoom: 'zoom1', smallImage: '<?= $img->catalog_big_url?>'">
 																	<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
 																</a>
 																<a href='<?= $img->catalog_big_url?>' class="fancybox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
 																	<img  src="<?= $img->catalog_small_url?>" alt="" />
 																</a>
 															</div>
-														<?$counter++?>
+															<?$counter++?>
 														<?endforeach;?>
 													</div>
 												</div>

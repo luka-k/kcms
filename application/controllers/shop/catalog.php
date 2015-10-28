@@ -202,10 +202,10 @@ class Catalog extends Client_Controller {
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 			$this->log->sql_log('Получение кеща', $code_time); //логирование sql
 			
-			$data = unserialize($cache->cache_data);
-			
-			if($data)
+			if($cache)
 			{
+				$data = unserialize($cache->cache_data);
+				
 				$this->filters_cache->set_last($cache_id);
 				
 				$data = $this->filters_cache->get($cache_id);

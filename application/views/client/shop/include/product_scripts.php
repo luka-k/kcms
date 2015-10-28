@@ -20,4 +20,15 @@
 				$(this).find('span.list').html('+');
 		}
 	});
+		
+	$(function(){
+		$(".cloud-zoom-gallery").on("click", function(){
+			var viewedImgKey = $('.cloud-zoom').attr('data-imgkey');
+			var imgKey = $(this).attr('data-imgkey');
+			
+			$('.thumbimg_'+imgKey).css('display', 'none');
+			$('.thumbimg_'+viewedImgKey).css('display', 'block');
+			$('.cloud-zoom').attr('data-imgkey', imgKey);
+		});
+	});
 </script>
