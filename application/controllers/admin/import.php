@@ -120,7 +120,7 @@ class Import extends Admin_Controller
 				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug($cat2), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
+					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug(trim($cat2)), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
 					$category = $this->categories->get_item($this->db->insert_id());
 				}
 				
@@ -131,7 +131,7 @@ class Import extends Admin_Controller
 					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
 					if (!$parentcategory)
 					{
-						$this->categories->insert(array('name' => $c1, 'url' => $this->string_edit->slug($c1), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
+						$this->categories->insert(array('name' => $c1, 'url' => trim($this->string_edit->slug(trim($c1))), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
 						$pid = $this->db->insert_id();
 						$parentcategory = $this->categories->get_item($pid);
 					
@@ -307,7 +307,8 @@ class Import extends Admin_Controller
 						$cat2 = (string) $param->Значение;
 						break;
 					case 'Полное наименование':
-						$data['name'] = (string) $param->Значение;
+						$name = (string) $param->Значение;
+						$data['name'] = trim($name);
 						break;
 					/*case 'Коллекция (серия) 1':
 						$collections = explode('(', (string) $param->Значение);
@@ -427,7 +428,7 @@ class Import extends Admin_Controller
 			$_manufacturer = $this->manufacturers->get_item_by(array('name' => $manufacturer));
 			if (!$_manufacturer)
 			{
-				$this->manufacturers->insert(array('name' => $manufacturer, 'url' => $this->string_edit->slug($manufacturer)));
+				$this->manufacturers->insert(array('name' => $manufacturer, 'url' => $this->string_edit->slug(trim($manufacturer))));
 				$_manufacturer = $this->manufacturers->get_item($this->db->insert_id());
 			}
 			echo "manufacturer_id=".$_manufacturer->id."\n";
@@ -446,7 +447,7 @@ class Import extends Admin_Controller
 					{
 						$info = array(
 							'name' => trim($collection),
-							'url' => $this->string_edit->slug($collection),
+							'url' => $this->string_edit->slug(trim($collection)),
 							'manufacturer_id' => $_manufacturer->id
 						);
 						if($i == 1) $info['parent_id'] = $colection_parent_id;
@@ -476,7 +477,7 @@ class Import extends Admin_Controller
 						{
 							$info = array(
 								'name' => trim($s),
-								'url' => $this->string_edit->slug($s),
+								'url' => $this->string_edit->slug(trim($s)),
 								'manufacturer_id' => $_manufacturer->id
 							);
 							if($i == 1) $info['parent_id'] = $serie_parent_id[$j];
@@ -502,7 +503,7 @@ class Import extends Admin_Controller
 				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $cat2, 'in_catalog' => 0, 'url' => $this->string_edit->slug($cat2)));
+					$this->categories->insert(array('name' => $cat2, 'in_catalog' => 0, 'url' => $this->string_edit->slug(trim($cat2))));
 					$category = $this->categories->get_item($this->db->insert_id());
 				}
 				
@@ -513,7 +514,7 @@ class Import extends Admin_Controller
 					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
 					if (!$parentcategory)
 					{
-						$this->categories->insert(array('name' => $c1, 'in_catalog' => 0, 'url' => $this->string_edit->slug($c1)));
+						$this->categories->insert(array('name' => $c1, 'in_catalog' => 0, 'url' => $this->string_edit->slug(trim($c1))));
 						$pid = $this->db->insert_id();
 						$parentcategory = $this->categories->get_item($pid);
 					
