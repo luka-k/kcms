@@ -91,18 +91,20 @@ class Products extends MY_Model
 	
 		$this->db->where('product1_id', $id);
 		//$this->db->or_where('product2_id', $id); //Если надо сделать привязку только в одну сторону убрать эту строку
-		$query = $this->db->get($base.'_products');
-		$result = $query->result();
+		$result = $this->db->get($base.'_products')->result();
 		
-		$products_id = array();
-		foreach($result as $r)
+		if(!empty($result))
 		{
-			$products_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;
-		}
+			$products_ids = array();
+			foreach($result as $r)
+			{
+				if($r->product1_id == $id) $products_ids[] = $r->product2_id;
+				/*$products_id[] = $r->product1_id == $id ? $r->product2_id : $r->product1_id;*/
+			}
 		
-		foreach($products_id as $id)
-		{
-			$anchor_products[] = $this->get_item($id); 
+			$this->db->where_in('id', $products_ids);
+			$this->db->order_by('sort', 'asc');
+			$anchor_products = $this->db->get('products')->result();
 		}
 		
 		return $anchor_products;
