@@ -128,7 +128,7 @@ class Products extends MY_Model
 	* @param object $item0
 	* @return string
 	*/
-	public function get_url($item)
+	public function get_url($item, $hide_base_url = FALSE)
 	{
 		$item_full_url[] = $item->url;
 		
@@ -137,7 +137,7 @@ class Products extends MY_Model
 		$item_full_url = array_merge($item_full_url, $this->categories->make_full_url($item));
 		
 		$full_url = implode('/', array_reverse($item_full_url));
-		$full_url = base_url().$full_url;
+		if(!$hide_base_url) $full_url = base_url().$full_url;
 		return $full_url;		
 	}
 	

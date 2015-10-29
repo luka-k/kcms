@@ -966,6 +966,24 @@ class Import extends Admin_Controller
 		die('ok');
 	}
 	
+	public function update_full_url()
+	{
+		$products = $this->products->get_list(FALSE);
+		
+		if($products)
+		{
+			echo "start updating...<br />";
+			foreach($products as $key => $p)
+			{
+				$full_url = $this->products->get_url($p, TRUE);
+				
+				echo $p->name." <br />full_url: ".$full_url."<br />";
+				
+				$this->products->update($p->id, array('full_url' => $full_url));
+			}
+		}
+	}
+	
 	public function update_ranging()
 	{
 		$products = $this->products->get_list(FALSE);

@@ -203,8 +203,7 @@
 									   onclick="checked_tree('<?=$s->id?>', 'manufacturer', 'child'); $('#last_type_filter').val('sku_checked');"
 									   <?if(isset($filters_checked['sku_checked']) && in_array($sku->sku, $filters_checked['sku_checked'])):?>checked<?endif;?>
 								/>
-								<?$sku->full_url = $this->products->get_url($sku)?>
-								<a href="<?=$sku->full_url?>">
+								<a href="<?= base_url()?><?= $sku->full_url?>">
 									<?=$sku->sku?>
 								</a>
 							</li>

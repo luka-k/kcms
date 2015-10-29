@@ -1,0 +1,1 @@
+ALTER TABLE `products` ADD `full_url` TEXT NOT NULL AFTER `url`;
