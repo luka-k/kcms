@@ -33,4 +33,13 @@ class MY_Log extends CI_Log {
 		
 		file_put_contents($file_path, $string, FILE_APPEND);
 	}
+	
+	public function put_message($message)
+	{
+		$file_path = FCPATH."logs/log-".date("dmYH").".log";
+		
+		$message .= "\r\n\r\n";
+		
+		file_put_contents($file_path, $message, FILE_APPEND);
+	}
 }

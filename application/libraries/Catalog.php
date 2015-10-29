@@ -110,6 +110,9 @@ class CI_Catalog {
 	
 	public function get_nok_tree($ids, $selected = array())
 	{
+		$this->CI->log->put_message('---NOK_TREE organization START---');
+		$this->CI->benchmark->mark('time_start'); // code start	
+		
 		$nok_tree = array();
 		
 		if(empty($ids)) return $nok_tree;
@@ -119,6 +122,7 @@ class CI_Catalog {
 		{
 			$this->CI->benchmark->mark('code_start'); //code_start
 			
+			$this->CI->db->distinct();
 			$this->CI->db->select('type, value, id, parent_id');
 			if($selected['shortdesc']) $this->CI->db->where_in('id', array_keys($selected['shortdesc']));
 			$this->CI->db->where('type', 'shortdesc');
@@ -127,7 +131,7 @@ class CI_Catalog {
 			
 			$this->CI->benchmark->mark('code_end');
 			$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
-			$this->CI->log->sql_log('выбранные shortname для выбранных shortdesc', $code_time); //логирование sql
+			$this->CI->log->sql_log('id родительских shortname для выбранных shortdesc', $code_time); //логирование sql
 			
 			if($result) foreach($result as $r)
 			{
@@ -137,13 +141,14 @@ class CI_Catalog {
 		
 		$this->CI->benchmark->mark('code_start'); //code_start
 		
+		$this->CI->db->distinct();
 		$this->CI->db->where_in('product_id', $ids);
 	
 		$result = $this->CI->db->get('characteristic2product')->result();
 		
 		$this->CI->benchmark->mark('code_end');
 		$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
-		$this->CI->log->sql_log('id фильтров по продуктам', $code_time); //логирование sql
+		$this->CI->log->sql_log('id фильтров shortdesc и shortname по продуктам', $code_time); //логирование sql
 		
 		if($result)
 		{	
@@ -152,7 +157,7 @@ class CI_Catalog {
 				$ch_ids[] = $r->characteristic_id;
 			}
 			
-			$ch_ids = array_unique($ch_ids);
+			//$ch_ids = array_unique($ch_ids);
 			
 			$this->CI->benchmark->mark('code_start'); //code_start
 
@@ -164,12 +169,12 @@ class CI_Catalog {
 			if(!empty($selected['shortname'])) $this->CI->db->or_where_in('value', $selected['shortname']);
 
 			$this->CI->db->order_by('value', 'asc');
-			//$result = $this->CI->db->get('characteristics')->result();
+
 			$shortname = $this->CI->db->get('characteristics')->result();
 			
 			$this->CI->benchmark->mark('code_end');
 			$code_time = $this->CI->benchmark->elapsed_time('code_start', 'code_end');
-			$this->CI->log->sql_log('получение shortname', $code_time); //логирование sql
+			$this->CI->log->sql_log('получение shortname по id продуктов', $code_time); //логирование sql
 			
 			if(empty($shortname)) return $nok_tree;
 			
@@ -178,7 +183,6 @@ class CI_Catalog {
 				$nok_tree[$sn->value] = array();
 			}
 						
-			$this->CI->benchmark->mark('time_start'); // code start
 			
 			$this->CI->db->select('type, value, id, parent_id');
 			
@@ -204,15 +208,17 @@ class CI_Catalog {
 			foreach($shortname as $sn)
 			{
 				if(isset($sh_by_sn[$sn->id])) $nok_tree[$sn->value] = $sh_by_sn[$sn->id];
-			}
-			
-			$this->CI->benchmark->mark('time_end');
-			$code_time = $this->CI->benchmark->elapsed_time('time_start', 'time_end');
-			$this->CI->log->put_elapsed_time('общее время построения веток nok', $code_time); //логирование sql
-			
+			}			
 		}
 
 		//my_dump($nok_tree);
+		
+		$this->CI->benchmark->mark('time_end');
+		$code_time = $this->CI->benchmark->elapsed_time('time_start', 'time_end');
+		$this->CI->log->put_elapsed_time('общее время постройки nok', $code_time); //логирование sql
+		
+		$this->CI->log->put_message('---NOK_TREE organization STOP---');
+		
 		return $nok_tree;
 	}
 	

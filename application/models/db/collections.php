@@ -58,7 +58,9 @@ class Collections extends MY_Model
 	}
 	
 	public function get_tree($ids = FALSE, $selected = array())
-	{
+	{	
+		$this->log->put_message('---COLLECTION_TREE organization START---');
+		
 		$tree = array();
 		
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
@@ -73,14 +75,18 @@ class Collections extends MY_Model
 		{
 			$filtred_ids[] = $r->collection_parent_id;
 		}
-		
-		$this->benchmark->mark('time_start'); // code start
 
 		$tree = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
 
 		foreach($tree as $i => $branches)
 		{
+			$this->benchmark->mark('code_start'); //code_start
+			
 			$collections = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => 0), FALSE, FALSE, 'name', 'asc');
+			
+			$this->benchmark->mark('code_end');
+			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+			$this->log->sql_log('Колекции производителя', $code_time); //логирование sql
 			
 			if(empty($collections))
 			{
@@ -90,13 +96,22 @@ class Collections extends MY_Model
 			{
 				foreach($collections as $j => $collection)
 				{
+					$this->benchmark->mark('code_start'); //code_start
+					
 					$sub_tree = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => $collection->id), FALSE, FALSE, 'name', 'asc');
+					
+					$this->benchmark->mark('code_end');
+					$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+					$this->log->sql_log('Подколлекции коллекции', $code_time); //логирование sql
 					
 					if(!empty($sub_tree))
 					{
+						
 						$has_empty = $this->product2collection->get_count(array('collection_parent_id' => $collection->id, 'sub_empty' => 1));
 						if($has_empty > 0) 
 						{
+							$this->benchmark->mark('code_start'); //code_start
+							
 							$this->db->where('parent_collection_id', $collection->id);
 							$this->db->or_where_in('product_id', $ids);
 							$counter = $this->db->count_all_results('empty_subcollections');
@@ -106,6 +121,10 @@ class Collections extends MY_Model
 								$col->name = 'не указано';
 								array_unshift($sub_tree, $col);
 							}
+							
+							$this->benchmark->mark('code_end');
+							$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
+							$this->log->sql_log('Не указано в  подколлекции', $code_time); //логирование sql
 						}
  					}
 
@@ -135,11 +154,10 @@ class Collections extends MY_Model
 			}
 		}
 		
-		$this->benchmark->mark('time_end');
-		$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
-		$this->log->put_elapsed_time('общее время веток коллекций', $code_time); //логирование sql
-		
 		//my_dump($tree);
+		
+		$this->log->put_message('---COLLECTION_TREE organization STOP---');
+		
 		return $tree;
 	}
 	

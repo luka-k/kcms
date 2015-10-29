@@ -55,6 +55,7 @@ class Characteristics_type extends MY_Model
 			if($products <> 'all')
 			{	
 				$p_ids = $this->catalog->get_products_ids($products);
+
 				$this->db->select('characteristic_id');
 				$this->db->where_in('product_id', $p_ids);
 				$result = $this->db->get('characteristic2product')->result();
@@ -65,10 +66,11 @@ class Characteristics_type extends MY_Model
 					$ids[] = $r->characteristic_id;
 				}
 				
+				$ids = array_unique($ids);
+				
 				if(!empty($ids)) $this->db->where_in('id', $ids);
 			}
 			
-			$this->db->distinct();
 			$this->db->order_by('value', 'asc'); 
 			$this->db->select('value');
 			$this->db->where('type', $item->url);
@@ -81,6 +83,8 @@ class Characteristics_type extends MY_Model
 			{
 				$values[] = $result['value'];
 			}
+			
+			$values = array_unique($values);
 			
 			if(!empty($values))
 			{

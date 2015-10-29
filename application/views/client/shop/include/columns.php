@@ -169,7 +169,10 @@
 		</ul>
 	<?endif;?>
 </div>
-		
+	
+<?$this->log->put_message('---SKU_TREE viewing START---');?>
+<?$this->benchmark->mark('time_start');?>
+	
 <div id="secondcolumn4" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('sku'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	<ul class="level1">
@@ -212,6 +215,12 @@
 		<? endforeach ?>
 	</ul>
 </div>
+
+<?$this->benchmark->mark('time_end');?>
+<?$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');?>
+<?$this->log->put_elapsed_time('общее время постройки дерева sku', $code_time);?>
+
+<?$this->log->put_message('---SKU_TREE viewing STOP---');?>
 				
 <div id="secondcolumn3" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр <span class="red">X</span></a></div>

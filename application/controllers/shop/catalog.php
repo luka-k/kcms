@@ -17,7 +17,7 @@ class Catalog extends Client_Controller {
 		parent::__construct();
 		
 		$this->benchmark->mark('main_start'); // code start
-		
+				
 		$this->post = $this->input->post();
 		
 		$price_min = $price_from = $this->products->get_min('sale_price');
@@ -113,6 +113,7 @@ class Catalog extends Client_Controller {
 	*/
 	private function category($content)
 	{	
+		$this->log->put_message('-----------------------Page loading START-----------------------');
 		if($content == "root")
 		{
 			$cache_id = md5(serialize($content));
@@ -135,7 +136,7 @@ class Catalog extends Client_Controller {
 				$data['total_qty'] = $this->cart->total_qty();
 				$data['main_page'] = TRUE;
 
-				$data = array_merge($this->standart_data, $data);			
+				$data = array_merge($this->standart_data, $data);	
 			}
 			else
 			{
@@ -179,14 +180,18 @@ class Catalog extends Client_Controller {
 
 				$data = array_merge($this->standart_data, $data);
 				
+				
+				
 				$this->filters_cache->insert($cache_id, $data);
 			}
 			
+			$this->load->view("client/shop/index", $data);
+			
 			$this->benchmark->mark('main_end');
 			$code_time = $this->benchmark->elapsed_time('main_start', 'main_end');
-			$this->log->put_elapsed_time('общее время загрузки главной', $code_time); //логирование sql
+			$this->log->put_elapsed_time('Время загрузки главной', $code_time); //логирование sql
 			
-			$this->load->view("client/shop/index", $data);
+			$this->log->put_message('-----------------------Page loading STOP-----------------------');
 		}
 		else
 		{		
@@ -200,7 +205,7 @@ class Catalog extends Client_Controller {
 	
 			$this->benchmark->mark('code_end');
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-			$this->log->sql_log('Получение кеща', $code_time); //логирование sql
+			$this->log->sql_log('Получение кеща для страницы каталога', $code_time); //логирование sql
 			
 			if($cache)
 			{
@@ -219,14 +224,8 @@ class Catalog extends Client_Controller {
 				$this->benchmark->mark('code_end');
 				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 				$this->log->sql_log('prepare товаров', $code_time); //логирование sql
-				
-				$this->benchmark->mark('time_start'); // code start	
-				
+								
 				$data['nok'] = $this->catalog->get_nok_tree($data['all_products_ids']);
-				
-				$this->benchmark->mark('time_end');
-				$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
-				$this->log->put_elapsed_time('общее время постройки nok', $code_time); //логирование sql
 				
 				if($cache->type == 'categories') $data['logo_column'] = TRUE;
 				$data['sku_ch'] = array();
@@ -262,6 +261,8 @@ class Catalog extends Client_Controller {
 				$this->benchmark->mark('main_end');
 				$code_time = $this->benchmark->elapsed_time('main_start', 'main_end');
 				$this->log->put_elapsed_time('общее время загрузки страницы каталога', $code_time); //логирование sql
+				
+				$this->log->put_message('-----------------------Page loading STOP-----------------------');
 		
 				$this->load->view("client/shop/categories", $data);
 			}
@@ -276,7 +277,9 @@ class Catalog extends Client_Controller {
 	* Вывод товаров по фильтру
 	*/
 	public function get_by_filter()
-	{	
+	{
+		$this->log->put_message('-----------------------Page loading START-----------------------');
+		
 		if($this->uri->uri_string() == "catalog/sale")
 		{
 			$this->post = array(
@@ -363,7 +366,7 @@ class Catalog extends Client_Controller {
 			
 			$this->benchmark->mark('time_start'); // code start
 			
-			$products_wlt =  $this->characteristics->get_products_by_filter($filters_wlt, $this->post['order'], $this->post['direction']);
+			$products_wlt = $this->characteristics->get_products_by_filter($filters_wlt, $this->post['order'], $this->post['direction']);
 			
 			$this->benchmark->mark('time_end');
 			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
@@ -385,7 +388,7 @@ class Catalog extends Client_Controller {
 			
 			$this->benchmark->mark('code_end');
 			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-			$this->log->sql_log('фильры', $code_time); //логирование sql
+			$this->log->sql_log('фильры для вывода', $code_time); //логирование sql
 			
 			$filters['name'] = $this->post['name'];
 			$filters['is_sale'] = $this->post['is_sale'];
@@ -399,7 +402,7 @@ class Catalog extends Client_Controller {
 				
 				$this->benchmark->mark('code_end');
 				$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-				$this->log->sql_log('фильры без последнего фильтра', $code_time); //логирование sql
+				$this->log->sql_log('фильтры без последнего фильтра', $code_time); //логирование sql
 				
 				$filters[$last_type_filter] = $filters_2[$last_type_filter];
 			}
@@ -501,8 +504,6 @@ class Catalog extends Client_Controller {
 					$data['manufacturer_ch'][] = $this->manufacturers->get_item($manufacturer_id)->name;
 				}
 			}
-
-			$this->benchmark->mark('time_start'); // code start
 			
 			if($last_type_filter == 'shortname' || $last_type_filter == 'shortdesc')
 			{
@@ -512,10 +513,6 @@ class Catalog extends Client_Controller {
 			{
 				$data['nok'] = $this->catalog->get_nok_tree($products_ids, $this->post);
 			}
-			
-			$this->benchmark->mark('time_end');
-			$code_time = $this->benchmark->elapsed_time('time_start', 'time_end');
-			$this->log->put_elapsed_time('общее время nok', $code_time); //логирование sql
 			
 			$this->benchmark->mark('time_start'); // code start
 			
@@ -555,14 +552,17 @@ class Catalog extends Client_Controller {
 		
 			$this->benchmark->mark('filter_end');
 			$code_time = $this->benchmark->elapsed_time('filter_start', 'filter_end');
-			$this->log->put_elapsed_time('Фильтр', $code_time); //логирование sql
-		
+			$this->log->put_elapsed_time('Время работы get_by_filter()', $code_time); //логирование sql
+				
 			redirect(base_url()."catalog/filter/".$cache_id);
 		}	
 	}
 	
 	public function filter($cache_id, $url = FALSE)
 	{
+		$this->log->put_message('---CACHE download START---');
+		$this->benchmark->mark('filter_start');
+		
 		$this->filters_cache->set_last($cache_id);
 		
 		if($url)
@@ -613,7 +613,13 @@ class Catalog extends Client_Controller {
 		$data['total_price'] = $this->cart->total_price();
 		$data['total_qty'] = $this->cart->total_qty();
 		
+		$this->benchmark->mark('filter_end');
+		$code_time = $this->benchmark->elapsed_time('filter_start', 'filter_end');
+		$this->log->put_elapsed_time('Загрузка из кеша страницы фильтра', $code_time); //логирование sql
+		
 		$this->load->view("client/shop/categories", $data);
+		
+		$this->log->put_message('---CACHE download STOP---');
 	}
 	
 	/**
@@ -706,8 +712,10 @@ class Catalog extends Client_Controller {
 	
 	public function count()
 	{
+		$this->log->put_message('---AJAX_COUNT START---');
 		$products = $this->characteristics->get_products_by_filter($this->post, $this->post['order'], $this->post['direction']);
 		echo count($products);
+		$this->log->put_message('---AJAX_COUNT STOP---');
 	}
 	
 	public function ajax_more()
