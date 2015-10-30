@@ -244,7 +244,9 @@ class Characteristics extends MY_Model
 			if(isset($filter['collection_checked']) && isset($filter['subcollection_checked']))
 			{
 				$this->db->where_in('collection_parent_id', $filter['collection_checked']);
+				$this->db->where_in('is_main', 1);
 				$this->db->or_where_in('collection_parent_id', $filter['subcollection_checked']);
+				$this->db->where_in('is_main', 0);
 				$this->db->select('child_id');
 				$ids = $this->db->get('product2collection')->result();
 				
