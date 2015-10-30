@@ -64,98 +64,113 @@ class Collections extends MY_Model
 		$tree = array();
 		
 		if(!$ids) $ids = $this->catalog->get_products_ids($this->products->get_list(FALSE));
+		if(!isset($selected['manufacturers_checked'])) $selected['manufacturers_checked'] = array();//костыли костылики
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
 		if(!isset($selected['subcollection_checked'])) $selected['subcollection_checked'] = array();//костыли костылики
 		//my_dump($selected['collection_checked']);
-		$filtred_ids = array();
-		
+	
 		$this->db->where_in('child_id', $ids);
+		$this->db->select('collection_parent_id');
+		$this->db->select('is_main');
 		$result = $this->db->get('product2collection')->result();
+
+		if(empty($result)) return $tree;
+
+		$subcol_ids = array();
+		$col_ids = array();
 		foreach($result as $r)
 		{
-			$filtred_ids[] = $r->collection_parent_id;
-		}
-
-		$tree = $this->manufacturers->get_list(FALSE, FALSE, FALSE, 'name', 'asc');
-
-		foreach($tree as $i => $branches)
-		{
-			$this->benchmark->mark('code_start'); //code_start
-			
-			$collections = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => 0), FALSE, FALSE, 'name', 'asc');
-			
-			$this->benchmark->mark('code_end');
-			$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-			$this->log->sql_log('Колекции производителя', $code_time); //логирование sql
-			
-			if(empty($collections))
+			if($r->is_main)
 			{
-				unset($tree[$i]);
+				$col_ids[] = $r->collection_parent_id;
+				
 			}
 			else
 			{
-				foreach($collections as $j => $collection)
-				{
-					$this->benchmark->mark('code_start'); //code_start
-					
-					$sub_tree = $this->collections->get_list(array('manufacturer_id' => $branches->id, 'parent_id' => $collection->id), FALSE, FALSE, 'name', 'asc');
-					
-					$this->benchmark->mark('code_end');
-					$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-					$this->log->sql_log('Подколлекции коллекции', $code_time); //логирование sql
-					
-					if(!empty($sub_tree))
-					{
-						
-						$has_empty = $this->product2collection->get_count(array('collection_parent_id' => $collection->id, 'sub_empty' => 1));
-						if($has_empty > 0) 
-						{
-							$this->benchmark->mark('code_start'); //code_start
-							
-							$this->db->where('parent_collection_id', $collection->id);
-							$this->db->or_where_in('product_id', $ids);
-							$counter = $this->db->count_all_results('empty_subcollections');
-							if($counter > 0)
-							{
-								$col = clone $collection;
-								$col->name = 'не указано';
-								array_unshift($sub_tree, $col);
-							}
-							
-							$this->benchmark->mark('code_end');
-							$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
-							$this->log->sql_log('Не указано в  подколлекции', $code_time); //логирование sql
-						}
- 					}
-
-					if($sub_tree) foreach($sub_tree as $k => $b)
-					{
-						if(!in_array($b->id, $filtred_ids) && !in_array($b->id, $selected['collection_checked'])) unset($sub_tree[$k]);
-					}
-					
-					if(in_array($collection->id, $filtred_ids) || in_array($collection->id, $selected['collection_checked']))
-					{
-						$collections[$j]->childs = $sub_tree;
-					}
-					else
-					{
-						unset($collections[$j]);
-					}
-				}
-				
-				if(!empty($collections))
-				{
-					$tree[$i]->childs = $collections;
-				}
-				else
-				{
-					unset($tree[$i]);
-				}
+				$subcol_ids[] = $r->collection_parent_id;
 			}
 		}
 		
-		//my_dump($tree);
+		if(isset($selected['subcollection_checked'])) $subcol_ids = array_merge($subcol_ids, $selected['subcollection_checked']);	
+		if(isset($selected['collection_checked'])) $col_ids = array_merge($col_ids, $selected['collection_checked']);
+
+		$this->db->where_in('id', array_unique($subcol_ids));
+		$this->db->order_by('name', 'asc');
+		$subcollections = $this->db->get('collections')->result();
 		
+		if(empty($subcollections)) return $tree;
+		
+		$subcol_by_parent = array();
+		foreach($subcollections as $sub_col)
+		{
+			$col_ids[] = $sub_col->parent_id;
+			$subcol_by_parent[$sub_col->parent_id][] = $sub_col;
+		}
+		
+		if(empty($col_ids)) return $tree;
+		
+		$this->db->where_in('id', array_unique($col_ids));
+		$this->db->order_by('name', 'asc');	
+		$collections = $this->db->get('collections')->result();	
+
+		if(empty($collections)) return $tree;
+		
+		$man_ids = array();
+		$col_by_parent = array();
+		foreach($collections as $col)
+		{
+			$man_ids[] = $col->manufacturer_id;
+			$col_by_parent[$col->manufacturer_id][] = $col;
+		}
+		
+		if(isset($selected['manufactureers_checked'])) $man_ids = array_merge($man_ids, $selected['manufactureers_checked']);
+		
+		$this->db->where_in('id', $man_ids);
+		$this->db->order_by('name', 'asc');	
+		$manufacturers = $this->db->get('manufacturers')->result();	
+
+		if(empty($manufacturers)) return $tree;
+		
+		$this->db->where_in('product_id', $ids);
+		$result = $this->db->get('empty_subcollections')->result();
+		
+		$has_empty_ids = array();
+		if($result) foreach($result as $r)
+		{
+			$has_empty_ids[] = $r->parent_collection_id;
+		}
+
+		foreach($manufacturers as $m)
+		{
+			if(isset($col_by_parent[$m->id]))
+			{
+				$m_cols = $col_by_parent[$m->id];
+				//my_dump($m_cols);
+				foreach($m_cols as $key => $m_c)
+				{
+					if(isset($subcol_by_parent[$m_c->id]))
+					{
+						$sub_tree = $subcol_by_parent[$m_c->id];
+						if(in_array($m_c->id, $has_empty_ids))
+						{
+							$col = clone $m_c;
+							$col->name = 'не указано';
+							array_unshift($sub_tree, $col);
+						}
+						$m_cols[$key]->childs = $sub_tree;
+					}
+					else
+					{
+						$m_cols[$key]->childs = array();
+					}
+				}
+			
+				$m->childs = $m_cols;
+			
+				$tree[] = $m;
+			}
+		}
+				
 		$this->log->put_message('---COLLECTION_TREE organization STOP---');
 		
 		return $tree;
