@@ -67,13 +67,12 @@ class Collections extends MY_Model
 		if(!isset($selected['manufacturers_checked'])) $selected['manufacturers_checked'] = array();//костыли костылики
 		if(!isset($selected['collection_checked'])) $selected['collection_checked'] = array();//костыли костылики
 		if(!isset($selected['subcollection_checked'])) $selected['subcollection_checked'] = array();//костыли костылики
-		//my_dump($selected['collection_checked']);
-	
+		
 		$this->db->where_in('child_id', $ids);
 		$this->db->select('collection_parent_id');
 		$this->db->select('is_main');
 		$result = $this->db->get('product2collection')->result();
-
+		
 		if(empty($result)) return $tree;
 
 		$subcol_ids = array();
@@ -90,21 +89,24 @@ class Collections extends MY_Model
 				$subcol_ids[] = $r->collection_parent_id;
 			}
 		}
-		
+
 		if(isset($selected['subcollection_checked'])) $subcol_ids = array_merge($subcol_ids, $selected['subcollection_checked']);	
 		if(isset($selected['collection_checked'])) $col_ids = array_merge($col_ids, $selected['collection_checked']);
 
-		$this->db->where_in('id', array_unique($subcol_ids));
-		$this->db->order_by('name', 'asc');
-		$subcollections = $this->db->get('collections')->result();
-		
-		if(empty($subcollections)) return $tree;
-		
-		$subcol_by_parent = array();
-		foreach($subcollections as $sub_col)
+		if(!empty($subcol_ids))
 		{
-			$col_ids[] = $sub_col->parent_id;
-			$subcol_by_parent[$sub_col->parent_id][] = $sub_col;
+			$this->db->where_in('id', array_unique($subcol_ids));
+			$this->db->order_by('name', 'asc');
+			$subcollections = $this->db->get('collections')->result();
+		
+			if(empty($subcollections)) return $tree;
+			
+			$subcol_by_parent = array();
+			foreach($subcollections as $sub_col)
+			{
+				$col_ids[] = $sub_col->parent_id;
+				$subcol_by_parent[$sub_col->parent_id][] = $sub_col;
+			}
 		}
 		
 		if(empty($col_ids)) return $tree;
@@ -139,29 +141,42 @@ class Collections extends MY_Model
 		{
 			$has_empty_ids[] = $r->parent_collection_id;
 		}
+		
+		//Y7L1
+		//my_dump($has_empty_ids);
 
 		foreach($manufacturers as $m)
 		{
 			if(isset($col_by_parent[$m->id]))
 			{
 				$m_cols = $col_by_parent[$m->id];
-				//my_dump($m_cols);
+
 				foreach($m_cols as $key => $m_c)
 				{
+					$col = new stdClass();
+					if(in_array($m_c->id, $has_empty_ids))
+					{
+						$col = clone $m_c;
+						$col->name = 'не указано';
+						//array_unshift($sub_tree, $col);
+					}
+					
 					if(isset($subcol_by_parent[$m_c->id]))
 					{
 						$sub_tree = $subcol_by_parent[$m_c->id];
-						if(in_array($m_c->id, $has_empty_ids))
-						{
-							$col = clone $m_c;
-							$col->name = 'не указано';
-							array_unshift($sub_tree, $col);
-						}
+						if(!empty($col)) array_unshift($sub_tree, $col);
 						$m_cols[$key]->childs = $sub_tree;
 					}
 					else
 					{
-						$m_cols[$key]->childs = array();
+						if(!empty($col)) 
+						{
+							$m_cols[$key]->childs[] = $col;
+						}
+						else
+						{
+							$m_cols[$key]->childs = array();
+						}
 					}
 				}
 			

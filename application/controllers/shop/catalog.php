@@ -313,8 +313,8 @@ class Catalog extends Client_Controller {
 		$code_time = $this->benchmark->elapsed_time('code_start', 'code_end');
 		$this->log->sql_log('получение кеша фильтров', $code_time); //логирование sql
 		
-		//if($cache) $this->filters_cache->delete($cache_id);
-		//$cache = FALSE;
+		if($cache) $this->filters_cache->delete($cache_id);
+		$cache = FALSE;
 		
 		if($cache)
 		{
