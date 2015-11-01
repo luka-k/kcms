@@ -183,6 +183,7 @@
             //////////////////////////////////////////////////////////////////////					
             $mouseTrap.bind('click', this, function (event) {
 				$('#fancy_opener').click();
+				openFancy();
 			});
             $mouseTrap.bind('mouseleave', this, function (event) {
                 clearTimeout(controlTimer);

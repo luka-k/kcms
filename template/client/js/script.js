@@ -3,6 +3,12 @@ $('a.lightbox').fancybox({
 	overlayColor: '#000'
 });	
 
+function openFancy(){
+	var viewedImgKey = $('.cloud-zoom').attr('data-imgkey');
+	
+	$.fancybox.open($('a.lightbox'), {index : viewedImgKey});  
+};
+
 /*******************************************************************
 * Валидация формы
 *******************************************************************/

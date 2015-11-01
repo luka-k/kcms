@@ -7,8 +7,9 @@
 				<div id="gallery">
 					<?if(!empty($product->images)):?>
 						<div id="box">
-							<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' data-imgkey="0" class = 'cloud-zoom' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
-							<a href='<?= $product->images[0]->catalog_big_url ?>' id="fancy_opener" style="display: none;" class = 'lightbox' rel='gallery' title="" rel="">  <img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" /></a>
+							<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' data-imgkey="0" class = 'cloud-zoom' title="" rel="">  
+								<img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" />
+							</a>
 						</div>
 					
 					<?if(count($product->images)>1):?>
@@ -21,8 +22,8 @@
 											<img class="zoom-tiny-image" id="thumb_hidden" src="<?= $img->catalog_small_url?>" alt="" />
 										</a>
 										
-										<a href='<?= $img->catalog_big_url?>' class="lightbox" <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
-											<img  src="<?= $img->catalog_small_url?>" alt="" />
+										<a href='<?= $img->catalog_big_url?>' <?if($key == 0):?>id="fancy_opener"<?endif;?> class="lightbox " <?if($counter > 1):?>rel="gallery"<?endif?> style="display: none;">
+											<img  src="<?= $img->catalog_small_url?>" class="img_<?= $key?>" data-big-url="<?= $img->catalog_big_url?>" alt="" />
 										</a>
 									</div>
 									<?$counter++?>
