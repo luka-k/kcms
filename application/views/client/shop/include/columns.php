@@ -265,13 +265,13 @@
 										<?foreach($level_1->childs as $level_2):?>
 											<li>
 												<input type="checkbox" 
-													class="collection-branch-<?=$level_1->id?> collection-filter collection_chb_<?=$level_2->id?>"
+													class="collection-branch-<?=$level_1->id?> collection-filter subcollection_chb_<?=$level_2->id?>"
 													name="subcollection_checked[]" 
 													value="<?=$level_2->id?>"
 													onclick="checked_tree('<?=$level_1->id?>', 'collection', 'child'); $('#last_type_filter').val('subcollection_checked')"
 													<?if(isset($filters_checked['subcollection_checked']) && in_array($level_2->id, $filters_checked['subcollection_checked'])):?>checked<?++$show_counter?><?endif;?>
 												/>
-												<a href="#" class="level1_link" onclick="submit_filter('collection', '<?=$level_2->id?>'); return false;" rel="nofollow">
+												<a href="#" class="level1_link" onclick="submit_filter('subcollection', '<?=$level_2->id?>'); return false;" rel="nofollow">
 													<?=$level_2->name?>
 												</a>
 											</li>
