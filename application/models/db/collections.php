@@ -153,7 +153,7 @@ class Collections extends MY_Model
 
 				foreach($m_cols as $key => $m_c)
 				{
-					$col = new stdClass();
+					//$col = new stdClass();
 					if(in_array($m_c->id, $has_empty_ids))
 					{
 						$col = clone $m_c;
@@ -164,19 +164,16 @@ class Collections extends MY_Model
 					if(isset($subcol_by_parent[$m_c->id]))
 					{
 						$sub_tree = $subcol_by_parent[$m_c->id];
-						if(!empty($col)) array_unshift($sub_tree, $col);
+						if(!empty($col)) 
+						{
+							array_unshift($sub_tree, $col);
+							unset($col);
+						}
 						$m_cols[$key]->childs = $sub_tree;
 					}
 					else
 					{
-						if(!empty($col)) 
-						{
-							$m_cols[$key]->childs[] = $col;
-						}
-						else
-						{
-							$m_cols[$key]->childs = array();
-						}
+						$m_cols[$key]->childs = array();
 					}
 				}
 			
@@ -185,9 +182,8 @@ class Collections extends MY_Model
 				$tree[] = $m;
 			}
 		}
-				
+		//my_dump($tree);		
 		$this->log->put_message('---COLLECTION_TREE organization STOP---');
-		
 		return $tree;
 	}
 	
