@@ -18,7 +18,7 @@ class Import extends Admin_Controller
 	
 	public function load1COffers()
 	{
-		$xmlstr = file_get_contents('1c_exchange/offers0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/offers0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		$settings = $this->settings->get_item_by(array("id" => 1));
@@ -80,7 +80,7 @@ class Import extends Admin_Controller
 		$this->db->delete('category2category');
 		
 		
-		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -120,7 +120,7 @@ class Import extends Admin_Controller
 				$category = $this->categories->get_item_by(array('name' => $cat2));
 				if (!$category)
 				{
-					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug(trim($cat2)), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
+					$this->categories->insert(array('name' => $cat2, 'url' => $this->string_edit->slug(trim($cat2)), 'lastmod' => date("Y-m-d", filemtime(FCPATH.'1c_exchange/import0_1.xml'))));
 					$category = $this->categories->get_item($this->db->insert_id());
 				}
 				
@@ -131,7 +131,7 @@ class Import extends Admin_Controller
 					$parentcategory = $this->categories->get_item_by(array('name' => $c1));
 					if (!$parentcategory)
 					{
-						$this->categories->insert(array('name' => $c1, 'url' => trim($this->string_edit->slug(trim($c1))), 'lastmod' => date("Y-m-d", filemtime('1c_exchange/import0_1.xml'))));
+						$this->categories->insert(array('name' => $c1, 'url' => trim($this->string_edit->slug(trim($c1))), 'lastmod' => date("Y-m-d", filemtime(FCPATH.'1c_exchange/import0_1.xml'))));
 						$pid = $this->db->insert_id();
 						$parentcategory = $this->categories->get_item($pid);
 					
@@ -159,7 +159,7 @@ class Import extends Admin_Controller
 	
 	public function load1CRecommended()
 	{	
-		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -257,7 +257,7 @@ class Import extends Admin_Controller
 		$this->db->truncate('characteristics');
 		$this->db->truncate('characteristic2product');
 		
-		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -542,7 +542,7 @@ class Import extends Admin_Controller
 				$data['price'] = 0;
 				$data['manufacturer_id'] = $_manufacturer->id;
 				$data['url'] = $this->string_edit->slug($data['name']);
-				$data['lastmod'] = date("Y-m-d", filemtime('1c_exchange/import0_1.xml'));
+				$data['lastmod'] = date("Y-m-d", filemtime(FCPATH.'1c_exchange/import0_1.xml'));
 				if (!$_product)
 				{
 					$this->products->insert($data);
@@ -762,7 +762,7 @@ class Import extends Admin_Controller
 	public function update1CImageCovers()
 	{
 		$this->db->query('UPDATE images SET is_cover = 0 WHERE object_type="products"');
-		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
@@ -814,7 +814,7 @@ class Import extends Admin_Controller
 	
 	public function load1CImages($upload_jpg = false)
 	{
-		$xmlstr = file_get_contents('1c_exchange/import0_1.xml');
+		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
