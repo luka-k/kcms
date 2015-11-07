@@ -290,11 +290,12 @@ class Characteristics extends MY_Model
 					$has_empty_ids = array();
 					if(!empty($has_empty)) foreach($has_empty as $h_e)
 					{
-						$has_empty_ids = $h_e->collection_parent_id;
+						$has_empty_ids[] = $h_e->collection_parent_id;
 					}
 					
 					$this->db->where_in('collection_parent_id', $filter['subcollection_checked']);
 					$this->db->where('is_main', 0);
+					
 					if(!empty($has_empty_ids))
 					{					
 						$this->db->or_where_in('collection_parent_id', $has_empty_ids);
