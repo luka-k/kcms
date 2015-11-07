@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.6
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Сен 16 2015 г., 15:30
--- Версия сервера: 5.5.41-log
--- Версия PHP: 5.4.35
+-- Хост: localhost
+-- Время создания: Ноя 07 2015 г., 04:45
+-- Версия сервера: 5.5.44-0ubuntu0.14.04.1
+-- Версия PHP: 5.5.9-1ubuntu4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `kcms`
+-- База данных: `admin_monolit`
 --
 
 -- --------------------------------------------------------
@@ -43,7 +43,14 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `url` (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `articles`
+--
+
+INSERT INTO `articles` (`id`, `parent_id`, `name`, `date`, `sort`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `url`, `lastmod`, `changefreq`, `priority`) VALUES
+(1, 0, 'Новости', '2015-10-07', 0, '', '', '', '', 'novosti', '2015-10-07', '', '0.1');
 
 -- --------------------------------------------------------
 
@@ -98,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `characteristics` (
   PRIMARY KEY (`id`),
   KEY `type_value` (`type`,`value`),
   KEY `object_type` (`object_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=845 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,15 @@ CREATE TABLE IF NOT EXISTS `characteristics_type` (
   `url` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `view_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `characteristics_type`
+--
+
+INSERT INTO `characteristics_type` (`id`, `name`, `category`, `url`, `view_type`) VALUES
+(1, 'Длина', 0, 'dlina', 'multy'),
+(2, 'Состав', 0, 'sostav', 'multy');
 
 -- --------------------------------------------------------
 
@@ -136,7 +151,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('6b0945d926a6f65718fad4a05b630702', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0', 1442405700, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:12:"8-950-123-45";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:32:"f556de45badbca0264ee68f418a42265";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
+('9d5f2c441edd75070a54206a83fcf2ff', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444332075, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"3";s:4:"name";s:35:"Композиция Даниэла";s:3:"url";s:18:"kompoziciya-lyubov";s:5:"price";s:4:"8000";s:3:"qty";i:1;s:10:"item_total";i:8000;}}s:9:"total_qty";i:1;s:10:"cart_total";i:8000;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('f51467b15dd247bd8c5c5d868de7f94f', '109.234.154.123', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1446870835, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
 
@@ -149,14 +165,15 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `dynamic_menus`
 --
 
 INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
-(1, 'Меню админ панели', '');
+(1, 'Меню админ панели', ''),
+(5, 'Верхнее меню сайта', '');
 
 -- --------------------------------------------------------
 
@@ -171,20 +188,20 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `emails`
 --
 
 INSERT INTO `emails` (`id`, `type`, `subject`, `description`, `name`) VALUES
-(1, 1, 'Новый заказ', 'Кллиент  %user_name% оформил заказ № %order_id%.', 'Администратору при заказе'),
-(2, 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
+(1, 1, 'Новый заказ', '<p>Клиент %user_name% оформил заказ № %order_code%.</p><p>Контактные данные:</p><p>email: %email%</p><p>телефон: %phone%</p><p>адрес: %address%</p><p>%products%</p>', 'Администратору при заказе'),
+(2, 1, 'Заказ %order_id% в интернет магазине', '<p>Менеджер свяжется с Вами, %user_name%.</p>\r\n\r\n<p>%products%</p>\r\n', 'Клиенту при заказе'),
 (3, 1, 'Статус Вашего заказа изменен', 'Уважаемый %user_name%.\r\nСтатус Вашего заказа %order_id% изменен на %order_status%', 'Клиенту при изменении статуса заказа'),
-(4, 1, 'Регистрация в магазине', '%user_name%, спасибо за регистрацию в нашем магазине. \r\nВаш логин %login%\r\nВаш пароль %password%', 'При регистрации'),
+(4, 1, 'Регистрация в магазине', '<p>%user_name%, спасибо за регистрацию в нашем магазине. Ваш логин %login%, Ваш пароль %password%</p>\r\n', 'При регистрации'),
 (5, 1, 'Ваш пароль изменен', '<p>%user_name%, Ваш пароль в интернет магазине изменен.</p>\r\n\r\n<p>Новые данные доступа:</p>\r\n\r\n<p>Ваш логин %login%</p>\r\n\r\n<p>Ваш пароль %password%</p>\r\n', 'При изменении пароля'),
-(6, 1, 'Заказан обратный звонок', '<p>Клиент %USER_NAME%, оставил номер телефона - %USER_PHONE%</p>\r\n', 'Обратный звонок'),
-(7, 1, 'Востановление пароля', '<p>Для изменения пароля перейдите по <a href="%base_url%admin/registration/new_password?email=%user_email%&amp;secret=%secret%">ссылке</a></p>\r\n', 'Востановление пароля');
+(6, 1, 'Заказан обратный звонок', '<p>Клиент %user_name%, оставил номер телефона - %user_phone%</p>\r\n', 'Обратный звонок'),
+(7, 1, 'Восстановление пароля', '<p>Для изменения пароля перейдите по <a href="%base_url%admin/registration/new_password?email=%user_email%&amp;secret=%secret%">ссылке</a></p>\r\n', 'Востановление пароля');
 
 -- --------------------------------------------------------
 
@@ -237,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=41 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -249,7 +266,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (6, 1, 'Каталог', 0, 2, '', 'link', '#'),
 (7, 1, 'Заказы', 0, 3, '', 'link', 'admin/admin_orders'),
 (8, 1, 'Настройки', 0, 7, '', 'link', '#'),
-(9, 1, 'Рассылки', 0, 4, '', 'link', '#'),
+(9, 1, 'Рассылки', 0, 5, '', 'link', '#'),
 (10, 1, 'Меню', 8, 5, '', 'link', 'admin/menu_module/menus'),
 (11, 1, 'Пользователи', 0, 6, '', 'link', '#'),
 (12, 1, 'Все статьи', 5, 1, '', 'link', 'admin/content/items/articles'),
@@ -263,7 +280,12 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (21, 1, 'Системные письма', 9, 3, '', 'link', 'admin/content/items/emails/1'),
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
-(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all');
+(24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
+(35, 5, 'О нас', 0, 8, '', 'link', 'about'),
+(36, 5, 'Новости', 0, 9, '', 'articles', 'novosti'),
+(37, 5, 'Каталог', 0, 10, '', 'link', 'catalog'),
+(38, 5, 'Контакты', 0, 11, '', 'link', 'contacts'),
+(40, 1, 'Слайдер', 0, 4, '', 'link', 'admin/content/items/slider/');
 
 -- --------------------------------------------------------
 
@@ -273,7 +295,7 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_name` text COLLATE utf8_unicode_ci NOT NULL,
   `user_email` text COLLATE utf8_unicode_ci NOT NULL,
@@ -285,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `date` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `order_id` (`order_id`),
+  UNIQUE KEY `order_id` (`order_code`),
   KEY `status_id` (`status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -355,12 +377,13 @@ CREATE TABLE IF NOT EXISTS `recommended_products` (
 
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `site_title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `order_string` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `site_keywords` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `site_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `admin_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_string` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `per_page` int(11) NOT NULL,
+  `site_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `site_keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastmod` date NOT NULL,
   `site_offline` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -370,8 +393,24 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Дамп данных таблицы `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, '', '', '', '', '', '', '2015-03-06', 0);
+INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
+(1, 'Демо-сайт', 'metadiel@gmail.com', '', '', 3, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `slider`
+--
+
+CREATE TABLE IF NOT EXISTS `slider` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_active` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
