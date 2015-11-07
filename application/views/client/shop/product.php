@@ -18,7 +18,7 @@
 									<div id="gallery">
 										<?if(!empty($product->images)):?>										
 											<div id="box">
-												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' data-imgkey="0" class = 'cloud-zoom' title="" rel="">  
+												<a href='<?= $product->images[0]->catalog_big_url ?>' id='zoom1' data-imgkey="0" class = 'cloud-zoom <?if(count($product->images) == 1):?>lightbox<?endif;?>' title="" rel="">  
 													<img src="<?= $product->images[0]->catalog_big_url ?>" class="picture" />
 												</a>
 											</div>
