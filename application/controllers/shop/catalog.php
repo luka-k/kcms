@@ -459,6 +459,7 @@ class Catalog extends Client_Controller {
 				'categories_ch' => $this->catalog->get_filters_info($this->post, 'categories', 'categories_checked'),
 				'manufacturer_ch' => $this->catalog->get_filters_info($this->post, 'manufacturers', 'manufacturer_checked'),
 				'collections_ch' => $this->catalog->get_filters_info($this->post, 'collections', 'collection_checked'),
+				'subcollections_ch' => $this->catalog->get_filters_info($this->post, 'collections', 'subcollection_checked'),
 				'sku_ch' => $this->catalog->get_filters_info($this->post, 'products', 'sku_checked'),
 				'shortname_ch' => $this->catalog->get_filters_info($this->post, 'characteristics', 'shortname'),
 				'shortdesc_ch' => $this->catalog->get_filters_info($this->post, 'characteristics', 'shortdesc'),
