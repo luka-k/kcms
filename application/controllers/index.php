@@ -22,7 +22,6 @@ class Index extends Client_Controller {
 		{
 			$gallery[$key] = $this->images->_get_urls($img);
 		}
-		
 		$data = array(
 			'title' => $settings->site_title,
 			'microtime' => $microtime,

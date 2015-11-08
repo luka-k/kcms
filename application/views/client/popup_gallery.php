@@ -7,7 +7,7 @@
 						$object_type = $g->object_type;
 						$object_name = $this->$object_type->get_item($g->object_id)->name;
 					?>
-					<li class="gallery-slider__item">
+					<li class="gallery-slider__item clearfix">
 						<? if (strstr($g->caption, 'youtube:')): ?>
 							<iframe width="100%" height="95%" style="margin-top: 14px;" src="https://www.youtube.com/embed/<?= str_replace('youtube:', '', $g->caption)?>" frameborder="0" allowfullscreen></iframe>
 						<? else: ?>
@@ -44,7 +44,7 @@
 	<div class="gallery__text" <? if ($_GET['action'] == 'map'): ?> style="width: 500px;"<?endif?>>
 		<? if (!$_GET['nolinks'] && $_GET['action'] != 'map') : ?>
 			<div class="gallery__menu gallery-menu">
-				<div class="gallery-menu__menu">
+				<div class="gallery-menu__menu" style="">
 					<ul class="gallery-menu__list">
 						<?/*foreach($Ptree as $t):?>
 							<li class="gallery-menu__item">
@@ -65,7 +65,11 @@
 	
 	<? if ($_GET['action'] != 'map'):?>
 		<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
-			<ul class="gallery-thumbs-slider__list" style="height:150px;">
+			<ul class="gallery-thumbs-slider__list" 
+				style="height:150px; 
+					<?if($_GET['type'] == NULL):?>margin-top:10px;<?endif;?>
+					<?if(isset($_GET['is_main'])):?>margin-top:-20px;<?endif;?>
+					<?if(!isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:-20px;<?endif;?>">
 				<?$counter=1?>
 				<?foreach($gallery as $g):?>
 					<?
