@@ -46,7 +46,7 @@
 
 							<? if ($this->uri->segment(3) == 'novosti'): ?>
 							
-							<div class="projects" style="width:600px;">
+							<!--<div class="projects" style="width:600px;">-->
 								<ul class="projects__list-noscroll clearfix" style="margin-top: 15px; margin-left: 20px; padding-left: 0px;list-style: none;width: 580px;">
 									<?for($i = 0; $i < count($object_images); $i+=3): $c = $object_images[$i];?>
 										<li class="projects__item projects-item" style="margin-left: 0; padding-left: 0;">
@@ -96,7 +96,7 @@
 										</li> <!-- /.projects__item projects-item -->
 									<?endfor;?>
 								</ul> <!-- /.projects__list -->
-							</div> <!-- /.projects -->
+							<!--</div>--> <!-- /.projects -->
 						<? endif ?>
 							</div> <!-- /.page__scroll-in -->
 						</div> <!-- /.page__text page__scroll -->
