@@ -220,7 +220,8 @@
 <?$this->log->put_elapsed_time('общее время постройки дерева sku', $code_time);?>
 
 <?$this->log->put_message('---SKU_TREE viewing STOP---');?>
-				
+	
+<? $collection_ch_counter = 0; ?>
 <div id="secondcolumn3" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('collection'); return false;">сбросить фильтр <span class="red">X</span></a></div>
 	
@@ -251,7 +252,11 @@
 									data-manid = "<?=$col_manufacturers->id?>"
 									value="<?=$level_1->id?>"
 									onclick="checked_tree('<?=$level_1->id?>', 'collection', 'fork'); $('#last_type_filter').val('collection_checked');"
-									<?if(isset($filters_checked['collection_checked']) && in_array($level_1->id, $filters_checked['collection_checked'])):?>checked<?++$show_counter_1?><?endif;?>
+									<?if(isset($filters_checked['collection_checked']) && in_array($level_1->id, $filters_checked['collection_checked'])):?>
+										checked
+										<? ++$show_counter_1?>
+										<? ++$collection_ch_counter;?>
+									<?endif;?>
 								/>
 								<?if($level_1->childs):?>
 									<span id="cll-<?=$level_1->id?>" class="level1_click">+</span>
@@ -269,7 +274,11 @@
 													name="subcollection_checked[]" 
 													value="<?=$level_2->id?>"
 													onclick="checked_tree('<?=$level_1->id?>', 'collection', 'child'); $('#last_type_filter').val('subcollection_checked')"
-													<?if(isset($filters_checked['subcollection_checked']) && in_array($level_2->id, $filters_checked['subcollection_checked'])):?>checked<?++$show_counter?><?endif;?>
+													<?if(isset($filters_checked['subcollection_checked']) && in_array($level_2->id, $filters_checked['subcollection_checked'])):?>
+														checked
+														<? ++$show_counter?>
+														<? ++$collection_ch_counter;?>
+													<?endif;?>
 												/>
 												<a href="#" class="level1_link" onclick="submit_filter('subcollection', '<?=$level_2->id?>'); return false;" rel="nofollow">
 													<?=$level_2->name?>
@@ -277,7 +286,12 @@
 											</li>
 										<?endforeach;?>
 										<?if($show_counter > 0):?><script>document.getElementById('sub-collections-<?=$level_1->id?>').style.display='block'; $("#cll-<?=$level_1->id?>").html("-");</script><?endif;?>
-										<?if($show_counter == count($level_1->childs)):?><script>$('collection-fork-<?=$level_1->id?>').prop("checked", true)</script><?endif;?>
+										<?if($show_counter == count($level_1->childs)):?>
+											<? --$collection_ch_counter;?>
+											<script>
+												$('collection-fork-<?=$level_1->id?>').prop("checked", true)
+											</script>
+										<?endif;?>
 									</ul>
 								<?endif;?>
 							</li>
@@ -294,6 +308,13 @@
 		<?endforeach;?>
 	</ul>
 </div>
+<?if($collection_ch_counter > 0):?>
+	<script>
+		$(window).load(function(){
+			$('#col_qty_text').text('<?= $collection_ch_counter?>');
+		});
+	</script>
+<?endif;?>
 							
 <div id="secondcolumn" class="secondcolumn">
 	<div class="clear_filter"><a href="#" onclick="clear_filter('categories'); return false;">сбросить фильтр <span class="red">X</span></a></div>

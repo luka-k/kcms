@@ -75,12 +75,12 @@
 					Производитель/Коллекция/Серия:
 				</div>
 				<div class="lm-item" prop="secondcolumn3">
-					<?if(empty($manufacturer_ch)):?>
+					<?if(empty($collections_ch) && empty($subcollections_ch)):?>
 						<span class="lm-title">Все коллекции</span>
 					<?else:?>
 						<span class="lm-title"><?=$manufacturer_ch[0]?></span>
-						<?if(count($collections_ch) > 0 && !empty($collections_ch) && !isset($no_col_count)):?>
-							<span id="col_qty">[<?= count($collections_ch)?>]</span>
+						<?if(count($collections_ch) > 0 && (!empty($collections_ch) || !empty($subcollections_ch)) && !isset($no_col_count)):?>
+							<span id="col_qty">[<span id="col_qty_text"></span>]</span>
 						<?endif;?>
 					<?endif;?>
 				</div>
