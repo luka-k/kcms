@@ -93,6 +93,18 @@ class Catalog extends Client_Controller {
 	{
 		$this->breadcrumbs->add(base_url(), 'Главная');
 		$this->breadcrumbs->add('catalog', 'Каталог');
+		
+		$url = $this->uri->segment(1);
+		
+		if($url)
+		{
+			$product = $this->products->get_item_by(array('url' => $url));
+			if($product)
+			{
+				$full_url = $this->products->get_url($product);
+				redirect($full_url);
+			}
+		}
 			
 		if(isset($this->post['filter']))
 		{
@@ -114,6 +126,7 @@ class Catalog extends Client_Controller {
 	private function category($content)
 	{	
 		$this->log->put_message('-----------------------Page loading START-----------------------');
+
 		if($content == "root")
 		{
 			$cache_id = md5(serialize($content));
@@ -648,6 +661,9 @@ class Catalog extends Client_Controller {
 			'title' => $content->product->name.' | интернет-магазин bрайтbилd',
 			'meta_keywords' => $content->product->meta_keywords,
 			'meta_description' => $content->product->meta_description,
+			'left_menu' => $this->categories->get_tree(),
+			'collection' => $this->collections->get_tree(),
+			'sku_tree' => $this->manufacturers->get_tree(),
 			'breadcrumbs' => $this->breadcrumbs->get(),
 			'product' => $this->products->prepare($content->product, FALSE),
 			'back_link' => $back_link

@@ -4,7 +4,11 @@
 		if(hash != '')
 		{
 			var path = window.location.pathname;
-			window.location = path + hash.substring(1);
+			if(window.location.pathname == "/"){
+				window.location = path + 'catalog/' + hash.substring(1);
+			}else{
+				window.location = path + hash.substring(1);
+			}
 		}
 	});
 		
