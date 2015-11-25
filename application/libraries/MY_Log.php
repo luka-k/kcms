@@ -37,7 +37,7 @@ class MY_Log extends CI_Log {
 	public function put_message($message)
 	{
 		$file_path = FCPATH."logs/log-".date("dmYH").".log";
-		
+		$message = date("d/m/Y H:i:s").' - '.$message;
 		$message .= "\r\n\r\n";
 		
 		file_put_contents($file_path, $message, FILE_APPEND);

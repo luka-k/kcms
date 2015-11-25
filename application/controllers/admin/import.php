@@ -14,10 +14,17 @@ class Import extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->load->config('import');
 	}
 	
 	public function load1COffers()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1COffers-start'));
+		$this->log->put_message('start load1COffers');
+		
 		$xmlstr = file_get_contents(FCPATH.'1c_exchange/offers0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -72,10 +79,18 @@ class Import extends Admin_Controller
 			
 			$this->products->update($product->id, array('price' => $price, 'sale_price' => $sale_price));
 		}
+		
+		$this->settings->update($settings_id, array('status' => 'load1COffers-end'));
+		$this->log->put_message('end load1COffers');
 	}
 	
 	public function load1CCategories()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1CCategories-start'));
+		$this->log->put_message('start load1CCategories');
+		
 		// удаляем все привязки
 		$this->db->delete('category2category');
 		
@@ -155,10 +170,18 @@ class Import extends Admin_Controller
 				}
 			}
 		}
+		
+		$this->settings->update($settings_id, array('status' => 'load1CCategories-end'));
+		$this->log->put_message('end load1CCategories');
 	}
 	
 	public function load1CRecommended()
 	{	
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1CRecommended-start'));
+		$this->log->put_message('start load1CRecommended');
+		
 		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -249,10 +272,18 @@ class Import extends Admin_Controller
 				}
 			}
 		}
+		
+		$this->settings->update($settings_id, array('status' => 'load1CRecommended-end'));
+		$this->log->put_message('end load1CRecommended');
 	}
 				
 	public function load1C()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1C-start'));
+		$this->log->put_message('start load 1C');
+		
 		$this->db->empty_table('filters_cache');
 		$this->db->truncate('characteristics');
 		$this->db->truncate('characteristic2product');
@@ -757,10 +788,18 @@ class Import extends Admin_Controller
 		}
 		
 		$this->db->delete('products', array('for_delete' => 1));
+		
+		$this->settings->update($settings_id, array('status' => 'load1C-end'));
+		$this->log->put_message('stop load1C');
 	}
 	
 	public function update1CImageCovers()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1CImageCovers-start'));
+		$this->log->put_message('start load1CImageCovers');
+		
 		$this->db->query('UPDATE images SET is_cover = 0 WHERE object_type="products"');
 		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
@@ -809,11 +848,20 @@ class Import extends Admin_Controller
 			echo('UPDATE images SET is_cover = 1 WHERE object_type="products" AND object_id="'.$product->id.'" AND url LIKE "%'.$main_image.'%"<br>');
 				
 		}
+		
+		$this->settings->update($settings_id, array('status' => 'load1CImageCovers-end'));
+		$this->log->put_message('end load1CImageCovers');
+		
 		die('ok');
 	}
 	
 	public function load1CImages($upload_jpg = false)
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'load1CImage-start'));
+		$this->log->put_message('start load1CImage');
+		
 		$xmlstr = file_get_contents(FCPATH.'1c_exchange/import0_1.xml');
 		$xml = new SimpleXMLElement($xmlstr);
 		
@@ -968,6 +1016,11 @@ class Import extends Admin_Controller
 	
 	public function update_full_url()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'updateFullUrl-start'));
+		$this->log->put_message('start update_full_url');
+		
 		$products = $this->products->get_list(FALSE);
 		
 		if($products)
@@ -982,10 +1035,18 @@ class Import extends Admin_Controller
 				$this->products->update($p->id, array('full_url' => $full_url));
 			}
 		}
+		
+		$this->settings->update($settings_id, array('status' => 'updateFullUrl-end'));
+		$this->log->put_message('end update_full_url');
 	}
 	
 	public function update_ranging()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'updateRanging-start'));
+		$this->log->put_message('start update_ranging');
+		
 		$products = $this->products->get_list(FALSE);
 		
 		$last_top_20 = $this->catalog->get_products_ids($this->products->get_list(FALSE, 0, 20, 'ranging', 'asc'));
@@ -1001,6 +1062,30 @@ class Import extends Admin_Controller
 			$this->products->update($product->id, array('ranging' => $rang));
 		}
 		
+		$this->settings->update($settings_id, array('status' => 'updateRanging-end'));
+		$this->log->put_message('end update_ranging');
+		
 		echo "<a href='".base_url()."admin'>На главную</a>";
+	}
+	
+	public function import_routing()
+	{
+		$settings_id = $this->config->item('settings_id');
+		$import_status = $this->config->item('import_status');
+		$import_routing = $this->config->item('import_routing');
+	
+		$status = $this->settings->get_item($settings_id)->status;
+		
+		if(!in_array($status, $import_status['next'])) die();
+		
+		redirect(base_url().$import_routing[$status]);
+	}
+	
+	public function set_operating_status()
+	{
+		$settings_id = $this->config->item('settings_id');
+		$this->settings->update($settings_id, array('status' => 'operating'));
+		
+		redirect(base_url().'admin');
 	}
 }

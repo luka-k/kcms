@@ -17,6 +17,11 @@ class Cache extends Admin_Controller
 	
 	public function refresh_categories()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'refreshCategories-start'));
+		$this->log->put_message('start refresh_categories');
+	
 		$this->db->where('type', 'categories');
 		$this->db->delete('filters_cache');
 		$counter = 1;
@@ -185,10 +190,18 @@ class Cache extends Admin_Controller
 		//$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
+		
+		$this->settings->update($settings_id, array('status' => 'refreshCategories-end'));
+		$this->log->put_message('end refresh_categories');
 	}
 	
 	public function refresh_manufacturer_by_categories()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'refreshManufacturerByCategories-start'));
+		$this->log->put_message('start refresh_manufacturer_by_categories');
+		
 		$this->db->where('type', 'categories/manufacturer');
 		$this->db->delete('filters_cache');
 		$counter = 1;
@@ -359,10 +372,18 @@ class Cache extends Admin_Controller
 		$this->db->insert_batch('filters_cache', $insert_data);
 
 		echo "<a href='".base_url()."admin'>На главную</a>";
+		
+		$this->settings->update($settings_id, array('status' => 'refreshManufacturerByCategories-end'));
+		$this->log->put_message('end refresh_manufacturer_by_categories');
 	}
 	
 	public function refresh_manufacturers()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'refreshManufacturers-start'));
+		$this->log->put_message('start refresh_manufacturers');
+		
 		echo '<h3>Производители/Коллекции</h3><br />';
 		
 		$this->db->where('type', 'manufacturers');
@@ -509,11 +530,22 @@ class Cache extends Admin_Controller
 		}
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";
+		
+		$this->settings->update($settings_id, array('status' => 'refreshManufacturers-end'));
+		$this->log->put_message('end refresh_manufacturers');
 	}
 	
 	public function clear()
 	{
+		$settings_id = $this->config->item('settings_id');
+		
+		$this->settings->update($settings_id, array('status' => 'cacheClear-start'));
+		$this->log->put_message('start clear');
+		
 		$this->db->truncate('filters_cache');
+		
+		$this->settings->update($settings_id, array('status' => 'cascheClear-end'));
+		$this->log->put_message('end clear');
 		
 		redirect(base_url().'admin');
 	}
