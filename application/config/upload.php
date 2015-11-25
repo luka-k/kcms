@@ -15,7 +15,7 @@ $config['thumb_config'] = array(
 		'q' => 95,
 		'w' => 1100,
 		'h' => 1100,
-		'fltr' => "wmi|images/logo.png|BR|75|90|40|",
+		'fltr' => "wmi|".FCPATH."template/client/images/logo.png|BR|75|5|5|",
 		"bg" => "ffffff"
 	),
 	"catalog_mid" => array(
@@ -28,6 +28,7 @@ $config['thumb_config'] = array(
 		'q' => 95,
 		'w' => 150,
 		'h' => 150,
+    'far' => 1,
 		"bg" => "ffffff"	
 	),
 	"document_main" => array(
@@ -41,6 +42,7 @@ $config['thumb_config'] = array(
 		'q' => 95,
 		'w' => 222,
 		'h' => 222,
+    "far" => 1,
 		"bg" => "ffffff"	
 	),
 	"manufacturer" => array(

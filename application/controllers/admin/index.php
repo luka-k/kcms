@@ -30,6 +30,6 @@ class Index extends Admin_Controller
 	
 	public function resize_images($thumb_type)
 	{
-		$this->images->resize_all($thumb_type);
+		$this->images->resize_all('products', $thumb_type);
 	}
 }

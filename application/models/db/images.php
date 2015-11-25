@@ -179,6 +179,7 @@ class Images extends MY_Model
 		
 		foreach ($images as $image)
 		{
+      file_put_contents('logs/log-resize_all.log', file_get_contents('logs/log-resize_all.log'). print_r($image, true)."\n"); 
 			$upload_path = $this->config->item('images_upload_path');
 			$thumb_config = $this->config->item('thumb_config');
 			
