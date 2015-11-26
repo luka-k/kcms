@@ -9,9 +9,14 @@
 				<li class="footer-elements__item">
 					<a href="http://brightbuild.ru/" class="brightbuild" target="_blank" title="Партнеры">brightbuild.ru</a>
 				</li> <!-- /.footer-elements__item -->
+				
+				<li class="footer-elements__item">
+					<a href="https://www.facebook.com/brightberry.ru" class="facebook" target="_blank" title="facebook">&nbsp;</a>
+					<a href="https://plus.google.com/114803948112196799673" class="google-plus" target="_blank" title="google+">&nbsp;</a>
+				</li>
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__left -->
-		
+
 		<div class="footer__right">
 			<ul class="footer-elements">
 				<li class="footer-elements__item">

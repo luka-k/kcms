@@ -389,6 +389,22 @@ span
     background-position: -38px -37px;
 }
 
+.facebook{
+	display: inline-block;
+	width: 20px;
+    height: 13px;
+	content: '';
+	background:url('../images/facebook.png') no-repeat;
+}
+
+.google-plus{
+	display: inline-block;
+	width: 20px;
+    height: 13px;
+	content: '';
+	background:url('../images/google.png') no-repeat;
+}
+
 .hover-image
 {
     width: 100%;
