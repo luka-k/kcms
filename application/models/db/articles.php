@@ -106,7 +106,7 @@ class Articles extends MY_Model
 			$this->load->config('articles');
 			if($item->parent_id = $this->config->item('news_id'))
 			{
-				$imgs = $this->parse_description($item->description);
+				$imgs = $this->parse_description($item->description, $item->full_url);
 				if($imgs)
 				{
 					$item->img = array_merge($imgs, $item->img);
@@ -130,7 +130,7 @@ class Articles extends MY_Model
 		}
 	}
 	
-	protected function parse_description($description)
+	protected function parse_description($description, $item_full_url)
 	{
 		if(!empty($description))
 		{
@@ -142,15 +142,15 @@ class Articles extends MY_Model
 			foreach ($dom->getElementsByTagName('a') as $node) 
 			{
 				$href = $node->getAttribute('href');
-				
-				$href = str_replace('http://brightberry.ru/', '', $href);
+				if($item_full_url != $href)
+				{
+					$href = str_replace('http://brightberry.ru/', '', $href);
 						
-				$element_images = $this->url->get_imgs_by_href($href);
+					$element_images = $this->url->get_imgs_by_href($href);
 				
-				if(!empty($element_images)) $imgs = array_merge($imgs, $element_images);
+					if(!empty($element_images)) $imgs = array_merge($imgs, $element_images);
+				}
 			}
-			
-			//var_dump($imgs);
 			return $imgs;
 		}
 	}
