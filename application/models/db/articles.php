@@ -76,6 +76,8 @@ class Articles extends MY_Model
 			$item->img = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
 			$imgs = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
 			
+			$item->has_img = 0;
+			
 			if ($imgs)
 			{
 				if ($imgs[0]->is_cover)
@@ -86,7 +88,7 @@ class Articles extends MY_Model
 					$item->img[1] = $imgs[0];
 					$item->img[0] = $imgs[1];
 				}
-				$item->has_img = TRUE;
+				$item->has_img = count($imgs);
 			} else {
 				$item->img[0] = new stdClass();
 				$item->img[1] = new stdClass();
@@ -110,7 +112,7 @@ class Articles extends MY_Model
 				if($imgs)
 				{
 					$item->img = array_merge($imgs, $item->img);
-					$item->has_img = TRUE;
+					$item->has_img = count($imgs);
 				}
 			}
 			
@@ -118,10 +120,11 @@ class Articles extends MY_Model
 			{
 				foreach($item->img as $img)
 				{
+					$item->has_video = 0;
 					if(isset($img->caption) && (string) strpos($img->caption, 'youtube:') == '0')
 					{
-						$item->has_video = TRUE;
-						break;
+						$item->has_video++;
+
 					}
 				}
 			}

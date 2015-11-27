@@ -391,16 +391,18 @@ span
 
 .facebook{
 	display: inline-block;
-	width: 20px;
-    height: 13px;
+	margin-top:-2px;
+	width: 16px;
+    height: 16px;
 	content: '';
 	background:url('../images/facebook.png') no-repeat;
 }
 
 .google-plus{
 	display: inline-block;
-	width: 20px;
-    height: 13px;
+	margin-top:-2px;
+	width: 16px;
+    height: 16px;
 	content: '';
 	background:url('../images/google.png') no-repeat;
 }
@@ -2230,7 +2232,7 @@ input.formButton:hover {color:#c6da2d !important;}
 .icons{
 	position:absolute;
 	display:inline-block;
-	width:50px;
+	width:70px;
 	height:15px;
 	right:0;
 	top:0;
@@ -2239,14 +2241,18 @@ input.formButton:hover {color:#c6da2d !important;}
 
 .photo_icon{
 	display:inline-block;
-	width:20px;
 	height:15px;
+	padding-left:23px;
 	background: url('../images/photo.png') no-repeat;
+	text-align:left;
 }
 
 .video_icon{
 	display:inline-block;
 	width:20px;
 	height:15px;
+	padding-left:23px;
+	margin-right:5px;
 	background: url('../images/video.png') no-repeat;
+	text-align:left;
 }

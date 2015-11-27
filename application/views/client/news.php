@@ -35,14 +35,13 @@
 								<ul id="newscarousel" class="jcarousel-skin-tango" style="margin-top: 0px;margin-left: 0;padding-left: 0px;list-style: none;width: 580px;">
 									<?foreach($content->articles as $i => $a):?>
 										<li>
-											<?// var_dump($a);?>
 											<p><a style="font-size: 14px;padding-bottom: 5px;" href="<?=$a->full_url?>"><?=$a->name?></a></p>
 											<div class="icons">
-												<?if(isset($a->has_video)):?>
-													<span class="video_icon">&nbsp;</span>
+												<?if($a->has_video):?>
+													<span class="video_icon"><?= $a->has_video?></span>
 												<?endif;?>
-												<?if(isset($a->has_img)):?>
-													<span class="photo_icon">&nbsp;</span>
+												<?if($a->has_img):?>
+													<span class="photo_icon"><?= $a->has_img?></span>
 												<?endif;?>
 											</div>
 											<!---<span class="video_icon">&nbsp;</span>-->
