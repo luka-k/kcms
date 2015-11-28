@@ -63,13 +63,13 @@
 		<div class="gallery__name gallery-menu__title2" style="color: white;<? if ($_GET['action'] == 'map'): ?>padding-top: 30px;<?endif?>"><?= urldecode ($_GET['title'])?></div> <!-- /.gallery__name -->
 	</div> <!-- /.gallery__text -->
 	
-	<? if ($_GET['action'] != 'map'):?>
+</div>
+
+<? if ($_GET['action'] != 'map'):?>
 		<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
-			<ul class="gallery-thumbs-slider__list" 
-				style="height:150px; 
-					<?if($_GET['type'] == NULL):?>margin-top:10px;<?endif;?>
-					<?if(isset($_GET['is_main'])):?>margin-top:-20px;<?endif;?>
-					<?if(!isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:-20px;<?endif;?>">
+			<ul class="gallery-thumbs-slider__list"
+				style="<?if(isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:15px;<?endif;?>">
+				
 				<?$counter=1?>
 				<?foreach($gallery as $g):?>
 					<?
@@ -95,7 +95,6 @@
 			</ul> <!-- /.gallery-thumbs-slider__list -->
 		</div> <!-- /.gallery__thumbs -->
 	<? endif?>
-</div> <!-- /.gallery -->
 
 <script>
 	function update_menu_list(html) {

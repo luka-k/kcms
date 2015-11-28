@@ -1,0 +1,383 @@
+/* ==========================================================================
+ * gallery
+ * ========================================================================== */
+.gallery
+{
+    position: relative;
+    margin: 0 auto;
+    padding: 0 0 0px;
+}
+
+.gallery__slider{
+    margin: 0 0 20px;
+}
+
+.gallery__text
+{
+	position: relative;
+    font-size: 12px;
+    position: relative;
+    z-index: 10;
+
+    min-height: 25px;
+}
+.gallery__menu
+{
+    z-index: 100;
+
+    float: right;
+}
+
+.gallery-slider__list{
+    overflow: hidden;
+    padding: 0;
+    list-style: none;
+}
+
+.gallery-slider__list:before,
+.gallery-slider__list:after{
+    /* 1 */
+    display: table;
+
+    content: '';
+    /* 2 */
+}
+
+.gallery-slider__list:after
+{
+    clear: both;
+}
+
+.gallery-slider__item{
+	width:912px !important;
+	height:100%;
+    text-align: center;
+}
+
+.gallery-slider__image{
+    width: auto;
+    max-width: 99%;
+    height: auto;
+    max-height: 99%;
+    vertical-align: middle;
+	margin:0 auto;
+    border: 1px solid #767676;
+    border-radius: 3px;
+}
+
+.gallery-slider .bx-prev,
+.gallery-slider .bx-next
+{
+    top: 50%;
+
+    margin-top: -18px;
+
+    opacity: .4;
+}
+.gallery-slider .bx-prev:hover,
+.gallery-slider .bx-next:hover
+{
+    opacity: 1;
+}
+.gallery-slider .bx-prev
+{
+    left: 0;
+
+    display: inline-block;
+
+    width: 37px;
+    height: 37px;
+
+    content: '';
+
+    background-position: -65px 0;
+}
+.gallery-slider .bx-next
+{
+    right: 0;
+
+    display: inline-block;
+
+    width: 37px;
+    height: 37px;
+
+    content: '';
+
+    background-position: -28px 0;
+}
+
+/* ==========================================================================
+ * gallery-menu
+ * ========================================================================== */
+.gallery-menu
+{
+    position: relative;
+}
+.gallery-menu.active .gallery-menu__title:after
+{
+    display: inline-block;
+
+    width: 28px;
+    height: 23px;
+
+    content: '';
+
+    background-position: -155px -37px;
+}
+.gallery-menu.active .gallery-menu__list
+{
+    display: block;
+}
+.gallery-menu__title
+{
+    font-weight: 700;
+
+    display: inline-block;
+
+    margin: 0 35px 0 0;
+    padding: 0 0 4px 0;
+
+    text-decoration: none;
+
+    color: #ee8d1a;
+    border-bottom: 2px solid #c6da2d;
+}
+.gallery-menu__title2
+{
+    font-weight: 700;
+
+    display: inline-block;
+
+    margin: 0 35px 0 0;
+    padding: 0 0 4px 0;
+
+    text-decoration: none;
+
+    color: #ee8d1a;
+    border-bottom: 2px solid #c6da2d;
+}
+.gallery-menu__title:after
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    display: inline-block;
+
+    width: 28px;
+    height: 23px;
+
+    content: '';
+
+    background-position: 0 0;
+}
+.gallery-menu__title:after:hover,
+.gallery-menu__title:after.gallery-category-hover
+{
+    background-position: -155px -37px;
+}
+.gallery-menu__menu
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    width: 28px;
+    height: 23px;
+}
+.gallery-menu__list
+{
+    font-size: 12px;
+    font-weight: 700;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: none;
+
+    margin: 0;
+    padding: 0;
+    padding: 10px 20px 20px;
+
+    list-style: none;
+
+    white-space: nowrap;
+
+    border: 1px solid #767676;
+    border-radius: 3px;
+    background: #000;
+    background: rgba(0, 0, 0, .75);
+
+}
+.gallery-menu__list:before,
+.gallery-menu__list:after
+{
+    /* 1 */
+    display: table;
+
+    content: ' ';
+    /* 2 */
+}
+.gallery-menu__list:after
+{
+    clear: both;
+}
+.gallery-menu__item
+{
+    margin: 0 0 10px;
+}
+.gallery-menu__href
+{
+    text-decoration: none;
+}
+
+.gallery__thumbs{
+    position: absolute;
+	width: 96%;
+	margin-top:-40px;
+	padding:30px 20px 0 20px;
+}
+
+/* ==========================================================================
+ * slider
+ * ========================================================================== */
+.bx-wrapper{
+	overflow:visible;
+    position: relative;
+}
+
+.gallery-thumbs-slider.catalog_slider .bx-viewport{
+	padding:30px 10px 0 9px;
+	
+}
+
+.gallery-thumbs-slider .bx-viewport{
+	padding:30px 500px 0 10px;
+	top:-50px;
+}
+
+/* ==========================================================================
+ * thumbs-slider
+ * ========================================================================== */
+.gallery-thumbs-slider__list{
+	position:relative;
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+    text-align: center;
+	z-index:100;
+}
+
+.bx-viewport .gallery-thumbs-slider__list{
+	padding-top:0;
+}
+
+.gallery-thumbs-slider__list:before,
+.gallery-thumbs-slider__list:after
+{
+    /* 1 */
+    display: table;
+
+    content: ' ';
+    /* 2 */
+}
+.gallery-thumbs-slider__list:after
+{
+    clear: both;
+}
+.gallery-thumbs-slider__item
+{
+    display: inline-block;
+}
+.gallery-thumbs-slider__href
+{
+    display: block;
+
+    width: 60px;
+    height: 114px;
+    padding: 45px 7px 10px 7px;
+}
+.gallery-thumbs-slider__image
+{
+    position: relative;
+
+    width: 64px;
+    height: 47px;
+
+    vertical-align: bottom;
+}
+.gallery-thumbs-slider__image:hover
+{
+    z-index: 50;
+
+    width: 90px;
+    height: 66px;
+    margin: -20px 0 0 -12px;
+}
+.gallery-thumbs-slider__image2
+{
+    position: relative;
+	z-index: 50;
+    width: 40px;
+    height: 55px;
+
+    vertical-align: top;
+}
+.gallery-thumbs-slider__image3
+{
+    position: relative;
+	z-index: 50;
+    width: 36px;
+    height: 55px;
+
+    vertical-align: top;
+}
+.gallery-thumbs-slider__image2:hover
+{
+    z-index: 50;
+
+    width: 70px;
+    height: 96px;
+    margin: -30px 0 0 -12px;
+}
+.gallery-thumbs-slider__image3:hover
+{
+    z-index: 50;
+
+    width: 60px;
+    height: 92px;
+    margin: -30px 0 0 -7px;
+}
+.gallery-thumbs-slider .bx-prev,
+.gallery-thumbs-slider .bx-next
+{
+    top: 20px;
+}
+.gallery-thumbs-slider .bx-prev
+{
+    left: -5px;
+
+    display: inline-block;
+
+    width: 7px;
+    height: 10px;
+
+    content: '';
+
+    background-position: -24px -37px;
+}
+.gallery-thumbs-slider .bx-next
+{
+    right: -5px;
+
+    display: inline-block;
+
+    width: 7px;
+    height: 10px;
+
+    content: '';
+
+    background-position: -31px -37px;
+}

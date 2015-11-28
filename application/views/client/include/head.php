@@ -12,6 +12,7 @@
 	
 	<link rel="stylesheet" href="<?=base_url()?>template/client/css/normalize.css">
 	<link rel="stylesheet" href="<?=base_url()?>template/client/css/style.css?v03">
+	<link rel="stylesheet" href="<?=base_url()?>template/client/css/gallery.css?v03">
 	
 	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     

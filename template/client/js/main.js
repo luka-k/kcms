@@ -394,8 +394,8 @@
 	  var isCatalog = $('.is_catalog').val();
 	  if(isCatalog == '0') 
 	  {
-		slideWidth = 59;
-		slideMargin = 66;
+		slideWidth = 71;
+		slideMargin = 86;
 	  }
 	  
       var thumbsNumber = Math.floor( ( modalWidth - 20 ) / slideWidth ) - 1; 
