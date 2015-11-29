@@ -46,14 +46,8 @@
 			<div class="gallery__menu gallery-menu">
 				<div class="gallery-menu__menu" style="">
 					<ul class="gallery-menu__list">
-						<?/*foreach($Ptree as $t):?>
-							<li class="gallery-menu__item">
-								<a href="<?=$t->full_url?>" class="gallery-menu__href"><?=$t->name?></a>
-							</li>
-						<?endforeach;*/?>
 					</ul> <!-- /.gallery-menu__menu -->
 				</div> <!-- /.gallery-menu__menu -->
-				
 				<a href="" id="title_link" class="gallery-menu__title"><?=$gallery_title?></a> <!-- /.gallery__category -->
 			</div> <!-- /.gallery__menu -->
 			
@@ -66,38 +60,37 @@
 </div>
 
 <? if ($_GET['action'] != 'map'):?>
-		<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
-			<ul class="gallery-thumbs-slider__list"
-				style="<?if(isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:15px;<?endif;?>">
-				
-				<?$counter=1?>
-				<?foreach($gallery as $g):?>
-					<?
-						$object_type = $g->object_type;
-						$object_name = $this->$object_type->get_item($g->object_id)->name;
-					?>
-					<li class="gallery-thumbs-slider__item" style="<?= $_GET['my_parent'] ? 'padding-top: 0px;' : ''?>">
-						<a href="#slide<?=$counter?>" 
-							titlelinkname="<?= $g->titlelinkname ?>" 
-							titlelink="<?= $g->titlelink ?>" 
-							captionlink="<?= $g->caption ?>" 
-							links="<?= $g->links ?>" 
-							id="th_<?= $counter?>" 
-							title="<?if(!empty($g->title)):?><?= $g->title?><?else:?><?= $object_name?><?endif;?>"
-							<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb popup_href" 
-							onmousedown="update_menu_list('<?= $g->links ?>');$('#title_link').attr('href', '<?= $g->titlelink ?>');$('#title_link').html('<?= $g->titlelinkname ?>');" >
-							
-							<img src="<?= $_GET['type'] == 'catalog' ? $g->catalog_small_v_url : $g->catalog_small_url?>" alt="<?if(!empty($g->alt)):?><?= $g->alt?><?else:?><?= $object_name?><?endif;?>" class="gallery-thumbs-slider__image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?> hover-image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?>" />
-						</a>
-					</li> <!-- /.gallery-thumbs-slider__item -->
-					<?$counter++?>
-				<?endforeach;?>
-			</ul> <!-- /.gallery-thumbs-slider__list -->
-		</div> <!-- /.gallery__thumbs -->
-	<? endif?>
-
+	<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
+		<ul class="gallery-thumbs-slider__list"
+			style="<?if(isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:15px;<?endif;?>">
+			
+			<?$counter=1?>
+			<?foreach($gallery as $g):?>
+				<?
+					$object_type = $g->object_type;
+					$object_name = $this->$object_type->get_item($g->object_id)->name;
+				?>
+				<li class="gallery-thumbs-slider__item" style="<?= $_GET['my_parent'] ? 'padding-top: 0px;' : ''?>">
+					<a href="#slide<?=$counter?>" 
+						titlelinkname="<?= $g->titlelinkname ?>" 
+						titlelink="<?= $g->titlelink ?>" 
+						captionlink="<?= $g->caption ?>" 
+						links="<?= $g->links ?>" 
+						id="th_<?= $counter?>" 
+						title="<?if(!empty($g->title)):?><?= $g->title?><?else:?><?= $object_name?><?endif;?>"
+						<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb popup_href" 
+						onmousedown="slideMouseDown('<?= $g->links ?>', '<?= $g->titlelink ?>', '<?= $g->titlelinkname ?>');" >
+						
+						<img src="<?= $_GET['type'] == 'catalog' ? $g->catalog_small_v_url : $g->catalog_small_url?>" alt="<?if(!empty($g->alt)):?><?= $g->alt?><?else:?><?= $object_name?><?endif;?>" class="thumbs-slider-image gallery-thumbs-slider__image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?> hover-image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?>" />
+					</a>
+				</li> <!-- /.gallery-thumbs-slider__item -->
+				<?$counter++?>
+			<?endforeach;?>
+		</ul> <!-- /.gallery-thumbs-slider__list -->
+	</div> <!-- /.gallery__thumbs -->
+<? endif?>
 <script>
-	function update_menu_list(html) {
+	function updateMenuList(html) {
 		$('.gallery-menu__list').html(html);
 		
 		<?if ($_GET['my_parent']):?>
@@ -105,15 +98,34 @@
 		<?endif?>
 	}
 	
+	function slideMouseDown(links, titleLink, titleLinkName){
+		updateMenuList(links);
+		$('#title_link').attr('href', titleLink);
+		$('#title_link').html(titleLinkName);
+
+		if (!$('#title_link').html())
+			$('#title_link').hide();
+		else 
+			$('#title_link').show();
+		
+		$('#img_caption').html($(this).attr('captionlink'));
+	}
+	
 	$('.gallery__thumb').mousedown(function(){
 		var slideId = parseInt( $(this).attr('href').replace('#slide', '') );
 		gallerySlider.goToSlide( slideId - 1 ); 
-		
-		if (!$('#title_link').html())
-			$('#title_link').hide();
-		else $('#title_link').show();
-		$('#img_caption').html($(this).attr('captionlink'));
 	});
+	
+	$('.thumbs-slider-image').mouseenter(function(){
+		$('.gallery__text').css('z-index', '0');
+		$('.gallery__thumbs').css('z-index', '100');
+	});
+	
+	$('.thumbs-slider-image').mouseleave(function(){
+		$('.gallery__text').css('z-index', '100');
+		$('.gallery__thumbs').css('z-index', '0');
+	});
+	
 </script>
 <input type="hidden" name="is_catalog" class="is_catalog" value="<?if($_GET['type'] == 'catalog'):?>1<?else:?>0<?endif;?>">
 <div id="active_id" style="display: none;"><?= $_GET['first_img']?></div>

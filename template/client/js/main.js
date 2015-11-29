@@ -355,6 +355,7 @@
 	  
         var slideId = parseInt($('#active_id').html()) ;
 		var titlelinkname = $('#th_'+slideId).attr('titlelinkname');
+
 		$('#title_link').html(titlelinkname);
 		if (!titlelinkname)
 			$('#title_link').hide();
@@ -363,13 +364,14 @@
 		var titlelink = $('#th_'+slideId).attr('titlelink');
 		$('#title_link').attr('href', titlelink);
 		var links = $('#th_'+slideId).attr('links');
-		update_menu_list(links);
+		
+		updateMenuList(links);
 		
 		var captionname = $('#th_'+slideId).attr('captionlink');
 		$('#img_caption').html(captionname);
 		
-		/*
-      $galleryThumbsLinks.on('mousedown', function(){
+		
+     /* $galleryThumbsLinks.on('mousedown', function(){
 		console.log('ok');
 		
         var slideId = parseInt( $(this).attr('href').replace('#slide', '') );
@@ -392,17 +394,15 @@
 	  var slideMargin = 0;
 	  
 	  var isCatalog = $('.is_catalog').val();
-	  if(isCatalog == '0') 
-	  {
+	  if(isCatalog == '0') {
 		slideWidth = 71;
 		slideMargin = 86;
 	  }
 	  
-      var thumbsNumber = Math.floor( ( modalWidth - 20 ) / slideWidth ) - 1; 
+      var thumbsNumber = Math.floor( ( modalWidth - 86 ) / slideWidth ) - 1; 
 	  
       if ($galleryThumbs.length >= thumbsNumber){
-		
-
+	  
         var galleryThumbsSlider = $galleryThumbsList.bxSlider({
                             pager: false,
                             controls: false,

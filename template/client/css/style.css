@@ -1822,7 +1822,7 @@ input.formButton:hover {color:#c6da2d !important;}
 	text-align: center;
 	margin: 0 auto;
 	margin-top:-10px;
-	z-index:0;
+	z-index: 0;
 }
 
 .vcard .category, .vcard .org {
