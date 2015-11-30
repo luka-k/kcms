@@ -50,7 +50,7 @@
 }
 
 .gallery-slider__item{
-	width:912px !important;
+	width:100%;
 	height:100%;
     text-align: center;
 }

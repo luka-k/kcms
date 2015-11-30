@@ -1524,7 +1524,7 @@ background: #000;
    position: absolute;
     top: 50%;
     left: 50%;
-	height:95% !important;
+	height:auto;
 	margin-top: -220px;
     margin-left: -448px;
     padding: 20px 20px 20px;
