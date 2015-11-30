@@ -34,7 +34,7 @@
 										?>
 										<li class="the-best-slider__item">
 											<a id="im_main_<?= $img->id?>" rel="nofollow" title="<?if(!empty($img->title)):?><?= $img->title?><?else:?><?= $object_name?><?endif;?>" href="<?=base_url()?>popup_gallery/view?action=main&amp;first_img=<?=$i+1?>&amp;rand=<?= $microtime?>&amp;title=<?= urlencode('Галерея (the best)')?>&amp;is_main=true" class="the-best-slider__href modal-gallery-open" data-fancybox-type="iframe">
-												<img src="<?=$img->catalog_gallery_url?>" class="the-best-slider__image" alt="<?if(!empty($img->alt)):?><?= $img->alt?><?else:?><?= $object_name?><?endif;?>"/>
+												<img src="<?=$img->catalog_gallery_url?>" class="the-best-slider__image" data-id="<?=$img->id?>" alt="<?if(!empty($img->alt)):?><?= $img->alt?><?else:?><?= $object_name?><?endif;?>"/>
 											</a>
 										</li> <!-- /.the-best-slider__item-->
 									<?endforeach;?>									
