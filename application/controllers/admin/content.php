@@ -276,14 +276,15 @@ class Content extends Admin_Controller
 				{
 					$data['content']->doc_type = explode(":", $data['content']->doc_type);
 					
-					$products = $this->products->get_list(array("manufacturer_id" => $data['content'] -> manufacturer_id));
-					
 					$data['document2category'] = array();
-					$filter['categories_checked'] = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $data['content']->manufacturer_id);
-				
-					if(!empty($filter['categories_checked']))
+					$categories_checked = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $data['content']->manufacturer_id);
+					
+					if(!empty($categories_checked))
 					{
-						$data['document2category'] = $this->categories->get_tree($products, $filter, 'admin');
+						$this->db->where_in('parent_id', $categories_checked);
+						$products = $this->db->get('products')->result();
+						if(!empty($products))
+							$data['document2category'] = $this->categories->get_tree($products);
 					}
 					
 					$data['content']->document2category = $this->table2table->get_parent_ids("document2category", "category_id", "document_id", $id);

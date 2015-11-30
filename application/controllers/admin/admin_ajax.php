@@ -92,8 +92,16 @@ class Admin_ajax extends Admin_Controller
 	{
 		$manufacturer_id = json_decode(file_get_contents('php://input', true));
 		
-		$products = $this->products->get_list(array("manufacturer_id" => $manufacturer_id));
-		$data['category_by_manufacturer'] = $this->categories->get_tree($products, array());
+		$data['category_by_manufacturer'] = array();
+		$categories_checked = $this->table2table->get_parent_ids("manufacturer2category", "category_id", "manufacturer_id", $manufacturer_id);
+					
+		if(!empty($categories_checked))
+		{
+			$this->db->where_in('parent_id', $categories_checked);
+			$products = $this->db->get('products')->result();
+			if(!empty($products))
+				$data['category_by_manufacturer'] = $this->categories->get_tree($products);
+		}
 		
 		$content = $this->load->view('admin/include/ajax_tree.php', $data, TRUE);
 		
