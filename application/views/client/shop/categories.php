@@ -86,11 +86,11 @@
 												<p>Наличие: <span class="blue-label"><?=$item->qty ? 'на складе СПб' : 'по запросу'?></span></p>
 												<p><a href="" onclick="add_to_cart('<?=$item->id?>', 1); return false;"><img src="/template/client/images/cartbtn.png" /></a></p>
 											</div>
-											<div class="product-image">
+											<div class="product-image" style="text-align:center;width: 150px;">
 												<?if(isset($item->img)):?>
-													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="<?=$item->img->catalog_small_url?>" width="150" /></a>
+													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="<?=$item->img->catalog_small_url?>" /></a>
 												<?else:?>
-													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="/download/images/catalog_small/n/o/no-photo-available.png" width="150" /></a>
+													<a href="<?=$item->full_url?>" class="modal_product" data-product-id="<?= $item->id?>" data-product-url="<?= $item->url?>" data-fancybox-type="iframe"><img src="/download/images/catalog_small/n/o/no-photo-available.png" /></a>
 												<?endif;?>
 											</div>
 											<div class="product-name">
