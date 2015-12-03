@@ -185,7 +185,7 @@ class Content extends Admin_Controller
 		elseif($action == "save")
 		{
 			$data['content'] = $this->$type->editors_post()->data;
-			
+
 			if($this->$type->editors_post()->error == TRUE)
 			{
 				//Если валидация не прошла выводим сообщение об ошибке

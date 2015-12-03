@@ -9,7 +9,8 @@ class Settings extends MY_Model
 			'admin_email' => array('e-mail Администратора', 'text', 'trim|htmlspecialchars'),
 			'admin_name' => array('Имя Администратора', 'text', 'trim|htmlspecialchars'),
 			'description' => array('Рекламный текст', 'tiny', 'trim'),
-			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars')
+			'order_string' => array('Сообщение об оформлении заказа', 'text', 'trim|htmlspecialchars'),
+			'need_resize' => array('Необходим resize картинок', 'checkbox', '')
 		),
 		'SEO' => array(
 			'site_description' => array('Описание сайта', 'text', 'trim|htmlspecialchars'),
