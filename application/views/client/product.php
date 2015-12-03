@@ -24,7 +24,7 @@
 						<header class="page__header">
 							<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
 						</header> <!-- /.page__header -->
-						<div class="projects">
+						<div class="projects <?if($is_catalog):?>catalog__content<?endif;?>">
 							<ul class="projects__list">
 								<? if (trim($content->description)): ?>
 									<li style="padding-left: 21px;">

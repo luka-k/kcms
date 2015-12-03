@@ -17,7 +17,7 @@
 				<? require 'include/header.php'?>
 				
 				<div class="page">
-					<? require 'include/breadcrumbs.php'?>
+				<? require 'include/breadcrumbs.php'?>
 					
 					<section class="page__content" style="padding-left: 68px;">
 					

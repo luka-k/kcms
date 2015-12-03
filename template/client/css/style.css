@@ -1319,6 +1319,11 @@ span
     list-style: none;
 }
 
+.catalog__content .projects__list{
+	margin: 0 0 0 0;
+}
+
+
 .projects__list li p, .page__scroll-in p
 {
 	margin-bottom: 3px;
@@ -1344,6 +1349,12 @@ span
     padding: 7px 0 20px 20px;
 	margin:5px 0;
 }
+
+.catalog__content .projects__item{
+    padding: 7px 0 20px 20px;
+	margin:0px 0;
+}
+
 .projects .bx-viewport
 {
     height: 560px !important;
@@ -1353,10 +1364,14 @@ span
 {
     left: -5px;
 }
-.projects .bx-prev
-{
-    top: 20px;
+.projects .bx-prev{
+	top: 20px;
 }
+
+.catalog__content .bx-prev{
+	top:0;
+}
+
 .projects .bx-next
 {
     bottom: 20px;
