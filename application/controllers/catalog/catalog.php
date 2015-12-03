@@ -17,6 +17,14 @@ class Catalog extends Client_Controller {
 	public function index()
 	{
 		$this->breadcrumbs->add(base_url()."catalog/", "Производители");
+		
+		$url = $this->uri->segment(2);
+		if($url)
+		{
+			$manufacturer = $this->manufacturers->get_item_by(array('url' => $url));
+			if($manufacturer)
+				redirect(base_url('manufacturer/'.$url));
+		}
 			
 		$content = $this->url->catalog_url_parse(2);
 
