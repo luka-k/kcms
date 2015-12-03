@@ -78,6 +78,16 @@ class Articles extends MY_Model
 			
 			$item->has_img = 0;
 			
+			if($item->parent_id = $this->config->item('news_id'))
+			{
+				$imgs = $this->parse_description($item->description, $item->full_url);
+				if($imgs)
+				{
+					$item->img = $imgs;
+					$item->has_img = count($imgs);
+				}
+			}
+			
 			if ($imgs)
 			{
 				if ($imgs[0]->is_cover)
@@ -106,15 +116,6 @@ class Articles extends MY_Model
 			}
 			
 			$this->load->config('articles');
-			if($item->parent_id = $this->config->item('news_id'))
-			{
-				$imgs = $this->parse_description($item->description, $item->full_url);
-				if($imgs)
-				{
-					$item->img = array_merge($imgs, $item->img);
-					$item->has_img = count($imgs);
-				}
-			}
 			
 			if(!empty($item->img))
 			{
