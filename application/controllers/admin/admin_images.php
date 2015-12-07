@@ -11,8 +11,11 @@ class Admin_images extends Admin_Controller
 	
 	public function resize()
 	{
+		echo "start resize <br />";
 		$settings = $this->settings->get_item(1);
 		if(!$settings->need_resize) die('Не требуется');
+		
+		$log_path = FCPATH.'download/log.log';
 		
 		$this->db->select_max('id');
 		$max_id = $this->db->get('images')->row()->id;
@@ -36,11 +39,14 @@ class Admin_images extends Admin_Controller
 			echo $image->id." - ";
 			//if ($image->is_main == 0) continue;
 
-			if (!file_exists('download/images'.$image->url))
+			$file_size = filesize($upload_path . $image->url);
+			
+			if (!file_exists($upload_path . $image->url))
 			{
 				$image->url = str_replace('.jpg', '.tif', $image->url);
 				echo '---';
 			}
+			
 			echo $image->url.'<br>';
 
 			foreach($thumb_config as $path => $param)
@@ -51,11 +57,15 @@ class Admin_images extends Admin_Controller
 			
 			if(!$this->images->generate_thumbs($upload_path . $image->url) == FALSE)
 			{
-				file_put_contents(FCPATH.'download/log.log', file_get_contents(FCPATH.'download/log.log')."ERROR: ".$i.':'.$image->id."\n");
+				$message = "ERROR: ".$key.':'.$image->id."\n";
+				file_put_contents($log_path, $massege, FILE_APPEND); 
 				continue;
 			}
 			
-			file_put_contents(FCPATH.'download/log.log', file_get_contents(FCPATH.'download/log.log').$i.':'.$image->id."\n");
+			$message = $key.':'.$image->id." - ".$file_size." байт";
+			if($image->id == $from) $message .= ' START after FAIL';
+			$message .= "\n";
+			file_put_contents($log_path, $message, FILE_APPEND);
 						
 			if($images->id == $max_id) 
 			{
