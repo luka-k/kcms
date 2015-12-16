@@ -114,9 +114,9 @@
       var projectsSlider = $projectsList.bxSlider({
                               pager: false,
                               mode: 'vertical',
-							  minSlides: 3,
+							  minSlides: 4,
                               maxSlides: 4,
-                              moveSlides: 0,
+                              moveSlides: 1,
 							  infiniteLoop: false,
                               adaptiveHeight: true
                             });
@@ -355,7 +355,7 @@
 	  
         var slideId = parseInt($('#active_id').html()) ;
 		var titlelinkname = $('#th_'+slideId).attr('titlelinkname');
-
+		console.log(titlelinkname);
 		$('#title_link').html(titlelinkname);
 		if (!titlelinkname)
 			$('#title_link').hide();
@@ -368,6 +368,7 @@
 		updateMenuList(links);
 		
 		var captionname = $('#th_'+slideId).attr('captionlink');
+		
 		$('#img_caption').html(captionname);
 		
 		

@@ -36,7 +36,7 @@
 								$firstimg_delta = $is_catalog ? 0 : 1;
 								
 								for($i = $hide_1st_image ? 1 : 0; $i-$delta < count($content->img); $i+=( $is_catalog ? 4 : 3)): $c = $content->img[$i-$delta];?>
-									<li class="projects__item projects-item" style="height: <?= $is_catalog ? '194':'148'?>px;">
+									<li class="projects__item projects-item" style="height: <?= $is_catalog ? '194':'135'?>px;">
 										<?if(!empty($c->catalog_small_url)):?>
 											
 											<?if (strstr($c->caption, 'youtube')) 

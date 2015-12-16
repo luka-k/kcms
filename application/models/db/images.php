@@ -294,7 +294,7 @@ class Images extends MY_Model
 		$item_url[] = $url;
 		if($path) $item_url[] = $path;
 		$item_url[] = "images";
-		$item_url[] = "download";
+		$item_url[] = "download_bb";
 		$full_url = implode("/", array_reverse($item_url));
 		$full_url = base_url().$full_url;
 		return $full_url;	

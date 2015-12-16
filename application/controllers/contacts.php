@@ -31,14 +31,13 @@ class Contacts extends Client_Controller {
 			else
 			{
 				$segment_4 = $this->uri->segment(4);
-				if($segment_4) $content->article = $this->articles->prepare($page->article);
+				/*if($segment_4)*/ $content->article = $this->articles->prepare($page->article);
 			}
 			$template="client/contact.php";
 		}	
 		
 		if(isset($page->articles) && $page->articles)
 		{
-			
 			$content = $page;
 			if(!$this->uri->segment(3))
 			{

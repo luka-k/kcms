@@ -35,7 +35,8 @@ class Pages extends Client_Controller {
 				}
 				$content->article->description = $description;
 			}
-			$template = "client/article.php";
+
+			$template = $page->id == 3 ? "client/article.php": "client/article_info.php";
 
 		}		
 		elseif(isset($page->articles))

@@ -46,7 +46,15 @@
 									>
 										<?foreach($branch_2->childs as $branch_3):?>	
 											<li class="sidebar-menu-level3__item" onmouseover="$('#project<?= $branch_3->id?>').addClass('hover-image-hover')" onmouseout="$('#project<?= $branch_3->id?>').removeClass('hover-image-hover')" >
-											    <a href="<?=$branch_3->full_url?><?= $this->uri->segment(1)=='catalog' && !$this->uri->segment(5)?'/preview':''?>/" id="mp_objects_<?= $branch_3->id?>" class="sidebar-menu-level3__href <?if(in_array($branch_3->url, $url)):?>active<?endif;?>">
+												<a href="<?=$branch_3->full_url?>
+													<?if(($this->uri->segment(1)=='catalog' && !$this->uri->segment(5)) || ($this->uri->segment(1)=='catalog' && $this->uri->segment(4) != $branch_3->url)):?>
+														<?= '/preview'?>
+													<?else:?>
+														<?= ''?>
+													<?endif;?>
+												<?//= $this->uri->segment(1)=='catalog' && !$this->uri->segment(5) ? '/preview':''?>/" 
+													id="mp_objects_<?= $branch_3->id?>" 
+													class="sidebar-menu-level3__href <?if(in_array($branch_3->url, $url)):?>active<?endif;?>">
 													<?if(in_array("articles", $url)):?>
 														<?=$branch_3->menu_name?>
 													<?else:?>

@@ -66,12 +66,13 @@
 									<?=$content->article->description?>
 									<?if(!empty($content->map)):?>
 <? 
-// TODO: строчка фиксит баг пустой картинки
+// TODO: строчка фиксит баг пустой картинки 
 foreach ($content->article->img  as $i => $im): if (!$im) unset($content->article->img[$i]); endforeach; ?>
 										<h6>Карта проезда</h6>
 										<div style="width: 600px;">
 										<div style="border: 1px solid gray;width: 280px; height: 200px;margin-right: 10px; float: left;">
-										<a style="padding: 0px;" rel="nofollow"  href="<?=base_url()?>popup_gallery/view?action=map&start=real&amp;first_img=1&amp;contact_id=<?= $content->id?>" data-fancybox-type="iframe" class="modal-gallery-open"><img src="<?=$content->article->img[count($content->article->img)-1]->map_url?>" alt=""/></a>
+										<a style="padding: 0px;" rel="nofollow"  href="<?=base_url()?>popup_gallery/view?action=map&start=real&amp;first_img=1&amp;contact_id=<?= $content->id?>" data-fancybox-type="iframe" class="modal-gallery-open">
+											<img src="<?=$content->article->img[count($content->article->img)-1]->map_url?>" alt=""/></a>
 										</div>
 										<div style="border: 1px solid gray;width: 280px; height: 200px;margin-right: 10px; float: left;">
 										<a style="padding: 0px;" rel="nofollow" href="<?=base_url()?>popup_gallery/view?action=map&amp;first_img=2&amp;contact_id=<?= $content->id?>" data-fancybox-type="iframe" class="modal-gallery-open"><img src="<?= html_entity_decode($content->map2) ?>" alt=""/></a>

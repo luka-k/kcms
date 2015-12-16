@@ -41,28 +41,30 @@
 		<div id="th_2" onmousedown="$('#maplink').attr('href', '/printmap/ymap/<?=$article->id?>');"></div>
 	<? endif?>
 	
-	<div class="gallery__text" <? if ($_GET['action'] == 'map'): ?> style="width: 500px;"<?endif?>>
-		<? if (!$_GET['nolinks'] && $_GET['action'] != 'map') : ?>
-			<div class="gallery__menu gallery-menu">
-				<div class="gallery-menu__menu" style="">
-					<ul class="gallery-menu__list">
-					</ul> <!-- /.gallery-menu__menu -->
-				</div> <!-- /.gallery-menu__menu -->
-				<a href="" id="title_link" class="gallery-menu__title"><?=$gallery_title?></a> <!-- /.gallery__category -->
-			</div> <!-- /.gallery__menu -->
-			
-			<div id="img_caption" style="display: <?= $display_caption?>;"></div>
-		<? endif ?>
-		
-		<div class="gallery__name gallery-menu__title2" style="color: white;<? if ($_GET['action'] == 'map'): ?>padding-top: 30px;<?endif?>"><?= urldecode ($_GET['title'])?></div> <!-- /.gallery__name -->
-	</div> <!-- /.gallery__text -->
-	
 </div>
+<div style="clear:both;"></div>
+
+<div class="gallery__text" <? if ($_GET['action'] == 'map'): ?> style="width: 500px;"<?endif?>>
+	<? if (!$_GET['nolinks'] && $_GET['action'] != 'map') : ?>
+		<div class="gallery__menu gallery-menu">
+			<div class="gallery-menu__menu" style="">
+				<ul class="gallery-menu__list">
+				</ul> <!-- /.gallery-menu__menu -->
+			</div> <!-- /.gallery-menu__menu -->
+			<a href="" id="title_link" class="gallery-menu__title"><?=$gallery_title?></a> <!-- /.gallery__category -->
+		</div> <!-- /.gallery__menu -->
+		
+		<div id="img_caption" style="display: <?= $display_caption?>;"></div>
+	<? endif ?>
+	
+	<div class="gallery__name gallery-menu__title2" style="color: white;<? if ($_GET['action'] == 'map'): ?>padding-top: 30px;<?endif?>"><?= urldecode ($_GET['title'])?></div> <!-- /.gallery__name -->
+</div> <!-- /.gallery__text -->
+<div style="clear:both;"></div>	
 
 <? if ($_GET['action'] != 'map'):?>
 	<div class="gallery__thumbs gallery-thumbs-slider <?if($_GET['type'] == 'catalog'):?>catalog_slider<?endif;?>">
 		<ul class="gallery-thumbs-slider__list"
-			style="<?if(isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:15px;<?endif;?>">
+			style="<?if(isset($_GET['my_parent']) && $_GET['type'] == "catalog"):?>margin-top:40px;<?else:?><?endif;?>">
 			
 			<?$counter=1?>
 			<?foreach($gallery as $g):?>
@@ -79,7 +81,7 @@
 						id="th_<?= $counter?>" 
 						title="<?if(!empty($g->title)):?><?= $g->title?><?else:?><?= $object_name?><?endif;?>"
 						<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb popup_href" 
-						onmousedown="slideMouseDown('<?= $g->links ?>', '<?= $g->titlelink ?>', '<?= $g->titlelinkname ?>');" >
+						onmousedown="slideMouseDown('<?= $g->links ?>', '<?= $g->titlelink ?>', '<?= $g->titlelinkname ?>', '<?= $g->caption ?>');" >
 						
 						<img src="<?= $_GET['type'] == 'catalog' ? $g->catalog_small_v_url : $g->catalog_small_url?>" alt="<?if(!empty($g->alt)):?><?= $g->alt?><?else:?><?= $object_name?><?endif;?>" class="thumbs-slider-image gallery-thumbs-slider__image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?> hover-image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?>" />
 					</a>
@@ -98,7 +100,7 @@
 		<?endif?>
 	}
 	
-	function slideMouseDown(links, titleLink, titleLinkName){
+	function slideMouseDown(links, titleLink, titleLinkName, captionLink){
 		updateMenuList(links);
 		$('#title_link').attr('href', titleLink);
 		$('#title_link').html(titleLinkName);
@@ -107,8 +109,8 @@
 			$('#title_link').hide();
 		else 
 			$('#title_link').show();
-		
-		$('#img_caption').html($(this).attr('captionlink'));
+		console.log(captionLink);
+		$('#img_caption').html(captionLink);
 	}
 	
 	$('.gallery__thumb').mousedown(function(){

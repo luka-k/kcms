@@ -183,7 +183,7 @@ class CI_Url {
 			if(!$child) return FALSE;
 			
 			$segment_number == 2 ? $this->CI->breadcrumbs->add("articles/".$url, $child->name) : $this->CI->breadcrumbs->add($url, $child->name);
-
+			
 			return $this->CI->uri->segment($segment_number+1) ? $this->url_parse($segment_number + 1, $child) : $this->get_child_info($child, $url);
 		}
 		else
@@ -199,7 +199,7 @@ class CI_Url {
 				$child = $this->CI->articles->get_item_by(array("url" => $url));
 				
 				if(!$child) return FALSE;
-				
+
 				return $this->get_child_info($child, $url);
 			}
 		}
@@ -225,9 +225,9 @@ class CI_Url {
 				$f = array_merge($f, $this->CI->articles->get_list(array("parent_id" => $item->id)));
 			}
 
-			if(empty($f) && $child->id <> 3) $child->article = $child->articles[0];
+			//if(empty($f) && $child->id <> 3) $child->article = $child->articles[0];
 		}
-		
+
 		return $child;
 	}
 }

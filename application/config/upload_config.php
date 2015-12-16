@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['upload_path'] = FCPATH.'download/images';
+$config['upload_path'] = FCPATH.'download_bb/images';
 
 $config['thumb_config'] = array(
 	"catalog_big" => array(

@@ -1,50 +1,56 @@
 <!DOCTYPE html>
-<!--[if lte IE 9]>      <html class="no-js lte-ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
+<!--[if lte IE 9]>      
+	<html class="no-js lte-ie9">
+<![endif]-->
+
+<!--[if gt IE 9]><!--> 
+	<html> 
+<!--<![endif]-->
 
 <? require 'include/head.php' ?>
 
 <body>
 	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
+		<p class="browsehappy">Р’Р°С€ Р±СЂР°СѓР·РµСЂ СѓСЃС‚Р°СЂРµР»! РџРѕР¶Р°Р»СѓР№СЃС‚Р°,  <a rel="nofollow" href="http://browsehappy.com/">РѕР±РЅРѕРІРёС‚Рµ РІР°С€ Р±СЂР°СѓР·РµСЂ</a> С‡С‚РѕР±С‹ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІСЃРµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё СЃР°Р№С‚Р°.</p>
 	<![endif]-->
 	
 	<div class="main-box">
 		<div class="main-box__cell">
 			<div class="main-box__content">
-
+	
 				<? require 'include/header.php'?>
 				
 				<div class="page">
-					
+
 					<? require 'include/breadcrumbs.php'?>
 					
-					<section class="page__content " style="padding-left: 68px;">
-					
+					<section class="page__content" style="padding-left: 73px;">
 						<header class="page__header">
-							<h1 class="page__title"><?=$content->name?></h1> <!-- /.page__title -->
+							<h1 class="page__title">
+								<?if(isset($content->name)):?>
+									<?=$content->name?>
+								<?else:?>
+									<?=$content->article->name?>
+								<?endif;?>
+							</h1><!-- /.page__title -->
 						</header> <!-- /.page__header -->
-						<div class="projects <?if($is_catalog):?>catalog__content<?endif;?>">
-							<ul class="projects__list">
-								<? if (trim($content->description)): ?>
-									<li style="padding-left: 21px;">
-										<div  style="width: 585px; margin-bottom: 35px;">
-											<?=$content->article->description?> 
+						
+						<div class="page__text-nobulls page__scroll" style="width: 620px;">
+							<div class="page__scroll-in" style="width: 640px; padding-right:40px;">
+								<?=$content->article->description?> 
 								
-											<?$object_images = array();?>
-											<?if(isset($content->has_img)):?>
-												<?$object_images = $content->img?>
-											<?endif;?>
-										</div>
-									</li>
-								<? endif?>
-								<?
-								$delta = 0;
-								$firstimg_delta = $is_catalog ? 0 : 1;
-								
-								for($i = $hide_1st_image ? 1 : 0; $i-$delta < count($content->img); $i+=( $is_catalog ? 4 : 3)): $c = $content->img[$i-$delta];?>
-									<li class="projects__item projects-item" style="height: <?= $is_catalog ? '194':'135'?>px;">
-										<?if(!empty($c->catalog_small_url)):
+								<?$object_images = array();?>
+								<?if(isset($content->has_img)):?>
+									<?$object_images = $content->img?>
+								<?endif;?>
+
+							<? if ($this->uri->segment(3) == 'novosti'): ?>
+							
+							<!--<div class="projects" style="width:600px;">-->
+								<ul class="projects__list-noscroll clearfix" style="margin-top: 15px; padding-left: 0px;list-style: none;width: 600px;">
+									<?for($i = 0; $i < count($object_images); $i+=3): $c = $object_images[$i];?>
+										<li class="projects__item projects-item" style="margin-left: 0; padding-left: 0;">
+											<?if(!empty($c->catalog_small_url)):
 												if ($c->caption) $c->catalog_small_url=$c->video_url;?>
 											
 												<a rel="nofollow" 
@@ -87,11 +93,13 @@
 													<? endif?>
 												<? endif?>
 											<?endif;?>
-						</li> <!-- /.projects__item projects-item -->
-					<?endfor;?>
-				</ul> <!-- /.projects__list -->
-
-						</div> <!-- /.projects -->
+										</li> <!-- /.projects__item projects-item -->
+									<?endfor;?>
+								</ul> <!-- /.projects__list -->
+							<!--</div>--> <!-- /.projects -->
+						<? endif ?>
+							</div> <!-- /.page__scroll-in -->
+						</div> <!-- /.page__text page__scroll -->
 					</section> <!-- /.page__content -->
 					
 					<aside class="page__sidebar">
@@ -100,11 +108,13 @@
 				</div> <!-- /.page -->
 				
 				<? require 'include/footer.php' ?>
+					
 			</div> <!-- /.main-box__content -->
 		</div> <!-- /.main-box -->
 	</div> <!-- /.main-box -->
-	
+
 	<? require 'include/modal.php' ?>
-	<? require 'include/script.php' ?>
+	<? require 'include/script.php' ?>		        
+
 </body>
 </html>

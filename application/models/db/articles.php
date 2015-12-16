@@ -77,17 +77,7 @@ class Articles extends MY_Model
 			$imgs = $this->images->get_images(array('object_type' => 'articles', 'object_id' => $item->id));
 			
 			$item->has_img = 0;
-			
-			if($item->parent_id = $this->config->item('news_id'))
-			{
-				$imgs = $this->parse_description($item->description, $item->full_url);
-				if($imgs)
-				{
-					$item->img = $imgs;
-					$item->has_img = count($imgs);
-				}
-			}
-			
+
 			if ($imgs)
 			{
 				if ($imgs[0]->is_cover)
@@ -107,6 +97,15 @@ class Articles extends MY_Model
 				$item->img[1]->categories2_url = '/download/images/i/i/ii-hover.png';
 			}
 			
+			if($item->parent_id = $this->config->item('news_id'))
+			{
+				$imgs = $this->parse_description($item->description, $item->full_url);
+				if($imgs)
+				{
+					$item->img = $imgs;
+					$item->has_img = count($imgs);
+				}
+			}
 			
 			if(!empty($item->date))
 			{

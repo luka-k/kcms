@@ -488,7 +488,7 @@ span
 {
     width: 189px;
     height: 102%;
-    margin: -1% 0 0 0px;
+    margin: -3% 0 0 0px;
 
     border-color: #fff;
     box-shadow: 0 0 10px #c6da2d;
@@ -1078,6 +1078,7 @@ span
 }
 .page__scroll-in
 {
+	overflow-x: visible !important;
     width: 680px;
     padding: 10px 20px 20px 18px;
 }
@@ -1314,7 +1315,7 @@ span
 }
 
 .projects__list{
-	margin: 22px 0 0 0;
+	margin: 0;
     padding: 0;
     list-style: none;
 }
@@ -1346,7 +1347,7 @@ span
 .projects__item
 {
     height: 140px;
-    padding: 7px 0 20px 20px;
+    padding: 7px 0 0px 20px;
 	margin:5px 0;
 }
 
@@ -1365,7 +1366,7 @@ span
     left: -5px;
 }
 .projects .bx-prev{
-	top: 20px;
+	top: 0;
 }
 
 .catalog__content .bx-prev{
@@ -1374,7 +1375,7 @@ span
 
 .projects .bx-next
 {
-    bottom: 20px;
+    bottom: 0px;
 }
 
 .projects-item__image-box
@@ -1401,6 +1402,7 @@ span
 }
 .projects-item__image
 {
+	
     vertical-align: top;
 }
 .projects-item__content

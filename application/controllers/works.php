@@ -108,6 +108,7 @@ class Works extends Client_Controller {
 			$data['breadcrumbs'] = $this->breadcrumbs->get();
 				
 		}
+
 		$this->load->view($template, $data);
 	}
 }
