@@ -1,108 +1,83 @@
-<!---Добавление в корзину--->
-<div class="modal modal--to-cart" id="to-cart">
-	<div class="modal__title block-title">
-		Товар "<span id="popup_product_name"></span>"
-		<br /> добавлен в корзину
-	</div> <!-- /.modal__title block-title -->
-	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__cart modal-cart">
+<!-- Modal -->
+			<div id="modal-login-big" class="modal login fade hidden-xs"  tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+						<div class="text-center">
+                    <ul class="login-list clearfix ">
+                        <li class='active'>Login</li> 
+                        <li class="divider"></li>
+                        <li><a href="#">Sign Up</a></li>
+                    </ul><!-- /.login-list -->	
+                    <form role="form" class="inner-top-50">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="sr-only">Email address</label>
+                            <input type="email" class="form-control bookshop-form-control" id="exampleInputEmail1" placeholder="Hezy Theme">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="sr-only">Password</label>
+                            <input type="password" class="form-control bookshop-form-control" id="exampleInputPassword1">
+                        </div>
 
-			<div class="form__line modal-cart__line">	
-				<label class="form__label modal-cart__label">Кол-во в корзине: </label>
-				<input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="amount" onchange="update_cart(document.getElementById('popup_item_id').value, this.value); return false;" placeholder="" value="" />
-				<input type="hidden" id="popup_item_id" value=""/>
-			</div> <!-- /.form__line -->
-			
-			<div class="form__button modal-cart__button">
-				<button type="button" class="button button--normal button--auto-width js-close-fancybox">Вернуться к покупкам</button>
-				<button type="button" class="button button--normal button--grey button--auto-width" onclick="document.location.replace('/cart/');">В корзину &rarr;</button>
-			</div> <!-- /.form__button -->
+                        <button type="button" class="btn btn-primary btn-uppercase">Login</button>
+                        <a href="#" class='forgot-password'>forgot password</a>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <div class="text-center">
+                    <ul class='social-list text-center'>
+                        <li><a href="#" class="facebook"></a></li>
+                        <li><a href="#" class="google-plus"></a></li>
+                        <li><a href="#" class="twitter"></a></li>
+                        <li><a href="#" class="pinterest"></a></li>
+                    </ul><!-- /.social-list -->
+                </div>
+            </div><!-- /.modal-footer -->
+            <a href="#" data-dismiss="modal" class="remove-icon"><i class="fa fa-times"></i></a>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-	</div> <!-- /.modal__cart -->
-</div> <!-- /.modal -->
+<!-- Modal -->
+<div id="modal-login-small" class="modal fade login login-xs hidden-sm hidden-lg"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="logo-holder">
+                        <h1 class="logo">BookShop</h1>
+                        <div class="logo-subtitle">
+                            <span>World of books</span>
+                        </div><!-- /.logo-subtitle --> 
+                    </div>
 
-<div id="callback" class="modal">
-	<div class="modal__title block-title">Оставьте ваш номер телефона</div> <!-- /.modal__title block-title -->
-	
-	<div class="modal__text">
-		<p></p>
-	</div> <!-- /.modal__text -->
-	
-	<div class="modal__form">
-		<form action="#" id="callback_form" method="post">
-			<div class="form__line">
-				<input type="text" id="callback_name" class="form__input validate" name="name" placeholder="Имя" />
-			</div> <!-- /.form__line -->
-			
-			<div class="form__line">
-				<input type="tel" id="call" class="form__input validate" name="phone" placeholder="Телефон" />
-			</div> <!-- /.form__line -->
-			
-			<div class="form__button">
-				<button class="button button--normal button--auto-width callback_submit" onclick="callback(); return false;">Заказать звонок</button>
-			</div> <!-- /.form__button -->
-		</form> <!-- /.form -->
-	</div> <!-- /.modal__form -->
-</div> <!-- /.modal -->
+                    <form role="form" class="inner-top-50">
+                        <div class="form-group">
+                            <label for="entername" class="sr-only">Email</label>
+                            <input type="email" class="form-control bookshop-form-control" id="entername" placeholder="Hezy Theme">
+                        </div>
+                        <div class="form-group">
+                            <label for="enterpassword" class="sr-only">Password</label>
+                            <input type="password" class="form-control bookshop-form-control" id="enterpassword">
+                        </div>
 
-<div class="modal" id="callback_answer" style="display:none;">
-	<div id="popup_title" class="modal__title block-title"></div> <!-- /.modal__title block-title -->
-	
-	<div id="popup_message" class="modal__text"></div> <!-- /.modal__text -->
-</div> <!-- /.modal --> 
-
-<div class="modal" id="fast_order" style="display:none;">
-	<div class="modal__title block-title">Быстрый заказ</div> <!-- /.modal__title block-title -->
-	
-	<form action="#" class="form" id="fast_order_form" method="post">
-	<div class="fast_order_product-info">
-		<div class="fast_order_image">
-			<img id="fast_order_img" src="" alt="" />
-		</div>
-		<div class="fast_order_product_name"></div><br />
-		Количество: <input type="text" id="popup_qty" class="form__input modal-cart__input required qty" name="qty" placeholder="" value="1" />							
-	</div>
-	<div class="fast_order_form">
-	
-		<div class="cart-order__form">
-			
-			<input type="hidden" class="product_id" name="product_id" value="" />
-			
-			<div class="form__line">
-				<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
-			</div> <!-- /.form__line -->
-							
-			<div class="form__line">
-				<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
-			</div> <!-- /.form__line -->
-							
-			<a href="#extra" class="cart-order__extra-link" onclick="$('.cart-order__extra').slideToggle();">Необязательные поля</a>
-							
-			<div class="cart-order__extra hidden" id="extra">
-				<div class="form__line">
-					<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
-				</div> <!-- /.form__line -->
-				
-				<div class="form__line">
-					<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
-				</div> <!-- /.form__line -->
-			</div> <!-- /.cart-order__extra -->
-						
-			<div class="form__button cart-order__button">
-				<button type="submit" class="button button--normal button--auto-width" onclick="fastOrdersubmit(); return false;">Оформить</button>
-			</div> <!-- /.form__button -->
-		</div> <!-- /.cart-order__form -->
-	</div>
-	</form> <!-- /.form -->
-</div> <!-- /.modal --> 
-
-<div class="modal" id="fast_order_answer" style="display:none;">
-	<div id="popup_title" class="modal__title block-title">Спасибо за заказ</div> <!-- /.modal__title block-title -->
-	
-	<div id="popup_message" class="modal__text">Ваш заказ принят.<br /> Менеджер свяжется с Вами.</div> <!-- /.modal__text -->
-</div> <!-- /.modal --> 
-
+                        <button type="button" class="btn btn-primary btn-block btn-uppercase">Login</button>
+                        <a href="#" class='forgot-password'>forgot password</a>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                <div class="text-center">
+                    <ul class='social-list text-center'>
+                        <li><a href="#" class="facebook"></a></li>
+                        <li><a href="#" class="google-plus"></a></li>
+                        <li><a href="#" class="twitter"></a></li>
+                        <li><a href="#" class="pinterest"></a></li>
+                    </ul><!-- /.social-list -->
+                </div>
+            </div><!-- /.modal-footer -->
+            <a href="#" data-dismiss="modal" class="remove-icon"><i class="fa fa-times"></i></a>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

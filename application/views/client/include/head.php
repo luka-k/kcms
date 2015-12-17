@@ -1,28 +1,18 @@
 <head>
-	<title><?=$title?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="keywords" content="<?=$meta_keywords?>" />
-	<meta name="description" content="<?=$meta_description?>" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= $title?></title>
 
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/normalize.css" media="all">
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/grid.css" media="all" />
-	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.css" media="all" />
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.css" media="all" />
-	
-	<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/css/style.css" media="all" />
-	
-	<script type="text/javascript" src="<?= base_url()?>template/js/jquery.min.js"></script> 
+    <!-- Bootstrap -->
+    <link href="<?= base_url()?>template/client/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>template/client/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>template/client/css/animate.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>template/client/css/main.min.css" rel="stylesheet">
 
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/cart.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/wishlist.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/js/datepicker.js"></script>
-	
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/fancybox/source/jquery.fancybox.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.js"></script>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="<?= base_url()?>template/client/images/favicon.ico">
 
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/bxslider/jquery.bxslider.min.js"></script>
-
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/vendor/jquery.form.min.js"></script>
-	<script type="text/javascript" src="<?= base_url()?>template/client/plugins/vendor/jquery.validate.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fira+Sans:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 </head>

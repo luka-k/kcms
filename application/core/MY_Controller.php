@@ -50,6 +50,8 @@ class Client_Controller extends CI_Controller
 		$settings = $this->settings->get_item_by(array("id" => 1));
 		$settings->site_description = htmlspecialchars_decode($settings->site_description);
 		
+		define('IMG_PATH', base_url().'template/client/images/');
+		
 		$this->standart_data = array(
 			'meta_keywords' => $settings->site_keywords,
 			'meta_description' => $settings->site_description,
