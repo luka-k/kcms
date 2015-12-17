@@ -1,144 +1,102 @@
 <!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
-<? require 'include/head.php' ?>
-
-<body>
-	<!--[if lt IE 8]>
-		<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-	<![endif]-->
+<html lang="en">
+	<? require 'include/head.php' ?>
+	<body>
+		<div id="wrapper" >
+			<div id="page-content-wrapper" class="st-pusher">
+				<div class="st-pusher-after"></div>
+				<!-- ============================================== HEADER ============================================== -->
 	
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
-	<div class="page page-catalog" id="page-catalog">
-		<div class="page-wrap wrap">
-			<div class="page-catalog__nav">
-				<? require 'include/left-menu.php'?>
-			</div> <!-- /.page-catalog__nav -->
-			
-			<div class="page-catalog__content">
-				<div class="page-catalog__filter">
-					<div class="catalog-filter">
-						<form action="<?=base_url()?>catalog" id="filter-form" class="form" method="get">
-							<input type="hidden" name="filter" value="true"/>
-							
-							<div class="catalog-filter__top">
-								<?foreach($filters as $type=> $filter):?>
-									<?require "include/filters/{$filter->editor}.php"?>
-								<?endforeach;?>	
-							</div> <!-- /.catalog-filter__top -->
-							
-							<div class="catalog-filter__range">
-								<div class="catalog-range">
-									<div class="catalog-range__scale">
-										<div class="catalog-range__from">
-											Цена: от <span data-range-from><?=$min_value?></span>
-										</div> <!-- /.catalog-range__from -->
-										
-										<div class="catalog-range__to">
-											до <span data-range-to><?=$max_value?></span>
-										</div> <!-- /.catalog-range__to -->
-									</div> <!-- /.catalog-slider__scale -->
-									
-									<div id="price_slider" class="catalog-range__slider" data-range-slider="true" data-range-min="<?=$min_price?>" data-range-max="<?=$max_price?>" data-min-value="<?=$min_value?>" data-max-value="<?=$max_value?>"></div> <!-- /.catalog-range__slider -->
-									<input type="hidden" id="price_from" name="price_from" value="<?=$min_value?>"/>
-									<input type="hidden" id="price_to" name="price_to" value="<?=$max_value?>"/>
-								</div> <!-- /.catalog-range -->
-							</div> <!-- /.catalog-filter__range -->
-							
-							<div class="form__line catalog-filter__checkbox">
-								<div class="form__checkbox checkbox">
-									<label class="checkbox__label">
-										<input type="checkbox" name="is_active" class="checkbox__input" <?if($filters_checked['is_active'] == 1):?>checked<?endif;?> value="1" />
-										<span class="checkbox__text">В наличии</span>
-									</label>
-								</div> <!-- /.radio -->
-							</div> <!-- /.form__line -->
-							
-							<div class="form__button page-form__button">
-								<button class="button button--normal button--auto-width">Подобрать</button>
-							</div> <!-- /.form__button -->
-						</form> <!-- /.form -->
-					</div> <!-- /.catalog-filter -->
-				</div> <!-- /.page-catalog__filter -->
+				<? require 'include/header.php' ?>
 				
-				<div class="page-catalog__products"> 
-
-						<div class="catalog">
-							<div class="catalog__sort catalog-sort">
-								<a href="<?=$url?>&order=name&direction=asc" class="catalog-sort__href">по имени &#9650;</a>&nbsp;
-								<a href="<?=$url?>&order=name&direction=desc" class="catalog-sort__href">по имени &#9660;</a>&nbsp;
-								<a href="<?=$url?>&order=price&direction=asc" class="catalog-sort__href">по цене &#9650;</a>&nbsp;
-								<a href="<?=$url?>&order=price&direction=desc" class="catalog-sort__href">по цене &#9660;</a>&nbsp;	
-							</div> <!-- /.catalog__sort catalog-sort-->
-							
-							<input type="hidden" id="order" name="order" value="" />
-							<input type="hidden" id="direction" name="direction" value="" />
-							<input type="hidden" id="ajax_from" name="ajax_form" value="" />
-							<input type="hidden" id="parent_id" name="parent_id" value="<?if(isset($parent_id)):?><?=$parent_id?><?endif;?>" />
-						
-							<h1 class="catalog__subtitle"><?if(isset($category->name)):?><?=$category->name?><?else:?>Каталог<?endif;?></h1>
-						
-							<div class="catalog__list">
-								<?foreach($category->products as $item):?>
-									<div class="catalog__item">
-										<div class="catalog-item">
-											<div class="catalog-item__image-box">
-												<a href="<?=$item->full_url?>"><img src="<?=$item->img->catalog_mid_url?>" alt="item" width="225" height="170" class="catalog-item__image" /></a>
-											</div> <!-- /.catalog-item__image-box -->
-										
-											<a href="<?=$item->full_url?>" class="catalog-item__name"><?=$item->name?></a>
-										
-											<div class="catalog-item__desc">
-												<p><?=$item->short_description?></p>
-											</div> <!-- /.catalog-item__desc -->
-										
-											<div class="catalog-item__bottom">
-												<div class="catalog-item__price"><?=$item->price?> р.</div> <!-- /.catalog-item__price -->
-											
-												<div class="catalog-item__button">
-													<button class="button button--normal fancybox" data-fancybox-href="#to-cart" onclick="cart_popup('<?=$item->id?>', '<?=$item->name?>', 1); return false;">Купить</button>
-												</div> <!-- /.catalog-item__button -->
-											</div> <!-- /.catalog-item__bottom -->
-										</div> <!-- /.catalog-item -->
-									</div> <!-- /.catalog__item -->
-								<?endforeach;?>
-							</div> <!-- /.catalog__list -->
-						
-							<!---<div class="catalog__load load-link">
-								<a href="#load" class="load-link__href">Еще товары</a>
-							</div> <!-- /.catalog__load -->
-							<div class="pagination">
-								<?=$pagination?>
+				<!-- ============================================== HEADER : END ============================================== -->           
+				
+				<div class="all-categories content">
+					<div class="container">
+						<div class="row">
+							<? require 'include/breadcrumbs.php' ?>
+							<div class="divider">
+								<img class="img-responsive" src="<?= IMG_PATH?>all-categories/shadow_all_categories_01.png" alt="">
 							</div>
-						</div> <!-- /.catalog -->
+						</div><!-- /.row -->
+					</div><!-- /.container -->
 
-				</div> <!-- /.page-catalog__products -->
-			</div> <!-- /.page-catalog__content -->
-	</div> <!-- /.page-catalog__wrap wrap -->
-</div> <!-- /.page-catalog -->
-        
-	<div class="text-about" id="text-about">
-		<div class="text-about__wrap wrap">
-			<h2 class="text-about__title block-title"></h2>
-			<div class="text-about__text">
-				<?if(isset($content->description)):?>
-					<?=$content->description?>
-				<?else:?>
-					<?=$settings->site_description?>
-				<?endif;?>
-			</div> <!-- /.text-about__text -->
-		</div> <!-- /.text-about__wrap wrap -->
-	</div> <!-- /.text-about -->
-	
-	<? require 'include/footer.php'?>
-    <? require 'include/modal.php'?>  
-    </body>
+					<div class="categories-menu-outer wow fadeInUp">
+						<div class="container">
+							<?/* require "include/categories_menu.php"*/;?>
+						</div><!-- /.container -->
+					</div><!-- /.categories-menu-outer -->
+					
+					<div class="container">
+						<section class="books-categories wow fadeInUp outer-top-vs">
+							<div class="module" id="tab-books">
+								<div class="module-heading home-page-module-heading">
+									<h2 class="module-title home-page-module-title"><span>Books</span></h2>
+								</div><!-- /.module-heading -->
+								<div class="module-body">
+									<div class="row books full-width">
+										<div class="clearfix text-center">
+											<div class="text-center"> 
+												<ul class="nav nav-tabs" role="tablist">
+													<li role="presentation" class="active"><a href="#new-releases" role="tab" data-toggle="tab">New Releases</a></li>
+													<li role="presentation"><a href="#bestsellers" role="tab" data-toggle="tab">Bestsellers</a></li>
+													<li role="presentation"><a href="#recommended" role="tab" data-toggle="tab">Recommended</a></li>
+												</ul>
+											</div>
+
+											<div class="tab-content m-t-20">
+												<div role="tabpanel" class="tab-pane active" id="new-releases">
+													<?foreach($category->products as $product):?>
+														<div class="col-md-3 col-sm-4">
+															<div class="book">
+																<a href="<?$book->full_url?>">
+																	<div class="book-cover">
+																		<img width="140" height="212" src="assets/images/blank.gif" data-echo="<?= $books->images->catalog_small_url?>" alt="">
+																	</div>
+																</a>
+																<div class="book-details clearfix">
+																	<div class="book-description">
+																		<h3 class="book-title"><a href="<?$book->full_url?>"><?$book->name?></a></h3>
+																		<p class="book-subtitle">by <a href="single-book.html"><?$book->autor?></a></p>
+																	</div>
+																	<div class="actions">
+																		<span class="book-price price"><?= $book->price?></span>
+																		<div class="cart-action"> 
+																			<a class="add-to-cart" title="Add to Cart" href="#">В корзину</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													<?endforeach;?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="divider">
+								<img class="img-responsive" src="assets/images/all-categories/shadow_all_categories_02.png" alt="">
+							</div>
+						</section>
+					</div><!-- /.container -->
+					
+					<!-- ============================================== FROM BLOG ============================================== -->
+					<?/*require "include/blog.php";*/?>
+					<!-- ============================================== FROM BLOG : END ============================================== -->
+				</div><!-- /.all-categories content -->            
+				
+				<!-- ============================================== FOOTER ============================================== -->
+				<?require "include/footer.php";?>
+				<!-- ============================================== FOOTER : END ============================================== -->        
+			</div><!-- /.st-pusher -->
+            <!-- ============================================== TOGGLE RIGHT CONTENT ============================================== -->
+			<?require "include/toggle_cart.php";?>
+			<!-- ============================================== TOGGLE RIGHT CONTENT : END ============================================== -->
+			
+			<?require "include/modal.php";?>
+		</div><!-- /#wrapper -->
+
+		<?require "include/scripts.php";?>
+</body>
 </html>
-

@@ -1,9 +1,7 @@
-<div class="breadcrumbs">
-	<div class="breadcrumbs__wrap wrap">
-		<ul class="breadcrumbs__list">
-			<? foreach ($breadcrumbs as $link):?>
-				<li class="breadcrumbs__item"><a href="<?=$link["url"]?>"> <?=$link["name"]?> </a></li>
-			<? endforeach?>
-		</ul> <!-- /.breadcrumbs -->
-	</div> <!-- /.breadcrumbs__wrap wrap -->
-</div> <!-- /.breadcrumbs -->
+<div class="categories-breadcrumb">
+	<ul class="breadcrumb">
+		<? foreach ($breadcrumbs as $link):?>
+			<li class="<?if($link['last']):?>active<?endif;?>"><a href="<?=$link["url"]?>"><?=$link["name"]?></a></li>
+		<? endforeach?>
+	</ul>
+</div>
