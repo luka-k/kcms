@@ -60,7 +60,9 @@ class Client_Controller extends CI_Controller
 			"total_price" => $this->cart->total_price(),
 			"total_qty" => $this->cart->total_qty(),
 			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
-			"top_menu" => $this->dynamic_menus->get_menu(5)->items,
+			"main_menu" => $this->dynamic_menus->get_menu(5)->items,
+			'top_left_menu' => $this->dynamic_menus->get_menu(7)->items,
+			'top_right_menu' => $this->dynamic_menus->get_menu(6)->items,
 			'settings' => $settings
 		);
 	}

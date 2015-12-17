@@ -4,11 +4,9 @@
 			<div class="row">
 				<div class="col-md-5 hidden-xs hidden-sm">
 					<ul class="nav navbar-nav">
-						<li><a href="single-book.html">Online Store</a></li>
-						<li><a href="about.html">About Us</a></li>
-										<li><a href="about.html">Delivery</a></li>
-										<li><a href="contact.html">FAQs</a></li>
-										<li><a href="contact.html">Contacts</a></li>
+						<?foreach($top_left_menu as $tlm):?>
+							<li><a href="<?=$tlm->full_url?>"><?=$tlm->name?></a></li>
+						<?endforeach;?>
 					</ul><!-- /.nav -->
 				</div><!-- /.col -->
 								
@@ -18,11 +16,14 @@
 								
 				<div class="col-md-4 col-sm-2">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="hidden-xs hidden-sm"><a href="contact.html">Wishlist</a></li>
-										<li class="hidden-xs hidden-sm"><a href="single-book.html">Shopping Cart</a></li>
+						<?foreach($top_right_menu as $trm):?>
+							<li class="hidden-xs hidden-sm"><a href="<?=$trm->full_url?>"><?=$trm->name?></a></li>
+						<?endforeach;?>				
+										
+										<!--<li class="hidden-xs hidden-sm"><a href="single-book.html">Shopping Cart</a></li>
 										<li class="hidden-xs hidden-sm"><a href="contact.html">My Account</a></li>
 										<li class="icon icon-small hidden-xs"><a data-toggle="modal" data-target="#modal-login-big" href="#"><i class="icon fa fa-lock"></i></a></li>
-										<li class="icon hidden-lg hidden-sm hidden-md"><a data-toggle="modal" data-target="#modal-login-small" href="#"><i class="icon fa fa-lock"></i></a></li>
+										<li class="icon hidden-lg hidden-sm hidden-md"><a data-toggle="modal" data-target="#modal-login-small" href="#"><i class="icon fa fa-lock"></i></a></li>-->
 					</ul><!-- /.nav -->
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -104,140 +105,9 @@
     </div><!-- /.navbar-header -->
     <div class="collapse navbar-collapse" id="navbar-primary-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="home.html">Books</a></li>
-            <li class="dropdown yamm-fw"><a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Textbooks</a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <div class="yamm-content">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-6">  
-                                    <div class="section">
-                                        <h5 class="title">History</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Indian Independence</a></li>
-                                            <li><a href="books.html">French Revolution</a></li>
-                                            <li><a href="books.html">Industrial Revolution</a></li>
-                                            <li><a href="books.html">Vietnam War</a></li>
-                                            <li><a href="books.html">World War I &amp; II</a></li>
-                                            <li><a href="books.html">Operation Desert Storm</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-2 col-sm-6">
-                                    <div class="section">
-                                        <h5 class="title">Science</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Applied Science</a></li>
-                                            <li><a href="books.html">Astronomy</a></li>
-                                            <li><a href="books.html">Biotechnology</a></li>
-                                            <li><a href="books.html">Chemistry</a></li>
-                                            <li><a href="books.html">Cognitive Science</a></li>
-                                            <li><a href="books.html">Cosmology</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-2 col-sm-6">  
-                                    <div class="section">
-                                        <h5 class="title">History</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Indian Independence</a></li>
-                                            <li><a href="books.html">French Revolution</a></li>
-                                            <li><a href="books.html">Industrial Revolution</a></li>
-                                            <li><a href="books.html">Vietnam War</a></li>
-                                            <li><a href="books.html">World War I &amp; II</a></li>
-                                            <li><a href="books.html">Operation Desert Storm</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-2 col-sm-6">
-                                    <div class="section">
-                                        <h5 class="title">Science</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Applied Science</a></li>
-                                            <li><a href="books.html">Astronomy</a></li>
-                                            <li><a href="books.html">Biotechnology</a></li>
-                                            <li><a href="books.html">Chemistry</a></li>
-                                            <li><a href="books.html">Cognitive Science</a></li>
-                                            <li><a href="books.html">Cosmology</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-2 col-sm-6">
-                                    <div class="section">
-                                        <h5 class="title">History</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Indian Independence</a></li>
-                                            <li><a href="books.html">French Revolution</a></li>
-                                            <li><a href="books.html">Industrial Revolution</a></li>
-                                            <li><a href="books.html">Vietnam War</a></li>
-                                            <li><a href="books.html">World War I &amp; II</a></li>
-                                            <li><a href="books.html">Operation Desert Storm</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-2 col-sm-6">
-                                    <div class="section">
-                                        <h5 class="title">Science</h5>
-                                        <ul class="links list-unstyled">
-                                            <li><a href="books.html">Applied Science</a></li>
-                                            <li><a href="books.html">Astronomy</a></li>
-                                            <li><a href="books.html">Biotechnology</a></li>
-                                            <li><a href="books.html">Chemistry</a></li>
-                                            <li><a href="books.html">Cognitive Science</a></li>
-                                            <li><a href="books.html">Cosmology</a></li>
-                                        </ul>
-                                    </div><!-- /.section -->
-                                </div><!-- /.col -->
-                            </div>
-                        </div>
-
-                    </li>
-                </ul>
-            </li>
-             <li><a href="books.html">Nook Books</a></li>
-             <li class="hidden-sm"><a href="books.html">Audiobooks</a></li>
-             <li class="hidden-sm hidden-md"><a href="books.html">Magazines</a></li>
-             <li class="hidden-sm hidden-md"><a href="books.html">Movies</a></li>
-             <li><a href="books.html">Music</a></li>
-             <li class="dropdown navbar-right"><a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages</a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <div class="yamm-content">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <ul class="links">
-                                        <li><a href="home.html">Home</a></li>
-                                        <li><a href="home-2.html">Home II</a></li>
-                                        <li><a href="books.html">Books</a></li>
-                                        <li><a href="books-2.html">Books II</a></li>
-                                        <li><a href="single-book.html">Book</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-post.html">Blog Post</a></li>
-                                    </ul>
-                                </div>
-                            <div class="col-md-6 col-sm-6">
-                                <ul class="links">
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                    <li><a href="contact-2.html">Contact II</a></li>
-                                    <li><a href="categories.html">Categories</a></li>
-                                    <li><a href="magazine.html">Magazine</a></li>
-                                    <li><a href="all-brands.html">All Brands</a></li>
-                                    <li><a href="error.html">Error</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                    
-                    
-                </ul>
-             </li>
+			<?foreach($main_menu as $mm):?>
+				<li class="active"><a href="<?=$mm->full_url?>"><?=$mm->name?></a></li>
+			<?endforeach;?>
         </ul><!-- /.nav -->
     </div><!-- /.collapse navbar-collapse -->   
 </nav><!-- /.yamm -->
