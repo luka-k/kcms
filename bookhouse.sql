@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 17 2015 г., 21:30
+-- Время создания: Дек 17 2015 г., 21:56
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.5.19
 
@@ -151,8 +151,11 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('544502bd9074063d98012ecafa61f9e7', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1450373291, ''),
+('5667209d72d934861cb37215ff073b54', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1450377963, ''),
+('919de09c8f8636dd8de0055d0f6b2daf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1450377962, ''),
 ('9d5f2c441edd75070a54206a83fcf2ff', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1444332075, 'a:5:{s:9:"user_data";s:0:"";s:13:"cart_contents";a:3:{s:5:"items";a:1:{s:32:"c4ca4238a0b923820dcc509a6f75849b";a:7:{s:2:"id";s:1:"1";s:9:"parent_id";s:1:"3";s:4:"name";s:35:"Композиция Даниэла";s:3:"url";s:18:"kompoziciya-lyubov";s:5:"price";s:4:"8000";s:3:"qty";i:1;s:10:"item_total";i:8000;}}s:9:"total_qty";i:1;s:10:"cart_total";i:8000;}s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('afe1d2d25c2d8c35a29b7d9f10c3031b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1450377167, 'a:3:{s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}'),
+('c14144c6f1647953c1b3d1e3261ecbaa', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0', 1450377961, ''),
 ('f51467b15dd247bd8c5c5d868de7f94f', '109.234.154.123', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0', 1446870835, 'a:4:{s:9:"user_data";s:0:"";s:4:"user";O:8:"stdClass":8:{s:2:"id";s:1:"1";s:4:"name";s:5:"admin";s:8:"password";s:32:"21232f297a57a5a743894a0e4a801fc3";s:5:"email";s:14:"admin@admin.ru";s:5:"phone";s:0:"";s:7:"address";s:0:"";s:11:"valid_email";s:1:"0";s:6:"secret";s:0:"";}s:9:"logged_in";b:1;s:11:"user_groups";a:1:{i:0;s:5:"admin";}}');
 
 -- --------------------------------------------------------
@@ -166,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `dynamic_menus`
@@ -174,7 +177,9 @@ CREATE TABLE IF NOT EXISTS `dynamic_menus` (
 
 INSERT INTO `dynamic_menus` (`id`, `name`, `description`) VALUES
 (1, 'Меню админ панели', ''),
-(5, 'Верхнее меню сайта', '');
+(5, 'Главное меню', ''),
+(6, 'Верхнее правое меню', ''),
+(7, 'Верхнее левое меню', '');
 
 -- --------------------------------------------------------
 
@@ -255,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `menus_items` (
   `item_type` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
 
 --
 -- Дамп данных таблицы `menus_items`
@@ -282,11 +287,20 @@ INSERT INTO `menus_items` (`id`, `menu_id`, `name`, `parent_id`, `sort`, `descri
 (22, 1, 'Пользователи', 11, 1, '', 'link', 'admin/users_module/'),
 (23, 1, 'Группы пользователей', 11, 2, '', 'link', 'admin/content/items/users_groups/all'),
 (24, 1, 'Характеристики', 6, 5, '', 'link', 'admin/content/items/characteristics_type/all'),
-(35, 5, 'О нас', 0, 8, '', 'link', 'about'),
-(36, 5, 'Новости', 0, 9, '', 'articles', 'novosti'),
-(37, 5, 'Каталог', 0, 10, '', 'link', 'catalog'),
-(38, 5, 'Контакты', 0, 11, '', 'link', 'contacts'),
-(40, 1, 'Слайдер', 0, 4, '', 'link', 'admin/content/items/slider/');
+(40, 1, 'Слайдер', 0, 4, '', 'link', 'admin/content/items/slider/'),
+(41, 6, 'Оплата и доставка', 0, 12, '', 'link', '/'),
+(42, 6, 'Регионы', 0, 13, '', 'link', '/'),
+(43, 6, 'Адреса', 0, 14, '', 'link', '/'),
+(44, 6, 'Помощь', 0, 15, '', 'link', '/'),
+(45, 5, 'Магазин', 0, 16, '', 'link', '/'),
+(46, 5, 'Издательство', 0, 17, '', 'link', '/'),
+(47, 5, 'Экзамены', 0, 18, '', 'link', '/'),
+(48, 5, 'Мероприятия', 0, 19, '', 'link', '/'),
+(49, 5, 'О компании', 0, 20, '', 'link', '/'),
+(50, 5, 'Контакты', 0, 21, '', 'link', '/'),
+(51, 7, 'Каталог', 0, 22, '', 'link', '/'),
+(52, 7, 'Выгодное предложение!', 0, 23, '', 'link', '/'),
+(53, 7, 'Система скидок', 0, 24, '', 'link', '/');
 
 -- --------------------------------------------------------
 
@@ -395,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_title`, `admin_email`, `admin_name`, `order_string`, `per_page`, `site_description`, `site_keywords`, `lastmod`, `site_offline`) VALUES
-(1, 'Демо-сайт', 'metadiel@gmail.com', '', '', 3, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-09-18', 0);
+(1, 'bookhouse', 'metadiel@gmail.com', '', '', 3, '&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;', '', '2015-12-17', 0);
 
 -- --------------------------------------------------------
 
