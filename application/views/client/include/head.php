@@ -11,7 +11,7 @@
     <link href="<?= base_url()?>template/client/css/main.min.css" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= base_url()?>template/client/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= IMG_PATH?>favicon.ico">
 
     <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Fira+Sans:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
