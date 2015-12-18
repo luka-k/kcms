@@ -43,14 +43,14 @@
 														<div class="book">
 															<div class="book-cover">
 																<a href="<?= $item->full_url?>">
-																	<img width="140" height="212" src="assets/images/blank.gif" data-echo="<?= $item->images->catalog_small_url?>" alt="" />
+																	<img width="140" height="212" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_url?>" alt="" />
 																	<?if($item->is_sale):?><div class="tag"><span>sale</span></div><?endif;?>
 																</a>
 															</div>
 															<div class="book-details clearfix">
 																<div class="book-description">
-																	<h3 class="book-title"><a href="#"><?= $item->name?></a></h3>
-																	<p class="book-subtitle">by <a href="#"><?= $item->autor?></a></p>
+																	<h3 class="book-title"><a href="<?= $item->full_url?>"><?= $item->name?></a></h3>
+																	<p class="book-subtitle">by <a href=""<?= $item->full_url?>"><?= $item->autor?></a></p>
 																</div>
 																<div class="actions">
 																	<span class="book-price price"><?= $item->price?> руб.</span>

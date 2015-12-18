@@ -7,3 +7,5 @@
 !application/logs/.htaccess
 
 /logs/*
+
+/download/*

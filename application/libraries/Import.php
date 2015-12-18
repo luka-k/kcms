@@ -14,6 +14,8 @@ class Import{
 	function __construct()
 	{
 		$this->CI =& get_instance();
+		
+		$this->CI->load->library('string_edit');
 	}
 	
 	public function import_from_1c($xmlstr)
@@ -34,161 +36,79 @@ class Import{
 	/**
 	* Импортирование категорий
 	*
-	* @param array $categories
-	* @param bool $need_update
-	* @param bool $need_create
-	* @param bool $need_img_upload
 	*/
-	public function import_categories($categories = array(), $need_update = FALSE, $need_create = FALSE, $need_img_upload = FALSE)
+	public function import_categories($categories)
 	{
-		foreach($categories as $c)
+		$categoriesToInsert = array();
+		
+		$i = 0;
+		foreach($categories->category as $category)
 		{
-			$category = $this->CI->categories->get_item_by(array("name" => $c['category_name']));
-			$parent_category = $this->CI->categories->get_item_by(array("name" => $c['parent_category_name']));
-			
-			$data = array(
-				"name" => $c['category_name'],
-				"parent_id" => $parent_category->id,
+			$categoriesToInsert[$i] = array(
+				'id' => $category->attributes()->id->__toString(),
+				'parent_id' => 0,
+				'name' => (string)$category,
+				'url' => $this->CI->string_edit->slug((string)$category)
 			);
 			
-			if($category)
-			{
-				if($need_update) 
-				{
-					$this->CI->categories->update($category->id, $data);
-					$object_id = $category->id;
-				}
-			}
-			else
-			{
-				if($need_create)
-				{
-					$this->CI->categories->insert($data);
-					$object_id = $this->CI->db->insert_id();
-				}
-			}
+			echo $categoriesToInsert[$i]['name']."<br />";
 
-			if($need_img_upload)
-			{
-				$object_info = array(
-					"object_type" => "categories",
-					"object_id" => $object_id
-				);
-				
-				$file_name = array_reverse(explode("/", $c['image']));
-				
-				$img = array(
-					"tmp_name" => trim(FCPATH."import/images".$c['image']),
-					"name" => $file_name[0]
-				);
-				
-				$answer = $this->CI->images->upload_image($img, $object_info);
-			}
+			if($category->attributes()->parentId) $categoriesToInsert[$i]['parent_id'] = $category->attributes()->parentId->__toString();		
+			$i++;
 		}
+		
+		$this->CI->db->insert_batch('categories', $categoriesToInsert);
 	}
 	
 	/**
 	* Импортирование продуктов
 	*
-	* @param array $products
-	* @param bool $need_update
-	* @param bool $need_create
-	* @param bool $need_img_upload
 	*/
-	public function import_products($products = array(), $need_update = FALSE, $need_create = FALSE, $need_img_upload = FALSE)
+	public function import_offers($offers)
 	{
-		$editors = $this->CI->products->editors;
-
-		foreach($products as $p)
+		$this->CI->config->load('upload');
+		$upload_path = $this->CI->config->item('upload_path');
+	
+		$i = 0;
+		foreach($offers->offer as $o)
 		{
-			$data = array();
-			foreach($p as $field => $value)
-			{
-				if(editors_key_exists($field, $editors))
-				{
-					$data[$field] = $value;
-				}
-			}
+			$offerToInsert = array(
+				'ISBN' => $o->attributes()->id->__toString(),
+				'name' => $o->name->__toString(),
+				'url' => $this->CI->string_edit->slug($o->name->__toString()),
+				'price' => $o->price->__toString(),
+				'parent_id' => $o->categoryId->__toString(),
+				'description' => $o->description->__toString(),
+				'autor' => 'Автор Авторович'
+			);
 			
-			$product = $this->CI->products->get_item_by(array("name" => $p['name']));
-			$parent_category = $this->CI->categories->get_item_by(array("name" => $p['parent_category']));
-			$data['parent_id'] = $parent_category->id;
+			echo $offerToInsert['name']."<br />";
 			
-			if($product)
-			{
-				if($need_update) 
-				{
-					$this->CI->products->update($product->id, $data);
-					$object_id = $category->id;
-				}
-
-			}
-			else
-			{
-				if($need_create)
-				{
-					$this->CI->products->insert($data);
-					$object_id = $this->CI->db->insert_id();
-				}
-			}
+			$this->CI->db->insert('products', $offerToInsert);
 			
-			if($need_img_upload)
-			{
-				$object_info = array(
-					"object_type" => "products",
-					"object_id" => $object_id
-				);
-				
-				foreach($p['images'] as $image)
-				{
-					$file_name = array_reverse(explode("/", $image));
-					$img = array(
-						"tmp_name" => trim(FCPATH."import/images/".$image),
-						"name" => $file_name[0]
-					);
-				
-					$answer = $this->CI->images->upload_image($img, $object_info);
-				}
-			}
+			$productId = $this->CI->db->insert_id();
+			
+			$img_info = $this->CI->images->get_unique_info($offerToInsert['url'].'.jpg');
+	
+			$url = $o->picture->__toString();
+			$path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
+			
+			file_put_contents($path, file_get_contents($url));
+			
+			$this->CI->images->generate_thumbs($path);
+			
+			$imageToInsert = array(
+				'object_type' => 'products',
+				'object_id' => $productId,
+				'name' => $img_info->name,
+				'url' => $img_info->url,
+				'is_cover' => 1
+			);	
+			
+			$this->CI->db->insert('images', $imageToInsert);
+			
+			$i++;
 		}
 	}
-	
-	/**
-	* импортирование изображений
-	*/
-	public function import_csv($filename)
-	{
-		$file = fopen($filename, "r");
 		
-		if ($file) 
-		{
-			$info = array();
-			while(!feof($file))
-			{
-				$info[] = fgetcsv($file, 0, ";");
-			}
-			
-			fclose($file);
-			
-			$imported = array();
-			
-			foreach($info as $key => $i)
-			{
-				if($key <> 0)
-				{
-					$field = array();
-					foreach($item as $key_2 => $value)
-					{
-						$field[$info[0][$key_2]] = $value;
-					}
-					
-					$imported[] = $field;
-				}
-			}
-			
-			//Ђ тут вызов нужной функции импорта. ЌЂпример:
-			//$this->import_categories($imported, TRUE, FALSE, FALSE);
-		}
-	}
-	
 }

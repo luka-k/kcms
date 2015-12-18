@@ -80,9 +80,9 @@ class Catalog extends Client_Controller {
 			);
 		}
 		
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 3);
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 3);
-		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 3);
+		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
+		$special = $this->products->get_list(array("is_special" => 1), FALSE, 4);
+		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 16);
 
 		$data['special'] = $this->products->prepare_list($special);
 		$data['new_products'] = $this->products->prepare_list($new_products);
@@ -101,7 +101,7 @@ class Catalog extends Client_Controller {
 		$this->pagination->initialize($config);
 
 		$data['pagination'] = $this->pagination->create_links();
-
+	
 		$this->load->view("client/categories", $data);
 	}
 	

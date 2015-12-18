@@ -17,13 +17,17 @@ class Import_module extends Admin_Controller
 		$this->load->library('import');
 	}
 	
-	public function import_1c()
+	public function import_xml()
 	{
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		
-		$xmlstr = file_get_contents('import/1c.xml');
+		$xml_content = file_get_contents(FCPATH.'/import/yml_products.xml');
 		
-		$this->import->import_from_1c($xmlstr);
+		$xml = simplexml_load_string($xml_content);
+		
+		//$this->import->import_categories($xml->shop->categories);
+		
+		$this->import->import_offers($xml->shop->offers);
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";
 	}
