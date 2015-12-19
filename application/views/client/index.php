@@ -24,7 +24,7 @@
 						
 						
 						<!-- ============================================== BEST SELLER ============================================== -->
-						<?if(!empty($special)):?>
+						<?if(!empty($products)):?>
 							<section class="best-seller wow fadeInUp">
 								<div id="best-seller" class="module">
 									<div class="module-heading home-page-module-heading">
@@ -33,13 +33,14 @@
 								
 									<div class="module-body">
 										<div class="row books full-width">
-											<div class="clearfix text-center">
-												<? foreach($special as $sp):?>
+											<input type="hidden" name="viewmore" class="viewmore_input" value="" />
+											<div id="books_content" class="clearfix text-center">
+												<? foreach($products as $p):?>
 													<div class="col-md-3 col-sm-6">
 														<div class="book">
-															<a href="<?= $sp->full_url?>">
+															<a href="<?= $p->full_url?>">
 																<div class="book-cover">
-																	<img width="140" height="212" alt="" src="assets/images/blank.gif" data-echo="<?= $sp->images->catalog_small_url?>"> <!--assets/images/book-covers/01.jpg-->
+																	<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $p->img->catalog_small_url?>"> <!--assets/images/book-covers/01.jpg-->
 																	<?if(false):?>
 																		<div class="tag"><span>sale</span></div>
 																	<?endif;?>
@@ -52,7 +53,7 @@
 																</div>
 																<div class="text-center">
 																	<div class="actions">
-																		<span class="book-price price"><?= $sp->price?> р.</span>               
+																		<span class="book-price price"><?= $p->price?> р.</span>               
 																		<div class="cart-action"> 
 																			<a class="add-to-cart" title="Add to Cart" href="javascript:void(0);">Add to Cart</a>       
 																		</div>
@@ -62,10 +63,12 @@
 														</div>
 													</div>
 												<? endforeach;?>
+												
+												
 											</div>
 											
 											<div class="view-more-holder col-md-12 center-block text-center inner-top-xs">
-												<a role="button" class="btn btn-primary btn-uppercase" href="<?= base_url()?>catalog">view more</a>
+												<a role="button" class="btn btn-primary btn-uppercase" href="#" onclick="viewmore(); return false;">показать еще</a>
 											</div>
 										</div>
 									</div>

@@ -36,7 +36,9 @@
 										<!--<p class="see-all-link"><a href="#">See All</a> &rarr;</p>-->
 									</div><!-- /.module-heading -->
 									<div class="module-body">
-										<div class="row books">
+										<input type="hidden" name="viewmore" class="viewmore_input" value="" />
+										<input type="hidden" name="cateroryId" class="viewmore_input_category" value="<?if(isset($category->id)):?><?=$category->id?><?else:?>root<?endif;?>" />
+										<div id="books_content" class="row books">
 											<div class="clearfix text-center">
 												<?foreach($category->products as $item):?>
 													<div class="col-md-3 col-sm-4">
@@ -66,6 +68,10 @@
 										</div><!-- /.row -->
 									</div><!-- /.module-body -->
 								</div><!-- /.module -->
+								
+								<div class="view-more-holder col-md-12 center-block text-center inner-top-xs">
+									<a role="button" class="btn btn-primary btn-uppercase" href="#" onclick="viewmore(); return false;">показать еще</a>
+								</div>
 							</div><!-- /.col -->
 
 							<div class="col-md-3 col-md-pull-9">

@@ -22,7 +22,7 @@ class Catalog extends Client_Controller {
 		if($this->input->get('price_to')) $max_value = $this->input->get('price_to');
 
 		$min_value = $min_price = $this->products->get_min('price');
-		if($this->input->get('price_from')) $min_value = $this->input->get('price_from');		
+		if($this->input->get('price_from')) $min_value = $this->input->get('price_from');
 	
 		$data = array(
 			'title' => "Каталог",
@@ -79,13 +79,9 @@ class Catalog extends Client_Controller {
 				'category' => $content
 			);
 		}
-		
-		$new_products = $this->products->get_list(array("is_new" => 1), FALSE, 4);
-		$special = $this->products->get_list(array("is_special" => 1), FALSE, 4);
-		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 16);
 
-		$data['special'] = $this->products->prepare_list($special);
-		$data['new_products'] = $this->products->prepare_list($new_products);
+		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), 0, 16);
+
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
 		$data['category']->products = $this->products->prepare_list($products);
@@ -159,6 +155,38 @@ class Catalog extends Client_Controller {
 		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view("client/product", $data);
+	}
+	
+	public function viewmore()
+	{
+		$info = json_decode(file_get_contents('php://input', true));
+		
+		if(!empty($info->category_id))
+		{
+			$products = $info->category_id == 'root' ? $this->products->get_list(FALSE, $info->viewmore, 12) : $this->catalog->get_products($info->category_id, 'id', 'asc', $info->viewmore, 12);
+			
+			$viewmore = $info->viewmore + 12;
+		}
+		else
+		{
+			$products = $this->products->get_list(FALSE, $info->viewmore, 10);
+			$viewmore = $info->viewmore + 10;
+		}
+		
+		if(!empty($products)) $products = $this->products->prepare_list($products);
+		
+		$data['products'] = $products;
+		
+		$content = $this->load->view('client/include/product_list', $data, TRUE);
+
+		
+		
+		$data = array(
+			'content' => $content,
+			'viewmore' => $viewmore
+		);
+		
+		echo json_encode($data);
 	}
 }
 

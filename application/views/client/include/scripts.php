@@ -10,3 +10,14 @@
 <script src="<?= base_url()?>template/client/js/echo.min.js"></script>
 <script src="<?= base_url()?>template/client/js/scripts.js"></script>
 <script src="<?= base_url()?>template/client/js/cart.js"></script>
+<script src="<?= base_url()?>template/client/js/viewmore.js"></script>
+
+<script>
+	$(document).ready(function(){
+		<?if(isset($is_main)):?>
+			$('.viewmore_input').val(10);
+		<?else:?>
+			$('.viewmore_input').val(12);
+		<?endif;?>
+	});
+</script>
