@@ -5,16 +5,14 @@ function cart_popup(item_id, name, qty){
 	add_to_cart(item_id, qty);
 }
 
-function add_to_cart(product_id, qty){
+function addToCart(product_id, qty){
 	var data = {product_id: product_id,	qty: qty};
 	var json_str = JSON.stringify(data);
 	
 	$.post ("/cart/add_to_cart/", json_str, function(data){
-		switch_minicart(data);
+		//switch_minicart(data);
 		update_minicart(data);
-		
-		$('#popup_qty').attr("value", data.item_qty);
-		$('#popup_item_id').attr("value", data.item_id);
+		updateToggleCart(data);
 	}, "json");
 }
 
@@ -79,4 +77,8 @@ function delete_item(data){
 	}else{
 		$("#cart-"+data['item_id']).detach();
 	}
+}
+
+function updateToggleCart(data){
+	$('.cart-items-list ul').append(data.content);
 }

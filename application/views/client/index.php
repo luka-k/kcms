@@ -27,8 +27,8 @@
 						<?if(!empty($products)):?>
 							<section class="best-seller wow fadeInUp">
 								<div id="best-seller" class="module">
-									<div class="module-heading home-page-module-heading">
-										<h2 class="module-title home-page-module-title"><span>Популярные книги<!--Bestsellers--></span></h2>
+									<!--<div class="module-heading home-page-module-heading">
+										<h2 class="module-title home-page-module-title"><span>Популярные книги</span></h2>
 									</div><!-- /.module-heading -->
 								
 									<div class="module-body">
@@ -48,14 +48,14 @@
 															</a>
 															<div class="book-details clearfix">
 																<div class="book-description">
-																	<h3 class="book-title"><a href="single-book.html">The Brief Wondrous Life of  Oscar Wao</a></h3>
-																	<p class="book-subtitle">by <a href="single-book.html"> Cormac McCarthy</a></p>
+																	<h3 class="book-title"><a href="single-book.html"><?= $p->name?></a></h3>
+																	<p class="book-subtitle">by <a href="single-book.html"> <?= $p->autor?></a></p>
 																</div>
 																<div class="text-center">
 																	<div class="actions">
 																		<span class="book-price price"><?= $p->price?> р.</span>               
 																		<div class="cart-action"> 
-																			<a class="add-to-cart" title="Add to Cart" href="javascript:void(0);">Add to Cart</a>       
+																			<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $p->id?>', 1); return false;">Add to Cart</a>       
 																		</div>
 																	</div>
 																</div>

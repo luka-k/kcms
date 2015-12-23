@@ -39,6 +39,7 @@ class Index extends Client_Controller {
 			'last_news' => $this->articles->prepare_list($last_news),
 			'is_main' => TRUE
 		);
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		$data = array_merge($this->standart_data, $data);
 		$this->load->view('client/index.php', $data);
 	}	

@@ -1,127 +1,184 @@
 <!DOCTYPE html>
-<!--[if lte IE 9]>      
-	<html class="no-js lte-ie9">
-<![endif]-->
-<!--[if gt IE 8]><!--> 
-	<html class="no-js">
-<!--<![endif]-->
-
-<? require 'include/head.php' ?>
-
-<body>
-
-<!--[if lt IE 8]>
-	<p class="browsehappy">Ваш браузер устарел! Пожалуйста,  <a rel="nofollow" href="http://browsehappy.com/">обновите ваш браузер</a> чтобы использовать все возможности сайта.</p>
-<![endif]-->
-
-	<? require 'include/header.php'?>
-	<? require 'include/top-menu.php'?>
-	<? require 'include/breadcrumbs.php'?>
+<html lang="en">
+	<? require 'include/head.php' ?>
+	<body>
+		<div id="wrapper" >
+			<div id="page-content-wrapper" class="st-pusher">
+				<div class="st-pusher-after"></div>
+				<!-- ============================================== HEADER ============================================== -->
 	
-	<div class="page page-cart">
-		<div class="page__wrap wrap">
-		<?if(!empty($action)):?>
-			Ваш заказ успешно оформлен.
-		<?else:?>
-			<h1 class="page__title">Корзина</h1> <!-- /.page__title -->
-			<?if(!empty($cart_items)):?>
-			<div class="page-cart__products">
-				<table class="cart-table">
-					<tbody>
-						<tr>
-							<th></th>
-							<th>Наименование</th>
-							<th>Цена</th>
-							<th>Количество</th>
-							<th>Стоимость</th>
-							<th></th>
-						</tr>
-						
-						<?foreach($cart_items as $item_id => $item):?>
-							<tr id="cart-<?=$item_id?>">
-								<td>
-									<img src="<?=$item->img->catalog_small_url?>" alt="image" width="100" class="cart-table__image" />
-								</td>
-								<td>
-									<a href="<?=$item->full_url?>" class="cart-table__name"><?=$item->name?></a>
-								</td>
-								<td>
-									<div class="cart-table__price"><?=$item->price?></div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<form action="#" class="form cart-amount" method="post">
-										<button type="button"  class="button button--normal cart-amount__button" onclick="update_qty('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'minus')">-</button>
-										<input type="text" id="qty-<?=$item_id?>" class="form__input cart-amount__input" value="<?=$item->qty?>" disabled/>
-										<button type="button" class="button button--normal cart-amount__button" onclick="update_qty('<?=$item_id?>', document.getElementById('qty-<?=$item_id?>').value, 'plus')">+</button>
-									</form> <!-- /.cart-amount -->
-								</td>
-								<td>
-									<div class="cart-table__price"><span id="item_total-<?=$item_id?>"><?=$item->item_total?></span> р.</div> <!-- /.cart-table__price -->
-								</td>
-								<td>
-									<button type="button" class="button button--normal" onclick="delete_cart_item('<?=$item_id?>')">Удалить</button>
-								</td>
-							</tr>
-						<?endforeach;?>
-							
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td colspan="2">
-								<div class="cart-table__price">
-									Итого <span><span class="total_price"><?=$total_price?></span>р.</span>
-								</div> <!-- /.cart-table__price -->
-							</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table> <!-- /.cart-table -->
-			</div> <!-- /.page-cart__products -->
-			
-			<div class="page-cart__order">
-				<div class="cart-order">
-					<h2 class="cart-order__title">Оформление заказа</h2> <!-- /.cart-order__title -->
-					
-					<form action="<?=base_url()?>order/new_order" class="form" method="post">
-						<div class="cart-order__form">
-							<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
-							<input type="hidden" name="email"  value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>"/>
-							<div class="form__line">
-								<input type="text" class="form__input required" name="name" placeholder="Имя" value="<?if(isset($user->name)):?><?=$user->name?><?endif;?>"/>
-							</div> <!-- /.form__line -->
-							
-							<div class="form__line">
-								<input type="tel" class="form__input required" name="phone" placeholder="Телефон" value="<?if(isset($user->phone)):?><?=$user->phone?><?endif;?>" />
-							</div> <!-- /.form__line -->
-							
-							<a href="#extra" class="cart-order__extra-link">Дополнительно (необязательные поля)</a>
-							
-							<div class="cart-order__extra hidden" id="extra">
-								<div class="form__line">
-									<input type="text" class="form__input" name="email" placeholder="E-mail" value="<?if(isset($user->email)):?><?=$user->email?><?endif;?>" />
-								</div> <!-- /.form__line -->
+				<? require 'include/header.php' ?>
 				
-								<div class="form__line">
-									<input type="text" class="form__input" name="address" placeholder="Улица" value="<?if(isset($user->address)):?><?=$user->address?><?endif;?>" />
-								</div> <!-- /.form__line -->
-							</div> <!-- /.cart-order__extra -->
+				<!-- ============================================== HEADER : END ============================================== -->           
+				
+				<div class="home-page">
+					<div class="content">
+						
+					
+					
+					<div class="container">
+						<!-- ============================================== BANNERS ============================================== -->
+						
+						
+						<!-- ============================================== BANNERS : END ============================================== -->
+						
+						
+						<!-- ============================================== BEST SELLER ============================================== -->
+						<section class="best-seller wow fadeInUp">
+								<div id="best-seller" class="module">
 							
-							<div class="form__button cart-order__button">
-								<button type="submit" class="button button--normal button--auto-width">Оформить заказ</button>
-							</div> <!-- /.form__button -->
-						</div> <!-- /.cart-order__form -->
-					</form> <!-- /.form -->
-				</div> <!-- /.cart-order -->
-			</div> <!-- /.page-cart__order -->
-			<?else:?>
-				Корзина пуста
-			<?endif;?>
-		<?endif;?>
-		</div> <!-- /.page__wrap wrap -->
-	</div> <!-- /.page -->
+									<div class="module-body">
+										<div class="row books full-width">
+										<?if(!empty($action)):?>
+											<div style="text-align:center; padding:25px 25px; font-size:26px;">
+												Ваш заказ успешно оформлен.
+											</div>
+										<?endif;?>
+										</div>
+									</div>
+								</div>
+						</section>
+						<!-- ============================================== BEST SELLER : END ============================================== -->		
+					</div><!-- /.container -->
+					
+					<!-- ============================================== TESTIMONIAL ============================================== -->
 
-	<? require 'include/footer.php'?>
-	<? require 'include/modal.php'?>
+					<!-- ============================================== TESTIMONIAL : END ============================================== -->
+
+					<?if(!empty($new_products)):?>
+						<section class="latest-product wow fadeInUp">
+							<div id="latest-product" class="module container inner-top-xs">
+								<div class="module-heading home-page-module-heading inner-bottom-vs">
+									<h2 class="module-title home-page-module-title"><span>Новинки</span></h2>
+								</div>
+								<div class="module-body">
+									<!-- ============================================== LATEST PRODUCT ============================================== -->
+
+									<div class="book-shelf inner-bottom glass-shelf">
+										<div class="row">
+											<div class="col-md-10 col-sm-10 center-block clearfix">
+												<?foreach($new_products as $np):?>
+													<div class="col-md-3 col-sm-4">						                
+														<div class="book-cover bk-cover product-book-cover">
+															<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="<?= $np->images->catalog_small_url?>" width="182" height="273" > <!--book-covers/06.jpg-->
+															<div class="fade"></div>
+														</div> <!-- /.book-cover --> 														
+													</div><!-- /.col -->
+												<?endforeach;?>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-10 center-block marketing-block">
+											<h2 class="text-center">
+												<span>We Empower WordPress Developers With Design-Driven</span>
+												<span>Themes And A Classy Experience Their Clients</span>
+												<span> Will Just Love</span>
+											</h2>
+											
+											<div class="divider inner-xs">
+												<img class="img-responsive" src="<?= IMG_PATH?>shadow5656.png" alt="">
+											</div><!-- /.divider -->
+											
+											<div class="row wow fadeInUp features-block">
+												<?foreach($new_products as $np):?>
+													<div class="col-xs-12 col-sm-6 feature-block">
+														<div class="media inner-bottom-xs">
+															<div class="media-body">
+																<h4 class="media-heading"><?= $np->name?></h4>
+																<p><?= $np->short_description?></p> 
+																<a href="<?= $np->full_url?>" class="find-more">Больше  &rarr;</a>
+															</div>
+															<div class="media-right media-middle icon-media">
+																<div class="icon-block">
+																	<span class="fa-stack fa-lg">
+																		<i class="fa fa-circle fa-stack-2x"></i>
+																		<i class="fa fa-eye fa-stack-1x fa-inverse text-center"></i>
+																	</span>
+																</div><!-- /.icon-block --> <!--fa-mobile fa-lightbulb-o  fa-sliders-->
+															</div><!-- /.media-right -->
+														</div><!-- /.media -->
+														<hr/> <!--class="visible-xs"---->
+													</div><!-- /.feature-block -->
+												<?endforeach;?>
+											</div><!-- /.features-block -->
+										</div>
+									</div>
+
+									<!-- ============================================== LATEST PRODUCT : END ============================================== -->
+									<!-- ============================================== IMAGE BLOCK ============================================== -->
+<div class="image-block wow fadeInUp inner-top-sm">
+	<div class='row'>
+		<div class="col-md-4 col-sm-6">
+			<div class="banners">
+				<div class="banner green-banner">
+					<div class='image'>
+						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product1.jpg" alt="">
+					</div><!-- /.image -->
+					<div class='caption'>
+						<h2 class='title'>sale</h2>
+						<hr>
+						<p>The sale don't stop up to 75% off!</p>
+					</div><!-- /.caption -->
+				</div><!-- /.banner -->
+			</div><!-- /.banners -->
+		</div><!-- /.col -->
+
+		<div class="col-md-4 col-sm-6 hidden-xs">
+			<div class="banners">
+				<div class="banner black-banner">
+					<div class='image'>
+						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product2.jpg" alt="">
+					</div><!-- /.image -->
+					<div class='caption'>
+						<h2 class='title'>Games</h2>
+						<hr>
+						<p>The sale don't stop up to 75% off!</p>
+					</div><!-- /.caption -->
+				</div><!-- /.banner -->
+			</div><!-- /.banners -->
+		</div><!-- /.col -->
+
+		<div class="col-md-4 hidden-xs hidden-sm">
+			<div class="banners">
+				<div class="banner orange-banner">
+					<div class='image'>
+						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product3.jpg" alt="">
+					</div><!-- /.image -->
+					<div class='caption'>
+						<h2 class='title'>lookbook</h2>
+						<hr>
+						<p>Take a look at the upcoming trends</p>
+					</div><!-- /.caption -->
+				</div><!-- /.banner -->
+			</div><!-- /.banners -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+</div><!-- /.image-block -->
+<!-- ============================================== IMAGE BLOCK : END ============================================== -->				</div>
+			</div>
+	    </section>
+		<?endif;?>
+		
+						<!-- ============================================== FROM BLOG ============================================== -->
+		
+						<!-- ============================================== FROM BLOG : END ============================================== -->	
+					</div><!-- /.content -->
+				</div><!-- /.home-page -->           
+
+				<!-- ============================================== FOOTER ============================================== -->
+				<?require "include/footer.php";?>
+				<!-- ============================================== FOOTER : END ============================================== -->        
+			</div><!-- /.st-pusher -->
+            <!-- ============================================== TOGGLE RIGHT CONTENT ============================================== -->
+			<?require "include/toggle_cart.php";?>
+			<!-- ============================================== TOGGLE RIGHT CONTENT : END ============================================== -->
+			
+			<?require "include/modal.php";?>
+		</div><!-- /#wrapper -->
+
+		<?require "include/scripts.php";?>
+		
 	</body>
 </html>

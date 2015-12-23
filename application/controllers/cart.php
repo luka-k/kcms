@@ -53,6 +53,7 @@ class Cart extends Client_Controller
 			"id" => $product->id,
 			"parent_id" => $product->parent_id,
 			"name" => $product->name,
+			'autor' => $product->autor,
 			"url" => $product->url,
 			"price" => $product->price,
 			"qty" => $info->qty
@@ -74,12 +75,17 @@ class Cart extends Client_Controller
 		
 		$item = $this->cart->get($item_id);
 		
+		$product = $this->products->prepare($cart_item);
+		
+		$content = $this->load->view('client/include/cart-item.php', ['item' => $product], TRUE);
+		
 		$data = array(
 			'item_id' => $item_id,
 			'item_qty' => $item['qty'],
 			'total_qty' => $this->cart->total_qty(),
 			'total_price' => $this->cart->total_price(),
-			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty())
+			'product_word' => $this->string_edit->set_word_form("товар", $this->cart->total_qty()),
+			'content' => $content
 		);
 
 		echo json_encode($data);

@@ -57,7 +57,7 @@
 																<div class="actions">
 																	<span class="book-price price"><?= $item->price?> руб.</span>
 																	<div class="cart-action"> 
-																		<a class="add-to-cart" title="Add to Cart" href="single-book.html">В корзину</a>
+																		<a class="add-to-cart" title="Add to Cart" href="#" onclick="addToCart('<?= $item->id?>', 1); return false;">В корзину</a>
 																	</div>
 																</div>
 															</div>

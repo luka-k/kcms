@@ -29,13 +29,18 @@ class Products extends MY_Model
 		'Основное' => array(
 			'id' => array('id', 'hidden'),
 			'name' => array('Заголовок', 'text', 'trim|name', 'require'),
+			'ISBN' => array('ISBN', 'text', 'trim'),
 			'parent_id' => array('Категория', 'select'),
 			'is_active' => array('Активна', 'checkbox'),
+			'autor' => array('Автор', 'text', 'trim|htmlspecialchars', 'require'),
+			'year' => array('Год', 'text', 'trim|htmlspecialchars'),
+			'cover' => array('Обложка', 'text', 'trim|htmlspecialchars'),
+			'amount' => array('Объем</br><i>количество страниц</i>', 'text', 'trim|htmlspecialchars'),
 			'is_new' => array('Новинка', 'checkbox'),
 			'is_special' => array('Специальное предложение', 'checkbox'),
-			'article' => array('Артикул', 'text', 'trim', 'require'),
-			'price' => array('Цена', 'text', 'trim', 'require'),
-			'discount' => array('Скидка', 'text', 'trim', 'max_length[2]'),
+			'article' => array('Артикул', 'text', 'trim|htmlspecialchars'),
+			'price' => array('Цена', 'text', 'trim|htmlspecialchars'),
+			'discount' => array('Скидка', 'text', 'trim|htmlspecialchars', 'max_length[2]'),
 			'description' => array('Описание', 'tiny', 'trim')
 		),
 		'SEO' => array(

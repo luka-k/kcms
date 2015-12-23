@@ -87,6 +87,8 @@ class Catalog extends Client_Controller {
 		$data['category']->products = $this->products->prepare_list($products);
 		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
 		$data['parent_id'] = $parent_id;
+		
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 
 		$data = array_merge($this->standart_data, $data);
 		
@@ -97,6 +99,7 @@ class Catalog extends Client_Controller {
 		$this->pagination->initialize($config);
 
 		$data['pagination'] = $this->pagination->create_links();
+		
 	
 		$this->load->view("client/categories", $data);
 	}
@@ -116,6 +119,8 @@ class Catalog extends Client_Controller {
 			'filters' => $this->characteristics_type->get_filters(),
 			'ajax_by' => 'filter'
 		);
+		
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		
 		$data = array_merge($this->standart_data, $data);
 		
@@ -152,6 +157,7 @@ class Catalog extends Client_Controller {
 		
 		$data['product']->recommended_products = $this->products->prepare_list($this->products->get_recommended($data['product']->id));
 		
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		$data = array_merge($this->standart_data, $data);
 
 		$this->load->view("client/product", $data);

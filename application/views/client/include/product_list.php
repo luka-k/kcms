@@ -18,7 +18,7 @@
 																	<div class="actions">
 																		<span class="book-price price"><?= $p->price?> р.</span>               
 																		<div class="cart-action"> 
-																			<a class="add-to-cart" title="Add to Cart" href="javascript:void(0);">В корзину</a>       
+																			<a class="add-to-cart" title="Add to Cart" href="#" onclick="addToCart('<?= $p->id?>', 1); return false;">В корзину</a>       
 																		</div>
 																	</div>
 																</div>
