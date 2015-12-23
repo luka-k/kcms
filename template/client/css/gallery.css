@@ -195,6 +195,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
+	
 
     display: none;
 
@@ -236,7 +237,7 @@
 
 .gallery__thumbs{
     position: absolute;
-	width: 96%;
+	width: 94%;
 	margin-top:-40px;
 	padding:30px 0px 0 20px;
 	z-index:0;

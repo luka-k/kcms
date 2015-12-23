@@ -218,9 +218,7 @@
     $(document).on('click', '[href="#callback"]', function(){
       var targetId = $(this).attr('href');
       var $target = $( targetId );
-      var $content = $target.find('.modal__content');
-      
-      $modal.css('height', $(document).height());
+      var $content = $target.find('.modal__content');     
 
       $target.fadeIn();
 
@@ -266,28 +264,40 @@
     var modalWidth = 0;
 
     var _setHeight = function(){
-      var documentHeight = $(document).height();
-      var documentWidth = $(document).width();
-
-      modalHight = documentHeight * .97;
-      modalWidth = documentWidth - 300; 
-	  if (modalWidth > modalHight * 1.33)
-			modalWidth = modalHight * 1.33; 
-      var galleryImagesHeight = modalHight - 160;
-
-      $modalGallery.css('height', documentHeight );
-
-      $modalGalleryContent.css({
-        height: modalHight,
-        width: modalWidth,
-        marginLeft: -modalWidth/2,
-        marginTop: -modalHight/2
-      })
-
-      $modalGallery.find('.gallery-slider__item').css({
-        height: galleryImagesHeight,
-        lineHeight: galleryImagesHeight + 'px'
-      });
+		var documentHeight = $(document).height();
+		var documentWidth = $(document).width();
+		
+		
+	  
+		if(documentHeight > documentWidth) {  
+			modalHight = $('.main-box__content').height();
+			modalWidth = documentWidth;
+			$('.gallery-menu__list').css('bottom', '23px');
+			$('.gallery-menu__list').css('left', '-252px');
+			$('.gallery-menu__list').css('width', '280px');
+		} else {  
+			modalHight = documentHeight * .97;
+			modalWidth = documentWidth - 300;
+			if (modalWidth > modalHight * 1.33)
+				modalWidth = modalHight * 1.33; 
+		}
+		
+		
+		var galleryImagesHeight = modalHight - 160;
+		
+		$modalGallery.css('height', documentHeight );
+		
+		$modalGalleryContent.css({
+			height: modalHight,
+			width: modalWidth,
+			marginLeft: -modalWidth/2,
+			marginTop: -modalHight/2
+		});
+		
+		$modalGallery.find('.gallery-slider__item').css({
+			height: galleryImagesHeight,
+			lineHeight: galleryImagesHeight + 'px'
+		});
     };
 
     var _initMenu = function(){
