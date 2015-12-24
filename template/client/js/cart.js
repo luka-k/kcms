@@ -38,14 +38,14 @@ function update_cart(item_id, qty){
 	}, "json");
 }
 
-function delete_cart_item(item_id){
+function deleteCartItem(item_id){
 	var data = {item_id: item_id};
 	var json_str = JSON.stringify(data);
 	
 	$.post ("/cart/delete_item/", json_str,  function(data){
 		update_minicart(data);
 		delete_item(data);
-		switch_minicart(data);
+		updateToggleCart(data)
 	}, "json");
 }
 
@@ -70,15 +70,27 @@ function update_item(data){
 }
 
 function delete_item(data){
-	if(data['total_qty'] == "0"){
+	/*if(data['total_qty'] == "0"){
 		$("table").remove('.cart-table');
 		$("div").remove('.page-cart__order');
 		$('.page-cart__products').text("Корзина пуста");
-	}else{
+	}else{*/
 		$("#cart-"+data['item_id']).detach();
-	}
+	/*}*/
 }
 
 function updateToggleCart(data){
 	$('.cart-items-list ul').append(data.content);
+
+	var display = 'none';
+	console.log(data['total_qty']);
+	if(data['total_qty'] == "0"){
+		$('.cart-item-footer').css('display', 'none');
+		$('#cart_empty').css('display', 'block');
+	}else{
+		$('.cart-item-footer').css('display', 'block');
+		$('#cart_empty').css('display', 'none');
+	}
+	
+	
 }

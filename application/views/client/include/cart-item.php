@@ -1,4 +1,4 @@
-﻿<li class="media">
+﻿<li id="cart-<?= $item_id?>" class="media">
 	<div class="clearfix book cart-book">
 		<a href="<?= $item->full_url?>" class="media-left">
 			<div class="book-cover">
@@ -10,6 +10,7 @@
 				<h3 class="book-title"><a href="<?= $item->full_url?>"><?=$item->name?></a></h3>
 				<p class="book-subtitle">by <a href="<?= $item->full_url?>"><?=$item->autor?></a></p>
 				<p class="price m-t-20"><?= $item->price?> р.</p>
+				<a href="#" class="button button--normal" onclick="deleteCartItem('<?= $item_id?>')">Удалить</a>
 			</div>
 		</div>
 	</div>

@@ -146,7 +146,7 @@ function validation (form, errorClass) {
    return isError;
 }
 
-function submit_form(form_id){
+function submitForm(form_id){
 	var errorClass = 'error';
 
 	if (validation($("#"+form_id), errorClass)) return false;

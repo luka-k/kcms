@@ -11,6 +11,7 @@
 <script src="<?= base_url()?>template/client/js/scripts.js"></script>
 <script src="<?= base_url()?>template/client/js/cart.js"></script>
 <script src="<?= base_url()?>template/client/js/viewmore.js"></script>
+<script src="<?= base_url()?>template/client/js/script.js"></script>
 
 <script>
 	$(document).ready(function(){

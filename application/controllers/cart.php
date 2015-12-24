@@ -77,7 +77,7 @@ class Cart extends Client_Controller
 		
 		$product = $this->products->prepare($cart_item);
 		
-		$content = $this->load->view('client/include/cart-item.php', ['item' => $product], TRUE);
+		$content = $this->load->view('client/include/cart-item.php', ['item' => $product, 'item_id' => $item_id], TRUE);
 		
 		$data = array(
 			'item_id' => $item_id,

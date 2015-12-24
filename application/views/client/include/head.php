@@ -9,6 +9,7 @@
     <link href="<?= base_url()?>template/client/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?= base_url()?>template/client/css/animate.min.css" rel="stylesheet">
     <link href="<?= base_url()?>template/client/css/main.min.css" rel="stylesheet">
+	<link href="<?= base_url()?>template/client/css/custom.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= IMG_PATH?>favicon.ico">
