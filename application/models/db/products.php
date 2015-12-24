@@ -36,6 +36,7 @@ class Products extends MY_Model
 			'year' => array('Год', 'text', 'trim|htmlspecialchars'),
 			'cover' => array('Обложка', 'text', 'trim|htmlspecialchars'),
 			'amount' => array('Объем</br><i>количество страниц</i>', 'text', 'trim|htmlspecialchars'),
+			'weight' => array('Вес</br><i></i>', 'text', 'trim|htmlspecialchars'),
 			'is_new' => array('Новинка', 'checkbox'),
 			'is_special' => array('Специальное предложение', 'checkbox'),
 			'article' => array('Артикул', 'text', 'trim|htmlspecialchars'),

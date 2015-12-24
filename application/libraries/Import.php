@@ -79,7 +79,8 @@ class Import{
 				'price' => $o->price->__toString(),
 				'parent_id' => $o->categoryId->__toString(),
 				'description' => $o->description->__toString(),
-				'autor' => 'Автор Авторович'
+				'autor' => 'Автор Авторович',
+				'weight' => '100'
 			);
 			
 			echo $offerToInsert['name']."<br />";
