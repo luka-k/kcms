@@ -1,0 +1,1 @@
+ALTER TABLE `products` ADD `weight` INT NOT NULL AFTER `amount` ;
