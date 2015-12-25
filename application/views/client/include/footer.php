@@ -89,7 +89,7 @@
 				<div class="col-md-12">
 					<div class="pull-left">
 						<ul class="payment-list list-unstyled">
-							<li><a href="#"><img src="assets/images/payments/1.png" class="img-responsive" height="22" alt=""></a></li>
+							<li><a href="#"><img src="<?= IMG_PATH?>payments/1.png" class="img-responsive" height="22" alt=""></a></li>
 						</ul>
 					</div>
 					<p class="copyright-footer pull-right">&copy; 2016 <a href="<?= base_url()?>">BookHouse</a></p>

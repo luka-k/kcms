@@ -58,6 +58,18 @@ class Account extends Client_Controller
 		$this->load->view('client/registration', $data);	
 	}
 	
+	public function login_ajax()
+	{
+		$email = $this->input->post('email');
+
+		$password = md5($this->input->post('password'));			
+		$authdata = $this->users->login($email, $password);
+		
+		$answer = $authdata['logged_in'] ? "ok" : array('error' => "Данные не верны. Повторите ввод");;
+		
+		echo json_encode($answer);		
+	}
+	
 	/**
 	* Выход пользователя
 	*/
@@ -231,5 +243,45 @@ class Account extends Client_Controller
 			
 			if($this->users->login($user->email, $user->password)) redirect(base_url().'cabinet');
 		}			
+	}
+	
+	public function new_user_ajax()
+	{
+		$user = (object)$this->input->post();
+		
+		if (!$this->users->is_unique(array('email'=>$user->email)))
+		{
+			$answer['error'] ="Такой email уже зарегистрирован";						
+		} 
+		else 
+		{	
+			$password = $user->password;
+		
+			$user->password = md5($user->password);
+
+			$this->users->insert($user);
+			
+			$userId = $this->db->insert_id();
+			
+			$group = $this->users_groups->get_item_by(array("name" => "customer"));
+			
+			$users2users_groups = new stdClass();
+				
+			$users2users_groups->users_group_id = $group->id;
+			$users2users_groups->user_id = $userId;
+			$this->db->insert('users2users_groups', $users2users_groups);
+
+			$message_info = array(
+				"user_name" => $user->name,
+				"login" => $user->email,
+				"password" => $password
+			);
+				
+			$this->emails->send_system_mail($user->email, 4, $message_info);				
+			
+			if($this->users->login($user->email, $user->password)) $answer = 'ok';
+		}
+		
+		echo json_encode($answer);
 	}
 }

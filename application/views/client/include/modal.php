@@ -1,37 +1,89 @@
 <!-- Modal -->
-			<div id="modal-login-big" class="modal login fade hidden-xs"  tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-						<div class="text-center">
-                    <ul class="login-list clearfix ">
+<div id="modal-login-big" class="modal login fade hidden-xs"  tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+                    <!--<ul class="login-list clearfix ">
                         <li class='active'>Login</li> 
                         <li class="divider"></li>
                         <li><a href="#">Sign Up</a></li>
                     </ul><!-- /.login-list -->	
-                    <form role="form" class="inner-top-50">
+					<div class="modal-title">
+						Войти
+					</div>
+                    <form role="form" id="login_form" class="inner-top-50" style="width:75%;">
+						<div class="error_text" ></div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1" class="sr-only">Email address</label>
-                            <input type="email" class="form-control bookshop-form-control" id="exampleInputEmail1" placeholder="Hezy Theme">
+                            <label for="exampleInputEmail1" class="sr-only">Email</label>
+                            <input type="email" name="email" class="form-control bookshop-form-control form-input" id="exampleInputEmail1" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1" class="sr-only">Password</label>
-                            <input type="password" class="form-control bookshop-form-control" id="exampleInputPassword1">
+                            <label for="exampleInputPassword1" class="sr-only">Пароль</label>
+                            <input type="password" name="password" class="form-control bookshop-form-control form-input" id="exampleInputPassword1">
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-uppercase">Login</button>
-                        <a href="#" class='forgot-password'>forgot password</a>
+                        <button type="button" id="login-btn" class="btn btn-primary btn-uppercase">Войти</button>
+						<a href="#" class='forgot-password'>Забыли пороль?</a>
                     </form>
                 </div>
             </div><!-- /.modal-body -->
-            <div class="modal-footer">
+            <!--<div class="modal-footer">
                 <div class="text-center">
                     <ul class='social-list text-center'>
                         <li><a href="#" class="facebook"></a></li>
                         <li><a href="#" class="google-plus"></a></li>
                         <li><a href="#" class="twitter"></a></li>
                         <li><a href="#" class="pinterest"></a></li>
-                    </ul><!-- /.social-list -->
+                    </ul>
+                </div>
+            </div><!-- /.modal-footer -->
+            <a href="#" data-dismiss="modal" class="remove-icon"><i class="fa fa-times"></i></a>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div id="modal-registration-big" class="modal login fade hidden-xs"  tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+						<div class="text-center">
+						<div class="modal-title">
+						Регистрация
+					</div>
+                    <!--<ul class="login-list clearfix ">
+                        <li class='active'>Login000</li> 
+                        <li class="divider"></li>
+                        <li><a href="#">Sign Up</a></li>
+                    </ul><!-- /.login-list -->	
+                    <form role="form" id="registration_form" class="inner-top-50" style="width:75%;">
+						<div class="error_text" ></div>
+						<div class="form-group">
+                            <label for="exampleInputEmail1" class="sr-only">Имя</label>
+                            <input type="name" name="name" class="form-control bookshop-form-control form-input" id="exampleInputEmail1" placeholder="Имя">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="sr-only">Email</label>
+                            <input type="email" name="email" class="form-control bookshop-form-control form-input" id="exampleInputEmail1" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="sr-only">Пароль</label>
+                            <input type="password" name="password" class="form-control bookshop-form-control form-input" id="exampleInputPassword1" placeholder="password">
+                        </div>
+
+                        <button id="reg-btn" type="button" class="btn btn-primary btn-uppercase" >Регистрация</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <!--<div class="modal-footer">
+                <div class="text-center">
+                    <ul class='social-list text-center'>
+                        <li><a href="#" class="facebook"></a></li>
+                        <li><a href="#" class="google-plus"></a></li>
+                        <li><a href="#" class="twitter"></a></li>
+                        <li><a href="#" class="pinterest"></a></li>
+                    </ul>
                 </div>
             </div><!-- /.modal-footer -->
             <a href="#" data-dismiss="modal" class="remove-icon"><i class="fa fa-times"></i></a>

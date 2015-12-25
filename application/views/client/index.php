@@ -48,8 +48,8 @@
 															</a>
 															<div class="book-details clearfix">
 																<div class="book-description">
-																	<h3 class="book-title"><a href="single-book.html"><?= $p->name?></a></h3>
-																	<p class="book-subtitle">by <a href="single-book.html"> <?= $p->autor?></a></p>
+																	<h3 class="book-title"><a href="<?= $p->full_url?>"><?= $p->name?></a></h3>
+																	<p class="book-subtitle">by <a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
 																</div>
 																<div class="text-center">
 																	<div class="actions">
@@ -97,7 +97,7 @@
 												<?foreach($new_products as $np):?>
 													<div class="col-md-3 col-sm-4">						                
 														<div class="book-cover bk-cover product-book-cover">
-															<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="<?= $np->images->catalog_small_url?>" width="182" height="273" > <!--book-covers/06.jpg-->
+															<img class="img-responsive" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->images->catalog_small_url?>" width="182" height="273" > <!--book-covers/06.jpg-->
 															<div class="fade"></div>
 														</div> <!-- /.book-cover --> 														
 													</div><!-- /.col -->
@@ -151,7 +151,7 @@
 			<div class="banners">
 				<div class="banner green-banner">
 					<div class='image'>
-						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product1.jpg" alt="">
+						<img class="img-responsive" src="<?= IMG_PATH?>blank.gif" data-echo="assets/images/product1.jpg" alt="">
 					</div><!-- /.image -->
 					<div class='caption'>
 						<h2 class='title'>sale</h2>
@@ -166,7 +166,7 @@
 			<div class="banners">
 				<div class="banner black-banner">
 					<div class='image'>
-						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product2.jpg" alt="">
+						<img class="img-responsive" src="<?= IMG_PATH?>blank.gif" data-echo="assets/images/product2.jpg" alt="">
 					</div><!-- /.image -->
 					<div class='caption'>
 						<h2 class='title'>Games</h2>
@@ -181,7 +181,7 @@
 			<div class="banners">
 				<div class="banner orange-banner">
 					<div class='image'>
-						<img class="img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product3.jpg" alt="">
+						<img class="img-responsive" src="<?= IMG_PATH?>blank.gif" data-echo="assets/images/product3.jpg" alt="">
 					</div><!-- /.image -->
 					<div class='caption'>
 						<h2 class='title'>lookbook</h2>
@@ -211,8 +211,7 @@
             <!-- ============================================== TOGGLE RIGHT CONTENT ============================================== -->
 			<?require "include/toggle_cart.php";?>
 			<!-- ============================================== TOGGLE RIGHT CONTENT : END ============================================== -->
-			
-			<?require "include/modal.php";?>
+		
 		</div><!-- /#wrapper -->
 
 		<?require "include/scripts.php";?>

@@ -20,7 +20,7 @@
 							<li class="hidden-xs hidden-sm"><a href="<?=$trm->full_url?>"><?=$trm->name?></a></li>
 						<?endforeach;?>				
 										
-										<!--<li class="hidden-xs hidden-sm"><a href="single-book.html">Shopping Cart</a></li>
+										<!---<li class="hidden-xs hidden-sm"><a href="single-book.html">Shopping Cart</a></li>
 										<li class="hidden-xs hidden-sm"><a href="contact.html">My Account</a></li>
 										<li class="icon icon-small hidden-xs"><a data-toggle="modal" data-target="#modal-login-big" href="#"><i class="icon fa fa-lock"></i></a></li>
 										<li class="icon hidden-lg hidden-sm hidden-md"><a data-toggle="modal" data-target="#modal-login-small" href="#"><i class="icon fa fa-lock"></i></a></li>-->
@@ -32,7 +32,19 @@
 					
 	<div class="main-header">
 		<div class="container">
-			<div class="row">
+			<div class="row">				
+				<div class="col-xs-12 col-sm-4 col-md-4 text-center logo-holder">
+					<!-- ============================================== LOGO ============================================== -->
+					<a href="<?= base_url()?>">
+						<img src="<?= IMG_PATH?>logo.png" class="logo" style="margin-top:0px;"/>
+						<!---<h1 class="logo">BookHouse</h1>
+						<div class="logo-subtitle">
+							<span>World of books</span>
+						</div><!-- /.logo-subtitle -->
+					</a>
+					<!-- ============================================== LOGO : END ============================================== -->					
+				</div><!-- /.logo-holder -->
+				
 				<div class="col-xs-12 col-sm-4 col-md-4 top-search-holder m-t-10">
 					<!-- ============================================== SEARCH BAR ============================================== -->
 					<form class="search-form" role="search">
@@ -47,23 +59,27 @@
 					<!-- ============================================== SEARCH BAR : END ============================================== -->					
 				</div><!-- /.top-search-holder -->
 				
-				<div class="col-xs-12 col-sm-4 col-md-4 text-center logo-holder">
-					<!-- ============================================== LOGO ============================================== -->
-					<a href="<?= base_url()?>">
-						<img src="<?= IMG_PATH?>logo.png" class="logo" style="margin-top:0px;"/>
-						<!---<h1 class="logo">BookHouse</h1>
-						<div class="logo-subtitle">
-							<span>World of books</span>
-						</div><!-- /.logo-subtitle -->
-					</a>
-					<!-- ============================================== LOGO : END ============================================== -->					
-				</div><!-- /.logo-holder -->
-				
 				<div class="col-xs-12  col-md-2 header-shippment hidden-sm m-t-10">
 					<!-- ============================================== FREE DELIVERY ============================================== -->
 					<div class="media free-delivery hidden-xs ">
-						<span class="media-left"><img src="assets/images/delivery-icon.png" height="48" width="48" alt=""></span>
-						<div class="media-body"><h5 class="media-heading">Free delivery</h5></div>
+						<!--<span class="media-left"><img src="<?= IMG_PATH?>delivery-icon.png" height="48" width="48" alt=""></span>-->
+						<div class="media-body">
+							<?if(empty($user)):?>
+								<h5 class="media-heading" style="float:left; margin-right:15px;">
+									<a data-toggle="modal" data-target="#modal-login-big" href="#">Вход</a>
+								</h5>
+								<h5 class="media-heading" style="float:left;">
+									<a data-toggle="modal" data-target="#modal-registration-big" href="#">Регистрация</a>
+								</h5>				
+							<?else:?>
+								<h5 class="media-heading" style="float:left; margin-right:15px;">
+									<a href="<?=base_url()?>cabinet" class="header-login__register"><?=$user->name?></a>
+								</h5>
+								<h5 class="media-heading" style="float:left;">
+									<a href="<?=base_url()?>account/do_exit" class="header-login__register" style="float:right;">Выход</a>
+								</h5>
+							<?endif;?>
+						</div>
 					</div>
 					<!-- ============================================== FREE DELIVERY : END ============================================== -->					
 				</div><!-- /.header-shippment -->
@@ -111,6 +127,8 @@
         </ul><!-- /.nav -->
     </div><!-- /.collapse navbar-collapse -->   
 </nav><!-- /.yamm -->
+
+<?require "modal.php";?>
 <!-- ============================================================= NAVBAR PRIMARY : END ============================================================= -->			</div><!-- /.nav-bg-class -->
 		</div><!-- /.container -->
 	

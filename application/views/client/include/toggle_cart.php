@@ -9,7 +9,7 @@
 							<div class="clearfix book cart-book">
 								<a href="<?= $item->full_url?>" class="media-left">
 									<div class="book-cover">
-										<img width="140" height="212" alt="" src="<?= IMG_PATH?>images/blank.gif" data-echo="<?=$item->img->catalog_small_url?>">
+										<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?=$item->img->catalog_small_url?>">
 									</div>
 								</a>
 								<div class="media-body book-details">
@@ -31,6 +31,7 @@
 				<h3 class='total text-center'>Итог:<span class="total_price"><?=$total_price?></span>р.</h3>
 				
 				<form action="<?=base_url()?>order/new_order" class="form" id="order_form" method="post">
+					<input type="hidden" name="id"  value="<?if(isset($user->id)):?><?=$user->id?><?endif;?>"/>
 						<div class="cart-order__form">
 							<div class="form-group clearfix" style="margin-bottom:15px;">
 								<label class="control-label col-sm-3 info-title" for="name">Имя</label>

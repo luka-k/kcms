@@ -30,28 +30,6 @@
 	});
 })(jQuery);
 
-
-// Слайдеры на главной и в товарах
-(function($){
-	$('.promo__slider').bxSlider({
-		controls: false,
-		auto: true
-	});
-	
-	var thumbsCount = $('.product-images-thumbs__item').length;
-
-	if (thumbsCount > 4){
-		$('.product-images-thumbs').bxSlider({
-			pager: false,
-			mode: 'vertical',
-			minSlides: 4,
-			maxSlides: 4,
-			moveSlides: 1,
-			adaptiveHeight: false
-		});
-	}
-})(jQuery);
-
 // Изображения товара
 (function($){
 	var $images = $('.product-images'),
@@ -96,14 +74,6 @@
 		}
 	}); 
 })(jQuery);
-
-
-(function($){
-	$('.fancyimage').fancybox({
-		maxWidth: 900
-	});
-})(jQuery);	
-
 
 function callback(){
 	if (validation($("#callback_form"), "error")) return false;
