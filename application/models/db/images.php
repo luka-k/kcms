@@ -217,7 +217,7 @@ class Images extends MY_Model
 			$factors['is_cover'] = "1";
 			$image = $this->get_item_by($factors);
 		}
-		
+	
 		if(empty($image)) $image = $this->get_item_by(array("object_type" => "settings"));
 		
 		return $this->get_urls($image);

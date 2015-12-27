@@ -1,4 +1,13 @@
 <aside class="sidebar">
+	<div class="filters" style="margin-bottom:15px;">
+		<form action="<?=base_url()?>catalog" id="filter-form" class="form" method="get">
+			<input type="hidden" name="filter" value="true">
+			<?foreach($filters as $type=> $filter):?>
+				<?require "filters/{$filter->editor}.php"?>
+			<?endforeach;?>	
+		</form>
+	</div>
+
 	<?foreach($left_menu as $level_1):?>
 		<div class="sidebar-module">
 			<div class="sidebar-module-heading">

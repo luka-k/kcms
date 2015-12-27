@@ -133,7 +133,7 @@ class Import{
 					if(!$ch)
 					{
 						$chToInsert = array(
-							'type' => $type,
+							'type' => $this->CI->string_edit->slug($type),
 							'value' => $value,
 							'object_type' => 'product'
 						);

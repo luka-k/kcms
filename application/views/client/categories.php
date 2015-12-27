@@ -25,7 +25,7 @@
 		
 								<!-- ========================================== SECTION – HERO : END========================================= -->
 
-								<?require "include/category_slider.php"?>
+								<?//require "include/category_slider.php"?>
 					
 									
 								<div class="module margin-top-10 wow fadeInUp" id="books-by-month">
@@ -36,8 +36,8 @@
 										<!--<p class="see-all-link"><a href="#">See All</a> &rarr;</p>-->
 									</div><!-- /.module-heading -->
 									<div class="module-body">
-										<input type="hidden" name="viewmore" class="viewmore_input" value="" />
-										<input type="hidden" name="cateroryId" class="viewmore_input_category" value="<?if(isset($category->id)):?><?=$category->id?><?else:?>root<?endif;?>" />
+										<input type="hidden" id="viemore" name="viewmore" class="viewmore_input" value="" />
+										<input type="hidden" name="cateroryId" class="viewmore_input_category" value="<?if(isset($category->id)):?><?=$category->id?><?elseif(isset($filters_values)):?>filter<?else:?>root<?endif;?>" />
 										<div id="books_content" class="row books">
 											<div class="clearfix text-center">
 												<?foreach($category->products as $item):?>

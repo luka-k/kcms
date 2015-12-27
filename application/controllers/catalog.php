@@ -79,27 +79,19 @@ class Catalog extends Client_Controller {
 				'category' => $content
 			);
 		}
-
-		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), 0, 16);
+		
+		$products = $this->catalog->get_products($parent_id, $this->input->get('order'), $this->input->get('direction'), 0, 12);
+		$all_products = $this->catalog->get_products($parent_id);
 
 		$data['breadcrumbs'] = $this->breadcrumbs->get();
 		$data['category']->sub_categories = $this->categories->prepare_list($this->categories->get_list(array("parent_id" => $parent_id)));
 		$data['category']->products = $this->products->prepare_list($products);
-		$data['filters'] = $this->characteristics_type->get_filters($data['category']->products);
+		$data['filters'] = $this->characteristics_type->get_filters($all_products);
 		$data['parent_id'] = $parent_id;
-		
+
 		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 
-		$data = array_merge($this->standart_data, $data);
-		
-		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
-		$config['total_rows'] = count($this->catalog->get_products($parent_id));
-		$config['per_page'] = $data['settings']->per_page;
-
-		$this->pagination->initialize($config);
-
-		$data['pagination'] = $this->pagination->create_links();
-		
+		$data = array_merge($this->standart_data, $data);		
 	
 		$this->load->view("client/categories", $data);
 	}
@@ -109,7 +101,7 @@ class Catalog extends Client_Controller {
 	*/
 	public function by_filter()
 	{		
-		$products = $this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 3);
+		$products = $this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction'), $this->input->get('from'), 12);
 
 		$settings = $this->settings->get_item_by(array('id' => 1));
 		
@@ -123,15 +115,7 @@ class Catalog extends Client_Controller {
 		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
 		
 		$data = array_merge($this->standart_data, $data);
-		
-		$config['base_url'] = base_url().uri_string().'?'.get_filter_string($_SERVER['QUERY_STRING']);
-		$config['total_rows'] = count($this->characteristics->get_products_by_filter($this->input->get(), $this->input->get('order'), $this->input->get('direction')));
-		$config['per_page'] = $data['settings']->per_page;
-
-		$this->pagination->initialize($config);
-
-		$data['pagination'] = $this->pagination->create_links();
-		
+				
 		$data['category'] = new stdClass;
 		$data['category']->products = $this->products->prepare_list($products);
 
@@ -165,12 +149,16 @@ class Catalog extends Client_Controller {
 	
 	public function viewmore()
 	{
-		$info = json_decode(file_get_contents('php://input', true));
-		
+		$info = (object)$this->input->post();
+
 		if(!empty($info->category_id))
 		{
-			$products = $info->category_id == 'root' ? $this->products->get_list(FALSE, $info->viewmore, 12) : $this->catalog->get_products($info->category_id, 'id', 'asc', $info->viewmore, 12);
-			
+			$products = $info->category_id == 'root' ? $this->products->get_list(FALSE, $info->viewmore, 12) : $this->catalog->get_products($info->category_id, 'name', 'asc', $info->viewmore, 12);
+			$viewmore = $info->viewmore + 12;
+		}
+		elseif(isset($info->filter))
+		{
+			$products = $this->characteristics->get_products_by_filter((array)$info, 'name', 'asc', $info->viewmore, 12);
 			$viewmore = $info->viewmore + 12;
 		}
 		else

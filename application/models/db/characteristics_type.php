@@ -61,8 +61,9 @@ class Characteristics_type extends MY_Model
 					{
 						$ids = array_merge($ids, $this->table2table->get_fixing('characteristic2product', 'characteristic_id', 'product_id', $p_id));
 					}
-					
-					if(!empty($ids)) $this->db->where_in("id", $ids);
+
+					if(empty($ids)) return array();
+					$this->db->where_in("id", $ids);
 				}
 			}
 			$this->db->distinct();
@@ -76,7 +77,7 @@ class Characteristics_type extends MY_Model
 			{
 				$values[] = $r->value;
 			}
-			
+
 			if(!empty($values))
 			{
 				$filters[$item->url] = (object)array(
@@ -90,6 +91,7 @@ class Characteristics_type extends MY_Model
 				}
 			}
 		}
+
 		return $filters;
 	}
 }
