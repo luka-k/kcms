@@ -564,7 +564,8 @@ class MY_Model extends CI_Model
 		if(!empty($branch)) foreach($branch as $i => $b)
 		{
 			if($action == 'site') $branch[$i]->full_url = $this->get_url($b);
-			$branch[$i]->childs = $this->form_tree($clear_categories, $b->id, $parent_field);
+			if($action == 'admin') $branch[$i]->class = $this->is_active($b->id) ? "active" : "noactive";
+			$branch[$i]->childs = $this->form_tree($clear_categories, $b->id, $parent_field, $action);
 		}
 		
 		return $branch;
