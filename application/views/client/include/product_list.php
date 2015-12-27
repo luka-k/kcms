@@ -12,7 +12,7 @@
 															<div class="book-details clearfix">
 																<div class="book-description">
 																	<h3 class="book-title"><a href="single-book.html"><?=  $p->name?></a></h3>
-																	<p class="book-subtitle">автор <a href="single-book.html"> <?=  $p->author?></a></p>
+																	<p class="book-subtitle">автор <a href="single-book.html"> <?=  $p->autor?></a></p>
 																</div>
 																<div class="text-center">
 																	<div class="actions">

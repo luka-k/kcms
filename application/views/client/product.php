@@ -40,8 +40,7 @@
 			<div class="featured-book-heading">
 				<h1 class="title"><?=$product->name?></h1>
 				<p class="singl-book-author">
-					by
-					<a href="#"><?=$product->autor?></a>
+					автор<a href="#"><?=$product->autor?></a>
 				</p>
 			</div>
 

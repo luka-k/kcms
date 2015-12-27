@@ -522,7 +522,7 @@ class MY_Model extends CI_Model
 	* @return array
 	*/
 	
-	public function get_tree($parent_id, $parent_field, $action = "site")
+	public function get_tree_old($parent_id, $parent_field, $action = "site")
 	{
 		$branches = $this->get_list(array($parent_field => $parent_id), FALSE, FALSE, "sort", "asc");
 		if($action == "site") $branches = $this->prepare_list($branches);
@@ -534,6 +534,40 @@ class MY_Model extends CI_Model
 		}			
 
 		return $branches;
+	}
+	
+	public function get_tree($parent_id, $parent_field, $action = 'site')
+	{
+		$this->db->where("{$parent_field} >=", $parent_id);
+		$this->db->order_by('name', 'asc');
+		$categories = $this->db->get($this->_table)->result();
+		if(!empty($categories)) 
+		{
+			///if($action == "site") $categories = $this->prepare_list($categories);
+			
+			
+			return $this->form_tree($categories, $parent_id, $parent_field, $action);
+		}
+		
+		return array();
+	}
+	
+	public function form_tree($categories, $parent_id, $parent_field, $action = 'site')
+	{
+		$clear_categories = array();
+		$branch = array();
+		foreach($categories as $c)
+		{
+			$c->$parent_field != $parent_id ? $clear_categories[] = $c : $branch[] = $c;
+		}
+		
+		if(!empty($branch)) foreach($branch as $i => $b)
+		{
+			if($action == 'site') $branch[$i]->full_url = $this->get_url($b);
+			$branch[$i]->childs = $this->form_tree($clear_categories, $b->id, $parent_field);
+		}
+		
+		return $branch;
 	}
 	
 	/*

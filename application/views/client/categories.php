@@ -52,7 +52,7 @@
 															<div class="book-details clearfix">
 																<div class="book-description">
 																	<h3 class="book-title"><a href="<?= $item->full_url?>"><?= $item->name?></a></h3>
-																	<p class="book-subtitle">by <a href=""<?= $item->full_url?>"><?= $item->autor?></a></p>
+																	<p class="book-subtitle">автор<a href=""<?= $item->full_url?>"><?= $item->autor?></a></p>
 																</div>
 																<div class="actions">
 																	<span class="book-price price"><?= $item->price?> руб.</span>
