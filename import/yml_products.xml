@@ -263,6 +263,10 @@
 	<delivery>true</delivery>
 	<name>Creative Impulse and Other Stories Book</name>
 	<description>Три рассказа Сомерсета Моэма, талантливого исследователя человеческих душ: The Creative Impulse, The Round Dozen и Jane. </description>
+	<characteristics>
+		<characteristic><type>Издательство</type><value>Macmillan</value></characteristic>
+		<characteristic><type>Автор</type><value>Джон Джонсон</value></characteristic>
+	</characteristics>
 	<sales_notes/>
 	</offer>
 		<offer id="01" available="true">
@@ -274,6 +278,10 @@
 	<delivery>true</delivery>
 	<name>Царство Китайского Языка. </name>
 	<description>Веселый Путь Овладения Китайским Языком. Учебник 1А</description>
+	<characteristics>
+		<characteristic><type>Издательство</type><value>Macmillan</value></characteristic>
+		<characteristic><type>Автор</type><value>Джон Джонсон-2</value></characteristic>
+	</characteristics>
 	<sales_notes/>
 	</offer>
 		<offer id="2" available="true">

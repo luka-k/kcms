@@ -82,14 +82,15 @@ class Import{
 				'autor' => 'Автор Авторович',
 				'weight' => '100'
 			);
-			
+								
 			echo $offerToInsert['name']."<br />";
 			
 			$this->CI->db->insert('products', $offerToInsert);
 			
 			$productId = $this->CI->db->insert_id();
 			
-			$img_info = $this->CI->images->get_unique_info($offerToInsert['url'].'.jpg');
+			//Раскоментировать для импорта картинок
+			/*$img_info = $this->CI->images->get_unique_info($offerToInsert['url'].'.jpg');
 	
 			$url = $o->picture->__toString();
 			$path = trim(make_upload_path($img_info->name, $upload_path).$img_info->name);
@@ -106,7 +107,54 @@ class Import{
 				'is_cover' => 1
 			);	
 			
-			$this->CI->db->insert('images', $imageToInsert);
+			$this->CI->db->insert('images', $imageToInsert);*/
+			
+			foreach($o->characteristics as $characteristic)
+			{
+				foreach($characteristic as $c)
+				{
+					$type = $c->type->__toString();
+					$value = $c->value->__toString();
+					
+					$type_counter = $this->CI->characteristics_type->get_count(['name' => $type]);
+					if($type_counter == 0)
+					{
+						$typeToInsert = array(
+							'name' => $type,
+							'url' => $this->CI->string_edit->slug($type),
+							'view_type' => 'multy'
+						);
+						
+						$this->CI->db->insert('characteristics_type', $typeToInsert);
+					}
+					
+					$ch = $this->CI->characteristics->get_item_by(['value' => $value]);
+					
+					if(!$ch)
+					{
+						$chToInsert = array(
+							'type' => $type,
+							'value' => $value,
+							'object_type' => 'product'
+						);
+						
+						$this->CI->db->insert('characteristics', $chToInsert);
+						
+						$chId = $this->CI->db->insert_id();
+					}
+					else
+					{
+						$chId = $ch->id;
+					}
+					
+					$chToProduct = array(
+						'product_id' => $productId,
+						'characteristic_id' => $chId
+					);
+					
+					$this->CI->db->insert('characteristic2product', $chToProduct);
+				}
+			}
 			
 			$i++;
 		}
