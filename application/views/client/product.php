@@ -51,10 +51,10 @@
 				</div>
 				<div class="col-md-9">
 					<div class="add-cart-button btn-group">
-						<button class="btn btn-single btn-sm" type="button" data-toggle="dropdown">
+						<button class="btn btn-single btn-sm" onclick="addToCart('<?= $product->id?>', 1); return false;" type="button" data-toggle="dropdown">
 							<img src="<?= IMG_PATH?>add-to-cart.png" alt="">
 						</button>
-						<button class="btn btn-single btn-uppercase" type="button">В корзину</button>
+						<button class="btn btn-single btn-uppercase" onclick="addToCart('<?= $product->id?>', 1); return false;" type="button">В корзину</button>
 					</div>
 				</div>
 			</div>

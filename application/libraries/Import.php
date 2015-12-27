@@ -111,5 +111,39 @@ class Import{
 			$i++;
 		}
 	}
+	
+	public function importCategoriesFromHtml($str) 
+	{
+		$this->CI->db->truncate('categories');
+		$rows = explode("\n", $str);
+		$tree = array(0);
+		$lastrow_id = 0;
+		$id = 0;
+		$categoriesToInsert = array();
+		foreach ($rows as $row) {
+			if (strstr($row, '<ul')) {
+				$tree[] = $lastrow_id;
+			} else if (strstr($row, '</ul>')) {
+				for ($i = 0; $i < substr_count($row, '</ul>'); $i++) {
+					array_pop($tree);
+				}
+			} else if (strstr($row, '<li')) {
+				$name = strip_tags($row);
+				$id++;
+				$lastrow_id = $id;
+				if ($id >= 16)
+					$categoriesToInsert[] = array(
+						'id' => $id,
+						'name' => trim($name),
+						'sort' => $id,
+						'url' => trim($this->CI->string_edit->slug($name)),
+						'parent_id' => $tree[count($tree)-1] == 2 ? 0 : $tree[count($tree)-1] 
+					);
+			}
+		}
+		print_r($categoriesToInsert);
 		
+		$this->CI->db->insert_batch('categories', $categoriesToInsert);
+	}
+
 }
