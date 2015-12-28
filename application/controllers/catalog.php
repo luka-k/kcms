@@ -96,6 +96,26 @@ class Catalog extends Client_Controller {
 		$this->load->view("client/categories", $data);
 	}
 	
+	public function sale()
+	{
+		$products = $this->products->get_list(array('is_sale' => 1), 0, 12, 'name', 'asc');
+		
+		$all_products = $this->products->get_list(array('is_sale' => 1));
+
+		$data['breadcrumbs'] = $this->breadcrumbs->get();
+		
+		$data['category'] = new stdClass();
+		$data['category']->products = $this->products->prepare_list($products);
+		$data['filters'] = $this->characteristics_type->get_filters($all_products);
+
+		if($this->standart_data['cart_items'])	$this->standart_data['cart_items'] = $this->products->prepare_list($this->standart_data['cart_items']);
+
+		$data = array_merge($this->standart_data, $data);		
+	
+		$this->load->view("client/categories", $data);
+		
+	}
+	
 	/**
 	* Вывод товаров по фильтру
 	*/
