@@ -62,7 +62,8 @@ class Pages extends Client_Controller {
 			'tree' => $this->categories->get_tree(0, "parent_id"),
 			'select_item' => "",
 			'content' => $content,
-			'sub_template' => $sub_template
+			'sub_template' => $sub_template,
+			'left_menu' => $this->articles->get_tree(0, 'parent_id')
 		);
 
 		$data = array_merge($this->standart_data, $data);

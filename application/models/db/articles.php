@@ -112,7 +112,7 @@ class Articles extends MY_Model
 			if(!empty($item->date))
 			{
 				$item_date = new DateTime($item->date);
-				$item_date = date_format($item_date, 'd.m.Y');
+				$item_date = date_format($item_date, 'm/d/Y');
 				$item->date = $item_date;
 			}
 			if(isset($item->description)) $item->short_description = $this->string_edit->short_description($item->description);

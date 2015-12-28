@@ -16,7 +16,7 @@
 						<div class="row">
 							<? require 'include/breadcrumbs.php' ?>
 							<div class="divider">
-								<img class="img-responsive" src="<?= IMG_PATH?>all-categories/shadow.png" alt="">
+								<img class="img-responsive" src="<?= IMG_PATH?>shadow.png" alt="">
 							</div><!-- /.divider -->
 						</div><!-- /.row -->
 
