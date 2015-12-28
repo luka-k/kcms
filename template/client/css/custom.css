@@ -18,6 +18,16 @@
 	color:red;
 }
 
+.book .book-cover-cart{height:136px;width:90px;position:relative}
+.book .book-cover-cart:before{
+	background-image:url("../images/page-overlay-cart.png");
+	background-repeat:no-repeat;
+	content:"";
+	height:136px;
+	position:absolute;
+	width:90px}
+	.book .book-cover-cart:after{content:"";display:block;height:10px;margin:-32px auto 5px;width:96px;-webkit-box-shadow:0 24px 8px rgba(0,0,0,0.27);-moz-box-shadow:0 24px 8px rgba(0,0,0,0.27);box-shadow:0 24px 8px rgba(0,0,0,0.27);z-index:-1;opacity:.61}
+
 
 table{width:100%;margin:0 0 10px 0;text-align:left;border-collapse: collapse;}
 	thead, tbody{margin:0;padding:0;}
