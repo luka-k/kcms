@@ -37,4 +37,10 @@
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__right -->
 	</div> <!-- /.footer__wrap wrap -->
+	
+	<input type="hidden" id="last_left" name="last_left" value="">
+	
+	<input type="hidden" name="clientW" value="">
+	<input type="hidden" name="clientH" value="">
+	
 </footer> <!-- /.header -->

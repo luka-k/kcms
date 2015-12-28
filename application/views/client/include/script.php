@@ -25,6 +25,16 @@
 	<link href="<?=base_url()?>template/js/jquery-ui/jquery-ui.css" rel="stylesheet" />
 	
 	<script src="<?=base_url()?>template/client/js/functions.js"></script>
+	
+	<script>
+		$(function() {
+			var position = $('.main-box').position();
+			$('#last_left').val(position.left);
+		});
+		
+		
+	</script>
+	
 <!-- Yandex.Metrika counter -->
 		<script type="text/javascript">
 		(function (d, w, c) {
