@@ -39,8 +39,8 @@
 													<div class="col-md-3 col-sm-6">
 														<div class="book">
 															<a href="<?= $p->full_url?>">
-																<div class="book-cover">
-																	<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $p->img->catalog_small_url?>"> <!--assets/images/book-covers/01.jpg-->
+																<div class="book-cover" style="cursor: pointer;" onclick="document.location='<?= $p->full_url?>'">
+																	<a href="<?= $p->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $p->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
 																	<?if(false):?>
 																		<div class="tag"><span>sale</span></div>
 																	<?endif;?>
@@ -49,7 +49,7 @@
 															<div class="book-details clearfix">
 																<div class="book-description">
 																	<h3 class="book-title"><a href="<?= $p->full_url?>"><?= $p->name?></a></h3>
-																	<p class="book-subtitle">автор <a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
+																	<p class="book-subtitle">by <a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
 																</div>
 																<div class="text-center">
 																	<div class="actions">
@@ -97,7 +97,7 @@
 												<?foreach($new_products as $np):?>
 													<div class="col-md-3 col-sm-4">						                
 														<div class="book-cover bk-cover product-book-cover">
-															<img class="img-responsive" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->images->catalog_small_url?>" width="182" height="273" > <!--book-covers/06.jpg-->
+															<a href="<?= $p->full_url?>"><img class="img-responsive" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->images->catalog_mid_url?>" width="182" height="273" ></a> <!--book-covers/06.jpg-->
 															<div class="fade"></div>
 														</div> <!-- /.book-cover --> 														
 													</div><!-- /.col -->

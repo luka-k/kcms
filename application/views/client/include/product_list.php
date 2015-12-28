@@ -3,7 +3,7 @@
 		<div class="book">
 			<a href="<?= $p->full_url?>">
 				<div class="book-cover">
-					<img width="140" height="212" alt="" src="<?= $p->img->catalog_small_url?>" data-echo="<?= $p->img->catalog_small_url?>"> <!--assets/images/book-covers/01.jpg-->
+					<img width="140" height="212" alt="" src="<?= $p->img->catalog_small_url?>" data-echo="<?= $p->img->catalog_mid_url?>"> <!--assets/images/book-covers/01.jpg-->
 						<?if(false):?>
 							<div class="tag"><span>sale</span></div>
 						<?endif;?>

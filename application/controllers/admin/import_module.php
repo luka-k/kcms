@@ -21,7 +21,7 @@ class Import_module extends Admin_Controller
 	{
 		echo '<head><meta charset="UTF-8"></head><body><pre>';
 		
-		$xml_content = file_get_contents(FCPATH.'/import/pearson.yml');
+		$xml_content = file_get_contents(FCPATH.'/import/macmillan.yml');
 		ini_set('display_errors', 1);
 		$xml = simplexml_load_string($xml_content);
 		
@@ -75,6 +75,47 @@ class Import_module extends Admin_Controller
 			fclose($handle);
 			$xml .= '</offers></shop></yml_catalog>';
 			file_put_contents(FCPATH."/import/pearson.yml", $xml);
+		}
+		
+		echo "<a href='".base_url()."admin'>На главную</a>";
+	}
+	
+	public function generate_macmillan_yml()
+	{
+		echo '<head><meta charset="UTF-8"></head><body><pre>';
+		
+		if (($handle = fopen(FCPATH."/import/macmillan.csv", "r")) !== FALSE) {
+			$xml = '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2015-12-18 02:01">
+<shop><offers>';
+			while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+				$name = ($data[1]);
+				$isbn = $data[2];
+				$category = $data[3];
+				
+				$image = 'http://bookhouse2.ribaweb.ru/import/macmillan/'.$isbn.'.jpg';
+				if (is_numeric($data[2]) && $data[2] > 0) {
+					$category = $this->categories->get_item_by(array('name' => $category));
+					if ($category) {
+						$bookxml = simplexml_load_string(file_get_contents(FCPATH."/import/macmillan/".$isbn.'_ONIX.xml'));
+						$xml .= '<offer id="'.$isbn.'" available="true">
+		<url></url>	
+			<price>0</price>
+		<currencyId>RUB</currencyId>
+		<categoryId>'.$category->id.'</categoryId>
+		<picture>'.$image.'</picture>
+		<delivery>true</delivery>
+		<author>'.((string) $bookxml->Contributor->PersonName).'</author>
+		<name>'.htmlentities($name).'</name>
+		<description></description>
+		<sales_notes/></offer>';
+					}
+				}
+			}
+			fclose($handle);
+			$xml .= '</offers></shop></yml_catalog>';
+			file_put_contents(FCPATH."/import/macmillan.yml", $xml);
 		}
 		
 		echo "<a href='".base_url()."admin'>На главную</a>";

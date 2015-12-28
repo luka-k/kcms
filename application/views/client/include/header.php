@@ -10,15 +10,34 @@
 					</ul><!-- /.nav -->
 				</div><!-- /.col -->
 								
-				<div class="col-md-3 col-xs-10 col-sm-10 navbar-left">
+				<div class="col-md-3 col-xs-4 col-sm-8 navbar-left">
 					<p class='text-center'><a href="#"><span class="icon glyphicon glyphicon-earphone"></span> +1-234-567-8910</a></p>
 				</div><!-- /.col -->
 								
-				<div class="col-md-4 col-sm-2">
+				<div class="col-md-4 col-xs-6 col-sm-4">
 					<ul class="nav navbar-nav navbar-right">
+					
+					
+							<?if(empty($user)):?>
+								<li>
+									<a data-toggle="modal" data-target="#modal-login-big" href="#">Вход</a>
+								</li>
+								<li>
+									<a data-toggle="modal" data-target="#modal-registration-big" href="#">Регистрация</a>
+								</li>				
+							<?else:?>
+								<li>
+									<a href="<?=base_url()?>cabinet" class="header-login__register"><?=$user->name?></a>
+								</li>
+								<li>
+									<a href="<?=base_url()?>account/do_exit" class="header-login__register" style="float:right;">Выход</a>
+								</li>
+							<?endif;?>
+					<!--
 						<?foreach($top_right_menu as $trm):?>
 							<li class="hidden-xs hidden-sm"><a href="<?=$trm->full_url?>"><?=$trm->name?></a></li>
 						<?endforeach;?>				
+						-->
 										
 										<!---<li class="hidden-xs hidden-sm"><a href="single-book.html">Shopping Cart</a></li>
 										<li class="hidden-xs hidden-sm"><a href="contact.html">My Account</a></li>
@@ -33,7 +52,7 @@
 	<div class="main-header">
 		<div class="container">
 			<div class="row">				
-				<div class="col-xs-12 col-sm-4 col-md-4 text-center logo-holder">
+				<div class="col-xs-12 col-sm-6 col-md-5 text-center logo-holder">
 					<!-- ============================================== LOGO ============================================== -->
 					<a href="<?= base_url()?>">
 						<img src="<?= IMG_PATH?>logo.png" class="logo" style="margin-top:0px;"/>
@@ -45,12 +64,12 @@
 					<!-- ============================================== LOGO : END ============================================== -->					
 				</div><!-- /.logo-holder -->
 				
-				<div class="col-xs-12 col-sm-4 col-md-4 top-search-holder m-t-10">
+				<div class="col-xs-12 col-sm-4 col-md-5 top-search-holder m-t-10">
 					<!-- ============================================== SEARCH BAR ============================================== -->
 					<form class="search-form" role="search">
 						<div class="form-group">
 							<label class="sr-only" for="page-search">Type your search here</label>
-							<input id="page-search" class="search-input form-control" type="search" placeholder="Поиск по товарам">
+							<input id="page-search" class="search-input form-control" type="search" placeholder="Поиск по названию, ISBN, автору, издательству и пр.">
 						</div>
 						<button class="page-search-button">
 							<span class="fa fa-search"><span class="sr-only">Поиск</span></span>
@@ -59,32 +78,8 @@
 					<!-- ============================================== SEARCH BAR : END ============================================== -->					
 				</div><!-- /.top-search-holder -->
 				
-				<div class="col-xs-12  col-md-2 header-shippment hidden-sm m-t-10">
-					<!-- ============================================== FREE DELIVERY ============================================== -->
-					<div class="media free-delivery hidden-xs ">
-						<!--<span class="media-left"><img src="<?= IMG_PATH?>delivery-icon.png" height="48" width="48" alt=""></span>-->
-						<div class="media-body">
-							<?if(empty($user)):?>
-								<h5 class="media-heading" style="float:left; margin-right:15px;">
-									<a data-toggle="modal" data-target="#modal-login-big" href="#">Вход</a>
-								</h5>
-								<h5 class="media-heading" style="float:left;">
-									<a data-toggle="modal" data-target="#modal-registration-big" href="#">Регистрация</a>
-								</h5>				
-							<?else:?>
-								<h5 class="media-heading" style="float:left; margin-right:15px;">
-									<a href="<?=base_url()?>cabinet" class="header-login__register"><?=$user->name?></a>
-								</h5>
-								<h5 class="media-heading" style="float:left;">
-									<a href="<?=base_url()?>account/do_exit" class="header-login__register" style="float:right;">Выход</a>
-								</h5>
-							<?endif;?>
-						</div>
-					</div>
-					<!-- ============================================== FREE DELIVERY : END ============================================== -->					
-				</div><!-- /.header-shippment -->
 				
-				<div class="col-xs-12 col-sm-4 col-md-2 animate-dropdown1 top-cart-row m-t-10">
+				<div class="col-xs-12 col-sm-2 col-md-2 animate-dropdown1 top-cart-row m-t-10">
 					<!-- ============================================== SHOPPING CART DROPDOWN ============================================== -->                              
 					<ul class="clearfix shopping-cart-block list-unstyled">
 						<li class="dropdown">

@@ -101,6 +101,11 @@ class Categories extends MY_Model
 	*/
 	public function make_full_url($item)
 	{
+		$current_id = $item->id; // какого хрена $item переопределяется в конце
+		
+		if ($item->full_url) {
+			return array_reverse(explode('/', $item->full_url)); // возвращаем кеш
+		}
 		$item_url = array();
 		$item_url[] = $item->url;
 		while($item->parent_id <> 0)
@@ -110,6 +115,8 @@ class Categories extends MY_Model
 			$item_url[] = $item->url;
 		}
 		$item_url[] = 'catalog';
+		
+		$this->categories->update($current_id, array('full_url' => implode('/', array_reverse($item_url)))); // кешируем ссыль
 		return $item_url;
 	}	
 	

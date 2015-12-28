@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col-md-5 col-sm-5">
 			<div class="book-cover">
-				<img width="268" height="408" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?=$product->images[0]->catalog_mid_url?>">
+				<img width="268" height="408" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?=$product->images[0]->catalog_big_url?>">
 			</div><!-- /.book-cover -->
 			<div class="share-button">
 				
@@ -40,7 +40,8 @@
 			<div class="featured-book-heading">
 				<h1 class="title"><?=$product->name?></h1>
 				<p class="singl-book-author">
-					автор<a href="#"><?=$product->autor?></a>
+					by
+					<a href="#"><?=$product->autor?></a>
 				</p>
 			</div>
 
