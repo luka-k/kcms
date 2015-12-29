@@ -59,15 +59,12 @@
 						<h4 class="footer-module-title">Контакты</h4>
 						<div class="footer-module-body clearfix">
 						<ul class="clearfix list-unstyled footer-social-contact">
-                    <li><a href="#" class="fa fa-facebook" title="Facebook"></a></li>
-                    <li><a href="#" class="fa fa-pinterest" title="Pinterest"></a></li>
-                    <li><a href="#" class="fa fa-linkedin" title="Linkedin"></a></li>
-                    <li><a href="#" class="fa fa-twitter" title="Twitter"></a></li>
-                    <li><a href="#" class="fa fa-google-plus" title="Google Plus"></a></li>
-                    <li><a href="#" class="fa fa-rss" title="Rss"></a></li>
-                    <li><a href="#" class="fa fa-instagram" title="Instagram"></a></li>
+							<li><a href="#" class="fa fa-vk" title="Vk"></a></li>
+							<li><a href="#" class="fa fa-facebook" title="Facebook"></a></li>
+							<li><a href="#" class="fa fa-odnoklassniki" title="Odnoklassniki"></a></li>
+							<li><a href="#" class="fa fa-instagram" title="Instagram"></a></li>
 
-                </ul>
+						</ul>
 
 
                 <div class="inner-top-xs">
@@ -88,9 +85,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="pull-left">
-						<ul class="payment-list list-unstyled">
+						<!---<ul class="payment-list list-unstyled">
 							<li><a href="#"><img src="<?= IMG_PATH?>payments/1.png" class="img-responsive" height="22" alt=""></a></li>
-						</ul>
+						</ul>--->
 					</div>
 					<p class="copyright-footer pull-right">&copy; 2016 <a href="<?= base_url()?>">BookHouse</a></p>
 				</div>

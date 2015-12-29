@@ -14,11 +14,12 @@
 				<div class="home-page">
 					<div class="content">
 						
-					
+					<? require "include/slider.php";?>
 					
 					<div class="container">
 						<!-- ============================================== BANNERS ============================================== -->
 						
+						<? require "include/banners.php";?>	
 						
 						<!-- ============================================== BANNERS : END ============================================== -->
 						

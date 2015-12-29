@@ -1,0 +1,1 @@
+ALTER TABLE `products` ADD `main_slider` TINYINT NOT NULL AFTER `is_sale`;
