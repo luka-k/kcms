@@ -50,7 +50,7 @@
 															<div class="book-details clearfix">
 																<div class="book-description">
 																	<h3 class="book-title"><a href="<?= $p->full_url?>"><?= $p->name?></a></h3>
-																	<p class="book-subtitle">by <a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
+																	<p class="book-subtitle"> автор<a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
 																</div>
 																<div class="text-center">
 																	<div class="actions">

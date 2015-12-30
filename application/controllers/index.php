@@ -24,7 +24,7 @@ class Index extends Client_Controller {
 		$this->load->config('articles');
 		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), FALSE, 4);
 		
-		$slider = $this->products->get_list(array('main_slider' => 1));
+		$slider = $this->products->get_list(array('is_main' => 1));
 
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,

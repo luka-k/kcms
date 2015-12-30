@@ -53,6 +53,8 @@ class Ajax extends CI_Controller{
 		
 	function autocomplete()
 	{
+		$info = $this->input->post();
+		
 		$products = $this->products->get_list(FALSE);
 		
 		foreach($products as $p)

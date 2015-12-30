@@ -103,7 +103,7 @@ class Categories extends MY_Model
 	{
 		$current_id = $item->id; // какого хрена $item переопределяется в конце
 		
-		if ($item->full_url) {
+		if (isset($item->full_url) and !empty($item->full_url)) {
 			return array_reverse(explode('/', $item->full_url)); // возвращаем кеш
 		}
 		$item_url = array();

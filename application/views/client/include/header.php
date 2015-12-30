@@ -66,10 +66,10 @@
 				
 				<div class="col-xs-12 col-sm-4 col-md-5 top-search-holder m-t-10">
 					<!-- ============================================== SEARCH BAR ============================================== -->
-					<form class="search-form" role="search">
+					<form class="search-form" action="<?=base_url()?>search" method="get">
 						<div class="form-group">
 							<label class="sr-only" for="page-search">Type your search here</label>
-							<input id="page-search" class="search-input form-control" type="search" placeholder="Поиск по названию, ISBN, автору, издательству и пр.">
+							<input id="page-search" class="search-input form-control autocomplete" name="name" type="search" placeholder="Поиск по названию, ISBN, автору, издательству и пр.">
 						</div>
 						<button class="page-search-button">
 							<span class="fa fa-search"><span class="sr-only">Поиск</span></span>

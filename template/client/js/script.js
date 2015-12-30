@@ -11,14 +11,16 @@
 	});
 		
 	$(".autocomplete").keypress(function(){
-		$.post("/ajax/autocomplete/", function(data){
+		var data = $("#page-search").val();
+	
+		$.post("/ajax/autocomplete/", data, function(data){
 			var availableTags = data.available_tags;
-		
-			$("#search_input").autocomplete({
+			
+			$("#page-search").autocomplete({
 				source: availableTags,
 				select: function( event, ui ) {
 					$('.search').val(ui.item.value);
-					$('#searchform').submit();
+					$('#page-search').submit();
 				}
 			});
 		}, 'json');

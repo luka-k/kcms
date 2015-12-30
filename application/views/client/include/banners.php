@@ -2,6 +2,7 @@
 							<div class="row">
 							
 							<div class="col-md-4 col-sm-6">
+								<a href="/catalog/sale">
 								<div class="wide-banner cnt-strip">	
 									<div class="strip strip-text">
 										<div class="strip-inner text-center">
@@ -10,9 +11,11 @@
 										</div><!-- /.strip-inner -->	
 									</div><!-- /.strip -->
 								</div><!-- /.wide-banner -->
+								</a>
 							</div><!-- /.col -->
 							
 							<div class="col-md-4 hidden-sm">
+								<a href="#">
 								<div class="wide-banner cnt-strip">
 									<div class="image">
 										<img class="img-responsive" src="<?= IMG_PATH?>wide-banners/banner1.png" alt="">
@@ -24,9 +27,11 @@
 										</div><!-- /.strip-inner -->	
 									</div><!-- /.strip -->
 								</div><!-- /.wide-banner -->
+								</a>
 							</div><!-- /.col -->
 							
 							<div class="col-md-4 col-sm-6">
+								<a href="http://book.thekatalyst.net/">
 								<div class="wide-banner cnt-strip">
 									<div class="strip strip-text">
 										<div class="strip-inner text-center">
@@ -35,6 +40,7 @@
 										</div><!-- /.strip-inner -->	
 									</div><!-- /.strip -->
 								</div><!-- /.wide-banner -->
+								</a>
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 						</div><!-- /.wide-banners -->

@@ -201,10 +201,10 @@
 }
 .ui-autocomplete {
 	position: absolute;
-	width:225px;
 	top: 0;
 	left: 0;
 	cursor: default;
+	z-index:1000000000;
 }
 .ui-button {
 	display: inline-block;

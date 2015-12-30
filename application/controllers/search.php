@@ -46,14 +46,20 @@ class Search extends Client_Controller {
 		else
 		{
 			$this->db->like('name', $search['name']);
+			$this->db->or_like('isbn', $search['name']);
+			$this->db->or_like('autor', $search['name']);
+			$this->db->order_by('name', 'asc');
+			//$this->db->limit();
 			$query = $this->db->get('products');
 			$products = $query->result_array();
-
+			//var_dump($products);
 			$data = array(
 				'title' => "Поиск",
 				'breadcrumbs' => $this->breadcrumbs->get(),
 				'tree' => $this->categories->get_tree(0, "parent_id"),
 				'search' => $search['name'],
+				'left_menu' => $this->categories->get_tree(0, "parent_id"),
+				'filters' => $this->characteristics_type->get_filters($products)
 			);
 			
 			$data['category'] = new stdClass;

@@ -13,6 +13,9 @@ function addToCart(product_id, qty){
 		//switch_minicart(data);
 		update_minicart(data);
 		updateToggleCart(data);
+
+		$("#wrapper").toggleClass("toggled right");
+        $("body").toggleClass("open-sidebar");
 	}, "json");
 }
 

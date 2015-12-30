@@ -86,8 +86,10 @@
 											<?if($type == "products"):?>
 												<div class="col_2"><input type="checkbox" id="new_<?=$counter?>" onchange="advanced('new', '<?=$item->id?>', this.checked);" <?if($item->is_new == 1):?>checked<?endif;?>/></div>
 												<div class="col_10"><label for="new_<?=$counter?>">новинка</label></div>
-												<div class="col_2"><input type="checkbox" id="special_<?=$counter?>" onchange="advanced('special', '<?=$item->id?>',  this.checked);" <?if($item->is_special == 1):?>checked<?endif;?>/></div>
-												<div class="col_10"><label for="special_<?=$counter?>">выгодное предложение</label></div>
+												<div class="col_2"><input type="checkbox" id="special_<?=$counter?>" onchange="advanced('sale', '<?=$item->id?>',  this.checked);" <?if($item->is_main == 1):?>checked<?endif;?>/></div>
+												<div class="col_10"><label for="special_<?=$counter?>">распродажа</label></div>
+												<div class="col_2"><input type="checkbox" id="special_<?=$counter?>" onchange="advanced('main', '<?=$item->id?>',  this.checked);" <?if($item->is_main == 1):?>checked<?endif;?>/></div>
+												<div class="col_10"><label for="special_<?=$counter?>">слайдер</label></div>
 											<?endif;?>
 										</td>
 									</tr>

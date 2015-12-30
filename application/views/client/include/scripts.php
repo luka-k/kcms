@@ -14,6 +14,9 @@
 <script src="<?= base_url()?>template/client/js/script.js"></script>
 <script src="<?= base_url()?>template/client/js/account.js"></script>
 
+<link type="text/css" rel="stylesheet" href="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.css" media="all" />
+<script type="text/javascript" src="<?= base_url()?>template/client/plugins/jquery-ui/jquery-ui.js"></script>
+
 <script>
 	$(document).ready(function(){
 		<?if(isset($is_main)):?>
