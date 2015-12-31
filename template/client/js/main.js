@@ -1,6 +1,8 @@
 
   var gallerySlider = false;
   
+  var htmlHeight = $('html').height();
+  
   ;(function(){
 
   "use strict";
@@ -10,6 +12,7 @@
   
   app.init = function(){
 
+	this.startSettings();
     this.fancyBoxes();
     this.validate();
     this.sliders();
@@ -25,6 +28,13 @@
 	$('._animate').toggle('slow');
 	
   };
+  
+  app.startSettings = function(){
+	var documentWidth = $(document).width();
+	var documentHeight = $(document).height();
+	
+	$('#last_doc_height').val(documentHeight);
+  }
 
   app.fancyOptions = {
     padding: 20,
@@ -275,7 +285,8 @@
 			$('.gallery-menu__list').css('width', '280px');
 		} else {  
 			modalHight = documentHeight * .97;
-			modalWidth = documentWidth - 300;
+			modalWidth = modalHight * 1.33;
+			//modalWidth = documentWidth - 300;
 			if (modalWidth > modalHight * 1.33)
 				modalWidth = modalHight * 1.33; 
 		}		
@@ -291,49 +302,82 @@
 			marginTop: -modalHight/2
 		});
 		
+		$('#last_slider_height').val(galleryImagesHeight);
+		
 		$modalGallery.find('.gallery-slider__item').css({
 			height: galleryImagesHeight,
 			lineHeight: galleryImagesHeight + 'px'
 		});
-    };
+		
+		var documentHeight = $('html').height();
+		$('#last_doc_height').val(documentHeight);
+	};
 	
 	//Изменение размеров popup_gallery при изменении масштаба и размеров экрана
 	$(window).resize(function(){	
 		var $modalGallery = $('#modal-gallery');
-		var documentHeight = $(document).height();
+		var $modalGalleryContent = $modalGallery.find('.modal__content');
+		var mainBoxPosition = $('.main-box').position();
+		var lastLeft = $('#last_left').val();
+		var lastDocWidth = $('#last_doc_width').val();
+		var lastDocHeight = $('#last_doc_height').val();
+		var lastSliderHeight = $('#last_slider_height').val();
+		var documentHeight = $('html').height();
 		var documentWidth = $(document).width();
+		
+		var galleryHeight = documentHeight;
+		var contentHeight = 0;
+		var contentWidth = 0;
+		
 		var modalHight = 0;
 		var modalWidth = 0;
+		var doubleMargin = 300;
+				
+		var scale =  lastDocWidth / documentWidth;
 		
-			if(documentHeight > documentWidth) {  
-				modalHight = $('.main-box__content').height();
-				modalWidth = documentWidth;
-				$('.gallery-menu__list').css('bottom', '23px');
-				$('.gallery-menu__list').css('left', '-252px');
-				$('.gallery-menu__list').css('width', '280px');
-			} else {  
-				modalHight = documentHeight * .97;
-				modalWidth = documentWidth - 300;
-				if (modalWidth > modalHight * 1.33)
-					modalWidth = modalHight * 1.33; 
-				if (modalWidth < modalHight * 1.32)
-					modalHight = modalWidth * 0.752;	
-			}
-			$('.gallery-slider__image').css('width', '99%');
+		if(documentHeight > documentWidth) {
+			contentHeight = $('.main-box__content').height();
+			contentWidth = documentWidth;
+			$('.gallery-menu__list').css('bottom', '23px');
+			$('.gallery-menu__list').css('left', '-252px');
+			$('.gallery-menu__list').css('width', '280px');
+		} else {
+			contentHeight = documentHeight * .97;
+			contentWidth = documentHeight * 1.33;
+			//modalWidth = documentWidth - 300;
 			
-			var position = $('.main-box').position();
-			var lastLeft = $('#last_left').val();
-			if(position.left < lastLeft)
+			var galleryImagesHeight = modalHight - lastSliderHeight * scale;
+
+			if(mainBoxPosition.left < lastLeft)
 			{
-				var scale = position.left / lastLeft;
-				modalHight = modalHight * scale - 10;
-				modalWidth = modalWidth * scale - 10;
+				galleryHeight = lastDocHeight;
+				contentHeight = lastDocHeight * .97;
+				contentWidth = lastDocHeight * 1.33;
+				
+				galleryImagesHeight = $('#last_slider_height').val();
 			}
+		}
+
+		
+		$('#last_left').val(mainBoxPosition.left);
+		$('#last_doc_height').val(galleryHeight);
+		$('#last_doc_width').val(documentWidth);
+		$('#last_slider_height').val(galleryImagesHeight);
+
+		$modalGallery.css({
+			height: galleryHeight,
+		});
+		
+			$modalGalleryContent.css({
+				height: contentHeight,
+				width: contentWidth,
+				marginLeft: -contentHeight/2,
+				marginTop: -contentWidth/2
+			});
 			
-			$('#last_left').val(position.left);
-			
-			$modalGallery.css({
-				height: modalHight,
+			$modalGallery.find('.gallery-slider__item').css({
+				height: galleryImagesHeight,
+				lineHeight: galleryImagesHeight + 'px'
 			});
 		});
 
@@ -402,7 +446,7 @@
 	  
         var slideId = parseInt($('#active_id').html()) ;
 		var titlelinkname = $('#th_'+slideId).attr('titlelinkname');
-		console.log(titlelinkname);
+
 		$('#title_link').html(titlelinkname);
 		if (!titlelinkname)
 			$('#title_link').hide();

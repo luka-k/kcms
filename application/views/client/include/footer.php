@@ -38,9 +38,10 @@
 		</div> <!-- /.footer__right -->
 	</div> <!-- /.footer__wrap wrap -->
 	
+	<input type="hidden" id="last_doc_width" name="last_doc_width" value="">
+	<input type="hidden" id="last_doc_height" name="last_doc_height" value="">
 	<input type="hidden" id="last_left" name="last_left" value="">
 	
-	<input type="hidden" name="clientW" value="">
-	<input type="hidden" name="clientH" value="">
+	<input type="hidden" id="last_slider_height" name="last_slideer_height" value="">
 	
 </footer> <!-- /.header -->
