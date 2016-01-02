@@ -2,7 +2,7 @@
 	<div class="col-md-3 col-sm-6">
 		<div class="book">
 			<a href="<?= $p->full_url?>">
-				<div class="book-cover">
+				<div class="<?if($item->has_cover):?>book-cover<?endif;?>">
 					<img width="140" height="212" alt="" src="<?= $p->img->catalog_small_url?>" data-echo="<?= $p->img->catalog_mid_url?>"> <!--assets/images/book-covers/01.jpg-->
 						<?if(false):?>
 							<div class="tag"><span>sale</span></div>

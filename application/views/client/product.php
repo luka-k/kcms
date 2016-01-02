@@ -24,7 +24,7 @@
 				<div class="single-book primary-block">
 	<div class="row">
 		<div class="col-md-5 col-sm-5">
-			<div class="book-cover">
+			<div class="<?if($product->has_cover):?>book-cover<?endif;?>">
 				<img width="268" height="408" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?=$product->images[0]->catalog_big_url?>">
 			</div><!-- /.book-cover -->
 			<div class="share-button">

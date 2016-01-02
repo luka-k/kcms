@@ -98,6 +98,14 @@ table.sortable{border:1px solid #ddd;}
 	z-index:1000000000 !important;
 }
 
+.sidebar .sidebar-module .sidebar-module-heading .sidebar-module-title a {
+  color: #333 !important;
+}
+
+.sidebar .sidebar-module .sidebar-module-heading .sidebar-module-title a:hover{
+	color: #599806 !important;
+}
+
 @media all and (min-width:420px) and (max-width: 1024px) {
 	.header .header-nav .navbar-primary .navbar-nav > li > a {
 		margin:0!important;

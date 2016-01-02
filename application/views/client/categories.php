@@ -43,7 +43,7 @@
 												<?foreach($category->products as $item):?>
 													<div class="col-md-3 col-sm-4">
 														<div class="book">
-															<div class="book-cover" style="cursor: pointer;" onclick="document.location='<?= $item->full_url?>'">
+															<div class="<?if($item->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $item->full_url?>'">
 																<a href="<?= $item->full_url?>">
 																	<img width="140" height="212" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_url?>" alt="" />
 																	<?if($item->is_sale):?><div class="tag"><span>sale</span></div><?endif;?>

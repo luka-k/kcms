@@ -33,8 +33,7 @@ class Catalog extends Client_Controller {
 			'max_price' => $max_price,
 			'min_value' => $min_value,
 			'max_value' => $max_value,
-			'filters_checked' => array("is_active" => ""),
-			'left_menu' => $this->categories->get_tree(0, "parent_id")
+			'filters_checked' => array("is_active" => "")
 		);
 		
 		$this->standart_data = array_merge($this->standart_data, $data);

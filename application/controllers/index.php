@@ -24,11 +24,15 @@ class Index extends Client_Controller {
 		$this->load->config('articles');
 		$last_news = $this->articles->get_list(array("parent_id" => $this->config->item('news_id')), FALSE, 4);
 		
+		$new = $this->products->get_list(array('is_new' => 1), 0, 10);
+		$special = $this->products->get_list(array('is_special' => 1), 0, 10);
 		$slider = $this->products->get_list(array('is_main' => 1));
 
 		$data = array(
 			'title' => $this->standart_data['settings']->site_title,
 			'select_item' => '',
+			'new' => $this->products->prepare_list($new),
+			'special' => $this->products->prepare_list($special),
 			'slider' => $this->products->prepare_list($slider),
 			'filters' => $this->characteristics_type->get_filters(),
 			'min_price' => $min_price,

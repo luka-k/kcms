@@ -1,7 +1,7 @@
 ﻿<li id="cart-<?= $item_id?>" class="media">
 	<div class="clearfix book cart-book">
 		<a href="<?= $item->full_url?>" class="media-left">
-			<div class="book-cover-cart">
+			<div class="<?if($item->has_cover):?>book-cover-cart<?endif;?>">
 				<img width="90" height="136" alt="" src="<?=$item->img->catalog_small_url?>" data-echo="<?=$item->img->catalog_small_url?>">
 			</div>
 		</a>

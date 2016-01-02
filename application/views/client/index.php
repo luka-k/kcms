@@ -23,6 +23,106 @@
 						
 						<!-- ============================================== BANNERS : END ============================================== -->
 						
+						<!-- ============================================== NEW ============================================== -->
+						<?if(!empty($new)):?>
+							<section class="best-seller wow fadeInUp">
+								<div id="best-seller" class="module">
+									<div class="module-heading home-page-module-heading">
+										<h2 class="module-title home-page-module-title"><span>НОВИНКИ</span></h2>
+									</div><!-- /.module-heading -->
+								
+									<div class="module-body">
+										<div class="row books full-width">
+											<input type="hidden" name="viewmore" class="viewmore_input" value="" />
+											<div id="books_content" class="clearfix text-center">
+												<? foreach($new as $np):?>
+													<div class="col-md-3 col-sm-6">
+														<div class="book">
+															<a href="<?= $np->full_url?>">
+																<div class="<?if($np->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $np->full_url?>'">
+																	<a href="<?= $np->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
+																	<?if($np->is_sale):?>
+																		<div class="tag"><span>sale</span></div>
+																	<?endif;?>
+																</div>
+															</a>
+															<div class="book-details clearfix">
+																<div class="book-description">
+																	<h3 class="book-title"><a href="<?= $np->full_url?>"><?= $np->name?></a></h3>
+																	<p class="book-subtitle"> автор<a href="<?= $np->full_url?>"> <?= $np->autor?></a></p>
+																</div>
+																<div class="text-center">
+																	<div class="actions">
+																		<span class="book-price price"><?= $np->price?> р.</span>               
+																		<div class="cart-action"> 
+																			<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $np->id?>', 1); return false;">Add to Cart</a>       
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												<? endforeach;?>
+												
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						<?endif;?>
+						<!-- ============================================== NEW : END ============================================== -->
+						
+						<!-- ============================================== SPECIAL ============================================== -->
+						<?if(!empty($special)):?>
+							<section class="best-seller wow fadeInUp">
+								<div id="best-seller" class="module">
+									<div class="module-heading home-page-module-heading">
+										<h2 class="module-title home-page-module-title"><span>СПЕЦИАЛЬНЫЕ ПРЕДЛОЖЕНИЯ</span></h2>
+									</div><!-- /.module-heading -->
+								
+									<div class="module-body">
+										<div class="row books full-width">
+											<input type="hidden" name="viewmore" class="viewmore_input" value="" />
+											<div id="books_content" class="clearfix text-center">
+												<? foreach($special as $sp):?>
+													<div class="col-md-3 col-sm-6">
+														<div class="book">
+															<a href="<?= $sp->full_url?>">
+																<div class="<?if($sp->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $sp->full_url?>'">
+																	<a href="<?= $sp->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
+																	<?if(false):?>
+																		<div class="tag"><span>sale</span></div>
+																	<?endif;?>
+																</div>
+															</a>
+															<div class="book-details clearfix">
+																<div class="book-description">
+																	<h3 class="book-title"><a href="<?= $sp->full_url?>"><?= $sp->name?></a></h3>
+																	<p class="book-subtitle"> автор<a href="<?= $sp->full_url?>"> <?= $sp->autor?></a></p>
+																</div>
+																<div class="text-center">
+																	<div class="actions">
+																		<span class="book-price price"><?= $sp->price?> р.</span>               
+																		<div class="cart-action"> 
+																			<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $sp->id?>', 1); return false;">Add to Cart</a>       
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												<? endforeach;?>
+												
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						<?endif;?>
+						<!-- ============================================== SPECIAL : END ============================================== -->
+						
 						
 						<!-- ============================================== BEST SELLER ============================================== -->
 						<?if(!empty($products)):?>
@@ -40,7 +140,7 @@
 													<div class="col-md-3 col-sm-6">
 														<div class="book">
 															<a href="<?= $p->full_url?>">
-																<div class="book-cover" style="cursor: pointer;" onclick="document.location='<?= $p->full_url?>'">
+																<div class="<?if($p->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $p->full_url?>'">
 																	<a href="<?= $p->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $p->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
 																	<?if(false):?>
 																		<div class="tag"><span>sale</span></div>

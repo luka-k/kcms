@@ -63,7 +63,9 @@ class Client_Controller extends CI_Controller
 			"main_menu" => $this->dynamic_menus->get_menu(5)->items,
 			'top_left_menu' => $this->dynamic_menus->get_menu(7)->items,
 			'top_right_menu' => $this->dynamic_menus->get_menu(6)->items,
-			'settings' => $settings
+			'settings' => $settings,
+			'left_menu' => $this->categories->get_tree(0, "parent_id"),
+			'footer_info' => $this->articles->get_tree(0, "parent_id")
 		);
 	}
 }

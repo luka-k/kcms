@@ -17,20 +17,16 @@
 					<div class="footer-module">
 						<h4 class="footer-module-title">Категории</h4>
 						<div class="footer-module-body clearfix">
-                <ul class="list-unstyled link-list">
-                    <li><a href="#">Books</a></li>
-                    <li><a href="#">Text books</a></li>
-                    <li><a href="#">Nook books</a></li>
-                    <li><a href="#">Audiobooks</a></li>
-                    <li><a href="#">Magazines</a></li>
-                </ul>
-
-                <ul class="list-unstyled link-list">
-                    <li><a href="#">Movies</a></li>
-                    <li><a href="#">Music</a></li>
-                    <li><a href="#">Games</a></li>
-
-                </ul>
+						
+							<?$counter = 1?>
+							<?$line = ceil(count($left_menu)/2)?>
+							<ul class="list-unstyled link-list">
+								<?foreach($left_menu as $items):?>
+									<li><a href="<?= $items->full_url?>"><?= $items->name?></a></li>
+									<?if($counter == $line):?></ul><ul class="list-unstyled link-list"><?$counter = 0?><?endif;?>
+									<?$counter++?>
+								<?endforeach;?>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -38,19 +34,18 @@
 					<div class="footer-module">
 						<h4 class="footer-module-title">Информация</h4>
 						<div class="footer-module-body clearfix">
-                <ul class="list-unstyled link-list">
-                    <li><a href="#">Track Order</a></li>
-                    <li><a href="#">Delivery</a></li>
-                    <li><a href="#">Return Policy</a></li>
-                    <li><a href="#">Giftcards</a></li>
-                </ul>
+							<ul class="list-unstyled link-list">
+								<?foreach($footer_info as $fi):?>
+									<li><a href="<?= $fi->full_url?>"><?= $fi->name?></a></li>
+								<?endforeach;?>
+							</ul>
 
-                <ul class="list-unstyled link-list">
+                <!--<ul class="list-unstyled link-list">
                     <li><a href="#">Contact Us</a></li>
                     <li><a href="#">Store Locations</a></li>
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Terms of Use</a></li>
-                </ul>
+                </ul>-->
 						</div>
 					</div>
 				</div>
