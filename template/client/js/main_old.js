@@ -253,62 +253,89 @@
     Всплывающая галерея
   */
 
-app.modalGallery = function(){
+  app.modalGallery = function(){
+
     var _this = this;
     var $galleryOpeners = $('.modal-gallery-open');
     var $modalGallery = $('#modal-gallery');
     var $modalGalleryContent = $modalGallery.find('.modal__content');
     var $modalGalleryFrame = $modalGallery.find('#modal-gallery-frame');
-	
-    var modalHeight = 0;
+    var modalHight = 0;
     var modalWidth = 0;
 
-    var _setModalSizes = function(){
-		var windowHeight = $(window).height();
-		var windowWidth = $(window).width();
-		
-		var galleryImagesHeight = 0;
-		var modalCloseWidth = 0;
-		var modalCloseHeight = 0;
+    var _setHeight = function(){
+		var documentHeight = $(document).height();
+		var documentWidth = $(document).width();
 	
-		if(windowHeight > windowWidth) {  
-			modalHeight = $('.main-box__content').height();
-			modalWidth = windowWidth;
+		if(documentHeight > documentWidth) {  
+			modalHight = $('.main-box__content').height();
+			modalWidth = documentWidth;
 			$('.gallery-menu__list').css('bottom', '23px');
 			$('.gallery-menu__list').css('left', '-252px');
 			$('.gallery-menu__list').css('width', '280px');
 		} else {  
-			modalHeight = windowHeight * .97;
-			modalWidth = modalHeight * 1.33;
+			modalHight = documentHeight * .97;
+			modalWidth = documentWidth - 300;
+			if (modalWidth > modalHight * 1.33)
+				modalWidth = modalHight * 1.33; 
 		}		
 		
-		galleryImagesHeight = modalHeight - 160;
-		//galleryImagesHeight = modalHeight * 0.75;
+		var galleryImagesHeight = modalHight - 160;
 		
-		//var thumbsHeight = modalHeight * 0.20;
-				
-		$modalGallery.css('height', windowHeight);
+		$modalGallery.css('height', documentHeight );
 		
 		$modalGalleryContent.css({
-			height: modalHeight,
+			height: modalHight,
 			width: modalWidth,
 			marginLeft: -modalWidth/2,
-			marginTop: -modalHeight/2
+			marginTop: -modalHight/2
 		});
 		
 		$modalGallery.find('.gallery-slider__item').css({
 			height: galleryImagesHeight,
-			lineHeight: galleryImagesHeight + 'px',
-		});
-		
-		/*$('.gallery-thumbs-slider').css({
-			height: thumbsHeight
-		});*/
-		
-		$('.gallery-slider__image').css({
-			height: '100%'
+			lineHeight: galleryImagesHeight + 'px'
 		});
     };
+	
+	//Изменение размеров popup_gallery при изменении масштаба и размеров экрана
+	$(window).resize(function(){	
+		var $modalGallery = $('#modal-gallery');
+		var documentHeight = $(document).height();
+		var documentWidth = $(document).width();
+		var modalHight = 0;
+		var modalWidth = 0;
+		
+			if(documentHeight > documentWidth) {  
+				modalHight = $('.main-box__content').height();
+				modalWidth = documentWidth;
+				$('.gallery-menu__list').css('bottom', '23px');
+				$('.gallery-menu__list').css('left', '-252px');
+				$('.gallery-menu__list').css('width', '280px');
+			} else {  
+				modalHight = documentHeight * .97;
+				modalWidth = documentWidth - 300;
+				if (modalWidth > modalHight * 1.33)
+					modalWidth = modalHight * 1.33; 
+				if (modalWidth < modalHight * 1.32)
+					modalHight = modalWidth * 0.752;	
+			}
+			$('.gallery-slider__item').css('width', '100%');
+			
+			var position = $('.main-box').position();
+			var lastLeft = $('#last_left').val();
+			if(position.left < lastLeft)
+			{
+				var scale = position.left / lastLeft;
+				modalHight = modalHight * scale - 10;
+				modalWidth = modalWidth * scale - 10;
+			}
+			
+			$('#last_left').val(position.left);
+			
+			$modalGallery.css({
+				height: modalHight,
+			});
+		});
 
     var _initMenu = function(){
       
@@ -452,7 +479,7 @@ app.modalGallery = function(){
 
         $modalGalleryFrame.html( data );
 
-        _setModalSizes();
+        _setHeight();
         
         $modalGallery.fadeIn();
 
@@ -476,7 +503,7 @@ app.modalGallery = function(){
     });
 
     $(window).on('resize', function(){
-      _setModalSizes();
+      _setHeight();
     });
 
   };

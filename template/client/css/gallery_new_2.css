@@ -239,7 +239,7 @@
     position: absolute;
 	width: 94%;
 	margin-top:-40px;
-	padding:30px 0px 0 20px;
+	padding:30px 12px 0 20px;
 	z-index:0;
 }
 
@@ -286,8 +286,19 @@
 	z-index: 0;
     list-style: none;
     text-align: center;
-	
 }
+
+/*.gallery-thumbs-slider__list{
+	position:absolute !important;
+	bottom:0;
+    margin: 0;
+    padding: 0;
+	z-index: 0;
+	height:100% !important;
+    list-style: none;
+    text-align: center;
+	outline: 1px solid red;
+}*/
 
 .bx-viewport .gallery-thumbs-slider__list{
 	padding-top:0;
@@ -317,7 +328,7 @@
 
     width: 60px;
     height: 114px;
-	margin:0 9px;
+	margin:0 12px;
 	z-index: 10;
     padding: 25px 7px 10px 7px;
 }

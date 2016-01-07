@@ -80,7 +80,8 @@
 						links="<?= $g->links ?>" 
 						id="th_<?= $counter?>" 
 						title="<?if(!empty($g->title)):?><?= $g->title?><?else:?><?= $object_name?><?endif;?>"
-						<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> class="gallery-thumbs-slider__href gallery__thumb popup_href" 
+						<?= $_GET['type'] == 'catalog' ? 'style="padding-top:15px;"' : ''?> 
+						class="gallery-thumbs-slider__href gallery__thumb popup_href" 
 						onmousedown="slideMouseDown('<?= $g->links ?>', '<?= $g->titlelink ?>', '<?= $g->titlelinkname ?>', '<?= $g->caption ?>');" >
 						
 						<img src="<?= $_GET['type'] == 'catalog' ? $g->catalog_small_v_url : $g->catalog_small_url?>" alt="<?if(!empty($g->alt)):?><?= $g->alt?><?else:?><?= $object_name?><?endif;?>" class="thumbs-slider-image gallery-thumbs-slider__image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?> hover-image<?= $_GET['type'] == 'catalog' ? ($_GET['my_parent'] ? '3' : '2') : ''?>" />

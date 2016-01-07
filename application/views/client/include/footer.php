@@ -36,12 +36,5 @@
 				</li> <!-- /.footer-elements__item -->
 			</ul> <!-- /.footer-elements -->
 		</div> <!-- /.footer__right -->
-	</div> <!-- /.footer__wrap wrap -->
-	
-	<input type="hidden" id="last_doc_width" name="last_doc_width" value="">
-	<input type="hidden" id="last_doc_height" name="last_doc_height" value="">
-	<input type="hidden" id="last_left" name="last_left" value="">
-	
-	<input type="hidden" id="last_slider_height" name="last_slideer_height" value="">
-	
+	</div> <!-- /.footer__wrap wrap -->	
 </footer> <!-- /.header -->
