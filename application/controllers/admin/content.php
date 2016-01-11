@@ -125,6 +125,8 @@ class Content extends Admin_Controller
 		
 		if($type == "emails") $data['selects']['users_type'] = $this->users_groups->get_list(FALSE);
 		
+		if($type == "products") $data['selects']['cover'] = array('book' => 'книжная', 'album' => 'альбомная', 'cd' => 'без обложки');
+		
 		$image_field = editors_get_name_field('img', $data['editors']);
 		$double_image_field = editors_get_name_field('double_img', $data['editors']);
 		

@@ -18,16 +18,6 @@
 	color:red;
 }
 
-.book .book-cover-cart{height:136px;width:90px;position:relative}
-.book .book-cover-cart:before{
-	background-image:url("../images/page-overlay-cart.png");
-	background-repeat:no-repeat;
-	content:"";
-	height:136px;
-	position:absolute;
-	width:90px}
-	.book .book-cover-cart:after{content:"";display:block;height:10px;margin:-32px auto 5px;width:96px;-webkit-box-shadow:0 24px 8px rgba(0,0,0,0.27);-moz-box-shadow:0 24px 8px rgba(0,0,0,0.27);box-shadow:0 24px 8px rgba(0,0,0,0.27);z-index:-1;opacity:.61}
-
 
 table{width:100%;margin:0 0 10px 0;text-align:left;border-collapse: collapse;}
 	thead, tbody{margin:0;padding:0;}
@@ -104,6 +94,100 @@ table.sortable{border:1px solid #ddd;}
 
 .sidebar .sidebar-module .sidebar-module-heading .sidebar-module-title a:hover{
 	color: #599806 !important;
+}
+
+.cd-cover, .book-cover{
+	/*display:block;*/
+	width:140px;
+	height:212px;
+}
+
+.album-cover{
+	width:160px;
+	height:212px;
+	padding-top:53px;
+}
+
+.book .album-cover:before {
+  background-image: url("../images/page-overlay-album.png");
+  background-repeat: no-repeat;
+  content: "";
+  height: 106px;
+  position: absolute;
+  width: 160px;
+}
+
+.book .album-cover:after {
+  content: "";
+  display: block;
+  height: 14px;
+  margin: -32px auto 5px;
+  width: 160px;
+  -webkit-box-shadow: 0 24px 8px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 0 24px 8px rgba(0, 0, 0, 0.27);
+  box-shadow: 0 24px 8px rgba(0, 0, 0, 0.27);
+  z-index: -1;
+  opacity: .61;
+}
+
+.product_page.cd-cover, .product_page.book-cover{
+	width:268px;
+	height:408px;
+}
+
+.product_page.album-cover{
+	width:311px;
+	height:204px;
+}
+
+.product_page.album-cover:before{
+	background-image: url("../images/page-overlay-big-album.png");
+	background-repeat: no-repeat;
+	content: "";
+	height: 204px;
+	position: absolute;
+	width: 311px;
+}
+
+.cd-cover{
+	/*padding-top:36px;*/
+}
+
+.product_page.cd-cover{
+	/*padding-top:70x;*/
+}
+
+.book .book-cover-cart, .cd-cover-cart{
+	height:136px;
+	width:90px;
+	position:relative
+}
+
+.book .book-cover-cart:before{
+	background-image:url("../images/page-overlay-cart.png");
+	background-repeat:no-repeat;
+	content:"";
+	height:136px;
+	position:absolute;
+	width:90px
+}
+
+.book .book-cover-cart:after{
+	content:"";display:block;height:10px;margin:-32px auto 5px;width:96px;-webkit-box-shadow:0 24px 8px rgba(0,0,0,0.27);-moz-box-shadow:0 24px 8px rgba(0,0,0,0.27);box-shadow:0 24px 8px rgba(0,0,0,0.27);z-index:-1;opacity:.61}
+
+.book .album-cover-cart{
+	height:90px;
+	width:136px;
+	position:relative
+}
+
+.book .album-cover-cart:before{
+	background-image:url("../images/page-overlay-cart-album.png");
+	background-repeat:no-repeat;
+	content:"";
+	height:90px;
+	position:absolute;
+	width:136px
 }
 
 @media all and (min-width:420px) and (max-width: 1024px) {

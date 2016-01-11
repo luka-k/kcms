@@ -43,9 +43,16 @@
 												<?foreach($category->products as $item):?>
 													<div class="col-md-3 col-sm-4">
 														<div class="book">
-															<div class="<?if($item->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $item->full_url?>'">
+															<div class="<?if($item->cover == 'book'):?>book-cover<?elseif($item->cover == 'album'):?>album-cover<?else:?>cd-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $item->full_url?>'">
 																<a href="<?= $item->full_url?>">
-																	<img width="140" height="212" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_url?>" alt="" />
+																	<?if($item->cover == 'book'):?>
+																		<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_url?>">
+																	<?elseif($item->cover == 'album'):?>
+																		<img width="160" height="106" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_album_url?>">
+																	<?else:?>
+																		<img width="140" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $item->img->catalog_mid_cd_url?>">
+																	<?endif;?>
+																	
 																	<?if($item->is_sale):?><div class="tag"><span>sale</span></div><?endif;?>
 																</a>
 															</div>

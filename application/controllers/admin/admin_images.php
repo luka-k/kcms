@@ -67,7 +67,7 @@ class Admin_images extends Admin_Controller
 			$message .= "\n";
 			file_put_contents($log_path, $message, FILE_APPEND);
 						
-			if($images->id == $max_id) 
+			if($image->id == $max_id) 
 			{
 				$this->settings->update(1, array('need_resize' => 0));
 				file_put_contents(FCPATH.'download/resize.txt', '0');

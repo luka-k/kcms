@@ -14,9 +14,9 @@
 	<div class="container">
 		<div class="row">
 			<? require 'include/breadcrumbs.php' ?>
-							<div class="divider">
-								<img class="img-responsive" src="<?= IMG_PATH?>all-categories/shadow.png" alt="">
-							</div><!-- /.divider -->
+			<div class="divider">
+				<img class="img-responsive" src="<?= IMG_PATH?>all-categories/shadow.png" alt="">
+			</div><!-- /.divider -->
 		</div>
 		<div class="row inner-top-xs single-book-block">
 			<div class="col-md-9 col-md-push-3">
@@ -24,8 +24,14 @@
 				<div class="single-book primary-block">
 	<div class="row">
 		<div class="col-md-5 col-sm-5">
-			<div class="<?if($product->has_cover):?>book-cover<?endif;?>">
-				<img width="268" height="408" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?=$product->images[0]->catalog_big_url?>">
+			<div class="product_page <?if($product->cover == 'book'):?>book-cover<?elseif($product->cover == 'album'):?>album-cover<?else:?>cd-cover<?endif;?>">
+				<?if($product->cover == 'book'):?>
+					<img width="268" height="408" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $product->images[0]->catalog_big_url?>">
+				<?elseif($product->cover == 'album'):?>
+					<img width="311" height="204" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $product->images[0]->catalog_big_album_url?>">
+				<?else:?>
+					<img width="268" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $product->images[0]->catalog_big_cd_url?>">
+				<?endif;?>
 			</div><!-- /.book-cover -->
 			<div class="share-button">
 				

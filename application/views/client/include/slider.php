@@ -12,7 +12,7 @@
 										<div class="book-in-shelf">
 											<div class="book-shelf">
 												<div class="book-cover slider-book-cover bk-cover m-t-20">
-													<img class="img-responsive" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $slide->img->slider_url?>"> <!--slider_url-->
+													<img class="img-responsive" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $slide->img->catalog_mid_url?>"> <!--slider_url-->
 													<div class="fade"></div>
 												</div> <!-- /.book-cover -->                        
 											</div><!-- /.book-shelf -->

@@ -39,8 +39,16 @@
 													<div class="col-md-3 col-sm-6">
 														<div class="book">
 															<a href="<?= $np->full_url?>">
-																<div class="<?if($np->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $np->full_url?>'">
-																	<a href="<?= $np->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
+																<div class="<?if($np->cover == 'book'):?>book-cover<?elseif($np->cover == 'album'):?>album-cover<?else:?>cd-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $np->full_url?>'">
+																	<a href="<?= $np->full_url?>">
+																		<?if($np->cover == 'book'):?>
+																			<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->img->catalog_mid_url?>">
+																		<?elseif($np->cover == 'album'):?>
+																			<img width="160" height="106" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->img->catalog_mid_album_url?>">
+																		<?else:?>
+																			<img width="140" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $np->img->catalog_mid_cd_url?>">
+																		<?endif;?>
+																	</a> <!--assets/images/book-covers/01.jpg-->
 																	<?if($np->is_sale):?>
 																		<div class="tag"><span>sale</span></div>
 																	<?endif;?>
@@ -89,13 +97,21 @@
 													<div class="col-md-3 col-sm-6">
 														<div class="book">
 															<a href="<?= $sp->full_url?>">
-																<div class="<?if($sp->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $sp->full_url?>'">
-																	<a href="<?= $sp->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
+																<div class="<?if($sp->cover == 'book'):?>book-cover<?elseif($sp->cover == 'album'):?>album-cover<?else:?>cd-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $sp->full_url?>'">
+																	<a href="<?= $sp->full_url?>">
+																		<?if($sp->cover == 'book'):?>
+																			<img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_url?>">
+																		<?elseif($sp->cover == 'album'):?>
+																			<img width="160" height="106" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_album_url?>">
+																		<?else:?>
+																			<img width="140" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_cd_url?>">
+																		<?endif;?>
+																	</a> <!--assets/images/book-covers/01.jpg-->
 																	<?if(false):?>
 																		<div class="tag"><span>sale</span></div>
 																	<?endif;?>
 																</div>
-															</a>
+															</div>
 															<div class="book-details clearfix">
 																<div class="book-description">
 																	<h3 class="book-title"><a href="<?= $sp->full_url?>"><?= $sp->name?></a></h3>
@@ -111,7 +127,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+
 												<? endforeach;?>
 												
 												
@@ -122,61 +138,7 @@
 							</section>
 						<?endif;?>
 						<!-- ============================================== SPECIAL : END ============================================== -->
-						
-						
-						<!-- ============================================== BEST SELLER ============================================== -->
-						<?if(!empty($products)):?>
-							<section class="best-seller wow fadeInUp">
-								<div id="best-seller" class="module">
-									<!--<div class="module-heading home-page-module-heading">
-										<h2 class="module-title home-page-module-title"><span>Популярные книги</span></h2>
-									</div><!-- /.module-heading -->
-								
-									<div class="module-body">
-										<div class="row books full-width">
-											<input type="hidden" name="viewmore" class="viewmore_input" value="" />
-											<div id="books_content" class="clearfix text-center">
-												<? foreach($products as $p):?>
-													<div class="col-md-3 col-sm-6">
-														<div class="book">
-															<a href="<?= $p->full_url?>">
-																<div class="<?if($p->has_cover):?>book-cover<?endif;?>" style="cursor: pointer;" onclick="document.location='<?= $p->full_url?>'">
-																	<a href="<?= $p->full_url?>"><img width="140" height="212" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $p->img->catalog_mid_url?>"></a> <!--assets/images/book-covers/01.jpg-->
-																	<?if(false):?>
-																		<div class="tag"><span>sale</span></div>
-																	<?endif;?>
-																</div>
-															</a>
-															<div class="book-details clearfix">
-																<div class="book-description">
-																	<h3 class="book-title"><a href="<?= $p->full_url?>"><?= $p->name?></a></h3>
-																	<p class="book-subtitle"> автор<a href="<?= $p->full_url?>"> <?= $p->autor?></a></p>
-																</div>
-																<div class="text-center">
-																	<div class="actions">
-																		<span class="book-price price"><?= $p->price?> р.</span>               
-																		<div class="cart-action"> 
-																			<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $p->id?>', 1); return false;">Add to Cart</a>       
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												<? endforeach;?>
-												
-												
-											</div>
-											
-											<div class="view-more-holder col-md-12 center-block text-center inner-top-xs">
-												<a role="button" class="btn btn-primary btn-uppercase" href="#" onclick="viewmore(); return false;">показать еще</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</section>
-						<?endif;?>
-						<!-- ============================================== BEST SELLER : END ============================================== -->		
+							
 					</div><!-- /.container -->
 					
 					<!-- ============================================== TESTIMONIAL ============================================== -->

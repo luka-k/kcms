@@ -56,6 +56,7 @@ class Cart extends Client_Controller
 			'autor' => $product->autor,
 			"url" => $product->url,
 			"price" => $product->price,
+			"cover" => $product->cover,
 			"qty" => $info->qty
 		);
 		
