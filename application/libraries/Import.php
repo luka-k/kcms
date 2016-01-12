@@ -72,11 +72,17 @@ class Import{
 		$i = 0;
 		foreach($offers->offer as $o)
 		{
+			$isbn = $o->attributes()->id->__toString();
 			$offerToInsert = array(
-				'ISBN' => $o->attributes()->id->__toString(),
+				'ISBN' => $isbn,
 				'name' => $o->name->__toString(),
 				'url' => $this->CI->string_edit->slug($o->name->__toString()),
 				'price' => $o->price->__toString(),
+				'width' => $o->width->__toString(),
+				'height' => $o->height->__toString(),
+				'depth' => $o->depth->__toString(),
+				'weight' => $o->weight->__toString(),
+				'year' => $o->year->__toString(),
 				'parent_id' => $o->categoryId->__toString(),
 				'description' => $o->description->__toString(),
 				'autor' => 'Автор Авторович',
@@ -85,10 +91,19 @@ class Import{
 								
 			echo $offerToInsert['name']."<br />";
 			
-			$this->CI->db->insert('products', $offerToInsert);
+			$product = $this->CI->products->get_item_by(array('ISBN' => $isbn));
+		
+			if($product)
+			{
+				$productId = $product->id;
+			}
+			else
+			{
+				$this->CI->db->insert('products', $offerToInsert);
 			
-			$productId = $this->CI->db->insert_id();
-			
+				$productId = $this->CI->db->insert_id();
+			}
+
 			//Раскоментировать для импорта картинок
 			/*$img_info = $this->CI->images->get_unique_info($offerToInsert['url'].'.jpg');
 	

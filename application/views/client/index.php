@@ -107,26 +107,28 @@
 																			<img width="140" alt="" src="<?= IMG_PATH?>blank.gif" data-echo="<?= $sp->img->catalog_mid_cd_url?>">
 																		<?endif;?>
 																	</a> <!--assets/images/book-covers/01.jpg-->
-																	<?if(false):?>
+																	<?if($sp->is_sale):?>
 																		<div class="tag"><span>sale</span></div>
 																	<?endif;?>
 																</div>
+															</a>
+														
+														<div class="book-details clearfix">
+															<div class="book-description">
+																<h3 class="book-title"><a href="<?= $sp->full_url?>"><?= $sp->name?></a></h3>
+																<p class="book-subtitle"> автор<a href="<?= $sp->full_url?>"> <?= $sp->autor?></a></p>
 															</div>
-															<div class="book-details clearfix">
-																<div class="book-description">
-																	<h3 class="book-title"><a href="<?= $sp->full_url?>"><?= $sp->name?></a></h3>
-																	<p class="book-subtitle"> автор<a href="<?= $sp->full_url?>"> <?= $sp->autor?></a></p>
-																</div>
-																<div class="text-center">
-																	<div class="actions">
-																		<span class="book-price price"><?= $sp->price?> р.</span>               
-																		<div class="cart-action"> 
-																			<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $sp->id?>', 1); return false;">Add to Cart</a>       
-																		</div>
+															<div class="text-center">
+																<div class="actions">
+																	<span class="book-price price"><?= $sp->price?> р.</span>               
+																	<div class="cart-action"> 
+																		<a class="add-to-cart" title="В корзину" href="#" onclick="addToCart('<?= $sp->id?>', 1); return false;">Add to Cart</a>       
 																	</div>
 																</div>
 															</div>
 														</div>
+														</div>
+													</div>
 
 												<? endforeach;?>
 												
