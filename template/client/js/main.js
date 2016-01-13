@@ -280,12 +280,26 @@ app.modalGallery = function(){
 		} else {  
 			modalHeight = windowHeight * .97;
 			modalWidth = modalHeight * 1.33;
-		}		
+		}	
+
+		//alert(windowHeight);
 		
 		galleryImagesHeight = modalHeight - 160;
+		
+		$('.gallery-thumbs-slider').css('display', 'block');
 		//galleryImagesHeight = modalHeight * 0.75;
 		
 		//var thumbsHeight = modalHeight * 0.20;
+		if(windowHeight < 541){
+			if($('#img_caption').css('display') == "block"){
+				galleryImagesHeight = modalHeight - 85;
+			}else{
+				galleryImagesHeight = modalHeight - 80;
+			}
+			
+			$('.gallery__name').css('margin-left', '20px');
+			$('.gallery-thumbs-slider').css('display', 'none');
+		}
 				
 		$modalGallery.css('height', windowHeight);
 		
